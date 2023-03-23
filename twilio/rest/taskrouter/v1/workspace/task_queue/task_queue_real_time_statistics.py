@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +25,6 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     def __init__(self, version, payload, workspace_sid: str, task_queue_sid: str):
         """
         Initialize the TaskQueueRealTimeStatisticsInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
         """
         super().__init__(version)
 
@@ -65,13 +62,12 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
         self._context: Optional[TaskQueueRealTimeStatisticsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "TaskQueueRealTimeStatisticsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: TaskQueueRealTimeStatisticsContext for this TaskQueueRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
         """
         if self._context is None:
             self._context = TaskQueueRealTimeStatisticsContext(
@@ -82,149 +78,134 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def activity_statistics(self):
+    def activity_statistics(self) -> List[object]:
         """
         :returns: The number of current Workers by Activity.
-        :rtype: List[object]
         """
         return self._properties["activity_statistics"]
 
     @property
-    def longest_task_waiting_age(self):
+    def longest_task_waiting_age(self) -> int:
         """
         :returns: The age of the longest waiting Task.
-        :rtype: int
         """
         return self._properties["longest_task_waiting_age"]
 
     @property
-    def longest_task_waiting_sid(self):
+    def longest_task_waiting_sid(self) -> str:
         """
         :returns: The SID of the longest waiting Task.
-        :rtype: str
         """
         return self._properties["longest_task_waiting_sid"]
 
     @property
-    def longest_relative_task_age_in_queue(self):
+    def longest_relative_task_age_in_queue(self) -> int:
         """
         :returns: The relative age in the TaskQueue for the longest waiting Task. Calculation is based on the time when the Task entered the TaskQueue.
-        :rtype: int
         """
         return self._properties["longest_relative_task_age_in_queue"]
 
     @property
-    def longest_relative_task_sid_in_queue(self):
+    def longest_relative_task_sid_in_queue(self) -> str:
         """
         :returns: The Task SID of the Task waiting in the TaskQueue the longest. Calculation is based on the time when the Task entered the TaskQueue.
-        :rtype: str
         """
         return self._properties["longest_relative_task_sid_in_queue"]
 
     @property
-    def task_queue_sid(self):
+    def task_queue_sid(self) -> str:
         """
         :returns: The SID of the TaskQueue from which these statistics were calculated.
-        :rtype: str
         """
         return self._properties["task_queue_sid"]
 
     @property
-    def tasks_by_priority(self):
+    def tasks_by_priority(self) -> dict:
         """
         :returns: The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
-        :rtype: dict
         """
         return self._properties["tasks_by_priority"]
 
     @property
-    def tasks_by_status(self):
+    def tasks_by_status(self) -> dict:
         """
         :returns: The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
-        :rtype: dict
         """
         return self._properties["tasks_by_status"]
 
     @property
-    def total_available_workers(self):
+    def total_available_workers(self) -> int:
         """
         :returns: The total number of Workers available for Tasks in the TaskQueue.
-        :rtype: int
         """
         return self._properties["total_available_workers"]
 
     @property
-    def total_eligible_workers(self):
+    def total_eligible_workers(self) -> int:
         """
         :returns: The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state.
-        :rtype: int
         """
         return self._properties["total_eligible_workers"]
 
     @property
-    def total_tasks(self):
+    def total_tasks(self) -> int:
         """
         :returns: The total number of Tasks.
-        :rtype: int
         """
         return self._properties["total_tasks"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace that contains the TaskQueue.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the TaskQueue statistics resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self, task_channel=values.unset):
+    def fetch(self, task_channel=values.unset) -> "TaskQueueRealTimeStatisticsInstance":
         """
         Fetch the TaskQueueRealTimeStatisticsInstance
 
         :param str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched TaskQueueRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
         """
         return self._proxy.fetch(
             task_channel=task_channel,
         )
 
-    async def fetch_async(self, task_channel=values.unset):
+    async def fetch_async(
+        self, task_channel=values.unset
+    ) -> "TaskQueueRealTimeStatisticsInstance":
         """
         Asynchronous coroutine to fetch the TaskQueueRealTimeStatisticsInstance
 
         :param str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched TaskQueueRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
         """
         return await self._proxy.fetch_async(
             task_channel=task_channel,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.TaskQueueRealTimeStatisticsInstance {}>".format(
@@ -237,12 +218,9 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
         """
         Initialize the TaskQueueRealTimeStatisticsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.
         :param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
         """
         super().__init__(version)
 
@@ -255,14 +233,13 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self, task_channel=values.unset):
+    def fetch(self, task_channel=values.unset) -> TaskQueueRealTimeStatisticsInstance:
         """
         Fetch the TaskQueueRealTimeStatisticsInstance
 
         :param str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched TaskQueueRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
         """
 
         data = values.of(
@@ -280,14 +257,15 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
             task_queue_sid=self._solution["task_queue_sid"],
         )
 
-    async def fetch_async(self, task_channel=values.unset):
+    async def fetch_async(
+        self, task_channel=values.unset
+    ) -> TaskQueueRealTimeStatisticsInstance:
         """
         Asynchronous coroutine to fetch the TaskQueueRealTimeStatisticsInstance
 
         :param str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched TaskQueueRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
         """
 
         data = values.of(
@@ -307,12 +285,11 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
             task_queue_sid=self._solution["task_queue_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.TaskQueueRealTimeStatisticsContext {}>".format(
@@ -325,12 +302,10 @@ class TaskQueueRealTimeStatisticsList(ListResource):
         """
         Initialize the TaskQueueRealTimeStatisticsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.
         :param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
         """
         super().__init__(version)
 
@@ -340,13 +315,10 @@ class TaskQueueRealTimeStatisticsList(ListResource):
             "task_queue_sid": task_queue_sid,
         }
 
-    def get(self):
+    def get(self) -> TaskQueueRealTimeStatisticsContext:
         """
         Constructs a TaskQueueRealTimeStatisticsContext
 
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
         """
         return TaskQueueRealTimeStatisticsContext(
             self._version,
@@ -354,13 +326,10 @@ class TaskQueueRealTimeStatisticsList(ListResource):
             task_queue_sid=self._solution["task_queue_sid"],
         )
 
-    def __call__(self):
+    def __call__(self) -> TaskQueueRealTimeStatisticsContext:
         """
         Constructs a TaskQueueRealTimeStatisticsContext
 
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
         """
         return TaskQueueRealTimeStatisticsContext(
             self._version,
@@ -368,11 +337,10 @@ class TaskQueueRealTimeStatisticsList(ListResource):
             task_queue_sid=self._solution["task_queue_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.TaskQueueRealTimeStatisticsList>"

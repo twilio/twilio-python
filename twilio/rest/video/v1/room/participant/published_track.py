@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,9 +39,6 @@ class PublishedTrackInstance(InstanceResource):
     ):
         """
         Initialize the PublishedTrackInstance
-
-        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
         """
         super().__init__(version)
 
@@ -64,13 +62,12 @@ class PublishedTrackInstance(InstanceResource):
         self._context: Optional[PublishedTrackContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "PublishedTrackContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: PublishedTrackContext for this PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
         """
         if self._context is None:
             self._context = PublishedTrackContext(
@@ -82,103 +79,91 @@ class PublishedTrackInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the RoomParticipantPublishedTrack resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def participant_sid(self):
+    def participant_sid(self) -> str:
         """
         :returns: The SID of the Participant resource with the published track.
-        :rtype: str
         """
         return self._properties["participant_sid"]
 
     @property
-    def room_sid(self):
+    def room_sid(self) -> str:
         """
         :returns: The SID of the Room resource where the track is published.
-        :rtype: str
         """
         return self._properties["room_sid"]
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         :returns: The track name. Must be no more than 128 characters, and be unique among the participant's published tracks.
-        :rtype: str
         """
         return self._properties["name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def enabled(self):
+    def enabled(self) -> bool:
         """
         :returns: Whether the track is enabled.
-        :rtype: bool
         """
         return self._properties["enabled"]
 
     @property
-    def kind(self):
+    def kind(self) -> "PublishedTrackInstance.Kind":
         """
         :returns:
-        :rtype: PublishedTrackInstance.Kind
         """
         return self._properties["kind"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "PublishedTrackInstance":
         """
         Fetch the PublishedTrackInstance
 
 
         :returns: The fetched PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "PublishedTrackInstance":
         """
         Asynchronous coroutine to fetch the PublishedTrackInstance
 
 
         :returns: The fetched PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.PublishedTrackInstance {}>".format(context)
@@ -189,13 +174,10 @@ class PublishedTrackContext(InstanceContext):
         """
         Initialize the PublishedTrackContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the Room resource where the Track resource to fetch is published.
         :param participant_sid: The SID of the Participant resource with the published track to fetch.
         :param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
         """
         super().__init__(version)
 
@@ -209,13 +191,12 @@ class PublishedTrackContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> PublishedTrackInstance:
         """
         Fetch the PublishedTrackInstance
 
 
         :returns: The fetched PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
         """
 
         payload = self._version.fetch(
@@ -231,13 +212,12 @@ class PublishedTrackContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> PublishedTrackInstance:
         """
         Asynchronous coroutine to fetch the PublishedTrackInstance
 
 
         :returns: The fetched PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
         """
 
         payload = await self._version.fetch_async(
@@ -253,26 +233,22 @@ class PublishedTrackContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.PublishedTrackContext {}>".format(context)
 
 
 class PublishedTrackPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> PublishedTrackInstance:
         """
         Build an instance of PublishedTrackInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
         """
         return PublishedTrackInstance(
             self._version,
@@ -295,12 +271,10 @@ class PublishedTrackList(ListResource):
         """
         Initialize the PublishedTrackList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the Room resource where the Track resources to read are published.
         :param participant_sid: The SID of the Participant resource with the published tracks to read.
 
-        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackList
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackList
         """
         super().__init__(version)
 
@@ -315,7 +289,7 @@ class PublishedTrackList(ListResource):
             )
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[PublishedTrackInstance]:
         """
         Streams PublishedTrackInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -330,14 +304,15 @@ class PublishedTrackList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[PublishedTrackInstance]:
         """
         Asynchronously streams PublishedTrackInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -352,14 +327,13 @@ class PublishedTrackList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[PublishedTrackInstance]:
         """
         Lists PublishedTrackInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -373,7 +347,6 @@ class PublishedTrackList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance]
         """
         return list(
             self.stream(
@@ -382,7 +355,9 @@ class PublishedTrackList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[PublishedTrackInstance]:
         """
         Asynchronously lists PublishedTrackInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -396,7 +371,6 @@ class PublishedTrackList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance]
         """
         return list(
             await self.stream_async(
@@ -407,7 +381,7 @@ class PublishedTrackList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> PublishedTrackPage:
         """
         Retrieve a single page of PublishedTrackInstance records from the API.
         Request is executed immediately
@@ -417,7 +391,6 @@ class PublishedTrackList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackPage
         """
         data = values.of(
             {
@@ -432,7 +405,7 @@ class PublishedTrackList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> PublishedTrackPage:
         """
         Asynchronously retrieve a single page of PublishedTrackInstance records from the API.
         Request is executed immediately
@@ -442,7 +415,6 @@ class PublishedTrackList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackPage
         """
         data = values.of(
             {
@@ -457,7 +429,7 @@ class PublishedTrackList(ListResource):
         )
         return PublishedTrackPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> PublishedTrackPage:
         """
         Retrieve a specific page of PublishedTrackInstance records from the API.
         Request is executed immediately
@@ -465,12 +437,11 @@ class PublishedTrackList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return PublishedTrackPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> PublishedTrackPage:
         """
         Asynchronously retrieve a specific page of PublishedTrackInstance records from the API.
         Request is executed immediately
@@ -478,19 +449,15 @@ class PublishedTrackList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return PublishedTrackPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> PublishedTrackContext:
         """
         Constructs a PublishedTrackContext
 
         :param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
         """
         return PublishedTrackContext(
             self._version,
@@ -499,14 +466,11 @@ class PublishedTrackList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> PublishedTrackContext:
         """
         Constructs a PublishedTrackContext
 
         :param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
         """
         return PublishedTrackContext(
             self._version,
@@ -515,11 +479,10 @@ class PublishedTrackList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.PublishedTrackList>"

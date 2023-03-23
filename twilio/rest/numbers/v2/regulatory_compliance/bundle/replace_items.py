@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -32,9 +33,6 @@ class ReplaceItemsInstance(InstanceResource):
     def __init__(self, version, payload, bundle_sid: str):
         """
         Initialize the ReplaceItemsInstance
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsInstance
         """
         super().__init__(version)
 
@@ -56,91 +54,80 @@ class ReplaceItemsInstance(InstanceResource):
         }
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Bundle resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def regulation_sid(self):
+    def regulation_sid(self) -> str:
         """
         :returns: The unique string of a regulation that is associated to the Bundle resource.
-        :rtype: str
         """
         return self._properties["regulation_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def status(self):
+    def status(self) -> "ReplaceItemsInstance.Status":
         """
         :returns:
-        :rtype: ReplaceItemsInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def valid_until(self):
+    def valid_until(self) -> datetime:
         """
         :returns: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
-        :rtype: datetime
         """
         return self._properties["valid_until"]
 
     @property
-    def email(self):
+    def email(self) -> str:
         """
         :returns: The email address that will receive updates when the Bundle resource changes status.
-        :rtype: str
         """
         return self._properties["email"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL we call to inform your application of status changes.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Numbers.V2.ReplaceItemsInstance {}>".format(context)
@@ -151,11 +138,9 @@ class ReplaceItemsList(ListResource):
         """
         Initialize the ReplaceItemsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param bundle_sid: The unique string that identifies the Bundle where the item assignments are going to be replaced.
 
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
         """
         super().__init__(version)
 
@@ -167,14 +152,13 @@ class ReplaceItemsList(ListResource):
             **self._solution
         )
 
-    def create(self, from_bundle_sid):
+    def create(self, from_bundle_sid) -> ReplaceItemsInstance:
         """
         Create the ReplaceItemsInstance
 
         :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
 
         :returns: The created ReplaceItemsInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsInstance
         """
         data = values.of(
             {
@@ -192,14 +176,13 @@ class ReplaceItemsList(ListResource):
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
 
-    async def create_async(self, from_bundle_sid):
+    async def create_async(self, from_bundle_sid) -> ReplaceItemsInstance:
         """
         Asynchronously create the ReplaceItemsInstance
 
         :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
 
         :returns: The created ReplaceItemsInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsInstance
         """
         data = values.of(
             {
@@ -217,11 +200,10 @@ class ReplaceItemsList(ListResource):
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Numbers.V2.ReplaceItemsList>"

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -40,9 +40,6 @@ class InteractionChannelParticipantInstance(InstanceResource):
     ):
         """
         Initialize the InteractionChannelParticipantInstance
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
         """
         super().__init__(version)
 
@@ -62,13 +59,12 @@ class InteractionChannelParticipantInstance(InstanceResource):
         self._context: Optional[InteractionChannelParticipantContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "InteractionChannelParticipantContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: InteractionChannelParticipantContext for this InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantContext
         """
         if self._context is None:
             self._context = InteractionChannelParticipantContext(
@@ -80,77 +76,69 @@ class InteractionChannelParticipantInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string created by Twilio to identify an Interaction Channel Participant resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def type(self):
+    def type(self) -> "InteractionChannelParticipantInstance.Type":
         """
         :returns:
-        :rtype: InteractionChannelParticipantInstance.Type
         """
         return self._properties["type"]
 
     @property
-    def interaction_sid(self):
+    def interaction_sid(self) -> str:
         """
         :returns: The Interaction Sid for this channel.
-        :rtype: str
         """
         return self._properties["interaction_sid"]
 
     @property
-    def channel_sid(self):
+    def channel_sid(self) -> str:
         """
         :returns: The Channel Sid for this Participant.
-        :rtype: str
         """
         return self._properties["channel_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def update(self, status):
+    def update(self, status) -> "InteractionChannelParticipantInstance":
         """
         Update the InteractionChannelParticipantInstance
 
-        :param InteractionChannelParticipantInstance.Status status:
+        :param "InteractionChannelParticipantInstance.Status" status:
 
         :returns: The updated InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
         """
         return self._proxy.update(
             status=status,
         )
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> "InteractionChannelParticipantInstance":
         """
         Asynchronous coroutine to update the InteractionChannelParticipantInstance
 
-        :param InteractionChannelParticipantInstance.Status status:
+        :param "InteractionChannelParticipantInstance.Status" status:
 
         :returns: The updated InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
         """
         return await self._proxy.update_async(
             status=status,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InteractionChannelParticipantInstance {}>".format(
@@ -165,13 +153,10 @@ class InteractionChannelParticipantContext(InstanceContext):
         """
         Initialize the InteractionChannelParticipantContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param interaction_sid: The Interaction Sid for this channel.
         :param channel_sid: The Channel Sid for this Participant.
         :param sid: The unique string created by Twilio to identify an Interaction Channel resource.
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantContext
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantContext
         """
         super().__init__(version)
 
@@ -185,14 +170,13 @@ class InteractionChannelParticipantContext(InstanceContext):
             **self._solution
         )
 
-    def update(self, status):
+    def update(self, status) -> InteractionChannelParticipantInstance:
         """
         Update the InteractionChannelParticipantInstance
 
-        :param InteractionChannelParticipantInstance.Status status:
+        :param "InteractionChannelParticipantInstance.Status" status:
 
         :returns: The updated InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
         """
         data = values.of(
             {
@@ -214,14 +198,13 @@ class InteractionChannelParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> InteractionChannelParticipantInstance:
         """
         Asynchronous coroutine to update the InteractionChannelParticipantInstance
 
-        :param InteractionChannelParticipantInstance.Status status:
+        :param "InteractionChannelParticipantInstance.Status" status:
 
         :returns: The updated InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
         """
         data = values.of(
             {
@@ -243,12 +226,11 @@ class InteractionChannelParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InteractionChannelParticipantContext {}>".format(
@@ -257,14 +239,11 @@ class InteractionChannelParticipantContext(InstanceContext):
 
 
 class InteractionChannelParticipantPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> InteractionChannelParticipantInstance:
         """
         Build an instance of InteractionChannelParticipantInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
         """
         return InteractionChannelParticipantInstance(
             self._version,
@@ -287,12 +266,10 @@ class InteractionChannelParticipantList(ListResource):
         """
         Initialize the InteractionChannelParticipantList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param interaction_sid: The Interaction Sid for this channel.
         :param channel_sid: The Channel Sid for this Participant.
 
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantList
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantList
         """
         super().__init__(version)
 
@@ -305,15 +282,14 @@ class InteractionChannelParticipantList(ListResource):
             **self._solution
         )
 
-    def create(self, type, media_properties):
+    def create(self, type, media_properties) -> InteractionChannelParticipantInstance:
         """
         Create the InteractionChannelParticipantInstance
 
-        :param InteractionChannelParticipantInstance.Type type:
+        :param &quot;InteractionChannelParticipantInstance.Type&quot; type:
         :param object media_properties: JSON representing the Media Properties for the new Participant.
 
         :returns: The created InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
         """
         data = values.of(
             {
@@ -335,15 +311,16 @@ class InteractionChannelParticipantList(ListResource):
             channel_sid=self._solution["channel_sid"],
         )
 
-    async def create_async(self, type, media_properties):
+    async def create_async(
+        self, type, media_properties
+    ) -> InteractionChannelParticipantInstance:
         """
         Asynchronously create the InteractionChannelParticipantInstance
 
-        :param InteractionChannelParticipantInstance.Type type:
+        :param &quot;InteractionChannelParticipantInstance.Type&quot; type:
         :param object media_properties: JSON representing the Media Properties for the new Participant.
 
         :returns: The created InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
         """
         data = values.of(
             {
@@ -365,7 +342,9 @@ class InteractionChannelParticipantList(ListResource):
             channel_sid=self._solution["channel_sid"],
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(
+        self, limit=None, page_size=None
+    ) -> List[InteractionChannelParticipantInstance]:
         """
         Streams InteractionChannelParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -380,14 +359,15 @@ class InteractionChannelParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[InteractionChannelParticipantInstance]:
         """
         Asynchronously streams InteractionChannelParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -402,14 +382,15 @@ class InteractionChannelParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(
+        self, limit=None, page_size=None
+    ) -> List[InteractionChannelParticipantInstance]:
         """
         Lists InteractionChannelParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -423,7 +404,6 @@ class InteractionChannelParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance]
         """
         return list(
             self.stream(
@@ -432,7 +412,9 @@ class InteractionChannelParticipantList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[InteractionChannelParticipantInstance]:
         """
         Asynchronously lists InteractionChannelParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -446,7 +428,6 @@ class InteractionChannelParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance]
         """
         return list(
             await self.stream_async(
@@ -457,7 +438,7 @@ class InteractionChannelParticipantList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> InteractionChannelParticipantPage:
         """
         Retrieve a single page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
@@ -467,7 +448,6 @@ class InteractionChannelParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantPage
         """
         data = values.of(
             {
@@ -484,7 +464,7 @@ class InteractionChannelParticipantList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> InteractionChannelParticipantPage:
         """
         Asynchronously retrieve a single page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
@@ -494,7 +474,6 @@ class InteractionChannelParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantPage
         """
         data = values.of(
             {
@@ -511,7 +490,7 @@ class InteractionChannelParticipantList(ListResource):
             self._version, response, self._solution
         )
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> InteractionChannelParticipantPage:
         """
         Retrieve a specific page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
@@ -519,14 +498,13 @@ class InteractionChannelParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InteractionChannelParticipantPage(
             self._version, response, self._solution
         )
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> InteractionChannelParticipantPage:
         """
         Asynchronously retrieve a specific page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
@@ -534,21 +512,17 @@ class InteractionChannelParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InteractionChannelParticipantPage(
             self._version, response, self._solution
         )
 
-    def get(self, sid):
+    def get(self, sid) -> InteractionChannelParticipantContext:
         """
         Constructs a InteractionChannelParticipantContext
 
         :param sid: The unique string created by Twilio to identify an Interaction Channel resource.
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantContext
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantContext
         """
         return InteractionChannelParticipantContext(
             self._version,
@@ -557,14 +531,11 @@ class InteractionChannelParticipantList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> InteractionChannelParticipantContext:
         """
         Constructs a InteractionChannelParticipantContext
 
         :param sid: The unique string created by Twilio to identify an Interaction Channel resource.
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantContext
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantContext
         """
         return InteractionChannelParticipantContext(
             self._version,
@@ -573,11 +544,10 @@ class InteractionChannelParticipantList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InteractionChannelParticipantList>"

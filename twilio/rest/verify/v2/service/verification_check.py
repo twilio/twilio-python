@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import datetime
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -31,9 +33,6 @@ class VerificationCheckInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str):
         """
         Initialize the VerificationCheckInstance
-
-        :returns: twilio.rest.verify.v2.service.verification_check.VerificationCheckInstance
-        :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckInstance
         """
         super().__init__(version)
 
@@ -57,107 +56,94 @@ class VerificationCheckInstance(InstanceResource):
         }
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the VerificationCheck resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the VerificationCheck resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def to(self):
+    def to(self) -> str:
         """
         :returns: The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        :rtype: str
         """
         return self._properties["to"]
 
     @property
-    def channel(self):
+    def channel(self) -> "VerificationCheckInstance.Channel":
         """
         :returns:
-        :rtype: VerificationCheckInstance.Channel
         """
         return self._properties["channel"]
 
     @property
-    def status(self):
+    def status(self) -> str:
         """
         :returns: The status of the verification. Can be: `pending`, `approved`, or `canceled`.
-        :rtype: str
         """
         return self._properties["status"]
 
     @property
-    def valid(self):
+    def valid(self) -> bool:
         """
         :returns: Use \"status\" instead. Legacy property indicating whether the verification was successful.
-        :rtype: bool
         """
         return self._properties["valid"]
 
     @property
-    def amount(self):
+    def amount(self) -> str:
         """
         :returns: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :rtype: str
         """
         return self._properties["amount"]
 
     @property
-    def payee(self):
+    def payee(self) -> str:
         """
         :returns: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :rtype: str
         """
         return self._properties["payee"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Verification Check resource was created.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Verification Check resource was last updated.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def sna_attempts_error_codes(self):
+    def sna_attempts_error_codes(self) -> List[object]:
         """
         :returns: List of error codes as a result of attempting a verification using the `sna` channel. The error codes are chronologically ordered, from the first attempt to the latest attempt. This will be an empty list if no errors occured or `null` if the last channel used wasn't `sna`.
-        :rtype: List[object]
         """
         return self._properties["sna_attempts_error_codes"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.VerificationCheckInstance {}>".format(context)
@@ -168,11 +154,9 @@ class VerificationCheckList(ListResource):
         """
         Initialize the VerificationCheckList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to create the resource under.
 
-        :returns: twilio.rest.verify.v2.service.verification_check.VerificationCheckList
-        :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckList
         """
         super().__init__(version)
 
@@ -189,7 +173,7 @@ class VerificationCheckList(ListResource):
         verification_sid=values.unset,
         amount=values.unset,
         payee=values.unset,
-    ):
+    ) -> VerificationCheckInstance:
         """
         Create the VerificationCheckInstance
 
@@ -200,7 +184,6 @@ class VerificationCheckList(ListResource):
         :param str payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 
         :returns: The created VerificationCheckInstance
-        :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckInstance
         """
         data = values.of(
             {
@@ -229,7 +212,7 @@ class VerificationCheckList(ListResource):
         verification_sid=values.unset,
         amount=values.unset,
         payee=values.unset,
-    ):
+    ) -> VerificationCheckInstance:
         """
         Asynchronously create the VerificationCheckInstance
 
@@ -240,7 +223,6 @@ class VerificationCheckList(ListResource):
         :param str payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 
         :returns: The created VerificationCheckInstance
-        :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckInstance
         """
         data = values.of(
             {
@@ -262,11 +244,10 @@ class VerificationCheckList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.VerificationCheckList>"

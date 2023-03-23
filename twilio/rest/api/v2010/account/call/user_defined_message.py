@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -24,9 +25,6 @@ class UserDefinedMessageInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, call_sid: str):
         """
         Initialize the UserDefinedMessageInstance
-
-        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageInstance
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageInstance
         """
         super().__init__(version)
 
@@ -43,43 +41,38 @@ class UserDefinedMessageInstance(InstanceResource):
         }
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The SID that uniquely identifies this User Defined Message.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this User Defined Message was created, given in RFC 2822 format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.UserDefinedMessageInstance {}>".format(context)
@@ -90,12 +83,10 @@ class UserDefinedMessageList(ListResource):
         """
         Initialize the UserDefinedMessageList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
 
-        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
         """
         super().__init__(version)
 
@@ -110,7 +101,9 @@ class UserDefinedMessageList(ListResource):
             )
         )
 
-    def create(self, content, idempotency_key=values.unset):
+    def create(
+        self, content, idempotency_key=values.unset
+    ) -> UserDefinedMessageInstance:
         """
         Create the UserDefinedMessageInstance
 
@@ -118,7 +111,6 @@ class UserDefinedMessageList(ListResource):
         :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 
         :returns: The created UserDefinedMessageInstance
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageInstance
         """
         data = values.of(
             {
@@ -140,7 +132,9 @@ class UserDefinedMessageList(ListResource):
             call_sid=self._solution["call_sid"],
         )
 
-    async def create_async(self, content, idempotency_key=values.unset):
+    async def create_async(
+        self, content, idempotency_key=values.unset
+    ) -> UserDefinedMessageInstance:
         """
         Asynchronously create the UserDefinedMessageInstance
 
@@ -148,7 +142,6 @@ class UserDefinedMessageList(ListResource):
         :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 
         :returns: The created UserDefinedMessageInstance
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageInstance
         """
         data = values.of(
             {
@@ -170,11 +163,10 @@ class UserDefinedMessageList(ListResource):
             call_sid=self._solution["call_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.UserDefinedMessageList>"

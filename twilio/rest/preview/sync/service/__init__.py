@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,9 +30,6 @@ class ServiceInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the ServiceInstance
-
-        :returns: twilio.rest.preview.sync.service.ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         super().__init__(version)
 
@@ -56,13 +54,12 @@ class ServiceInstance(InstanceResource):
         self._context: Optional[ServiceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ServiceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(
@@ -72,122 +69,108 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def webhook_url(self):
+    def webhook_url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["webhook_url"]
 
     @property
-    def reachability_webhooks_enabled(self):
+    def reachability_webhooks_enabled(self) -> bool:
         """
         :returns:
-        :rtype: bool
         """
         return self._properties["reachability_webhooks_enabled"]
 
     @property
-    def acl_enabled(self):
+    def acl_enabled(self) -> bool:
         """
         :returns:
-        :rtype: bool
         """
         return self._properties["acl_enabled"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         return await self._proxy.fetch_async()
 
@@ -197,7 +180,7 @@ class ServiceInstance(InstanceResource):
         friendly_name=values.unset,
         reachability_webhooks_enabled=values.unset,
         acl_enabled=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
@@ -207,7 +190,6 @@ class ServiceInstance(InstanceResource):
         :param bool acl_enabled:
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         return self._proxy.update(
             webhook_url=webhook_url,
@@ -222,7 +204,7 @@ class ServiceInstance(InstanceResource):
         friendly_name=values.unset,
         reachability_webhooks_enabled=values.unset,
         acl_enabled=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -232,7 +214,6 @@ class ServiceInstance(InstanceResource):
         :param bool acl_enabled:
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         return await self._proxy.update_async(
             webhook_url=webhook_url,
@@ -242,41 +223,31 @@ class ServiceInstance(InstanceResource):
         )
 
     @property
-    def documents(self):
+    def documents(self) -> DocumentList:
         """
         Access the documents
-
-        :returns: twilio.rest.preview.sync.service.DocumentList
-        :rtype: twilio.rest.preview.sync.service.DocumentList
         """
         return self._proxy.documents
 
     @property
-    def sync_lists(self):
+    def sync_lists(self) -> SyncListList:
         """
         Access the sync_lists
-
-        :returns: twilio.rest.preview.sync.service.SyncListList
-        :rtype: twilio.rest.preview.sync.service.SyncListList
         """
         return self._proxy.sync_lists
 
     @property
-    def sync_maps(self):
+    def sync_maps(self) -> SyncMapList:
         """
         Access the sync_maps
-
-        :returns: twilio.rest.preview.sync.service.SyncMapList
-        :rtype: twilio.rest.preview.sync.service.SyncMapList
         """
         return self._proxy.sync_maps
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Sync.ServiceInstance {}>".format(context)
@@ -287,11 +258,8 @@ class ServiceContext(InstanceContext):
         """
         Initialize the ServiceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid:
-
-        :returns: twilio.rest.preview.sync.service.ServiceContext
-        :rtype: twilio.rest.preview.sync.service.ServiceContext
         """
         super().__init__(version)
 
@@ -305,39 +273,36 @@ class ServiceContext(InstanceContext):
         self._sync_lists: Optional[SyncListList] = None
         self._sync_maps: Optional[SyncMapList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
 
         payload = self._version.fetch(
@@ -351,13 +316,12 @@ class ServiceContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -377,7 +341,7 @@ class ServiceContext(InstanceContext):
         friendly_name=values.unset,
         reachability_webhooks_enabled=values.unset,
         acl_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
@@ -387,7 +351,6 @@ class ServiceContext(InstanceContext):
         :param bool acl_enabled:
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         data = values.of(
             {
@@ -412,7 +375,7 @@ class ServiceContext(InstanceContext):
         friendly_name=values.unset,
         reachability_webhooks_enabled=values.unset,
         acl_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -422,7 +385,6 @@ class ServiceContext(InstanceContext):
         :param bool acl_enabled:
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         data = values.of(
             {
@@ -442,12 +404,9 @@ class ServiceContext(InstanceContext):
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def documents(self):
+    def documents(self) -> DocumentList:
         """
         Access the documents
-
-        :returns: twilio.rest.preview.sync.service.DocumentList
-        :rtype: twilio.rest.preview.sync.service.DocumentList
         """
         if self._documents is None:
             self._documents = DocumentList(
@@ -457,12 +416,9 @@ class ServiceContext(InstanceContext):
         return self._documents
 
     @property
-    def sync_lists(self):
+    def sync_lists(self) -> SyncListList:
         """
         Access the sync_lists
-
-        :returns: twilio.rest.preview.sync.service.SyncListList
-        :rtype: twilio.rest.preview.sync.service.SyncListList
         """
         if self._sync_lists is None:
             self._sync_lists = SyncListList(
@@ -472,12 +428,9 @@ class ServiceContext(InstanceContext):
         return self._sync_lists
 
     @property
-    def sync_maps(self):
+    def sync_maps(self) -> SyncMapList:
         """
         Access the sync_maps
-
-        :returns: twilio.rest.preview.sync.service.SyncMapList
-        :rtype: twilio.rest.preview.sync.service.SyncMapList
         """
         if self._sync_maps is None:
             self._sync_maps = SyncMapList(
@@ -486,26 +439,22 @@ class ServiceContext(InstanceContext):
             )
         return self._sync_maps
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Sync.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.sync.service.ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         return ServiceInstance(self._version, payload)
 
@@ -523,10 +472,8 @@ class ServiceList(ListResource):
         """
         Initialize the ServiceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.preview.sync.service.ServiceList
-        :rtype: twilio.rest.preview.sync.service.ServiceList
         """
         super().__init__(version)
 
@@ -538,7 +485,7 @@ class ServiceList(ListResource):
         webhook_url=values.unset,
         reachability_webhooks_enabled=values.unset,
         acl_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
@@ -548,7 +495,6 @@ class ServiceList(ListResource):
         :param bool acl_enabled:
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         data = values.of(
             {
@@ -573,7 +519,7 @@ class ServiceList(ListResource):
         webhook_url=values.unset,
         reachability_webhooks_enabled=values.unset,
         acl_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
@@ -583,7 +529,6 @@ class ServiceList(ListResource):
         :param bool acl_enabled:
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         data = values.of(
             {
@@ -602,7 +547,7 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -617,14 +562,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -639,14 +583,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -660,7 +603,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.ServiceInstance]
         """
         return list(
             self.stream(
@@ -669,7 +611,7 @@ class ServiceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -683,7 +625,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.ServiceInstance]
         """
         return list(
             await self.stream_async(
@@ -694,7 +635,7 @@ class ServiceList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -704,7 +645,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServicePage
         """
         data = values.of(
             {
@@ -719,7 +659,7 @@ class ServiceList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -729,7 +669,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServicePage
         """
         data = values.of(
             {
@@ -744,7 +683,7 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -752,12 +691,11 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServicePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -765,38 +703,30 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServicePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid:
-
-        :returns: twilio.rest.preview.sync.service.ServiceContext
-        :rtype: twilio.rest.preview.sync.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid:
-
-        :returns: twilio.rest.preview.sync.service.ServiceContext
-        :rtype: twilio.rest.preview.sync.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Sync.ServiceList>"

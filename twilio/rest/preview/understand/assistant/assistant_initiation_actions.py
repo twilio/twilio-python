@@ -25,9 +25,6 @@ class AssistantInitiationActionsInstance(InstanceResource):
     def __init__(self, version, payload, assistant_sid: str):
         """
         Initialize the AssistantInitiationActionsInstance
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         super().__init__(version)
 
@@ -44,13 +41,12 @@ class AssistantInitiationActionsInstance(InstanceResource):
         self._context: Optional[AssistantInitiationActionsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AssistantInitiationActionsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AssistantInitiationActionsContext for this AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
         """
         if self._context is None:
             self._context = AssistantInitiationActionsContext(
@@ -60,89 +56,84 @@ class AssistantInitiationActionsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def assistant_sid(self):
+    def assistant_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["assistant_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def data(self):
+    def data(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["data"]
 
-    def fetch(self):
+    def fetch(self) -> "AssistantInitiationActionsInstance":
         """
         Fetch the AssistantInitiationActionsInstance
 
 
         :returns: The fetched AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AssistantInitiationActionsInstance":
         """
         Asynchronous coroutine to fetch the AssistantInitiationActionsInstance
 
 
         :returns: The fetched AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, initiation_actions=values.unset):
+    def update(
+        self, initiation_actions=values.unset
+    ) -> "AssistantInitiationActionsInstance":
         """
         Update the AssistantInitiationActionsInstance
 
         :param object initiation_actions:
 
         :returns: The updated AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         return self._proxy.update(
             initiation_actions=initiation_actions,
         )
 
-    async def update_async(self, initiation_actions=values.unset):
+    async def update_async(
+        self, initiation_actions=values.unset
+    ) -> "AssistantInitiationActionsInstance":
         """
         Asynchronous coroutine to update the AssistantInitiationActionsInstance
 
         :param object initiation_actions:
 
         :returns: The updated AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         return await self._proxy.update_async(
             initiation_actions=initiation_actions,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return (
@@ -157,11 +148,8 @@ class AssistantInitiationActionsContext(InstanceContext):
         """
         Initialize the AssistantInitiationActionsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid:
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
         """
         super().__init__(version)
 
@@ -173,13 +161,12 @@ class AssistantInitiationActionsContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> AssistantInitiationActionsInstance:
         """
         Fetch the AssistantInitiationActionsInstance
 
 
         :returns: The fetched AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
 
         payload = self._version.fetch(
@@ -193,13 +180,12 @@ class AssistantInitiationActionsContext(InstanceContext):
             assistant_sid=self._solution["assistant_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AssistantInitiationActionsInstance:
         """
         Asynchronous coroutine to fetch the AssistantInitiationActionsInstance
 
 
         :returns: The fetched AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
 
         payload = await self._version.fetch_async(
@@ -213,14 +199,15 @@ class AssistantInitiationActionsContext(InstanceContext):
             assistant_sid=self._solution["assistant_sid"],
         )
 
-    def update(self, initiation_actions=values.unset):
+    def update(
+        self, initiation_actions=values.unset
+    ) -> AssistantInitiationActionsInstance:
         """
         Update the AssistantInitiationActionsInstance
 
         :param object initiation_actions:
 
         :returns: The updated AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         data = values.of(
             {
@@ -238,14 +225,15 @@ class AssistantInitiationActionsContext(InstanceContext):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    async def update_async(self, initiation_actions=values.unset):
+    async def update_async(
+        self, initiation_actions=values.unset
+    ) -> AssistantInitiationActionsInstance:
         """
         Asynchronous coroutine to update the AssistantInitiationActionsInstance
 
         :param object initiation_actions:
 
         :returns: The updated AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         data = values.of(
             {
@@ -263,12 +251,11 @@ class AssistantInitiationActionsContext(InstanceContext):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return (
@@ -283,11 +270,9 @@ class AssistantInitiationActionsList(ListResource):
         """
         Initialize the AssistantInitiationActionsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid:
 
-        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsList
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsList
         """
         super().__init__(version)
 
@@ -296,35 +281,28 @@ class AssistantInitiationActionsList(ListResource):
             "assistant_sid": assistant_sid,
         }
 
-    def get(self):
+    def get(self) -> AssistantInitiationActionsContext:
         """
         Constructs a AssistantInitiationActionsContext
 
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
         """
         return AssistantInitiationActionsContext(
             self._version, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def __call__(self):
+    def __call__(self) -> AssistantInitiationActionsContext:
         """
         Constructs a AssistantInitiationActionsContext
 
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
         """
         return AssistantInitiationActionsContext(
             self._version, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Understand.AssistantInitiationActionsList>"

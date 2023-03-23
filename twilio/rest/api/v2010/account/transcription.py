@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,9 +32,6 @@ class TranscriptionInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the TranscriptionInstance
-
-        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
         """
         super().__init__(version)
 
@@ -60,13 +58,12 @@ class TranscriptionInstance(InstanceResource):
         self._context: Optional[TranscriptionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "TranscriptionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: TranscriptionContext for this TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionContext
         """
         if self._context is None:
             self._context = TranscriptionContext(
@@ -77,155 +74,137 @@ class TranscriptionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def api_version(self):
+    def api_version(self) -> str:
         """
         :returns: The API version used to create the transcription.
-        :rtype: str
         """
         return self._properties["api_version"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def duration(self):
+    def duration(self) -> str:
         """
         :returns: The duration of the transcribed audio in seconds.
-        :rtype: str
         """
         return self._properties["duration"]
 
     @property
-    def price(self):
+    def price(self) -> float:
         """
         :returns: The charge for the transcript in the currency associated with the account. This value is populated after the transcript is complete so it may not be available immediately.
-        :rtype: float
         """
         return self._properties["price"]
 
     @property
-    def price_unit(self):
+    def price_unit(self) -> str:
         """
         :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        :rtype: str
         """
         return self._properties["price_unit"]
 
     @property
-    def recording_sid(self):
+    def recording_sid(self) -> str:
         """
         :returns: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) from which the transcription was created.
-        :rtype: str
         """
         return self._properties["recording_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the Transcription resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def status(self):
+    def status(self) -> "TranscriptionInstance.Status":
         """
         :returns:
-        :rtype: TranscriptionInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def transcription_text(self):
+    def transcription_text(self) -> str:
         """
         :returns: The text content of the transcription.
-        :rtype: str
         """
         return self._properties["transcription_text"]
 
     @property
-    def type(self):
+    def type(self) -> str:
         """
         :returns: The transcription type. Can only be: `fast`.
-        :rtype: str
         """
         return self._properties["type"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the TranscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TranscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "TranscriptionInstance":
         """
         Fetch the TranscriptionInstance
 
 
         :returns: The fetched TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "TranscriptionInstance":
         """
         Asynchronous coroutine to fetch the TranscriptionInstance
 
 
         :returns: The fetched TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.TranscriptionInstance {}>".format(context)
@@ -236,12 +215,9 @@ class TranscriptionContext(InstanceContext):
         """
         Initialize the TranscriptionContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.
         :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionContext
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionContext
         """
         super().__init__(version)
 
@@ -254,39 +230,36 @@ class TranscriptionContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the TranscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TranscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> TranscriptionInstance:
         """
         Fetch the TranscriptionInstance
 
 
         :returns: The fetched TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
         """
 
         payload = self._version.fetch(
@@ -301,13 +274,12 @@ class TranscriptionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> TranscriptionInstance:
         """
         Asynchronous coroutine to fetch the TranscriptionInstance
 
 
         :returns: The fetched TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
         """
 
         payload = await self._version.fetch_async(
@@ -322,26 +294,22 @@ class TranscriptionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.TranscriptionContext {}>".format(context)
 
 
 class TranscriptionPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> TranscriptionInstance:
         """
         Build an instance of TranscriptionInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
         """
         return TranscriptionInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -361,11 +329,9 @@ class TranscriptionList(ListResource):
         """
         Initialize the TranscriptionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
 
-        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionList
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionList
         """
         super().__init__(version)
 
@@ -377,7 +343,7 @@ class TranscriptionList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[TranscriptionInstance]:
         """
         Streams TranscriptionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -392,14 +358,15 @@ class TranscriptionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.transcription.TranscriptionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[TranscriptionInstance]:
         """
         Asynchronously streams TranscriptionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -414,14 +381,13 @@ class TranscriptionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.transcription.TranscriptionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[TranscriptionInstance]:
         """
         Lists TranscriptionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -435,7 +401,6 @@ class TranscriptionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.transcription.TranscriptionInstance]
         """
         return list(
             self.stream(
@@ -444,7 +409,9 @@ class TranscriptionList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[TranscriptionInstance]:
         """
         Asynchronously lists TranscriptionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -458,7 +425,6 @@ class TranscriptionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.transcription.TranscriptionInstance]
         """
         return list(
             await self.stream_async(
@@ -469,7 +435,7 @@ class TranscriptionList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> TranscriptionPage:
         """
         Retrieve a single page of TranscriptionInstance records from the API.
         Request is executed immediately
@@ -479,7 +445,6 @@ class TranscriptionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionPage
         """
         data = values.of(
             {
@@ -494,7 +459,7 @@ class TranscriptionList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> TranscriptionPage:
         """
         Asynchronously retrieve a single page of TranscriptionInstance records from the API.
         Request is executed immediately
@@ -504,7 +469,6 @@ class TranscriptionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionPage
         """
         data = values.of(
             {
@@ -519,7 +483,7 @@ class TranscriptionList(ListResource):
         )
         return TranscriptionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> TranscriptionPage:
         """
         Retrieve a specific page of TranscriptionInstance records from the API.
         Request is executed immediately
@@ -527,12 +491,11 @@ class TranscriptionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TranscriptionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> TranscriptionPage:
         """
         Asynchronously retrieve a specific page of TranscriptionInstance records from the API.
         Request is executed immediately
@@ -540,42 +503,34 @@ class TranscriptionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TranscriptionPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> TranscriptionContext:
         """
         Constructs a TranscriptionContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionContext
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionContext
         """
         return TranscriptionContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> TranscriptionContext:
         """
         Constructs a TranscriptionContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionContext
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionContext
         """
         return TranscriptionContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.TranscriptionList>"

@@ -28,10 +28,8 @@ class CredentialList(ListResource):
         """
         Initialize the CredentialList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.accounts.v1.credential.CredentialList
-        :rtype: twilio.rest.accounts.v1.credential.CredentialList
         """
         super().__init__(version)
 
@@ -41,34 +39,27 @@ class CredentialList(ListResource):
         self._public_key: Optional[PublicKeyList] = None
 
     @property
-    def aws(self):
+    def aws(self) -> AwsList:
         """
         Access the aws
-
-        :returns: twilio.rest.accounts.v1.credential.AwsList
-        :rtype: twilio.rest.accounts.v1.credential.AwsList
         """
         if self._aws is None:
             self._aws = AwsList(self._version)
         return self._aws
 
     @property
-    def public_key(self):
+    def public_key(self) -> PublicKeyList:
         """
         Access the public_key
-
-        :returns: twilio.rest.accounts.v1.credential.PublicKeyList
-        :rtype: twilio.rest.accounts.v1.credential.PublicKeyList
         """
         if self._public_key is None:
             self._public_key = PublicKeyList(self._version)
         return self._public_key
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Accounts.V1.CredentialList>"

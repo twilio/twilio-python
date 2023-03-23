@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,9 +30,6 @@ class NetworkAccessProfileInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the NetworkAccessProfileInstance
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         super().__init__(version)
 
@@ -51,13 +49,12 @@ class NetworkAccessProfileInstance(InstanceResource):
         self._context: Optional[NetworkAccessProfileContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "NetworkAccessProfileContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: NetworkAccessProfileContext for this NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
         """
         if self._context is None:
             self._context = NetworkAccessProfileContext(
@@ -67,123 +64,110 @@ class NetworkAccessProfileInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that identifies the Network Access Profile resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Network Access Profile belongs to.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Network Access Profile resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "NetworkAccessProfileInstance":
         """
         Fetch the NetworkAccessProfileInstance
 
 
         :returns: The fetched NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "NetworkAccessProfileInstance":
         """
         Asynchronous coroutine to fetch the NetworkAccessProfileInstance
 
 
         :returns: The fetched NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, unique_name=values.unset):
+    def update(self, unique_name=values.unset) -> "NetworkAccessProfileInstance":
         """
         Update the NetworkAccessProfileInstance
 
         :param str unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         return self._proxy.update(
             unique_name=unique_name,
         )
 
-    async def update_async(self, unique_name=values.unset):
+    async def update_async(
+        self, unique_name=values.unset
+    ) -> "NetworkAccessProfileInstance":
         """
         Asynchronous coroutine to update the NetworkAccessProfileInstance
 
         :param str unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         return await self._proxy.update_async(
             unique_name=unique_name,
         )
 
     @property
-    def networks(self):
+    def networks(self) -> NetworkAccessProfileNetworkList:
         """
         Access the networks
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileNetworkList
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileNetworkList
         """
         return self._proxy.networks
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Supersim.V1.NetworkAccessProfileInstance {}>".format(context)
@@ -194,11 +178,8 @@ class NetworkAccessProfileContext(InstanceContext):
         """
         Initialize the NetworkAccessProfileContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Network Access Profile to update.
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
         """
         super().__init__(version)
 
@@ -210,13 +191,12 @@ class NetworkAccessProfileContext(InstanceContext):
 
         self._networks: Optional[NetworkAccessProfileNetworkList] = None
 
-    def fetch(self):
+    def fetch(self) -> NetworkAccessProfileInstance:
         """
         Fetch the NetworkAccessProfileInstance
 
 
         :returns: The fetched NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
 
         payload = self._version.fetch(
@@ -230,13 +210,12 @@ class NetworkAccessProfileContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> NetworkAccessProfileInstance:
         """
         Asynchronous coroutine to fetch the NetworkAccessProfileInstance
 
 
         :returns: The fetched NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
 
         payload = await self._version.fetch_async(
@@ -250,14 +229,13 @@ class NetworkAccessProfileContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, unique_name=values.unset):
+    def update(self, unique_name=values.unset) -> NetworkAccessProfileInstance:
         """
         Update the NetworkAccessProfileInstance
 
         :param str unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         data = values.of(
             {
@@ -275,14 +253,15 @@ class NetworkAccessProfileContext(InstanceContext):
             self._version, payload, sid=self._solution["sid"]
         )
 
-    async def update_async(self, unique_name=values.unset):
+    async def update_async(
+        self, unique_name=values.unset
+    ) -> NetworkAccessProfileInstance:
         """
         Asynchronous coroutine to update the NetworkAccessProfileInstance
 
         :param str unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         data = values.of(
             {
@@ -301,12 +280,9 @@ class NetworkAccessProfileContext(InstanceContext):
         )
 
     @property
-    def networks(self):
+    def networks(self) -> NetworkAccessProfileNetworkList:
         """
         Access the networks
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileNetworkList
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileNetworkList
         """
         if self._networks is None:
             self._networks = NetworkAccessProfileNetworkList(
@@ -315,26 +291,22 @@ class NetworkAccessProfileContext(InstanceContext):
             )
         return self._networks
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Supersim.V1.NetworkAccessProfileContext {}>".format(context)
 
 
 class NetworkAccessProfilePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> NetworkAccessProfileInstance:
         """
         Build an instance of NetworkAccessProfileInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         return NetworkAccessProfileInstance(self._version, payload)
 
@@ -352,16 +324,16 @@ class NetworkAccessProfileList(ListResource):
         """
         Initialize the NetworkAccessProfileList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileList
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileList
         """
         super().__init__(version)
 
         self._uri = "/NetworkAccessProfiles"
 
-    def create(self, unique_name=values.unset, networks=values.unset):
+    def create(
+        self, unique_name=values.unset, networks=values.unset
+    ) -> NetworkAccessProfileInstance:
         """
         Create the NetworkAccessProfileInstance
 
@@ -369,7 +341,6 @@ class NetworkAccessProfileList(ListResource):
         :param List[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
 
         :returns: The created NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         data = values.of(
             {
@@ -386,7 +357,9 @@ class NetworkAccessProfileList(ListResource):
 
         return NetworkAccessProfileInstance(self._version, payload)
 
-    async def create_async(self, unique_name=values.unset, networks=values.unset):
+    async def create_async(
+        self, unique_name=values.unset, networks=values.unset
+    ) -> NetworkAccessProfileInstance:
         """
         Asynchronously create the NetworkAccessProfileInstance
 
@@ -394,7 +367,6 @@ class NetworkAccessProfileList(ListResource):
         :param List[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
 
         :returns: The created NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         data = values.of(
             {
@@ -411,7 +383,7 @@ class NetworkAccessProfileList(ListResource):
 
         return NetworkAccessProfileInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[NetworkAccessProfileInstance]:
         """
         Streams NetworkAccessProfileInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -426,14 +398,15 @@ class NetworkAccessProfileList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[NetworkAccessProfileInstance]:
         """
         Asynchronously streams NetworkAccessProfileInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -448,14 +421,13 @@ class NetworkAccessProfileList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[NetworkAccessProfileInstance]:
         """
         Lists NetworkAccessProfileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -469,7 +441,6 @@ class NetworkAccessProfileList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance]
         """
         return list(
             self.stream(
@@ -478,7 +449,9 @@ class NetworkAccessProfileList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[NetworkAccessProfileInstance]:
         """
         Asynchronously lists NetworkAccessProfileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -492,7 +465,6 @@ class NetworkAccessProfileList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance]
         """
         return list(
             await self.stream_async(
@@ -503,7 +475,7 @@ class NetworkAccessProfileList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> NetworkAccessProfilePage:
         """
         Retrieve a single page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
@@ -513,7 +485,6 @@ class NetworkAccessProfileList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfilePage
         """
         data = values.of(
             {
@@ -528,7 +499,7 @@ class NetworkAccessProfileList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> NetworkAccessProfilePage:
         """
         Asynchronously retrieve a single page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
@@ -538,7 +509,6 @@ class NetworkAccessProfileList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfilePage
         """
         data = values.of(
             {
@@ -553,7 +523,7 @@ class NetworkAccessProfileList(ListResource):
         )
         return NetworkAccessProfilePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> NetworkAccessProfilePage:
         """
         Retrieve a specific page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
@@ -561,12 +531,11 @@ class NetworkAccessProfileList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfilePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return NetworkAccessProfilePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> NetworkAccessProfilePage:
         """
         Asynchronously retrieve a specific page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
@@ -574,38 +543,30 @@ class NetworkAccessProfileList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfilePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return NetworkAccessProfilePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> NetworkAccessProfileContext:
         """
         Constructs a NetworkAccessProfileContext
 
         :param sid: The SID of the Network Access Profile to update.
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
         """
         return NetworkAccessProfileContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> NetworkAccessProfileContext:
         """
         Constructs a NetworkAccessProfileContext
 
         :param sid: The SID of the Network Access Profile to update.
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
         """
         return NetworkAccessProfileContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Supersim.V1.NetworkAccessProfileList>"

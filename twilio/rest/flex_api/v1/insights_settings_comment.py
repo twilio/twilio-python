@@ -22,9 +22,6 @@ class InsightsSettingsCommentInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the InsightsSettingsCommentInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentInstance
         """
         super().__init__(version)
 
@@ -37,35 +34,31 @@ class InsightsSettingsCommentInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def comments(self):
+    def comments(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["comments"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsSettingsCommentInstance {}>".format(context)
@@ -76,42 +69,37 @@ class InsightsSettingsCommentList(ListResource):
         """
         Initialize the InsightsSettingsCommentList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentList
-        :rtype: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentList
         """
         super().__init__(version)
 
         self._uri = "/Insights/QM/Settings/CommentTags"
 
-    def fetch(self):
+    def fetch(self) -> InsightsSettingsCommentInstance:
         """
         Asynchronously fetch the InsightsSettingsCommentInstance
 
         :returns: The fetched InsightsSettingsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentInstance
         """
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return InsightsSettingsCommentInstance(self._version, payload)
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> InsightsSettingsCommentInstance:
         """
         Asynchronously fetch the InsightsSettingsCommentInstance
 
         :returns: The fetched InsightsSettingsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentInstance
         """
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return InsightsSettingsCommentInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsSettingsCommentList>"

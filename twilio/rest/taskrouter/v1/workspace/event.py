@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class EventInstance(InstanceResource):
     def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
         """
         Initialize the EventInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.event.EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         super().__init__(version)
 
@@ -59,13 +57,12 @@ class EventInstance(InstanceResource):
         self._context: Optional[EventContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "EventContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: EventContext for this EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         if self._context is None:
             self._context = EventContext(
@@ -76,167 +73,147 @@ class EventInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def actor_sid(self):
+    def actor_sid(self) -> str:
         """
         :returns: The SID of the resource that triggered the event.
-        :rtype: str
         """
         return self._properties["actor_sid"]
 
     @property
-    def actor_type(self):
+    def actor_type(self) -> str:
         """
         :returns: The type of resource that triggered the event.
-        :rtype: str
         """
         return self._properties["actor_type"]
 
     @property
-    def actor_url(self):
+    def actor_url(self) -> str:
         """
         :returns: The absolute URL of the resource that triggered the event.
-        :rtype: str
         """
         return self._properties["actor_url"]
 
     @property
-    def description(self):
+    def description(self) -> str:
         """
         :returns: A description of the event.
-        :rtype: str
         """
         return self._properties["description"]
 
     @property
-    def event_data(self):
+    def event_data(self) -> dict:
         """
         :returns: Data about the event. For more information, see [Event types](https://www.twilio.com/docs/taskrouter/api/event#event-types).
-        :rtype: dict
         """
         return self._properties["event_data"]
 
     @property
-    def event_date(self):
+    def event_date(self) -> datetime:
         """
         :returns: The time the event was sent, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["event_date"]
 
     @property
-    def event_date_ms(self):
+    def event_date_ms(self) -> int:
         """
         :returns: The time the event was sent in milliseconds.
-        :rtype: int
         """
         return self._properties["event_date_ms"]
 
     @property
-    def event_type(self):
+    def event_type(self) -> str:
         """
         :returns: The identifier for the event.
-        :rtype: str
         """
         return self._properties["event_type"]
 
     @property
-    def resource_sid(self):
+    def resource_sid(self) -> str:
         """
         :returns: The SID of the object the event is most relevant to, such as a TaskSid, ReservationSid, or a  WorkerSid.
-        :rtype: str
         """
         return self._properties["resource_sid"]
 
     @property
-    def resource_type(self):
+    def resource_type(self) -> str:
         """
         :returns: The type of object the event is most relevant to, such as a Task, Reservation, or a Worker).
-        :rtype: str
         """
         return self._properties["resource_type"]
 
     @property
-    def resource_url(self):
+    def resource_url(self) -> str:
         """
         :returns: The URL of the resource the event is most relevant to.
-        :rtype: str
         """
         return self._properties["resource_url"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Event resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def source(self):
+    def source(self) -> str:
         """
         :returns: Where the Event originated.
-        :rtype: str
         """
         return self._properties["source"]
 
     @property
-    def source_ip_address(self):
+    def source_ip_address(self) -> str:
         """
         :returns: The IP from which the Event originated.
-        :rtype: str
         """
         return self._properties["source_ip_address"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Event resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace that contains the Event.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
-    def fetch(self):
+    def fetch(self) -> "EventInstance":
         """
         Fetch the EventInstance
 
 
         :returns: The fetched EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "EventInstance":
         """
         Asynchronous coroutine to fetch the EventInstance
 
 
         :returns: The fetched EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.EventInstance {}>".format(context)
@@ -247,12 +224,9 @@ class EventContext(InstanceContext):
         """
         Initialize the EventContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Event to fetch.
         :param sid: The SID of the Event resource to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         super().__init__(version)
 
@@ -263,13 +237,12 @@ class EventContext(InstanceContext):
         }
         self._uri = "/Workspaces/{workspace_sid}/Events/{sid}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> EventInstance:
         """
         Fetch the EventInstance
 
 
         :returns: The fetched EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
 
         payload = self._version.fetch(
@@ -284,13 +257,12 @@ class EventContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> EventInstance:
         """
         Asynchronous coroutine to fetch the EventInstance
 
 
         :returns: The fetched EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
 
         payload = await self._version.fetch_async(
@@ -305,26 +277,22 @@ class EventContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.EventContext {}>".format(context)
 
 
 class EventPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> EventInstance:
         """
         Build an instance of EventInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.event.EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         return EventInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -344,11 +312,9 @@ class EventList(ListResource):
         """
         Initialize the EventList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Events to read. Returns only the Events that pertain to the specified Workspace.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.event.EventList
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventList
         """
         super().__init__(version)
 
@@ -373,7 +339,7 @@ class EventList(ListResource):
         sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[EventInstance]:
         """
         Streams EventInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -399,7 +365,6 @@ class EventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.event.EventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -434,7 +399,7 @@ class EventList(ListResource):
         sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[EventInstance]:
         """
         Asynchronously streams EventInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -460,7 +425,6 @@ class EventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.event.EventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -495,7 +459,7 @@ class EventList(ListResource):
         sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[EventInstance]:
         """
         Lists EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -520,7 +484,6 @@ class EventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.event.EventInstance]
         """
         return list(
             self.stream(
@@ -555,7 +518,7 @@ class EventList(ListResource):
         sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[EventInstance]:
         """
         Asynchronously lists EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -580,7 +543,6 @@ class EventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.event.EventInstance]
         """
         return list(
             await self.stream_async(
@@ -616,7 +578,7 @@ class EventList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> EventPage:
         """
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
@@ -637,7 +599,6 @@ class EventList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         data = values.of(
             {
@@ -677,7 +638,7 @@ class EventList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> EventPage:
         """
         Asynchronously retrieve a single page of EventInstance records from the API.
         Request is executed immediately
@@ -698,7 +659,6 @@ class EventList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         data = values.of(
             {
@@ -724,7 +684,7 @@ class EventList(ListResource):
         )
         return EventPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> EventPage:
         """
         Retrieve a specific page of EventInstance records from the API.
         Request is executed immediately
@@ -732,12 +692,11 @@ class EventList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return EventPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> EventPage:
         """
         Asynchronously retrieve a specific page of EventInstance records from the API.
         Request is executed immediately
@@ -745,42 +704,34 @@ class EventList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return EventPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> EventContext:
         """
         Constructs a EventContext
 
         :param sid: The SID of the Event resource to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         return EventContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> EventContext:
         """
         Constructs a EventContext
 
         :param sid: The SID of the Event resource to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         return EventContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.EventList>"

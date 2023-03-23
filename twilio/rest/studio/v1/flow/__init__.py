@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,9 +33,6 @@ class FlowInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the FlowInstance
-
-        :returns: twilio.rest.studio.v1.flow.FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowInstance
         """
         super().__init__(version)
 
@@ -56,13 +54,12 @@ class FlowInstance(InstanceResource):
         self._context: Optional[FlowContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "FlowContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: FlowContext for this FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowContext
         """
         if self._context is None:
             self._context = FlowContext(
@@ -72,143 +69,123 @@ class FlowInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Flow resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the Flow.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def status(self):
+    def status(self) -> "FlowInstance.Status":
         """
         :returns:
-        :rtype: FlowInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def version(self):
+    def version(self) -> int:
         """
         :returns: The latest version number of the Flow's definition.
-        :rtype: int
         """
         return self._properties["version"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of the Flow's nested resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the FlowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FlowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "FlowInstance":
         """
         Fetch the FlowInstance
 
 
         :returns: The fetched FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "FlowInstance":
         """
         Asynchronous coroutine to fetch the FlowInstance
 
 
         :returns: The fetched FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def engagements(self):
+    def engagements(self) -> EngagementList:
         """
         Access the engagements
-
-        :returns: twilio.rest.studio.v1.flow.EngagementList
-        :rtype: twilio.rest.studio.v1.flow.EngagementList
         """
         return self._proxy.engagements
 
     @property
-    def executions(self):
+    def executions(self) -> ExecutionList:
         """
         Access the executions
-
-        :returns: twilio.rest.studio.v1.flow.ExecutionList
-        :rtype: twilio.rest.studio.v1.flow.ExecutionList
         """
         return self._proxy.executions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V1.FlowInstance {}>".format(context)
@@ -219,11 +196,8 @@ class FlowContext(InstanceContext):
         """
         Initialize the FlowContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Flow resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.FlowContext
-        :rtype: twilio.rest.studio.v1.flow.FlowContext
         """
         super().__init__(version)
 
@@ -236,39 +210,36 @@ class FlowContext(InstanceContext):
         self._engagements: Optional[EngagementList] = None
         self._executions: Optional[ExecutionList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the FlowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FlowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> FlowInstance:
         """
         Fetch the FlowInstance
 
 
         :returns: The fetched FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowInstance
         """
 
         payload = self._version.fetch(
@@ -282,13 +253,12 @@ class FlowContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> FlowInstance:
         """
         Asynchronous coroutine to fetch the FlowInstance
 
 
         :returns: The fetched FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowInstance
         """
 
         payload = await self._version.fetch_async(
@@ -303,12 +273,9 @@ class FlowContext(InstanceContext):
         )
 
     @property
-    def engagements(self):
+    def engagements(self) -> EngagementList:
         """
         Access the engagements
-
-        :returns: twilio.rest.studio.v1.flow.EngagementList
-        :rtype: twilio.rest.studio.v1.flow.EngagementList
         """
         if self._engagements is None:
             self._engagements = EngagementList(
@@ -318,12 +285,9 @@ class FlowContext(InstanceContext):
         return self._engagements
 
     @property
-    def executions(self):
+    def executions(self) -> ExecutionList:
         """
         Access the executions
-
-        :returns: twilio.rest.studio.v1.flow.ExecutionList
-        :rtype: twilio.rest.studio.v1.flow.ExecutionList
         """
         if self._executions is None:
             self._executions = ExecutionList(
@@ -332,26 +296,22 @@ class FlowContext(InstanceContext):
             )
         return self._executions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V1.FlowContext {}>".format(context)
 
 
 class FlowPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> FlowInstance:
         """
         Build an instance of FlowInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v1.flow.FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowInstance
         """
         return FlowInstance(self._version, payload)
 
@@ -369,16 +329,14 @@ class FlowList(ListResource):
         """
         Initialize the FlowList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.studio.v1.flow.FlowList
-        :rtype: twilio.rest.studio.v1.flow.FlowList
         """
         super().__init__(version)
 
         self._uri = "/Flows"
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[FlowInstance]:
         """
         Streams FlowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -393,14 +351,13 @@ class FlowList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.FlowInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[FlowInstance]:
         """
         Asynchronously streams FlowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -415,14 +372,13 @@ class FlowList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.FlowInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[FlowInstance]:
         """
         Lists FlowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -436,7 +392,6 @@ class FlowList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.FlowInstance]
         """
         return list(
             self.stream(
@@ -445,7 +400,7 @@ class FlowList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[FlowInstance]:
         """
         Asynchronously lists FlowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -459,7 +414,6 @@ class FlowList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.FlowInstance]
         """
         return list(
             await self.stream_async(
@@ -470,7 +424,7 @@ class FlowList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> FlowPage:
         """
         Retrieve a single page of FlowInstance records from the API.
         Request is executed immediately
@@ -480,7 +434,6 @@ class FlowList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowPage
         """
         data = values.of(
             {
@@ -495,7 +448,7 @@ class FlowList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> FlowPage:
         """
         Asynchronously retrieve a single page of FlowInstance records from the API.
         Request is executed immediately
@@ -505,7 +458,6 @@ class FlowList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowPage
         """
         data = values.of(
             {
@@ -520,7 +472,7 @@ class FlowList(ListResource):
         )
         return FlowPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> FlowPage:
         """
         Retrieve a specific page of FlowInstance records from the API.
         Request is executed immediately
@@ -528,12 +480,11 @@ class FlowList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FlowPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> FlowPage:
         """
         Asynchronously retrieve a specific page of FlowInstance records from the API.
         Request is executed immediately
@@ -541,38 +492,30 @@ class FlowList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FlowPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> FlowContext:
         """
         Constructs a FlowContext
 
         :param sid: The SID of the Flow resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.FlowContext
-        :rtype: twilio.rest.studio.v1.flow.FlowContext
         """
         return FlowContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> FlowContext:
         """
         Constructs a FlowContext
 
         :param sid: The SID of the Flow resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.FlowContext
-        :rtype: twilio.rest.studio.v1.flow.FlowContext
         """
         return FlowContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V1.FlowList>"

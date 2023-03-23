@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +26,6 @@ class CountryInstance(InstanceResource):
     def __init__(self, version, payload, iso_country: Optional[str] = None):
         """
         Initialize the CountryInstance
-
-        :returns: twilio.rest.pricing.v1.messaging.country.CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryInstance
         """
         super().__init__(version)
 
@@ -47,13 +44,12 @@ class CountryInstance(InstanceResource):
         self._context: Optional[CountryContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CountryContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CountryContext for this CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryContext
         """
         if self._context is None:
             self._context = CountryContext(
@@ -63,79 +59,70 @@ class CountryInstance(InstanceResource):
         return self._context
 
     @property
-    def country(self):
+    def country(self) -> str:
         """
         :returns: The name of the country.
-        :rtype: str
         """
         return self._properties["country"]
 
     @property
-    def iso_country(self):
+    def iso_country(self) -> str:
         """
         :returns: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-        :rtype: str
         """
         return self._properties["iso_country"]
 
     @property
-    def outbound_sms_prices(self):
+    def outbound_sms_prices(self) -> List[str]:
         """
         :returns: The list of [OutboundSMSPrice](https://www.twilio.com/docs/sms/api/pricing#outbound-sms-price) records that represent the price to send a message for each MCC/MNC applicable in this country.
-        :rtype: List[str]
         """
         return self._properties["outbound_sms_prices"]
 
     @property
-    def inbound_sms_prices(self):
+    def inbound_sms_prices(self) -> List[str]:
         """
         :returns: The list of [InboundPrice](https://www.twilio.com/docs/sms/api/pricing#inbound-price) records that describe the price to receive an inbound SMS to the different Twilio phone number types supported in this country
-        :rtype: List[str]
         """
         return self._properties["inbound_sms_prices"]
 
     @property
-    def price_unit(self):
+    def price_unit(self) -> str:
         """
         :returns: The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        :rtype: str
         """
         return self._properties["price_unit"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "CountryInstance":
         """
         Fetch the CountryInstance
 
 
         :returns: The fetched CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CountryInstance":
         """
         Asynchronous coroutine to fetch the CountryInstance
 
 
         :returns: The fetched CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Pricing.V1.CountryInstance {}>".format(context)
@@ -146,11 +133,8 @@ class CountryContext(InstanceContext):
         """
         Initialize the CountryContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
-
-        :returns: twilio.rest.pricing.v1.messaging.country.CountryContext
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryContext
         """
         super().__init__(version)
 
@@ -160,13 +144,12 @@ class CountryContext(InstanceContext):
         }
         self._uri = "/Messaging/Countries/{iso_country}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> CountryInstance:
         """
         Fetch the CountryInstance
 
 
         :returns: The fetched CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryInstance
         """
 
         payload = self._version.fetch(
@@ -180,13 +163,12 @@ class CountryContext(InstanceContext):
             iso_country=self._solution["iso_country"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CountryInstance:
         """
         Asynchronous coroutine to fetch the CountryInstance
 
 
         :returns: The fetched CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryInstance
         """
 
         payload = await self._version.fetch_async(
@@ -200,26 +182,22 @@ class CountryContext(InstanceContext):
             iso_country=self._solution["iso_country"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Pricing.V1.CountryContext {}>".format(context)
 
 
 class CountryPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CountryInstance:
         """
         Build an instance of CountryInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.pricing.v1.messaging.country.CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryInstance
         """
         return CountryInstance(self._version, payload)
 
@@ -237,16 +215,14 @@ class CountryList(ListResource):
         """
         Initialize the CountryList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.pricing.v1.messaging.country.CountryList
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryList
         """
         super().__init__(version)
 
         self._uri = "/Messaging/Countries"
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[CountryInstance]:
         """
         Streams CountryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -261,14 +237,13 @@ class CountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.pricing.v1.messaging.country.CountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[CountryInstance]:
         """
         Asynchronously streams CountryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -283,14 +258,13 @@ class CountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.pricing.v1.messaging.country.CountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[CountryInstance]:
         """
         Lists CountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -304,7 +278,6 @@ class CountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.pricing.v1.messaging.country.CountryInstance]
         """
         return list(
             self.stream(
@@ -313,7 +286,7 @@ class CountryList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[CountryInstance]:
         """
         Asynchronously lists CountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -327,7 +300,6 @@ class CountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.pricing.v1.messaging.country.CountryInstance]
         """
         return list(
             await self.stream_async(
@@ -338,7 +310,7 @@ class CountryList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> CountryPage:
         """
         Retrieve a single page of CountryInstance records from the API.
         Request is executed immediately
@@ -348,7 +320,6 @@ class CountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryPage
         """
         data = values.of(
             {
@@ -363,7 +334,7 @@ class CountryList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> CountryPage:
         """
         Asynchronously retrieve a single page of CountryInstance records from the API.
         Request is executed immediately
@@ -373,7 +344,6 @@ class CountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryPage
         """
         data = values.of(
             {
@@ -388,7 +358,7 @@ class CountryList(ListResource):
         )
         return CountryPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CountryPage:
         """
         Retrieve a specific page of CountryInstance records from the API.
         Request is executed immediately
@@ -396,12 +366,11 @@ class CountryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CountryPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CountryPage:
         """
         Asynchronously retrieve a specific page of CountryInstance records from the API.
         Request is executed immediately
@@ -409,38 +378,30 @@ class CountryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CountryPage(self._version, response)
 
-    def get(self, iso_country):
+    def get(self, iso_country) -> CountryContext:
         """
         Constructs a CountryContext
 
         :param iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
-
-        :returns: twilio.rest.pricing.v1.messaging.country.CountryContext
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryContext
         """
         return CountryContext(self._version, iso_country=iso_country)
 
-    def __call__(self, iso_country):
+    def __call__(self, iso_country) -> CountryContext:
         """
         Constructs a CountryContext
 
         :param iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
-
-        :returns: twilio.rest.pricing.v1.messaging.country.CountryContext
-        :rtype: twilio.rest.pricing.v1.messaging.country.CountryContext
         """
         return CountryContext(self._version, iso_country=iso_country)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Pricing.V1.CountryList>"

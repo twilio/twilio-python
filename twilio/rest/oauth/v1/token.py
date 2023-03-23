@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -24,9 +25,6 @@ class TokenInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the TokenInstance
-
-        :returns: twilio.rest.oauth.v1.token.TokenInstance
-        :rtype: twilio.rest.oauth.v1.token.TokenInstance
         """
         super().__init__(version)
 
@@ -45,51 +43,45 @@ class TokenInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def access_token(self):
+    def access_token(self) -> str:
         """
         :returns: Token which carries the necessary information to access a Twilio resource directly.
-        :rtype: str
         """
         return self._properties["access_token"]
 
     @property
-    def refresh_token(self):
+    def refresh_token(self) -> str:
         """
         :returns: Token which carries the information necessary to get a new access token.
-        :rtype: str
         """
         return self._properties["refresh_token"]
 
     @property
-    def id_token(self):
+    def id_token(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["id_token"]
 
     @property
-    def refresh_token_expires_at(self):
+    def refresh_token_expires_at(self) -> datetime:
         """
         :returns: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["refresh_token_expires_at"]
 
     @property
-    def access_token_expires_at(self):
+    def access_token_expires_at(self) -> datetime:
         """
         :returns: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["access_token_expires_at"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Oauth.V1.TokenInstance {}>".format(context)
@@ -100,10 +92,8 @@ class TokenList(ListResource):
         """
         Initialize the TokenList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.oauth.v1.token.TokenList
-        :rtype: twilio.rest.oauth.v1.token.TokenList
         """
         super().__init__(version)
 
@@ -119,7 +109,7 @@ class TokenList(ListResource):
         device_code=values.unset,
         refresh_token=values.unset,
         device_id=values.unset,
-    ):
+    ) -> TokenInstance:
         """
         Create the TokenInstance
 
@@ -133,7 +123,6 @@ class TokenList(ListResource):
         :param str device_id: The Id of the device associated with the token (refresh token).
 
         :returns: The created TokenInstance
-        :rtype: twilio.rest.oauth.v1.token.TokenInstance
         """
         data = values.of(
             {
@@ -166,7 +155,7 @@ class TokenList(ListResource):
         device_code=values.unset,
         refresh_token=values.unset,
         device_id=values.unset,
-    ):
+    ) -> TokenInstance:
         """
         Asynchronously create the TokenInstance
 
@@ -180,7 +169,6 @@ class TokenList(ListResource):
         :param str device_id: The Id of the device associated with the token (refresh token).
 
         :returns: The created TokenInstance
-        :rtype: twilio.rest.oauth.v1.token.TokenInstance
         """
         data = values.of(
             {
@@ -203,11 +191,10 @@ class TokenList(ListResource):
 
         return TokenInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Oauth.V1.TokenList>"

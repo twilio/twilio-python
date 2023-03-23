@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,9 +33,6 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
     ):
         """
         Initialize the CustomerProfilesEvaluationsInstance
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
         """
         super().__init__(version)
 
@@ -56,13 +54,12 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
         self._context: Optional[CustomerProfilesEvaluationsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CustomerProfilesEvaluationsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CustomerProfilesEvaluationsContext for this CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
         """
         if self._context is None:
             self._context = CustomerProfilesEvaluationsContext(
@@ -73,95 +70,84 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that identifies the Evaluation resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the customer_profile resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def policy_sid(self):
+    def policy_sid(self) -> str:
         """
         :returns: The unique string of a policy that is associated to the customer_profile resource.
-        :rtype: str
         """
         return self._properties["policy_sid"]
 
     @property
-    def customer_profile_sid(self):
+    def customer_profile_sid(self) -> str:
         """
         :returns: The unique string that we created to identify the customer_profile resource.
-        :rtype: str
         """
         return self._properties["customer_profile_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "CustomerProfilesEvaluationsInstance.Status":
         """
         :returns:
-        :rtype: CustomerProfilesEvaluationsInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def results(self):
+    def results(self) -> List[object]:
         """
         :returns: The results of the Evaluation which includes the valid and invalid attributes.
-        :rtype: List[object]
         """
         return self._properties["results"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "CustomerProfilesEvaluationsInstance":
         """
         Fetch the CustomerProfilesEvaluationsInstance
 
 
         :returns: The fetched CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CustomerProfilesEvaluationsInstance":
         """
         Asynchronous coroutine to fetch the CustomerProfilesEvaluationsInstance
 
 
         :returns: The fetched CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsInstance {}>".format(
@@ -174,12 +160,9 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
         """
         Initialize the CustomerProfilesEvaluationsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param customer_profile_sid: The unique string that we created to identify the customer_profile resource.
         :param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
         """
         super().__init__(version)
 
@@ -192,13 +175,12 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> CustomerProfilesEvaluationsInstance:
         """
         Fetch the CustomerProfilesEvaluationsInstance
 
 
         :returns: The fetched CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
         """
 
         payload = self._version.fetch(
@@ -213,13 +195,12 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CustomerProfilesEvaluationsInstance:
         """
         Asynchronous coroutine to fetch the CustomerProfilesEvaluationsInstance
 
 
         :returns: The fetched CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
         """
 
         payload = await self._version.fetch_async(
@@ -234,12 +215,11 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsContext {}>".format(
@@ -248,14 +228,11 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
 
 
 class CustomerProfilesEvaluationsPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CustomerProfilesEvaluationsInstance:
         """
         Build an instance of CustomerProfilesEvaluationsInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
         """
         return CustomerProfilesEvaluationsInstance(
             self._version,
@@ -277,11 +254,9 @@ class CustomerProfilesEvaluationsList(ListResource):
         """
         Initialize the CustomerProfilesEvaluationsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
 
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsList
         """
         super().__init__(version)
 
@@ -293,14 +268,13 @@ class CustomerProfilesEvaluationsList(ListResource):
             **self._solution
         )
 
-    def create(self, policy_sid):
+    def create(self, policy_sid) -> CustomerProfilesEvaluationsInstance:
         """
         Create the CustomerProfilesEvaluationsInstance
 
         :param str policy_sid: The unique string of a policy that is associated to the customer_profile resource.
 
         :returns: The created CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
         """
         data = values.of(
             {
@@ -320,14 +294,13 @@ class CustomerProfilesEvaluationsList(ListResource):
             customer_profile_sid=self._solution["customer_profile_sid"],
         )
 
-    async def create_async(self, policy_sid):
+    async def create_async(self, policy_sid) -> CustomerProfilesEvaluationsInstance:
         """
         Asynchronously create the CustomerProfilesEvaluationsInstance
 
         :param str policy_sid: The unique string of a policy that is associated to the customer_profile resource.
 
         :returns: The created CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
         """
         data = values.of(
             {
@@ -347,7 +320,9 @@ class CustomerProfilesEvaluationsList(ListResource):
             customer_profile_sid=self._solution["customer_profile_sid"],
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(
+        self, limit=None, page_size=None
+    ) -> List[CustomerProfilesEvaluationsInstance]:
         """
         Streams CustomerProfilesEvaluationsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -362,14 +337,15 @@ class CustomerProfilesEvaluationsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[CustomerProfilesEvaluationsInstance]:
         """
         Asynchronously streams CustomerProfilesEvaluationsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -384,14 +360,15 @@ class CustomerProfilesEvaluationsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(
+        self, limit=None, page_size=None
+    ) -> List[CustomerProfilesEvaluationsInstance]:
         """
         Lists CustomerProfilesEvaluationsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -405,7 +382,6 @@ class CustomerProfilesEvaluationsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance]
         """
         return list(
             self.stream(
@@ -414,7 +390,9 @@ class CustomerProfilesEvaluationsList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[CustomerProfilesEvaluationsInstance]:
         """
         Asynchronously lists CustomerProfilesEvaluationsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -428,7 +406,6 @@ class CustomerProfilesEvaluationsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance]
         """
         return list(
             await self.stream_async(
@@ -439,7 +416,7 @@ class CustomerProfilesEvaluationsList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> CustomerProfilesEvaluationsPage:
         """
         Retrieve a single page of CustomerProfilesEvaluationsInstance records from the API.
         Request is executed immediately
@@ -449,7 +426,6 @@ class CustomerProfilesEvaluationsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
         """
         data = values.of(
             {
@@ -464,7 +440,7 @@ class CustomerProfilesEvaluationsList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> CustomerProfilesEvaluationsPage:
         """
         Asynchronously retrieve a single page of CustomerProfilesEvaluationsInstance records from the API.
         Request is executed immediately
@@ -474,7 +450,6 @@ class CustomerProfilesEvaluationsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
         """
         data = values.of(
             {
@@ -489,7 +464,7 @@ class CustomerProfilesEvaluationsList(ListResource):
         )
         return CustomerProfilesEvaluationsPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CustomerProfilesEvaluationsPage:
         """
         Retrieve a specific page of CustomerProfilesEvaluationsInstance records from the API.
         Request is executed immediately
@@ -497,12 +472,11 @@ class CustomerProfilesEvaluationsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CustomerProfilesEvaluationsPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CustomerProfilesEvaluationsPage:
         """
         Asynchronously retrieve a specific page of CustomerProfilesEvaluationsInstance records from the API.
         Request is executed immediately
@@ -510,19 +484,15 @@ class CustomerProfilesEvaluationsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CustomerProfilesEvaluationsPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> CustomerProfilesEvaluationsContext:
         """
         Constructs a CustomerProfilesEvaluationsContext
 
         :param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
         """
         return CustomerProfilesEvaluationsContext(
             self._version,
@@ -530,14 +500,11 @@ class CustomerProfilesEvaluationsList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> CustomerProfilesEvaluationsContext:
         """
         Constructs a CustomerProfilesEvaluationsContext
 
         :param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
         """
         return CustomerProfilesEvaluationsContext(
             self._version,
@@ -545,11 +512,10 @@ class CustomerProfilesEvaluationsList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsList>"

@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -35,9 +36,6 @@ class ServiceInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the ServiceInstance
-
-        :returns: twilio.rest.verify.v2.service.ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         super().__init__(version)
 
@@ -68,13 +66,12 @@ class ServiceInstance(InstanceResource):
         self._context: Optional[ServiceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ServiceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(
@@ -84,186 +81,164 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Service resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the verification service. **This value should not contain PII.**
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def code_length(self):
+    def code_length(self) -> int:
         """
         :returns: The length of the verification code to generate.
-        :rtype: int
         """
         return self._properties["code_length"]
 
     @property
-    def lookup_enabled(self):
+    def lookup_enabled(self) -> bool:
         """
         :returns: Whether to perform a lookup with each verification started and return info about the phone number.
-        :rtype: bool
         """
         return self._properties["lookup_enabled"]
 
     @property
-    def psd2_enabled(self):
+    def psd2_enabled(self) -> bool:
         """
         :returns: Whether to pass PSD2 transaction parameters when starting a verification.
-        :rtype: bool
         """
         return self._properties["psd2_enabled"]
 
     @property
-    def skip_sms_to_landlines(self):
+    def skip_sms_to_landlines(self) -> bool:
         """
         :returns: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
-        :rtype: bool
         """
         return self._properties["skip_sms_to_landlines"]
 
     @property
-    def dtmf_input_required(self):
+    def dtmf_input_required(self) -> bool:
         """
         :returns: Whether to ask the user to press a number before delivering the verify code in a phone call.
-        :rtype: bool
         """
         return self._properties["dtmf_input_required"]
 
     @property
-    def tts_name(self):
+    def tts_name(self) -> str:
         """
         :returns: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
-        :rtype: str
         """
         return self._properties["tts_name"]
 
     @property
-    def do_not_share_warning_enabled(self):
+    def do_not_share_warning_enabled(self) -> bool:
         """
         :returns: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-        :rtype: bool
         """
         return self._properties["do_not_share_warning_enabled"]
 
     @property
-    def custom_code_enabled(self):
+    def custom_code_enabled(self) -> bool:
         """
         :returns: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
-        :rtype: bool
         """
         return self._properties["custom_code_enabled"]
 
     @property
-    def push(self):
+    def push(self) -> dict:
         """
         :returns: Configurations for the Push factors (channel) created under this Service.
-        :rtype: dict
         """
         return self._properties["push"]
 
     @property
-    def totp(self):
+    def totp(self) -> dict:
         """
         :returns: Configurations for the TOTP factors (channel) created under this Service.
-        :rtype: dict
         """
         return self._properties["totp"]
 
     @property
-    def default_template_sid(self):
+    def default_template_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["default_template_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         return await self._proxy.fetch_async()
 
@@ -286,7 +261,7 @@ class ServiceInstance(InstanceResource):
         totp_code_length=values.unset,
         totp_skew=values.unset,
         default_template_sid=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
@@ -309,7 +284,6 @@ class ServiceInstance(InstanceResource):
         :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -350,7 +324,7 @@ class ServiceInstance(InstanceResource):
         totp_code_length=values.unset,
         totp_skew=values.unset,
         default_template_sid=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -373,7 +347,6 @@ class ServiceInstance(InstanceResource):
         :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -396,81 +369,59 @@ class ServiceInstance(InstanceResource):
         )
 
     @property
-    def access_tokens(self):
+    def access_tokens(self) -> AccessTokenList:
         """
         Access the access_tokens
-
-        :returns: twilio.rest.verify.v2.service.AccessTokenList
-        :rtype: twilio.rest.verify.v2.service.AccessTokenList
         """
         return self._proxy.access_tokens
 
     @property
-    def entities(self):
+    def entities(self) -> EntityList:
         """
         Access the entities
-
-        :returns: twilio.rest.verify.v2.service.EntityList
-        :rtype: twilio.rest.verify.v2.service.EntityList
         """
         return self._proxy.entities
 
     @property
-    def messaging_configurations(self):
+    def messaging_configurations(self) -> MessagingConfigurationList:
         """
         Access the messaging_configurations
-
-        :returns: twilio.rest.verify.v2.service.MessagingConfigurationList
-        :rtype: twilio.rest.verify.v2.service.MessagingConfigurationList
         """
         return self._proxy.messaging_configurations
 
     @property
-    def rate_limits(self):
+    def rate_limits(self) -> RateLimitList:
         """
         Access the rate_limits
-
-        :returns: twilio.rest.verify.v2.service.RateLimitList
-        :rtype: twilio.rest.verify.v2.service.RateLimitList
         """
         return self._proxy.rate_limits
 
     @property
-    def verifications(self):
+    def verifications(self) -> VerificationList:
         """
         Access the verifications
-
-        :returns: twilio.rest.verify.v2.service.VerificationList
-        :rtype: twilio.rest.verify.v2.service.VerificationList
         """
         return self._proxy.verifications
 
     @property
-    def verification_checks(self):
+    def verification_checks(self) -> VerificationCheckList:
         """
         Access the verification_checks
-
-        :returns: twilio.rest.verify.v2.service.VerificationCheckList
-        :rtype: twilio.rest.verify.v2.service.VerificationCheckList
         """
         return self._proxy.verification_checks
 
     @property
-    def webhooks(self):
+    def webhooks(self) -> WebhookList:
         """
         Access the webhooks
-
-        :returns: twilio.rest.verify.v2.service.WebhookList
-        :rtype: twilio.rest.verify.v2.service.WebhookList
         """
         return self._proxy.webhooks
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.ServiceInstance {}>".format(context)
@@ -481,11 +432,8 @@ class ServiceContext(InstanceContext):
         """
         Initialize the ServiceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.verify.v2.service.ServiceContext
-        :rtype: twilio.rest.verify.v2.service.ServiceContext
         """
         super().__init__(version)
 
@@ -503,39 +451,36 @@ class ServiceContext(InstanceContext):
         self._verification_checks: Optional[VerificationCheckList] = None
         self._webhooks: Optional[WebhookList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
 
         payload = self._version.fetch(
@@ -549,13 +494,12 @@ class ServiceContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -588,7 +532,7 @@ class ServiceContext(InstanceContext):
         totp_code_length=values.unset,
         totp_skew=values.unset,
         default_template_sid=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
@@ -611,7 +555,6 @@ class ServiceContext(InstanceContext):
         :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         data = values.of(
             {
@@ -662,7 +605,7 @@ class ServiceContext(InstanceContext):
         totp_code_length=values.unset,
         totp_skew=values.unset,
         default_template_sid=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -685,7 +628,6 @@ class ServiceContext(InstanceContext):
         :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         data = values.of(
             {
@@ -718,12 +660,9 @@ class ServiceContext(InstanceContext):
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def access_tokens(self):
+    def access_tokens(self) -> AccessTokenList:
         """
         Access the access_tokens
-
-        :returns: twilio.rest.verify.v2.service.AccessTokenList
-        :rtype: twilio.rest.verify.v2.service.AccessTokenList
         """
         if self._access_tokens is None:
             self._access_tokens = AccessTokenList(
@@ -733,12 +672,9 @@ class ServiceContext(InstanceContext):
         return self._access_tokens
 
     @property
-    def entities(self):
+    def entities(self) -> EntityList:
         """
         Access the entities
-
-        :returns: twilio.rest.verify.v2.service.EntityList
-        :rtype: twilio.rest.verify.v2.service.EntityList
         """
         if self._entities is None:
             self._entities = EntityList(
@@ -748,12 +684,9 @@ class ServiceContext(InstanceContext):
         return self._entities
 
     @property
-    def messaging_configurations(self):
+    def messaging_configurations(self) -> MessagingConfigurationList:
         """
         Access the messaging_configurations
-
-        :returns: twilio.rest.verify.v2.service.MessagingConfigurationList
-        :rtype: twilio.rest.verify.v2.service.MessagingConfigurationList
         """
         if self._messaging_configurations is None:
             self._messaging_configurations = MessagingConfigurationList(
@@ -763,12 +696,9 @@ class ServiceContext(InstanceContext):
         return self._messaging_configurations
 
     @property
-    def rate_limits(self):
+    def rate_limits(self) -> RateLimitList:
         """
         Access the rate_limits
-
-        :returns: twilio.rest.verify.v2.service.RateLimitList
-        :rtype: twilio.rest.verify.v2.service.RateLimitList
         """
         if self._rate_limits is None:
             self._rate_limits = RateLimitList(
@@ -778,12 +708,9 @@ class ServiceContext(InstanceContext):
         return self._rate_limits
 
     @property
-    def verifications(self):
+    def verifications(self) -> VerificationList:
         """
         Access the verifications
-
-        :returns: twilio.rest.verify.v2.service.VerificationList
-        :rtype: twilio.rest.verify.v2.service.VerificationList
         """
         if self._verifications is None:
             self._verifications = VerificationList(
@@ -793,12 +720,9 @@ class ServiceContext(InstanceContext):
         return self._verifications
 
     @property
-    def verification_checks(self):
+    def verification_checks(self) -> VerificationCheckList:
         """
         Access the verification_checks
-
-        :returns: twilio.rest.verify.v2.service.VerificationCheckList
-        :rtype: twilio.rest.verify.v2.service.VerificationCheckList
         """
         if self._verification_checks is None:
             self._verification_checks = VerificationCheckList(
@@ -808,12 +732,9 @@ class ServiceContext(InstanceContext):
         return self._verification_checks
 
     @property
-    def webhooks(self):
+    def webhooks(self) -> WebhookList:
         """
         Access the webhooks
-
-        :returns: twilio.rest.verify.v2.service.WebhookList
-        :rtype: twilio.rest.verify.v2.service.WebhookList
         """
         if self._webhooks is None:
             self._webhooks = WebhookList(
@@ -822,26 +743,22 @@ class ServiceContext(InstanceContext):
             )
         return self._webhooks
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         return ServiceInstance(self._version, payload)
 
@@ -859,10 +776,8 @@ class ServiceList(ListResource):
         """
         Initialize the ServiceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.verify.v2.service.ServiceList
-        :rtype: twilio.rest.verify.v2.service.ServiceList
         """
         super().__init__(version)
 
@@ -887,7 +802,7 @@ class ServiceList(ListResource):
         totp_code_length=values.unset,
         totp_skew=values.unset,
         default_template_sid=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
@@ -910,7 +825,6 @@ class ServiceList(ListResource):
         :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         data = values.of(
             {
@@ -961,7 +875,7 @@ class ServiceList(ListResource):
         totp_code_length=values.unset,
         totp_skew=values.unset,
         default_template_sid=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
@@ -984,7 +898,6 @@ class ServiceList(ListResource):
         :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         data = values.of(
             {
@@ -1016,7 +929,7 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -1031,14 +944,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -1053,14 +965,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -1074,7 +985,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
         """
         return list(
             self.stream(
@@ -1083,7 +993,7 @@ class ServiceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -1097,7 +1007,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
         """
         return list(
             await self.stream_async(
@@ -1108,7 +1017,7 @@ class ServiceList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1118,7 +1027,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServicePage
         """
         data = values.of(
             {
@@ -1133,7 +1041,7 @@ class ServiceList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1143,7 +1051,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServicePage
         """
         data = values.of(
             {
@@ -1158,7 +1065,7 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1166,12 +1073,11 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServicePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1179,38 +1085,30 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServicePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.verify.v2.service.ServiceContext
-        :rtype: twilio.rest.verify.v2.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.verify.v2.service.ServiceContext
-        :rtype: twilio.rest.verify.v2.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.ServiceList>"

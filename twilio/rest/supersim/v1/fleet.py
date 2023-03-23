@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,9 +30,6 @@ class FleetInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the FleetInstance
-
-        :returns: twilio.rest.supersim.v1.fleet.FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         super().__init__(version)
 
@@ -59,13 +57,12 @@ class FleetInstance(InstanceResource):
         self._context: Optional[FleetContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "FleetContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: FleetContext for this FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetContext
         """
         if self._context is None:
             self._context = FleetContext(
@@ -75,142 +72,125 @@ class FleetInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Fleet resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Fleet resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Fleet resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def data_enabled(self):
+    def data_enabled(self) -> bool:
         """
         :returns: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
-        :rtype: bool
         """
         return self._properties["data_enabled"]
 
     @property
-    def data_limit(self):
+    def data_limit(self) -> int:
         """
         :returns: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
-        :rtype: int
         """
         return self._properties["data_limit"]
 
     @property
-    def data_metering(self):
+    def data_metering(self) -> "FleetInstance.DataMetering":
         """
         :returns:
-        :rtype: FleetInstance.DataMetering
         """
         return self._properties["data_metering"]
 
     @property
-    def sms_commands_enabled(self):
+    def sms_commands_enabled(self) -> bool:
         """
         :returns: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
-        :rtype: bool
         """
         return self._properties["sms_commands_enabled"]
 
     @property
-    def sms_commands_url(self):
+    def sms_commands_url(self) -> str:
         """
         :returns: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :rtype: str
         """
         return self._properties["sms_commands_url"]
 
     @property
-    def sms_commands_method(self):
+    def sms_commands_method(self) -> str:
         """
         :returns: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :rtype: str
         """
         return self._properties["sms_commands_method"]
 
     @property
-    def network_access_profile_sid(self):
+    def network_access_profile_sid(self) -> str:
         """
         :returns: The SID of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
-        :rtype: str
         """
         return self._properties["network_access_profile_sid"]
 
     @property
-    def ip_commands_url(self):
+    def ip_commands_url(self) -> str:
         """
         :returns: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :rtype: str
         """
         return self._properties["ip_commands_url"]
 
     @property
-    def ip_commands_method(self):
+    def ip_commands_method(self) -> str:
         """
         :returns: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :rtype: str
         """
         return self._properties["ip_commands_method"]
 
-    def fetch(self):
+    def fetch(self) -> "FleetInstance":
         """
         Fetch the FleetInstance
 
 
         :returns: The fetched FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "FleetInstance":
         """
         Asynchronous coroutine to fetch the FleetInstance
 
 
         :returns: The fetched FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         return await self._proxy.fetch_async()
 
@@ -223,7 +203,7 @@ class FleetInstance(InstanceResource):
         sms_commands_url=values.unset,
         sms_commands_method=values.unset,
         data_limit=values.unset,
-    ):
+    ) -> "FleetInstance":
         """
         Update the FleetInstance
 
@@ -236,7 +216,6 @@ class FleetInstance(InstanceResource):
         :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 
         :returns: The updated FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         return self._proxy.update(
             unique_name=unique_name,
@@ -257,7 +236,7 @@ class FleetInstance(InstanceResource):
         sms_commands_url=values.unset,
         sms_commands_method=values.unset,
         data_limit=values.unset,
-    ):
+    ) -> "FleetInstance":
         """
         Asynchronous coroutine to update the FleetInstance
 
@@ -270,7 +249,6 @@ class FleetInstance(InstanceResource):
         :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 
         :returns: The updated FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         return await self._proxy.update_async(
             unique_name=unique_name,
@@ -282,12 +260,11 @@ class FleetInstance(InstanceResource):
             data_limit=data_limit,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Supersim.V1.FleetInstance {}>".format(context)
@@ -298,11 +275,8 @@ class FleetContext(InstanceContext):
         """
         Initialize the FleetContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Fleet resource to update.
-
-        :returns: twilio.rest.supersim.v1.fleet.FleetContext
-        :rtype: twilio.rest.supersim.v1.fleet.FleetContext
         """
         super().__init__(version)
 
@@ -312,13 +286,12 @@ class FleetContext(InstanceContext):
         }
         self._uri = "/Fleets/{sid}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> FleetInstance:
         """
         Fetch the FleetInstance
 
 
         :returns: The fetched FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
 
         payload = self._version.fetch(
@@ -332,13 +305,12 @@ class FleetContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> FleetInstance:
         """
         Asynchronous coroutine to fetch the FleetInstance
 
 
         :returns: The fetched FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
 
         payload = await self._version.fetch_async(
@@ -361,7 +333,7 @@ class FleetContext(InstanceContext):
         sms_commands_url=values.unset,
         sms_commands_method=values.unset,
         data_limit=values.unset,
-    ):
+    ) -> FleetInstance:
         """
         Update the FleetInstance
 
@@ -374,7 +346,6 @@ class FleetContext(InstanceContext):
         :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 
         :returns: The updated FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         data = values.of(
             {
@@ -405,7 +376,7 @@ class FleetContext(InstanceContext):
         sms_commands_url=values.unset,
         sms_commands_method=values.unset,
         data_limit=values.unset,
-    ):
+    ) -> FleetInstance:
         """
         Asynchronous coroutine to update the FleetInstance
 
@@ -418,7 +389,6 @@ class FleetContext(InstanceContext):
         :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 
         :returns: The updated FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         data = values.of(
             {
@@ -440,26 +410,22 @@ class FleetContext(InstanceContext):
 
         return FleetInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Supersim.V1.FleetContext {}>".format(context)
 
 
 class FleetPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> FleetInstance:
         """
         Build an instance of FleetInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.fleet.FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         return FleetInstance(self._version, payload)
 
@@ -477,10 +443,8 @@ class FleetList(ListResource):
         """
         Initialize the FleetList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.supersim.v1.fleet.FleetList
-        :rtype: twilio.rest.supersim.v1.fleet.FleetList
         """
         super().__init__(version)
 
@@ -497,7 +461,7 @@ class FleetList(ListResource):
         sms_commands_enabled=values.unset,
         sms_commands_url=values.unset,
         sms_commands_method=values.unset,
-    ):
+    ) -> FleetInstance:
         """
         Create the FleetInstance
 
@@ -512,7 +476,6 @@ class FleetList(ListResource):
         :param str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
 
         :returns: The created FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         data = values.of(
             {
@@ -547,7 +510,7 @@ class FleetList(ListResource):
         sms_commands_enabled=values.unset,
         sms_commands_url=values.unset,
         sms_commands_method=values.unset,
-    ):
+    ) -> FleetInstance:
         """
         Asynchronously create the FleetInstance
 
@@ -562,7 +525,6 @@ class FleetList(ListResource):
         :param str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
 
         :returns: The created FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         data = values.of(
             {
@@ -586,7 +548,9 @@ class FleetList(ListResource):
 
         return FleetInstance(self._version, payload)
 
-    def stream(self, network_access_profile=values.unset, limit=None, page_size=None):
+    def stream(
+        self, network_access_profile=values.unset, limit=None, page_size=None
+    ) -> List[FleetInstance]:
         """
         Streams FleetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -602,7 +566,6 @@ class FleetList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.fleet.FleetInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -613,7 +576,7 @@ class FleetList(ListResource):
 
     async def stream_async(
         self, network_access_profile=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[FleetInstance]:
         """
         Asynchronously streams FleetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -629,7 +592,6 @@ class FleetList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.fleet.FleetInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -638,7 +600,9 @@ class FleetList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, network_access_profile=values.unset, limit=None, page_size=None):
+    def list(
+        self, network_access_profile=values.unset, limit=None, page_size=None
+    ) -> List[FleetInstance]:
         """
         Lists FleetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -653,7 +617,6 @@ class FleetList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.fleet.FleetInstance]
         """
         return list(
             self.stream(
@@ -665,7 +628,7 @@ class FleetList(ListResource):
 
     async def list_async(
         self, network_access_profile=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[FleetInstance]:
         """
         Asynchronously lists FleetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -680,7 +643,6 @@ class FleetList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.fleet.FleetInstance]
         """
         return list(
             await self.stream_async(
@@ -696,7 +658,7 @@ class FleetList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> FleetPage:
         """
         Retrieve a single page of FleetInstance records from the API.
         Request is executed immediately
@@ -707,7 +669,6 @@ class FleetList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetPage
         """
         data = values.of(
             {
@@ -727,7 +688,7 @@ class FleetList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> FleetPage:
         """
         Asynchronously retrieve a single page of FleetInstance records from the API.
         Request is executed immediately
@@ -738,7 +699,6 @@ class FleetList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetPage
         """
         data = values.of(
             {
@@ -754,7 +714,7 @@ class FleetList(ListResource):
         )
         return FleetPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> FleetPage:
         """
         Retrieve a specific page of FleetInstance records from the API.
         Request is executed immediately
@@ -762,12 +722,11 @@ class FleetList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FleetPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> FleetPage:
         """
         Asynchronously retrieve a specific page of FleetInstance records from the API.
         Request is executed immediately
@@ -775,38 +734,30 @@ class FleetList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FleetPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> FleetContext:
         """
         Constructs a FleetContext
 
         :param sid: The SID of the Fleet resource to update.
-
-        :returns: twilio.rest.supersim.v1.fleet.FleetContext
-        :rtype: twilio.rest.supersim.v1.fleet.FleetContext
         """
         return FleetContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> FleetContext:
         """
         Constructs a FleetContext
 
         :param sid: The SID of the Fleet resource to update.
-
-        :returns: twilio.rest.supersim.v1.fleet.FleetContext
-        :rtype: twilio.rest.supersim.v1.fleet.FleetContext
         """
         return FleetContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Supersim.V1.FleetList>"

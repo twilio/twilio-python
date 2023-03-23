@@ -22,9 +22,6 @@ class SinkTestInstance(InstanceResource):
     def __init__(self, version, payload, sid: str):
         """
         Initialize the SinkTestInstance
-
-        :returns: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
-        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
         """
         super().__init__(version)
 
@@ -37,19 +34,17 @@ class SinkTestInstance(InstanceResource):
         }
 
     @property
-    def result(self):
+    def result(self) -> str:
         """
         :returns: Feedback indicating whether the test event was generated.
-        :rtype: str
         """
         return self._properties["result"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Events.V1.SinkTestInstance {}>".format(context)
@@ -60,11 +55,9 @@ class SinkTestList(ListResource):
         """
         Initialize the SinkTestList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies the Sink to be Tested.
 
-        :returns: twilio.rest.events.v1.sink.sink_test.SinkTestList
-        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestList
         """
         super().__init__(version)
 
@@ -74,13 +67,12 @@ class SinkTestList(ListResource):
         }
         self._uri = "/Sinks/{sid}/Test".format(**self._solution)
 
-    def create(self):
+    def create(self) -> SinkTestInstance:
         """
         Create the SinkTestInstance
 
 
         :returns: The created SinkTestInstance
-        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
         """
 
         payload = self._version.create(
@@ -90,13 +82,12 @@ class SinkTestList(ListResource):
 
         return SinkTestInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def create_async(self):
+    async def create_async(self) -> SinkTestInstance:
         """
         Asynchronously create the SinkTestInstance
 
 
         :returns: The created SinkTestInstance
-        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
         """
 
         payload = await self._version.create_async(
@@ -106,11 +97,10 @@ class SinkTestList(ListResource):
 
         return SinkTestInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Events.V1.SinkTestList>"

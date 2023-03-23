@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,9 +39,6 @@ class LogInstance(InstanceResource):
     ):
         """
         Initialize the LogInstance
-
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
         super().__init__(version)
 
@@ -67,13 +65,12 @@ class LogInstance(InstanceResource):
         self._context: Optional[LogContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "LogContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: LogContext for this LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
         """
         if self._context is None:
             self._context = LogContext(
@@ -85,127 +82,112 @@ class LogInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Log resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Log resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the Service that the Log resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def environment_sid(self):
+    def environment_sid(self) -> str:
         """
         :returns: The SID of the environment in which the log occurred.
-        :rtype: str
         """
         return self._properties["environment_sid"]
 
     @property
-    def build_sid(self):
+    def build_sid(self) -> str:
         """
         :returns: The SID of the build that corresponds to the log.
-        :rtype: str
         """
         return self._properties["build_sid"]
 
     @property
-    def deployment_sid(self):
+    def deployment_sid(self) -> str:
         """
         :returns: The SID of the deployment that corresponds to the log.
-        :rtype: str
         """
         return self._properties["deployment_sid"]
 
     @property
-    def function_sid(self):
+    def function_sid(self) -> str:
         """
         :returns: The SID of the function whose invocation produced the log.
-        :rtype: str
         """
         return self._properties["function_sid"]
 
     @property
-    def request_sid(self):
+    def request_sid(self) -> str:
         """
         :returns: The SID of the request associated with the log.
-        :rtype: str
         """
         return self._properties["request_sid"]
 
     @property
-    def level(self):
+    def level(self) -> "LogInstance.Level":
         """
         :returns:
-        :rtype: LogInstance.Level
         """
         return self._properties["level"]
 
     @property
-    def message(self):
+    def message(self) -> str:
         """
         :returns: The log message.
-        :rtype: str
         """
         return self._properties["message"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the Log resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Log resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "LogInstance":
         """
         Fetch the LogInstance
 
 
         :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "LogInstance":
         """
         Asynchronous coroutine to fetch the LogInstance
 
 
         :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.LogInstance {}>".format(context)
@@ -218,13 +200,10 @@ class LogContext(InstanceContext):
         """
         Initialize the LogContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Log resource from.
         :param environment_sid: The SID of the environment with the Log resource to fetch.
         :param sid: The SID of the Log resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
         """
         super().__init__(version)
 
@@ -240,13 +219,12 @@ class LogContext(InstanceContext):
             )
         )
 
-    def fetch(self):
+    def fetch(self) -> LogInstance:
         """
         Fetch the LogInstance
 
 
         :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
 
         payload = self._version.fetch(
@@ -262,13 +240,12 @@ class LogContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> LogInstance:
         """
         Asynchronous coroutine to fetch the LogInstance
 
 
         :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
 
         payload = await self._version.fetch_async(
@@ -284,26 +261,22 @@ class LogContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.LogContext {}>".format(context)
 
 
 class LogPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> LogInstance:
         """
         Build an instance of LogInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
         return LogInstance(
             self._version,
@@ -326,12 +299,10 @@ class LogList(ListResource):
         """
         Initialize the LogList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Log resource from.
         :param environment_sid: The SID of the environment with the Log resources to read.
 
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogList
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogList
         """
         super().__init__(version)
 
@@ -353,7 +324,7 @@ class LogList(ListResource):
         end_date=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[LogInstance]:
         """
         Streams LogInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -371,7 +342,6 @@ class LogList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.environment.log.LogInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -390,7 +360,7 @@ class LogList(ListResource):
         end_date=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[LogInstance]:
         """
         Asynchronously streams LogInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -408,7 +378,6 @@ class LogList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.environment.log.LogInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -427,7 +396,7 @@ class LogList(ListResource):
         end_date=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[LogInstance]:
         """
         Lists LogInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -444,7 +413,6 @@ class LogList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.environment.log.LogInstance]
         """
         return list(
             self.stream(
@@ -463,7 +431,7 @@ class LogList(ListResource):
         end_date=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[LogInstance]:
         """
         Asynchronously lists LogInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -480,7 +448,6 @@ class LogList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.environment.log.LogInstance]
         """
         return list(
             await self.stream_async(
@@ -500,7 +467,7 @@ class LogList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> LogPage:
         """
         Retrieve a single page of LogInstance records from the API.
         Request is executed immediately
@@ -513,7 +480,6 @@ class LogList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogPage
         """
         data = values.of(
             {
@@ -537,7 +503,7 @@ class LogList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> LogPage:
         """
         Asynchronously retrieve a single page of LogInstance records from the API.
         Request is executed immediately
@@ -550,7 +516,6 @@ class LogList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogPage
         """
         data = values.of(
             {
@@ -568,7 +533,7 @@ class LogList(ListResource):
         )
         return LogPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> LogPage:
         """
         Retrieve a specific page of LogInstance records from the API.
         Request is executed immediately
@@ -576,12 +541,11 @@ class LogList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return LogPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> LogPage:
         """
         Asynchronously retrieve a specific page of LogInstance records from the API.
         Request is executed immediately
@@ -589,19 +553,15 @@ class LogList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return LogPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> LogContext:
         """
         Constructs a LogContext
 
         :param sid: The SID of the Log resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
         """
         return LogContext(
             self._version,
@@ -610,14 +570,11 @@ class LogList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> LogContext:
         """
         Constructs a LogContext
 
         :param sid: The SID of the Log resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
         """
         return LogContext(
             self._version,
@@ -626,11 +583,10 @@ class LogList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Serverless.V1.LogList>"

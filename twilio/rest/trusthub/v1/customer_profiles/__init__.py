@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -42,9 +43,6 @@ class CustomerProfilesInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the CustomerProfilesInstance
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         super().__init__(version)
 
@@ -69,13 +67,12 @@ class CustomerProfilesInstance(InstanceResource):
         self._context: Optional[CustomerProfilesContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CustomerProfilesContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CustomerProfilesContext for this CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
         """
         if self._context is None:
             self._context = CustomerProfilesContext(
@@ -85,138 +82,122 @@ class CustomerProfilesInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Customer-Profile resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Customer-Profile resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def policy_sid(self):
+    def policy_sid(self) -> str:
         """
         :returns: The unique string of a policy that is associated to the Customer-Profile resource.
-        :rtype: str
         """
         return self._properties["policy_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def status(self):
+    def status(self) -> "CustomerProfilesInstance.Status":
         """
         :returns:
-        :rtype: CustomerProfilesInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def valid_until(self):
+    def valid_until(self) -> datetime:
         """
         :returns: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
-        :rtype: datetime
         """
         return self._properties["valid_until"]
 
     @property
-    def email(self):
+    def email(self) -> str:
         """
         :returns: The email address that will receive updates when the Customer-Profile resource changes status.
-        :rtype: str
         """
         return self._properties["email"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL we call to inform your application of status changes.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Customer-Profile resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of the Assigned Items of the Customer-Profile resource.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CustomerProfilesInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CustomerProfilesInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "CustomerProfilesInstance":
         """
         Fetch the CustomerProfilesInstance
 
 
         :returns: The fetched CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CustomerProfilesInstance":
         """
         Asynchronous coroutine to fetch the CustomerProfilesInstance
 
 
         :returns: The fetched CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         return await self._proxy.fetch_async()
 
@@ -226,17 +207,16 @@ class CustomerProfilesInstance(InstanceResource):
         status_callback=values.unset,
         friendly_name=values.unset,
         email=values.unset,
-    ):
+    ) -> "CustomerProfilesInstance":
         """
         Update the CustomerProfilesInstance
 
-        :param CustomerProfilesInstance.Status status:
+        :param "CustomerProfilesInstance.Status" status:
         :param str status_callback: The URL we call to inform your application of status changes.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         return self._proxy.update(
             status=status,
@@ -251,17 +231,16 @@ class CustomerProfilesInstance(InstanceResource):
         status_callback=values.unset,
         friendly_name=values.unset,
         email=values.unset,
-    ):
+    ) -> "CustomerProfilesInstance":
         """
         Asynchronous coroutine to update the CustomerProfilesInstance
 
-        :param CustomerProfilesInstance.Status status:
+        :param "CustomerProfilesInstance.Status" status:
         :param str status_callback: The URL we call to inform your application of status changes.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         return await self._proxy.update_async(
             status=status,
@@ -271,41 +250,35 @@ class CustomerProfilesInstance(InstanceResource):
         )
 
     @property
-    def customer_profiles_channel_endpoint_assignment(self):
+    def customer_profiles_channel_endpoint_assignment(
+        self,
+    ) -> CustomerProfilesChannelEndpointAssignmentList:
         """
         Access the customer_profiles_channel_endpoint_assignment
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesChannelEndpointAssignmentList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesChannelEndpointAssignmentList
         """
         return self._proxy.customer_profiles_channel_endpoint_assignment
 
     @property
-    def customer_profiles_entity_assignments(self):
+    def customer_profiles_entity_assignments(
+        self,
+    ) -> CustomerProfilesEntityAssignmentsList:
         """
         Access the customer_profiles_entity_assignments
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEntityAssignmentsList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEntityAssignmentsList
         """
         return self._proxy.customer_profiles_entity_assignments
 
     @property
-    def customer_profiles_evaluations(self):
+    def customer_profiles_evaluations(self) -> CustomerProfilesEvaluationsList:
         """
         Access the customer_profiles_evaluations
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEvaluationsList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEvaluationsList
         """
         return self._proxy.customer_profiles_evaluations
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.CustomerProfilesInstance {}>".format(context)
@@ -316,11 +289,8 @@ class CustomerProfilesContext(InstanceContext):
         """
         Initialize the CustomerProfilesContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
         """
         super().__init__(version)
 
@@ -340,39 +310,36 @@ class CustomerProfilesContext(InstanceContext):
             CustomerProfilesEvaluationsList
         ] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CustomerProfilesInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CustomerProfilesInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> CustomerProfilesInstance:
         """
         Fetch the CustomerProfilesInstance
 
 
         :returns: The fetched CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
 
         payload = self._version.fetch(
@@ -386,13 +353,12 @@ class CustomerProfilesContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CustomerProfilesInstance:
         """
         Asynchronous coroutine to fetch the CustomerProfilesInstance
 
 
         :returns: The fetched CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
 
         payload = await self._version.fetch_async(
@@ -412,17 +378,16 @@ class CustomerProfilesContext(InstanceContext):
         status_callback=values.unset,
         friendly_name=values.unset,
         email=values.unset,
-    ):
+    ) -> CustomerProfilesInstance:
         """
         Update the CustomerProfilesInstance
 
-        :param CustomerProfilesInstance.Status status:
+        :param "CustomerProfilesInstance.Status" status:
         :param str status_callback: The URL we call to inform your application of status changes.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         data = values.of(
             {
@@ -449,17 +414,16 @@ class CustomerProfilesContext(InstanceContext):
         status_callback=values.unset,
         friendly_name=values.unset,
         email=values.unset,
-    ):
+    ) -> CustomerProfilesInstance:
         """
         Asynchronous coroutine to update the CustomerProfilesInstance
 
-        :param CustomerProfilesInstance.Status status:
+        :param "CustomerProfilesInstance.Status" status:
         :param str status_callback: The URL we call to inform your application of status changes.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         data = values.of(
             {
@@ -481,12 +445,11 @@ class CustomerProfilesContext(InstanceContext):
         )
 
     @property
-    def customer_profiles_channel_endpoint_assignment(self):
+    def customer_profiles_channel_endpoint_assignment(
+        self,
+    ) -> CustomerProfilesChannelEndpointAssignmentList:
         """
         Access the customer_profiles_channel_endpoint_assignment
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesChannelEndpointAssignmentList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesChannelEndpointAssignmentList
         """
         if self._customer_profiles_channel_endpoint_assignment is None:
             self._customer_profiles_channel_endpoint_assignment = (
@@ -498,12 +461,11 @@ class CustomerProfilesContext(InstanceContext):
         return self._customer_profiles_channel_endpoint_assignment
 
     @property
-    def customer_profiles_entity_assignments(self):
+    def customer_profiles_entity_assignments(
+        self,
+    ) -> CustomerProfilesEntityAssignmentsList:
         """
         Access the customer_profiles_entity_assignments
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEntityAssignmentsList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEntityAssignmentsList
         """
         if self._customer_profiles_entity_assignments is None:
             self._customer_profiles_entity_assignments = (
@@ -515,12 +477,9 @@ class CustomerProfilesContext(InstanceContext):
         return self._customer_profiles_entity_assignments
 
     @property
-    def customer_profiles_evaluations(self):
+    def customer_profiles_evaluations(self) -> CustomerProfilesEvaluationsList:
         """
         Access the customer_profiles_evaluations
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEvaluationsList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEvaluationsList
         """
         if self._customer_profiles_evaluations is None:
             self._customer_profiles_evaluations = CustomerProfilesEvaluationsList(
@@ -529,26 +488,22 @@ class CustomerProfilesContext(InstanceContext):
             )
         return self._customer_profiles_evaluations
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.CustomerProfilesContext {}>".format(context)
 
 
 class CustomerProfilesPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CustomerProfilesInstance:
         """
         Build an instance of CustomerProfilesInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         return CustomerProfilesInstance(self._version, payload)
 
@@ -566,16 +521,16 @@ class CustomerProfilesList(ListResource):
         """
         Initialize the CustomerProfilesList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
         """
         super().__init__(version)
 
         self._uri = "/CustomerProfiles"
 
-    def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
+    def create(
+        self, friendly_name, email, policy_sid, status_callback=values.unset
+    ) -> CustomerProfilesInstance:
         """
         Create the CustomerProfilesInstance
 
@@ -585,7 +540,6 @@ class CustomerProfilesList(ListResource):
         :param str status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         data = values.of(
             {
@@ -606,7 +560,7 @@ class CustomerProfilesList(ListResource):
 
     async def create_async(
         self, friendly_name, email, policy_sid, status_callback=values.unset
-    ):
+    ) -> CustomerProfilesInstance:
         """
         Asynchronously create the CustomerProfilesInstance
 
@@ -616,7 +570,6 @@ class CustomerProfilesList(ListResource):
         :param str status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
         data = values.of(
             {
@@ -642,14 +595,14 @@ class CustomerProfilesList(ListResource):
         policy_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CustomerProfilesInstance]:
         """
         Streams CustomerProfilesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -660,7 +613,6 @@ class CustomerProfilesList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -679,14 +631,14 @@ class CustomerProfilesList(ListResource):
         policy_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CustomerProfilesInstance]:
         """
         Asynchronously streams CustomerProfilesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -697,7 +649,6 @@ class CustomerProfilesList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -716,13 +667,13 @@ class CustomerProfilesList(ListResource):
         policy_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CustomerProfilesInstance]:
         """
         Lists CustomerProfilesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -733,7 +684,6 @@ class CustomerProfilesList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
         """
         return list(
             self.stream(
@@ -752,13 +702,13 @@ class CustomerProfilesList(ListResource):
         policy_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CustomerProfilesInstance]:
         """
         Asynchronously lists CustomerProfilesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -769,7 +719,6 @@ class CustomerProfilesList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
         """
         return list(
             await self.stream_async(
@@ -789,12 +738,12 @@ class CustomerProfilesList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CustomerProfilesPage:
         """
         Retrieve a single page of CustomerProfilesInstance records from the API.
         Request is executed immediately
 
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param str page_token: PageToken provided by the API
@@ -802,7 +751,6 @@ class CustomerProfilesList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
         """
         data = values.of(
             {
@@ -826,12 +774,12 @@ class CustomerProfilesList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CustomerProfilesPage:
         """
         Asynchronously retrieve a single page of CustomerProfilesInstance records from the API.
         Request is executed immediately
 
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param str page_token: PageToken provided by the API
@@ -839,7 +787,6 @@ class CustomerProfilesList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
         """
         data = values.of(
             {
@@ -857,7 +804,7 @@ class CustomerProfilesList(ListResource):
         )
         return CustomerProfilesPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CustomerProfilesPage:
         """
         Retrieve a specific page of CustomerProfilesInstance records from the API.
         Request is executed immediately
@@ -865,12 +812,11 @@ class CustomerProfilesList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CustomerProfilesPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CustomerProfilesPage:
         """
         Asynchronously retrieve a specific page of CustomerProfilesInstance records from the API.
         Request is executed immediately
@@ -878,38 +824,30 @@ class CustomerProfilesList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CustomerProfilesPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> CustomerProfilesContext:
         """
         Constructs a CustomerProfilesContext
 
         :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
         """
         return CustomerProfilesContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> CustomerProfilesContext:
         """
         Constructs a CustomerProfilesContext
 
         :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
         """
         return CustomerProfilesContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub.V1.CustomerProfilesList>"

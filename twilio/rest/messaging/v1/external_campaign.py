@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -24,9 +25,6 @@ class ExternalCampaignInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the ExternalCampaignInstance
-
-        :returns: twilio.rest.messaging.v1.external_campaign.ExternalCampaignInstance
-        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignInstance
         """
         super().__init__(version)
 
@@ -41,51 +39,45 @@ class ExternalCampaignInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def campaign_id(self):
+    def campaign_id(self) -> str:
         """
         :returns: ID of the preregistered campaign.
-        :rtype: str
         """
         return self._properties["campaign_id"]
 
     @property
-    def messaging_service_sid(self):
+    def messaging_service_sid(self) -> str:
         """
         :returns: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
-        :rtype: str
         """
         return self._properties["messaging_service_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.ExternalCampaignInstance {}>".format(context)
@@ -96,16 +88,14 @@ class ExternalCampaignList(ListResource):
         """
         Initialize the ExternalCampaignList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.messaging.v1.external_campaign.ExternalCampaignList
-        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignList
         """
         super().__init__(version)
 
         self._uri = "/Services/PreregisteredUsa2p"
 
-    def create(self, campaign_id, messaging_service_sid):
+    def create(self, campaign_id, messaging_service_sid) -> ExternalCampaignInstance:
         """
         Create the ExternalCampaignInstance
 
@@ -113,7 +103,6 @@ class ExternalCampaignList(ListResource):
         :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
 
         :returns: The created ExternalCampaignInstance
-        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignInstance
         """
         data = values.of(
             {
@@ -130,7 +119,9 @@ class ExternalCampaignList(ListResource):
 
         return ExternalCampaignInstance(self._version, payload)
 
-    async def create_async(self, campaign_id, messaging_service_sid):
+    async def create_async(
+        self, campaign_id, messaging_service_sid
+    ) -> ExternalCampaignInstance:
         """
         Asynchronously create the ExternalCampaignInstance
 
@@ -138,7 +129,6 @@ class ExternalCampaignList(ListResource):
         :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
 
         :returns: The created ExternalCampaignInstance
-        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignInstance
         """
         data = values.of(
             {
@@ -155,11 +145,10 @@ class ExternalCampaignList(ListResource):
 
         return ExternalCampaignInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.ExternalCampaignList>"

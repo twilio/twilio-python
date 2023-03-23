@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import date, datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,9 +32,6 @@ class FeedbackSummaryInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the FeedbackSummaryInstance
-
-        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         super().__init__(version)
 
@@ -69,13 +67,12 @@ class FeedbackSummaryInstance(InstanceResource):
         self._context: Optional[FeedbackSummaryContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "FeedbackSummaryContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: FeedbackSummaryContext for this FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
         if self._context is None:
             self._context = FeedbackSummaryContext(
@@ -86,163 +83,144 @@ class FeedbackSummaryInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def call_count(self):
+    def call_count(self) -> int:
         """
         :returns: The total number of calls.
-        :rtype: int
         """
         return self._properties["call_count"]
 
     @property
-    def call_feedback_count(self):
+    def call_feedback_count(self) -> int:
         """
         :returns: The total number of calls with a feedback entry.
-        :rtype: int
         """
         return self._properties["call_feedback_count"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def end_date(self):
+    def end_date(self) -> date:
         """
         :returns: The last date for which feedback entries are included in this Feedback Summary, formatted as `YYYY-MM-DD` and specified in UTC.
-        :rtype: date
         """
         return self._properties["end_date"]
 
     @property
-    def include_subaccounts(self):
+    def include_subaccounts(self) -> bool:
         """
         :returns: Whether the feedback summary includes subaccounts; `true` if it does, otherwise `false`.
-        :rtype: bool
         """
         return self._properties["include_subaccounts"]
 
     @property
-    def issues(self):
+    def issues(self) -> List[object]:
         """
         :returns: A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
-        :rtype: List[object]
         """
         return self._properties["issues"]
 
     @property
-    def quality_score_average(self):
+    def quality_score_average(self) -> float:
         """
         :returns: The average QualityScore of the feedback entries.
-        :rtype: float
         """
         return self._properties["quality_score_average"]
 
     @property
-    def quality_score_median(self):
+    def quality_score_median(self) -> float:
         """
         :returns: The median QualityScore of the feedback entries.
-        :rtype: float
         """
         return self._properties["quality_score_median"]
 
     @property
-    def quality_score_standard_deviation(self):
+    def quality_score_standard_deviation(self) -> float:
         """
         :returns: The standard deviation of the quality scores.
-        :rtype: float
         """
         return self._properties["quality_score_standard_deviation"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def start_date(self):
+    def start_date(self) -> date:
         """
         :returns: The first date for which feedback entries are included in this feedback summary, formatted as `YYYY-MM-DD` and specified in UTC.
-        :rtype: date
         """
         return self._properties["start_date"]
 
     @property
-    def status(self):
+    def status(self) -> "FeedbackSummaryInstance.Status":
         """
         :returns:
-        :rtype: FeedbackSummaryInstance.Status
         """
         return self._properties["status"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the FeedbackSummaryInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FeedbackSummaryInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "FeedbackSummaryInstance":
         """
         Fetch the FeedbackSummaryInstance
 
 
         :returns: The fetched FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "FeedbackSummaryInstance":
         """
         Asynchronous coroutine to fetch the FeedbackSummaryInstance
 
 
         :returns: The fetched FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.FeedbackSummaryInstance {}>".format(context)
@@ -253,12 +231,9 @@ class FeedbackSummaryContext(InstanceContext):
         """
         Initialize the FeedbackSummaryContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
         super().__init__(version)
 
@@ -271,39 +246,36 @@ class FeedbackSummaryContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the FeedbackSummaryInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FeedbackSummaryInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> FeedbackSummaryInstance:
         """
         Fetch the FeedbackSummaryInstance
 
 
         :returns: The fetched FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
 
         payload = self._version.fetch(
@@ -318,13 +290,12 @@ class FeedbackSummaryContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> FeedbackSummaryInstance:
         """
         Asynchronous coroutine to fetch the FeedbackSummaryInstance
 
 
         :returns: The fetched FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
 
         payload = await self._version.fetch_async(
@@ -339,12 +310,11 @@ class FeedbackSummaryContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.FeedbackSummaryContext {}>".format(context)
@@ -355,11 +325,9 @@ class FeedbackSummaryList(ListResource):
         """
         Initialize the FeedbackSummaryList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 
-        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
         """
         super().__init__(version)
 
@@ -378,7 +346,7 @@ class FeedbackSummaryList(ListResource):
         include_subaccounts=values.unset,
         status_callback=values.unset,
         status_callback_method=values.unset,
-    ):
+    ) -> FeedbackSummaryInstance:
         """
         Create the FeedbackSummaryInstance
 
@@ -389,7 +357,6 @@ class FeedbackSummaryList(ListResource):
         :param str status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
 
         :returns: The created FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         data = values.of(
             {
@@ -418,7 +385,7 @@ class FeedbackSummaryList(ListResource):
         include_subaccounts=values.unset,
         status_callback=values.unset,
         status_callback_method=values.unset,
-    ):
+    ) -> FeedbackSummaryInstance:
         """
         Asynchronously create the FeedbackSummaryInstance
 
@@ -429,7 +396,6 @@ class FeedbackSummaryList(ListResource):
         :param str status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
 
         :returns: The created FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         data = values.of(
             {
@@ -451,37 +417,30 @@ class FeedbackSummaryList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def get(self, sid):
+    def get(self, sid) -> FeedbackSummaryContext:
         """
         Constructs a FeedbackSummaryContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
         return FeedbackSummaryContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> FeedbackSummaryContext:
         """
         Constructs a FeedbackSummaryContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
         return FeedbackSummaryContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.FeedbackSummaryList>"

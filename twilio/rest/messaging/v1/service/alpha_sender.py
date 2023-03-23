@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class AlphaSenderInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the AlphaSenderInstance
-
-        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
         super().__init__(version)
 
@@ -50,13 +48,12 @@ class AlphaSenderInstance(InstanceResource):
         self._context: Optional[AlphaSenderContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AlphaSenderContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AlphaSenderContext for this AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
         """
         if self._context is None:
             self._context = AlphaSenderContext(
@@ -67,115 +64,102 @@ class AlphaSenderInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the AlphaSender resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AlphaSender resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def alpha_sender(self):
+    def alpha_sender(self) -> str:
         """
         :returns: The Alphanumeric Sender ID string.
-        :rtype: str
         """
         return self._properties["alpha_sender"]
 
     @property
-    def capabilities(self):
+    def capabilities(self) -> List[str]:
         """
         :returns: An array of values that describe whether the number can receive calls or messages. Can be: `SMS`.
-        :rtype: List[str]
         """
         return self._properties["capabilities"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the AlphaSender resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AlphaSenderInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AlphaSenderInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "AlphaSenderInstance":
         """
         Fetch the AlphaSenderInstance
 
 
         :returns: The fetched AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AlphaSenderInstance":
         """
         Asynchronous coroutine to fetch the AlphaSenderInstance
 
 
         :returns: The fetched AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.AlphaSenderInstance {}>".format(context)
@@ -186,12 +170,9 @@ class AlphaSenderContext(InstanceContext):
         """
         Initialize the AlphaSenderContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
         :param sid: The SID of the AlphaSender resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
         """
         super().__init__(version)
 
@@ -204,39 +185,36 @@ class AlphaSenderContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AlphaSenderInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AlphaSenderInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> AlphaSenderInstance:
         """
         Fetch the AlphaSenderInstance
 
 
         :returns: The fetched AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
 
         payload = self._version.fetch(
@@ -251,13 +229,12 @@ class AlphaSenderContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AlphaSenderInstance:
         """
         Asynchronous coroutine to fetch the AlphaSenderInstance
 
 
         :returns: The fetched AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
 
         payload = await self._version.fetch_async(
@@ -272,26 +249,22 @@ class AlphaSenderContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.AlphaSenderContext {}>".format(context)
 
 
 class AlphaSenderPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AlphaSenderInstance:
         """
         Build an instance of AlphaSenderInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
         return AlphaSenderInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -311,11 +284,9 @@ class AlphaSenderList(ListResource):
         """
         Initialize the AlphaSenderList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
 
-        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderList
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderList
         """
         super().__init__(version)
 
@@ -325,14 +296,13 @@ class AlphaSenderList(ListResource):
         }
         self._uri = "/Services/{service_sid}/AlphaSenders".format(**self._solution)
 
-    def create(self, alpha_sender):
+    def create(self, alpha_sender) -> AlphaSenderInstance:
         """
         Create the AlphaSenderInstance
 
         :param str alpha_sender: The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers.
 
         :returns: The created AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
         data = values.of(
             {
@@ -350,14 +320,13 @@ class AlphaSenderList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    async def create_async(self, alpha_sender):
+    async def create_async(self, alpha_sender) -> AlphaSenderInstance:
         """
         Asynchronously create the AlphaSenderInstance
 
         :param str alpha_sender: The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers.
 
         :returns: The created AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
         data = values.of(
             {
@@ -375,7 +344,7 @@ class AlphaSenderList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[AlphaSenderInstance]:
         """
         Streams AlphaSenderInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -390,14 +359,15 @@ class AlphaSenderList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[AlphaSenderInstance]:
         """
         Asynchronously streams AlphaSenderInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -412,14 +382,13 @@ class AlphaSenderList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[AlphaSenderInstance]:
         """
         Lists AlphaSenderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -433,7 +402,6 @@ class AlphaSenderList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance]
         """
         return list(
             self.stream(
@@ -442,7 +410,7 @@ class AlphaSenderList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[AlphaSenderInstance]:
         """
         Asynchronously lists AlphaSenderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -456,7 +424,6 @@ class AlphaSenderList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance]
         """
         return list(
             await self.stream_async(
@@ -467,7 +434,7 @@ class AlphaSenderList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AlphaSenderPage:
         """
         Retrieve a single page of AlphaSenderInstance records from the API.
         Request is executed immediately
@@ -477,7 +444,6 @@ class AlphaSenderList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
         """
         data = values.of(
             {
@@ -492,7 +458,7 @@ class AlphaSenderList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AlphaSenderPage:
         """
         Asynchronously retrieve a single page of AlphaSenderInstance records from the API.
         Request is executed immediately
@@ -502,7 +468,6 @@ class AlphaSenderList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
         """
         data = values.of(
             {
@@ -517,7 +482,7 @@ class AlphaSenderList(ListResource):
         )
         return AlphaSenderPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AlphaSenderPage:
         """
         Retrieve a specific page of AlphaSenderInstance records from the API.
         Request is executed immediately
@@ -525,12 +490,11 @@ class AlphaSenderList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AlphaSenderPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AlphaSenderPage:
         """
         Asynchronously retrieve a specific page of AlphaSenderInstance records from the API.
         Request is executed immediately
@@ -538,42 +502,34 @@ class AlphaSenderList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AlphaSenderPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> AlphaSenderContext:
         """
         Constructs a AlphaSenderContext
 
         :param sid: The SID of the AlphaSender resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
         """
         return AlphaSenderContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> AlphaSenderContext:
         """
         Constructs a AlphaSenderContext
 
         :param sid: The SID of the AlphaSender resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
         """
         return AlphaSenderContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.AlphaSenderList>"

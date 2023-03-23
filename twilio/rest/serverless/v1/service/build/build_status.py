@@ -31,9 +31,6 @@ class BuildStatusInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: str):
         """
         Initialize the BuildStatusInstance
-
-        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
         """
         super().__init__(version)
 
@@ -49,85 +46,76 @@ class BuildStatusInstance(InstanceResource):
         self._context: Optional[BuildStatusContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> 'BuildStatusContext':
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: BuildStatusContext for this BuildStatusInstance
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
         """
         if self._context is None:
             self._context = BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
         return self._context
     
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Build resource.
-        :rtype: str
         """
         return self._properties['sid']
     
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
-        :rtype: str
         """
         return self._properties['account_sid']
     
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the Service that the Build resource is associated with.
-        :rtype: str
         """
         return self._properties['service_sid']
     
     @property
-    def status(self):
+    def status(self) -> "BuildStatusInstance.Status":
         """
         :returns: 
-        :rtype: BuildStatusInstance.Status
         """
         return self._properties['status']
     
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Build Status resource.
-        :rtype: str
         """
         return self._properties['url']
     
     
-    def fetch(self):
+    def fetch(self) -> "BuildStatusInstance":
         """
         Fetch the BuildStatusInstance
         
 
         :returns: The fetched BuildStatusInstance
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "BuildStatusInstance":
         """
         Asynchronous coroutine to fetch the BuildStatusInstance
         
 
         :returns: The fetched BuildStatusInstance
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
         """
         return await self._proxy.fetch_async()
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.BuildStatusInstance {}>'.format(context)
@@ -138,12 +126,9 @@ class BuildStatusContext(InstanceContext):
         """
         Initialize the BuildStatusContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Build resource from.
         :param sid: The SID of the Build resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
         """
         super().__init__(version)
 
@@ -157,13 +142,12 @@ class BuildStatusContext(InstanceContext):
         
     
     
-    def fetch(self):
+    def fetch(self) -> BuildStatusInstance:
         """
         Fetch the BuildStatusInstance
         
 
         :returns: The fetched BuildStatusInstance
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
         """
         
         payload = self._version.fetch(method='GET', uri=self._uri, )
@@ -176,13 +160,12 @@ class BuildStatusContext(InstanceContext):
             
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> BuildStatusInstance:
         """
         Asynchronous coroutine to fetch the BuildStatusInstance
         
 
         :returns: The fetched BuildStatusInstance
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
         """
         
         payload = await self._version.fetch_async(method='GET', uri=self._uri, )
@@ -196,12 +179,11 @@ class BuildStatusContext(InstanceContext):
         )
     
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.BuildStatusContext {}>'.format(context)
@@ -214,12 +196,10 @@ class BuildStatusList(ListResource):
         """
         Initialize the BuildStatusList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Build resource from.
         :param sid: The SID of the Build resource to fetch.
         
-        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
         """
         super().__init__(version)
 
@@ -230,32 +210,25 @@ class BuildStatusList(ListResource):
         
         
 
-    def get(self):
+    def get(self) -> BuildStatusContext:
         """
         Constructs a BuildStatusContext
         
-
-        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
         """
         return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
 
-    def __call__(self):
+    def __call__(self) -> BuildStatusContext:
         """
         Constructs a BuildStatusContext
         
-
-        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
         """
         return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return '<Twilio.Serverless.V1.BuildStatusList>'
 

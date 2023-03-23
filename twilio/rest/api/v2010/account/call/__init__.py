@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -50,9 +51,6 @@ class CallInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the CallInstance
-
-        :returns: twilio.rest.api.v2010.account.call.CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         super().__init__(version)
 
@@ -92,13 +90,12 @@ class CallInstance(InstanceResource):
         self._context: Optional[CallContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CallContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CallContext for this CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
         if self._context is None:
             self._context = CallContext(
@@ -109,250 +106,220 @@ class CallInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify this Call resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def parent_call_sid(self):
+    def parent_call_sid(self) -> str:
         """
         :returns: The SID that identifies the call that created this leg.
-        :rtype: str
         """
         return self._properties["parent_call_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Call resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def to(self):
+    def to(self) -> str:
         """
         :returns: The phone number, SIP address, Client identifier or SIM SID that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`. SIM SIDs are formatted as `sim:sid`.
-        :rtype: str
         """
         return self._properties["to"]
 
     @property
-    def to_formatted(self):
+    def to_formatted(self) -> str:
         """
         :returns: The phone number, SIP address or Client identifier that received this call. Formatted for display. Non-North American phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +442071838750).
-        :rtype: str
         """
         return self._properties["to_formatted"]
 
     @property
-    def _from(self):
+    def _from(self) -> str:
         """
         :returns: The phone number, SIP address, Client identifier or SIM SID that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`. SIM SIDs are formatted as `sim:sid`.
-        :rtype: str
         """
         return self._properties["_from"]
 
     @property
-    def from_formatted(self):
+    def from_formatted(self) -> str:
         """
         :returns: The calling phone number, SIP address, or Client identifier formatted for display. Non-North American phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +442071838750).
-        :rtype: str
         """
         return self._properties["from_formatted"]
 
     @property
-    def phone_number_sid(self):
+    def phone_number_sid(self) -> str:
         """
         :returns: If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
-        :rtype: str
         """
         return self._properties["phone_number_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "CallInstance.Status":
         """
         :returns:
-        :rtype: CallInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def start_time(self):
+    def start_time(self) -> datetime:
         """
         :returns: The start time of the call, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call has not yet been dialed.
-        :rtype: datetime
         """
         return self._properties["start_time"]
 
     @property
-    def end_time(self):
+    def end_time(self) -> datetime:
         """
         :returns: The time the call ended, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call did not complete successfully.
-        :rtype: datetime
         """
         return self._properties["end_time"]
 
     @property
-    def duration(self):
+    def duration(self) -> str:
         """
         :returns: The length of the call in seconds. This value is empty for busy, failed, unanswered, or ongoing calls.
-        :rtype: str
         """
         return self._properties["duration"]
 
     @property
-    def price(self):
+    def price(self) -> str:
         """
         :returns: The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
-        :rtype: str
         """
         return self._properties["price"]
 
     @property
-    def price_unit(self):
+    def price_unit(self) -> str:
         """
         :returns: The currency in which `Price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g., `USD`, `EUR`, `JPY`). Always capitalized for calls.
-        :rtype: str
         """
         return self._properties["price_unit"]
 
     @property
-    def direction(self):
+    def direction(self) -> str:
         """
         :returns: A string describing the direction of the call. Can be: `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `<Dial>` verb. Using [Elastic SIP Trunking](https://www.twilio.com/docs/sip-trunking), the values can be [`trunking-terminating`](https://www.twilio.com/docs/sip-trunking#termination) for outgoing calls from your communications infrastructure to the PSTN or [`trunking-originating`](https://www.twilio.com/docs/sip-trunking#origination) for incoming calls to your communications infrastructure from the PSTN.
-        :rtype: str
         """
         return self._properties["direction"]
 
     @property
-    def answered_by(self):
+    def answered_by(self) -> str:
         """
         :returns: Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
-        :rtype: str
         """
         return self._properties["answered_by"]
 
     @property
-    def api_version(self):
+    def api_version(self) -> str:
         """
         :returns: The API version used to create the call.
-        :rtype: str
         """
         return self._properties["api_version"]
 
     @property
-    def forwarded_from(self):
+    def forwarded_from(self) -> str:
         """
         :returns: The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty.
-        :rtype: str
         """
         return self._properties["forwarded_from"]
 
     @property
-    def group_sid(self):
+    def group_sid(self) -> str:
         """
         :returns: The Group SID associated with this call. If no Group is associated with the call, the field is empty.
-        :rtype: str
         """
         return self._properties["group_sid"]
 
     @property
-    def caller_name(self):
+    def caller_name(self) -> str:
         """
         :returns: The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty.
-        :rtype: str
         """
         return self._properties["caller_name"]
 
     @property
-    def queue_time(self):
+    def queue_time(self) -> str:
         """
         :returns: The wait time in milliseconds before the call is placed.
-        :rtype: str
         """
         return self._properties["queue_time"]
 
     @property
-    def trunk_sid(self):
+    def trunk_sid(self) -> str:
         """
         :returns: The unique identifier of the trunk resource that was used for this call. The field is empty if the call was not made using a SIP trunk or if the call is not terminated.
-        :rtype: str
         """
         return self._properties["trunk_sid"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of this resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
     @property
-    def subresource_uris(self):
+    def subresource_uris(self) -> dict:
         """
         :returns: A list of subresources available to this call, identified by their URIs relative to `https://api.twilio.com`.
-        :rtype: dict
         """
         return self._properties["subresource_uris"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CallInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CallInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "CallInstance":
         """
         Fetch the CallInstance
 
 
         :returns: The fetched CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CallInstance":
         """
         Asynchronous coroutine to fetch the CallInstance
 
 
         :returns: The fetched CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return await self._proxy.fetch_async()
 
@@ -367,13 +334,13 @@ class CallInstance(InstanceResource):
         status_callback_method=values.unset,
         twiml=values.unset,
         time_limit=values.unset,
-    ):
+    ) -> "CallInstance":
         """
         Update the CallInstance
 
         :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param CallInstance.UpdateStatus status:
+        :param "CallInstance.UpdateStatus" status:
         :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
         :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -382,7 +349,6 @@ class CallInstance(InstanceResource):
         :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
 
         :returns: The updated CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return self._proxy.update(
             url=url,
@@ -407,13 +373,13 @@ class CallInstance(InstanceResource):
         status_callback_method=values.unset,
         twiml=values.unset,
         time_limit=values.unset,
-    ):
+    ) -> "CallInstance":
         """
         Asynchronous coroutine to update the CallInstance
 
         :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param CallInstance.UpdateStatus status:
+        :param "CallInstance.UpdateStatus" status:
         :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
         :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -422,7 +388,6 @@ class CallInstance(InstanceResource):
         :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
 
         :returns: The updated CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return await self._proxy.update_async(
             url=url,
@@ -437,101 +402,73 @@ class CallInstance(InstanceResource):
         )
 
     @property
-    def events(self):
+    def events(self) -> EventList:
         """
         Access the events
-
-        :returns: twilio.rest.api.v2010.account.call.EventList
-        :rtype: twilio.rest.api.v2010.account.call.EventList
         """
         return self._proxy.events
 
     @property
-    def feedback(self):
+    def feedback(self) -> FeedbackList:
         """
         Access the feedback
-
-        :returns: twilio.rest.api.v2010.account.call.FeedbackList
-        :rtype: twilio.rest.api.v2010.account.call.FeedbackList
         """
         return self._proxy.feedback
 
     @property
-    def notifications(self):
+    def notifications(self) -> NotificationList:
         """
         Access the notifications
-
-        :returns: twilio.rest.api.v2010.account.call.NotificationList
-        :rtype: twilio.rest.api.v2010.account.call.NotificationList
         """
         return self._proxy.notifications
 
     @property
-    def payments(self):
+    def payments(self) -> PaymentList:
         """
         Access the payments
-
-        :returns: twilio.rest.api.v2010.account.call.PaymentList
-        :rtype: twilio.rest.api.v2010.account.call.PaymentList
         """
         return self._proxy.payments
 
     @property
-    def recordings(self):
+    def recordings(self) -> RecordingList:
         """
         Access the recordings
-
-        :returns: twilio.rest.api.v2010.account.call.RecordingList
-        :rtype: twilio.rest.api.v2010.account.call.RecordingList
         """
         return self._proxy.recordings
 
     @property
-    def siprec(self):
+    def siprec(self) -> SiprecList:
         """
         Access the siprec
-
-        :returns: twilio.rest.api.v2010.account.call.SiprecList
-        :rtype: twilio.rest.api.v2010.account.call.SiprecList
         """
         return self._proxy.siprec
 
     @property
-    def streams(self):
+    def streams(self) -> StreamList:
         """
         Access the streams
-
-        :returns: twilio.rest.api.v2010.account.call.StreamList
-        :rtype: twilio.rest.api.v2010.account.call.StreamList
         """
         return self._proxy.streams
 
     @property
-    def user_defined_messages(self):
+    def user_defined_messages(self) -> UserDefinedMessageList:
         """
         Access the user_defined_messages
-
-        :returns: twilio.rest.api.v2010.account.call.UserDefinedMessageList
-        :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageList
         """
         return self._proxy.user_defined_messages
 
     @property
-    def user_defined_message_subscriptions(self):
+    def user_defined_message_subscriptions(self) -> UserDefinedMessageSubscriptionList:
         """
         Access the user_defined_message_subscriptions
-
-        :returns: twilio.rest.api.v2010.account.call.UserDefinedMessageSubscriptionList
-        :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageSubscriptionList
         """
         return self._proxy.user_defined_message_subscriptions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.CallInstance {}>".format(context)
@@ -542,12 +479,9 @@ class CallContext(InstanceContext):
         """
         Initialize the CallContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.
         :param sid: The Twilio-provided string that uniquely identifies the Call resource to update
-
-        :returns: twilio.rest.api.v2010.account.call.CallContext
-        :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
         super().__init__(version)
 
@@ -570,39 +504,36 @@ class CallContext(InstanceContext):
             UserDefinedMessageSubscriptionList
         ] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CallInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CallInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> CallInstance:
         """
         Fetch the CallInstance
 
 
         :returns: The fetched CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
 
         payload = self._version.fetch(
@@ -617,13 +548,12 @@ class CallContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CallInstance:
         """
         Asynchronous coroutine to fetch the CallInstance
 
 
         :returns: The fetched CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
 
         payload = await self._version.fetch_async(
@@ -649,13 +579,13 @@ class CallContext(InstanceContext):
         status_callback_method=values.unset,
         twiml=values.unset,
         time_limit=values.unset,
-    ):
+    ) -> CallInstance:
         """
         Update the CallInstance
 
         :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param CallInstance.UpdateStatus status:
+        :param "CallInstance.UpdateStatus" status:
         :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
         :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -664,7 +594,6 @@ class CallContext(InstanceContext):
         :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
 
         :returns: The updated CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         data = values.of(
             {
@@ -704,13 +633,13 @@ class CallContext(InstanceContext):
         status_callback_method=values.unset,
         twiml=values.unset,
         time_limit=values.unset,
-    ):
+    ) -> CallInstance:
         """
         Asynchronous coroutine to update the CallInstance
 
         :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param CallInstance.UpdateStatus status:
+        :param "CallInstance.UpdateStatus" status:
         :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
         :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -719,7 +648,6 @@ class CallContext(InstanceContext):
         :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
 
         :returns: The updated CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         data = values.of(
             {
@@ -749,12 +677,9 @@ class CallContext(InstanceContext):
         )
 
     @property
-    def events(self):
+    def events(self) -> EventList:
         """
         Access the events
-
-        :returns: twilio.rest.api.v2010.account.call.EventList
-        :rtype: twilio.rest.api.v2010.account.call.EventList
         """
         if self._events is None:
             self._events = EventList(
@@ -765,12 +690,9 @@ class CallContext(InstanceContext):
         return self._events
 
     @property
-    def feedback(self):
+    def feedback(self) -> FeedbackList:
         """
         Access the feedback
-
-        :returns: twilio.rest.api.v2010.account.call.FeedbackList
-        :rtype: twilio.rest.api.v2010.account.call.FeedbackList
         """
         if self._feedback is None:
             self._feedback = FeedbackList(
@@ -781,12 +703,9 @@ class CallContext(InstanceContext):
         return self._feedback
 
     @property
-    def notifications(self):
+    def notifications(self) -> NotificationList:
         """
         Access the notifications
-
-        :returns: twilio.rest.api.v2010.account.call.NotificationList
-        :rtype: twilio.rest.api.v2010.account.call.NotificationList
         """
         if self._notifications is None:
             self._notifications = NotificationList(
@@ -797,12 +716,9 @@ class CallContext(InstanceContext):
         return self._notifications
 
     @property
-    def payments(self):
+    def payments(self) -> PaymentList:
         """
         Access the payments
-
-        :returns: twilio.rest.api.v2010.account.call.PaymentList
-        :rtype: twilio.rest.api.v2010.account.call.PaymentList
         """
         if self._payments is None:
             self._payments = PaymentList(
@@ -813,12 +729,9 @@ class CallContext(InstanceContext):
         return self._payments
 
     @property
-    def recordings(self):
+    def recordings(self) -> RecordingList:
         """
         Access the recordings
-
-        :returns: twilio.rest.api.v2010.account.call.RecordingList
-        :rtype: twilio.rest.api.v2010.account.call.RecordingList
         """
         if self._recordings is None:
             self._recordings = RecordingList(
@@ -829,12 +742,9 @@ class CallContext(InstanceContext):
         return self._recordings
 
     @property
-    def siprec(self):
+    def siprec(self) -> SiprecList:
         """
         Access the siprec
-
-        :returns: twilio.rest.api.v2010.account.call.SiprecList
-        :rtype: twilio.rest.api.v2010.account.call.SiprecList
         """
         if self._siprec is None:
             self._siprec = SiprecList(
@@ -845,12 +755,9 @@ class CallContext(InstanceContext):
         return self._siprec
 
     @property
-    def streams(self):
+    def streams(self) -> StreamList:
         """
         Access the streams
-
-        :returns: twilio.rest.api.v2010.account.call.StreamList
-        :rtype: twilio.rest.api.v2010.account.call.StreamList
         """
         if self._streams is None:
             self._streams = StreamList(
@@ -861,12 +768,9 @@ class CallContext(InstanceContext):
         return self._streams
 
     @property
-    def user_defined_messages(self):
+    def user_defined_messages(self) -> UserDefinedMessageList:
         """
         Access the user_defined_messages
-
-        :returns: twilio.rest.api.v2010.account.call.UserDefinedMessageList
-        :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageList
         """
         if self._user_defined_messages is None:
             self._user_defined_messages = UserDefinedMessageList(
@@ -877,12 +781,9 @@ class CallContext(InstanceContext):
         return self._user_defined_messages
 
     @property
-    def user_defined_message_subscriptions(self):
+    def user_defined_message_subscriptions(self) -> UserDefinedMessageSubscriptionList:
         """
         Access the user_defined_message_subscriptions
-
-        :returns: twilio.rest.api.v2010.account.call.UserDefinedMessageSubscriptionList
-        :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageSubscriptionList
         """
         if self._user_defined_message_subscriptions is None:
             self._user_defined_message_subscriptions = (
@@ -894,26 +795,22 @@ class CallContext(InstanceContext):
             )
         return self._user_defined_message_subscriptions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.CallContext {}>".format(context)
 
 
 class CallPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CallInstance:
         """
         Build an instance of CallInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.call.CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return CallInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -933,11 +830,9 @@ class CallList(ListResource):
         """
         Initialize the CallList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read.
 
-        :returns: twilio.rest.api.v2010.account.call.CallList
-        :rtype: twilio.rest.api.v2010.account.call.CallList
         """
         super().__init__(version)
 
@@ -986,7 +881,7 @@ class CallList(ListResource):
         url=values.unset,
         twiml=values.unset,
         application_sid=values.unset,
-    ):
+    ) -> CallInstance:
         """
         Create the CallInstance
 
@@ -1027,7 +922,6 @@ class CallList(ListResource):
         :param str application_sid: The SID of the Application resource that will handle the call, if the call will be handled by an application.
 
         :returns: The created CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         data = values.of(
             {
@@ -1120,7 +1014,7 @@ class CallList(ListResource):
         url=values.unset,
         twiml=values.unset,
         application_sid=values.unset,
-    ):
+    ) -> CallInstance:
         """
         Asynchronously create the CallInstance
 
@@ -1161,7 +1055,6 @@ class CallList(ListResource):
         :param str application_sid: The SID of the Application resource that will handle the call, if the call will be handled by an application.
 
         :returns: The created CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         data = values.of(
             {
@@ -1231,7 +1124,7 @@ class CallList(ListResource):
         end_time_after=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CallInstance]:
         """
         Streams CallInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -1241,7 +1134,7 @@ class CallList(ListResource):
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
-        :param CallInstance.Status status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+        :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
@@ -1256,7 +1149,6 @@ class CallList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.call.CallInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -1289,7 +1181,7 @@ class CallList(ListResource):
         end_time_after=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CallInstance]:
         """
         Asynchronously streams CallInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -1299,7 +1191,7 @@ class CallList(ListResource):
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
-        :param CallInstance.Status status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+        :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
@@ -1314,7 +1206,6 @@ class CallList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.call.CallInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -1347,7 +1238,7 @@ class CallList(ListResource):
         end_time_after=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CallInstance]:
         """
         Lists CallInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -1356,7 +1247,7 @@ class CallList(ListResource):
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
-        :param CallInstance.Status status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+        :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
@@ -1371,7 +1262,6 @@ class CallList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.call.CallInstance]
         """
         return list(
             self.stream(
@@ -1404,7 +1294,7 @@ class CallList(ListResource):
         end_time_after=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CallInstance]:
         """
         Asynchronously lists CallInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -1413,7 +1303,7 @@ class CallList(ListResource):
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
-        :param CallInstance.Status status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+        :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
@@ -1428,7 +1318,6 @@ class CallList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.call.CallInstance]
         """
         return list(
             await self.stream_async(
@@ -1462,7 +1351,7 @@ class CallList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CallPage:
         """
         Retrieve a single page of CallInstance records from the API.
         Request is executed immediately
@@ -1470,7 +1359,7 @@ class CallList(ListResource):
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
-        :param CallInstance.Status status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+        :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
@@ -1482,7 +1371,6 @@ class CallList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallPage
         """
         data = values.of(
             {
@@ -1520,7 +1408,7 @@ class CallList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CallPage:
         """
         Asynchronously retrieve a single page of CallInstance records from the API.
         Request is executed immediately
@@ -1528,7 +1416,7 @@ class CallList(ListResource):
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
-        :param CallInstance.Status status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+        :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
@@ -1540,7 +1428,6 @@ class CallList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallPage
         """
         data = values.of(
             {
@@ -1565,7 +1452,7 @@ class CallList(ListResource):
         )
         return CallPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CallPage:
         """
         Retrieve a specific page of CallInstance records from the API.
         Request is executed immediately
@@ -1573,12 +1460,11 @@ class CallList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CallPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CallPage:
         """
         Asynchronously retrieve a specific page of CallInstance records from the API.
         Request is executed immediately
@@ -1586,18 +1472,14 @@ class CallList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CallPage(self._version, response, self._solution)
 
     @property
-    def feedback_summaries(self):
+    def feedback_summaries(self) -> FeedbackSummaryList:
         """
         Access the feedback_summaries
-
-        :returns: twilio.rest.api.v2010.account.call.FeedbackSummaryList
-        :rtype: twilio.rest.api.v2010.account.call.FeedbackSummaryList
         """
         if self._feedback_summaries is None:
             self._feedback_summaries = FeedbackSummaryList(
@@ -1605,37 +1487,30 @@ class CallList(ListResource):
             )
         return self._feedback_summaries
 
-    def get(self, sid):
+    def get(self, sid) -> CallContext:
         """
         Constructs a CallContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Call resource to update
-
-        :returns: twilio.rest.api.v2010.account.call.CallContext
-        :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
         return CallContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> CallContext:
         """
         Constructs a CallContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Call resource to update
-
-        :returns: twilio.rest.api.v2010.account.call.CallContext
-        :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
         return CallContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.CallList>"

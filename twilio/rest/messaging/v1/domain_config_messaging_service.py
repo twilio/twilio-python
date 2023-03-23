@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize
 from twilio.base.instance_context import InstanceContext
@@ -25,9 +26,6 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
     def __init__(self, version, payload, messaging_service_sid: Optional[str] = None):
         """
         Initialize the DomainConfigMessagingServiceInstance
-
-        :returns: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceInstance
         """
         super().__init__(version)
 
@@ -49,13 +47,12 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
         self._context: Optional[DomainConfigMessagingServiceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DomainConfigMessagingServiceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DomainConfigMessagingServiceContext for this DomainConfigMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceContext
         """
         if self._context is None:
             self._context = DomainConfigMessagingServiceContext(
@@ -65,95 +62,84 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def domain_sid(self):
+    def domain_sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Domain resource.
-        :rtype: str
         """
         return self._properties["domain_sid"]
 
     @property
-    def config_sid(self):
+    def config_sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Domain config (prefix ZK).
-        :rtype: str
         """
         return self._properties["config_sid"]
 
     @property
-    def messaging_service_sid(self):
+    def messaging_service_sid(self) -> str:
         """
         :returns: The unique string that identifies the messaging service
-        :rtype: str
         """
         return self._properties["messaging_service_sid"]
 
     @property
-    def fallback_url(self):
+    def fallback_url(self) -> str:
         """
         :returns: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
-        :rtype: str
         """
         return self._properties["fallback_url"]
 
     @property
-    def callback_url(self):
+    def callback_url(self) -> str:
         """
         :returns: URL to receive click events to your webhook whenever the recipients click on the shortened links.
-        :rtype: str
         """
         return self._properties["callback_url"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: Date this Domain Config was created.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: Date that this Domain Config was last updated.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "DomainConfigMessagingServiceInstance":
         """
         Fetch the DomainConfigMessagingServiceInstance
 
 
         :returns: The fetched DomainConfigMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "DomainConfigMessagingServiceInstance":
         """
         Asynchronous coroutine to fetch the DomainConfigMessagingServiceInstance
 
 
         :returns: The fetched DomainConfigMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.DomainConfigMessagingServiceInstance {}>".format(
@@ -166,11 +152,8 @@ class DomainConfigMessagingServiceContext(InstanceContext):
         """
         Initialize the DomainConfigMessagingServiceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param messaging_service_sid: Unique string used to identify the Messaging service that this domain should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceContext
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceContext
         """
         super().__init__(version)
 
@@ -182,13 +165,12 @@ class DomainConfigMessagingServiceContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> DomainConfigMessagingServiceInstance:
         """
         Fetch the DomainConfigMessagingServiceInstance
 
 
         :returns: The fetched DomainConfigMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceInstance
         """
 
         payload = self._version.fetch(
@@ -202,13 +184,12 @@ class DomainConfigMessagingServiceContext(InstanceContext):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> DomainConfigMessagingServiceInstance:
         """
         Asynchronous coroutine to fetch the DomainConfigMessagingServiceInstance
 
 
         :returns: The fetched DomainConfigMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -222,12 +203,11 @@ class DomainConfigMessagingServiceContext(InstanceContext):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.DomainConfigMessagingServiceContext {}>".format(
@@ -240,44 +220,35 @@ class DomainConfigMessagingServiceList(ListResource):
         """
         Initialize the DomainConfigMessagingServiceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceList
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceList
         """
         super().__init__(version)
 
-    def get(self, messaging_service_sid):
+    def get(self, messaging_service_sid) -> DomainConfigMessagingServiceContext:
         """
         Constructs a DomainConfigMessagingServiceContext
 
         :param messaging_service_sid: Unique string used to identify the Messaging service that this domain should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceContext
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceContext
         """
         return DomainConfigMessagingServiceContext(
             self._version, messaging_service_sid=messaging_service_sid
         )
 
-    def __call__(self, messaging_service_sid):
+    def __call__(self, messaging_service_sid) -> DomainConfigMessagingServiceContext:
         """
         Constructs a DomainConfigMessagingServiceContext
 
         :param messaging_service_sid: Unique string used to identify the Messaging service that this domain should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceContext
-        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceContext
         """
         return DomainConfigMessagingServiceContext(
             self._version, messaging_service_sid=messaging_service_sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.DomainConfigMessagingServiceList>"

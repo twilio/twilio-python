@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +26,6 @@ class InsightsConversationsInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the InsightsConversationsInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsInstance
         """
         super().__init__(version)
 
@@ -41,57 +39,49 @@ class InsightsConversationsInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def account_id(self):
+    def account_id(self) -> str:
         """
         :returns: The id of the account.
-        :rtype: str
         """
         return self._properties["account_id"]
 
     @property
-    def conversation_id(self):
+    def conversation_id(self) -> str:
         """
         :returns: The unique id of the conversation
-        :rtype: str
         """
         return self._properties["conversation_id"]
 
     @property
-    def segment_count(self):
+    def segment_count(self) -> int:
         """
         :returns: The count of segments for a conversation
-        :rtype: int
         """
         return self._properties["segment_count"]
 
     @property
-    def segments(self):
+    def segments(self) -> List[object]:
         """
         :returns: The Segments of a conversation
-        :rtype: List[object]
         """
         return self._properties["segments"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsConversationsInstance {}>".format(context)
 
 
 class InsightsConversationsPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> InsightsConversationsInstance:
         """
         Build an instance of InsightsConversationsInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsInstance
         """
         return InsightsConversationsInstance(self._version, payload)
 
@@ -109,10 +99,8 @@ class InsightsConversationsList(ListResource):
         """
         Initialize the InsightsConversationsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsList
-        :rtype: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsList
         """
         super().__init__(version)
 
@@ -120,7 +108,7 @@ class InsightsConversationsList(ListResource):
 
     def stream(
         self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[InsightsConversationsInstance]:
         """
         Streams InsightsConversationsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -137,7 +125,6 @@ class InsightsConversationsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -148,7 +135,7 @@ class InsightsConversationsList(ListResource):
 
     async def stream_async(
         self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[InsightsConversationsInstance]:
         """
         Asynchronously streams InsightsConversationsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -165,7 +152,6 @@ class InsightsConversationsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -176,7 +162,7 @@ class InsightsConversationsList(ListResource):
 
     def list(
         self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[InsightsConversationsInstance]:
         """
         Lists InsightsConversationsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -192,7 +178,6 @@ class InsightsConversationsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsInstance]
         """
         return list(
             self.stream(
@@ -205,7 +190,7 @@ class InsightsConversationsList(ListResource):
 
     async def list_async(
         self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[InsightsConversationsInstance]:
         """
         Asynchronously lists InsightsConversationsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -221,7 +206,6 @@ class InsightsConversationsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsInstance]
         """
         return list(
             await self.stream_async(
@@ -239,7 +223,7 @@ class InsightsConversationsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsConversationsPage:
         """
         Retrieve a single page of InsightsConversationsInstance records from the API.
         Request is executed immediately
@@ -251,7 +235,6 @@ class InsightsConversationsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsConversationsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsPage
         """
         data = values.of(
             {
@@ -273,7 +256,7 @@ class InsightsConversationsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsConversationsPage:
         """
         Asynchronously retrieve a single page of InsightsConversationsInstance records from the API.
         Request is executed immediately
@@ -285,7 +268,6 @@ class InsightsConversationsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsConversationsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsPage
         """
         data = values.of(
             {
@@ -302,7 +284,7 @@ class InsightsConversationsList(ListResource):
         )
         return InsightsConversationsPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> InsightsConversationsPage:
         """
         Retrieve a specific page of InsightsConversationsInstance records from the API.
         Request is executed immediately
@@ -310,12 +292,11 @@ class InsightsConversationsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsConversationsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsConversationsPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> InsightsConversationsPage:
         """
         Asynchronously retrieve a specific page of InsightsConversationsInstance records from the API.
         Request is executed immediately
@@ -323,16 +304,14 @@ class InsightsConversationsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsConversationsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsConversationsPage(self._version, response)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsConversationsList>"

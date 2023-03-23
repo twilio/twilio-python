@@ -31,9 +31,6 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the VerificationAttemptsSummaryInstance
-
-        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
         """
         super().__init__(version)
 
@@ -51,13 +48,12 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         self._context: Optional[VerificationAttemptsSummaryContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "VerificationAttemptsSummaryContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: VerificationAttemptsSummaryContext for this VerificationAttemptsSummaryInstance
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
         """
         if self._context is None:
             self._context = VerificationAttemptsSummaryContext(
@@ -66,42 +62,37 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         return self._context
 
     @property
-    def total_attempts(self):
+    def total_attempts(self) -> int:
         """
         :returns: Total of attempts made according to the provided filters
-        :rtype: int
         """
         return self._properties["total_attempts"]
 
     @property
-    def total_converted(self):
+    def total_converted(self) -> int:
         """
         :returns: Total of  attempts made that were confirmed by the end user, according to the provided filters.
-        :rtype: int
         """
         return self._properties["total_converted"]
 
     @property
-    def total_unconverted(self):
+    def total_unconverted(self) -> int:
         """
         :returns: Total of attempts made that were not confirmed by the end user, according to the provided filters.
-        :rtype: int
         """
         return self._properties["total_unconverted"]
 
     @property
-    def conversion_rate_percentage(self):
+    def conversion_rate_percentage(self) -> float:
         """
         :returns: Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100.
-        :rtype: float
         """
         return self._properties["conversion_rate_percentage"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
@@ -113,7 +104,7 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         country=values.unset,
         channel=values.unset,
         destination_prefix=values.unset,
-    ):
+    ) -> "VerificationAttemptsSummaryInstance":
         """
         Fetch the VerificationAttemptsSummaryInstance
 
@@ -121,11 +112,10 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :param str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param VerificationAttemptsSummaryInstance.Channels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param "VerificationAttemptsSummaryInstance.Channels" channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
         :param str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
         """
         return self._proxy.fetch(
             verify_service_sid=verify_service_sid,
@@ -144,7 +134,7 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         country=values.unset,
         channel=values.unset,
         destination_prefix=values.unset,
-    ):
+    ) -> "VerificationAttemptsSummaryInstance":
         """
         Asynchronous coroutine to fetch the VerificationAttemptsSummaryInstance
 
@@ -152,11 +142,10 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :param str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param VerificationAttemptsSummaryInstance.Channels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param "VerificationAttemptsSummaryInstance.Channels" channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
         :param str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
         """
         return await self._proxy.fetch_async(
             verify_service_sid=verify_service_sid,
@@ -167,12 +156,11 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
             destination_prefix=destination_prefix,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.VerificationAttemptsSummaryInstance {}>".format(
@@ -185,10 +173,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         """
         Initialize the VerificationAttemptsSummaryContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
@@ -202,7 +187,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         country=values.unset,
         channel=values.unset,
         destination_prefix=values.unset,
-    ):
+    ) -> VerificationAttemptsSummaryInstance:
         """
         Fetch the VerificationAttemptsSummaryInstance
 
@@ -210,11 +195,10 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :param str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param VerificationAttemptsSummaryInstance.Channels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param "VerificationAttemptsSummaryInstance.Channels" channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
         :param str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
         """
 
         data = values.of(
@@ -243,7 +227,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         country=values.unset,
         channel=values.unset,
         destination_prefix=values.unset,
-    ):
+    ) -> VerificationAttemptsSummaryInstance:
         """
         Asynchronous coroutine to fetch the VerificationAttemptsSummaryInstance
 
@@ -251,11 +235,10 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :param str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param VerificationAttemptsSummaryInstance.Channels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param "VerificationAttemptsSummaryInstance.Channels" channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
         :param str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
         """
 
         data = values.of(
@@ -278,12 +261,11 @@ class VerificationAttemptsSummaryContext(InstanceContext):
             payload,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.Verify.V2.VerificationAttemptsSummaryContext>"
@@ -294,38 +276,29 @@ class VerificationAttemptsSummaryList(ListResource):
         """
         Initialize the VerificationAttemptsSummaryList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
         """
         super().__init__(version)
 
-    def get(self):
+    def get(self) -> VerificationAttemptsSummaryContext:
         """
         Constructs a VerificationAttemptsSummaryContext
 
-
-        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
         """
         return VerificationAttemptsSummaryContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> VerificationAttemptsSummaryContext:
         """
         Constructs a VerificationAttemptsSummaryContext
 
-
-        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
         """
         return VerificationAttemptsSummaryContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.VerificationAttemptsSummaryList>"

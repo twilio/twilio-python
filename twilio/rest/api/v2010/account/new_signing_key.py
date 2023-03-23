@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -24,9 +25,6 @@ class NewSigningKeyInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str):
         """
         Initialize the NewSigningKeyInstance
-
-        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         """
         super().__init__(version)
 
@@ -43,51 +41,45 @@ class NewSigningKeyInstance(InstanceResource):
         }
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the NewSigningKey resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def secret(self):
+    def secret(self) -> str:
         """
         :returns: The secret your application uses to sign Access Tokens and to authenticate to the REST API (you will use this as the basic-auth `password`).  **Note that for security reasons, this field is ONLY returned when the API Key is first created.**
-        :rtype: str
         """
         return self._properties["secret"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.NewSigningKeyInstance {}>".format(context)
@@ -98,11 +90,9 @@ class NewSigningKeyList(ListResource):
         """
         Initialize the NewSigningKeyList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
 
-        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
-        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
         """
         super().__init__(version)
 
@@ -112,14 +102,13 @@ class NewSigningKeyList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/SigningKeys.json".format(**self._solution)
 
-    def create(self, friendly_name=values.unset):
+    def create(self, friendly_name=values.unset) -> NewSigningKeyInstance:
         """
         Create the NewSigningKeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The created NewSigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         """
         data = values.of(
             {
@@ -137,14 +126,13 @@ class NewSigningKeyList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    async def create_async(self, friendly_name=values.unset):
+    async def create_async(self, friendly_name=values.unset) -> NewSigningKeyInstance:
         """
         Asynchronously create the NewSigningKeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The created NewSigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         """
         data = values.of(
             {
@@ -162,11 +150,10 @@ class NewSigningKeyList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.NewSigningKeyList>"

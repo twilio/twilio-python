@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +34,6 @@ class SampleInstance(InstanceResource):
     ):
         """
         Initialize the SampleInstance
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         super().__init__(version)
 
@@ -60,13 +58,12 @@ class SampleInstance(InstanceResource):
         self._context: Optional[SampleContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SampleContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SampleContext for this SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         """
         if self._context is None:
             self._context = SampleContext(
@@ -78,122 +75,108 @@ class SampleInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sample resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def task_sid(self):
+    def task_sid(self) -> str:
         """
         :returns: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the resource.
-        :rtype: str
         """
         return self._properties["task_sid"]
 
     @property
-    def language(self):
+    def language(self) -> str:
         """
         :returns: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-        :rtype: str
         """
         return self._properties["language"]
 
     @property
-    def assistant_sid(self):
+    def assistant_sid(self) -> str:
         """
         :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
-        :rtype: str
         """
         return self._properties["assistant_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Sample resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def tagged_text(self):
+    def tagged_text(self) -> str:
         """
         :returns: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-        :rtype: str
         """
         return self._properties["tagged_text"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Sample resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def source_channel(self):
+    def source_channel(self) -> str:
         """
         :returns: The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
-        :rtype: str
         """
         return self._properties["source_channel"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SampleInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SampleInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "SampleInstance":
         """
         Fetch the SampleInstance
 
 
         :returns: The fetched SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SampleInstance":
         """
         Asynchronous coroutine to fetch the SampleInstance
 
 
         :returns: The fetched SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         return await self._proxy.fetch_async()
 
@@ -202,7 +185,7 @@ class SampleInstance(InstanceResource):
         language=values.unset,
         tagged_text=values.unset,
         source_channel=values.unset,
-    ):
+    ) -> "SampleInstance":
         """
         Update the SampleInstance
 
@@ -211,7 +194,6 @@ class SampleInstance(InstanceResource):
         :param str source_channel: The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
 
         :returns: The updated SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         return self._proxy.update(
             language=language,
@@ -224,7 +206,7 @@ class SampleInstance(InstanceResource):
         language=values.unset,
         tagged_text=values.unset,
         source_channel=values.unset,
-    ):
+    ) -> "SampleInstance":
         """
         Asynchronous coroutine to update the SampleInstance
 
@@ -233,7 +215,6 @@ class SampleInstance(InstanceResource):
         :param str source_channel: The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
 
         :returns: The updated SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         return await self._proxy.update_async(
             language=language,
@@ -241,12 +222,11 @@ class SampleInstance(InstanceResource):
             source_channel=source_channel,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.SampleInstance {}>".format(context)
@@ -257,13 +237,10 @@ class SampleContext(InstanceContext):
         """
         Initialize the SampleContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource to update.
         :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resource to update.
         :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         """
         super().__init__(version)
 
@@ -277,39 +254,36 @@ class SampleContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SampleInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SampleInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> SampleInstance:
         """
         Fetch the SampleInstance
 
 
         :returns: The fetched SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
 
         payload = self._version.fetch(
@@ -325,13 +299,12 @@ class SampleContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SampleInstance:
         """
         Asynchronous coroutine to fetch the SampleInstance
 
 
         :returns: The fetched SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
 
         payload = await self._version.fetch_async(
@@ -352,7 +325,7 @@ class SampleContext(InstanceContext):
         language=values.unset,
         tagged_text=values.unset,
         source_channel=values.unset,
-    ):
+    ) -> SampleInstance:
         """
         Update the SampleInstance
 
@@ -361,7 +334,6 @@ class SampleContext(InstanceContext):
         :param str source_channel: The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
 
         :returns: The updated SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         data = values.of(
             {
@@ -390,7 +362,7 @@ class SampleContext(InstanceContext):
         language=values.unset,
         tagged_text=values.unset,
         source_channel=values.unset,
-    ):
+    ) -> SampleInstance:
         """
         Asynchronous coroutine to update the SampleInstance
 
@@ -399,7 +371,6 @@ class SampleContext(InstanceContext):
         :param str source_channel: The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
 
         :returns: The updated SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         data = values.of(
             {
@@ -423,26 +394,22 @@ class SampleContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.SampleContext {}>".format(context)
 
 
 class SamplePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> SampleInstance:
         """
         Build an instance of SampleInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         return SampleInstance(
             self._version,
@@ -465,12 +432,10 @@ class SampleList(ListResource):
         """
         Initialize the SampleList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resources to read.
         :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resources to read.
 
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
         """
         super().__init__(version)
 
@@ -483,7 +448,9 @@ class SampleList(ListResource):
             **self._solution
         )
 
-    def create(self, language, tagged_text, source_channel=values.unset):
+    def create(
+        self, language, tagged_text, source_channel=values.unset
+    ) -> SampleInstance:
         """
         Create the SampleInstance
 
@@ -492,7 +459,6 @@ class SampleList(ListResource):
         :param str source_channel: The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
 
         :returns: The created SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         data = values.of(
             {
@@ -515,7 +481,9 @@ class SampleList(ListResource):
             task_sid=self._solution["task_sid"],
         )
 
-    async def create_async(self, language, tagged_text, source_channel=values.unset):
+    async def create_async(
+        self, language, tagged_text, source_channel=values.unset
+    ) -> SampleInstance:
         """
         Asynchronously create the SampleInstance
 
@@ -524,7 +492,6 @@ class SampleList(ListResource):
         :param str source_channel: The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
 
         :returns: The created SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         data = values.of(
             {
@@ -547,7 +514,9 @@ class SampleList(ListResource):
             task_sid=self._solution["task_sid"],
         )
 
-    def stream(self, language=values.unset, limit=None, page_size=None):
+    def stream(
+        self, language=values.unset, limit=None, page_size=None
+    ) -> List[SampleInstance]:
         """
         Streams SampleInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -563,14 +532,15 @@ class SampleList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(language=language, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, language=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self, language=values.unset, limit=None, page_size=None
+    ) -> List[SampleInstance]:
         """
         Asynchronously streams SampleInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -586,14 +556,15 @@ class SampleList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(language=language, page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, language=values.unset, limit=None, page_size=None):
+    def list(
+        self, language=values.unset, limit=None, page_size=None
+    ) -> List[SampleInstance]:
         """
         Lists SampleInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -608,7 +579,6 @@ class SampleList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
         """
         return list(
             self.stream(
@@ -618,7 +588,9 @@ class SampleList(ListResource):
             )
         )
 
-    async def list_async(self, language=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, language=values.unset, limit=None, page_size=None
+    ) -> List[SampleInstance]:
         """
         Asynchronously lists SampleInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -633,7 +605,6 @@ class SampleList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
         """
         return list(
             await self.stream_async(
@@ -649,7 +620,7 @@ class SampleList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> SamplePage:
         """
         Retrieve a single page of SampleInstance records from the API.
         Request is executed immediately
@@ -660,7 +631,6 @@ class SampleList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
         """
         data = values.of(
             {
@@ -680,7 +650,7 @@ class SampleList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> SamplePage:
         """
         Asynchronously retrieve a single page of SampleInstance records from the API.
         Request is executed immediately
@@ -691,7 +661,6 @@ class SampleList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
         """
         data = values.of(
             {
@@ -707,7 +676,7 @@ class SampleList(ListResource):
         )
         return SamplePage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> SamplePage:
         """
         Retrieve a specific page of SampleInstance records from the API.
         Request is executed immediately
@@ -715,12 +684,11 @@ class SampleList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SamplePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> SamplePage:
         """
         Asynchronously retrieve a specific page of SampleInstance records from the API.
         Request is executed immediately
@@ -728,19 +696,15 @@ class SampleList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SamplePage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> SampleContext:
         """
         Constructs a SampleContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         """
         return SampleContext(
             self._version,
@@ -749,14 +713,11 @@ class SampleList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> SampleContext:
         """
         Constructs a SampleContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         """
         return SampleContext(
             self._version,
@@ -765,11 +726,10 @@ class SampleList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Autopilot.V1.SampleList>"

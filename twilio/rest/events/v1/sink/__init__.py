@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -39,9 +40,6 @@ class SinkInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the SinkInstance
-
-        :returns: twilio.rest.events.v1.sink.SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         super().__init__(version)
 
@@ -63,13 +61,12 @@ class SinkInstance(InstanceResource):
         self._context: Optional[SinkContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SinkContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SinkContext for this SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkContext
         """
         if self._context is None:
             self._context = SinkContext(
@@ -79,169 +76,147 @@ class SinkInstance(InstanceResource):
         return self._context
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this Sink was created, given in ISO 8601 format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this Sink was updated, given in ISO 8601 format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def description(self):
+    def description(self) -> str:
         """
         :returns: A human readable description for the Sink
-        :rtype: str
         """
         return self._properties["description"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this Sink.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def sink_configuration(self):
+    def sink_configuration(self) -> dict:
         """
         :returns: The information required for Twilio to connect to the provided Sink encoded as JSON.
-        :rtype: dict
         """
         return self._properties["sink_configuration"]
 
     @property
-    def sink_type(self):
+    def sink_type(self) -> "SinkInstance.SinkType":
         """
         :returns:
-        :rtype: SinkInstance.SinkType
         """
         return self._properties["sink_type"]
 
     @property
-    def status(self):
+    def status(self) -> "SinkInstance.Status":
         """
         :returns:
-        :rtype: SinkInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of this resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: Contains a dictionary of URL links to nested resources of this Sink.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SinkInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SinkInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "SinkInstance":
         """
         Fetch the SinkInstance
 
 
         :returns: The fetched SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SinkInstance":
         """
         Asynchronous coroutine to fetch the SinkInstance
 
 
         :returns: The fetched SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, description):
+    def update(self, description) -> "SinkInstance":
         """
         Update the SinkInstance
 
         :param str description: A human readable description for the Sink **This value should not contain PII.**
 
         :returns: The updated SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         return self._proxy.update(
             description=description,
         )
 
-    async def update_async(self, description):
+    async def update_async(self, description) -> "SinkInstance":
         """
         Asynchronous coroutine to update the SinkInstance
 
         :param str description: A human readable description for the Sink **This value should not contain PII.**
 
         :returns: The updated SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         return await self._proxy.update_async(
             description=description,
         )
 
     @property
-    def sink_test(self):
+    def sink_test(self) -> SinkTestList:
         """
         Access the sink_test
-
-        :returns: twilio.rest.events.v1.sink.SinkTestList
-        :rtype: twilio.rest.events.v1.sink.SinkTestList
         """
         return self._proxy.sink_test
 
     @property
-    def sink_validate(self):
+    def sink_validate(self) -> SinkValidateList:
         """
         Access the sink_validate
-
-        :returns: twilio.rest.events.v1.sink.SinkValidateList
-        :rtype: twilio.rest.events.v1.sink.SinkValidateList
         """
         return self._proxy.sink_validate
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Events.V1.SinkInstance {}>".format(context)
@@ -252,11 +227,8 @@ class SinkContext(InstanceContext):
         """
         Initialize the SinkContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies this Sink.
-
-        :returns: twilio.rest.events.v1.sink.SinkContext
-        :rtype: twilio.rest.events.v1.sink.SinkContext
         """
         super().__init__(version)
 
@@ -269,39 +241,36 @@ class SinkContext(InstanceContext):
         self._sink_test: Optional[SinkTestList] = None
         self._sink_validate: Optional[SinkValidateList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SinkInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SinkInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> SinkInstance:
         """
         Fetch the SinkInstance
 
 
         :returns: The fetched SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
 
         payload = self._version.fetch(
@@ -315,13 +284,12 @@ class SinkContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SinkInstance:
         """
         Asynchronous coroutine to fetch the SinkInstance
 
 
         :returns: The fetched SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
 
         payload = await self._version.fetch_async(
@@ -335,14 +303,13 @@ class SinkContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, description):
+    def update(self, description) -> SinkInstance:
         """
         Update the SinkInstance
 
         :param str description: A human readable description for the Sink **This value should not contain PII.**
 
         :returns: The updated SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         data = values.of(
             {
@@ -358,14 +325,13 @@ class SinkContext(InstanceContext):
 
         return SinkInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, description):
+    async def update_async(self, description) -> SinkInstance:
         """
         Asynchronous coroutine to update the SinkInstance
 
         :param str description: A human readable description for the Sink **This value should not contain PII.**
 
         :returns: The updated SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         data = values.of(
             {
@@ -382,12 +348,9 @@ class SinkContext(InstanceContext):
         return SinkInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def sink_test(self):
+    def sink_test(self) -> SinkTestList:
         """
         Access the sink_test
-
-        :returns: twilio.rest.events.v1.sink.SinkTestList
-        :rtype: twilio.rest.events.v1.sink.SinkTestList
         """
         if self._sink_test is None:
             self._sink_test = SinkTestList(
@@ -397,12 +360,9 @@ class SinkContext(InstanceContext):
         return self._sink_test
 
     @property
-    def sink_validate(self):
+    def sink_validate(self) -> SinkValidateList:
         """
         Access the sink_validate
-
-        :returns: twilio.rest.events.v1.sink.SinkValidateList
-        :rtype: twilio.rest.events.v1.sink.SinkValidateList
         """
         if self._sink_validate is None:
             self._sink_validate = SinkValidateList(
@@ -411,26 +371,22 @@ class SinkContext(InstanceContext):
             )
         return self._sink_validate
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Events.V1.SinkContext {}>".format(context)
 
 
 class SinkPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> SinkInstance:
         """
         Build an instance of SinkInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.events.v1.sink.SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         return SinkInstance(self._version, payload)
 
@@ -448,25 +404,22 @@ class SinkList(ListResource):
         """
         Initialize the SinkList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.events.v1.sink.SinkList
-        :rtype: twilio.rest.events.v1.sink.SinkList
         """
         super().__init__(version)
 
         self._uri = "/Sinks"
 
-    def create(self, description, sink_configuration, sink_type):
+    def create(self, description, sink_configuration, sink_type) -> SinkInstance:
         """
         Create the SinkInstance
 
         :param str description: A human readable description for the Sink **This value should not contain PII.**
         :param object sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
-        :param SinkInstance.SinkType sink_type:
+        :param &quot;SinkInstance.SinkType&quot; sink_type:
 
         :returns: The created SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         data = values.of(
             {
@@ -484,16 +437,17 @@ class SinkList(ListResource):
 
         return SinkInstance(self._version, payload)
 
-    async def create_async(self, description, sink_configuration, sink_type):
+    async def create_async(
+        self, description, sink_configuration, sink_type
+    ) -> SinkInstance:
         """
         Asynchronously create the SinkInstance
 
         :param str description: A human readable description for the Sink **This value should not contain PII.**
         :param object sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
-        :param SinkInstance.SinkType sink_type:
+        :param &quot;SinkInstance.SinkType&quot; sink_type:
 
         :returns: The created SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         data = values.of(
             {
@@ -513,7 +467,7 @@ class SinkList(ListResource):
 
     def stream(
         self, in_use=values.unset, status=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[SinkInstance]:
         """
         Streams SinkInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -530,7 +484,6 @@ class SinkList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.sink.SinkInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(in_use=in_use, status=status, page_size=limits["page_size"])
@@ -539,7 +492,7 @@ class SinkList(ListResource):
 
     async def stream_async(
         self, in_use=values.unset, status=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[SinkInstance]:
         """
         Asynchronously streams SinkInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -556,7 +509,6 @@ class SinkList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.sink.SinkInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -567,7 +519,7 @@ class SinkList(ListResource):
 
     def list(
         self, in_use=values.unset, status=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[SinkInstance]:
         """
         Lists SinkInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -583,7 +535,6 @@ class SinkList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.sink.SinkInstance]
         """
         return list(
             self.stream(
@@ -596,7 +547,7 @@ class SinkList(ListResource):
 
     async def list_async(
         self, in_use=values.unset, status=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[SinkInstance]:
         """
         Asynchronously lists SinkInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -612,7 +563,6 @@ class SinkList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.sink.SinkInstance]
         """
         return list(
             await self.stream_async(
@@ -630,7 +580,7 @@ class SinkList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> SinkPage:
         """
         Retrieve a single page of SinkInstance records from the API.
         Request is executed immediately
@@ -642,7 +592,6 @@ class SinkList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkPage
         """
         data = values.of(
             {
@@ -664,7 +613,7 @@ class SinkList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> SinkPage:
         """
         Asynchronously retrieve a single page of SinkInstance records from the API.
         Request is executed immediately
@@ -676,7 +625,6 @@ class SinkList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkPage
         """
         data = values.of(
             {
@@ -693,7 +641,7 @@ class SinkList(ListResource):
         )
         return SinkPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> SinkPage:
         """
         Retrieve a specific page of SinkInstance records from the API.
         Request is executed immediately
@@ -701,12 +649,11 @@ class SinkList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SinkPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> SinkPage:
         """
         Asynchronously retrieve a specific page of SinkInstance records from the API.
         Request is executed immediately
@@ -714,38 +661,30 @@ class SinkList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SinkPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> SinkContext:
         """
         Constructs a SinkContext
 
         :param sid: A 34 character string that uniquely identifies this Sink.
-
-        :returns: twilio.rest.events.v1.sink.SinkContext
-        :rtype: twilio.rest.events.v1.sink.SinkContext
         """
         return SinkContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> SinkContext:
         """
         Constructs a SinkContext
 
         :param sid: A 34 character string that uniquely identifies this Sink.
-
-        :returns: twilio.rest.events.v1.sink.SinkContext
-        :rtype: twilio.rest.events.v1.sink.SinkContext
         """
         return SinkContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Events.V1.SinkList>"

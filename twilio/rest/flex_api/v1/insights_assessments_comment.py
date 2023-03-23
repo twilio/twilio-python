@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +26,6 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the InsightsAssessmentsCommentInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
         """
         super().__init__(version)
 
@@ -49,107 +47,94 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def assessment_id(self):
+    def assessment_id(self) -> str:
         """
         :returns: The unique ID of the assessment.
-        :rtype: str
         """
         return self._properties["assessment_id"]
 
     @property
-    def comment(self):
+    def comment(self) -> dict:
         """
         :returns: The comment added for assessment.
-        :rtype: dict
         """
         return self._properties["comment"]
 
     @property
-    def offset(self):
+    def offset(self) -> float:
         """
         :returns: The offset
-        :rtype: float
         """
         return self._properties["offset"]
 
     @property
-    def report(self):
+    def report(self) -> bool:
         """
         :returns: The flag indicating if this assessment is part of report
-        :rtype: bool
         """
         return self._properties["report"]
 
     @property
-    def weight(self):
+    def weight(self) -> float:
         """
         :returns: The weightage given to this comment
-        :rtype: float
         """
         return self._properties["weight"]
 
     @property
-    def agent_id(self):
+    def agent_id(self) -> str:
         """
         :returns: The id of the agent.
-        :rtype: str
         """
         return self._properties["agent_id"]
 
     @property
-    def segment_id(self):
+    def segment_id(self) -> str:
         """
         :returns: The id of the segment.
-        :rtype: str
         """
         return self._properties["segment_id"]
 
     @property
-    def user_name(self):
+    def user_name(self) -> str:
         """
         :returns: The name of the user.
-        :rtype: str
         """
         return self._properties["user_name"]
 
     @property
-    def user_email(self):
+    def user_email(self) -> str:
         """
         :returns: The email id of the user.
-        :rtype: str
         """
         return self._properties["user_email"]
 
     @property
-    def timestamp(self):
+    def timestamp(self) -> float:
         """
         :returns: The timestamp when the record is inserted
-        :rtype: float
         """
         return self._properties["timestamp"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance {}>".format(
@@ -158,14 +143,11 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
 
 
 class InsightsAssessmentsCommentPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> InsightsAssessmentsCommentInstance:
         """
         Build an instance of InsightsAssessmentsCommentInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
         """
         return InsightsAssessmentsCommentInstance(self._version, payload)
 
@@ -183,10 +165,8 @@ class InsightsAssessmentsCommentList(ListResource):
         """
         Initialize the InsightsAssessmentsCommentList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentList
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentList
         """
         super().__init__(version)
 
@@ -203,7 +183,7 @@ class InsightsAssessmentsCommentList(ListResource):
         agent_id,
         offset,
         token=values.unset,
-    ):
+    ) -> InsightsAssessmentsCommentInstance:
         """
         Create the InsightsAssessmentsCommentInstance
 
@@ -218,7 +198,6 @@ class InsightsAssessmentsCommentList(ListResource):
         :param str token: The Token HTTP request header
 
         :returns: The created InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
         """
         data = values.of(
             {
@@ -254,7 +233,7 @@ class InsightsAssessmentsCommentList(ListResource):
         agent_id,
         offset,
         token=values.unset,
-    ):
+    ) -> InsightsAssessmentsCommentInstance:
         """
         Asynchronously create the InsightsAssessmentsCommentInstance
 
@@ -269,7 +248,6 @@ class InsightsAssessmentsCommentList(ListResource):
         :param str token: The Token HTTP request header
 
         :returns: The created InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
         """
         data = values.of(
             {
@@ -301,7 +279,7 @@ class InsightsAssessmentsCommentList(ListResource):
         agent_id=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsAssessmentsCommentInstance]:
         """
         Streams InsightsAssessmentsCommentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -319,7 +297,6 @@ class InsightsAssessmentsCommentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -338,7 +315,7 @@ class InsightsAssessmentsCommentList(ListResource):
         agent_id=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsAssessmentsCommentInstance]:
         """
         Asynchronously streams InsightsAssessmentsCommentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -356,7 +333,6 @@ class InsightsAssessmentsCommentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -375,7 +351,7 @@ class InsightsAssessmentsCommentList(ListResource):
         agent_id=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsAssessmentsCommentInstance]:
         """
         Lists InsightsAssessmentsCommentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -392,7 +368,6 @@ class InsightsAssessmentsCommentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance]
         """
         return list(
             self.stream(
@@ -411,7 +386,7 @@ class InsightsAssessmentsCommentList(ListResource):
         agent_id=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsAssessmentsCommentInstance]:
         """
         Asynchronously lists InsightsAssessmentsCommentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -428,7 +403,6 @@ class InsightsAssessmentsCommentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance]
         """
         return list(
             await self.stream_async(
@@ -448,7 +422,7 @@ class InsightsAssessmentsCommentList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsAssessmentsCommentPage:
         """
         Retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
@@ -461,7 +435,6 @@ class InsightsAssessmentsCommentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentPage
         """
         data = values.of(
             {
@@ -485,7 +458,7 @@ class InsightsAssessmentsCommentList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsAssessmentsCommentPage:
         """
         Asynchronously retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
@@ -498,7 +471,6 @@ class InsightsAssessmentsCommentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentPage
         """
         data = values.of(
             {
@@ -516,7 +488,7 @@ class InsightsAssessmentsCommentList(ListResource):
         )
         return InsightsAssessmentsCommentPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> InsightsAssessmentsCommentPage:
         """
         Retrieve a specific page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
@@ -524,12 +496,11 @@ class InsightsAssessmentsCommentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsAssessmentsCommentPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> InsightsAssessmentsCommentPage:
         """
         Asynchronously retrieve a specific page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
@@ -537,16 +508,14 @@ class InsightsAssessmentsCommentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsAssessmentsCommentPage(self._version, response)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentList>"

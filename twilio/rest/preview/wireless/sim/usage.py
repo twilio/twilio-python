@@ -25,9 +25,6 @@ class UsageInstance(InstanceResource):
     def __init__(self, version, payload, sim_sid: str):
         """
         Initialize the UsageInstance
-
-        :returns: twilio.rest.preview.wireless.sim.usage.UsageInstance
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
         super().__init__(version)
 
@@ -49,13 +46,12 @@ class UsageInstance(InstanceResource):
         self._context: Optional[UsageContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "UsageContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: UsageContext for this UsageInstance
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
         if self._context is None:
             self._context = UsageContext(
@@ -65,78 +61,69 @@ class UsageInstance(InstanceResource):
         return self._context
 
     @property
-    def sim_sid(self):
+    def sim_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sim_sid"]
 
     @property
-    def sim_unique_name(self):
+    def sim_unique_name(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sim_unique_name"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def period(self):
+    def period(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["period"]
 
     @property
-    def commands_usage(self):
+    def commands_usage(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["commands_usage"]
 
     @property
-    def commands_costs(self):
+    def commands_costs(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["commands_costs"]
 
     @property
-    def data_usage(self):
+    def data_usage(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["data_usage"]
 
     @property
-    def data_costs(self):
+    def data_costs(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["data_costs"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self, end=values.unset, start=values.unset):
+    def fetch(self, end=values.unset, start=values.unset) -> "UsageInstance":
         """
         Fetch the UsageInstance
 
@@ -144,14 +131,15 @@ class UsageInstance(InstanceResource):
         :param str start:
 
         :returns: The fetched UsageInstance
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
         return self._proxy.fetch(
             end=end,
             start=start,
         )
 
-    async def fetch_async(self, end=values.unset, start=values.unset):
+    async def fetch_async(
+        self, end=values.unset, start=values.unset
+    ) -> "UsageInstance":
         """
         Asynchronous coroutine to fetch the UsageInstance
 
@@ -159,19 +147,17 @@ class UsageInstance(InstanceResource):
         :param str start:
 
         :returns: The fetched UsageInstance
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
         return await self._proxy.fetch_async(
             end=end,
             start=start,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Wireless.UsageInstance {}>".format(context)
@@ -182,11 +168,8 @@ class UsageContext(InstanceContext):
         """
         Initialize the UsageContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sim_sid:
-
-        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
         super().__init__(version)
 
@@ -196,7 +179,7 @@ class UsageContext(InstanceContext):
         }
         self._uri = "/Sims/{sim_sid}/Usage".format(**self._solution)
 
-    def fetch(self, end=values.unset, start=values.unset):
+    def fetch(self, end=values.unset, start=values.unset) -> UsageInstance:
         """
         Fetch the UsageInstance
 
@@ -204,7 +187,6 @@ class UsageContext(InstanceContext):
         :param str start:
 
         :returns: The fetched UsageInstance
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
 
         data = values.of(
@@ -222,7 +204,7 @@ class UsageContext(InstanceContext):
             sim_sid=self._solution["sim_sid"],
         )
 
-    async def fetch_async(self, end=values.unset, start=values.unset):
+    async def fetch_async(self, end=values.unset, start=values.unset) -> UsageInstance:
         """
         Asynchronous coroutine to fetch the UsageInstance
 
@@ -230,7 +212,6 @@ class UsageContext(InstanceContext):
         :param str start:
 
         :returns: The fetched UsageInstance
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
 
         data = values.of(
@@ -250,12 +231,11 @@ class UsageContext(InstanceContext):
             sim_sid=self._solution["sim_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Wireless.UsageContext {}>".format(context)
@@ -266,11 +246,9 @@ class UsageList(ListResource):
         """
         Initialize the UsageList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sim_sid:
 
-        :returns: twilio.rest.preview.wireless.sim.usage.UsageList
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageList
         """
         super().__init__(version)
 
@@ -279,31 +257,24 @@ class UsageList(ListResource):
             "sim_sid": sim_sid,
         }
 
-    def get(self):
+    def get(self) -> UsageContext:
         """
         Constructs a UsageContext
 
-
-        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
         return UsageContext(self._version, sim_sid=self._solution["sim_sid"])
 
-    def __call__(self):
+    def __call__(self) -> UsageContext:
         """
         Constructs a UsageContext
 
-
-        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
         return UsageContext(self._version, sim_sid=self._solution["sim_sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Wireless.UsageList>"

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -45,9 +45,6 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
     ):
         """
         Initialize the AvailablePhoneNumberCountryInstance
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
         """
         super().__init__(version)
 
@@ -66,13 +63,12 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         self._context: Optional[AvailablePhoneNumberCountryContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AvailablePhoneNumberCountryContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AvailablePhoneNumberCountryContext for this AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
         """
         if self._context is None:
             self._context = AvailablePhoneNumberCountryContext(
@@ -83,141 +79,112 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         return self._context
 
     @property
-    def country_code(self):
+    def country_code(self) -> str:
         """
         :returns: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country.
-        :rtype: str
         """
         return self._properties["country_code"]
 
     @property
-    def country(self):
+    def country(self) -> str:
         """
         :returns: The name of the country.
-        :rtype: str
         """
         return self._properties["country"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the Country resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
     @property
-    def beta(self):
+    def beta(self) -> bool:
         """
         :returns: Whether all phone numbers available in the country are new to the Twilio platform. `true` if they are and `false` if all numbers are not in the Twilio Phone Number Beta program.
-        :rtype: bool
         """
         return self._properties["beta"]
 
     @property
-    def subresource_uris(self):
+    def subresource_uris(self) -> dict:
         """
         :returns: A list of related AvailablePhoneNumber resources identified by their URIs relative to `https://api.twilio.com`.
-        :rtype: dict
         """
         return self._properties["subresource_uris"]
 
-    def fetch(self):
+    def fetch(self) -> "AvailablePhoneNumberCountryInstance":
         """
         Fetch the AvailablePhoneNumberCountryInstance
 
 
         :returns: The fetched AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AvailablePhoneNumberCountryInstance":
         """
         Asynchronous coroutine to fetch the AvailablePhoneNumberCountryInstance
 
 
         :returns: The fetched AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def local(self):
+    def local(self) -> LocalList:
         """
         Access the local
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.LocalList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.LocalList
         """
         return self._proxy.local
 
     @property
-    def machine_to_machine(self):
+    def machine_to_machine(self) -> MachineToMachineList:
         """
         Access the machine_to_machine
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.MachineToMachineList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MachineToMachineList
         """
         return self._proxy.machine_to_machine
 
     @property
-    def mobile(self):
+    def mobile(self) -> MobileList:
         """
         Access the mobile
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.MobileList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MobileList
         """
         return self._proxy.mobile
 
     @property
-    def national(self):
+    def national(self) -> NationalList:
         """
         Access the national
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.NationalList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.NationalList
         """
         return self._proxy.national
 
     @property
-    def shared_cost(self):
+    def shared_cost(self) -> SharedCostList:
         """
         Access the shared_cost
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.SharedCostList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.SharedCostList
         """
         return self._proxy.shared_cost
 
     @property
-    def toll_free(self):
+    def toll_free(self) -> TollFreeList:
         """
         Access the toll_free
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.TollFreeList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.TollFreeList
         """
         return self._proxy.toll_free
 
     @property
-    def voip(self):
+    def voip(self) -> VoipList:
         """
         Access the voip
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.VoipList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.VoipList
         """
         return self._proxy.voip
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AvailablePhoneNumberCountryInstance {}>".format(
@@ -230,12 +197,9 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         """
         Initialize the AvailablePhoneNumberCountryContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.
         :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
         """
         super().__init__(version)
 
@@ -258,13 +222,12 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         self._toll_free: Optional[TollFreeList] = None
         self._voip: Optional[VoipList] = None
 
-    def fetch(self):
+    def fetch(self) -> AvailablePhoneNumberCountryInstance:
         """
         Fetch the AvailablePhoneNumberCountryInstance
 
 
         :returns: The fetched AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
         """
 
         payload = self._version.fetch(
@@ -279,13 +242,12 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
             country_code=self._solution["country_code"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AvailablePhoneNumberCountryInstance:
         """
         Asynchronous coroutine to fetch the AvailablePhoneNumberCountryInstance
 
 
         :returns: The fetched AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
         """
 
         payload = await self._version.fetch_async(
@@ -301,12 +263,9 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         )
 
     @property
-    def local(self):
+    def local(self) -> LocalList:
         """
         Access the local
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.LocalList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.LocalList
         """
         if self._local is None:
             self._local = LocalList(
@@ -317,12 +276,9 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         return self._local
 
     @property
-    def machine_to_machine(self):
+    def machine_to_machine(self) -> MachineToMachineList:
         """
         Access the machine_to_machine
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.MachineToMachineList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MachineToMachineList
         """
         if self._machine_to_machine is None:
             self._machine_to_machine = MachineToMachineList(
@@ -333,12 +289,9 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         return self._machine_to_machine
 
     @property
-    def mobile(self):
+    def mobile(self) -> MobileList:
         """
         Access the mobile
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.MobileList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MobileList
         """
         if self._mobile is None:
             self._mobile = MobileList(
@@ -349,12 +302,9 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         return self._mobile
 
     @property
-    def national(self):
+    def national(self) -> NationalList:
         """
         Access the national
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.NationalList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.NationalList
         """
         if self._national is None:
             self._national = NationalList(
@@ -365,12 +315,9 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         return self._national
 
     @property
-    def shared_cost(self):
+    def shared_cost(self) -> SharedCostList:
         """
         Access the shared_cost
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.SharedCostList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.SharedCostList
         """
         if self._shared_cost is None:
             self._shared_cost = SharedCostList(
@@ -381,12 +328,9 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         return self._shared_cost
 
     @property
-    def toll_free(self):
+    def toll_free(self) -> TollFreeList:
         """
         Access the toll_free
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.TollFreeList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.TollFreeList
         """
         if self._toll_free is None:
             self._toll_free = TollFreeList(
@@ -397,12 +341,9 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         return self._toll_free
 
     @property
-    def voip(self):
+    def voip(self) -> VoipList:
         """
         Access the voip
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.VoipList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.VoipList
         """
         if self._voip is None:
             self._voip = VoipList(
@@ -412,12 +353,11 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
             )
         return self._voip
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AvailablePhoneNumberCountryContext {}>".format(
@@ -426,14 +366,11 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
 
 
 class AvailablePhoneNumberCountryPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AvailablePhoneNumberCountryInstance:
         """
         Build an instance of AvailablePhoneNumberCountryInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
         """
         return AvailablePhoneNumberCountryInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -453,11 +390,9 @@ class AvailablePhoneNumberCountryList(ListResource):
         """
         Initialize the AvailablePhoneNumberCountryList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources.
 
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryList
         """
         super().__init__(version)
 
@@ -469,7 +404,9 @@ class AvailablePhoneNumberCountryList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(
+        self, limit=None, page_size=None
+    ) -> List[AvailablePhoneNumberCountryInstance]:
         """
         Streams AvailablePhoneNumberCountryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -484,14 +421,15 @@ class AvailablePhoneNumberCountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[AvailablePhoneNumberCountryInstance]:
         """
         Asynchronously streams AvailablePhoneNumberCountryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -506,14 +444,15 @@ class AvailablePhoneNumberCountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(
+        self, limit=None, page_size=None
+    ) -> List[AvailablePhoneNumberCountryInstance]:
         """
         Lists AvailablePhoneNumberCountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -527,7 +466,6 @@ class AvailablePhoneNumberCountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance]
         """
         return list(
             self.stream(
@@ -536,7 +474,9 @@ class AvailablePhoneNumberCountryList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[AvailablePhoneNumberCountryInstance]:
         """
         Asynchronously lists AvailablePhoneNumberCountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -550,7 +490,6 @@ class AvailablePhoneNumberCountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance]
         """
         return list(
             await self.stream_async(
@@ -561,7 +500,7 @@ class AvailablePhoneNumberCountryList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AvailablePhoneNumberCountryPage:
         """
         Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
         Request is executed immediately
@@ -571,7 +510,6 @@ class AvailablePhoneNumberCountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryPage
         """
         data = values.of(
             {
@@ -586,7 +524,7 @@ class AvailablePhoneNumberCountryList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AvailablePhoneNumberCountryPage:
         """
         Asynchronously retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
         Request is executed immediately
@@ -596,7 +534,6 @@ class AvailablePhoneNumberCountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryPage
         """
         data = values.of(
             {
@@ -611,7 +548,7 @@ class AvailablePhoneNumberCountryList(ListResource):
         )
         return AvailablePhoneNumberCountryPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AvailablePhoneNumberCountryPage:
         """
         Retrieve a specific page of AvailablePhoneNumberCountryInstance records from the API.
         Request is executed immediately
@@ -619,12 +556,11 @@ class AvailablePhoneNumberCountryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AvailablePhoneNumberCountryPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AvailablePhoneNumberCountryPage:
         """
         Asynchronously retrieve a specific page of AvailablePhoneNumberCountryInstance records from the API.
         Request is executed immediately
@@ -632,19 +568,15 @@ class AvailablePhoneNumberCountryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AvailablePhoneNumberCountryPage(self._version, response, self._solution)
 
-    def get(self, country_code):
+    def get(self, country_code) -> AvailablePhoneNumberCountryContext:
         """
         Constructs a AvailablePhoneNumberCountryContext
 
         :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
         """
         return AvailablePhoneNumberCountryContext(
             self._version,
@@ -652,14 +584,11 @@ class AvailablePhoneNumberCountryList(ListResource):
             country_code=country_code,
         )
 
-    def __call__(self, country_code):
+    def __call__(self, country_code) -> AvailablePhoneNumberCountryContext:
         """
         Constructs a AvailablePhoneNumberCountryContext
 
         :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
         """
         return AvailablePhoneNumberCountryContext(
             self._version,
@@ -667,11 +596,10 @@ class AvailablePhoneNumberCountryList(ListResource):
             country_code=country_code,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.AvailablePhoneNumberCountryList>"

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +33,6 @@ class DocumentPermissionInstance(InstanceResource):
     ):
         """
         Initialize the DocumentPermissionInstance
-
-        :returns: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
         super().__init__(version)
 
@@ -58,13 +55,12 @@ class DocumentPermissionInstance(InstanceResource):
         self._context: Optional[DocumentPermissionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DocumentPermissionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DocumentPermissionContext for this DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionContext
         """
         if self._context is None:
             self._context = DocumentPermissionContext(
@@ -76,110 +72,98 @@ class DocumentPermissionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Document Permission resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def document_sid(self):
+    def document_sid(self) -> str:
         """
         :returns: The SID of the Sync Document to which the Document Permission applies.
-        :rtype: str
         """
         return self._properties["document_sid"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns: The application-defined string that uniquely identifies the resource's User within the Service to an FPA token.
-        :rtype: str
         """
         return self._properties["identity"]
 
     @property
-    def read(self):
+    def read(self) -> bool:
         """
         :returns: Whether the identity can read the Sync Document.
-        :rtype: bool
         """
         return self._properties["read"]
 
     @property
-    def write(self):
+    def write(self) -> bool:
         """
         :returns: Whether the identity can update the Sync Document.
-        :rtype: bool
         """
         return self._properties["write"]
 
     @property
-    def manage(self):
+    def manage(self) -> bool:
         """
         :returns: Whether the identity can delete the Sync Document.
-        :rtype: bool
         """
         return self._properties["manage"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Sync Document Permission resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DocumentPermissionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DocumentPermissionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "DocumentPermissionInstance":
         """
         Fetch the DocumentPermissionInstance
 
 
         :returns: The fetched DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "DocumentPermissionInstance":
         """
         Asynchronous coroutine to fetch the DocumentPermissionInstance
 
 
         :returns: The fetched DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, read, write, manage):
+    def update(self, read, write, manage) -> "DocumentPermissionInstance":
         """
         Update the DocumentPermissionInstance
 
@@ -188,7 +172,6 @@ class DocumentPermissionInstance(InstanceResource):
         :param bool manage: Whether the identity can delete the Sync Document. Default value is `false`.
 
         :returns: The updated DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
         return self._proxy.update(
             read=read,
@@ -196,7 +179,7 @@ class DocumentPermissionInstance(InstanceResource):
             manage=manage,
         )
 
-    async def update_async(self, read, write, manage):
+    async def update_async(self, read, write, manage) -> "DocumentPermissionInstance":
         """
         Asynchronous coroutine to update the DocumentPermissionInstance
 
@@ -205,7 +188,6 @@ class DocumentPermissionInstance(InstanceResource):
         :param bool manage: Whether the identity can delete the Sync Document. Default value is `false`.
 
         :returns: The updated DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
         return await self._proxy.update_async(
             read=read,
@@ -213,12 +195,11 @@ class DocumentPermissionInstance(InstanceResource):
             manage=manage,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Sync.V1.DocumentPermissionInstance {}>".format(context)
@@ -231,13 +212,10 @@ class DocumentPermissionContext(InstanceContext):
         """
         Initialize the DocumentPermissionContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to update.
         :param document_sid: The SID of the Sync Document with the Document Permission resource to update. Can be the Document resource's `sid` or its `unique_name`.
         :param identity: The application-defined string that uniquely identifies the User's Document Permission resource to update.
-
-        :returns: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionContext
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionContext
         """
         super().__init__(version)
 
@@ -251,39 +229,36 @@ class DocumentPermissionContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DocumentPermissionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DocumentPermissionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> DocumentPermissionInstance:
         """
         Fetch the DocumentPermissionInstance
 
 
         :returns: The fetched DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
 
         payload = self._version.fetch(
@@ -299,13 +274,12 @@ class DocumentPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> DocumentPermissionInstance:
         """
         Asynchronous coroutine to fetch the DocumentPermissionInstance
 
 
         :returns: The fetched DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
 
         payload = await self._version.fetch_async(
@@ -321,7 +295,7 @@ class DocumentPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    def update(self, read, write, manage):
+    def update(self, read, write, manage) -> DocumentPermissionInstance:
         """
         Update the DocumentPermissionInstance
 
@@ -330,7 +304,6 @@ class DocumentPermissionContext(InstanceContext):
         :param bool manage: Whether the identity can delete the Sync Document. Default value is `false`.
 
         :returns: The updated DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
         data = values.of(
             {
@@ -354,7 +327,7 @@ class DocumentPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    async def update_async(self, read, write, manage):
+    async def update_async(self, read, write, manage) -> DocumentPermissionInstance:
         """
         Asynchronous coroutine to update the DocumentPermissionInstance
 
@@ -363,7 +336,6 @@ class DocumentPermissionContext(InstanceContext):
         :param bool manage: Whether the identity can delete the Sync Document. Default value is `false`.
 
         :returns: The updated DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
         data = values.of(
             {
@@ -387,26 +359,22 @@ class DocumentPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Sync.V1.DocumentPermissionContext {}>".format(context)
 
 
 class DocumentPermissionPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> DocumentPermissionInstance:
         """
         Build an instance of DocumentPermissionInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
         return DocumentPermissionInstance(
             self._version,
@@ -429,12 +397,10 @@ class DocumentPermissionList(ListResource):
         """
         Initialize the DocumentPermissionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resources to read.
         :param document_sid: The SID of the Sync Document with the Document Permission resources to read. Can be the Document resource's `sid` or its `unique_name`.
 
-        :returns: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionList
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionList
         """
         super().__init__(version)
 
@@ -449,7 +415,7 @@ class DocumentPermissionList(ListResource):
             )
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[DocumentPermissionInstance]:
         """
         Streams DocumentPermissionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -464,14 +430,15 @@ class DocumentPermissionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[DocumentPermissionInstance]:
         """
         Asynchronously streams DocumentPermissionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -486,14 +453,13 @@ class DocumentPermissionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[DocumentPermissionInstance]:
         """
         Lists DocumentPermissionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -507,7 +473,6 @@ class DocumentPermissionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance]
         """
         return list(
             self.stream(
@@ -516,7 +481,9 @@ class DocumentPermissionList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[DocumentPermissionInstance]:
         """
         Asynchronously lists DocumentPermissionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -530,7 +497,6 @@ class DocumentPermissionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance]
         """
         return list(
             await self.stream_async(
@@ -541,7 +507,7 @@ class DocumentPermissionList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DocumentPermissionPage:
         """
         Retrieve a single page of DocumentPermissionInstance records from the API.
         Request is executed immediately
@@ -551,7 +517,6 @@ class DocumentPermissionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionPage
         """
         data = values.of(
             {
@@ -566,7 +531,7 @@ class DocumentPermissionList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DocumentPermissionPage:
         """
         Asynchronously retrieve a single page of DocumentPermissionInstance records from the API.
         Request is executed immediately
@@ -576,7 +541,6 @@ class DocumentPermissionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionPage
         """
         data = values.of(
             {
@@ -591,7 +555,7 @@ class DocumentPermissionList(ListResource):
         )
         return DocumentPermissionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> DocumentPermissionPage:
         """
         Retrieve a specific page of DocumentPermissionInstance records from the API.
         Request is executed immediately
@@ -599,12 +563,11 @@ class DocumentPermissionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DocumentPermissionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> DocumentPermissionPage:
         """
         Asynchronously retrieve a specific page of DocumentPermissionInstance records from the API.
         Request is executed immediately
@@ -612,19 +575,15 @@ class DocumentPermissionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DocumentPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DocumentPermissionPage(self._version, response, self._solution)
 
-    def get(self, identity):
+    def get(self, identity) -> DocumentPermissionContext:
         """
         Constructs a DocumentPermissionContext
 
         :param identity: The application-defined string that uniquely identifies the User's Document Permission resource to update.
-
-        :returns: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionContext
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionContext
         """
         return DocumentPermissionContext(
             self._version,
@@ -633,14 +592,11 @@ class DocumentPermissionList(ListResource):
             identity=identity,
         )
 
-    def __call__(self, identity):
+    def __call__(self, identity) -> DocumentPermissionContext:
         """
         Constructs a DocumentPermissionContext
 
         :param identity: The application-defined string that uniquely identifies the User's Document Permission resource to update.
-
-        :returns: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionContext
-        :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionContext
         """
         return DocumentPermissionContext(
             self._version,
@@ -649,11 +605,10 @@ class DocumentPermissionList(ListResource):
             identity=identity,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Sync.V1.DocumentPermissionList>"

@@ -25,9 +25,6 @@ class DeactivationsInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the DeactivationsInstance
-
-        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
         """
         super().__init__(version)
 
@@ -39,13 +36,12 @@ class DeactivationsInstance(InstanceResource):
         self._context: Optional[DeactivationsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DeactivationsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DeactivationsContext for this DeactivationsInstance
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
         """
         if self._context is None:
             self._context = DeactivationsContext(
@@ -54,45 +50,41 @@ class DeactivationsInstance(InstanceResource):
         return self._context
 
     @property
-    def redirect_to(self):
+    def redirect_to(self) -> str:
         """
         :returns: Returns an authenticated url that redirects to a file containing the deactivated numbers for the requested day. This url is valid for up to two minutes.
-        :rtype: str
         """
         return self._properties["redirect_to"]
 
-    def fetch(self, date=values.unset):
+    def fetch(self, date=values.unset) -> "DeactivationsInstance":
         """
         Fetch the DeactivationsInstance
 
         :param date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
         """
         return self._proxy.fetch(
             date=date,
         )
 
-    async def fetch_async(self, date=values.unset):
+    async def fetch_async(self, date=values.unset) -> "DeactivationsInstance":
         """
         Asynchronous coroutine to fetch the DeactivationsInstance
 
         :param date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
         """
         return await self._proxy.fetch_async(
             date=date,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.DeactivationsInstance {}>".format(context)
@@ -103,23 +95,19 @@ class DeactivationsContext(InstanceContext):
         """
         Initialize the DeactivationsContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
         self._uri = "/Deactivations"
 
-    def fetch(self, date=values.unset):
+    def fetch(self, date=values.unset) -> DeactivationsInstance:
         """
         Fetch the DeactivationsInstance
 
         :param date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
         """
 
         data = values.of(
@@ -135,14 +123,13 @@ class DeactivationsContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self, date=values.unset):
+    async def fetch_async(self, date=values.unset) -> DeactivationsInstance:
         """
         Asynchronous coroutine to fetch the DeactivationsInstance
 
         :param date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
         """
 
         data = values.of(
@@ -160,12 +147,11 @@ class DeactivationsContext(InstanceContext):
             payload,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.Messaging.V1.DeactivationsContext>"
@@ -176,38 +162,29 @@ class DeactivationsList(ListResource):
         """
         Initialize the DeactivationsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsList
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsList
         """
         super().__init__(version)
 
-    def get(self):
+    def get(self) -> DeactivationsContext:
         """
         Constructs a DeactivationsContext
 
-
-        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
         """
         return DeactivationsContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> DeactivationsContext:
         """
         Constructs a DeactivationsContext
 
-
-        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
         """
         return DeactivationsContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.DeactivationsList>"

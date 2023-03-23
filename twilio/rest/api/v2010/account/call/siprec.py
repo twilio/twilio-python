@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -36,9 +37,6 @@ class SiprecInstance(InstanceResource):
     ):
         """
         Initialize the SiprecInstance
-
-        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
         """
         super().__init__(version)
 
@@ -60,13 +58,12 @@ class SiprecInstance(InstanceResource):
         self._context: Optional[SiprecContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SiprecContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SiprecContext for this SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
         """
         if self._context is None:
             self._context = SiprecContext(
@@ -78,93 +75,83 @@ class SiprecInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The SID of the Siprec resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         :returns: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
-        :rtype: str
         """
         return self._properties["name"]
 
     @property
-    def status(self):
+    def status(self) -> "SiprecInstance.Status":
         """
         :returns:
-        :rtype: SiprecInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def update(self, status):
+    def update(self, status) -> "SiprecInstance":
         """
         Update the SiprecInstance
 
-        :param SiprecInstance.UpdateStatus status:
+        :param "SiprecInstance.UpdateStatus" status:
 
         :returns: The updated SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
         """
         return self._proxy.update(
             status=status,
         )
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> "SiprecInstance":
         """
         Asynchronous coroutine to update the SiprecInstance
 
-        :param SiprecInstance.UpdateStatus status:
+        :param "SiprecInstance.UpdateStatus" status:
 
         :returns: The updated SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
         """
         return await self._proxy.update_async(
             status=status,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.SiprecInstance {}>".format(context)
@@ -175,13 +162,10 @@ class SiprecContext(InstanceContext):
         """
         Initialize the SiprecContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
         :param sid: The SID of the Siprec resource, or the `name` used when creating the resource
-
-        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecContext
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
         """
         super().__init__(version)
 
@@ -195,14 +179,13 @@ class SiprecContext(InstanceContext):
             **self._solution
         )
 
-    def update(self, status):
+    def update(self, status) -> SiprecInstance:
         """
         Update the SiprecInstance
 
-        :param SiprecInstance.UpdateStatus status:
+        :param "SiprecInstance.UpdateStatus" status:
 
         :returns: The updated SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
         """
         data = values.of(
             {
@@ -224,14 +207,13 @@ class SiprecContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> SiprecInstance:
         """
         Asynchronous coroutine to update the SiprecInstance
 
-        :param SiprecInstance.UpdateStatus status:
+        :param "SiprecInstance.UpdateStatus" status:
 
         :returns: The updated SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
         """
         data = values.of(
             {
@@ -253,12 +235,11 @@ class SiprecContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.SiprecContext {}>".format(context)
@@ -269,12 +250,10 @@ class SiprecList(ListResource):
         """
         Initialize the SiprecList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
 
-        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecList
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecList
         """
         super().__init__(version)
 
@@ -492,13 +471,13 @@ class SiprecList(ListResource):
         parameter98_value=values.unset,
         parameter99_name=values.unset,
         parameter99_value=values.unset,
-    ):
+    ) -> SiprecInstance:
         """
         Create the SiprecInstance
 
         :param str name: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
         :param str connector_name: Unique name used when configuring the connector via Marketplace Add-on.
-        :param SiprecInstance.Track track:
+        :param &quot;SiprecInstance.Track&quot; track:
         :param str status_callback: Absolute URL of the status callback.
         :param str status_callback_method: The http method for the status_callback (one of GET, POST).
         :param str parameter1_name: Parameter name
@@ -701,7 +680,6 @@ class SiprecList(ListResource):
         :param str parameter99_value: Parameter value
 
         :returns: The created SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
         """
         data = values.of(
             {
@@ -1129,13 +1107,13 @@ class SiprecList(ListResource):
         parameter98_value=values.unset,
         parameter99_name=values.unset,
         parameter99_value=values.unset,
-    ):
+    ) -> SiprecInstance:
         """
         Asynchronously create the SiprecInstance
 
         :param str name: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
         :param str connector_name: Unique name used when configuring the connector via Marketplace Add-on.
-        :param SiprecInstance.Track track:
+        :param &quot;SiprecInstance.Track&quot; track:
         :param str status_callback: Absolute URL of the status callback.
         :param str status_callback_method: The http method for the status_callback (one of GET, POST).
         :param str parameter1_name: Parameter name
@@ -1338,7 +1316,6 @@ class SiprecList(ListResource):
         :param str parameter99_value: Parameter value
 
         :returns: The created SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
         """
         data = values.of(
             {
@@ -1561,14 +1538,11 @@ class SiprecList(ListResource):
             call_sid=self._solution["call_sid"],
         )
 
-    def get(self, sid):
+    def get(self, sid) -> SiprecContext:
         """
         Constructs a SiprecContext
 
         :param sid: The SID of the Siprec resource, or the `name` used when creating the resource
-
-        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecContext
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
         """
         return SiprecContext(
             self._version,
@@ -1577,14 +1551,11 @@ class SiprecList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> SiprecContext:
         """
         Constructs a SiprecContext
 
         :param sid: The SID of the Siprec resource, or the `name` used when creating the resource
-
-        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecContext
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
         """
         return SiprecContext(
             self._version,
@@ -1593,11 +1564,10 @@ class SiprecList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.SiprecList>"

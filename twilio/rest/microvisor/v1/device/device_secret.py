@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class DeviceSecretInstance(InstanceResource):
     def __init__(self, version, payload, device_sid: str, key: Optional[str] = None):
         """
         Initialize the DeviceSecretInstance
-
-        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         super().__init__(version)
 
@@ -46,13 +44,12 @@ class DeviceSecretInstance(InstanceResource):
         self._context: Optional[DeviceSecretContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DeviceSecretContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DeviceSecretContext for this DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
         """
         if self._context is None:
             self._context = DeviceSecretContext(
@@ -63,109 +60,98 @@ class DeviceSecretInstance(InstanceResource):
         return self._context
 
     @property
-    def device_sid(self):
+    def device_sid(self) -> str:
         """
         :returns: A 34-character string that uniquely identifies the parent Device.
-        :rtype: str
         """
         return self._properties["device_sid"]
 
     @property
-    def key(self):
+    def key(self) -> str:
         """
         :returns: The secret key; up to 100 characters.
-        :rtype: str
         """
         return self._properties["key"]
 
     @property
-    def date_rotated(self):
+    def date_rotated(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_rotated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Secret.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DeviceSecretInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DeviceSecretInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "DeviceSecretInstance":
         """
         Fetch the DeviceSecretInstance
 
 
         :returns: The fetched DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "DeviceSecretInstance":
         """
         Asynchronous coroutine to fetch the DeviceSecretInstance
 
 
         :returns: The fetched DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, value):
+    def update(self, value) -> "DeviceSecretInstance":
         """
         Update the DeviceSecretInstance
 
         :param str value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         return self._proxy.update(
             value=value,
         )
 
-    async def update_async(self, value):
+    async def update_async(self, value) -> "DeviceSecretInstance":
         """
         Asynchronous coroutine to update the DeviceSecretInstance
 
         :param str value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         return await self._proxy.update_async(
             value=value,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.DeviceSecretInstance {}>".format(context)
@@ -176,12 +162,9 @@ class DeviceSecretContext(InstanceContext):
         """
         Initialize the DeviceSecretContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param device_sid: A 34-character string that uniquely identifies the Device.
         :param key: The secret key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
         """
         super().__init__(version)
 
@@ -192,39 +175,36 @@ class DeviceSecretContext(InstanceContext):
         }
         self._uri = "/Devices/{device_sid}/Secrets/{key}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DeviceSecretInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DeviceSecretInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> DeviceSecretInstance:
         """
         Fetch the DeviceSecretInstance
 
 
         :returns: The fetched DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
 
         payload = self._version.fetch(
@@ -239,13 +219,12 @@ class DeviceSecretContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> DeviceSecretInstance:
         """
         Asynchronous coroutine to fetch the DeviceSecretInstance
 
 
         :returns: The fetched DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
 
         payload = await self._version.fetch_async(
@@ -260,14 +239,13 @@ class DeviceSecretContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    def update(self, value):
+    def update(self, value) -> DeviceSecretInstance:
         """
         Update the DeviceSecretInstance
 
         :param str value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         data = values.of(
             {
@@ -288,14 +266,13 @@ class DeviceSecretContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    async def update_async(self, value):
+    async def update_async(self, value) -> DeviceSecretInstance:
         """
         Asynchronous coroutine to update the DeviceSecretInstance
 
         :param str value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         data = values.of(
             {
@@ -316,26 +293,22 @@ class DeviceSecretContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.DeviceSecretContext {}>".format(context)
 
 
 class DeviceSecretPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> DeviceSecretInstance:
         """
         Build an instance of DeviceSecretInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         return DeviceSecretInstance(
             self._version, payload, device_sid=self._solution["device_sid"]
@@ -355,11 +328,9 @@ class DeviceSecretList(ListResource):
         """
         Initialize the DeviceSecretList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param device_sid: A 34-character string that uniquely identifies the Device.
 
-        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretList
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretList
         """
         super().__init__(version)
 
@@ -369,7 +340,7 @@ class DeviceSecretList(ListResource):
         }
         self._uri = "/Devices/{device_sid}/Secrets".format(**self._solution)
 
-    def create(self, key, value):
+    def create(self, key, value) -> DeviceSecretInstance:
         """
         Create the DeviceSecretInstance
 
@@ -377,7 +348,6 @@ class DeviceSecretList(ListResource):
         :param str value: The secret value; up to 4096 characters.
 
         :returns: The created DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         data = values.of(
             {
@@ -396,7 +366,7 @@ class DeviceSecretList(ListResource):
             self._version, payload, device_sid=self._solution["device_sid"]
         )
 
-    async def create_async(self, key, value):
+    async def create_async(self, key, value) -> DeviceSecretInstance:
         """
         Asynchronously create the DeviceSecretInstance
 
@@ -404,7 +374,6 @@ class DeviceSecretList(ListResource):
         :param str value: The secret value; up to 4096 characters.
 
         :returns: The created DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         data = values.of(
             {
@@ -423,7 +392,7 @@ class DeviceSecretList(ListResource):
             self._version, payload, device_sid=self._solution["device_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[DeviceSecretInstance]:
         """
         Streams DeviceSecretInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -438,14 +407,15 @@ class DeviceSecretList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[DeviceSecretInstance]:
         """
         Asynchronously streams DeviceSecretInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -460,14 +430,13 @@ class DeviceSecretList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[DeviceSecretInstance]:
         """
         Lists DeviceSecretInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -481,7 +450,6 @@ class DeviceSecretList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance]
         """
         return list(
             self.stream(
@@ -490,7 +458,9 @@ class DeviceSecretList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[DeviceSecretInstance]:
         """
         Asynchronously lists DeviceSecretInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -504,7 +474,6 @@ class DeviceSecretList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance]
         """
         return list(
             await self.stream_async(
@@ -515,7 +484,7 @@ class DeviceSecretList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DeviceSecretPage:
         """
         Retrieve a single page of DeviceSecretInstance records from the API.
         Request is executed immediately
@@ -525,7 +494,6 @@ class DeviceSecretList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretPage
         """
         data = values.of(
             {
@@ -540,7 +508,7 @@ class DeviceSecretList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DeviceSecretPage:
         """
         Asynchronously retrieve a single page of DeviceSecretInstance records from the API.
         Request is executed immediately
@@ -550,7 +518,6 @@ class DeviceSecretList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretPage
         """
         data = values.of(
             {
@@ -565,7 +532,7 @@ class DeviceSecretList(ListResource):
         )
         return DeviceSecretPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> DeviceSecretPage:
         """
         Retrieve a specific page of DeviceSecretInstance records from the API.
         Request is executed immediately
@@ -573,12 +540,11 @@ class DeviceSecretList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DeviceSecretPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> DeviceSecretPage:
         """
         Asynchronously retrieve a specific page of DeviceSecretInstance records from the API.
         Request is executed immediately
@@ -586,42 +552,34 @@ class DeviceSecretList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DeviceSecretPage(self._version, response, self._solution)
 
-    def get(self, key):
+    def get(self, key) -> DeviceSecretContext:
         """
         Constructs a DeviceSecretContext
 
         :param key: The secret key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
         """
         return DeviceSecretContext(
             self._version, device_sid=self._solution["device_sid"], key=key
         )
 
-    def __call__(self, key):
+    def __call__(self, key) -> DeviceSecretContext:
         """
         Constructs a DeviceSecretContext
 
         :param key: The secret key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
         """
         return DeviceSecretContext(
             self._version, device_sid=self._solution["device_sid"], key=key
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Microvisor.V1.DeviceSecretList>"

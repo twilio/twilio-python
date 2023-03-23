@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,9 +29,6 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
     ):
         """
         Initialize the TrustProductsChannelEndpointAssignmentInstance
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
         """
         super().__init__(version)
 
@@ -51,13 +49,12 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
         self._context: Optional[TrustProductsChannelEndpointAssignmentContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "TrustProductsChannelEndpointAssignmentContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: TrustProductsChannelEndpointAssignmentContext for this TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentContext
         """
         if self._context is None:
             self._context = TrustProductsChannelEndpointAssignmentContext(
@@ -68,107 +65,95 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Item Assignment resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def trust_product_sid(self):
+    def trust_product_sid(self) -> str:
         """
         :returns: The unique string that we created to identify the CustomerProfile resource.
-        :rtype: str
         """
         return self._properties["trust_product_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def channel_endpoint_type(self):
+    def channel_endpoint_type(self) -> str:
         """
         :returns: The type of channel endpoint. eg: phone-number
-        :rtype: str
         """
         return self._properties["channel_endpoint_type"]
 
     @property
-    def channel_endpoint_sid(self):
+    def channel_endpoint_sid(self) -> str:
         """
         :returns: The SID of an channel endpoint
-        :rtype: str
         """
         return self._properties["channel_endpoint_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Identity resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the TrustProductsChannelEndpointAssignmentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TrustProductsChannelEndpointAssignmentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "TrustProductsChannelEndpointAssignmentInstance":
         """
         Fetch the TrustProductsChannelEndpointAssignmentInstance
 
 
         :returns: The fetched TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "TrustProductsChannelEndpointAssignmentInstance":
         """
         Asynchronous coroutine to fetch the TrustProductsChannelEndpointAssignmentInstance
 
 
         :returns: The fetched TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.TrustProductsChannelEndpointAssignmentInstance {}>".format(
@@ -181,12 +166,9 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
         """
         Initialize the TrustProductsChannelEndpointAssignmentContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param trust_product_sid: The unique string that we created to identify the CustomerProfile resource.
         :param sid: The unique string that we created to identify the resource.
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentContext
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentContext
         """
         super().__init__(version)
 
@@ -199,39 +181,36 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the TrustProductsChannelEndpointAssignmentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TrustProductsChannelEndpointAssignmentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> TrustProductsChannelEndpointAssignmentInstance:
         """
         Fetch the TrustProductsChannelEndpointAssignmentInstance
 
 
         :returns: The fetched TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
         """
 
         payload = self._version.fetch(
@@ -246,13 +225,12 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> TrustProductsChannelEndpointAssignmentInstance:
         """
         Asynchronous coroutine to fetch the TrustProductsChannelEndpointAssignmentInstance
 
 
         :returns: The fetched TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
         """
 
         payload = await self._version.fetch_async(
@@ -267,12 +245,11 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.TrustProductsChannelEndpointAssignmentContext {}>".format(
@@ -281,14 +258,11 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
 
 
 class TrustProductsChannelEndpointAssignmentPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> TrustProductsChannelEndpointAssignmentInstance:
         """
         Build an instance of TrustProductsChannelEndpointAssignmentInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
         """
         return TrustProductsChannelEndpointAssignmentInstance(
             self._version,
@@ -310,11 +284,9 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         """
         Initialize the TrustProductsChannelEndpointAssignmentList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param trust_product_sid: The unique string that we created to identify the CustomerProfile resource.
 
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentList
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentList
         """
         super().__init__(version)
 
@@ -328,7 +300,9 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
             )
         )
 
-    def create(self, channel_endpoint_type, channel_endpoint_sid):
+    def create(
+        self, channel_endpoint_type, channel_endpoint_sid
+    ) -> TrustProductsChannelEndpointAssignmentInstance:
         """
         Create the TrustProductsChannelEndpointAssignmentInstance
 
@@ -336,7 +310,6 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         :param str channel_endpoint_sid: The SID of an channel endpoint
 
         :returns: The created TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
         """
         data = values.of(
             {
@@ -357,7 +330,9 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
             trust_product_sid=self._solution["trust_product_sid"],
         )
 
-    async def create_async(self, channel_endpoint_type, channel_endpoint_sid):
+    async def create_async(
+        self, channel_endpoint_type, channel_endpoint_sid
+    ) -> TrustProductsChannelEndpointAssignmentInstance:
         """
         Asynchronously create the TrustProductsChannelEndpointAssignmentInstance
 
@@ -365,7 +340,6 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         :param str channel_endpoint_sid: The SID of an channel endpoint
 
         :returns: The created TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
         """
         data = values.of(
             {
@@ -392,7 +366,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         channel_endpoint_sids=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TrustProductsChannelEndpointAssignmentInstance]:
         """
         Streams TrustProductsChannelEndpointAssignmentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -409,7 +383,6 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -426,7 +399,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         channel_endpoint_sids=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TrustProductsChannelEndpointAssignmentInstance]:
         """
         Asynchronously streams TrustProductsChannelEndpointAssignmentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -443,7 +416,6 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -460,7 +432,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         channel_endpoint_sids=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TrustProductsChannelEndpointAssignmentInstance]:
         """
         Lists TrustProductsChannelEndpointAssignmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -476,7 +448,6 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance]
         """
         return list(
             self.stream(
@@ -493,7 +464,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         channel_endpoint_sids=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TrustProductsChannelEndpointAssignmentInstance]:
         """
         Asynchronously lists TrustProductsChannelEndpointAssignmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -509,7 +480,6 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance]
         """
         return list(
             await self.stream_async(
@@ -527,7 +497,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TrustProductsChannelEndpointAssignmentPage:
         """
         Retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
@@ -539,7 +509,6 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentPage
         """
         data = values.of(
             {
@@ -563,7 +532,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TrustProductsChannelEndpointAssignmentPage:
         """
         Asynchronously retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
@@ -575,7 +544,6 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentPage
         """
         data = values.of(
             {
@@ -594,7 +562,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
             self._version, response, self._solution
         )
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> TrustProductsChannelEndpointAssignmentPage:
         """
         Retrieve a specific page of TrustProductsChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
@@ -602,14 +570,15 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TrustProductsChannelEndpointAssignmentPage(
             self._version, response, self._solution
         )
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(
+        self, target_url
+    ) -> TrustProductsChannelEndpointAssignmentPage:
         """
         Asynchronously retrieve a specific page of TrustProductsChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
@@ -617,21 +586,17 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TrustProductsChannelEndpointAssignmentPage(
             self._version, response, self._solution
         )
 
-    def get(self, sid):
+    def get(self, sid) -> TrustProductsChannelEndpointAssignmentContext:
         """
         Constructs a TrustProductsChannelEndpointAssignmentContext
 
         :param sid: The unique string that we created to identify the resource.
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentContext
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentContext
         """
         return TrustProductsChannelEndpointAssignmentContext(
             self._version,
@@ -639,14 +604,11 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> TrustProductsChannelEndpointAssignmentContext:
         """
         Constructs a TrustProductsChannelEndpointAssignmentContext
 
         :param sid: The unique string that we created to identify the resource.
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentContext
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentContext
         """
         return TrustProductsChannelEndpointAssignmentContext(
             self._version,
@@ -654,11 +616,10 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub.V1.TrustProductsChannelEndpointAssignmentList>"

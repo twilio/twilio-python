@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -43,9 +44,6 @@ class ReservationInstance(InstanceResource):
     ):
         """
         Initialize the ReservationInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         super().__init__(version)
 
@@ -71,13 +69,12 @@ class ReservationInstance(InstanceResource):
         self._context: Optional[ReservationContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ReservationContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ReservationContext for this ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
         """
         if self._context is None:
             self._context = ReservationContext(
@@ -89,110 +86,97 @@ class ReservationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the WorkerReservation resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def reservation_status(self):
+    def reservation_status(self) -> "ReservationInstance.Status":
         """
         :returns:
-        :rtype: ReservationInstance.Status
         """
         return self._properties["reservation_status"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the WorkerReservation resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def task_sid(self):
+    def task_sid(self) -> str:
         """
         :returns: The SID of the reserved Task resource.
-        :rtype: str
         """
         return self._properties["task_sid"]
 
     @property
-    def worker_name(self):
+    def worker_name(self) -> str:
         """
         :returns: The `friendly_name` of the Worker that is reserved.
-        :rtype: str
         """
         return self._properties["worker_name"]
 
     @property
-    def worker_sid(self):
+    def worker_sid(self) -> str:
         """
         :returns: The SID of the reserved Worker resource.
-        :rtype: str
         """
         return self._properties["worker_sid"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace that this worker is contained within.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the WorkerReservation resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "ReservationInstance":
         """
         Fetch the ReservationInstance
 
 
         :returns: The fetched ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ReservationInstance":
         """
         Asynchronous coroutine to fetch the ReservationInstance
 
 
         :returns: The fetched ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         return await self._proxy.fetch_async()
 
@@ -250,12 +234,12 @@ class ReservationInstance(InstanceResource):
         post_work_activity_sid=values.unset,
         end_conference_on_customer_exit=values.unset,
         beep_on_customer_entrance=values.unset,
-    ):
+    ) -> "ReservationInstance":
         """
         Update the ReservationInstance
 
         :param str if_match: The If-Match HTTP request header
-        :param ReservationInstance.Status reservation_status:
+        :param "ReservationInstance.Status" reservation_status:
         :param str worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :param str instruction: The assignment instruction for the reservation.
         :param str dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -278,7 +262,7 @@ class ReservationInstance(InstanceResource):
         :param str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param List[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param List["ReservationInstance.CallStatus"] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :param int timeout: The timeout for a call when executing a Conference instruction.
         :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :param bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -291,7 +275,7 @@ class ReservationInstance(InstanceResource):
         :param int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param List[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param List["ReservationInstance.ConferenceEvent"] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :param str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
@@ -308,7 +292,6 @@ class ReservationInstance(InstanceResource):
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
 
         :returns: The updated ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         return self._proxy.update(
             if_match=if_match,
@@ -419,12 +402,12 @@ class ReservationInstance(InstanceResource):
         post_work_activity_sid=values.unset,
         end_conference_on_customer_exit=values.unset,
         beep_on_customer_entrance=values.unset,
-    ):
+    ) -> "ReservationInstance":
         """
         Asynchronous coroutine to update the ReservationInstance
 
         :param str if_match: The If-Match HTTP request header
-        :param ReservationInstance.Status reservation_status:
+        :param "ReservationInstance.Status" reservation_status:
         :param str worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :param str instruction: The assignment instruction for the reservation.
         :param str dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -447,7 +430,7 @@ class ReservationInstance(InstanceResource):
         :param str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param List[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param List["ReservationInstance.CallStatus"] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :param int timeout: The timeout for a call when executing a Conference instruction.
         :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :param bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -460,7 +443,7 @@ class ReservationInstance(InstanceResource):
         :param int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param List[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param List["ReservationInstance.ConferenceEvent"] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :param str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
@@ -477,7 +460,6 @@ class ReservationInstance(InstanceResource):
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
 
         :returns: The updated ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         return await self._proxy.update_async(
             if_match=if_match,
@@ -534,12 +516,11 @@ class ReservationInstance(InstanceResource):
             beep_on_customer_entrance=beep_on_customer_entrance,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.ReservationInstance {}>".format(context)
@@ -550,13 +531,10 @@ class ReservationContext(InstanceContext):
         """
         Initialize the ReservationContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the WorkerReservation resources to update.
         :param worker_sid: The SID of the reserved Worker resource with the WorkerReservation resources to update.
         :param sid: The SID of the WorkerReservation resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
         """
         super().__init__(version)
 
@@ -570,13 +548,12 @@ class ReservationContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> ReservationInstance:
         """
         Fetch the ReservationInstance
 
 
         :returns: The fetched ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
 
         payload = self._version.fetch(
@@ -592,13 +569,12 @@ class ReservationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ReservationInstance:
         """
         Asynchronous coroutine to fetch the ReservationInstance
 
 
         :returns: The fetched ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
 
         payload = await self._version.fetch_async(
@@ -668,12 +644,12 @@ class ReservationContext(InstanceContext):
         post_work_activity_sid=values.unset,
         end_conference_on_customer_exit=values.unset,
         beep_on_customer_entrance=values.unset,
-    ):
+    ) -> ReservationInstance:
         """
         Update the ReservationInstance
 
         :param str if_match: The If-Match HTTP request header
-        :param ReservationInstance.Status reservation_status:
+        :param "ReservationInstance.Status" reservation_status:
         :param str worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :param str instruction: The assignment instruction for the reservation.
         :param str dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -696,7 +672,7 @@ class ReservationContext(InstanceContext):
         :param str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param List[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param List["ReservationInstance.CallStatus"] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :param int timeout: The timeout for a call when executing a Conference instruction.
         :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :param bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -709,7 +685,7 @@ class ReservationContext(InstanceContext):
         :param int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param List[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param List["ReservationInstance.ConferenceEvent"] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :param str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
@@ -726,7 +702,6 @@ class ReservationContext(InstanceContext):
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
 
         :returns: The updated ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         data = values.of(
             {
@@ -861,12 +836,12 @@ class ReservationContext(InstanceContext):
         post_work_activity_sid=values.unset,
         end_conference_on_customer_exit=values.unset,
         beep_on_customer_entrance=values.unset,
-    ):
+    ) -> ReservationInstance:
         """
         Asynchronous coroutine to update the ReservationInstance
 
         :param str if_match: The If-Match HTTP request header
-        :param ReservationInstance.Status reservation_status:
+        :param "ReservationInstance.Status" reservation_status:
         :param str worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :param str instruction: The assignment instruction for the reservation.
         :param str dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -889,7 +864,7 @@ class ReservationContext(InstanceContext):
         :param str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param List[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param List["ReservationInstance.CallStatus"] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :param int timeout: The timeout for a call when executing a Conference instruction.
         :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :param bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -902,7 +877,7 @@ class ReservationContext(InstanceContext):
         :param int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param List[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param List["ReservationInstance.ConferenceEvent"] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :param str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
@@ -919,7 +894,6 @@ class ReservationContext(InstanceContext):
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
 
         :returns: The updated ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         data = values.of(
             {
@@ -1000,26 +974,22 @@ class ReservationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.ReservationContext {}>".format(context)
 
 
 class ReservationPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ReservationInstance:
         """
         Build an instance of ReservationInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         return ReservationInstance(
             self._version,
@@ -1042,12 +1012,10 @@ class ReservationList(ListResource):
         """
         Initialize the ReservationList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the WorkerReservation resources to read.
         :param worker_sid: The SID of the reserved Worker resource with the WorkerReservation resources to read.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationList
         """
         super().__init__(version)
 
@@ -1062,14 +1030,16 @@ class ReservationList(ListResource):
             )
         )
 
-    def stream(self, reservation_status=values.unset, limit=None, page_size=None):
+    def stream(
+        self, reservation_status=values.unset, limit=None, page_size=None
+    ) -> List[ReservationInstance]:
         """
         Streams ReservationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -1078,7 +1048,6 @@ class ReservationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -1089,14 +1058,14 @@ class ReservationList(ListResource):
 
     async def stream_async(
         self, reservation_status=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[ReservationInstance]:
         """
         Asynchronously streams ReservationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -1105,7 +1074,6 @@ class ReservationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -1114,13 +1082,15 @@ class ReservationList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, reservation_status=values.unset, limit=None, page_size=None):
+    def list(
+        self, reservation_status=values.unset, limit=None, page_size=None
+    ) -> List[ReservationInstance]:
         """
         Lists ReservationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -1129,7 +1099,6 @@ class ReservationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance]
         """
         return list(
             self.stream(
@@ -1141,13 +1110,13 @@ class ReservationList(ListResource):
 
     async def list_async(
         self, reservation_status=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[ReservationInstance]:
         """
         Asynchronously lists ReservationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -1156,7 +1125,6 @@ class ReservationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance]
         """
         return list(
             await self.stream_async(
@@ -1172,18 +1140,17 @@ class ReservationList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ReservationPage:
         """
         Retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
 
-        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationPage
         """
         data = values.of(
             {
@@ -1203,18 +1170,17 @@ class ReservationList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ReservationPage:
         """
         Asynchronously retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
 
-        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationPage
         """
         data = values.of(
             {
@@ -1230,7 +1196,7 @@ class ReservationList(ListResource):
         )
         return ReservationPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ReservationPage:
         """
         Retrieve a specific page of ReservationInstance records from the API.
         Request is executed immediately
@@ -1238,12 +1204,11 @@ class ReservationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ReservationPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ReservationPage:
         """
         Asynchronously retrieve a specific page of ReservationInstance records from the API.
         Request is executed immediately
@@ -1251,19 +1216,15 @@ class ReservationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ReservationPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> ReservationContext:
         """
         Constructs a ReservationContext
 
         :param sid: The SID of the WorkerReservation resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
         """
         return ReservationContext(
             self._version,
@@ -1272,14 +1233,11 @@ class ReservationList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ReservationContext:
         """
         Constructs a ReservationContext
 
         :param sid: The SID of the WorkerReservation resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
         """
         return ReservationContext(
             self._version,
@@ -1288,11 +1246,10 @@ class ReservationList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.ReservationList>"

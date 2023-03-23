@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -39,9 +40,6 @@ class MessageInstance(InstanceResource):
     ):
         """
         Initialize the MessageInstance
-
-        :returns: twilio.rest.conversations.v1.conversation.message.MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         super().__init__(version)
 
@@ -70,13 +68,12 @@ class MessageInstance(InstanceResource):
         self._context: Optional[MessageContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "MessageContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: MessageContext for this MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageContext
         """
         if self._context is None:
             self._context = MessageContext(
@@ -87,168 +84,149 @@ class MessageInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this message.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def conversation_sid(self):
+    def conversation_sid(self) -> str:
         """
         :returns: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-        :rtype: str
         """
         return self._properties["conversation_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def index(self):
+    def index(self) -> int:
         """
         :returns: The index of the message within the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource).  Indices may skip numbers, but will always be in order of when the message was received.
-        :rtype: int
         """
         return self._properties["index"]
 
     @property
-    def author(self):
+    def author(self) -> str:
         """
         :returns: The channel specific identifier of the message's author. Defaults to `system`.
-        :rtype: str
         """
         return self._properties["author"]
 
     @property
-    def body(self):
+    def body(self) -> str:
         """
         :returns: The content of the message, can be up to 1,600 characters long.
-        :rtype: str
         """
         return self._properties["body"]
 
     @property
-    def media(self):
+    def media(self) -> List[object]:
         """
         :returns: An array of objects that describe the Message's media, if the message contains media. Each object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object's file size in bytes. If the Message has no media, this value is `null`.
-        :rtype: List[object]
         """
         return self._properties["media"]
 
     @property
-    def attributes(self):
+    def attributes(self) -> str:
         """
         :returns: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
-        :rtype: str
         """
         return self._properties["attributes"]
 
     @property
-    def participant_sid(self):
+    def participant_sid(self) -> str:
         """
         :returns: The unique ID of messages's author participant. Null in case of `system` sent message.
-        :rtype: str
         """
         return self._properties["participant_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated. `null` if the message has not been edited.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: An absolute API resource API URL for this message.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def delivery(self):
+    def delivery(self) -> dict:
         """
         :returns: An object that contains the summary of delivery statuses for the message to non-chat participants.
-        :rtype: dict
         """
         return self._properties["delivery"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: Contains an absolute API resource URL to access the delivery & read receipts of this message.
-        :rtype: dict
         """
         return self._properties["links"]
 
     @property
-    def content_sid(self):
+    def content_sid(self) -> str:
         """
         :returns: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template.
-        :rtype: str
         """
         return self._properties["content_sid"]
 
-    def delete(self, x_twilio_webhook_enabled=values.unset):
+    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """
         Deletes the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete(
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async(
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    def fetch(self):
+    def fetch(self) -> "MessageInstance":
         """
         Fetch the MessageInstance
 
 
         :returns: The fetched MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "MessageInstance":
         """
         Asynchronous coroutine to fetch the MessageInstance
 
 
         :returns: The fetched MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         return await self._proxy.fetch_async()
 
@@ -260,11 +238,11 @@ class MessageInstance(InstanceResource):
         date_created=values.unset,
         date_updated=values.unset,
         attributes=values.unset,
-    ):
+    ) -> "MessageInstance":
         """
         Update the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str author: The channel specific identifier of the message's author. Defaults to `system`.
         :param str body: The content of the message, can be up to 1,600 characters long.
         :param datetime date_created: The date that this resource was created.
@@ -272,7 +250,6 @@ class MessageInstance(InstanceResource):
         :param str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 
         :returns: The updated MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         return self._proxy.update(
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
@@ -291,11 +268,11 @@ class MessageInstance(InstanceResource):
         date_created=values.unset,
         date_updated=values.unset,
         attributes=values.unset,
-    ):
+    ) -> "MessageInstance":
         """
         Asynchronous coroutine to update the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str author: The channel specific identifier of the message's author. Defaults to `system`.
         :param str body: The content of the message, can be up to 1,600 characters long.
         :param datetime date_created: The date that this resource was created.
@@ -303,7 +280,6 @@ class MessageInstance(InstanceResource):
         :param str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 
         :returns: The updated MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         return await self._proxy.update_async(
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
@@ -315,21 +291,17 @@ class MessageInstance(InstanceResource):
         )
 
     @property
-    def delivery_receipts(self):
+    def delivery_receipts(self) -> DeliveryReceiptList:
         """
         Access the delivery_receipts
-
-        :returns: twilio.rest.conversations.v1.conversation.message.DeliveryReceiptList
-        :rtype: twilio.rest.conversations.v1.conversation.message.DeliveryReceiptList
         """
         return self._proxy.delivery_receipts
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.MessageInstance {}>".format(context)
@@ -340,12 +312,9 @@ class MessageContext(InstanceContext):
         """
         Initialize the MessageContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.conversation.message.MessageContext
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageContext
         """
         super().__init__(version)
 
@@ -360,14 +329,13 @@ class MessageContext(InstanceContext):
 
         self._delivery_receipts: Optional[DeliveryReceiptList] = None
 
-    def delete(self, x_twilio_webhook_enabled=values.unset):
+    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """
         Deletes the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param &quot;MessageInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -377,14 +345,13 @@ class MessageContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param &quot;MessageInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -396,13 +363,12 @@ class MessageContext(InstanceContext):
             method="DELETE", uri=self._uri, headers=headers
         )
 
-    def fetch(self):
+    def fetch(self) -> MessageInstance:
         """
         Fetch the MessageInstance
 
 
         :returns: The fetched MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
 
         payload = self._version.fetch(
@@ -417,13 +383,12 @@ class MessageContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> MessageInstance:
         """
         Asynchronous coroutine to fetch the MessageInstance
 
 
         :returns: The fetched MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
 
         payload = await self._version.fetch_async(
@@ -446,11 +411,11 @@ class MessageContext(InstanceContext):
         date_created=values.unset,
         date_updated=values.unset,
         attributes=values.unset,
-    ):
+    ) -> MessageInstance:
         """
         Update the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str author: The channel specific identifier of the message's author. Defaults to `system`.
         :param str body: The content of the message, can be up to 1,600 characters long.
         :param datetime date_created: The date that this resource was created.
@@ -458,7 +423,6 @@ class MessageContext(InstanceContext):
         :param str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 
         :returns: The updated MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         data = values.of(
             {
@@ -494,11 +458,11 @@ class MessageContext(InstanceContext):
         date_created=values.unset,
         date_updated=values.unset,
         attributes=values.unset,
-    ):
+    ) -> MessageInstance:
         """
         Asynchronous coroutine to update the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str author: The channel specific identifier of the message's author. Defaults to `system`.
         :param str body: The content of the message, can be up to 1,600 characters long.
         :param datetime date_created: The date that this resource was created.
@@ -506,7 +470,6 @@ class MessageContext(InstanceContext):
         :param str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 
         :returns: The updated MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         data = values.of(
             {
@@ -535,12 +498,9 @@ class MessageContext(InstanceContext):
         )
 
     @property
-    def delivery_receipts(self):
+    def delivery_receipts(self) -> DeliveryReceiptList:
         """
         Access the delivery_receipts
-
-        :returns: twilio.rest.conversations.v1.conversation.message.DeliveryReceiptList
-        :rtype: twilio.rest.conversations.v1.conversation.message.DeliveryReceiptList
         """
         if self._delivery_receipts is None:
             self._delivery_receipts = DeliveryReceiptList(
@@ -550,26 +510,22 @@ class MessageContext(InstanceContext):
             )
         return self._delivery_receipts
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.MessageContext {}>".format(context)
 
 
 class MessagePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> MessageInstance:
         """
         Build an instance of MessageInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.conversation.message.MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         return MessageInstance(
             self._version, payload, conversation_sid=self._solution["conversation_sid"]
@@ -589,11 +545,9 @@ class MessageList(ListResource):
         """
         Initialize the MessageList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
 
-        :returns: twilio.rest.conversations.v1.conversation.message.MessageList
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageList
         """
         super().__init__(version)
 
@@ -616,11 +570,11 @@ class MessageList(ListResource):
         media_sid=values.unset,
         content_sid=values.unset,
         content_variables=values.unset,
-    ):
+    ) -> MessageInstance:
         """
         Create the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param &quot;MessageInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str author: The channel specific identifier of the message's author. Defaults to `system`.
         :param str body: The content of the message, can be up to 1,600 characters long.
         :param datetime date_created: The date that this resource was created.
@@ -631,7 +585,6 @@ class MessageList(ListResource):
         :param str content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
 
         :returns: The created MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         data = values.of(
             {
@@ -669,11 +622,11 @@ class MessageList(ListResource):
         media_sid=values.unset,
         content_sid=values.unset,
         content_variables=values.unset,
-    ):
+    ) -> MessageInstance:
         """
         Asynchronously create the MessageInstance
 
-        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param &quot;MessageInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str author: The channel specific identifier of the message's author. Defaults to `system`.
         :param str body: The content of the message, can be up to 1,600 characters long.
         :param datetime date_created: The date that this resource was created.
@@ -684,7 +637,6 @@ class MessageList(ListResource):
         :param str content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
 
         :returns: The created MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         data = values.of(
             {
@@ -711,14 +663,16 @@ class MessageList(ListResource):
             self._version, payload, conversation_sid=self._solution["conversation_sid"]
         )
 
-    def stream(self, order=values.unset, limit=None, page_size=None):
+    def stream(
+        self, order=values.unset, limit=None, page_size=None
+    ) -> List[MessageInstance]:
         """
         Streams MessageInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+        :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -727,21 +681,22 @@ class MessageList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.conversation.message.MessageInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(order=order, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, order=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self, order=values.unset, limit=None, page_size=None
+    ) -> List[MessageInstance]:
         """
         Asynchronously streams MessageInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+        :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -750,20 +705,21 @@ class MessageList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.conversation.message.MessageInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(order=order, page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, order=values.unset, limit=None, page_size=None):
+    def list(
+        self, order=values.unset, limit=None, page_size=None
+    ) -> List[MessageInstance]:
         """
         Lists MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+        :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -772,7 +728,6 @@ class MessageList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.conversation.message.MessageInstance]
         """
         return list(
             self.stream(
@@ -782,13 +737,15 @@ class MessageList(ListResource):
             )
         )
 
-    async def list_async(self, order=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, order=values.unset, limit=None, page_size=None
+    ) -> List[MessageInstance]:
         """
         Asynchronously lists MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+        :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -797,7 +754,6 @@ class MessageList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.conversation.message.MessageInstance]
         """
         return list(
             await self.stream_async(
@@ -813,18 +769,17 @@ class MessageList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> MessagePage:
         """
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+        :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessagePage
         """
         data = values.of(
             {
@@ -844,18 +799,17 @@ class MessageList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> MessagePage:
         """
         Asynchronously retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+        :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessagePage
         """
         data = values.of(
             {
@@ -871,7 +825,7 @@ class MessageList(ListResource):
         )
         return MessagePage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> MessagePage:
         """
         Retrieve a specific page of MessageInstance records from the API.
         Request is executed immediately
@@ -879,12 +833,11 @@ class MessageList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessagePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MessagePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> MessagePage:
         """
         Asynchronously retrieve a specific page of MessageInstance records from the API.
         Request is executed immediately
@@ -892,42 +845,34 @@ class MessageList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessagePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return MessagePage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> MessageContext:
         """
         Constructs a MessageContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.conversation.message.MessageContext
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageContext
         """
         return MessageContext(
             self._version, conversation_sid=self._solution["conversation_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> MessageContext:
         """
         Constructs a MessageContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.conversation.message.MessageContext
-        :rtype: twilio.rest.conversations.v1.conversation.message.MessageContext
         """
         return MessageContext(
             self._version, conversation_sid=self._solution["conversation_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.MessageList>"

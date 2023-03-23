@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -36,9 +37,6 @@ class ParticipantInstance(InstanceResource):
     ):
         """
         Initialize the ParticipantInstance
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         super().__init__(version)
 
@@ -66,13 +64,12 @@ class ParticipantInstance(InstanceResource):
         self._context: Optional[ParticipantContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ParticipantContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ParticipantContext for this ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         """
         if self._context is None:
             self._context = ParticipantContext(
@@ -84,165 +81,144 @@ class ParticipantInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Participant resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def session_sid(self):
+    def session_sid(self) -> str:
         """
         :returns: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
-        :rtype: str
         """
         return self._properties["session_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the participant. This value must be 255 characters or fewer. Supports UTF-8 characters. **This value should not have PII.**
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def identifier(self):
+    def identifier(self) -> str:
         """
         :returns: The phone number or channel identifier of the Participant. This value must be 191 characters or fewer. Supports UTF-8 characters.
-        :rtype: str
         """
         return self._properties["identifier"]
 
     @property
-    def proxy_identifier(self):
+    def proxy_identifier(self) -> str:
         """
         :returns: The phone number or short code (masked number) of the participant's partner. The participant will call or message the partner participant at this number.
-        :rtype: str
         """
         return self._properties["proxy_identifier"]
 
     @property
-    def proxy_identifier_sid(self):
+    def proxy_identifier_sid(self) -> str:
         """
         :returns: The SID of the Proxy Identifier assigned to the Participant.
-        :rtype: str
         """
         return self._properties["proxy_identifier_sid"]
 
     @property
-    def date_deleted(self):
+    def date_deleted(self) -> datetime:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Participant was removed from the session.
-        :rtype: datetime
         """
         return self._properties["date_deleted"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Participant resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs to resources related the participant.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ParticipantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ParticipantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ParticipantInstance":
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ParticipantInstance":
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def message_interactions(self):
+    def message_interactions(self) -> MessageInteractionList:
         """
         Access the message_interactions
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
-        :rtype: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
         """
         return self._proxy.message_interactions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Proxy.V1.ParticipantInstance {}>".format(context)
@@ -253,13 +229,10 @@ class ParticipantContext(InstanceContext):
         """
         Initialize the ParticipantContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
         :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
         :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         """
         super().__init__(version)
 
@@ -277,39 +250,36 @@ class ParticipantContext(InstanceContext):
 
         self._message_interactions: Optional[MessageInteractionList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ParticipantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ParticipantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ParticipantInstance:
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
 
         payload = self._version.fetch(
@@ -325,13 +295,12 @@ class ParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ParticipantInstance:
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
 
         payload = await self._version.fetch_async(
@@ -348,12 +317,9 @@ class ParticipantContext(InstanceContext):
         )
 
     @property
-    def message_interactions(self):
+    def message_interactions(self) -> MessageInteractionList:
         """
         Access the message_interactions
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
-        :rtype: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
         """
         if self._message_interactions is None:
             self._message_interactions = MessageInteractionList(
@@ -364,26 +330,22 @@ class ParticipantContext(InstanceContext):
             )
         return self._message_interactions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Proxy.V1.ParticipantContext {}>".format(context)
 
 
 class ParticipantPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         return ParticipantInstance(
             self._version,
@@ -406,12 +368,10 @@ class ParticipantList(ListResource):
         """
         Initialize the ParticipantList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resources to read.
         :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resources to read.
 
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantList
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantList
         """
         super().__init__(version)
 
@@ -432,7 +392,7 @@ class ParticipantList(ListResource):
         friendly_name=values.unset,
         proxy_identifier=values.unset,
         proxy_identifier_sid=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Create the ParticipantInstance
 
@@ -442,7 +402,6 @@ class ParticipantList(ListResource):
         :param str proxy_identifier_sid: The SID of the Proxy Identifier to assign to the Participant.
 
         :returns: The created ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -472,7 +431,7 @@ class ParticipantList(ListResource):
         friendly_name=values.unset,
         proxy_identifier=values.unset,
         proxy_identifier_sid=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Asynchronously create the ParticipantInstance
 
@@ -482,7 +441,6 @@ class ParticipantList(ListResource):
         :param str proxy_identifier_sid: The SID of the Proxy Identifier to assign to the Participant.
 
         :returns: The created ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -506,7 +464,7 @@ class ParticipantList(ListResource):
             session_sid=self._solution["session_sid"],
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ParticipantInstance]:
         """
         Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -521,14 +479,15 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.session.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[ParticipantInstance]:
         """
         Asynchronously streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -543,14 +502,13 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.session.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ParticipantInstance]:
         """
         Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -564,7 +522,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.session.participant.ParticipantInstance]
         """
         return list(
             self.stream(
@@ -573,7 +530,7 @@ class ParticipantList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ParticipantInstance]:
         """
         Asynchronously lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -587,7 +544,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.session.participant.ParticipantInstance]
         """
         return list(
             await self.stream_async(
@@ -598,7 +554,7 @@ class ParticipantList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ParticipantPage:
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -608,7 +564,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -623,7 +578,7 @@ class ParticipantList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ParticipantPage:
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -633,7 +588,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -648,7 +602,7 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ParticipantPage:
         """
         Retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -656,12 +610,11 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ParticipantPage:
         """
         Asynchronously retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -669,19 +622,15 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -690,14 +639,11 @@ class ParticipantList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -706,11 +652,10 @@ class ParticipantList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Proxy.V1.ParticipantList>"

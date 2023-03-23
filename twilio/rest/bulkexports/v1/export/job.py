@@ -24,9 +24,6 @@ class JobInstance(InstanceResource):
     def __init__(self, version, payload, job_sid: Optional[str] = None):
         """
         Initialize the JobInstance
-
-        :returns: twilio.rest.bulkexports.v1.export.job.JobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
         """
         super().__init__(version)
 
@@ -51,13 +48,12 @@ class JobInstance(InstanceResource):
         self._context: Optional[JobContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "JobContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: JobContext for this JobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
         """
         if self._context is None:
             self._context = JobContext(
@@ -67,147 +63,130 @@ class JobInstance(InstanceResource):
         return self._context
 
     @property
-    def resource_type(self):
+    def resource_type(self) -> str:
         """
         :returns: The type of communication – Messages, Calls, Conferences, and Participants
-        :rtype: str
         """
         return self._properties["resource_type"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The friendly name specified when creating the job
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def details(self):
+    def details(self) -> dict:
         """
         :returns: The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
-        :rtype: dict
         """
         return self._properties["details"]
 
     @property
-    def start_day(self):
+    def start_day(self) -> str:
         """
         :returns: The start time for the export specified when creating the job
-        :rtype: str
         """
         return self._properties["start_day"]
 
     @property
-    def end_day(self):
+    def end_day(self) -> str:
         """
         :returns: The end time for the export specified when creating the job
-        :rtype: str
         """
         return self._properties["end_day"]
 
     @property
-    def job_sid(self):
+    def job_sid(self) -> str:
         """
         :returns: The job_sid returned when the export was created
-        :rtype: str
         """
         return self._properties["job_sid"]
 
     @property
-    def webhook_url(self):
+    def webhook_url(self) -> str:
         """
         :returns: The optional webhook url called on completion
-        :rtype: str
         """
         return self._properties["webhook_url"]
 
     @property
-    def webhook_method(self):
+    def webhook_method(self) -> str:
         """
         :returns: This is the method used to call the webhook
-        :rtype: str
         """
         return self._properties["webhook_method"]
 
     @property
-    def email(self):
+    def email(self) -> str:
         """
         :returns: The optional email to send the completion notification to
-        :rtype: str
         """
         return self._properties["email"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def job_queue_position(self):
+    def job_queue_position(self) -> str:
         """
         :returns: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
-        :rtype: str
         """
         return self._properties["job_queue_position"]
 
     @property
-    def estimated_completion_time(self):
+    def estimated_completion_time(self) -> str:
         """
         :returns: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
-        :rtype: str
         """
         return self._properties["estimated_completion_time"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the JobInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the JobInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "JobInstance":
         """
         Fetch the JobInstance
 
 
         :returns: The fetched JobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "JobInstance":
         """
         Asynchronous coroutine to fetch the JobInstance
 
 
         :returns: The fetched JobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Bulkexports.V1.JobInstance {}>".format(context)
@@ -218,11 +197,8 @@ class JobContext(InstanceContext):
         """
         Initialize the JobContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param job_sid: The unique string that that we created to identify the Bulk Export job
-
-        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
         """
         super().__init__(version)
 
@@ -232,39 +208,36 @@ class JobContext(InstanceContext):
         }
         self._uri = "/Exports/Jobs/{job_sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the JobInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the JobInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> JobInstance:
         """
         Fetch the JobInstance
 
 
         :returns: The fetched JobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
         """
 
         payload = self._version.fetch(
@@ -278,13 +251,12 @@ class JobContext(InstanceContext):
             job_sid=self._solution["job_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> JobInstance:
         """
         Asynchronous coroutine to fetch the JobInstance
 
 
         :returns: The fetched JobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
         """
 
         payload = await self._version.fetch_async(
@@ -298,12 +270,11 @@ class JobContext(InstanceContext):
             job_sid=self._solution["job_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Bulkexports.V1.JobContext {}>".format(context)
@@ -314,40 +285,31 @@ class JobList(ListResource):
         """
         Initialize the JobList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.bulkexports.v1.export.job.JobList
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobList
         """
         super().__init__(version)
 
-    def get(self, job_sid):
+    def get(self, job_sid) -> JobContext:
         """
         Constructs a JobContext
 
         :param job_sid: The unique string that that we created to identify the Bulk Export job
-
-        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
         """
         return JobContext(self._version, job_sid=job_sid)
 
-    def __call__(self, job_sid):
+    def __call__(self, job_sid) -> JobContext:
         """
         Constructs a JobContext
 
         :param job_sid: The unique string that that we created to identify the Bulk Export job
-
-        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
         """
         return JobContext(self._version, job_sid=job_sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Bulkexports.V1.JobList>"

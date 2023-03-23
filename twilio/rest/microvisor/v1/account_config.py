@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class AccountConfigInstance(InstanceResource):
     def __init__(self, version, payload, key: Optional[str] = None):
         """
         Initialize the AccountConfigInstance
-
-        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         super().__init__(version)
 
@@ -45,13 +43,12 @@ class AccountConfigInstance(InstanceResource):
         self._context: Optional[AccountConfigContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AccountConfigContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AccountConfigContext for this AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigContext
         """
         if self._context is None:
             self._context = AccountConfigContext(
@@ -61,109 +58,98 @@ class AccountConfigInstance(InstanceResource):
         return self._context
 
     @property
-    def key(self):
+    def key(self) -> str:
         """
         :returns: The config key; up to 100 characters.
-        :rtype: str
         """
         return self._properties["key"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def value(self):
+    def value(self) -> str:
         """
         :returns: The config value; up to 4096 characters.
-        :rtype: str
         """
         return self._properties["value"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Config.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AccountConfigInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AccountConfigInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "AccountConfigInstance":
         """
         Fetch the AccountConfigInstance
 
 
         :returns: The fetched AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AccountConfigInstance":
         """
         Asynchronous coroutine to fetch the AccountConfigInstance
 
 
         :returns: The fetched AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, value):
+    def update(self, value) -> "AccountConfigInstance":
         """
         Update the AccountConfigInstance
 
         :param str value: The config value; up to 4096 characters.
 
         :returns: The updated AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         return self._proxy.update(
             value=value,
         )
 
-    async def update_async(self, value):
+    async def update_async(self, value) -> "AccountConfigInstance":
         """
         Asynchronous coroutine to update the AccountConfigInstance
 
         :param str value: The config value; up to 4096 characters.
 
         :returns: The updated AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         return await self._proxy.update_async(
             value=value,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.AccountConfigInstance {}>".format(context)
@@ -174,11 +160,8 @@ class AccountConfigContext(InstanceContext):
         """
         Initialize the AccountConfigContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param key: The config key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigContext
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigContext
         """
         super().__init__(version)
 
@@ -188,39 +171,36 @@ class AccountConfigContext(InstanceContext):
         }
         self._uri = "/Configs/{key}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AccountConfigInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AccountConfigInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> AccountConfigInstance:
         """
         Fetch the AccountConfigInstance
 
 
         :returns: The fetched AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
 
         payload = self._version.fetch(
@@ -234,13 +214,12 @@ class AccountConfigContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AccountConfigInstance:
         """
         Asynchronous coroutine to fetch the AccountConfigInstance
 
 
         :returns: The fetched AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
 
         payload = await self._version.fetch_async(
@@ -254,14 +233,13 @@ class AccountConfigContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    def update(self, value):
+    def update(self, value) -> AccountConfigInstance:
         """
         Update the AccountConfigInstance
 
         :param str value: The config value; up to 4096 characters.
 
         :returns: The updated AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         data = values.of(
             {
@@ -277,14 +255,13 @@ class AccountConfigContext(InstanceContext):
 
         return AccountConfigInstance(self._version, payload, key=self._solution["key"])
 
-    async def update_async(self, value):
+    async def update_async(self, value) -> AccountConfigInstance:
         """
         Asynchronous coroutine to update the AccountConfigInstance
 
         :param str value: The config value; up to 4096 characters.
 
         :returns: The updated AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         data = values.of(
             {
@@ -300,26 +277,22 @@ class AccountConfigContext(InstanceContext):
 
         return AccountConfigInstance(self._version, payload, key=self._solution["key"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.AccountConfigContext {}>".format(context)
 
 
 class AccountConfigPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AccountConfigInstance:
         """
         Build an instance of AccountConfigInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         return AccountConfigInstance(self._version, payload)
 
@@ -337,16 +310,14 @@ class AccountConfigList(ListResource):
         """
         Initialize the AccountConfigList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigList
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigList
         """
         super().__init__(version)
 
         self._uri = "/Configs"
 
-    def create(self, key, value):
+    def create(self, key, value) -> AccountConfigInstance:
         """
         Create the AccountConfigInstance
 
@@ -354,7 +325,6 @@ class AccountConfigList(ListResource):
         :param str value: The config value; up to 4096 characters.
 
         :returns: The created AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         data = values.of(
             {
@@ -371,7 +341,7 @@ class AccountConfigList(ListResource):
 
         return AccountConfigInstance(self._version, payload)
 
-    async def create_async(self, key, value):
+    async def create_async(self, key, value) -> AccountConfigInstance:
         """
         Asynchronously create the AccountConfigInstance
 
@@ -379,7 +349,6 @@ class AccountConfigList(ListResource):
         :param str value: The config value; up to 4096 characters.
 
         :returns: The created AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         data = values.of(
             {
@@ -396,7 +365,7 @@ class AccountConfigList(ListResource):
 
         return AccountConfigInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[AccountConfigInstance]:
         """
         Streams AccountConfigInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -411,14 +380,15 @@ class AccountConfigList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.account_config.AccountConfigInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[AccountConfigInstance]:
         """
         Asynchronously streams AccountConfigInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -433,14 +403,13 @@ class AccountConfigList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.account_config.AccountConfigInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[AccountConfigInstance]:
         """
         Lists AccountConfigInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -454,7 +423,6 @@ class AccountConfigList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.account_config.AccountConfigInstance]
         """
         return list(
             self.stream(
@@ -463,7 +431,9 @@ class AccountConfigList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[AccountConfigInstance]:
         """
         Asynchronously lists AccountConfigInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -477,7 +447,6 @@ class AccountConfigList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.account_config.AccountConfigInstance]
         """
         return list(
             await self.stream_async(
@@ -488,7 +457,7 @@ class AccountConfigList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AccountConfigPage:
         """
         Retrieve a single page of AccountConfigInstance records from the API.
         Request is executed immediately
@@ -498,7 +467,6 @@ class AccountConfigList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigPage
         """
         data = values.of(
             {
@@ -513,7 +481,7 @@ class AccountConfigList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AccountConfigPage:
         """
         Asynchronously retrieve a single page of AccountConfigInstance records from the API.
         Request is executed immediately
@@ -523,7 +491,6 @@ class AccountConfigList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigPage
         """
         data = values.of(
             {
@@ -538,7 +505,7 @@ class AccountConfigList(ListResource):
         )
         return AccountConfigPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AccountConfigPage:
         """
         Retrieve a specific page of AccountConfigInstance records from the API.
         Request is executed immediately
@@ -546,12 +513,11 @@ class AccountConfigList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AccountConfigPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AccountConfigPage:
         """
         Asynchronously retrieve a specific page of AccountConfigInstance records from the API.
         Request is executed immediately
@@ -559,38 +525,30 @@ class AccountConfigList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AccountConfigPage(self._version, response)
 
-    def get(self, key):
+    def get(self, key) -> AccountConfigContext:
         """
         Constructs a AccountConfigContext
 
         :param key: The config key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigContext
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigContext
         """
         return AccountConfigContext(self._version, key=key)
 
-    def __call__(self, key):
+    def __call__(self, key) -> AccountConfigContext:
         """
         Constructs a AccountConfigContext
 
         :param key: The config key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigContext
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigContext
         """
         return AccountConfigContext(self._version, key=key)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Microvisor.V1.AccountConfigList>"

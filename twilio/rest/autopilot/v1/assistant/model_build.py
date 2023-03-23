@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +34,6 @@ class ModelBuildInstance(InstanceResource):
     def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
         """
         Initialize the ModelBuildInstance
-
-        :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         super().__init__(version)
 
@@ -59,13 +57,12 @@ class ModelBuildInstance(InstanceResource):
         self._context: Optional[ModelBuildContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ModelBuildContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ModelBuildContext for this ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         """
         if self._context is None:
             self._context = ModelBuildContext(
@@ -76,157 +73,140 @@ class ModelBuildInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ModelBuild resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def assistant_sid(self):
+    def assistant_sid(self) -> str:
         """
         :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
-        :rtype: str
         """
         return self._properties["assistant_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the ModelBuild resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def status(self):
+    def status(self) -> "ModelBuildInstance.Status":
         """
         :returns:
-        :rtype: ModelBuildInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the ModelBuild resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def build_duration(self):
+    def build_duration(self) -> int:
         """
         :returns: The time in seconds it took to build the model.
-        :rtype: int
         """
         return self._properties["build_duration"]
 
     @property
-    def error_code(self):
+    def error_code(self) -> int:
         """
         :returns: If the `status` for the model build is `failed`, this value is a code to more information about the failure. This value will be null for all other statuses. See [error code dictionary](https://www.twilio.com/docs/api/errors) for a description of the error.
-        :rtype: int
         """
         return self._properties["error_code"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ModelBuildInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ModelBuildInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ModelBuildInstance":
         """
         Fetch the ModelBuildInstance
 
 
         :returns: The fetched ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ModelBuildInstance":
         """
         Asynchronous coroutine to fetch the ModelBuildInstance
 
 
         :returns: The fetched ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, unique_name=values.unset):
+    def update(self, unique_name=values.unset) -> "ModelBuildInstance":
         """
         Update the ModelBuildInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The updated ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         return self._proxy.update(
             unique_name=unique_name,
         )
 
-    async def update_async(self, unique_name=values.unset):
+    async def update_async(self, unique_name=values.unset) -> "ModelBuildInstance":
         """
         Asynchronous coroutine to update the ModelBuildInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The updated ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         return await self._proxy.update_async(
             unique_name=unique_name,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.ModelBuildInstance {}>".format(context)
@@ -237,12 +217,9 @@ class ModelBuildContext(InstanceContext):
         """
         Initialize the ModelBuildContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
         :param sid: The Twilio-provided string that uniquely identifies the ModelBuild resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         """
         super().__init__(version)
 
@@ -255,39 +232,36 @@ class ModelBuildContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ModelBuildInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ModelBuildInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ModelBuildInstance:
         """
         Fetch the ModelBuildInstance
 
 
         :returns: The fetched ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
 
         payload = self._version.fetch(
@@ -302,13 +276,12 @@ class ModelBuildContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ModelBuildInstance:
         """
         Asynchronous coroutine to fetch the ModelBuildInstance
 
 
         :returns: The fetched ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
 
         payload = await self._version.fetch_async(
@@ -323,14 +296,13 @@ class ModelBuildContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, unique_name=values.unset):
+    def update(self, unique_name=values.unset) -> ModelBuildInstance:
         """
         Update the ModelBuildInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The updated ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         data = values.of(
             {
@@ -351,14 +323,13 @@ class ModelBuildContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, unique_name=values.unset):
+    async def update_async(self, unique_name=values.unset) -> ModelBuildInstance:
         """
         Asynchronous coroutine to update the ModelBuildInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The updated ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         data = values.of(
             {
@@ -379,26 +350,22 @@ class ModelBuildContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.ModelBuildContext {}>".format(context)
 
 
 class ModelBuildPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ModelBuildInstance:
         """
         Build an instance of ModelBuildInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         return ModelBuildInstance(
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
@@ -418,11 +385,9 @@ class ModelBuildList(ListResource):
         """
         Initialize the ModelBuildList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
 
-        :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildList
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildList
         """
         super().__init__(version)
 
@@ -432,7 +397,9 @@ class ModelBuildList(ListResource):
         }
         self._uri = "/Assistants/{assistant_sid}/ModelBuilds".format(**self._solution)
 
-    def create(self, status_callback=values.unset, unique_name=values.unset):
+    def create(
+        self, status_callback=values.unset, unique_name=values.unset
+    ) -> ModelBuildInstance:
         """
         Create the ModelBuildInstance
 
@@ -440,7 +407,6 @@ class ModelBuildList(ListResource):
         :param str unique_name: An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The created ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         data = values.of(
             {
@@ -461,7 +427,7 @@ class ModelBuildList(ListResource):
 
     async def create_async(
         self, status_callback=values.unset, unique_name=values.unset
-    ):
+    ) -> ModelBuildInstance:
         """
         Asynchronously create the ModelBuildInstance
 
@@ -469,7 +435,6 @@ class ModelBuildList(ListResource):
         :param str unique_name: An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The created ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         data = values.of(
             {
@@ -488,7 +453,7 @@ class ModelBuildList(ListResource):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ModelBuildInstance]:
         """
         Streams ModelBuildInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -503,14 +468,15 @@ class ModelBuildList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[ModelBuildInstance]:
         """
         Asynchronously streams ModelBuildInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -525,14 +491,13 @@ class ModelBuildList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ModelBuildInstance]:
         """
         Lists ModelBuildInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -546,7 +511,6 @@ class ModelBuildList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance]
         """
         return list(
             self.stream(
@@ -555,7 +519,7 @@ class ModelBuildList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ModelBuildInstance]:
         """
         Asynchronously lists ModelBuildInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -569,7 +533,6 @@ class ModelBuildList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance]
         """
         return list(
             await self.stream_async(
@@ -580,7 +543,7 @@ class ModelBuildList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ModelBuildPage:
         """
         Retrieve a single page of ModelBuildInstance records from the API.
         Request is executed immediately
@@ -590,7 +553,6 @@ class ModelBuildList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildPage
         """
         data = values.of(
             {
@@ -605,7 +567,7 @@ class ModelBuildList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ModelBuildPage:
         """
         Asynchronously retrieve a single page of ModelBuildInstance records from the API.
         Request is executed immediately
@@ -615,7 +577,6 @@ class ModelBuildList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildPage
         """
         data = values.of(
             {
@@ -630,7 +591,7 @@ class ModelBuildList(ListResource):
         )
         return ModelBuildPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ModelBuildPage:
         """
         Retrieve a specific page of ModelBuildInstance records from the API.
         Request is executed immediately
@@ -638,12 +599,11 @@ class ModelBuildList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ModelBuildPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ModelBuildPage:
         """
         Asynchronously retrieve a specific page of ModelBuildInstance records from the API.
         Request is executed immediately
@@ -651,42 +611,34 @@ class ModelBuildList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ModelBuildPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> ModelBuildContext:
         """
         Constructs a ModelBuildContext
 
         :param sid: The Twilio-provided string that uniquely identifies the ModelBuild resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         """
         return ModelBuildContext(
             self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ModelBuildContext:
         """
         Constructs a ModelBuildContext
 
         :param sid: The Twilio-provided string that uniquely identifies the ModelBuild resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         """
         return ModelBuildContext(
             self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Autopilot.V1.ModelBuildList>"

@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class PublicKeyInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the PublicKeyInstance
-
-        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         super().__init__(version)
 
@@ -47,13 +45,12 @@ class PublicKeyInstance(InstanceResource):
         self._context: Optional[PublicKeyContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "PublicKeyContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: PublicKeyContext for this PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
         if self._context is None:
             self._context = PublicKeyContext(
@@ -63,125 +60,112 @@ class PublicKeyInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the PublicKey resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Credential that the PublicKey resource belongs to.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URI for this resource, relative to `https://accounts.twilio.com`
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the PublicKeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PublicKeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "PublicKeyInstance":
         """
         Fetch the PublicKeyInstance
 
 
         :returns: The fetched PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "PublicKeyInstance":
         """
         Asynchronous coroutine to fetch the PublicKeyInstance
 
 
         :returns: The fetched PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name=values.unset) -> "PublicKeyInstance":
         """
         Update the PublicKeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, friendly_name=values.unset):
+    async def update_async(self, friendly_name=values.unset) -> "PublicKeyInstance":
         """
         Asynchronous coroutine to update the PublicKeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Accounts.V1.PublicKeyInstance {}>".format(context)
@@ -192,11 +176,8 @@ class PublicKeyContext(InstanceContext):
         """
         Initialize the PublicKeyContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The Twilio-provided string that uniquely identifies the PublicKey resource to update.
-
-        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
         super().__init__(version)
 
@@ -206,39 +187,36 @@ class PublicKeyContext(InstanceContext):
         }
         self._uri = "/Credentials/PublicKeys/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the PublicKeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PublicKeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> PublicKeyInstance:
         """
         Fetch the PublicKeyInstance
 
 
         :returns: The fetched PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
 
         payload = self._version.fetch(
@@ -252,13 +230,12 @@ class PublicKeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> PublicKeyInstance:
         """
         Asynchronous coroutine to fetch the PublicKeyInstance
 
 
         :returns: The fetched PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
 
         payload = await self._version.fetch_async(
@@ -272,14 +249,13 @@ class PublicKeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name=values.unset) -> PublicKeyInstance:
         """
         Update the PublicKeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         data = values.of(
             {
@@ -295,14 +271,13 @@ class PublicKeyContext(InstanceContext):
 
         return PublicKeyInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, friendly_name=values.unset):
+    async def update_async(self, friendly_name=values.unset) -> PublicKeyInstance:
         """
         Asynchronous coroutine to update the PublicKeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         data = values.of(
             {
@@ -318,26 +293,22 @@ class PublicKeyContext(InstanceContext):
 
         return PublicKeyInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Accounts.V1.PublicKeyContext {}>".format(context)
 
 
 class PublicKeyPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> PublicKeyInstance:
         """
         Build an instance of PublicKeyInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return PublicKeyInstance(self._version, payload)
 
@@ -355,16 +326,16 @@ class PublicKeyList(ListResource):
         """
         Initialize the PublicKeyList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
         """
         super().__init__(version)
 
         self._uri = "/Credentials/PublicKeys"
 
-    def create(self, public_key, friendly_name=values.unset, account_sid=values.unset):
+    def create(
+        self, public_key, friendly_name=values.unset, account_sid=values.unset
+    ) -> PublicKeyInstance:
         """
         Create the PublicKeyInstance
 
@@ -373,7 +344,6 @@ class PublicKeyList(ListResource):
         :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
 
         :returns: The created PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         data = values.of(
             {
@@ -393,7 +363,7 @@ class PublicKeyList(ListResource):
 
     async def create_async(
         self, public_key, friendly_name=values.unset, account_sid=values.unset
-    ):
+    ) -> PublicKeyInstance:
         """
         Asynchronously create the PublicKeyInstance
 
@@ -402,7 +372,6 @@ class PublicKeyList(ListResource):
         :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
 
         :returns: The created PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         data = values.of(
             {
@@ -420,7 +389,7 @@ class PublicKeyList(ListResource):
 
         return PublicKeyInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[PublicKeyInstance]:
         """
         Streams PublicKeyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -435,14 +404,13 @@ class PublicKeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[PublicKeyInstance]:
         """
         Asynchronously streams PublicKeyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -457,14 +425,13 @@ class PublicKeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[PublicKeyInstance]:
         """
         Lists PublicKeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -478,7 +445,6 @@ class PublicKeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance]
         """
         return list(
             self.stream(
@@ -487,7 +453,7 @@ class PublicKeyList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[PublicKeyInstance]:
         """
         Asynchronously lists PublicKeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -501,7 +467,6 @@ class PublicKeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance]
         """
         return list(
             await self.stream_async(
@@ -512,7 +477,7 @@ class PublicKeyList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> PublicKeyPage:
         """
         Retrieve a single page of PublicKeyInstance records from the API.
         Request is executed immediately
@@ -522,7 +487,6 @@ class PublicKeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyPage
         """
         data = values.of(
             {
@@ -537,7 +501,7 @@ class PublicKeyList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> PublicKeyPage:
         """
         Asynchronously retrieve a single page of PublicKeyInstance records from the API.
         Request is executed immediately
@@ -547,7 +511,6 @@ class PublicKeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyPage
         """
         data = values.of(
             {
@@ -562,7 +525,7 @@ class PublicKeyList(ListResource):
         )
         return PublicKeyPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> PublicKeyPage:
         """
         Retrieve a specific page of PublicKeyInstance records from the API.
         Request is executed immediately
@@ -570,12 +533,11 @@ class PublicKeyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return PublicKeyPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> PublicKeyPage:
         """
         Asynchronously retrieve a specific page of PublicKeyInstance records from the API.
         Request is executed immediately
@@ -583,38 +545,30 @@ class PublicKeyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return PublicKeyPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> PublicKeyContext:
         """
         Constructs a PublicKeyContext
 
         :param sid: The Twilio-provided string that uniquely identifies the PublicKey resource to update.
-
-        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
         return PublicKeyContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> PublicKeyContext:
         """
         Constructs a PublicKeyContext
 
         :param sid: The Twilio-provided string that uniquely identifies the PublicKey resource to update.
-
-        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
         return PublicKeyContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Accounts.V1.PublicKeyList>"

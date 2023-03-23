@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -54,9 +55,6 @@ class CallSummaryInstance(InstanceResource):
     def __init__(self, version, payload, call_sid: str):
         """
         Initialize the CallSummaryInstance
-
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
         """
         super().__init__(version)
 
@@ -92,13 +90,12 @@ class CallSummaryInstance(InstanceResource):
         self._context: Optional[CallSummaryContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CallSummaryContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CallSummaryContext for this CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
         """
         if self._context is None:
             self._context = CallSummaryContext(
@@ -108,221 +105,195 @@ class CallSummaryInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def call_type(self):
+    def call_type(self) -> "CallSummaryInstance.CallType":
         """
         :returns:
-        :rtype: CallSummaryInstance.CallType
         """
         return self._properties["call_type"]
 
     @property
-    def call_state(self):
+    def call_state(self) -> "CallSummaryInstance.CallState":
         """
         :returns:
-        :rtype: CallSummaryInstance.CallState
         """
         return self._properties["call_state"]
 
     @property
-    def answered_by(self):
+    def answered_by(self) -> "CallSummaryInstance.AnsweredBy":
         """
         :returns:
-        :rtype: CallSummaryInstance.AnsweredBy
         """
         return self._properties["answered_by"]
 
     @property
-    def processing_state(self):
+    def processing_state(self) -> "CallSummaryInstance.ProcessingState":
         """
         :returns:
-        :rtype: CallSummaryInstance.ProcessingState
         """
         return self._properties["processing_state"]
 
     @property
-    def created_time(self):
+    def created_time(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["created_time"]
 
     @property
-    def start_time(self):
+    def start_time(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["start_time"]
 
     @property
-    def end_time(self):
+    def end_time(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["end_time"]
 
     @property
-    def duration(self):
+    def duration(self) -> int:
         """
         :returns:
-        :rtype: int
         """
         return self._properties["duration"]
 
     @property
-    def connect_duration(self):
+    def connect_duration(self) -> int:
         """
         :returns:
-        :rtype: int
         """
         return self._properties["connect_duration"]
 
     @property
-    def _from(self):
+    def _from(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["_from"]
 
     @property
-    def to(self):
+    def to(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["to"]
 
     @property
-    def carrier_edge(self):
+    def carrier_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["carrier_edge"]
 
     @property
-    def client_edge(self):
+    def client_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["client_edge"]
 
     @property
-    def sdk_edge(self):
+    def sdk_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["sdk_edge"]
 
     @property
-    def sip_edge(self):
+    def sip_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["sip_edge"]
 
     @property
-    def tags(self):
+    def tags(self) -> List[str]:
         """
         :returns:
-        :rtype: List[str]
         """
         return self._properties["tags"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def attributes(self):
+    def attributes(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["attributes"]
 
     @property
-    def properties(self):
+    def properties(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["properties"]
 
     @property
-    def trust(self):
+    def trust(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["trust"]
 
     @property
-    def annotation(self):
+    def annotation(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["annotation"]
 
-    def fetch(self, processing_state=values.unset):
+    def fetch(self, processing_state=values.unset) -> "CallSummaryInstance":
         """
         Fetch the CallSummaryInstance
 
-        :param CallSummaryInstance.ProcessingState processing_state:
+        :param "CallSummaryInstance.ProcessingState" processing_state:
 
         :returns: The fetched CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
         """
         return self._proxy.fetch(
             processing_state=processing_state,
         )
 
-    async def fetch_async(self, processing_state=values.unset):
+    async def fetch_async(self, processing_state=values.unset) -> "CallSummaryInstance":
         """
         Asynchronous coroutine to fetch the CallSummaryInstance
 
-        :param CallSummaryInstance.ProcessingState processing_state:
+        :param "CallSummaryInstance.ProcessingState" processing_state:
 
         :returns: The fetched CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
         """
         return await self._proxy.fetch_async(
             processing_state=processing_state,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.CallSummaryInstance {}>".format(context)
@@ -333,11 +304,8 @@ class CallSummaryContext(InstanceContext):
         """
         Initialize the CallSummaryContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param call_sid:
-
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
         """
         super().__init__(version)
 
@@ -347,14 +315,13 @@ class CallSummaryContext(InstanceContext):
         }
         self._uri = "/Voice/{call_sid}/Summary".format(**self._solution)
 
-    def fetch(self, processing_state=values.unset):
+    def fetch(self, processing_state=values.unset) -> CallSummaryInstance:
         """
         Fetch the CallSummaryInstance
 
-        :param CallSummaryInstance.ProcessingState processing_state:
+        :param "CallSummaryInstance.ProcessingState" processing_state:
 
         :returns: The fetched CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
         """
 
         data = values.of(
@@ -371,14 +338,13 @@ class CallSummaryContext(InstanceContext):
             call_sid=self._solution["call_sid"],
         )
 
-    async def fetch_async(self, processing_state=values.unset):
+    async def fetch_async(self, processing_state=values.unset) -> CallSummaryInstance:
         """
         Asynchronous coroutine to fetch the CallSummaryInstance
 
-        :param CallSummaryInstance.ProcessingState processing_state:
+        :param "CallSummaryInstance.ProcessingState" processing_state:
 
         :returns: The fetched CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
         """
 
         data = values.of(
@@ -397,12 +363,11 @@ class CallSummaryContext(InstanceContext):
             call_sid=self._solution["call_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.CallSummaryContext {}>".format(context)
@@ -413,11 +378,9 @@ class CallSummaryList(ListResource):
         """
         Initialize the CallSummaryList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param call_sid:
 
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryList
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryList
         """
         super().__init__(version)
 
@@ -426,31 +389,24 @@ class CallSummaryList(ListResource):
             "call_sid": call_sid,
         }
 
-    def get(self):
+    def get(self) -> CallSummaryContext:
         """
         Constructs a CallSummaryContext
 
-
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
         """
         return CallSummaryContext(self._version, call_sid=self._solution["call_sid"])
 
-    def __call__(self):
+    def __call__(self) -> CallSummaryContext:
         """
         Constructs a CallSummaryContext
 
-
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
         """
         return CallSummaryContext(self._version, call_sid=self._solution["call_sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1.CallSummaryList>"

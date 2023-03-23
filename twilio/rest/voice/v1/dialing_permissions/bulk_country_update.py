@@ -24,9 +24,6 @@ class BulkCountryUpdateInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the BulkCountryUpdateInstance
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
         """
         super().__init__(version)
 
@@ -38,27 +35,24 @@ class BulkCountryUpdateInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def update_count(self):
+    def update_count(self) -> int:
         """
         :returns: The number of countries updated
-        :rtype: int
         """
         return self._properties["update_count"]
 
     @property
-    def update_request(self):
+    def update_request(self) -> str:
         """
         :returns: A bulk update request to change voice dialing country permissions stored as a URL-encoded, JSON array of update objects. For example : `[ { \"iso_code\": \"GB\", \"low_risk_numbers_enabled\": \"true\", \"high_risk_special_numbers_enabled\":\"true\", \"high_risk_tollfraud_numbers_enabled\": \"false\" } ]`
-        :rtype: str
         """
         return self._properties["update_request"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Voice.V1.BulkCountryUpdateInstance {}>".format(context)
@@ -69,23 +63,20 @@ class BulkCountryUpdateList(ListResource):
         """
         Initialize the BulkCountryUpdateList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateList
         """
         super().__init__(version)
 
         self._uri = "/DialingPermissions/BulkCountryUpdates"
 
-    def create(self, update_request):
+    def create(self, update_request) -> BulkCountryUpdateInstance:
         """
         Create the BulkCountryUpdateInstance
 
         :param str update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
 
         :returns: The created BulkCountryUpdateInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
         """
         data = values.of(
             {
@@ -101,14 +92,13 @@ class BulkCountryUpdateList(ListResource):
 
         return BulkCountryUpdateInstance(self._version, payload)
 
-    async def create_async(self, update_request):
+    async def create_async(self, update_request) -> BulkCountryUpdateInstance:
         """
         Asynchronously create the BulkCountryUpdateInstance
 
         :param str update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
 
         :returns: The created BulkCountryUpdateInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
         """
         data = values.of(
             {
@@ -124,11 +114,10 @@ class BulkCountryUpdateList(ListResource):
 
         return BulkCountryUpdateInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Voice.V1.BulkCountryUpdateList>"

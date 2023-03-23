@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +26,6 @@ class TemplateInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the TemplateInstance
-
-        :returns: twilio.rest.verify.v2.template.TemplateInstance
-        :rtype: twilio.rest.verify.v2.template.TemplateInstance
         """
         super().__init__(version)
 
@@ -42,65 +40,56 @@ class TemplateInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies a Verification Template.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A descriptive string that you create to describe a Template.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def channels(self):
+    def channels(self) -> List[str]:
         """
         :returns: A list of channels that support the Template. Can include: sms, voice
-        :rtype: List[str]
         """
         return self._properties["channels"]
 
     @property
-    def translations(self):
+    def translations(self) -> dict:
         """
         :returns: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
-        :rtype: dict
         """
         return self._properties["translations"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.TemplateInstance {}>".format(context)
 
 
 class TemplatePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> TemplateInstance:
         """
         Build an instance of TemplateInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.template.TemplateInstance
-        :rtype: twilio.rest.verify.v2.template.TemplateInstance
         """
         return TemplateInstance(self._version, payload)
 
@@ -118,16 +107,16 @@ class TemplateList(ListResource):
         """
         Initialize the TemplateList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.verify.v2.template.TemplateList
-        :rtype: twilio.rest.verify.v2.template.TemplateList
         """
         super().__init__(version)
 
         self._uri = "/Templates"
 
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
+    def stream(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[TemplateInstance]:
         """
         Streams TemplateInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -143,7 +132,6 @@ class TemplateList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.template.TemplateInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
@@ -152,7 +140,7 @@ class TemplateList(ListResource):
 
     async def stream_async(
         self, friendly_name=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[TemplateInstance]:
         """
         Asynchronously streams TemplateInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -168,7 +156,6 @@ class TemplateList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.template.TemplateInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -177,7 +164,9 @@ class TemplateList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, friendly_name=values.unset, limit=None, page_size=None):
+    def list(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[TemplateInstance]:
         """
         Lists TemplateInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -192,7 +181,6 @@ class TemplateList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.template.TemplateInstance]
         """
         return list(
             self.stream(
@@ -202,7 +190,9 @@ class TemplateList(ListResource):
             )
         )
 
-    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[TemplateInstance]:
         """
         Asynchronously lists TemplateInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -217,7 +207,6 @@ class TemplateList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.template.TemplateInstance]
         """
         return list(
             await self.stream_async(
@@ -233,7 +222,7 @@ class TemplateList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TemplatePage:
         """
         Retrieve a single page of TemplateInstance records from the API.
         Request is executed immediately
@@ -244,7 +233,6 @@ class TemplateList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TemplateInstance
-        :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         data = values.of(
             {
@@ -264,7 +252,7 @@ class TemplateList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TemplatePage:
         """
         Asynchronously retrieve a single page of TemplateInstance records from the API.
         Request is executed immediately
@@ -275,7 +263,6 @@ class TemplateList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TemplateInstance
-        :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         data = values.of(
             {
@@ -291,7 +278,7 @@ class TemplateList(ListResource):
         )
         return TemplatePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> TemplatePage:
         """
         Retrieve a specific page of TemplateInstance records from the API.
         Request is executed immediately
@@ -299,12 +286,11 @@ class TemplateList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TemplateInstance
-        :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TemplatePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> TemplatePage:
         """
         Asynchronously retrieve a specific page of TemplateInstance records from the API.
         Request is executed immediately
@@ -312,16 +298,14 @@ class TemplateList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TemplateInstance
-        :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TemplatePage(self._version, response)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.TemplateList>"

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -42,9 +42,6 @@ class UserChannelInstance(InstanceResource):
     ):
         """
         Initialize the UserChannelInstance
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
         super().__init__(version)
 
@@ -74,13 +71,12 @@ class UserChannelInstance(InstanceResource):
         self._context: Optional[UserChannelContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "UserChannelContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: UserChannelContext for this UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
         """
         if self._context is None:
             self._context = UserChannelContext(
@@ -92,130 +88,115 @@ class UserChannelInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def channel_sid(self):
+    def channel_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["channel_sid"]
 
     @property
-    def user_sid(self):
+    def user_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["user_sid"]
 
     @property
-    def member_sid(self):
+    def member_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["member_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "UserChannelInstance.ChannelStatus":
         """
         :returns:
-        :rtype: UserChannelInstance.ChannelStatus
         """
         return self._properties["status"]
 
     @property
-    def last_consumed_message_index(self):
+    def last_consumed_message_index(self) -> int:
         """
         :returns:
-        :rtype: int
         """
         return self._properties["last_consumed_message_index"]
 
     @property
-    def unread_messages_count(self):
+    def unread_messages_count(self) -> int:
         """
         :returns:
-        :rtype: int
         """
         return self._properties["unread_messages_count"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["links"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def notification_level(self):
+    def notification_level(self) -> "UserChannelInstance.NotificationLevel":
         """
         :returns:
-        :rtype: UserChannelInstance.NotificationLevel
         """
         return self._properties["notification_level"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the UserChannelInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserChannelInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "UserChannelInstance":
         """
         Fetch the UserChannelInstance
 
 
         :returns: The fetched UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "UserChannelInstance":
         """
         Asynchronous coroutine to fetch the UserChannelInstance
 
 
         :returns: The fetched UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
         return await self._proxy.fetch_async()
 
@@ -224,16 +205,15 @@ class UserChannelInstance(InstanceResource):
         notification_level=values.unset,
         last_consumed_message_index=values.unset,
         last_consumption_timestamp=values.unset,
-    ):
+    ) -> "UserChannelInstance":
         """
         Update the UserChannelInstance
 
-        :param UserChannelInstance.NotificationLevel notification_level:
+        :param "UserChannelInstance.NotificationLevel" notification_level:
         :param int last_consumed_message_index:
         :param datetime last_consumption_timestamp:
 
         :returns: The updated UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
         return self._proxy.update(
             notification_level=notification_level,
@@ -246,16 +226,15 @@ class UserChannelInstance(InstanceResource):
         notification_level=values.unset,
         last_consumed_message_index=values.unset,
         last_consumption_timestamp=values.unset,
-    ):
+    ) -> "UserChannelInstance":
         """
         Asynchronous coroutine to update the UserChannelInstance
 
-        :param UserChannelInstance.NotificationLevel notification_level:
+        :param "UserChannelInstance.NotificationLevel" notification_level:
         :param int last_consumed_message_index:
         :param datetime last_consumption_timestamp:
 
         :returns: The updated UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
         return await self._proxy.update_async(
             notification_level=notification_level,
@@ -263,12 +242,11 @@ class UserChannelInstance(InstanceResource):
             last_consumption_timestamp=last_consumption_timestamp,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.IpMessaging.V2.UserChannelInstance {}>".format(context)
@@ -281,13 +259,10 @@ class UserChannelContext(InstanceContext):
         """
         Initialize the UserChannelContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid:
         :param user_sid:
         :param channel_sid:
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
         """
         super().__init__(version)
 
@@ -303,39 +278,36 @@ class UserChannelContext(InstanceContext):
             )
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the UserChannelInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserChannelInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> UserChannelInstance:
         """
         Fetch the UserChannelInstance
 
 
         :returns: The fetched UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
 
         payload = self._version.fetch(
@@ -351,13 +323,12 @@ class UserChannelContext(InstanceContext):
             channel_sid=self._solution["channel_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> UserChannelInstance:
         """
         Asynchronous coroutine to fetch the UserChannelInstance
 
 
         :returns: The fetched UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
 
         payload = await self._version.fetch_async(
@@ -378,16 +349,15 @@ class UserChannelContext(InstanceContext):
         notification_level=values.unset,
         last_consumed_message_index=values.unset,
         last_consumption_timestamp=values.unset,
-    ):
+    ) -> UserChannelInstance:
         """
         Update the UserChannelInstance
 
-        :param UserChannelInstance.NotificationLevel notification_level:
+        :param "UserChannelInstance.NotificationLevel" notification_level:
         :param int last_consumed_message_index:
         :param datetime last_consumption_timestamp:
 
         :returns: The updated UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
         data = values.of(
             {
@@ -418,16 +388,15 @@ class UserChannelContext(InstanceContext):
         notification_level=values.unset,
         last_consumed_message_index=values.unset,
         last_consumption_timestamp=values.unset,
-    ):
+    ) -> UserChannelInstance:
         """
         Asynchronous coroutine to update the UserChannelInstance
 
-        :param UserChannelInstance.NotificationLevel notification_level:
+        :param "UserChannelInstance.NotificationLevel" notification_level:
         :param int last_consumed_message_index:
         :param datetime last_consumption_timestamp:
 
         :returns: The updated UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
         data = values.of(
             {
@@ -453,26 +422,22 @@ class UserChannelContext(InstanceContext):
             channel_sid=self._solution["channel_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.IpMessaging.V2.UserChannelContext {}>".format(context)
 
 
 class UserChannelPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> UserChannelInstance:
         """
         Build an instance of UserChannelInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
         return UserChannelInstance(
             self._version,
@@ -495,12 +460,10 @@ class UserChannelList(ListResource):
         """
         Initialize the UserChannelList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid:
         :param user_sid:
 
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelList
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelList
         """
         super().__init__(version)
 
@@ -513,7 +476,7 @@ class UserChannelList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[UserChannelInstance]:
         """
         Streams UserChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -528,14 +491,15 @@ class UserChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[UserChannelInstance]:
         """
         Asynchronously streams UserChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -550,14 +514,13 @@ class UserChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[UserChannelInstance]:
         """
         Lists UserChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -571,7 +534,6 @@ class UserChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance]
         """
         return list(
             self.stream(
@@ -580,7 +542,7 @@ class UserChannelList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[UserChannelInstance]:
         """
         Asynchronously lists UserChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -594,7 +556,6 @@ class UserChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance]
         """
         return list(
             await self.stream_async(
@@ -605,7 +566,7 @@ class UserChannelList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> UserChannelPage:
         """
         Retrieve a single page of UserChannelInstance records from the API.
         Request is executed immediately
@@ -615,7 +576,6 @@ class UserChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelPage
         """
         data = values.of(
             {
@@ -630,7 +590,7 @@ class UserChannelList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> UserChannelPage:
         """
         Asynchronously retrieve a single page of UserChannelInstance records from the API.
         Request is executed immediately
@@ -640,7 +600,6 @@ class UserChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelPage
         """
         data = values.of(
             {
@@ -655,7 +614,7 @@ class UserChannelList(ListResource):
         )
         return UserChannelPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> UserChannelPage:
         """
         Retrieve a specific page of UserChannelInstance records from the API.
         Request is executed immediately
@@ -663,12 +622,11 @@ class UserChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UserChannelPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> UserChannelPage:
         """
         Asynchronously retrieve a specific page of UserChannelInstance records from the API.
         Request is executed immediately
@@ -676,19 +634,15 @@ class UserChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return UserChannelPage(self._version, response, self._solution)
 
-    def get(self, channel_sid):
+    def get(self, channel_sid) -> UserChannelContext:
         """
         Constructs a UserChannelContext
 
         :param channel_sid:
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
         """
         return UserChannelContext(
             self._version,
@@ -697,14 +651,11 @@ class UserChannelList(ListResource):
             channel_sid=channel_sid,
         )
 
-    def __call__(self, channel_sid):
+    def __call__(self, channel_sid) -> UserChannelContext:
         """
         Constructs a UserChannelContext
 
         :param channel_sid:
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
         """
         return UserChannelContext(
             self._version,
@@ -713,11 +664,10 @@ class UserChannelList(ListResource):
             channel_sid=channel_sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.IpMessaging.V2.UserChannelList>"

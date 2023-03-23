@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,9 +28,6 @@ class SubscriptionInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the SubscriptionInstance
-
-        :returns: twilio.rest.events.v1.subscription.SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         super().__init__(version)
 
@@ -50,13 +48,12 @@ class SubscriptionInstance(InstanceResource):
         self._context: Optional[SubscriptionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SubscriptionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SubscriptionContext for this SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionContext
         """
         if self._context is None:
             self._context = SubscriptionContext(
@@ -66,110 +63,100 @@ class SubscriptionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this Subscription.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this Subscription was created, given in ISO 8601 format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this Subscription was updated, given in ISO 8601 format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def description(self):
+    def description(self) -> str:
         """
         :returns: A human readable description for the Subscription
-        :rtype: str
         """
         return self._properties["description"]
 
     @property
-    def sink_sid(self):
+    def sink_sid(self) -> str:
         """
         :returns: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        :rtype: str
         """
         return self._properties["sink_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of this resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: Contains a dictionary of URL links to nested resources of this Subscription.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SubscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SubscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "SubscriptionInstance":
         """
         Fetch the SubscriptionInstance
 
 
         :returns: The fetched SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SubscriptionInstance":
         """
         Asynchronous coroutine to fetch the SubscriptionInstance
 
 
         :returns: The fetched SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, description=values.unset, sink_sid=values.unset):
+    def update(
+        self, description=values.unset, sink_sid=values.unset
+    ) -> "SubscriptionInstance":
         """
         Update the SubscriptionInstance
 
@@ -177,14 +164,15 @@ class SubscriptionInstance(InstanceResource):
         :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         return self._proxy.update(
             description=description,
             sink_sid=sink_sid,
         )
 
-    async def update_async(self, description=values.unset, sink_sid=values.unset):
+    async def update_async(
+        self, description=values.unset, sink_sid=values.unset
+    ) -> "SubscriptionInstance":
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
@@ -192,7 +180,6 @@ class SubscriptionInstance(InstanceResource):
         :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         return await self._proxy.update_async(
             description=description,
@@ -200,21 +187,17 @@ class SubscriptionInstance(InstanceResource):
         )
 
     @property
-    def subscribed_events(self):
+    def subscribed_events(self) -> SubscribedEventList:
         """
         Access the subscribed_events
-
-        :returns: twilio.rest.events.v1.subscription.SubscribedEventList
-        :rtype: twilio.rest.events.v1.subscription.SubscribedEventList
         """
         return self._proxy.subscribed_events
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Events.V1.SubscriptionInstance {}>".format(context)
@@ -225,11 +208,8 @@ class SubscriptionContext(InstanceContext):
         """
         Initialize the SubscriptionContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies this Subscription.
-
-        :returns: twilio.rest.events.v1.subscription.SubscriptionContext
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionContext
         """
         super().__init__(version)
 
@@ -241,39 +221,36 @@ class SubscriptionContext(InstanceContext):
 
         self._subscribed_events: Optional[SubscribedEventList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SubscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SubscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> SubscriptionInstance:
         """
         Fetch the SubscriptionInstance
 
 
         :returns: The fetched SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
 
         payload = self._version.fetch(
@@ -287,13 +264,12 @@ class SubscriptionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SubscriptionInstance:
         """
         Asynchronous coroutine to fetch the SubscriptionInstance
 
 
         :returns: The fetched SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
 
         payload = await self._version.fetch_async(
@@ -307,7 +283,9 @@ class SubscriptionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, description=values.unset, sink_sid=values.unset):
+    def update(
+        self, description=values.unset, sink_sid=values.unset
+    ) -> SubscriptionInstance:
         """
         Update the SubscriptionInstance
 
@@ -315,7 +293,6 @@ class SubscriptionContext(InstanceContext):
         :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         data = values.of(
             {
@@ -332,7 +309,9 @@ class SubscriptionContext(InstanceContext):
 
         return SubscriptionInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, description=values.unset, sink_sid=values.unset):
+    async def update_async(
+        self, description=values.unset, sink_sid=values.unset
+    ) -> SubscriptionInstance:
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
@@ -340,7 +319,6 @@ class SubscriptionContext(InstanceContext):
         :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         data = values.of(
             {
@@ -358,12 +336,9 @@ class SubscriptionContext(InstanceContext):
         return SubscriptionInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def subscribed_events(self):
+    def subscribed_events(self) -> SubscribedEventList:
         """
         Access the subscribed_events
-
-        :returns: twilio.rest.events.v1.subscription.SubscribedEventList
-        :rtype: twilio.rest.events.v1.subscription.SubscribedEventList
         """
         if self._subscribed_events is None:
             self._subscribed_events = SubscribedEventList(
@@ -372,26 +347,22 @@ class SubscriptionContext(InstanceContext):
             )
         return self._subscribed_events
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Events.V1.SubscriptionContext {}>".format(context)
 
 
 class SubscriptionPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> SubscriptionInstance:
         """
         Build an instance of SubscriptionInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.events.v1.subscription.SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         return SubscriptionInstance(self._version, payload)
 
@@ -409,16 +380,14 @@ class SubscriptionList(ListResource):
         """
         Initialize the SubscriptionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.events.v1.subscription.SubscriptionList
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionList
         """
         super().__init__(version)
 
         self._uri = "/Subscriptions"
 
-    def create(self, description, sink_sid, types):
+    def create(self, description, sink_sid, types) -> SubscriptionInstance:
         """
         Create the SubscriptionInstance
 
@@ -427,7 +396,6 @@ class SubscriptionList(ListResource):
         :param List[object] types: An array of objects containing the subscribed Event Types
 
         :returns: The created SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         data = values.of(
             {
@@ -445,7 +413,7 @@ class SubscriptionList(ListResource):
 
         return SubscriptionInstance(self._version, payload)
 
-    async def create_async(self, description, sink_sid, types):
+    async def create_async(self, description, sink_sid, types) -> SubscriptionInstance:
         """
         Asynchronously create the SubscriptionInstance
 
@@ -454,7 +422,6 @@ class SubscriptionList(ListResource):
         :param List[object] types: An array of objects containing the subscribed Event Types
 
         :returns: The created SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         data = values.of(
             {
@@ -472,7 +439,9 @@ class SubscriptionList(ListResource):
 
         return SubscriptionInstance(self._version, payload)
 
-    def stream(self, sink_sid=values.unset, limit=None, page_size=None):
+    def stream(
+        self, sink_sid=values.unset, limit=None, page_size=None
+    ) -> List[SubscriptionInstance]:
         """
         Streams SubscriptionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -488,14 +457,15 @@ class SubscriptionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscription.SubscriptionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(sink_sid=sink_sid, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, sink_sid=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self, sink_sid=values.unset, limit=None, page_size=None
+    ) -> List[SubscriptionInstance]:
         """
         Asynchronously streams SubscriptionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -511,14 +481,15 @@ class SubscriptionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscription.SubscriptionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(sink_sid=sink_sid, page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, sink_sid=values.unset, limit=None, page_size=None):
+    def list(
+        self, sink_sid=values.unset, limit=None, page_size=None
+    ) -> List[SubscriptionInstance]:
         """
         Lists SubscriptionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -533,7 +504,6 @@ class SubscriptionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscription.SubscriptionInstance]
         """
         return list(
             self.stream(
@@ -543,7 +513,9 @@ class SubscriptionList(ListResource):
             )
         )
 
-    async def list_async(self, sink_sid=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, sink_sid=values.unset, limit=None, page_size=None
+    ) -> List[SubscriptionInstance]:
         """
         Asynchronously lists SubscriptionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -558,7 +530,6 @@ class SubscriptionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscription.SubscriptionInstance]
         """
         return list(
             await self.stream_async(
@@ -574,7 +545,7 @@ class SubscriptionList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> SubscriptionPage:
         """
         Retrieve a single page of SubscriptionInstance records from the API.
         Request is executed immediately
@@ -585,7 +556,6 @@ class SubscriptionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionPage
         """
         data = values.of(
             {
@@ -605,7 +575,7 @@ class SubscriptionList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> SubscriptionPage:
         """
         Asynchronously retrieve a single page of SubscriptionInstance records from the API.
         Request is executed immediately
@@ -616,7 +586,6 @@ class SubscriptionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionPage
         """
         data = values.of(
             {
@@ -632,7 +601,7 @@ class SubscriptionList(ListResource):
         )
         return SubscriptionPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> SubscriptionPage:
         """
         Retrieve a specific page of SubscriptionInstance records from the API.
         Request is executed immediately
@@ -640,12 +609,11 @@ class SubscriptionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SubscriptionPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> SubscriptionPage:
         """
         Asynchronously retrieve a specific page of SubscriptionInstance records from the API.
         Request is executed immediately
@@ -653,38 +621,30 @@ class SubscriptionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SubscriptionPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> SubscriptionContext:
         """
         Constructs a SubscriptionContext
 
         :param sid: A 34 character string that uniquely identifies this Subscription.
-
-        :returns: twilio.rest.events.v1.subscription.SubscriptionContext
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionContext
         """
         return SubscriptionContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> SubscriptionContext:
         """
         Constructs a SubscriptionContext
 
         :param sid: A 34 character string that uniquely identifies this Subscription.
-
-        :returns: twilio.rest.events.v1.subscription.SubscriptionContext
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionContext
         """
         return SubscriptionContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Events.V1.SubscriptionList>"

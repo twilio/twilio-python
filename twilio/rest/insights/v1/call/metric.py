@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -38,9 +39,6 @@ class MetricInstance(InstanceResource):
     def __init__(self, version, payload, call_sid: str):
         """
         Initialize the MetricInstance
-
-        :returns: twilio.rest.insights.v1.call.metric.MetricInstance
-        :rtype: twilio.rest.insights.v1.call.metric.MetricInstance
         """
         super().__init__(version)
 
@@ -61,97 +59,84 @@ class MetricInstance(InstanceResource):
         }
 
     @property
-    def timestamp(self):
+    def timestamp(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["timestamp"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def edge(self):
+    def edge(self) -> "MetricInstance.TwilioEdge":
         """
         :returns:
-        :rtype: MetricInstance.TwilioEdge
         """
         return self._properties["edge"]
 
     @property
-    def direction(self):
+    def direction(self) -> "MetricInstance.StreamDirection":
         """
         :returns:
-        :rtype: MetricInstance.StreamDirection
         """
         return self._properties["direction"]
 
     @property
-    def carrier_edge(self):
+    def carrier_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["carrier_edge"]
 
     @property
-    def sip_edge(self):
+    def sip_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["sip_edge"]
 
     @property
-    def sdk_edge(self):
+    def sdk_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["sdk_edge"]
 
     @property
-    def client_edge(self):
+    def client_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["client_edge"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.MetricInstance {}>".format(context)
 
 
 class MetricPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> MetricInstance:
         """
         Build an instance of MetricInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.insights.v1.call.metric.MetricInstance
-        :rtype: twilio.rest.insights.v1.call.metric.MetricInstance
         """
         return MetricInstance(
             self._version, payload, call_sid=self._solution["call_sid"]
@@ -171,11 +156,9 @@ class MetricList(ListResource):
         """
         Initialize the MetricList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param call_sid:
 
-        :returns: twilio.rest.insights.v1.call.metric.MetricList
-        :rtype: twilio.rest.insights.v1.call.metric.MetricList
         """
         super().__init__(version)
 
@@ -187,15 +170,15 @@ class MetricList(ListResource):
 
     def stream(
         self, edge=values.unset, direction=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[MetricInstance]:
         """
         Streams MetricInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param MetricInstance.TwilioEdge edge:
-        :param MetricInstance.StreamDirection direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge:
+        :param &quot;MetricInstance.StreamDirection&quot; direction:
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -204,7 +187,6 @@ class MetricList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.call.metric.MetricInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(edge=edge, direction=direction, page_size=limits["page_size"])
@@ -213,15 +195,15 @@ class MetricList(ListResource):
 
     async def stream_async(
         self, edge=values.unset, direction=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[MetricInstance]:
         """
         Asynchronously streams MetricInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param MetricInstance.TwilioEdge edge:
-        :param MetricInstance.StreamDirection direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge:
+        :param &quot;MetricInstance.StreamDirection&quot; direction:
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -230,7 +212,6 @@ class MetricList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.call.metric.MetricInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -241,14 +222,14 @@ class MetricList(ListResource):
 
     def list(
         self, edge=values.unset, direction=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[MetricInstance]:
         """
         Lists MetricInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param MetricInstance.TwilioEdge edge:
-        :param MetricInstance.StreamDirection direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge:
+        :param &quot;MetricInstance.StreamDirection&quot; direction:
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -257,7 +238,6 @@ class MetricList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.call.metric.MetricInstance]
         """
         return list(
             self.stream(
@@ -270,14 +250,14 @@ class MetricList(ListResource):
 
     async def list_async(
         self, edge=values.unset, direction=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[MetricInstance]:
         """
         Asynchronously lists MetricInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param MetricInstance.TwilioEdge edge:
-        :param MetricInstance.StreamDirection direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge:
+        :param &quot;MetricInstance.StreamDirection&quot; direction:
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -286,7 +266,6 @@ class MetricList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.call.metric.MetricInstance]
         """
         return list(
             await self.stream_async(
@@ -304,19 +283,18 @@ class MetricList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> MetricPage:
         """
         Retrieve a single page of MetricInstance records from the API.
         Request is executed immediately
 
-        :param MetricInstance.TwilioEdge edge:
-        :param MetricInstance.StreamDirection direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge:
+        :param &quot;MetricInstance.StreamDirection&quot; direction:
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MetricInstance
-        :rtype: twilio.rest.insights.v1.call.metric.MetricPage
         """
         data = values.of(
             {
@@ -338,19 +316,18 @@ class MetricList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> MetricPage:
         """
         Asynchronously retrieve a single page of MetricInstance records from the API.
         Request is executed immediately
 
-        :param MetricInstance.TwilioEdge edge:
-        :param MetricInstance.StreamDirection direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge:
+        :param &quot;MetricInstance.StreamDirection&quot; direction:
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MetricInstance
-        :rtype: twilio.rest.insights.v1.call.metric.MetricPage
         """
         data = values.of(
             {
@@ -367,7 +344,7 @@ class MetricList(ListResource):
         )
         return MetricPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> MetricPage:
         """
         Retrieve a specific page of MetricInstance records from the API.
         Request is executed immediately
@@ -375,12 +352,11 @@ class MetricList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MetricInstance
-        :rtype: twilio.rest.insights.v1.call.metric.MetricPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MetricPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> MetricPage:
         """
         Asynchronously retrieve a specific page of MetricInstance records from the API.
         Request is executed immediately
@@ -388,16 +364,14 @@ class MetricList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MetricInstance
-        :rtype: twilio.rest.insights.v1.call.metric.MetricPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return MetricPage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1.MetricList>"

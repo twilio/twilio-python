@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -36,9 +37,6 @@ class UsageRecordInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the UsageRecordInstance
-
-        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
         """
         super().__init__(version)
 
@@ -59,113 +57,98 @@ class UsageRecordInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that incurred the usage.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def sim_sid(self):
+    def sim_sid(self) -> str:
         """
         :returns: SID of a Sim resource to which the UsageRecord belongs. Value will only be present when either a value for the `Sim` query parameter is provided or when UsageRecords are grouped by `sim`. Otherwise, the value will be `null`.
-        :rtype: str
         """
         return self._properties["sim_sid"]
 
     @property
-    def network_sid(self):
+    def network_sid(self) -> str:
         """
         :returns: SID of the Network resource the usage occurred on. Value will only be present when either a value for the `Network` query parameter is provided or when UsageRecords are grouped by `network`. Otherwise, the value will be `null`.
-        :rtype: str
         """
         return self._properties["network_sid"]
 
     @property
-    def fleet_sid(self):
+    def fleet_sid(self) -> str:
         """
         :returns: SID of the Fleet resource the usage occurred on. Value will only be present when either a value for the `Fleet` query parameter is provided or when UsageRecords are grouped by `fleet`. Otherwise, the value will be `null`.
-        :rtype: str
         """
         return self._properties["fleet_sid"]
 
     @property
-    def iso_country(self):
+    def iso_country(self) -> str:
         """
         :returns: Alpha-2 ISO Country Code that the usage occurred in. Value will only be present when either a value for the `IsoCountry` query parameter is provided or when UsageRecords are grouped by `isoCountry`. Otherwise, the value will be `null`.
-        :rtype: str
         """
         return self._properties["iso_country"]
 
     @property
-    def period(self):
+    def period(self) -> dict:
         """
         :returns: The time period for which the usage is reported. The period is represented as a pair of `start_time` and `end_time` timestamps specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: dict
         """
         return self._properties["period"]
 
     @property
-    def data_upload(self):
+    def data_upload(self) -> int:
         """
         :returns: Total data uploaded in bytes, aggregated by the query parameters.
-        :rtype: int
         """
         return self._properties["data_upload"]
 
     @property
-    def data_download(self):
+    def data_download(self) -> int:
         """
         :returns: Total data downloaded in bytes, aggregated by the query parameters.
-        :rtype: int
         """
         return self._properties["data_download"]
 
     @property
-    def data_total(self):
+    def data_total(self) -> int:
         """
         :returns: Total of data_upload and data_download.
-        :rtype: int
         """
         return self._properties["data_total"]
 
     @property
-    def data_total_billed(self):
+    def data_total_billed(self) -> float:
         """
         :returns: Total amount in the `billed_unit` that was charged for the data uploaded or downloaded. Will return 0 for usage prior to February 1, 2022. Value may be 0 despite `data_total` being greater than 0 if the data usage is still being processed by Twilio's billing system. Refer to [Data Usage Processing](https://www.twilio.com/docs/iot/supersim/api/usage-record-resource#data-usage-processing) for more details.
-        :rtype: float
         """
         return self._properties["data_total_billed"]
 
     @property
-    def billed_unit(self):
+    def billed_unit(self) -> str:
         """
         :returns: The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`). This can be null when data_toal_billed is 0 and we do not yet have billing information for the corresponding data usage. Refer to [Data Usage Processing](https://www.twilio.com/docs/iot/supersim/api/usage-record-resource#data-usage-processing) for more details.
-        :rtype: str
         """
         return self._properties["billed_unit"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Supersim.V1.UsageRecordInstance {}>".format(context)
 
 
 class UsageRecordPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> UsageRecordInstance:
         """
         Build an instance of UsageRecordInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
         """
         return UsageRecordInstance(self._version, payload)
 
@@ -183,10 +166,8 @@ class UsageRecordList(ListResource):
         """
         Initialize the UsageRecordList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordList
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordList
         """
         super().__init__(version)
 
@@ -204,7 +185,7 @@ class UsageRecordList(ListResource):
         end_time=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[UsageRecordInstance]:
         """
         Streams UsageRecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -215,8 +196,8 @@ class UsageRecordList(ListResource):
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
-        :param UsageRecordInstance.Group group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
-        :param UsageRecordInstance.Granularity granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -227,7 +208,6 @@ class UsageRecordList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.usage_record.UsageRecordInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -256,7 +236,7 @@ class UsageRecordList(ListResource):
         end_time=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[UsageRecordInstance]:
         """
         Asynchronously streams UsageRecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -267,8 +247,8 @@ class UsageRecordList(ListResource):
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
-        :param UsageRecordInstance.Group group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
-        :param UsageRecordInstance.Granularity granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -279,7 +259,6 @@ class UsageRecordList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.usage_record.UsageRecordInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -308,7 +287,7 @@ class UsageRecordList(ListResource):
         end_time=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[UsageRecordInstance]:
         """
         Lists UsageRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -318,8 +297,8 @@ class UsageRecordList(ListResource):
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
-        :param UsageRecordInstance.Group group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
-        :param UsageRecordInstance.Granularity granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -330,7 +309,6 @@ class UsageRecordList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.usage_record.UsageRecordInstance]
         """
         return list(
             self.stream(
@@ -359,7 +337,7 @@ class UsageRecordList(ListResource):
         end_time=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[UsageRecordInstance]:
         """
         Asynchronously lists UsageRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -369,8 +347,8 @@ class UsageRecordList(ListResource):
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
-        :param UsageRecordInstance.Group group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
-        :param UsageRecordInstance.Granularity granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -381,7 +359,6 @@ class UsageRecordList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.usage_record.UsageRecordInstance]
         """
         return list(
             await self.stream_async(
@@ -411,7 +388,7 @@ class UsageRecordList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> UsageRecordPage:
         """
         Retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
@@ -420,8 +397,8 @@ class UsageRecordList(ListResource):
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
-        :param UsageRecordInstance.Group group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
-        :param UsageRecordInstance.Granularity granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param str page_token: PageToken provided by the API
@@ -429,7 +406,6 @@ class UsageRecordList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordPage
         """
         data = values.of(
             {
@@ -463,7 +439,7 @@ class UsageRecordList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> UsageRecordPage:
         """
         Asynchronously retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
@@ -472,8 +448,8 @@ class UsageRecordList(ListResource):
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
         :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
-        :param UsageRecordInstance.Group group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
-        :param UsageRecordInstance.Granularity granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
         :param str page_token: PageToken provided by the API
@@ -481,7 +457,6 @@ class UsageRecordList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordPage
         """
         data = values.of(
             {
@@ -504,7 +479,7 @@ class UsageRecordList(ListResource):
         )
         return UsageRecordPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> UsageRecordPage:
         """
         Retrieve a specific page of UsageRecordInstance records from the API.
         Request is executed immediately
@@ -512,12 +487,11 @@ class UsageRecordList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UsageRecordPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> UsageRecordPage:
         """
         Asynchronously retrieve a specific page of UsageRecordInstance records from the API.
         Request is executed immediately
@@ -525,16 +499,14 @@ class UsageRecordList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return UsageRecordPage(self._version, response)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Supersim.V1.UsageRecordList>"

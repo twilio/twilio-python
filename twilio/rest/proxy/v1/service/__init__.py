@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -39,9 +40,6 @@ class ServiceInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the ServiceInstance
-
-        :returns: twilio.rest.proxy.v1.service.ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         super().__init__(version)
 
@@ -68,13 +66,12 @@ class ServiceInstance(InstanceResource):
         self._context: Optional[ServiceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ServiceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(
@@ -84,154 +81,136 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Service resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. Supports UTF-8 characters. **This value should not have PII.**
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def chat_instance_sid(self):
+    def chat_instance_sid(self) -> str:
         """
         :returns: The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
-        :rtype: str
         """
         return self._properties["chat_instance_sid"]
 
     @property
-    def callback_url(self):
+    def callback_url(self) -> str:
         """
         :returns: The URL we call when the interaction status changes.
-        :rtype: str
         """
         return self._properties["callback_url"]
 
     @property
-    def default_ttl(self):
+    def default_ttl(self) -> int:
         """
         :returns: The default `ttl` value for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
-        :rtype: int
         """
         return self._properties["default_ttl"]
 
     @property
-    def number_selection_behavior(self):
+    def number_selection_behavior(self) -> "ServiceInstance.NumberSelectionBehavior":
         """
         :returns:
-        :rtype: ServiceInstance.NumberSelectionBehavior
         """
         return self._properties["number_selection_behavior"]
 
     @property
-    def geo_match_level(self):
+    def geo_match_level(self) -> "ServiceInstance.GeoMatchLevel":
         """
         :returns:
-        :rtype: ServiceInstance.GeoMatchLevel
         """
         return self._properties["geo_match_level"]
 
     @property
-    def intercept_callback_url(self):
+    def intercept_callback_url(self) -> str:
         """
         :returns: The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
-        :rtype: str
         """
         return self._properties["intercept_callback_url"]
 
     @property
-    def out_of_session_callback_url(self):
+    def out_of_session_callback_url(self) -> str:
         """
         :returns: The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
-        :rtype: str
         """
         return self._properties["out_of_session_callback_url"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Service resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of resources related to the Service.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         return await self._proxy.fetch_async()
 
@@ -245,21 +224,20 @@ class ServiceInstance(InstanceResource):
         intercept_callback_url=values.unset,
         out_of_session_callback_url=values.unset,
         chat_instance_sid=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param int default_ttl: The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
         :param str callback_url: The URL we should call when the interaction status changes.
-        :param ServiceInstance.GeoMatchLevel geo_match_level:
-        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior:
+        :param "ServiceInstance.GeoMatchLevel" geo_match_level:
+        :param "ServiceInstance.NumberSelectionBehavior" number_selection_behavior:
         :param str intercept_callback_url: The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
         :param str out_of_session_callback_url: The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
         :param str chat_instance_sid: The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         return self._proxy.update(
             unique_name=unique_name,
@@ -282,21 +260,20 @@ class ServiceInstance(InstanceResource):
         intercept_callback_url=values.unset,
         out_of_session_callback_url=values.unset,
         chat_instance_sid=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param int default_ttl: The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
         :param str callback_url: The URL we should call when the interaction status changes.
-        :param ServiceInstance.GeoMatchLevel geo_match_level:
-        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior:
+        :param "ServiceInstance.GeoMatchLevel" geo_match_level:
+        :param "ServiceInstance.NumberSelectionBehavior" number_selection_behavior:
         :param str intercept_callback_url: The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
         :param str out_of_session_callback_url: The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
         :param str chat_instance_sid: The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         return await self._proxy.update_async(
             unique_name=unique_name,
@@ -310,41 +287,31 @@ class ServiceInstance(InstanceResource):
         )
 
     @property
-    def phone_numbers(self):
+    def phone_numbers(self) -> PhoneNumberList:
         """
         Access the phone_numbers
-
-        :returns: twilio.rest.proxy.v1.service.PhoneNumberList
-        :rtype: twilio.rest.proxy.v1.service.PhoneNumberList
         """
         return self._proxy.phone_numbers
 
     @property
-    def sessions(self):
+    def sessions(self) -> SessionList:
         """
         Access the sessions
-
-        :returns: twilio.rest.proxy.v1.service.SessionList
-        :rtype: twilio.rest.proxy.v1.service.SessionList
         """
         return self._proxy.sessions
 
     @property
-    def short_codes(self):
+    def short_codes(self) -> ShortCodeList:
         """
         Access the short_codes
-
-        :returns: twilio.rest.proxy.v1.service.ShortCodeList
-        :rtype: twilio.rest.proxy.v1.service.ShortCodeList
         """
         return self._proxy.short_codes
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Proxy.V1.ServiceInstance {}>".format(context)
@@ -355,11 +322,8 @@ class ServiceContext(InstanceContext):
         """
         Initialize the ServiceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.proxy.v1.service.ServiceContext
-        :rtype: twilio.rest.proxy.v1.service.ServiceContext
         """
         super().__init__(version)
 
@@ -373,39 +337,36 @@ class ServiceContext(InstanceContext):
         self._sessions: Optional[SessionList] = None
         self._short_codes: Optional[ShortCodeList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
 
         payload = self._version.fetch(
@@ -419,13 +380,12 @@ class ServiceContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -449,21 +409,20 @@ class ServiceContext(InstanceContext):
         intercept_callback_url=values.unset,
         out_of_session_callback_url=values.unset,
         chat_instance_sid=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param int default_ttl: The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
         :param str callback_url: The URL we should call when the interaction status changes.
-        :param ServiceInstance.GeoMatchLevel geo_match_level:
-        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior:
+        :param "ServiceInstance.GeoMatchLevel" geo_match_level:
+        :param "ServiceInstance.NumberSelectionBehavior" number_selection_behavior:
         :param str intercept_callback_url: The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
         :param str out_of_session_callback_url: The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
         :param str chat_instance_sid: The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -496,21 +455,20 @@ class ServiceContext(InstanceContext):
         intercept_callback_url=values.unset,
         out_of_session_callback_url=values.unset,
         chat_instance_sid=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param int default_ttl: The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
         :param str callback_url: The URL we should call when the interaction status changes.
-        :param ServiceInstance.GeoMatchLevel geo_match_level:
-        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior:
+        :param "ServiceInstance.GeoMatchLevel" geo_match_level:
+        :param "ServiceInstance.NumberSelectionBehavior" number_selection_behavior:
         :param str intercept_callback_url: The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
         :param str out_of_session_callback_url: The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
         :param str chat_instance_sid: The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -534,12 +492,9 @@ class ServiceContext(InstanceContext):
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def phone_numbers(self):
+    def phone_numbers(self) -> PhoneNumberList:
         """
         Access the phone_numbers
-
-        :returns: twilio.rest.proxy.v1.service.PhoneNumberList
-        :rtype: twilio.rest.proxy.v1.service.PhoneNumberList
         """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(
@@ -549,12 +504,9 @@ class ServiceContext(InstanceContext):
         return self._phone_numbers
 
     @property
-    def sessions(self):
+    def sessions(self) -> SessionList:
         """
         Access the sessions
-
-        :returns: twilio.rest.proxy.v1.service.SessionList
-        :rtype: twilio.rest.proxy.v1.service.SessionList
         """
         if self._sessions is None:
             self._sessions = SessionList(
@@ -564,12 +516,9 @@ class ServiceContext(InstanceContext):
         return self._sessions
 
     @property
-    def short_codes(self):
+    def short_codes(self) -> ShortCodeList:
         """
         Access the short_codes
-
-        :returns: twilio.rest.proxy.v1.service.ShortCodeList
-        :rtype: twilio.rest.proxy.v1.service.ShortCodeList
         """
         if self._short_codes is None:
             self._short_codes = ShortCodeList(
@@ -578,26 +527,22 @@ class ServiceContext(InstanceContext):
             )
         return self._short_codes
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Proxy.V1.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.proxy.v1.service.ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         return ServiceInstance(self._version, payload)
 
@@ -615,10 +560,8 @@ class ServiceList(ListResource):
         """
         Initialize the ServiceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.proxy.v1.service.ServiceList
-        :rtype: twilio.rest.proxy.v1.service.ServiceList
         """
         super().__init__(version)
 
@@ -634,21 +577,20 @@ class ServiceList(ListResource):
         intercept_callback_url=values.unset,
         out_of_session_callback_url=values.unset,
         chat_instance_sid=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param int default_ttl: The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
         :param str callback_url: The URL we should call when the interaction status changes.
-        :param ServiceInstance.GeoMatchLevel geo_match_level:
-        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior:
+        :param &quot;ServiceInstance.GeoMatchLevel&quot; geo_match_level:
+        :param &quot;ServiceInstance.NumberSelectionBehavior&quot; number_selection_behavior:
         :param str intercept_callback_url: The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
         :param str out_of_session_callback_url: The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
         :param str chat_instance_sid: The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -681,21 +623,20 @@ class ServiceList(ListResource):
         intercept_callback_url=values.unset,
         out_of_session_callback_url=values.unset,
         chat_instance_sid=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param int default_ttl: The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
         :param str callback_url: The URL we should call when the interaction status changes.
-        :param ServiceInstance.GeoMatchLevel geo_match_level:
-        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior:
+        :param &quot;ServiceInstance.GeoMatchLevel&quot; geo_match_level:
+        :param &quot;ServiceInstance.NumberSelectionBehavior&quot; number_selection_behavior:
         :param str intercept_callback_url: The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
         :param str out_of_session_callback_url: The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
         :param str chat_instance_sid: The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -718,7 +659,7 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -733,14 +674,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -755,14 +695,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -776,7 +715,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.ServiceInstance]
         """
         return list(
             self.stream(
@@ -785,7 +723,7 @@ class ServiceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -799,7 +737,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.ServiceInstance]
         """
         return list(
             await self.stream_async(
@@ -810,7 +747,7 @@ class ServiceList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -820,7 +757,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServicePage
         """
         data = values.of(
             {
@@ -835,7 +771,7 @@ class ServiceList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -845,7 +781,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServicePage
         """
         data = values.of(
             {
@@ -860,7 +795,7 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -868,12 +803,11 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServicePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -881,38 +815,30 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.proxy.v1.service.ServicePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.proxy.v1.service.ServiceContext
-        :rtype: twilio.rest.proxy.v1.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.proxy.v1.service.ServiceContext
-        :rtype: twilio.rest.proxy.v1.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Proxy.V1.ServiceList>"

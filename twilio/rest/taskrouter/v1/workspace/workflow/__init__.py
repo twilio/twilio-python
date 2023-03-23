@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -35,9 +36,6 @@ class WorkflowInstance(InstanceResource):
     def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
         """
         Initialize the WorkflowInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         super().__init__(version)
 
@@ -68,13 +66,12 @@ class WorkflowInstance(InstanceResource):
         self._context: Optional[WorkflowContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "WorkflowContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: WorkflowContext for this WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
         if self._context is None:
             self._context = WorkflowContext(
@@ -85,146 +82,129 @@ class WorkflowInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def assignment_callback_url(self):
+    def assignment_callback_url(self) -> str:
         """
         :returns: The URL that we call when a task managed by the Workflow is assigned to a Worker. See Assignment Callback URL for more information.
-        :rtype: str
         """
         return self._properties["assignment_callback_url"]
 
     @property
-    def configuration(self):
+    def configuration(self) -> str:
         """
         :returns: A JSON string that contains the Workflow's configuration. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
-        :rtype: str
         """
         return self._properties["configuration"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def document_content_type(self):
+    def document_content_type(self) -> str:
         """
         :returns: The MIME type of the document.
-        :rtype: str
         """
         return self._properties["document_content_type"]
 
     @property
-    def fallback_assignment_callback_url(self):
+    def fallback_assignment_callback_url(self) -> str:
         """
         :returns: The URL that we call when a call to the `assignment_callback_url` fails.
-        :rtype: str
         """
         return self._properties["fallback_assignment_callback_url"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the Workflow resource. For example, `Customer Support` or `2014 Election Campaign`.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Workflow resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def task_reservation_timeout(self):
+    def task_reservation_timeout(self) -> int:
         """
         :returns: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
-        :rtype: int
         """
         return self._properties["task_reservation_timeout"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace that contains the Workflow.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Workflow resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the WorkflowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the WorkflowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "WorkflowInstance":
         """
         Fetch the WorkflowInstance
 
 
         :returns: The fetched WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "WorkflowInstance":
         """
         Asynchronous coroutine to fetch the WorkflowInstance
 
 
         :returns: The fetched WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return await self._proxy.fetch_async()
 
@@ -236,7 +216,7 @@ class WorkflowInstance(InstanceResource):
         configuration=values.unset,
         task_reservation_timeout=values.unset,
         re_evaluate_tasks=values.unset,
-    ):
+    ) -> "WorkflowInstance":
         """
         Update the WorkflowInstance
 
@@ -248,7 +228,6 @@ class WorkflowInstance(InstanceResource):
         :param str re_evaluate_tasks: Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
 
         :returns: The updated WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -267,7 +246,7 @@ class WorkflowInstance(InstanceResource):
         configuration=values.unset,
         task_reservation_timeout=values.unset,
         re_evaluate_tasks=values.unset,
-    ):
+    ) -> "WorkflowInstance":
         """
         Asynchronous coroutine to update the WorkflowInstance
 
@@ -279,7 +258,6 @@ class WorkflowInstance(InstanceResource):
         :param str re_evaluate_tasks: Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
 
         :returns: The updated WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -291,41 +269,31 @@ class WorkflowInstance(InstanceResource):
         )
 
     @property
-    def cumulative_statistics(self):
+    def cumulative_statistics(self) -> WorkflowCumulativeStatisticsList:
         """
         Access the cumulative_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowCumulativeStatisticsList
         """
         return self._proxy.cumulative_statistics
 
     @property
-    def real_time_statistics(self):
+    def real_time_statistics(self) -> WorkflowRealTimeStatisticsList:
         """
         Access the real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowRealTimeStatisticsList
         """
         return self._proxy.real_time_statistics
 
     @property
-    def statistics(self):
+    def statistics(self) -> WorkflowStatisticsList:
         """
         Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowStatisticsList
         """
         return self._proxy.statistics
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkflowInstance {}>".format(context)
@@ -336,12 +304,9 @@ class WorkflowContext(InstanceContext):
         """
         Initialize the WorkflowContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Workflow to update.
         :param sid: The SID of the Workflow resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
         super().__init__(version)
 
@@ -358,39 +323,36 @@ class WorkflowContext(InstanceContext):
         self._real_time_statistics: Optional[WorkflowRealTimeStatisticsList] = None
         self._statistics: Optional[WorkflowStatisticsList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the WorkflowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the WorkflowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> WorkflowInstance:
         """
         Fetch the WorkflowInstance
 
 
         :returns: The fetched WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
 
         payload = self._version.fetch(
@@ -405,13 +367,12 @@ class WorkflowContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> WorkflowInstance:
         """
         Asynchronous coroutine to fetch the WorkflowInstance
 
 
         :returns: The fetched WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
 
         payload = await self._version.fetch_async(
@@ -434,7 +395,7 @@ class WorkflowContext(InstanceContext):
         configuration=values.unset,
         task_reservation_timeout=values.unset,
         re_evaluate_tasks=values.unset,
-    ):
+    ) -> WorkflowInstance:
         """
         Update the WorkflowInstance
 
@@ -446,7 +407,6 @@ class WorkflowContext(InstanceContext):
         :param str re_evaluate_tasks: Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
 
         :returns: The updated WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         data = values.of(
             {
@@ -480,7 +440,7 @@ class WorkflowContext(InstanceContext):
         configuration=values.unset,
         task_reservation_timeout=values.unset,
         re_evaluate_tasks=values.unset,
-    ):
+    ) -> WorkflowInstance:
         """
         Asynchronous coroutine to update the WorkflowInstance
 
@@ -492,7 +452,6 @@ class WorkflowContext(InstanceContext):
         :param str re_evaluate_tasks: Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
 
         :returns: The updated WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         data = values.of(
             {
@@ -519,12 +478,9 @@ class WorkflowContext(InstanceContext):
         )
 
     @property
-    def cumulative_statistics(self):
+    def cumulative_statistics(self) -> WorkflowCumulativeStatisticsList:
         """
         Access the cumulative_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowCumulativeStatisticsList
         """
         if self._cumulative_statistics is None:
             self._cumulative_statistics = WorkflowCumulativeStatisticsList(
@@ -535,12 +491,9 @@ class WorkflowContext(InstanceContext):
         return self._cumulative_statistics
 
     @property
-    def real_time_statistics(self):
+    def real_time_statistics(self) -> WorkflowRealTimeStatisticsList:
         """
         Access the real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowRealTimeStatisticsList
         """
         if self._real_time_statistics is None:
             self._real_time_statistics = WorkflowRealTimeStatisticsList(
@@ -551,12 +504,9 @@ class WorkflowContext(InstanceContext):
         return self._real_time_statistics
 
     @property
-    def statistics(self):
+    def statistics(self) -> WorkflowStatisticsList:
         """
         Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowStatisticsList
         """
         if self._statistics is None:
             self._statistics = WorkflowStatisticsList(
@@ -566,26 +516,22 @@ class WorkflowContext(InstanceContext):
             )
         return self._statistics
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkflowContext {}>".format(context)
 
 
 class WorkflowPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> WorkflowInstance:
         """
         Build an instance of WorkflowInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return WorkflowInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -605,11 +551,9 @@ class WorkflowList(ListResource):
         """
         Initialize the WorkflowList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Workflow to read.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
         """
         super().__init__(version)
 
@@ -626,7 +570,7 @@ class WorkflowList(ListResource):
         assignment_callback_url=values.unset,
         fallback_assignment_callback_url=values.unset,
         task_reservation_timeout=values.unset,
-    ):
+    ) -> WorkflowInstance:
         """
         Create the WorkflowInstance
 
@@ -637,7 +581,6 @@ class WorkflowList(ListResource):
         :param int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
 
         :returns: The created WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         data = values.of(
             {
@@ -666,7 +609,7 @@ class WorkflowList(ListResource):
         assignment_callback_url=values.unset,
         fallback_assignment_callback_url=values.unset,
         task_reservation_timeout=values.unset,
-    ):
+    ) -> WorkflowInstance:
         """
         Asynchronously create the WorkflowInstance
 
@@ -677,7 +620,6 @@ class WorkflowList(ListResource):
         :param int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
 
         :returns: The created WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         data = values.of(
             {
@@ -699,7 +641,9 @@ class WorkflowList(ListResource):
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
         )
 
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
+    def stream(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[WorkflowInstance]:
         """
         Streams WorkflowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -715,7 +659,6 @@ class WorkflowList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
@@ -724,7 +667,7 @@ class WorkflowList(ListResource):
 
     async def stream_async(
         self, friendly_name=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[WorkflowInstance]:
         """
         Asynchronously streams WorkflowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -740,7 +683,6 @@ class WorkflowList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -749,7 +691,9 @@ class WorkflowList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, friendly_name=values.unset, limit=None, page_size=None):
+    def list(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[WorkflowInstance]:
         """
         Lists WorkflowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -764,7 +708,6 @@ class WorkflowList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
         """
         return list(
             self.stream(
@@ -774,7 +717,9 @@ class WorkflowList(ListResource):
             )
         )
 
-    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[WorkflowInstance]:
         """
         Asynchronously lists WorkflowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -789,7 +734,6 @@ class WorkflowList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
         """
         return list(
             await self.stream_async(
@@ -805,7 +749,7 @@ class WorkflowList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> WorkflowPage:
         """
         Retrieve a single page of WorkflowInstance records from the API.
         Request is executed immediately
@@ -816,7 +760,6 @@ class WorkflowList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
         """
         data = values.of(
             {
@@ -836,7 +779,7 @@ class WorkflowList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> WorkflowPage:
         """
         Asynchronously retrieve a single page of WorkflowInstance records from the API.
         Request is executed immediately
@@ -847,7 +790,6 @@ class WorkflowList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
         """
         data = values.of(
             {
@@ -863,7 +805,7 @@ class WorkflowList(ListResource):
         )
         return WorkflowPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> WorkflowPage:
         """
         Retrieve a specific page of WorkflowInstance records from the API.
         Request is executed immediately
@@ -871,12 +813,11 @@ class WorkflowList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return WorkflowPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> WorkflowPage:
         """
         Asynchronously retrieve a specific page of WorkflowInstance records from the API.
         Request is executed immediately
@@ -884,42 +825,34 @@ class WorkflowList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return WorkflowPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> WorkflowContext:
         """
         Constructs a WorkflowContext
 
         :param sid: The SID of the Workflow resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
         return WorkflowContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> WorkflowContext:
         """
         Constructs a WorkflowContext
 
         :param sid: The SID of the Workflow resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
         return WorkflowContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.WorkflowList>"

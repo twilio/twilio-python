@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +26,6 @@ class SupportingDocumentTypeInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the SupportingDocumentTypeInstance
-
-        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
         """
         super().__init__(version)
 
@@ -46,13 +43,12 @@ class SupportingDocumentTypeInstance(InstanceResource):
         self._context: Optional[SupportingDocumentTypeContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SupportingDocumentTypeContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SupportingDocumentTypeContext for this SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
         """
         if self._context is None:
             self._context = SupportingDocumentTypeContext(
@@ -62,71 +58,63 @@ class SupportingDocumentTypeInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that identifies the Supporting Document Type resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A human-readable description of the Supporting Document Type resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def machine_name(self):
+    def machine_name(self) -> str:
         """
         :returns: The machine-readable description of the Supporting Document Type resource.
-        :rtype: str
         """
         return self._properties["machine_name"]
 
     @property
-    def fields(self):
+    def fields(self) -> List[object]:
         """
         :returns: The required information for creating a Supporting Document. The required fields will change as regulatory needs change and will differ for businesses and individuals.
-        :rtype: List[object]
         """
         return self._properties["fields"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Supporting Document Type resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "SupportingDocumentTypeInstance":
         """
         Fetch the SupportingDocumentTypeInstance
 
 
         :returns: The fetched SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SupportingDocumentTypeInstance":
         """
         Asynchronous coroutine to fetch the SupportingDocumentTypeInstance
 
 
         :returns: The fetched SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.SupportingDocumentTypeInstance {}>".format(context)
@@ -137,11 +125,8 @@ class SupportingDocumentTypeContext(InstanceContext):
         """
         Initialize the SupportingDocumentTypeContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The unique string that identifies the Supporting Document Type resource.
-
-        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
         """
         super().__init__(version)
 
@@ -151,13 +136,12 @@ class SupportingDocumentTypeContext(InstanceContext):
         }
         self._uri = "/SupportingDocumentTypes/{sid}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> SupportingDocumentTypeInstance:
         """
         Fetch the SupportingDocumentTypeInstance
 
 
         :returns: The fetched SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
         """
 
         payload = self._version.fetch(
@@ -171,13 +155,12 @@ class SupportingDocumentTypeContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SupportingDocumentTypeInstance:
         """
         Asynchronous coroutine to fetch the SupportingDocumentTypeInstance
 
 
         :returns: The fetched SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
         """
 
         payload = await self._version.fetch_async(
@@ -191,26 +174,22 @@ class SupportingDocumentTypeContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.SupportingDocumentTypeContext {}>".format(context)
 
 
 class SupportingDocumentTypePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> SupportingDocumentTypeInstance:
         """
         Build an instance of SupportingDocumentTypeInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
         """
         return SupportingDocumentTypeInstance(self._version, payload)
 
@@ -228,16 +207,16 @@ class SupportingDocumentTypeList(ListResource):
         """
         Initialize the SupportingDocumentTypeList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeList
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeList
         """
         super().__init__(version)
 
         self._uri = "/SupportingDocumentTypes"
 
-    def stream(self, limit=None, page_size=None):
+    def stream(
+        self, limit=None, page_size=None
+    ) -> List[SupportingDocumentTypeInstance]:
         """
         Streams SupportingDocumentTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -252,14 +231,15 @@ class SupportingDocumentTypeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[SupportingDocumentTypeInstance]:
         """
         Asynchronously streams SupportingDocumentTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -274,14 +254,13 @@ class SupportingDocumentTypeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[SupportingDocumentTypeInstance]:
         """
         Lists SupportingDocumentTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -295,7 +274,6 @@ class SupportingDocumentTypeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance]
         """
         return list(
             self.stream(
@@ -304,7 +282,9 @@ class SupportingDocumentTypeList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[SupportingDocumentTypeInstance]:
         """
         Asynchronously lists SupportingDocumentTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -318,7 +298,6 @@ class SupportingDocumentTypeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance]
         """
         return list(
             await self.stream_async(
@@ -329,7 +308,7 @@ class SupportingDocumentTypeList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SupportingDocumentTypePage:
         """
         Retrieve a single page of SupportingDocumentTypeInstance records from the API.
         Request is executed immediately
@@ -339,7 +318,6 @@ class SupportingDocumentTypeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypePage
         """
         data = values.of(
             {
@@ -354,7 +332,7 @@ class SupportingDocumentTypeList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SupportingDocumentTypePage:
         """
         Asynchronously retrieve a single page of SupportingDocumentTypeInstance records from the API.
         Request is executed immediately
@@ -364,7 +342,6 @@ class SupportingDocumentTypeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypePage
         """
         data = values.of(
             {
@@ -379,7 +356,7 @@ class SupportingDocumentTypeList(ListResource):
         )
         return SupportingDocumentTypePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> SupportingDocumentTypePage:
         """
         Retrieve a specific page of SupportingDocumentTypeInstance records from the API.
         Request is executed immediately
@@ -387,12 +364,11 @@ class SupportingDocumentTypeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SupportingDocumentTypePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> SupportingDocumentTypePage:
         """
         Asynchronously retrieve a specific page of SupportingDocumentTypeInstance records from the API.
         Request is executed immediately
@@ -400,38 +376,30 @@ class SupportingDocumentTypeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SupportingDocumentTypePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> SupportingDocumentTypeContext:
         """
         Constructs a SupportingDocumentTypeContext
 
         :param sid: The unique string that identifies the Supporting Document Type resource.
-
-        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
         """
         return SupportingDocumentTypeContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> SupportingDocumentTypeContext:
         """
         Constructs a SupportingDocumentTypeContext
 
         :param sid: The unique string that identifies the Supporting Document Type resource.
-
-        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
         """
         return SupportingDocumentTypeContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub.V1.SupportingDocumentTypeList>"

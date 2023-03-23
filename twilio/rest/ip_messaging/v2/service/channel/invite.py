@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +34,6 @@ class InviteInstance(InstanceResource):
     ):
         """
         Initialize the InviteInstance
-
-        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
         """
         super().__init__(version)
 
@@ -60,13 +58,12 @@ class InviteInstance(InstanceResource):
         self._context: Optional[InviteContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "InviteContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: InviteContext for this InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
         """
         if self._context is None:
             self._context = InviteContext(
@@ -78,131 +75,116 @@ class InviteInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def channel_sid(self):
+    def channel_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["channel_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["identity"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def role_sid(self):
+    def role_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["role_sid"]
 
     @property
-    def created_by(self):
+    def created_by(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["created_by"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the InviteInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the InviteInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "InviteInstance":
         """
         Fetch the InviteInstance
 
 
         :returns: The fetched InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "InviteInstance":
         """
         Asynchronous coroutine to fetch the InviteInstance
 
 
         :returns: The fetched InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.IpMessaging.V2.InviteInstance {}>".format(context)
@@ -213,13 +195,10 @@ class InviteContext(InstanceContext):
         """
         Initialize the InviteContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid:
         :param channel_sid:
         :param sid:
-
-        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
         """
         super().__init__(version)
 
@@ -235,39 +214,36 @@ class InviteContext(InstanceContext):
             )
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the InviteInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the InviteInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> InviteInstance:
         """
         Fetch the InviteInstance
 
 
         :returns: The fetched InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
         """
 
         payload = self._version.fetch(
@@ -283,13 +259,12 @@ class InviteContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> InviteInstance:
         """
         Asynchronous coroutine to fetch the InviteInstance
 
 
         :returns: The fetched InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
         """
 
         payload = await self._version.fetch_async(
@@ -305,26 +280,22 @@ class InviteContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.IpMessaging.V2.InviteContext {}>".format(context)
 
 
 class InvitePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> InviteInstance:
         """
         Build an instance of InviteInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
         """
         return InviteInstance(
             self._version,
@@ -347,12 +318,10 @@ class InviteList(ListResource):
         """
         Initialize the InviteList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid:
         :param channel_sid:
 
-        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteList
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteList
         """
         super().__init__(version)
 
@@ -365,7 +334,7 @@ class InviteList(ListResource):
             **self._solution
         )
 
-    def create(self, identity, role_sid=values.unset):
+    def create(self, identity, role_sid=values.unset) -> InviteInstance:
         """
         Create the InviteInstance
 
@@ -373,7 +342,6 @@ class InviteList(ListResource):
         :param str role_sid:
 
         :returns: The created InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
         """
         data = values.of(
             {
@@ -395,7 +363,7 @@ class InviteList(ListResource):
             channel_sid=self._solution["channel_sid"],
         )
 
-    async def create_async(self, identity, role_sid=values.unset):
+    async def create_async(self, identity, role_sid=values.unset) -> InviteInstance:
         """
         Asynchronously create the InviteInstance
 
@@ -403,7 +371,6 @@ class InviteList(ListResource):
         :param str role_sid:
 
         :returns: The created InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
         """
         data = values.of(
             {
@@ -425,7 +392,9 @@ class InviteList(ListResource):
             channel_sid=self._solution["channel_sid"],
         )
 
-    def stream(self, identity=values.unset, limit=None, page_size=None):
+    def stream(
+        self, identity=values.unset, limit=None, page_size=None
+    ) -> List[InviteInstance]:
         """
         Streams InviteInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -441,14 +410,15 @@ class InviteList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(identity=identity, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, identity=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self, identity=values.unset, limit=None, page_size=None
+    ) -> List[InviteInstance]:
         """
         Asynchronously streams InviteInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -464,14 +434,15 @@ class InviteList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(identity=identity, page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, identity=values.unset, limit=None, page_size=None):
+    def list(
+        self, identity=values.unset, limit=None, page_size=None
+    ) -> List[InviteInstance]:
         """
         Lists InviteInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -486,7 +457,6 @@ class InviteList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance]
         """
         return list(
             self.stream(
@@ -496,7 +466,9 @@ class InviteList(ListResource):
             )
         )
 
-    async def list_async(self, identity=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, identity=values.unset, limit=None, page_size=None
+    ) -> List[InviteInstance]:
         """
         Asynchronously lists InviteInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -511,7 +483,6 @@ class InviteList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance]
         """
         return list(
             await self.stream_async(
@@ -527,7 +498,7 @@ class InviteList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InvitePage:
         """
         Retrieve a single page of InviteInstance records from the API.
         Request is executed immediately
@@ -538,7 +509,6 @@ class InviteList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InvitePage
         """
         data = values.of(
             {
@@ -558,7 +528,7 @@ class InviteList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InvitePage:
         """
         Asynchronously retrieve a single page of InviteInstance records from the API.
         Request is executed immediately
@@ -569,7 +539,6 @@ class InviteList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InvitePage
         """
         data = values.of(
             {
@@ -585,7 +554,7 @@ class InviteList(ListResource):
         )
         return InvitePage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> InvitePage:
         """
         Retrieve a specific page of InviteInstance records from the API.
         Request is executed immediately
@@ -593,12 +562,11 @@ class InviteList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InvitePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InvitePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> InvitePage:
         """
         Asynchronously retrieve a specific page of InviteInstance records from the API.
         Request is executed immediately
@@ -606,19 +574,15 @@ class InviteList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InvitePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InvitePage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> InviteContext:
         """
         Constructs a InviteContext
 
         :param sid:
-
-        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
         """
         return InviteContext(
             self._version,
@@ -627,14 +591,11 @@ class InviteList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> InviteContext:
         """
         Constructs a InviteContext
 
         :param sid:
-
-        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
         """
         return InviteContext(
             self._version,
@@ -643,11 +604,10 @@ class InviteList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.IpMessaging.V2.InviteList>"

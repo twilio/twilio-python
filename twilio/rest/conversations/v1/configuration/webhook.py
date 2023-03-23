@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +33,6 @@ class WebhookInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the WebhookInstance
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         super().__init__(version)
 
@@ -53,13 +50,12 @@ class WebhookInstance(InstanceResource):
         self._context: Optional[WebhookContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "WebhookContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: WebhookContext for this WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         """
         if self._context is None:
             self._context = WebhookContext(
@@ -68,78 +64,69 @@ class WebhookInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def method(self):
+    def method(self) -> "WebhookInstance.Method":
         """
         :returns:
-        :rtype: WebhookInstance.Method
         """
         return self._properties["method"]
 
     @property
-    def filters(self):
+    def filters(self) -> List[str]:
         """
         :returns: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
-        :rtype: List[str]
         """
         return self._properties["filters"]
 
     @property
-    def pre_webhook_url(self):
+    def pre_webhook_url(self) -> str:
         """
         :returns: The absolute url the pre-event webhook request should be sent to.
-        :rtype: str
         """
         return self._properties["pre_webhook_url"]
 
     @property
-    def post_webhook_url(self):
+    def post_webhook_url(self) -> str:
         """
         :returns: The absolute url the post-event webhook request should be sent to.
-        :rtype: str
         """
         return self._properties["post_webhook_url"]
 
     @property
-    def target(self):
+    def target(self) -> "WebhookInstance.Target":
         """
         :returns:
-        :rtype: WebhookInstance.Target
         """
         return self._properties["target"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: An absolute API resource API resource URL for this webhook.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "WebhookInstance":
         """
         Fetch the WebhookInstance
 
 
         :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "WebhookInstance":
         """
         Asynchronous coroutine to fetch the WebhookInstance
 
 
         :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         return await self._proxy.fetch_async()
 
@@ -150,7 +137,7 @@ class WebhookInstance(InstanceResource):
         pre_webhook_url=values.unset,
         post_webhook_url=values.unset,
         target=values.unset,
-    ):
+    ) -> "WebhookInstance":
         """
         Update the WebhookInstance
 
@@ -158,10 +145,9 @@ class WebhookInstance(InstanceResource):
         :param List[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param WebhookInstance.Target target:
+        :param "WebhookInstance.Target" target:
 
         :returns: The updated WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         return self._proxy.update(
             method=method,
@@ -178,7 +164,7 @@ class WebhookInstance(InstanceResource):
         pre_webhook_url=values.unset,
         post_webhook_url=values.unset,
         target=values.unset,
-    ):
+    ) -> "WebhookInstance":
         """
         Asynchronous coroutine to update the WebhookInstance
 
@@ -186,10 +172,9 @@ class WebhookInstance(InstanceResource):
         :param List[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param WebhookInstance.Target target:
+        :param "WebhookInstance.Target" target:
 
         :returns: The updated WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         return await self._proxy.update_async(
             method=method,
@@ -199,12 +184,11 @@ class WebhookInstance(InstanceResource):
             target=target,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.WebhookInstance {}>".format(context)
@@ -215,22 +199,18 @@ class WebhookContext(InstanceContext):
         """
         Initialize the WebhookContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
         self._uri = "/Configuration/Webhooks"
 
-    def fetch(self):
+    def fetch(self) -> WebhookInstance:
         """
         Fetch the WebhookInstance
 
 
         :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
 
         payload = self._version.fetch(
@@ -243,13 +223,12 @@ class WebhookContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> WebhookInstance:
         """
         Asynchronous coroutine to fetch the WebhookInstance
 
 
         :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
 
         payload = await self._version.fetch_async(
@@ -269,7 +248,7 @@ class WebhookContext(InstanceContext):
         pre_webhook_url=values.unset,
         post_webhook_url=values.unset,
         target=values.unset,
-    ):
+    ) -> WebhookInstance:
         """
         Update the WebhookInstance
 
@@ -277,10 +256,9 @@ class WebhookContext(InstanceContext):
         :param List[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param WebhookInstance.Target target:
+        :param "WebhookInstance.Target" target:
 
         :returns: The updated WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         data = values.of(
             {
@@ -307,7 +285,7 @@ class WebhookContext(InstanceContext):
         pre_webhook_url=values.unset,
         post_webhook_url=values.unset,
         target=values.unset,
-    ):
+    ) -> WebhookInstance:
         """
         Asynchronous coroutine to update the WebhookInstance
 
@@ -315,10 +293,9 @@ class WebhookContext(InstanceContext):
         :param List[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param WebhookInstance.Target target:
+        :param "WebhookInstance.Target" target:
 
         :returns: The updated WebhookInstance
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         data = values.of(
             {
@@ -338,12 +315,11 @@ class WebhookContext(InstanceContext):
 
         return WebhookInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.Conversations.V1.WebhookContext>"
@@ -354,38 +330,29 @@ class WebhookList(ListResource):
         """
         Initialize the WebhookList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookList
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookList
         """
         super().__init__(version)
 
-    def get(self):
+    def get(self) -> WebhookContext:
         """
         Constructs a WebhookContext
 
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         """
         return WebhookContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> WebhookContext:
         """
         Constructs a WebhookContext
 
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         """
         return WebhookContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.WebhookList>"

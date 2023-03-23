@@ -29,9 +29,6 @@ class CallInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the CallInstance
-
-        :returns: twilio.rest.insights.v1.call.CallInstance
-        :rtype: twilio.rest.insights.v1.call.CallInstance
         """
         super().__init__(version)
 
@@ -47,13 +44,12 @@ class CallInstance(InstanceResource):
         self._context: Optional[CallContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CallContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CallContext for this CallInstance
-        :rtype: twilio.rest.insights.v1.call.CallContext
         """
         if self._context is None:
             self._context = CallContext(
@@ -63,95 +59,77 @@ class CallInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "CallInstance":
         """
         Fetch the CallInstance
 
 
         :returns: The fetched CallInstance
-        :rtype: twilio.rest.insights.v1.call.CallInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CallInstance":
         """
         Asynchronous coroutine to fetch the CallInstance
 
 
         :returns: The fetched CallInstance
-        :rtype: twilio.rest.insights.v1.call.CallInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def annotation(self):
+    def annotation(self) -> AnnotationList:
         """
         Access the annotation
-
-        :returns: twilio.rest.insights.v1.call.AnnotationList
-        :rtype: twilio.rest.insights.v1.call.AnnotationList
         """
         return self._proxy.annotation
 
     @property
-    def summary(self):
+    def summary(self) -> CallSummaryList:
         """
         Access the summary
-
-        :returns: twilio.rest.insights.v1.call.CallSummaryList
-        :rtype: twilio.rest.insights.v1.call.CallSummaryList
         """
         return self._proxy.summary
 
     @property
-    def events(self):
+    def events(self) -> EventList:
         """
         Access the events
-
-        :returns: twilio.rest.insights.v1.call.EventList
-        :rtype: twilio.rest.insights.v1.call.EventList
         """
         return self._proxy.events
 
     @property
-    def metrics(self):
+    def metrics(self) -> MetricList:
         """
         Access the metrics
-
-        :returns: twilio.rest.insights.v1.call.MetricList
-        :rtype: twilio.rest.insights.v1.call.MetricList
         """
         return self._proxy.metrics
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.CallInstance {}>".format(context)
@@ -162,11 +140,8 @@ class CallContext(InstanceContext):
         """
         Initialize the CallContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid:
-
-        :returns: twilio.rest.insights.v1.call.CallContext
-        :rtype: twilio.rest.insights.v1.call.CallContext
         """
         super().__init__(version)
 
@@ -181,13 +156,12 @@ class CallContext(InstanceContext):
         self._events: Optional[EventList] = None
         self._metrics: Optional[MetricList] = None
 
-    def fetch(self):
+    def fetch(self) -> CallInstance:
         """
         Fetch the CallInstance
 
 
         :returns: The fetched CallInstance
-        :rtype: twilio.rest.insights.v1.call.CallInstance
         """
 
         payload = self._version.fetch(
@@ -201,13 +175,12 @@ class CallContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CallInstance:
         """
         Asynchronous coroutine to fetch the CallInstance
 
 
         :returns: The fetched CallInstance
-        :rtype: twilio.rest.insights.v1.call.CallInstance
         """
 
         payload = await self._version.fetch_async(
@@ -222,12 +195,9 @@ class CallContext(InstanceContext):
         )
 
     @property
-    def annotation(self):
+    def annotation(self) -> AnnotationList:
         """
         Access the annotation
-
-        :returns: twilio.rest.insights.v1.call.AnnotationList
-        :rtype: twilio.rest.insights.v1.call.AnnotationList
         """
         if self._annotation is None:
             self._annotation = AnnotationList(
@@ -237,12 +207,9 @@ class CallContext(InstanceContext):
         return self._annotation
 
     @property
-    def summary(self):
+    def summary(self) -> CallSummaryList:
         """
         Access the summary
-
-        :returns: twilio.rest.insights.v1.call.CallSummaryList
-        :rtype: twilio.rest.insights.v1.call.CallSummaryList
         """
         if self._summary is None:
             self._summary = CallSummaryList(
@@ -252,12 +219,9 @@ class CallContext(InstanceContext):
         return self._summary
 
     @property
-    def events(self):
+    def events(self) -> EventList:
         """
         Access the events
-
-        :returns: twilio.rest.insights.v1.call.EventList
-        :rtype: twilio.rest.insights.v1.call.EventList
         """
         if self._events is None:
             self._events = EventList(
@@ -267,12 +231,9 @@ class CallContext(InstanceContext):
         return self._events
 
     @property
-    def metrics(self):
+    def metrics(self) -> MetricList:
         """
         Access the metrics
-
-        :returns: twilio.rest.insights.v1.call.MetricList
-        :rtype: twilio.rest.insights.v1.call.MetricList
         """
         if self._metrics is None:
             self._metrics = MetricList(
@@ -281,12 +242,11 @@ class CallContext(InstanceContext):
             )
         return self._metrics
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.CallContext {}>".format(context)
@@ -297,40 +257,31 @@ class CallList(ListResource):
         """
         Initialize the CallList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.insights.v1.call.CallList
-        :rtype: twilio.rest.insights.v1.call.CallList
         """
         super().__init__(version)
 
-    def get(self, sid):
+    def get(self, sid) -> CallContext:
         """
         Constructs a CallContext
 
         :param sid:
-
-        :returns: twilio.rest.insights.v1.call.CallContext
-        :rtype: twilio.rest.insights.v1.call.CallContext
         """
         return CallContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> CallContext:
         """
         Constructs a CallContext
 
         :param sid:
-
-        :returns: twilio.rest.insights.v1.call.CallContext
-        :rtype: twilio.rest.insights.v1.call.CallContext
         """
         return CallContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1.CallList>"

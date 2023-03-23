@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -29,9 +30,6 @@ class AnonymizeInstance(InstanceResource):
     def __init__(self, version, payload, room_sid: str, sid: str):
         """
         Initialize the AnonymizeInstance
-
-        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
         """
         super().__init__(version)
 
@@ -56,13 +54,12 @@ class AnonymizeInstance(InstanceResource):
         self._context: Optional[AnonymizeContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AnonymizeContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AnonymizeContext for this AnonymizeInstance
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
         """
         if self._context is None:
             self._context = AnonymizeContext(
@@ -73,119 +70,105 @@ class AnonymizeInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the RoomParticipant resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def room_sid(self):
+    def room_sid(self) -> str:
         """
         :returns: The SID of the participant's room.
-        :rtype: str
         """
         return self._properties["room_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomParticipant resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "AnonymizeInstance.Status":
         """
         :returns:
-        :rtype: AnonymizeInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns: The SID of the participant.
-        :rtype: str
         """
         return self._properties["identity"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def start_time(self):
+    def start_time(self) -> datetime:
         """
         :returns: The time of participant connected to the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :rtype: datetime
         """
         return self._properties["start_time"]
 
     @property
-    def end_time(self):
+    def end_time(self) -> datetime:
         """
         :returns: The time when the participant disconnected from the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :rtype: datetime
         """
         return self._properties["end_time"]
 
     @property
-    def duration(self):
+    def duration(self) -> int:
         """
         :returns: The duration in seconds that the participant was `connected`. Populated only after the participant is `disconnected`.
-        :rtype: int
         """
         return self._properties["duration"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def update(self):
+    def update(self) -> "AnonymizeInstance":
         """
         Update the AnonymizeInstance
 
 
         :returns: The updated AnonymizeInstance
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
         """
         return self._proxy.update()
 
-    async def update_async(self):
+    async def update_async(self) -> "AnonymizeInstance":
         """
         Asynchronous coroutine to update the AnonymizeInstance
 
 
         :returns: The updated AnonymizeInstance
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
         """
         return await self._proxy.update_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.AnonymizeInstance {}>".format(context)
@@ -196,12 +179,9 @@ class AnonymizeContext(InstanceContext):
         """
         Initialize the AnonymizeContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the room with the participant to update.
         :param sid: The SID of the RoomParticipant resource to update.
-
-        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
         """
         super().__init__(version)
 
@@ -214,13 +194,12 @@ class AnonymizeContext(InstanceContext):
             **self._solution
         )
 
-    def update(self):
+    def update(self) -> AnonymizeInstance:
         """
         Update the AnonymizeInstance
 
 
         :returns: The updated AnonymizeInstance
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
         """
         data = values.of({})
 
@@ -237,13 +216,12 @@ class AnonymizeContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self):
+    async def update_async(self) -> AnonymizeInstance:
         """
         Asynchronous coroutine to update the AnonymizeInstance
 
 
         :returns: The updated AnonymizeInstance
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
         """
         data = values.of({})
 
@@ -260,12 +238,11 @@ class AnonymizeContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.AnonymizeContext {}>".format(context)
@@ -276,12 +253,10 @@ class AnonymizeList(ListResource):
         """
         Initialize the AnonymizeList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the room with the participant to update.
         :param sid: The SID of the RoomParticipant resource to update.
 
-        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeList
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeList
         """
         super().__init__(version)
 
@@ -291,13 +266,10 @@ class AnonymizeList(ListResource):
             "sid": sid,
         }
 
-    def get(self):
+    def get(self) -> AnonymizeContext:
         """
         Constructs a AnonymizeContext
 
-
-        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
         """
         return AnonymizeContext(
             self._version,
@@ -305,13 +277,10 @@ class AnonymizeList(ListResource):
             sid=self._solution["sid"],
         )
 
-    def __call__(self):
+    def __call__(self) -> AnonymizeContext:
         """
         Constructs a AnonymizeContext
 
-
-        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
         """
         return AnonymizeContext(
             self._version,
@@ -319,11 +288,10 @@ class AnonymizeList(ListResource):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.AnonymizeList>"

@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import datetime
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +27,6 @@ class ContentAndApprovalsInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the ContentAndApprovalsInstance
-
-        :returns: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsInstance
-        :rtype: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsInstance
         """
         super().__init__(version)
 
@@ -46,97 +45,84 @@ class ContentAndApprovalsInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the Content resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A string name used to describe the Content resource. Not visible to the end recipient.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def language(self):
+    def language(self) -> str:
         """
         :returns: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
-        :rtype: str
         """
         return self._properties["language"]
 
     @property
-    def variables(self):
+    def variables(self) -> dict:
         """
         :returns: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
-        :rtype: dict
         """
         return self._properties["variables"]
 
     @property
-    def types(self):
+    def types(self) -> dict:
         """
         :returns: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
-        :rtype: dict
         """
         return self._properties["types"]
 
     @property
-    def approval_requests(self):
+    def approval_requests(self) -> dict:
         """
         :returns: The submitted information and approval request status of the Content resource.
-        :rtype: dict
         """
         return self._properties["approval_requests"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Content.V1.ContentAndApprovalsInstance {}>".format(context)
 
 
 class ContentAndApprovalsPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ContentAndApprovalsInstance:
         """
         Build an instance of ContentAndApprovalsInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsInstance
-        :rtype: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsInstance
         """
         return ContentAndApprovalsInstance(self._version, payload)
 
@@ -154,16 +140,14 @@ class ContentAndApprovalsList(ListResource):
         """
         Initialize the ContentAndApprovalsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsList
-        :rtype: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsList
         """
         super().__init__(version)
 
         self._uri = "/ContentAndApprovals"
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ContentAndApprovalsInstance]:
         """
         Streams ContentAndApprovalsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -178,14 +162,15 @@ class ContentAndApprovalsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[ContentAndApprovalsInstance]:
         """
         Asynchronously streams ContentAndApprovalsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -200,14 +185,13 @@ class ContentAndApprovalsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ContentAndApprovalsInstance]:
         """
         Lists ContentAndApprovalsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -221,7 +205,6 @@ class ContentAndApprovalsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsInstance]
         """
         return list(
             self.stream(
@@ -230,7 +213,9 @@ class ContentAndApprovalsList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[ContentAndApprovalsInstance]:
         """
         Asynchronously lists ContentAndApprovalsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -244,7 +229,6 @@ class ContentAndApprovalsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsInstance]
         """
         return list(
             await self.stream_async(
@@ -255,7 +239,7 @@ class ContentAndApprovalsList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ContentAndApprovalsPage:
         """
         Retrieve a single page of ContentAndApprovalsInstance records from the API.
         Request is executed immediately
@@ -265,7 +249,6 @@ class ContentAndApprovalsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ContentAndApprovalsInstance
-        :rtype: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsPage
         """
         data = values.of(
             {
@@ -280,7 +263,7 @@ class ContentAndApprovalsList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ContentAndApprovalsPage:
         """
         Asynchronously retrieve a single page of ContentAndApprovalsInstance records from the API.
         Request is executed immediately
@@ -290,7 +273,6 @@ class ContentAndApprovalsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ContentAndApprovalsInstance
-        :rtype: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsPage
         """
         data = values.of(
             {
@@ -305,7 +287,7 @@ class ContentAndApprovalsList(ListResource):
         )
         return ContentAndApprovalsPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ContentAndApprovalsPage:
         """
         Retrieve a specific page of ContentAndApprovalsInstance records from the API.
         Request is executed immediately
@@ -313,12 +295,11 @@ class ContentAndApprovalsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ContentAndApprovalsInstance
-        :rtype: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ContentAndApprovalsPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ContentAndApprovalsPage:
         """
         Asynchronously retrieve a specific page of ContentAndApprovalsInstance records from the API.
         Request is executed immediately
@@ -326,16 +307,14 @@ class ContentAndApprovalsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ContentAndApprovalsInstance
-        :rtype: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ContentAndApprovalsPage(self._version, response)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Content.V1.ContentAndApprovalsList>"

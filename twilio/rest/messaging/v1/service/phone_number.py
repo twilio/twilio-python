@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class PhoneNumberInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the PhoneNumberInstance
-
-        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
         super().__init__(version)
 
@@ -51,13 +49,12 @@ class PhoneNumberInstance(InstanceResource):
         self._context: Optional[PhoneNumberContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "PhoneNumberContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: PhoneNumberContext for this PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
         """
         if self._context is None:
             self._context = PhoneNumberContext(
@@ -68,123 +65,109 @@ class PhoneNumberInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the PhoneNumber resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PhoneNumber resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def phone_number(self):
+    def phone_number(self) -> str:
         """
         :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        :rtype: str
         """
         return self._properties["phone_number"]
 
     @property
-    def country_code(self):
+    def country_code(self) -> str:
         """
         :returns: The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
-        :rtype: str
         """
         return self._properties["country_code"]
 
     @property
-    def capabilities(self):
+    def capabilities(self) -> List[str]:
         """
         :returns: An array of values that describe whether the number can receive calls or messages. Can be: `Voice`, `SMS`, and `MMS`.
-        :rtype: List[str]
         """
         return self._properties["capabilities"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the PhoneNumber resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the PhoneNumberInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PhoneNumberInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "PhoneNumberInstance":
         """
         Fetch the PhoneNumberInstance
 
 
         :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "PhoneNumberInstance":
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
 
 
         :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.PhoneNumberInstance {}>".format(context)
@@ -195,12 +178,9 @@ class PhoneNumberContext(InstanceContext):
         """
         Initialize the PhoneNumberContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
         :param sid: The SID of the PhoneNumber resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
         """
         super().__init__(version)
 
@@ -213,39 +193,36 @@ class PhoneNumberContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the PhoneNumberInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PhoneNumberInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> PhoneNumberInstance:
         """
         Fetch the PhoneNumberInstance
 
 
         :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
 
         payload = self._version.fetch(
@@ -260,13 +237,12 @@ class PhoneNumberContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> PhoneNumberInstance:
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
 
 
         :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
 
         payload = await self._version.fetch_async(
@@ -281,26 +257,22 @@ class PhoneNumberContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.PhoneNumberContext {}>".format(context)
 
 
 class PhoneNumberPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> PhoneNumberInstance:
         """
         Build an instance of PhoneNumberInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
         return PhoneNumberInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -320,11 +292,9 @@ class PhoneNumberList(ListResource):
         """
         Initialize the PhoneNumberList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
 
-        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberList
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberList
         """
         super().__init__(version)
 
@@ -334,14 +304,13 @@ class PhoneNumberList(ListResource):
         }
         self._uri = "/Services/{service_sid}/PhoneNumbers".format(**self._solution)
 
-    def create(self, phone_number_sid):
+    def create(self, phone_number_sid) -> PhoneNumberInstance:
         """
         Create the PhoneNumberInstance
 
         :param str phone_number_sid: The SID of the Phone Number being added to the Service.
 
         :returns: The created PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
         data = values.of(
             {
@@ -359,14 +328,13 @@ class PhoneNumberList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    async def create_async(self, phone_number_sid):
+    async def create_async(self, phone_number_sid) -> PhoneNumberInstance:
         """
         Asynchronously create the PhoneNumberInstance
 
         :param str phone_number_sid: The SID of the Phone Number being added to the Service.
 
         :returns: The created PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
         data = values.of(
             {
@@ -384,7 +352,7 @@ class PhoneNumberList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[PhoneNumberInstance]:
         """
         Streams PhoneNumberInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -399,14 +367,15 @@ class PhoneNumberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[PhoneNumberInstance]:
         """
         Asynchronously streams PhoneNumberInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -421,14 +390,13 @@ class PhoneNumberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[PhoneNumberInstance]:
         """
         Lists PhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -442,7 +410,6 @@ class PhoneNumberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance]
         """
         return list(
             self.stream(
@@ -451,7 +418,7 @@ class PhoneNumberList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[PhoneNumberInstance]:
         """
         Asynchronously lists PhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -465,7 +432,6 @@ class PhoneNumberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance]
         """
         return list(
             await self.stream_async(
@@ -476,7 +442,7 @@ class PhoneNumberList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> PhoneNumberPage:
         """
         Retrieve a single page of PhoneNumberInstance records from the API.
         Request is executed immediately
@@ -486,7 +452,6 @@ class PhoneNumberList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberPage
         """
         data = values.of(
             {
@@ -501,7 +466,7 @@ class PhoneNumberList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> PhoneNumberPage:
         """
         Asynchronously retrieve a single page of PhoneNumberInstance records from the API.
         Request is executed immediately
@@ -511,7 +476,6 @@ class PhoneNumberList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberPage
         """
         data = values.of(
             {
@@ -526,7 +490,7 @@ class PhoneNumberList(ListResource):
         )
         return PhoneNumberPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> PhoneNumberPage:
         """
         Retrieve a specific page of PhoneNumberInstance records from the API.
         Request is executed immediately
@@ -534,12 +498,11 @@ class PhoneNumberList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return PhoneNumberPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> PhoneNumberPage:
         """
         Asynchronously retrieve a specific page of PhoneNumberInstance records from the API.
         Request is executed immediately
@@ -547,42 +510,34 @@ class PhoneNumberList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return PhoneNumberPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
 
         :param sid: The SID of the PhoneNumber resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
 
         :param sid: The SID of the PhoneNumber resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.PhoneNumberList>"

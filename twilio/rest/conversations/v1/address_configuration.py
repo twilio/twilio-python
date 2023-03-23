@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class AddressConfigurationInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the AddressConfigurationInstance
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         super().__init__(version)
 
@@ -50,13 +48,12 @@ class AddressConfigurationInstance(InstanceResource):
         self._context: Optional[AddressConfigurationContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AddressConfigurationContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AddressConfigurationContext for this AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
         """
         if self._context is None:
             self._context = AddressConfigurationContext(
@@ -66,114 +63,101 @@ class AddressConfigurationInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) the address belongs to
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def type(self):
+    def type(self) -> str:
         """
         :returns: Type of Address, value can be `whatsapp` or `sms`.
-        :rtype: str
         """
         return self._properties["type"]
 
     @property
-    def address(self):
+    def address(self) -> str:
         """
         :returns: The unique address to be configured. The address can be a whatsapp address or phone number
-        :rtype: str
         """
         return self._properties["address"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def auto_creation(self):
+    def auto_creation(self) -> dict:
         """
         :returns: Auto Creation configuration for the address.
-        :rtype: dict
         """
         return self._properties["auto_creation"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: An absolute API resource URL for this address configuration.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AddressConfigurationInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AddressConfigurationInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "AddressConfigurationInstance":
         """
         Fetch the AddressConfigurationInstance
 
 
         :returns: The fetched AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AddressConfigurationInstance":
         """
         Asynchronous coroutine to fetch the AddressConfigurationInstance
 
 
         :returns: The fetched AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         return await self._proxy.fetch_async()
 
@@ -188,22 +172,21 @@ class AddressConfigurationInstance(InstanceResource):
         auto_creation_webhook_filters=values.unset,
         auto_creation_studio_flow_sid=values.unset,
         auto_creation_studio_retry_count=values.unset,
-    ):
+    ) -> "AddressConfigurationInstance":
         """
         Update the AddressConfigurationInstance
 
         :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
         :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
+        :param "AddressConfigurationInstance.AutoCreationType" auto_creation_type:
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
+        :param "AddressConfigurationInstance.Method" auto_creation_webhook_method:
         :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -228,22 +211,21 @@ class AddressConfigurationInstance(InstanceResource):
         auto_creation_webhook_filters=values.unset,
         auto_creation_studio_flow_sid=values.unset,
         auto_creation_studio_retry_count=values.unset,
-    ):
+    ) -> "AddressConfigurationInstance":
         """
         Asynchronous coroutine to update the AddressConfigurationInstance
 
         :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
         :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
+        :param "AddressConfigurationInstance.AutoCreationType" auto_creation_type:
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
+        :param "AddressConfigurationInstance.Method" auto_creation_webhook_method:
         :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -257,12 +239,11 @@ class AddressConfigurationInstance(InstanceResource):
             auto_creation_studio_retry_count=auto_creation_studio_retry_count,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.AddressConfigurationInstance {}>".format(
@@ -275,11 +256,8 @@ class AddressConfigurationContext(InstanceContext):
         """
         Initialize the AddressConfigurationContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
         """
         super().__init__(version)
 
@@ -289,39 +267,36 @@ class AddressConfigurationContext(InstanceContext):
         }
         self._uri = "/Configuration/Addresses/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AddressConfigurationInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AddressConfigurationInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> AddressConfigurationInstance:
         """
         Fetch the AddressConfigurationInstance
 
 
         :returns: The fetched AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
 
         payload = self._version.fetch(
@@ -335,13 +310,12 @@ class AddressConfigurationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AddressConfigurationInstance:
         """
         Asynchronous coroutine to fetch the AddressConfigurationInstance
 
 
         :returns: The fetched AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
 
         payload = await self._version.fetch_async(
@@ -366,22 +340,21 @@ class AddressConfigurationContext(InstanceContext):
         auto_creation_webhook_filters=values.unset,
         auto_creation_studio_flow_sid=values.unset,
         auto_creation_studio_retry_count=values.unset,
-    ):
+    ) -> AddressConfigurationInstance:
         """
         Update the AddressConfigurationInstance
 
         :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
         :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
+        :param "AddressConfigurationInstance.AutoCreationType" auto_creation_type:
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
+        :param "AddressConfigurationInstance.Method" auto_creation_webhook_method:
         :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         data = values.of(
             {
@@ -420,22 +393,21 @@ class AddressConfigurationContext(InstanceContext):
         auto_creation_webhook_filters=values.unset,
         auto_creation_studio_flow_sid=values.unset,
         auto_creation_studio_retry_count=values.unset,
-    ):
+    ) -> AddressConfigurationInstance:
         """
         Asynchronous coroutine to update the AddressConfigurationInstance
 
         :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
         :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
+        :param "AddressConfigurationInstance.AutoCreationType" auto_creation_type:
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
+        :param "AddressConfigurationInstance.Method" auto_creation_webhook_method:
         :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         data = values.of(
             {
@@ -463,12 +435,11 @@ class AddressConfigurationContext(InstanceContext):
             self._version, payload, sid=self._solution["sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.AddressConfigurationContext {}>".format(
@@ -477,14 +448,11 @@ class AddressConfigurationContext(InstanceContext):
 
 
 class AddressConfigurationPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AddressConfigurationInstance:
         """
         Build an instance of AddressConfigurationInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         return AddressConfigurationInstance(self._version, payload)
 
@@ -502,10 +470,8 @@ class AddressConfigurationList(ListResource):
         """
         Initialize the AddressConfigurationList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
         """
         super().__init__(version)
 
@@ -524,24 +490,23 @@ class AddressConfigurationList(ListResource):
         auto_creation_webhook_filters=values.unset,
         auto_creation_studio_flow_sid=values.unset,
         auto_creation_studio_retry_count=values.unset,
-    ):
+    ) -> AddressConfigurationInstance:
         """
         Create the AddressConfigurationInstance
 
-        :param AddressConfigurationInstance.Type type:
+        :param &quot;AddressConfigurationInstance.Type&quot; type:
         :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
         :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
         :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
+        :param &quot;AddressConfigurationInstance.AutoCreationType&quot; auto_creation_type:
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
+        :param &quot;AddressConfigurationInstance.Method&quot; auto_creation_webhook_method:
         :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The created AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         data = values.of(
             {
@@ -582,24 +547,23 @@ class AddressConfigurationList(ListResource):
         auto_creation_webhook_filters=values.unset,
         auto_creation_studio_flow_sid=values.unset,
         auto_creation_studio_retry_count=values.unset,
-    ):
+    ) -> AddressConfigurationInstance:
         """
         Asynchronously create the AddressConfigurationInstance
 
-        :param AddressConfigurationInstance.Type type:
+        :param &quot;AddressConfigurationInstance.Type&quot; type:
         :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
         :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
         :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
+        :param &quot;AddressConfigurationInstance.AutoCreationType&quot; auto_creation_type:
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
+        :param &quot;AddressConfigurationInstance.Method&quot; auto_creation_webhook_method:
         :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The created AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
         data = values.of(
             {
@@ -627,7 +591,9 @@ class AddressConfigurationList(ListResource):
 
         return AddressConfigurationInstance(self._version, payload)
 
-    def stream(self, type=values.unset, limit=None, page_size=None):
+    def stream(
+        self, type=values.unset, limit=None, page_size=None
+    ) -> List[AddressConfigurationInstance]:
         """
         Streams AddressConfigurationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -643,14 +609,15 @@ class AddressConfigurationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(type=type, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, type=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self, type=values.unset, limit=None, page_size=None
+    ) -> List[AddressConfigurationInstance]:
         """
         Asynchronously streams AddressConfigurationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -666,14 +633,15 @@ class AddressConfigurationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(type=type, page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, type=values.unset, limit=None, page_size=None):
+    def list(
+        self, type=values.unset, limit=None, page_size=None
+    ) -> List[AddressConfigurationInstance]:
         """
         Lists AddressConfigurationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -688,7 +656,6 @@ class AddressConfigurationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
         """
         return list(
             self.stream(
@@ -698,7 +665,9 @@ class AddressConfigurationList(ListResource):
             )
         )
 
-    async def list_async(self, type=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, type=values.unset, limit=None, page_size=None
+    ) -> List[AddressConfigurationInstance]:
         """
         Asynchronously lists AddressConfigurationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -713,7 +682,6 @@ class AddressConfigurationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
         """
         return list(
             await self.stream_async(
@@ -729,7 +697,7 @@ class AddressConfigurationList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> AddressConfigurationPage:
         """
         Retrieve a single page of AddressConfigurationInstance records from the API.
         Request is executed immediately
@@ -740,7 +708,6 @@ class AddressConfigurationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
         """
         data = values.of(
             {
@@ -760,7 +727,7 @@ class AddressConfigurationList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> AddressConfigurationPage:
         """
         Asynchronously retrieve a single page of AddressConfigurationInstance records from the API.
         Request is executed immediately
@@ -771,7 +738,6 @@ class AddressConfigurationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
         """
         data = values.of(
             {
@@ -787,7 +753,7 @@ class AddressConfigurationList(ListResource):
         )
         return AddressConfigurationPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AddressConfigurationPage:
         """
         Retrieve a specific page of AddressConfigurationInstance records from the API.
         Request is executed immediately
@@ -795,12 +761,11 @@ class AddressConfigurationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AddressConfigurationPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AddressConfigurationPage:
         """
         Asynchronously retrieve a specific page of AddressConfigurationInstance records from the API.
         Request is executed immediately
@@ -808,38 +773,30 @@ class AddressConfigurationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AddressConfigurationPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> AddressConfigurationContext:
         """
         Constructs a AddressConfigurationContext
 
         :param sid: The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
         """
         return AddressConfigurationContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> AddressConfigurationContext:
         """
         Constructs a AddressConfigurationContext
 
         :param sid: The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
         """
         return AddressConfigurationContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.AddressConfigurationList>"

@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -73,9 +74,6 @@ class ConferenceInstance(InstanceResource):
     def __init__(self, version, payload, conference_sid: Optional[str] = None):
         """
         Initialize the ConferenceInstance
-
-        :returns: twilio.rest.insights.v1.conference.ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
         """
         super().__init__(version)
 
@@ -117,13 +115,12 @@ class ConferenceInstance(InstanceResource):
         self._context: Optional[ConferenceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ConferenceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ConferenceContext for this ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceContext
         """
         if self._context is None:
             self._context = ConferenceContext(
@@ -133,225 +130,196 @@ class ConferenceInstance(InstanceResource):
         return self._context
 
     @property
-    def conference_sid(self):
+    def conference_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Conference.
-        :rtype: str
         """
         return self._properties["conference_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: Custom label for the conference resource, up to 64 characters.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def create_time(self):
+    def create_time(self) -> datetime:
         """
         :returns: Conference creation date and time in ISO 8601 format.
-        :rtype: datetime
         """
         return self._properties["create_time"]
 
     @property
-    def start_time(self):
+    def start_time(self) -> datetime:
         """
         :returns: Timestamp in ISO 8601 format when the conference started. Conferences do not start until at least two participants join, at least one of whom has startConferenceOnEnter=true.
-        :rtype: datetime
         """
         return self._properties["start_time"]
 
     @property
-    def end_time(self):
+    def end_time(self) -> datetime:
         """
         :returns: Conference end date and time in ISO 8601 format.
-        :rtype: datetime
         """
         return self._properties["end_time"]
 
     @property
-    def duration_seconds(self):
+    def duration_seconds(self) -> int:
         """
         :returns: Conference duration in seconds.
-        :rtype: int
         """
         return self._properties["duration_seconds"]
 
     @property
-    def connect_duration_seconds(self):
+    def connect_duration_seconds(self) -> int:
         """
         :returns: Duration of the between conference start event and conference end event in seconds.
-        :rtype: int
         """
         return self._properties["connect_duration_seconds"]
 
     @property
-    def status(self):
+    def status(self) -> "ConferenceInstance.ConferenceStatus":
         """
         :returns:
-        :rtype: ConferenceInstance.ConferenceStatus
         """
         return self._properties["status"]
 
     @property
-    def max_participants(self):
+    def max_participants(self) -> int:
         """
         :returns: Maximum number of concurrent participants as specified by the configuration.
-        :rtype: int
         """
         return self._properties["max_participants"]
 
     @property
-    def max_concurrent_participants(self):
+    def max_concurrent_participants(self) -> int:
         """
         :returns: Actual maximum number of concurrent participants in the conference.
-        :rtype: int
         """
         return self._properties["max_concurrent_participants"]
 
     @property
-    def unique_participants(self):
+    def unique_participants(self) -> int:
         """
         :returns: Unique conference participants based on caller ID.
-        :rtype: int
         """
         return self._properties["unique_participants"]
 
     @property
-    def end_reason(self):
+    def end_reason(self) -> "ConferenceInstance.ConferenceEndReason":
         """
         :returns:
-        :rtype: ConferenceInstance.ConferenceEndReason
         """
         return self._properties["end_reason"]
 
     @property
-    def ended_by(self):
+    def ended_by(self) -> str:
         """
         :returns: Call SID of the participant whose actions ended the conference.
-        :rtype: str
         """
         return self._properties["ended_by"]
 
     @property
-    def mixer_region(self):
+    def mixer_region(self) -> "ConferenceInstance.Region":
         """
         :returns:
-        :rtype: ConferenceInstance.Region
         """
         return self._properties["mixer_region"]
 
     @property
-    def mixer_region_requested(self):
+    def mixer_region_requested(self) -> "ConferenceInstance.Region":
         """
         :returns:
-        :rtype: ConferenceInstance.Region
         """
         return self._properties["mixer_region_requested"]
 
     @property
-    def recording_enabled(self):
+    def recording_enabled(self) -> bool:
         """
         :returns: Boolean. Indicates whether recording was enabled at the conference mixer.
-        :rtype: bool
         """
         return self._properties["recording_enabled"]
 
     @property
-    def detected_issues(self):
+    def detected_issues(self) -> dict:
         """
         :returns: Potential issues detected by Twilio during the conference.
-        :rtype: dict
         """
         return self._properties["detected_issues"]
 
     @property
-    def tags(self):
+    def tags(self) -> List["ConferenceInstance.Tag"]:
         """
         :returns: Tags for detected conference conditions and participant behaviors which may be of interest.
-        :rtype: List[ConferenceInstance.Tag]
         """
         return self._properties["tags"]
 
     @property
-    def tag_info(self):
+    def tag_info(self) -> dict:
         """
         :returns: Object. Contains details about conference tags including severity.
-        :rtype: dict
         """
         return self._properties["tag_info"]
 
     @property
-    def processing_state(self):
+    def processing_state(self) -> "ConferenceInstance.ProcessingState":
         """
         :returns:
-        :rtype: ConferenceInstance.ProcessingState
         """
         return self._properties["processing_state"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of this resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: Contains a dictionary of URL links to nested resources of this Conference.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "ConferenceInstance":
         """
         Fetch the ConferenceInstance
 
 
         :returns: The fetched ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ConferenceInstance":
         """
         Asynchronous coroutine to fetch the ConferenceInstance
 
 
         :returns: The fetched ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def conference_participants(self):
+    def conference_participants(self) -> ConferenceParticipantList:
         """
         Access the conference_participants
-
-        :returns: twilio.rest.insights.v1.conference.ConferenceParticipantList
-        :rtype: twilio.rest.insights.v1.conference.ConferenceParticipantList
         """
         return self._proxy.conference_participants
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.ConferenceInstance {}>".format(context)
@@ -362,11 +330,8 @@ class ConferenceContext(InstanceContext):
         """
         Initialize the ConferenceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param conference_sid: The unique SID identifier of the Conference.
-
-        :returns: twilio.rest.insights.v1.conference.ConferenceContext
-        :rtype: twilio.rest.insights.v1.conference.ConferenceContext
         """
         super().__init__(version)
 
@@ -378,13 +343,12 @@ class ConferenceContext(InstanceContext):
 
         self._conference_participants: Optional[ConferenceParticipantList] = None
 
-    def fetch(self):
+    def fetch(self) -> ConferenceInstance:
         """
         Fetch the ConferenceInstance
 
 
         :returns: The fetched ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
         """
 
         payload = self._version.fetch(
@@ -398,13 +362,12 @@ class ConferenceContext(InstanceContext):
             conference_sid=self._solution["conference_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ConferenceInstance:
         """
         Asynchronous coroutine to fetch the ConferenceInstance
 
 
         :returns: The fetched ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -419,12 +382,9 @@ class ConferenceContext(InstanceContext):
         )
 
     @property
-    def conference_participants(self):
+    def conference_participants(self) -> ConferenceParticipantList:
         """
         Access the conference_participants
-
-        :returns: twilio.rest.insights.v1.conference.ConferenceParticipantList
-        :rtype: twilio.rest.insights.v1.conference.ConferenceParticipantList
         """
         if self._conference_participants is None:
             self._conference_participants = ConferenceParticipantList(
@@ -433,26 +393,22 @@ class ConferenceContext(InstanceContext):
             )
         return self._conference_participants
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.ConferenceContext {}>".format(context)
 
 
 class ConferencePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ConferenceInstance:
         """
         Build an instance of ConferenceInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.insights.v1.conference.ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
         """
         return ConferenceInstance(self._version, payload)
 
@@ -470,10 +426,8 @@ class ConferenceList(ListResource):
         """
         Initialize the ConferenceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.insights.v1.conference.ConferenceList
-        :rtype: twilio.rest.insights.v1.conference.ConferenceList
         """
         super().__init__(version)
 
@@ -493,7 +447,7 @@ class ConferenceList(ListResource):
         end_reason=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ConferenceInstance]:
         """
         Streams ConferenceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -518,7 +472,6 @@ class ConferenceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.conference.ConferenceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -551,7 +504,7 @@ class ConferenceList(ListResource):
         end_reason=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ConferenceInstance]:
         """
         Asynchronously streams ConferenceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -576,7 +529,6 @@ class ConferenceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.conference.ConferenceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -609,7 +561,7 @@ class ConferenceList(ListResource):
         end_reason=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ConferenceInstance]:
         """
         Lists ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -633,7 +585,6 @@ class ConferenceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.conference.ConferenceInstance]
         """
         return list(
             self.stream(
@@ -666,7 +617,7 @@ class ConferenceList(ListResource):
         end_reason=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ConferenceInstance]:
         """
         Asynchronously lists ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -690,7 +641,6 @@ class ConferenceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.conference.ConferenceInstance]
         """
         return list(
             await self.stream_async(
@@ -724,7 +674,7 @@ class ConferenceList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ConferencePage:
         """
         Retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
@@ -744,7 +694,6 @@ class ConferenceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferencePage
         """
         data = values.of(
             {
@@ -782,7 +731,7 @@ class ConferenceList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ConferencePage:
         """
         Asynchronously retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
@@ -802,7 +751,6 @@ class ConferenceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferencePage
         """
         data = values.of(
             {
@@ -827,7 +775,7 @@ class ConferenceList(ListResource):
         )
         return ConferencePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ConferencePage:
         """
         Retrieve a specific page of ConferenceInstance records from the API.
         Request is executed immediately
@@ -835,12 +783,11 @@ class ConferenceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferencePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ConferencePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ConferencePage:
         """
         Asynchronously retrieve a specific page of ConferenceInstance records from the API.
         Request is executed immediately
@@ -848,38 +795,30 @@ class ConferenceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferencePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConferencePage(self._version, response)
 
-    def get(self, conference_sid):
+    def get(self, conference_sid) -> ConferenceContext:
         """
         Constructs a ConferenceContext
 
         :param conference_sid: The unique SID identifier of the Conference.
-
-        :returns: twilio.rest.insights.v1.conference.ConferenceContext
-        :rtype: twilio.rest.insights.v1.conference.ConferenceContext
         """
         return ConferenceContext(self._version, conference_sid=conference_sid)
 
-    def __call__(self, conference_sid):
+    def __call__(self, conference_sid) -> ConferenceContext:
         """
         Constructs a ConferenceContext
 
         :param conference_sid: The unique SID identifier of the Conference.
-
-        :returns: twilio.rest.insights.v1.conference.ConferenceContext
-        :rtype: twilio.rest.insights.v1.conference.ConferenceContext
         """
         return ConferenceContext(self._version, conference_sid=conference_sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1.ConferenceList>"

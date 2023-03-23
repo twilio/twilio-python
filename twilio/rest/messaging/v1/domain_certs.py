@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -25,9 +26,6 @@ class DomainCertsInstance(InstanceResource):
     def __init__(self, version, payload, domain_sid: Optional[str] = None):
         """
         Initialize the DomainCertsInstance
-
-        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
         """
         super().__init__(version)
 
@@ -48,13 +46,12 @@ class DomainCertsInstance(InstanceResource):
         self._context: Optional[DomainCertsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DomainCertsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DomainCertsContext for this DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
         """
         if self._context is None:
             self._context = DomainCertsContext(
@@ -64,141 +61,126 @@ class DomainCertsInstance(InstanceResource):
         return self._context
 
     @property
-    def domain_sid(self):
+    def domain_sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Domain resource.
-        :rtype: str
         """
         return self._properties["domain_sid"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: Date that this Domain was last updated.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def date_expires(self):
+    def date_expires(self) -> datetime:
         """
         :returns: Date that the private certificate associated with this domain expires. You will need to update the certificate before that date to ensure your shortened links will continue to work.
-        :rtype: datetime
         """
         return self._properties["date_expires"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: Date that this Domain was registered to the Twilio platform to create a new Domain object.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def domain_name(self):
+    def domain_name(self) -> str:
         """
         :returns: Full url path for this domain.
-        :rtype: str
         """
         return self._properties["domain_name"]
 
     @property
-    def certificate_sid(self):
+    def certificate_sid(self) -> str:
         """
         :returns: The unique string that we created to identify this Certificate resource.
-        :rtype: str
         """
         return self._properties["certificate_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def cert_in_validation(self):
+    def cert_in_validation(self) -> dict:
         """
         :returns: Optional JSON field describing the status and upload date of a new certificate in the process of validation
-        :rtype: dict
         """
         return self._properties["cert_in_validation"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DomainCertsInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DomainCertsInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "DomainCertsInstance":
         """
         Fetch the DomainCertsInstance
 
 
         :returns: The fetched DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "DomainCertsInstance":
         """
         Asynchronous coroutine to fetch the DomainCertsInstance
 
 
         :returns: The fetched DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, tls_cert):
+    def update(self, tls_cert) -> "DomainCertsInstance":
         """
         Update the DomainCertsInstance
 
         :param str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
 
         :returns: The updated DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
         """
         return self._proxy.update(
             tls_cert=tls_cert,
         )
 
-    async def update_async(self, tls_cert):
+    async def update_async(self, tls_cert) -> "DomainCertsInstance":
         """
         Asynchronous coroutine to update the DomainCertsInstance
 
         :param str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
 
         :returns: The updated DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
         """
         return await self._proxy.update_async(
             tls_cert=tls_cert,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.DomainCertsInstance {}>".format(context)
@@ -209,11 +191,8 @@ class DomainCertsContext(InstanceContext):
         """
         Initialize the DomainCertsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
         """
         super().__init__(version)
 
@@ -225,39 +204,36 @@ class DomainCertsContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DomainCertsInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DomainCertsInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> DomainCertsInstance:
         """
         Fetch the DomainCertsInstance
 
 
         :returns: The fetched DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
         """
 
         payload = self._version.fetch(
@@ -271,13 +247,12 @@ class DomainCertsContext(InstanceContext):
             domain_sid=self._solution["domain_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> DomainCertsInstance:
         """
         Asynchronous coroutine to fetch the DomainCertsInstance
 
 
         :returns: The fetched DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
         """
 
         payload = await self._version.fetch_async(
@@ -291,14 +266,13 @@ class DomainCertsContext(InstanceContext):
             domain_sid=self._solution["domain_sid"],
         )
 
-    def update(self, tls_cert):
+    def update(self, tls_cert) -> DomainCertsInstance:
         """
         Update the DomainCertsInstance
 
         :param str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
 
         :returns: The updated DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
         """
         data = values.of(
             {
@@ -316,14 +290,13 @@ class DomainCertsContext(InstanceContext):
             self._version, payload, domain_sid=self._solution["domain_sid"]
         )
 
-    async def update_async(self, tls_cert):
+    async def update_async(self, tls_cert) -> DomainCertsInstance:
         """
         Asynchronous coroutine to update the DomainCertsInstance
 
         :param str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
 
         :returns: The updated DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
         """
         data = values.of(
             {
@@ -341,12 +314,11 @@ class DomainCertsContext(InstanceContext):
             self._version, payload, domain_sid=self._solution["domain_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.DomainCertsContext {}>".format(context)
@@ -357,40 +329,31 @@ class DomainCertsList(ListResource):
         """
         Initialize the DomainCertsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsList
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsList
         """
         super().__init__(version)
 
-    def get(self, domain_sid):
+    def get(self, domain_sid) -> DomainCertsContext:
         """
         Constructs a DomainCertsContext
 
         :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
         """
         return DomainCertsContext(self._version, domain_sid=domain_sid)
 
-    def __call__(self, domain_sid):
+    def __call__(self, domain_sid) -> DomainCertsContext:
         """
         Constructs a DomainCertsContext
 
         :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
         """
         return DomainCertsContext(self._version, domain_sid=domain_sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.DomainCertsList>"

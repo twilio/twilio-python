@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import datetime
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +27,6 @@ class DataSessionInstance(InstanceResource):
     def __init__(self, version, payload, sim_sid: str):
         """
         Initialize the DataSessionInstance
-
-        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
         """
         super().__init__(version)
 
@@ -57,153 +56,133 @@ class DataSessionInstance(InstanceResource):
         }
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the DataSession resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def sim_sid(self):
+    def sim_sid(self) -> str:
         """
         :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Data Session is for.
-        :rtype: str
         """
         return self._properties["sim_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DataSession resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def radio_link(self):
+    def radio_link(self) -> str:
         """
         :returns: The generation of wireless technology that the device was using.
-        :rtype: str
         """
         return self._properties["radio_link"]
 
     @property
-    def operator_mcc(self):
+    def operator_mcc(self) -> str:
         """
         :returns: The 'mobile country code' is the unique ID of the home country where the Data Session took place. See: [MCC/MNC lookup](http://mcc-mnc.com/).
-        :rtype: str
         """
         return self._properties["operator_mcc"]
 
     @property
-    def operator_mnc(self):
+    def operator_mnc(self) -> str:
         """
         :returns: The 'mobile network code' is the unique ID specific to the mobile operator network where the Data Session took place.
-        :rtype: str
         """
         return self._properties["operator_mnc"]
 
     @property
-    def operator_country(self):
+    def operator_country(self) -> str:
         """
         :returns: The three letter country code representing where the device's Data Session took place. This is determined by looking up the `operator_mcc`.
-        :rtype: str
         """
         return self._properties["operator_country"]
 
     @property
-    def operator_name(self):
+    def operator_name(self) -> str:
         """
         :returns: The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
-        :rtype: str
         """
         return self._properties["operator_name"]
 
     @property
-    def cell_id(self):
+    def cell_id(self) -> str:
         """
         :returns: The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated.
-        :rtype: str
         """
         return self._properties["cell_id"]
 
     @property
-    def cell_location_estimate(self):
+    def cell_location_estimate(self) -> dict:
         """
         :returns: An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/wireless/api/datasession-resource#cell-location-estimate-object).
-        :rtype: dict
         """
         return self._properties["cell_location_estimate"]
 
     @property
-    def packets_uploaded(self):
+    def packets_uploaded(self) -> int:
         """
         :returns: The number of packets uploaded by the device between the `start` time and when the Data Session was last updated.
-        :rtype: int
         """
         return self._properties["packets_uploaded"]
 
     @property
-    def packets_downloaded(self):
+    def packets_downloaded(self) -> int:
         """
         :returns: The number of packets downloaded by the device between the `start` time and when the Data Session was last updated.
-        :rtype: int
         """
         return self._properties["packets_downloaded"]
 
     @property
-    def last_updated(self):
+    def last_updated(self) -> datetime:
         """
         :returns: The date that the resource was last updated, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
         """
         return self._properties["last_updated"]
 
     @property
-    def start(self):
+    def start(self) -> datetime:
         """
         :returns: The date that the Data Session started, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
         """
         return self._properties["start"]
 
     @property
-    def end(self):
+    def end(self) -> datetime:
         """
         :returns: The date that the record ended, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
         """
         return self._properties["end"]
 
     @property
-    def imei(self):
+    def imei(self) -> str:
         """
         :returns: The 'international mobile equipment identity' is the unique ID of the device using the SIM to connect. An IMEI is a 15-digit string: 14 digits for the device identifier plus a check digit calculated using the Luhn formula.
-        :rtype: str
         """
         return self._properties["imei"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Wireless.V1.DataSessionInstance {}>".format(context)
 
 
 class DataSessionPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> DataSessionInstance:
         """
         Build an instance of DataSessionInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
         """
         return DataSessionInstance(
             self._version, payload, sim_sid=self._solution["sim_sid"]
@@ -223,11 +202,9 @@ class DataSessionList(ListResource):
         """
         Initialize the DataSessionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) with the Data Sessions to read.
 
-        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionList
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionList
         """
         super().__init__(version)
 
@@ -237,7 +214,7 @@ class DataSessionList(ListResource):
         }
         self._uri = "/Sims/{sim_sid}/DataSessions".format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[DataSessionInstance]:
         """
         Streams DataSessionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -252,14 +229,15 @@ class DataSessionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.data_session.DataSessionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[DataSessionInstance]:
         """
         Asynchronously streams DataSessionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -274,14 +252,13 @@ class DataSessionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.data_session.DataSessionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[DataSessionInstance]:
         """
         Lists DataSessionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -295,7 +272,6 @@ class DataSessionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.data_session.DataSessionInstance]
         """
         return list(
             self.stream(
@@ -304,7 +280,7 @@ class DataSessionList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[DataSessionInstance]:
         """
         Asynchronously lists DataSessionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -318,7 +294,6 @@ class DataSessionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.data_session.DataSessionInstance]
         """
         return list(
             await self.stream_async(
@@ -329,7 +304,7 @@ class DataSessionList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DataSessionPage:
         """
         Retrieve a single page of DataSessionInstance records from the API.
         Request is executed immediately
@@ -339,7 +314,6 @@ class DataSessionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
         """
         data = values.of(
             {
@@ -354,7 +328,7 @@ class DataSessionList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DataSessionPage:
         """
         Asynchronously retrieve a single page of DataSessionInstance records from the API.
         Request is executed immediately
@@ -364,7 +338,6 @@ class DataSessionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
         """
         data = values.of(
             {
@@ -379,7 +352,7 @@ class DataSessionList(ListResource):
         )
         return DataSessionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> DataSessionPage:
         """
         Retrieve a specific page of DataSessionInstance records from the API.
         Request is executed immediately
@@ -387,12 +360,11 @@ class DataSessionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DataSessionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> DataSessionPage:
         """
         Asynchronously retrieve a specific page of DataSessionInstance records from the API.
         Request is executed immediately
@@ -400,16 +372,14 @@ class DataSessionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DataSessionPage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Wireless.V1.DataSessionList>"

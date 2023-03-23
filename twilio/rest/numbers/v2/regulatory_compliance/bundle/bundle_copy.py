@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import datetime
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +35,6 @@ class BundleCopyInstance(InstanceResource):
     def __init__(self, version, payload, bundle_sid: str):
         """
         Initialize the BundleCopyInstance
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
         """
         super().__init__(version)
 
@@ -57,105 +56,91 @@ class BundleCopyInstance(InstanceResource):
         }
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Bundle resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def regulation_sid(self):
+    def regulation_sid(self) -> str:
         """
         :returns: The unique string of a regulation that is associated to the Bundle resource.
-        :rtype: str
         """
         return self._properties["regulation_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def status(self):
+    def status(self) -> "BundleCopyInstance.Status":
         """
         :returns:
-        :rtype: BundleCopyInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def valid_until(self):
+    def valid_until(self) -> datetime:
         """
         :returns: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
-        :rtype: datetime
         """
         return self._properties["valid_until"]
 
     @property
-    def email(self):
+    def email(self) -> str:
         """
         :returns: The email address that will receive updates when the Bundle resource changes status.
-        :rtype: str
         """
         return self._properties["email"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL we call to inform your application of status changes.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Numbers.V2.BundleCopyInstance {}>".format(context)
 
 
 class BundleCopyPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> BundleCopyInstance:
         """
         Build an instance of BundleCopyInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
         """
         return BundleCopyInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
@@ -175,11 +160,9 @@ class BundleCopyList(ListResource):
         """
         Initialize the BundleCopyList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param bundle_sid: The unique string that we created to identify the Bundle resource.
 
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyList
         """
         super().__init__(version)
 
@@ -191,14 +174,13 @@ class BundleCopyList(ListResource):
             **self._solution
         )
 
-    def create(self, friendly_name=values.unset):
+    def create(self, friendly_name=values.unset) -> BundleCopyInstance:
         """
         Create the BundleCopyInstance
 
         :param str friendly_name: The string that you assigned to describe the copied bundle.
 
         :returns: The created BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
         """
         data = values.of(
             {
@@ -216,14 +198,13 @@ class BundleCopyList(ListResource):
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
 
-    async def create_async(self, friendly_name=values.unset):
+    async def create_async(self, friendly_name=values.unset) -> BundleCopyInstance:
         """
         Asynchronously create the BundleCopyInstance
 
         :param str friendly_name: The string that you assigned to describe the copied bundle.
 
         :returns: The created BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
         """
         data = values.of(
             {
@@ -241,7 +222,7 @@ class BundleCopyList(ListResource):
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[BundleCopyInstance]:
         """
         Streams BundleCopyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -256,14 +237,15 @@ class BundleCopyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[BundleCopyInstance]:
         """
         Asynchronously streams BundleCopyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -278,14 +260,13 @@ class BundleCopyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[BundleCopyInstance]:
         """
         Lists BundleCopyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -299,7 +280,6 @@ class BundleCopyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance]
         """
         return list(
             self.stream(
@@ -308,7 +288,7 @@ class BundleCopyList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[BundleCopyInstance]:
         """
         Asynchronously lists BundleCopyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -322,7 +302,6 @@ class BundleCopyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance]
         """
         return list(
             await self.stream_async(
@@ -333,7 +312,7 @@ class BundleCopyList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> BundleCopyPage:
         """
         Retrieve a single page of BundleCopyInstance records from the API.
         Request is executed immediately
@@ -343,7 +322,6 @@ class BundleCopyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
         """
         data = values.of(
             {
@@ -358,7 +336,7 @@ class BundleCopyList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> BundleCopyPage:
         """
         Asynchronously retrieve a single page of BundleCopyInstance records from the API.
         Request is executed immediately
@@ -368,7 +346,6 @@ class BundleCopyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
         """
         data = values.of(
             {
@@ -383,7 +360,7 @@ class BundleCopyList(ListResource):
         )
         return BundleCopyPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> BundleCopyPage:
         """
         Retrieve a specific page of BundleCopyInstance records from the API.
         Request is executed immediately
@@ -391,12 +368,11 @@ class BundleCopyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return BundleCopyPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> BundleCopyPage:
         """
         Asynchronously retrieve a specific page of BundleCopyInstance records from the API.
         Request is executed immediately
@@ -404,16 +380,14 @@ class BundleCopyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return BundleCopyPage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Numbers.V2.BundleCopyList>"

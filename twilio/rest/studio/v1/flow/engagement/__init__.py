@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -34,9 +35,6 @@ class EngagementInstance(InstanceResource):
     def __init__(self, version, payload, flow_sid: str, sid: Optional[str] = None):
         """
         Initialize the EngagementInstance
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         super().__init__(version)
 
@@ -61,13 +59,12 @@ class EngagementInstance(InstanceResource):
         self._context: Optional[EngagementContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "EngagementContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: EngagementContext for this EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         if self._context is None:
             self._context = EngagementContext(
@@ -78,159 +75,137 @@ class EngagementInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Engagement resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Engagement resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def flow_sid(self):
+    def flow_sid(self) -> str:
         """
         :returns: The SID of the Flow.
-        :rtype: str
         """
         return self._properties["flow_sid"]
 
     @property
-    def contact_sid(self):
+    def contact_sid(self) -> str:
         """
         :returns: The SID of the Contact.
-        :rtype: str
         """
         return self._properties["contact_sid"]
 
     @property
-    def contact_channel_address(self):
+    def contact_channel_address(self) -> str:
         """
         :returns: The phone number, SIP address or Client identifier that triggered this Engagement. Phone numbers are in E.164 format (+16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-        :rtype: str
         """
         return self._properties["contact_channel_address"]
 
     @property
-    def context(self):
+    def context(self) -> dict:
         """
         :returns: The current state of the execution flow. As your flow executes, we save the state in a flow context. Your widgets can access the data in the flow context as variables, either in configuration fields or in text areas as variable substitution.
-        :rtype: dict
         """
         return self._properties["context"]
 
     @property
-    def status(self):
+    def status(self) -> "EngagementInstance.Status":
         """
         :returns:
-        :rtype: EngagementInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the Engagement was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the Engagement was updated in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of the Engagement's nested resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the EngagementInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the EngagementInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "EngagementInstance":
         """
         Fetch the EngagementInstance
 
 
         :returns: The fetched EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "EngagementInstance":
         """
         Asynchronous coroutine to fetch the EngagementInstance
 
 
         :returns: The fetched EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def engagement_context(self):
+    def engagement_context(self) -> EngagementContextList:
         """
         Access the engagement_context
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContextList
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContextList
         """
         return self._proxy.engagement_context
 
     @property
-    def steps(self):
+    def steps(self) -> StepList:
         """
         Access the steps
-
-        :returns: twilio.rest.studio.v1.flow.engagement.StepList
-        :rtype: twilio.rest.studio.v1.flow.engagement.StepList
         """
         return self._proxy.steps
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V1.EngagementInstance {}>".format(context)
@@ -241,12 +216,9 @@ class EngagementContext(InstanceContext):
         """
         Initialize the EngagementContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param flow_sid: The SID of the Flow.
         :param sid: The SID of the Engagement resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         super().__init__(version)
 
@@ -260,39 +232,36 @@ class EngagementContext(InstanceContext):
         self._engagement_context: Optional[EngagementContextList] = None
         self._steps: Optional[StepList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the EngagementInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the EngagementInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> EngagementInstance:
         """
         Fetch the EngagementInstance
 
 
         :returns: The fetched EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
 
         payload = self._version.fetch(
@@ -307,13 +276,12 @@ class EngagementContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> EngagementInstance:
         """
         Asynchronous coroutine to fetch the EngagementInstance
 
 
         :returns: The fetched EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
 
         payload = await self._version.fetch_async(
@@ -329,12 +297,9 @@ class EngagementContext(InstanceContext):
         )
 
     @property
-    def engagement_context(self):
+    def engagement_context(self) -> EngagementContextList:
         """
         Access the engagement_context
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContextList
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContextList
         """
         if self._engagement_context is None:
             self._engagement_context = EngagementContextList(
@@ -345,12 +310,9 @@ class EngagementContext(InstanceContext):
         return self._engagement_context
 
     @property
-    def steps(self):
+    def steps(self) -> StepList:
         """
         Access the steps
-
-        :returns: twilio.rest.studio.v1.flow.engagement.StepList
-        :rtype: twilio.rest.studio.v1.flow.engagement.StepList
         """
         if self._steps is None:
             self._steps = StepList(
@@ -360,26 +322,22 @@ class EngagementContext(InstanceContext):
             )
         return self._steps
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V1.EngagementContext {}>".format(context)
 
 
 class EngagementPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> EngagementInstance:
         """
         Build an instance of EngagementInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         return EngagementInstance(
             self._version, payload, flow_sid=self._solution["flow_sid"]
@@ -399,11 +357,9 @@ class EngagementList(ListResource):
         """
         Initialize the EngagementList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param flow_sid: The SID of the Flow to read Engagements from.
 
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementList
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementList
         """
         super().__init__(version)
 
@@ -413,7 +369,7 @@ class EngagementList(ListResource):
         }
         self._uri = "/Flows/{flow_sid}/Engagements".format(**self._solution)
 
-    def create(self, to, from_, parameters=values.unset):
+    def create(self, to, from_, parameters=values.unset) -> EngagementInstance:
         """
         Create the EngagementInstance
 
@@ -422,7 +378,6 @@ class EngagementList(ListResource):
         :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
 
         :returns: The created EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         data = values.of(
             {
@@ -442,7 +397,9 @@ class EngagementList(ListResource):
             self._version, payload, flow_sid=self._solution["flow_sid"]
         )
 
-    async def create_async(self, to, from_, parameters=values.unset):
+    async def create_async(
+        self, to, from_, parameters=values.unset
+    ) -> EngagementInstance:
         """
         Asynchronously create the EngagementInstance
 
@@ -451,7 +408,6 @@ class EngagementList(ListResource):
         :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
 
         :returns: The created EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         data = values.of(
             {
@@ -471,7 +427,7 @@ class EngagementList(ListResource):
             self._version, payload, flow_sid=self._solution["flow_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[EngagementInstance]:
         """
         Streams EngagementInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -486,14 +442,15 @@ class EngagementList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[EngagementInstance]:
         """
         Asynchronously streams EngagementInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -508,14 +465,13 @@ class EngagementList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[EngagementInstance]:
         """
         Lists EngagementInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -529,7 +485,6 @@ class EngagementList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
         """
         return list(
             self.stream(
@@ -538,7 +493,7 @@ class EngagementList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[EngagementInstance]:
         """
         Asynchronously lists EngagementInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -552,7 +507,6 @@ class EngagementList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
         """
         return list(
             await self.stream_async(
@@ -563,7 +517,7 @@ class EngagementList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> EngagementPage:
         """
         Retrieve a single page of EngagementInstance records from the API.
         Request is executed immediately
@@ -573,7 +527,6 @@ class EngagementList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         data = values.of(
             {
@@ -588,7 +541,7 @@ class EngagementList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> EngagementPage:
         """
         Asynchronously retrieve a single page of EngagementInstance records from the API.
         Request is executed immediately
@@ -598,7 +551,6 @@ class EngagementList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         data = values.of(
             {
@@ -613,7 +565,7 @@ class EngagementList(ListResource):
         )
         return EngagementPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> EngagementPage:
         """
         Retrieve a specific page of EngagementInstance records from the API.
         Request is executed immediately
@@ -621,12 +573,11 @@ class EngagementList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return EngagementPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> EngagementPage:
         """
         Asynchronously retrieve a specific page of EngagementInstance records from the API.
         Request is executed immediately
@@ -634,42 +585,34 @@ class EngagementList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return EngagementPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> EngagementContext:
         """
         Constructs a EngagementContext
 
         :param sid: The SID of the Engagement resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         return EngagementContext(
             self._version, flow_sid=self._solution["flow_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> EngagementContext:
         """
         Constructs a EngagementContext
 
         :param sid: The SID of the Engagement resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         return EngagementContext(
             self._version, flow_sid=self._solution["flow_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V1.EngagementList>"

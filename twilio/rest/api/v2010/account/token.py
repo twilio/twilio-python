@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import datetime
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -24,9 +26,6 @@ class TokenInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str):
         """
         Initialize the TokenInstance
-
-        :returns: twilio.rest.api.v2010.account.token.TokenInstance
-        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
         super().__init__(version)
 
@@ -45,67 +44,59 @@ class TokenInstance(InstanceResource):
         }
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Token resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def ice_servers(self):
+    def ice_servers(self) -> List[str]:
         """
         :returns: An array representing the ephemeral credentials and the STUN and TURN server URIs.
-        :rtype: List[str]
         """
         return self._properties["ice_servers"]
 
     @property
-    def password(self):
+    def password(self) -> str:
         """
         :returns: The temporary password that the username will use when authenticating with Twilio.
-        :rtype: str
         """
         return self._properties["password"]
 
     @property
-    def ttl(self):
+    def ttl(self) -> str:
         """
         :returns: The duration in seconds for which the username and password are valid.
-        :rtype: str
         """
         return self._properties["ttl"]
 
     @property
-    def username(self):
+    def username(self) -> str:
         """
         :returns: The temporary username that uniquely identifies a Token.
-        :rtype: str
         """
         return self._properties["username"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.TokenInstance {}>".format(context)
@@ -116,11 +107,9 @@ class TokenList(ListResource):
         """
         Initialize the TokenList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 
-        :returns: twilio.rest.api.v2010.account.token.TokenList
-        :rtype: twilio.rest.api.v2010.account.token.TokenList
         """
         super().__init__(version)
 
@@ -130,14 +119,13 @@ class TokenList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Tokens.json".format(**self._solution)
 
-    def create(self, ttl=values.unset):
+    def create(self, ttl=values.unset) -> TokenInstance:
         """
         Create the TokenInstance
 
         :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
 
         :returns: The created TokenInstance
-        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
         data = values.of(
             {
@@ -155,14 +143,13 @@ class TokenList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    async def create_async(self, ttl=values.unset):
+    async def create_async(self, ttl=values.unset) -> TokenInstance:
         """
         Asynchronously create the TokenInstance
 
         :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
 
         :returns: The created TokenInstance
-        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
         data = values.of(
             {
@@ -180,11 +167,10 @@ class TokenList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.TokenList>"

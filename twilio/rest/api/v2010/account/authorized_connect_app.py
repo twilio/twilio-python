@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,9 +33,6 @@ class AuthorizedConnectAppInstance(InstanceResource):
     ):
         """
         Initialize the AuthorizedConnectAppInstance
-
-        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
         super().__init__(version)
 
@@ -58,13 +56,12 @@ class AuthorizedConnectAppInstance(InstanceResource):
         self._context: Optional[AuthorizedConnectAppContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AuthorizedConnectAppContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AuthorizedConnectAppContext for this AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
         """
         if self._context is None:
             self._context = AuthorizedConnectAppContext(
@@ -75,111 +72,98 @@ class AuthorizedConnectAppInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def connect_app_company_name(self):
+    def connect_app_company_name(self) -> str:
         """
         :returns: The company name set for the Connect App.
-        :rtype: str
         """
         return self._properties["connect_app_company_name"]
 
     @property
-    def connect_app_description(self):
+    def connect_app_description(self) -> str:
         """
         :returns: A detailed description of the Connect App.
-        :rtype: str
         """
         return self._properties["connect_app_description"]
 
     @property
-    def connect_app_friendly_name(self):
+    def connect_app_friendly_name(self) -> str:
         """
         :returns: The name of the Connect App.
-        :rtype: str
         """
         return self._properties["connect_app_friendly_name"]
 
     @property
-    def connect_app_homepage_url(self):
+    def connect_app_homepage_url(self) -> str:
         """
         :returns: The public URL for the Connect App.
-        :rtype: str
         """
         return self._properties["connect_app_homepage_url"]
 
     @property
-    def connect_app_sid(self):
+    def connect_app_sid(self) -> str:
         """
         :returns: The SID that we assigned to the Connect App.
-        :rtype: str
         """
         return self._properties["connect_app_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def permissions(self):
+    def permissions(self) -> List["AuthorizedConnectAppInstance.Permission"]:
         """
         :returns: The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
-        :rtype: List[AuthorizedConnectAppInstance.Permission]
         """
         return self._properties["permissions"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def fetch(self):
+    def fetch(self) -> "AuthorizedConnectAppInstance":
         """
         Fetch the AuthorizedConnectAppInstance
 
 
         :returns: The fetched AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AuthorizedConnectAppInstance":
         """
         Asynchronous coroutine to fetch the AuthorizedConnectAppInstance
 
 
         :returns: The fetched AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AuthorizedConnectAppInstance {}>".format(context)
@@ -190,12 +174,9 @@ class AuthorizedConnectAppContext(InstanceContext):
         """
         Initialize the AuthorizedConnectAppContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch.
         :param connect_app_sid: The SID of the Connect App to fetch.
-
-        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
         """
         super().__init__(version)
 
@@ -208,13 +189,12 @@ class AuthorizedConnectAppContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> AuthorizedConnectAppInstance:
         """
         Fetch the AuthorizedConnectAppInstance
 
 
         :returns: The fetched AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
 
         payload = self._version.fetch(
@@ -229,13 +209,12 @@ class AuthorizedConnectAppContext(InstanceContext):
             connect_app_sid=self._solution["connect_app_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AuthorizedConnectAppInstance:
         """
         Asynchronous coroutine to fetch the AuthorizedConnectAppInstance
 
 
         :returns: The fetched AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
 
         payload = await self._version.fetch_async(
@@ -250,26 +229,22 @@ class AuthorizedConnectAppContext(InstanceContext):
             connect_app_sid=self._solution["connect_app_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AuthorizedConnectAppContext {}>".format(context)
 
 
 class AuthorizedConnectAppPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AuthorizedConnectAppInstance:
         """
         Build an instance of AuthorizedConnectAppInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
         return AuthorizedConnectAppInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -289,11 +264,9 @@ class AuthorizedConnectAppList(ListResource):
         """
         Initialize the AuthorizedConnectAppList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resources to read.
 
-        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
         """
         super().__init__(version)
 
@@ -305,7 +278,7 @@ class AuthorizedConnectAppList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[AuthorizedConnectAppInstance]:
         """
         Streams AuthorizedConnectAppInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -320,14 +293,15 @@ class AuthorizedConnectAppList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[AuthorizedConnectAppInstance]:
         """
         Asynchronously streams AuthorizedConnectAppInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -342,14 +316,13 @@ class AuthorizedConnectAppList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[AuthorizedConnectAppInstance]:
         """
         Lists AuthorizedConnectAppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -363,7 +336,6 @@ class AuthorizedConnectAppList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance]
         """
         return list(
             self.stream(
@@ -372,7 +344,9 @@ class AuthorizedConnectAppList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[AuthorizedConnectAppInstance]:
         """
         Asynchronously lists AuthorizedConnectAppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -386,7 +360,6 @@ class AuthorizedConnectAppList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance]
         """
         return list(
             await self.stream_async(
@@ -397,7 +370,7 @@ class AuthorizedConnectAppList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AuthorizedConnectAppPage:
         """
         Retrieve a single page of AuthorizedConnectAppInstance records from the API.
         Request is executed immediately
@@ -407,7 +380,6 @@ class AuthorizedConnectAppList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppPage
         """
         data = values.of(
             {
@@ -422,7 +394,7 @@ class AuthorizedConnectAppList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AuthorizedConnectAppPage:
         """
         Asynchronously retrieve a single page of AuthorizedConnectAppInstance records from the API.
         Request is executed immediately
@@ -432,7 +404,6 @@ class AuthorizedConnectAppList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppPage
         """
         data = values.of(
             {
@@ -447,7 +418,7 @@ class AuthorizedConnectAppList(ListResource):
         )
         return AuthorizedConnectAppPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AuthorizedConnectAppPage:
         """
         Retrieve a specific page of AuthorizedConnectAppInstance records from the API.
         Request is executed immediately
@@ -455,12 +426,11 @@ class AuthorizedConnectAppList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AuthorizedConnectAppPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AuthorizedConnectAppPage:
         """
         Asynchronously retrieve a specific page of AuthorizedConnectAppInstance records from the API.
         Request is executed immediately
@@ -468,19 +438,15 @@ class AuthorizedConnectAppList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AuthorizedConnectAppPage(self._version, response, self._solution)
 
-    def get(self, connect_app_sid):
+    def get(self, connect_app_sid) -> AuthorizedConnectAppContext:
         """
         Constructs a AuthorizedConnectAppContext
 
         :param connect_app_sid: The SID of the Connect App to fetch.
-
-        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
         """
         return AuthorizedConnectAppContext(
             self._version,
@@ -488,14 +454,11 @@ class AuthorizedConnectAppList(ListResource):
             connect_app_sid=connect_app_sid,
         )
 
-    def __call__(self, connect_app_sid):
+    def __call__(self, connect_app_sid) -> AuthorizedConnectAppContext:
         """
         Constructs a AuthorizedConnectAppContext
 
         :param connect_app_sid: The SID of the Connect App to fetch.
-
-        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
         """
         return AuthorizedConnectAppContext(
             self._version,
@@ -503,11 +466,10 @@ class AuthorizedConnectAppList(ListResource):
             connect_app_sid=connect_app_sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.AuthorizedConnectAppList>"

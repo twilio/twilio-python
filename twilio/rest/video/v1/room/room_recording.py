@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -47,9 +48,6 @@ class RoomRecordingInstance(InstanceResource):
     def __init__(self, version, payload, room_sid: str, sid: Optional[str] = None):
         """
         Initialize the RoomRecordingInstance
-
-        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
         """
         super().__init__(version)
 
@@ -80,13 +78,12 @@ class RoomRecordingInstance(InstanceResource):
         self._context: Optional[RoomRecordingContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "RoomRecordingContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: RoomRecordingContext for this RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
         """
         if self._context is None:
             self._context = RoomRecordingContext(
@@ -97,187 +94,165 @@ class RoomRecordingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomRecording resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "RoomRecordingInstance.Status":
         """
         :returns:
-        :rtype: RoomRecordingInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the RoomRecording resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def source_sid(self):
+    def source_sid(self) -> str:
         """
         :returns: The SID of the recording source. For a Room Recording, this value is a `track_sid`.
-        :rtype: str
         """
         return self._properties["source_sid"]
 
     @property
-    def size(self):
+    def size(self) -> int:
         """
         :returns: The size of the recorded track in bytes.
-        :rtype: int
         """
         return self._properties["size"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def type(self):
+    def type(self) -> "RoomRecordingInstance.Type":
         """
         :returns:
-        :rtype: RoomRecordingInstance.Type
         """
         return self._properties["type"]
 
     @property
-    def duration(self):
+    def duration(self) -> int:
         """
         :returns: The duration of the recording rounded to the nearest second. Sub-second duration tracks have a `duration` of 1 second
-        :rtype: int
         """
         return self._properties["duration"]
 
     @property
-    def container_format(self):
+    def container_format(self) -> "RoomRecordingInstance.Format":
         """
         :returns:
-        :rtype: RoomRecordingInstance.Format
         """
         return self._properties["container_format"]
 
     @property
-    def codec(self):
+    def codec(self) -> "RoomRecordingInstance.Codec":
         """
         :returns:
-        :rtype: RoomRecordingInstance.Codec
         """
         return self._properties["codec"]
 
     @property
-    def grouping_sids(self):
+    def grouping_sids(self) -> dict:
         """
         :returns: A list of SIDs related to the Recording. Includes the `room_sid` and `participant_sid`.
-        :rtype: dict
         """
         return self._properties["grouping_sids"]
 
     @property
-    def track_name(self):
+    def track_name(self) -> str:
         """
         :returns: The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
-        :rtype: str
         """
         return self._properties["track_name"]
 
     @property
-    def offset(self):
+    def offset(self) -> int:
         """
         :returns: The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room.
-        :rtype: int
         """
         return self._properties["offset"]
 
     @property
-    def media_external_location(self):
+    def media_external_location(self) -> str:
         """
         :returns: The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
-        :rtype: str
         """
         return self._properties["media_external_location"]
 
     @property
-    def room_sid(self):
+    def room_sid(self) -> str:
         """
         :returns: The SID of the Room resource the recording is associated with.
-        :rtype: str
         """
         return self._properties["room_sid"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the RoomRecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RoomRecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "RoomRecordingInstance":
         """
         Fetch the RoomRecordingInstance
 
 
         :returns: The fetched RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "RoomRecordingInstance":
         """
         Asynchronous coroutine to fetch the RoomRecordingInstance
 
 
         :returns: The fetched RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.RoomRecordingInstance {}>".format(context)
@@ -288,12 +263,9 @@ class RoomRecordingContext(InstanceContext):
         """
         Initialize the RoomRecordingContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the Room resource with the recording to fetch.
         :param sid: The SID of the RoomRecording resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
         """
         super().__init__(version)
 
@@ -304,39 +276,36 @@ class RoomRecordingContext(InstanceContext):
         }
         self._uri = "/Rooms/{room_sid}/Recordings/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the RoomRecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RoomRecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> RoomRecordingInstance:
         """
         Fetch the RoomRecordingInstance
 
 
         :returns: The fetched RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
         """
 
         payload = self._version.fetch(
@@ -351,13 +320,12 @@ class RoomRecordingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> RoomRecordingInstance:
         """
         Asynchronous coroutine to fetch the RoomRecordingInstance
 
 
         :returns: The fetched RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
         """
 
         payload = await self._version.fetch_async(
@@ -372,26 +340,22 @@ class RoomRecordingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.RoomRecordingContext {}>".format(context)
 
 
 class RoomRecordingPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> RoomRecordingInstance:
         """
         Build an instance of RoomRecordingInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
         """
         return RoomRecordingInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
@@ -411,11 +375,9 @@ class RoomRecordingList(ListResource):
         """
         Initialize the RoomRecordingList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the room with the RoomRecording resources to read.
 
-        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingList
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingList
         """
         super().__init__(version)
 
@@ -433,14 +395,14 @@ class RoomRecordingList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RoomRecordingInstance]:
         """
         Streams RoomRecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RoomRecordingInstance.Status&quot; status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -452,7 +414,6 @@ class RoomRecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.room_recording.RoomRecordingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -473,14 +434,14 @@ class RoomRecordingList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RoomRecordingInstance]:
         """
         Asynchronously streams RoomRecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RoomRecordingInstance.Status&quot; status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -492,7 +453,6 @@ class RoomRecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.room_recording.RoomRecordingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -513,13 +473,13 @@ class RoomRecordingList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RoomRecordingInstance]:
         """
         Lists RoomRecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RoomRecordingInstance.Status&quot; status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -531,7 +491,6 @@ class RoomRecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.room_recording.RoomRecordingInstance]
         """
         return list(
             self.stream(
@@ -552,13 +511,13 @@ class RoomRecordingList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RoomRecordingInstance]:
         """
         Asynchronously lists RoomRecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RoomRecordingInstance.Status&quot; status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -570,7 +529,6 @@ class RoomRecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.room_recording.RoomRecordingInstance]
         """
         return list(
             await self.stream_async(
@@ -592,12 +550,12 @@ class RoomRecordingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> RoomRecordingPage:
         """
         Retrieve a single page of RoomRecordingInstance records from the API.
         Request is executed immediately
 
-        :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RoomRecordingInstance.Status&quot; status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -606,7 +564,6 @@ class RoomRecordingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingPage
         """
         data = values.of(
             {
@@ -632,12 +589,12 @@ class RoomRecordingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> RoomRecordingPage:
         """
         Asynchronously retrieve a single page of RoomRecordingInstance records from the API.
         Request is executed immediately
 
-        :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RoomRecordingInstance.Status&quot; status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -646,7 +603,6 @@ class RoomRecordingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingPage
         """
         data = values.of(
             {
@@ -665,7 +621,7 @@ class RoomRecordingList(ListResource):
         )
         return RoomRecordingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> RoomRecordingPage:
         """
         Retrieve a specific page of RoomRecordingInstance records from the API.
         Request is executed immediately
@@ -673,12 +629,11 @@ class RoomRecordingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RoomRecordingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> RoomRecordingPage:
         """
         Asynchronously retrieve a specific page of RoomRecordingInstance records from the API.
         Request is executed immediately
@@ -686,42 +641,34 @@ class RoomRecordingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RoomRecordingPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> RoomRecordingContext:
         """
         Constructs a RoomRecordingContext
 
         :param sid: The SID of the RoomRecording resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
         """
         return RoomRecordingContext(
             self._version, room_sid=self._solution["room_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> RoomRecordingContext:
         """
         Constructs a RoomRecordingContext
 
         :param sid: The SID of the RoomRecording resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
         """
         return RoomRecordingContext(
             self._version, room_sid=self._solution["room_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.RoomRecordingList>"

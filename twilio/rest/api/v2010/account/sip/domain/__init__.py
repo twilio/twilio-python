@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +34,6 @@ class DomainInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the DomainInstance
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         super().__init__(version)
 
@@ -70,13 +68,12 @@ class DomainInstance(InstanceResource):
         self._context: Optional[DomainContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DomainContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DomainContext for this DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         if self._context is None:
             self._context = DomainContext(
@@ -87,210 +84,185 @@ class DomainInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def api_version(self):
+    def api_version(self) -> str:
         """
         :returns: The API version used to process the call.
-        :rtype: str
         """
         return self._properties["api_version"]
 
     @property
-    def auth_type(self):
+    def auth_type(self) -> str:
         """
         :returns: The types of authentication you have mapped to your domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If you have both defined for your domain, both will be returned in a comma delimited string. If `auth_type` is not defined, the domain will not be able to receive any traffic.
-        :rtype: str
         """
         return self._properties["auth_type"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def domain_name(self):
+    def domain_name(self) -> str:
         """
         :returns: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \"-\" and must end with `sip.twilio.com`.
-        :rtype: str
         """
         return self._properties["domain_name"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the SipDomain resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
     @property
-    def voice_fallback_method(self):
+    def voice_fallback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["voice_fallback_method"]
 
     @property
-    def voice_fallback_url(self):
+    def voice_fallback_url(self) -> str:
         """
         :returns: The URL that we call when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
-        :rtype: str
         """
         return self._properties["voice_fallback_url"]
 
     @property
-    def voice_method(self):
+    def voice_method(self) -> str:
         """
         :returns: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["voice_method"]
 
     @property
-    def voice_status_callback_method(self):
+    def voice_status_callback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `voice_status_callback_url`. Either `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["voice_status_callback_method"]
 
     @property
-    def voice_status_callback_url(self):
+    def voice_status_callback_url(self) -> str:
         """
         :returns: The URL that we call to pass status parameters (such as call ended) to your application.
-        :rtype: str
         """
         return self._properties["voice_status_callback_url"]
 
     @property
-    def voice_url(self):
+    def voice_url(self) -> str:
         """
         :returns: The URL we call using the `voice_method` when the domain receives a call.
-        :rtype: str
         """
         return self._properties["voice_url"]
 
     @property
-    def subresource_uris(self):
+    def subresource_uris(self) -> dict:
         """
         :returns: A list of mapping resources associated with the SIP Domain resource identified by their relative URIs.
-        :rtype: dict
         """
         return self._properties["subresource_uris"]
 
     @property
-    def sip_registration(self):
+    def sip_registration(self) -> bool:
         """
         :returns: Whether to allow SIP Endpoints to register with the domain to receive calls.
-        :rtype: bool
         """
         return self._properties["sip_registration"]
 
     @property
-    def emergency_calling_enabled(self):
+    def emergency_calling_enabled(self) -> bool:
         """
         :returns: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-        :rtype: bool
         """
         return self._properties["emergency_calling_enabled"]
 
     @property
-    def secure(self):
+    def secure(self) -> bool:
         """
         :returns: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-        :rtype: bool
         """
         return self._properties["secure"]
 
     @property
-    def byoc_trunk_sid(self):
+    def byoc_trunk_sid(self) -> str:
         """
         :returns: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-        :rtype: str
         """
         return self._properties["byoc_trunk_sid"]
 
     @property
-    def emergency_caller_sid(self):
+    def emergency_caller_sid(self) -> str:
         """
         :returns: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
-        :rtype: str
         """
         return self._properties["emergency_caller_sid"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DomainInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DomainInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "DomainInstance":
         """
         Fetch the DomainInstance
 
 
         :returns: The fetched DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "DomainInstance":
         """
         Asynchronous coroutine to fetch the DomainInstance
 
 
         :returns: The fetched DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return await self._proxy.fetch_async()
 
@@ -309,7 +281,7 @@ class DomainInstance(InstanceResource):
         secure=values.unset,
         byoc_trunk_sid=values.unset,
         emergency_caller_sid=values.unset,
-    ):
+    ) -> "DomainInstance":
         """
         Update the DomainInstance
 
@@ -328,7 +300,6 @@ class DomainInstance(InstanceResource):
         :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The updated DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -361,7 +332,7 @@ class DomainInstance(InstanceResource):
         secure=values.unset,
         byoc_trunk_sid=values.unset,
         emergency_caller_sid=values.unset,
-    ):
+    ) -> "DomainInstance":
         """
         Asynchronous coroutine to update the DomainInstance
 
@@ -380,7 +351,6 @@ class DomainInstance(InstanceResource):
         :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The updated DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -399,41 +369,31 @@ class DomainInstance(InstanceResource):
         )
 
     @property
-    def auth(self):
+    def auth(self) -> AuthTypesList:
         """
         Access the auth
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.AuthTypesList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.AuthTypesList
         """
         return self._proxy.auth
 
     @property
-    def credential_list_mappings(self):
+    def credential_list_mappings(self) -> CredentialListMappingList:
         """
         Access the credential_list_mappings
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.CredentialListMappingList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.CredentialListMappingList
         """
         return self._proxy.credential_list_mappings
 
     @property
-    def ip_access_control_list_mappings(self):
+    def ip_access_control_list_mappings(self) -> IpAccessControlListMappingList:
         """
         Access the ip_access_control_list_mappings
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.IpAccessControlListMappingList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.IpAccessControlListMappingList
         """
         return self._proxy.ip_access_control_list_mappings
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.DomainInstance {}>".format(context)
@@ -444,12 +404,9 @@ class DomainContext(InstanceContext):
         """
         Initialize the DomainContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update.
         :param sid: The Twilio-provided string that uniquely identifies the SipDomain resource to update.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         super().__init__(version)
 
@@ -468,39 +425,36 @@ class DomainContext(InstanceContext):
             IpAccessControlListMappingList
         ] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DomainInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DomainInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> DomainInstance:
         """
         Fetch the DomainInstance
 
 
         :returns: The fetched DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
 
         payload = self._version.fetch(
@@ -515,13 +469,12 @@ class DomainContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> DomainInstance:
         """
         Asynchronous coroutine to fetch the DomainInstance
 
 
         :returns: The fetched DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
 
         payload = await self._version.fetch_async(
@@ -551,7 +504,7 @@ class DomainContext(InstanceContext):
         secure=values.unset,
         byoc_trunk_sid=values.unset,
         emergency_caller_sid=values.unset,
-    ):
+    ) -> DomainInstance:
         """
         Update the DomainInstance
 
@@ -570,7 +523,6 @@ class DomainContext(InstanceContext):
         :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The updated DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of(
             {
@@ -618,7 +570,7 @@ class DomainContext(InstanceContext):
         secure=values.unset,
         byoc_trunk_sid=values.unset,
         emergency_caller_sid=values.unset,
-    ):
+    ) -> DomainInstance:
         """
         Asynchronous coroutine to update the DomainInstance
 
@@ -637,7 +589,6 @@ class DomainContext(InstanceContext):
         :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The updated DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of(
             {
@@ -671,12 +622,9 @@ class DomainContext(InstanceContext):
         )
 
     @property
-    def auth(self):
+    def auth(self) -> AuthTypesList:
         """
         Access the auth
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.AuthTypesList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.AuthTypesList
         """
         if self._auth is None:
             self._auth = AuthTypesList(
@@ -687,12 +635,9 @@ class DomainContext(InstanceContext):
         return self._auth
 
     @property
-    def credential_list_mappings(self):
+    def credential_list_mappings(self) -> CredentialListMappingList:
         """
         Access the credential_list_mappings
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.CredentialListMappingList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.CredentialListMappingList
         """
         if self._credential_list_mappings is None:
             self._credential_list_mappings = CredentialListMappingList(
@@ -703,12 +648,9 @@ class DomainContext(InstanceContext):
         return self._credential_list_mappings
 
     @property
-    def ip_access_control_list_mappings(self):
+    def ip_access_control_list_mappings(self) -> IpAccessControlListMappingList:
         """
         Access the ip_access_control_list_mappings
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.IpAccessControlListMappingList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.IpAccessControlListMappingList
         """
         if self._ip_access_control_list_mappings is None:
             self._ip_access_control_list_mappings = IpAccessControlListMappingList(
@@ -718,26 +660,22 @@ class DomainContext(InstanceContext):
             )
         return self._ip_access_control_list_mappings
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.DomainContext {}>".format(context)
 
 
 class DomainPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> DomainInstance:
         """
         Build an instance of DomainInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return DomainInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -757,11 +695,9 @@ class DomainList(ListResource):
         """
         Initialize the DomainList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
 
-        :returns: twilio.rest.api.v2010.account.sip.domain.DomainList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainList
         """
         super().__init__(version)
 
@@ -786,7 +722,7 @@ class DomainList(ListResource):
         secure=values.unset,
         byoc_trunk_sid=values.unset,
         emergency_caller_sid=values.unset,
-    ):
+    ) -> DomainInstance:
         """
         Create the DomainInstance
 
@@ -805,7 +741,6 @@ class DomainList(ListResource):
         :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The created DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of(
             {
@@ -850,7 +785,7 @@ class DomainList(ListResource):
         secure=values.unset,
         byoc_trunk_sid=values.unset,
         emergency_caller_sid=values.unset,
-    ):
+    ) -> DomainInstance:
         """
         Asynchronously create the DomainInstance
 
@@ -869,7 +804,6 @@ class DomainList(ListResource):
         :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The created DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of(
             {
@@ -899,7 +833,7 @@ class DomainList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[DomainInstance]:
         """
         Streams DomainInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -914,14 +848,13 @@ class DomainList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.DomainInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[DomainInstance]:
         """
         Asynchronously streams DomainInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -936,14 +869,13 @@ class DomainList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.DomainInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[DomainInstance]:
         """
         Lists DomainInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -957,7 +889,6 @@ class DomainList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.DomainInstance]
         """
         return list(
             self.stream(
@@ -966,7 +897,7 @@ class DomainList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[DomainInstance]:
         """
         Asynchronously lists DomainInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -980,7 +911,6 @@ class DomainList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.DomainInstance]
         """
         return list(
             await self.stream_async(
@@ -991,7 +921,7 @@ class DomainList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DomainPage:
         """
         Retrieve a single page of DomainInstance records from the API.
         Request is executed immediately
@@ -1001,7 +931,6 @@ class DomainList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
         data = values.of(
             {
@@ -1016,7 +945,7 @@ class DomainList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DomainPage:
         """
         Asynchronously retrieve a single page of DomainInstance records from the API.
         Request is executed immediately
@@ -1026,7 +955,6 @@ class DomainList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
         data = values.of(
             {
@@ -1041,7 +969,7 @@ class DomainList(ListResource):
         )
         return DomainPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> DomainPage:
         """
         Retrieve a specific page of DomainInstance records from the API.
         Request is executed immediately
@@ -1049,12 +977,11 @@ class DomainList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DomainPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> DomainPage:
         """
         Asynchronously retrieve a specific page of DomainInstance records from the API.
         Request is executed immediately
@@ -1062,42 +989,34 @@ class DomainList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DomainPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> DomainContext:
         """
         Constructs a DomainContext
 
         :param sid: The Twilio-provided string that uniquely identifies the SipDomain resource to update.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         return DomainContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> DomainContext:
         """
         Constructs a DomainContext
 
         :param sid: The Twilio-provided string that uniquely identifies the SipDomain resource to update.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         return DomainContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.DomainList>"

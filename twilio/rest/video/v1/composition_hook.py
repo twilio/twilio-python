@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,9 +31,6 @@ class CompositionHookInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the CompositionHookInstance
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         super().__init__(version)
 
@@ -60,13 +58,12 @@ class CompositionHookInstance(InstanceResource):
         self._context: Optional[CompositionHookContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CompositionHookContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CompositionHookContext for this CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
         """
         if self._context is None:
             self._context = CompositionHookContext(
@@ -76,162 +73,143 @@ class CompositionHookInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CompositionHook resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource. Can be up to 100 characters long and must be unique within the account.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def enabled(self):
+    def enabled(self) -> bool:
         """
         :returns: Whether the CompositionHook is active. When `true`, the CompositionHook is triggered for every completed Group Room on the account. When `false`, the CompositionHook is never triggered.
-        :rtype: bool
         """
         return self._properties["enabled"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the CompositionHook resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def audio_sources(self):
+    def audio_sources(self) -> List[str]:
         """
         :returns: The array of track names to include in the compositions created by the composition hook. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-        :rtype: List[str]
         """
         return self._properties["audio_sources"]
 
     @property
-    def audio_sources_excluded(self):
+    def audio_sources_excluded(self) -> List[str]:
         """
         :returns: The array of track names to exclude from the compositions created by the composition hook. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
-        :rtype: List[str]
         """
         return self._properties["audio_sources_excluded"]
 
     @property
-    def video_layout(self):
+    def video_layout(self) -> dict:
         """
         :returns: A JSON object that describes the video layout of the composition in terms of regions as specified in the HTTP POST request that created the CompositionHook resource. See [POST Parameters](https://www.twilio.com/docs/video/api/compositions-resource#http-post-parameters) for more information. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-        :rtype: dict
         """
         return self._properties["video_layout"]
 
     @property
-    def resolution(self):
+    def resolution(self) -> str:
         """
         :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string's format is `{width}x{height}`, such as `640x480`.
-        :rtype: str
         """
         return self._properties["resolution"]
 
     @property
-    def trim(self):
+    def trim(self) -> bool:
         """
         :returns: Whether intervals with no media are clipped, as specified in the POST request that created the CompositionHook resource. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :rtype: bool
         """
         return self._properties["trim"]
 
     @property
-    def format(self):
+    def format(self) -> "CompositionHookInstance.Format":
         """
         :returns:
-        :rtype: CompositionHookInstance.Format
         """
         return self._properties["format"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL we call using the `status_callback_method` to send status information to your application.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def status_callback_method(self):
+    def status_callback_method(self) -> str:
         """
         :returns: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
-        :rtype: str
         """
         return self._properties["status_callback_method"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CompositionHookInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CompositionHookInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "CompositionHookInstance":
         """
         Fetch the CompositionHookInstance
 
 
         :returns: The fetched CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CompositionHookInstance":
         """
         Asynchronous coroutine to fetch the CompositionHookInstance
 
 
         :returns: The fetched CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         return await self._proxy.fetch_async()
 
@@ -247,7 +225,7 @@ class CompositionHookInstance(InstanceResource):
         resolution=values.unset,
         status_callback=values.unset,
         status_callback_method=values.unset,
-    ):
+    ) -> "CompositionHookInstance":
         """
         Update the CompositionHookInstance
 
@@ -257,13 +235,12 @@ class CompositionHookInstance(InstanceResource):
         :param List[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param List[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param bool trim: Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionHookInstance.Format format:
+        :param "CompositionHookInstance.Format" format:
         :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 
         :returns: The updated CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -290,7 +267,7 @@ class CompositionHookInstance(InstanceResource):
         resolution=values.unset,
         status_callback=values.unset,
         status_callback_method=values.unset,
-    ):
+    ) -> "CompositionHookInstance":
         """
         Asynchronous coroutine to update the CompositionHookInstance
 
@@ -300,13 +277,12 @@ class CompositionHookInstance(InstanceResource):
         :param List[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param List[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param bool trim: Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionHookInstance.Format format:
+        :param "CompositionHookInstance.Format" format:
         :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 
         :returns: The updated CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -321,12 +297,11 @@ class CompositionHookInstance(InstanceResource):
             status_callback_method=status_callback_method,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.CompositionHookInstance {}>".format(context)
@@ -337,11 +312,8 @@ class CompositionHookContext(InstanceContext):
         """
         Initialize the CompositionHookContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the CompositionHook resource to update.
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
         """
         super().__init__(version)
 
@@ -351,39 +323,36 @@ class CompositionHookContext(InstanceContext):
         }
         self._uri = "/CompositionHooks/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CompositionHookInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CompositionHookInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> CompositionHookInstance:
         """
         Fetch the CompositionHookInstance
 
 
         :returns: The fetched CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
 
         payload = self._version.fetch(
@@ -397,13 +366,12 @@ class CompositionHookContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CompositionHookInstance:
         """
         Asynchronous coroutine to fetch the CompositionHookInstance
 
 
         :returns: The fetched CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
 
         payload = await self._version.fetch_async(
@@ -429,7 +397,7 @@ class CompositionHookContext(InstanceContext):
         resolution=values.unset,
         status_callback=values.unset,
         status_callback_method=values.unset,
-    ):
+    ) -> CompositionHookInstance:
         """
         Update the CompositionHookInstance
 
@@ -439,13 +407,12 @@ class CompositionHookContext(InstanceContext):
         :param List[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param List[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param bool trim: Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionHookInstance.Format format:
+        :param "CompositionHookInstance.Format" format:
         :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 
         :returns: The updated CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         data = values.of(
             {
@@ -486,7 +453,7 @@ class CompositionHookContext(InstanceContext):
         resolution=values.unset,
         status_callback=values.unset,
         status_callback_method=values.unset,
-    ):
+    ) -> CompositionHookInstance:
         """
         Asynchronous coroutine to update the CompositionHookInstance
 
@@ -496,13 +463,12 @@ class CompositionHookContext(InstanceContext):
         :param List[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param List[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param bool trim: Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionHookInstance.Format format:
+        :param "CompositionHookInstance.Format" format:
         :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 
         :returns: The updated CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         data = values.of(
             {
@@ -531,26 +497,22 @@ class CompositionHookContext(InstanceContext):
             self._version, payload, sid=self._solution["sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.CompositionHookContext {}>".format(context)
 
 
 class CompositionHookPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CompositionHookInstance:
         """
         Build an instance of CompositionHookInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         return CompositionHookInstance(self._version, payload)
 
@@ -568,10 +530,8 @@ class CompositionHookList(ListResource):
         """
         Initialize the CompositionHookList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookList
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookList
         """
         super().__init__(version)
 
@@ -589,7 +549,7 @@ class CompositionHookList(ListResource):
         status_callback=values.unset,
         status_callback_method=values.unset,
         trim=values.unset,
-    ):
+    ) -> CompositionHookInstance:
         """
         Create the CompositionHookInstance
 
@@ -599,13 +559,12 @@ class CompositionHookList(ListResource):
         :param List[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param List[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionHookInstance.Format format:
+        :param &quot;CompositionHookInstance.Format&quot; format:
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
         :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 
         :returns: The created CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         data = values.of(
             {
@@ -644,7 +603,7 @@ class CompositionHookList(ListResource):
         status_callback=values.unset,
         status_callback_method=values.unset,
         trim=values.unset,
-    ):
+    ) -> CompositionHookInstance:
         """
         Asynchronously create the CompositionHookInstance
 
@@ -654,13 +613,12 @@ class CompositionHookList(ListResource):
         :param List[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param List[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionHookInstance.Format format:
+        :param &quot;CompositionHookInstance.Format&quot; format:
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
         :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 
         :returns: The created CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         data = values.of(
             {
@@ -695,7 +653,7 @@ class CompositionHookList(ListResource):
         friendly_name=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CompositionHookInstance]:
         """
         Streams CompositionHookInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -714,7 +672,6 @@ class CompositionHookList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -735,7 +692,7 @@ class CompositionHookList(ListResource):
         friendly_name=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CompositionHookInstance]:
         """
         Asynchronously streams CompositionHookInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -754,7 +711,6 @@ class CompositionHookList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -775,7 +731,7 @@ class CompositionHookList(ListResource):
         friendly_name=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CompositionHookInstance]:
         """
         Lists CompositionHookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -793,7 +749,6 @@ class CompositionHookList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
         """
         return list(
             self.stream(
@@ -814,7 +769,7 @@ class CompositionHookList(ListResource):
         friendly_name=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CompositionHookInstance]:
         """
         Asynchronously lists CompositionHookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -832,7 +787,6 @@ class CompositionHookList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
         """
         return list(
             await self.stream_async(
@@ -854,7 +808,7 @@ class CompositionHookList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CompositionHookPage:
         """
         Retrieve a single page of CompositionHookInstance records from the API.
         Request is executed immediately
@@ -868,7 +822,6 @@ class CompositionHookList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
         """
         data = values.of(
             {
@@ -894,7 +847,7 @@ class CompositionHookList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CompositionHookPage:
         """
         Asynchronously retrieve a single page of CompositionHookInstance records from the API.
         Request is executed immediately
@@ -908,7 +861,6 @@ class CompositionHookList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
         """
         data = values.of(
             {
@@ -927,7 +879,7 @@ class CompositionHookList(ListResource):
         )
         return CompositionHookPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CompositionHookPage:
         """
         Retrieve a specific page of CompositionHookInstance records from the API.
         Request is executed immediately
@@ -935,12 +887,11 @@ class CompositionHookList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CompositionHookPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CompositionHookPage:
         """
         Asynchronously retrieve a specific page of CompositionHookInstance records from the API.
         Request is executed immediately
@@ -948,38 +899,30 @@ class CompositionHookList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CompositionHookPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> CompositionHookContext:
         """
         Constructs a CompositionHookContext
 
         :param sid: The SID of the CompositionHook resource to update.
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
         """
         return CompositionHookContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> CompositionHookContext:
         """
         Constructs a CompositionHookContext
 
         :param sid: The SID of the CompositionHook resource to update.
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
         """
         return CompositionHookContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.CompositionHookList>"

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +26,6 @@ class AssessmentsInstance(InstanceResource):
     def __init__(self, version, payload, assessment_id: Optional[str] = None):
         """
         Initialize the AssessmentsInstance
-
-        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
         """
         super().__init__(version)
 
@@ -55,13 +52,12 @@ class AssessmentsInstance(InstanceResource):
         self._context: Optional[AssessmentsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AssessmentsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AssessmentsContext for this AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         """
         if self._context is None:
             self._context = AssessmentsContext(
@@ -71,118 +67,106 @@ class AssessmentsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def assessment_id(self):
+    def assessment_id(self) -> str:
         """
         :returns: The unique id of the assessment
-        :rtype: str
         """
         return self._properties["assessment_id"]
 
     @property
-    def offset(self):
+    def offset(self) -> float:
         """
         :returns: Offset of the conversation
-        :rtype: float
         """
         return self._properties["offset"]
 
     @property
-    def report(self):
+    def report(self) -> bool:
         """
         :returns: The flag indicating if this assessment is part of report
-        :rtype: bool
         """
         return self._properties["report"]
 
     @property
-    def weight(self):
+    def weight(self) -> float:
         """
         :returns: The weightage given to this comment
-        :rtype: float
         """
         return self._properties["weight"]
 
     @property
-    def agent_id(self):
+    def agent_id(self) -> str:
         """
         :returns: The id of the Agent
-        :rtype: str
         """
         return self._properties["agent_id"]
 
     @property
-    def segment_id(self):
+    def segment_id(self) -> str:
         """
         :returns: Segment Id of conversation
-        :rtype: str
         """
         return self._properties["segment_id"]
 
     @property
-    def user_name(self):
+    def user_name(self) -> str:
         """
         :returns: The name of the user.
-        :rtype: str
         """
         return self._properties["user_name"]
 
     @property
-    def user_email(self):
+    def user_email(self) -> str:
         """
         :returns: The email id of the user.
-        :rtype: str
         """
         return self._properties["user_email"]
 
     @property
-    def answer_text(self):
+    def answer_text(self) -> str:
         """
         :returns: The answer text selected by user
-        :rtype: str
         """
         return self._properties["answer_text"]
 
     @property
-    def answer_id(self):
+    def answer_id(self) -> str:
         """
         :returns: The id of the answer selected by user
-        :rtype: str
         """
         return self._properties["answer_id"]
 
     @property
-    def assessment(self):
+    def assessment(self) -> dict:
         """
         :returns: Assessment Details associated with an assessment
-        :rtype: dict
         """
         return self._properties["assessment"]
 
     @property
-    def timestamp(self):
+    def timestamp(self) -> float:
         """
         :returns:
-        :rtype: float
         """
         return self._properties["timestamp"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def update(self, offset, answer_text, answer_id, token=values.unset):
+    def update(
+        self, offset, answer_text, answer_id, token=values.unset
+    ) -> "AssessmentsInstance":
         """
         Update the AssessmentsInstance
 
@@ -192,7 +176,6 @@ class AssessmentsInstance(InstanceResource):
         :param str token: The Token HTTP request header
 
         :returns: The updated AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
         """
         return self._proxy.update(
             offset=offset,
@@ -201,7 +184,9 @@ class AssessmentsInstance(InstanceResource):
             token=token,
         )
 
-    async def update_async(self, offset, answer_text, answer_id, token=values.unset):
+    async def update_async(
+        self, offset, answer_text, answer_id, token=values.unset
+    ) -> "AssessmentsInstance":
         """
         Asynchronous coroutine to update the AssessmentsInstance
 
@@ -211,7 +196,6 @@ class AssessmentsInstance(InstanceResource):
         :param str token: The Token HTTP request header
 
         :returns: The updated AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
         """
         return await self._proxy.update_async(
             offset=offset,
@@ -220,12 +204,11 @@ class AssessmentsInstance(InstanceResource):
             token=token,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.AssessmentsInstance {}>".format(context)
@@ -236,11 +219,8 @@ class AssessmentsContext(InstanceContext):
         """
         Initialize the AssessmentsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assessment_id: The id of the assessment to be modified
-
-        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         """
         super().__init__(version)
 
@@ -250,7 +230,9 @@ class AssessmentsContext(InstanceContext):
         }
         self._uri = "/Insights/QM/Assessments/{assessment_id}".format(**self._solution)
 
-    def update(self, offset, answer_text, answer_id, token=values.unset):
+    def update(
+        self, offset, answer_text, answer_id, token=values.unset
+    ) -> AssessmentsInstance:
         """
         Update the AssessmentsInstance
 
@@ -260,7 +242,6 @@ class AssessmentsContext(InstanceContext):
         :param str token: The Token HTTP request header
 
         :returns: The updated AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
         """
         data = values.of(
             {
@@ -283,7 +264,9 @@ class AssessmentsContext(InstanceContext):
             self._version, payload, assessment_id=self._solution["assessment_id"]
         )
 
-    async def update_async(self, offset, answer_text, answer_id, token=values.unset):
+    async def update_async(
+        self, offset, answer_text, answer_id, token=values.unset
+    ) -> AssessmentsInstance:
         """
         Asynchronous coroutine to update the AssessmentsInstance
 
@@ -293,7 +276,6 @@ class AssessmentsContext(InstanceContext):
         :param str token: The Token HTTP request header
 
         :returns: The updated AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
         """
         data = values.of(
             {
@@ -316,26 +298,22 @@ class AssessmentsContext(InstanceContext):
             self._version, payload, assessment_id=self._solution["assessment_id"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.AssessmentsContext {}>".format(context)
 
 
 class AssessmentsPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AssessmentsInstance:
         """
         Build an instance of AssessmentsInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
         """
         return AssessmentsInstance(self._version, payload)
 
@@ -353,10 +331,8 @@ class AssessmentsList(ListResource):
         """
         Initialize the AssessmentsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsList
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsList
         """
         super().__init__(version)
 
@@ -377,7 +353,7 @@ class AssessmentsList(ListResource):
         answer_id,
         questionnaire_id,
         token=values.unset,
-    ):
+    ) -> AssessmentsInstance:
         """
         Create the AssessmentsInstance
 
@@ -396,7 +372,6 @@ class AssessmentsList(ListResource):
         :param str token: The Token HTTP request header
 
         :returns: The created AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
         """
         data = values.of(
             {
@@ -440,7 +415,7 @@ class AssessmentsList(ListResource):
         answer_id,
         questionnaire_id,
         token=values.unset,
-    ):
+    ) -> AssessmentsInstance:
         """
         Asynchronously create the AssessmentsInstance
 
@@ -459,7 +434,6 @@ class AssessmentsList(ListResource):
         :param str token: The Token HTTP request header
 
         :returns: The created AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
         """
         data = values.of(
             {
@@ -490,7 +464,7 @@ class AssessmentsList(ListResource):
 
     def stream(
         self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[AssessmentsInstance]:
         """
         Streams AssessmentsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -507,7 +481,6 @@ class AssessmentsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.assessments.AssessmentsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -518,7 +491,7 @@ class AssessmentsList(ListResource):
 
     async def stream_async(
         self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[AssessmentsInstance]:
         """
         Asynchronously streams AssessmentsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -535,7 +508,6 @@ class AssessmentsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.assessments.AssessmentsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -546,7 +518,7 @@ class AssessmentsList(ListResource):
 
     def list(
         self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[AssessmentsInstance]:
         """
         Lists AssessmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -562,7 +534,6 @@ class AssessmentsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.assessments.AssessmentsInstance]
         """
         return list(
             self.stream(
@@ -575,7 +546,7 @@ class AssessmentsList(ListResource):
 
     async def list_async(
         self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[AssessmentsInstance]:
         """
         Asynchronously lists AssessmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -591,7 +562,6 @@ class AssessmentsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.assessments.AssessmentsInstance]
         """
         return list(
             await self.stream_async(
@@ -609,7 +579,7 @@ class AssessmentsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> AssessmentsPage:
         """
         Retrieve a single page of AssessmentsInstance records from the API.
         Request is executed immediately
@@ -621,7 +591,6 @@ class AssessmentsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsPage
         """
         data = values.of(
             {
@@ -643,7 +612,7 @@ class AssessmentsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> AssessmentsPage:
         """
         Asynchronously retrieve a single page of AssessmentsInstance records from the API.
         Request is executed immediately
@@ -655,7 +624,6 @@ class AssessmentsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsPage
         """
         data = values.of(
             {
@@ -672,7 +640,7 @@ class AssessmentsList(ListResource):
         )
         return AssessmentsPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AssessmentsPage:
         """
         Retrieve a specific page of AssessmentsInstance records from the API.
         Request is executed immediately
@@ -680,12 +648,11 @@ class AssessmentsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AssessmentsPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AssessmentsPage:
         """
         Asynchronously retrieve a specific page of AssessmentsInstance records from the API.
         Request is executed immediately
@@ -693,38 +660,30 @@ class AssessmentsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssessmentsPage(self._version, response)
 
-    def get(self, assessment_id):
+    def get(self, assessment_id) -> AssessmentsContext:
         """
         Constructs a AssessmentsContext
 
         :param assessment_id: The id of the assessment to be modified
-
-        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         """
         return AssessmentsContext(self._version, assessment_id=assessment_id)
 
-    def __call__(self, assessment_id):
+    def __call__(self, assessment_id) -> AssessmentsContext:
         """
         Constructs a AssessmentsContext
 
         :param assessment_id: The id of the assessment to be modified
-
-        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         """
         return AssessmentsContext(self._version, assessment_id=assessment_id)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.AssessmentsList>"

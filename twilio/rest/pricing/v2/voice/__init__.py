@@ -28,10 +28,8 @@ class VoiceList(ListResource):
         """
         Initialize the VoiceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.pricing.v2.voice.VoiceList
-        :rtype: twilio.rest.pricing.v2.voice.VoiceList
         """
         super().__init__(version)
 
@@ -41,34 +39,27 @@ class VoiceList(ListResource):
         self._numbers: Optional[NumberList] = None
 
     @property
-    def countries(self):
+    def countries(self) -> CountryList:
         """
         Access the countries
-
-        :returns: twilio.rest.pricing.v2.voice.CountryList
-        :rtype: twilio.rest.pricing.v2.voice.CountryList
         """
         if self._countries is None:
             self._countries = CountryList(self._version)
         return self._countries
 
     @property
-    def numbers(self):
+    def numbers(self) -> NumberList:
         """
         Access the numbers
-
-        :returns: twilio.rest.pricing.v2.voice.NumberList
-        :rtype: twilio.rest.pricing.v2.voice.NumberList
         """
         if self._numbers is None:
             self._numbers = NumberList(self._version)
         return self._numbers
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Pricing.V2.VoiceList>"

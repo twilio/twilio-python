@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -30,9 +31,6 @@ class UsageRecordInstance(InstanceResource):
     def __init__(self, version, payload, sim_sid: str):
         """
         Initialize the UsageRecordInstance
-
-        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
         """
         super().__init__(version)
 
@@ -49,65 +47,56 @@ class UsageRecordInstance(InstanceResource):
         }
 
     @property
-    def sim_sid(self):
+    def sim_sid(self) -> str:
         """
         :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that this Usage Record is for.
-        :rtype: str
         """
         return self._properties["sim_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def period(self):
+    def period(self) -> dict:
         """
         :returns: The time period for which the usage is reported. Contains `start` and `end` datetime values given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: dict
         """
         return self._properties["period"]
 
     @property
-    def commands(self):
+    def commands(self) -> dict:
         """
         :returns: An object that describes the SIM's usage of Commands during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#commands-usage-object).
-        :rtype: dict
         """
         return self._properties["commands"]
 
     @property
-    def data(self):
+    def data(self) -> dict:
         """
         :returns: An object that describes the SIM's data usage during the specified period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#data-usage-object).
-        :rtype: dict
         """
         return self._properties["data"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Wireless.V1.UsageRecordInstance {}>".format(context)
 
 
 class UsageRecordPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> UsageRecordInstance:
         """
         Build an instance of UsageRecordInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
         """
         return UsageRecordInstance(
             self._version, payload, sim_sid=self._solution["sim_sid"]
@@ -127,11 +116,9 @@ class UsageRecordList(ListResource):
         """
         Initialize the UsageRecordList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource)  to read the usage from.
 
-        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordList
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordList
         """
         super().__init__(version)
 
@@ -148,7 +135,7 @@ class UsageRecordList(ListResource):
         granularity=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[UsageRecordInstance]:
         """
         Streams UsageRecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -157,7 +144,7 @@ class UsageRecordList(ListResource):
 
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
-        :param UsageRecordInstance.Granularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -166,7 +153,6 @@ class UsageRecordList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -182,7 +168,7 @@ class UsageRecordList(ListResource):
         granularity=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[UsageRecordInstance]:
         """
         Asynchronously streams UsageRecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -191,7 +177,7 @@ class UsageRecordList(ListResource):
 
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
-        :param UsageRecordInstance.Granularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -200,7 +186,6 @@ class UsageRecordList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -216,7 +201,7 @@ class UsageRecordList(ListResource):
         granularity=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[UsageRecordInstance]:
         """
         Lists UsageRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -224,7 +209,7 @@ class UsageRecordList(ListResource):
 
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
-        :param UsageRecordInstance.Granularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -233,7 +218,6 @@ class UsageRecordList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance]
         """
         return list(
             self.stream(
@@ -252,7 +236,7 @@ class UsageRecordList(ListResource):
         granularity=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[UsageRecordInstance]:
         """
         Asynchronously lists UsageRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -260,7 +244,7 @@ class UsageRecordList(ListResource):
 
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
-        :param UsageRecordInstance.Granularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -269,7 +253,6 @@ class UsageRecordList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance]
         """
         return list(
             await self.stream_async(
@@ -289,20 +272,19 @@ class UsageRecordList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> UsageRecordPage:
         """
         Retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
 
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
-        :param UsageRecordInstance.Granularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
         """
         data = values.of(
             {
@@ -326,20 +308,19 @@ class UsageRecordList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> UsageRecordPage:
         """
         Asynchronously retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
 
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
-        :param UsageRecordInstance.Granularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
         """
         data = values.of(
             {
@@ -357,7 +338,7 @@ class UsageRecordList(ListResource):
         )
         return UsageRecordPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> UsageRecordPage:
         """
         Retrieve a specific page of UsageRecordInstance records from the API.
         Request is executed immediately
@@ -365,12 +346,11 @@ class UsageRecordList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UsageRecordPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> UsageRecordPage:
         """
         Asynchronously retrieve a specific page of UsageRecordInstance records from the API.
         Request is executed immediately
@@ -378,16 +358,14 @@ class UsageRecordList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return UsageRecordPage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Wireless.V1.UsageRecordList>"

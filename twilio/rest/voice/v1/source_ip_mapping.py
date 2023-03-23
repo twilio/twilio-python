@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class SourceIpMappingInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the SourceIpMappingInstance
-
-        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         super().__init__(version)
 
@@ -47,13 +45,12 @@ class SourceIpMappingInstance(InstanceResource):
         self._context: Optional[SourceIpMappingContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SourceIpMappingContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SourceIpMappingContext for this SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
         """
         if self._context is None:
             self._context = SourceIpMappingContext(
@@ -63,125 +60,112 @@ class SourceIpMappingInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the IP Record resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def ip_record_sid(self):
+    def ip_record_sid(self) -> str:
         """
         :returns: The Twilio-provided string that uniquely identifies the IP Record resource to map from.
-        :rtype: str
         """
         return self._properties["ip_record_sid"]
 
     @property
-    def sip_domain_sid(self):
+    def sip_domain_sid(self) -> str:
         """
         :returns: The SID of the SIP Domain that the IP Record is mapped to.
-        :rtype: str
         """
         return self._properties["sip_domain_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SourceIpMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SourceIpMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "SourceIpMappingInstance":
         """
         Fetch the SourceIpMappingInstance
 
 
         :returns: The fetched SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SourceIpMappingInstance":
         """
         Asynchronous coroutine to fetch the SourceIpMappingInstance
 
 
         :returns: The fetched SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, sip_domain_sid):
+    def update(self, sip_domain_sid) -> "SourceIpMappingInstance":
         """
         Update the SourceIpMappingInstance
 
         :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
 
         :returns: The updated SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         return self._proxy.update(
             sip_domain_sid=sip_domain_sid,
         )
 
-    async def update_async(self, sip_domain_sid):
+    async def update_async(self, sip_domain_sid) -> "SourceIpMappingInstance":
         """
         Asynchronous coroutine to update the SourceIpMappingInstance
 
         :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
 
         :returns: The updated SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         return await self._proxy.update_async(
             sip_domain_sid=sip_domain_sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Voice.V1.SourceIpMappingInstance {}>".format(context)
@@ -192,11 +176,8 @@ class SourceIpMappingContext(InstanceContext):
         """
         Initialize the SourceIpMappingContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
-
-        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
         """
         super().__init__(version)
 
@@ -206,39 +187,36 @@ class SourceIpMappingContext(InstanceContext):
         }
         self._uri = "/SourceIpMappings/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SourceIpMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SourceIpMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> SourceIpMappingInstance:
         """
         Fetch the SourceIpMappingInstance
 
 
         :returns: The fetched SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
 
         payload = self._version.fetch(
@@ -252,13 +230,12 @@ class SourceIpMappingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SourceIpMappingInstance:
         """
         Asynchronous coroutine to fetch the SourceIpMappingInstance
 
 
         :returns: The fetched SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
 
         payload = await self._version.fetch_async(
@@ -272,14 +249,13 @@ class SourceIpMappingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, sip_domain_sid):
+    def update(self, sip_domain_sid) -> SourceIpMappingInstance:
         """
         Update the SourceIpMappingInstance
 
         :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
 
         :returns: The updated SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         data = values.of(
             {
@@ -297,14 +273,13 @@ class SourceIpMappingContext(InstanceContext):
             self._version, payload, sid=self._solution["sid"]
         )
 
-    async def update_async(self, sip_domain_sid):
+    async def update_async(self, sip_domain_sid) -> SourceIpMappingInstance:
         """
         Asynchronous coroutine to update the SourceIpMappingInstance
 
         :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
 
         :returns: The updated SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         data = values.of(
             {
@@ -322,26 +297,22 @@ class SourceIpMappingContext(InstanceContext):
             self._version, payload, sid=self._solution["sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Voice.V1.SourceIpMappingContext {}>".format(context)
 
 
 class SourceIpMappingPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> SourceIpMappingInstance:
         """
         Build an instance of SourceIpMappingInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         return SourceIpMappingInstance(self._version, payload)
 
@@ -359,16 +330,14 @@ class SourceIpMappingList(ListResource):
         """
         Initialize the SourceIpMappingList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingList
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingList
         """
         super().__init__(version)
 
         self._uri = "/SourceIpMappings"
 
-    def create(self, ip_record_sid, sip_domain_sid):
+    def create(self, ip_record_sid, sip_domain_sid) -> SourceIpMappingInstance:
         """
         Create the SourceIpMappingInstance
 
@@ -376,7 +345,6 @@ class SourceIpMappingList(ListResource):
         :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
 
         :returns: The created SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         data = values.of(
             {
@@ -393,7 +361,9 @@ class SourceIpMappingList(ListResource):
 
         return SourceIpMappingInstance(self._version, payload)
 
-    async def create_async(self, ip_record_sid, sip_domain_sid):
+    async def create_async(
+        self, ip_record_sid, sip_domain_sid
+    ) -> SourceIpMappingInstance:
         """
         Asynchronously create the SourceIpMappingInstance
 
@@ -401,7 +371,6 @@ class SourceIpMappingList(ListResource):
         :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
 
         :returns: The created SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         data = values.of(
             {
@@ -418,7 +387,7 @@ class SourceIpMappingList(ListResource):
 
         return SourceIpMappingInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[SourceIpMappingInstance]:
         """
         Streams SourceIpMappingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -433,14 +402,15 @@ class SourceIpMappingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[SourceIpMappingInstance]:
         """
         Asynchronously streams SourceIpMappingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -455,14 +425,13 @@ class SourceIpMappingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[SourceIpMappingInstance]:
         """
         Lists SourceIpMappingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -476,7 +445,6 @@ class SourceIpMappingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance]
         """
         return list(
             self.stream(
@@ -485,7 +453,9 @@ class SourceIpMappingList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[SourceIpMappingInstance]:
         """
         Asynchronously lists SourceIpMappingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -499,7 +469,6 @@ class SourceIpMappingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance]
         """
         return list(
             await self.stream_async(
@@ -510,7 +479,7 @@ class SourceIpMappingList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SourceIpMappingPage:
         """
         Retrieve a single page of SourceIpMappingInstance records from the API.
         Request is executed immediately
@@ -520,7 +489,6 @@ class SourceIpMappingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingPage
         """
         data = values.of(
             {
@@ -535,7 +503,7 @@ class SourceIpMappingList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SourceIpMappingPage:
         """
         Asynchronously retrieve a single page of SourceIpMappingInstance records from the API.
         Request is executed immediately
@@ -545,7 +513,6 @@ class SourceIpMappingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingPage
         """
         data = values.of(
             {
@@ -560,7 +527,7 @@ class SourceIpMappingList(ListResource):
         )
         return SourceIpMappingPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> SourceIpMappingPage:
         """
         Retrieve a specific page of SourceIpMappingInstance records from the API.
         Request is executed immediately
@@ -568,12 +535,11 @@ class SourceIpMappingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SourceIpMappingPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> SourceIpMappingPage:
         """
         Asynchronously retrieve a specific page of SourceIpMappingInstance records from the API.
         Request is executed immediately
@@ -581,38 +547,30 @@ class SourceIpMappingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SourceIpMappingPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> SourceIpMappingContext:
         """
         Constructs a SourceIpMappingContext
 
         :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
-
-        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
         """
         return SourceIpMappingContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> SourceIpMappingContext:
         """
         Constructs a SourceIpMappingContext
 
         :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
-
-        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
         """
         return SourceIpMappingContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Voice.V1.SourceIpMappingList>"

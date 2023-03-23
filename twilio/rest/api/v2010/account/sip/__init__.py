@@ -31,11 +31,9 @@ class SipList(ListResource):
         """
         Initialize the SipList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
 
-        :returns: twilio.rest.api.v2010.account.sip.SipList
-        :rtype: twilio.rest.api.v2010.account.sip.SipList
         """
         super().__init__(version)
 
@@ -50,12 +48,9 @@ class SipList(ListResource):
         self._ip_access_control_lists: Optional[IpAccessControlListList] = None
 
     @property
-    def credential_lists(self):
+    def credential_lists(self) -> CredentialListList:
         """
         Access the credential_lists
-
-        :returns: twilio.rest.api.v2010.account.sip.CredentialListList
-        :rtype: twilio.rest.api.v2010.account.sip.CredentialListList
         """
         if self._credential_lists is None:
             self._credential_lists = CredentialListList(
@@ -64,12 +59,9 @@ class SipList(ListResource):
         return self._credential_lists
 
     @property
-    def domains(self):
+    def domains(self) -> DomainList:
         """
         Access the domains
-
-        :returns: twilio.rest.api.v2010.account.sip.DomainList
-        :rtype: twilio.rest.api.v2010.account.sip.DomainList
         """
         if self._domains is None:
             self._domains = DomainList(
@@ -78,12 +70,9 @@ class SipList(ListResource):
         return self._domains
 
     @property
-    def ip_access_control_lists(self):
+    def ip_access_control_lists(self) -> IpAccessControlListList:
         """
         Access the ip_access_control_lists
-
-        :returns: twilio.rest.api.v2010.account.sip.IpAccessControlListList
-        :rtype: twilio.rest.api.v2010.account.sip.IpAccessControlListList
         """
         if self._ip_access_control_lists is None:
             self._ip_access_control_lists = IpAccessControlListList(
@@ -91,11 +80,10 @@ class SipList(ListResource):
             )
         return self._ip_access_control_lists
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.SipList>"

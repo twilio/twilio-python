@@ -24,9 +24,6 @@ class UserInfoInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the UserInfoInstance
-
-        :returns: twilio.rest.oauth.v1.user_info.UserInfoInstance
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance
         """
         super().__init__(version)
 
@@ -43,13 +40,12 @@ class UserInfoInstance(InstanceResource):
         self._context: Optional[UserInfoContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "UserInfoContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: UserInfoContext for this UserInfoInstance
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
         """
         if self._context is None:
             self._context = UserInfoContext(
@@ -58,79 +54,70 @@ class UserInfoInstance(InstanceResource):
         return self._context
 
     @property
-    def user_sid(self):
+    def user_sid(self) -> str:
         """
         :returns: The URL of the party that will create the token and sign it with its private key.
-        :rtype: str
         """
         return self._properties["user_sid"]
 
     @property
-    def first_name(self):
+    def first_name(self) -> str:
         """
         :returns: The first name of the end-user.
-        :rtype: str
         """
         return self._properties["first_name"]
 
     @property
-    def last_name(self):
+    def last_name(self) -> str:
         """
         :returns: The last name of the end-user.
-        :rtype: str
         """
         return self._properties["last_name"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The friendly name of the end-user.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def email(self):
+    def email(self) -> str:
         """
         :returns: The end-user's preferred email address.
-        :rtype: str
         """
         return self._properties["email"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "UserInfoInstance":
         """
         Fetch the UserInfoInstance
 
 
         :returns: The fetched UserInfoInstance
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "UserInfoInstance":
         """
         Asynchronous coroutine to fetch the UserInfoInstance
 
 
         :returns: The fetched UserInfoInstance
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Oauth.V1.UserInfoInstance {}>".format(context)
@@ -141,22 +128,18 @@ class UserInfoContext(InstanceContext):
         """
         Initialize the UserInfoContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
         self._uri = "/userinfo"
 
-    def fetch(self):
+    def fetch(self) -> UserInfoInstance:
         """
         Fetch the UserInfoInstance
 
 
         :returns: The fetched UserInfoInstance
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance
         """
 
         payload = self._version.fetch(
@@ -169,13 +152,12 @@ class UserInfoContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> UserInfoInstance:
         """
         Asynchronous coroutine to fetch the UserInfoInstance
 
 
         :returns: The fetched UserInfoInstance
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance
         """
 
         payload = await self._version.fetch_async(
@@ -188,12 +170,11 @@ class UserInfoContext(InstanceContext):
             payload,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.Oauth.V1.UserInfoContext>"
@@ -204,38 +185,29 @@ class UserInfoList(ListResource):
         """
         Initialize the UserInfoList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.oauth.v1.user_info.UserInfoList
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoList
         """
         super().__init__(version)
 
-    def get(self):
+    def get(self) -> UserInfoContext:
         """
         Constructs a UserInfoContext
 
-
-        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
         """
         return UserInfoContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> UserInfoContext:
         """
         Constructs a UserInfoContext
 
-
-        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
         """
         return UserInfoContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Oauth.V1.UserInfoList>"

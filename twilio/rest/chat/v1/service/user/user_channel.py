@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -30,9 +31,6 @@ class UserChannelInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, user_sid: str):
         """
         Initialize the UserChannelInstance
-
-        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
         """
         super().__init__(version)
 
@@ -57,89 +55,77 @@ class UserChannelInstance(InstanceResource):
         }
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the User Channel resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def channel_sid(self):
+    def channel_sid(self) -> str:
         """
         :returns: The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource belongs to.
-        :rtype: str
         """
         return self._properties["channel_sid"]
 
     @property
-    def member_sid(self):
+    def member_sid(self) -> str:
         """
         :returns: The SID of a [Member](https://www.twilio.com/docs/api/chat/rest/members) that represents the User on the Channel.
-        :rtype: str
         """
         return self._properties["member_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "UserChannelInstance.ChannelStatus":
         """
         :returns:
-        :rtype: UserChannelInstance.ChannelStatus
         """
         return self._properties["status"]
 
     @property
-    def last_consumed_message_index(self):
+    def last_consumed_message_index(self) -> int:
         """
         :returns: The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) in the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) that the Member has read.
-        :rtype: int
         """
         return self._properties["last_consumed_message_index"]
 
     @property
-    def unread_messages_count(self):
+    def unread_messages_count(self) -> int:
         """
         :returns: The number of unread Messages in the Channel for the User. Note that retrieving messages on a client endpoint does not mean that messages are consumed or read. See [Consumption Horizon feature](/docs/api/chat/guides/consumption-horizon) to learn how to mark messages as consumed.
-        :rtype: int
         """
         return self._properties["unread_messages_count"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The absolute URLs of the [Members](https://www.twilio.com/docs/chat/api/members), [Messages](https://www.twilio.com/docs/chat/api/messages) , [Invites](https://www.twilio.com/docs/chat/api/invites) and, if it exists, the last [Message](https://www.twilio.com/docs/chat/api/messages) for the Channel.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Chat.V1.UserChannelInstance {}>".format(context)
 
 
 class UserChannelPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> UserChannelInstance:
         """
         Build an instance of UserChannelInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
         """
         return UserChannelInstance(
             self._version,
@@ -162,12 +148,10 @@ class UserChannelList(ListResource):
         """
         Initialize the UserChannelList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from.
         :param user_sid: The SID of the [User](https://www.twilio.com/docs/api/chat/rest/users) to read the User Channel resources from.
 
-        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
         """
         super().__init__(version)
 
@@ -180,7 +164,7 @@ class UserChannelList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[UserChannelInstance]:
         """
         Streams UserChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -195,14 +179,15 @@ class UserChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[UserChannelInstance]:
         """
         Asynchronously streams UserChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -217,14 +202,13 @@ class UserChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[UserChannelInstance]:
         """
         Lists UserChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -238,7 +222,6 @@ class UserChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance]
         """
         return list(
             self.stream(
@@ -247,7 +230,7 @@ class UserChannelList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[UserChannelInstance]:
         """
         Asynchronously lists UserChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -261,7 +244,6 @@ class UserChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance]
         """
         return list(
             await self.stream_async(
@@ -272,7 +254,7 @@ class UserChannelList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> UserChannelPage:
         """
         Retrieve a single page of UserChannelInstance records from the API.
         Request is executed immediately
@@ -282,7 +264,6 @@ class UserChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
         """
         data = values.of(
             {
@@ -297,7 +278,7 @@ class UserChannelList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> UserChannelPage:
         """
         Asynchronously retrieve a single page of UserChannelInstance records from the API.
         Request is executed immediately
@@ -307,7 +288,6 @@ class UserChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
         """
         data = values.of(
             {
@@ -322,7 +302,7 @@ class UserChannelList(ListResource):
         )
         return UserChannelPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> UserChannelPage:
         """
         Retrieve a specific page of UserChannelInstance records from the API.
         Request is executed immediately
@@ -330,12 +310,11 @@ class UserChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UserChannelPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> UserChannelPage:
         """
         Asynchronously retrieve a specific page of UserChannelInstance records from the API.
         Request is executed immediately
@@ -343,16 +322,14 @@ class UserChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return UserChannelPage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Chat.V1.UserChannelList>"

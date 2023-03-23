@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -39,9 +40,6 @@ class FlexFlowInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the FlexFlowInstance
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         super().__init__(version)
 
@@ -68,13 +66,12 @@ class FlexFlowInstance(InstanceResource):
         self._context: Optional[FlexFlowContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "FlexFlowContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: FlexFlowContext for this FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
         """
         if self._context is None:
             self._context = FlexFlowContext(
@@ -84,154 +81,136 @@ class FlexFlowInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Flow resource and owns this Workflow.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Flex Flow resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def chat_service_sid(self):
+    def chat_service_sid(self) -> str:
         """
         :returns: The SID of the chat service.
-        :rtype: str
         """
         return self._properties["chat_service_sid"]
 
     @property
-    def channel_type(self):
+    def channel_type(self) -> "FlexFlowInstance.ChannelType":
         """
         :returns:
-        :rtype: FlexFlowInstance.ChannelType
         """
         return self._properties["channel_type"]
 
     @property
-    def contact_identity(self):
+    def contact_identity(self) -> str:
         """
         :returns: The channel contact's Identity.
-        :rtype: str
         """
         return self._properties["contact_identity"]
 
     @property
-    def enabled(self):
+    def enabled(self) -> bool:
         """
         :returns: Whether the Flex Flow is enabled.
-        :rtype: bool
         """
         return self._properties["enabled"]
 
     @property
-    def integration_type(self):
+    def integration_type(self) -> "FlexFlowInstance.IntegrationType":
         """
         :returns:
-        :rtype: FlexFlowInstance.IntegrationType
         """
         return self._properties["integration_type"]
 
     @property
-    def integration(self):
+    def integration(self) -> dict:
         """
         :returns: An object that contains specific parameters for the integration.
-        :rtype: dict
         """
         return self._properties["integration"]
 
     @property
-    def long_lived(self):
+    def long_lived(self) -> bool:
         """
         :returns: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        :rtype: bool
         """
         return self._properties["long_lived"]
 
     @property
-    def janitor_enabled(self):
+    def janitor_enabled(self) -> bool:
         """
         :returns: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        :rtype: bool
         """
         return self._properties["janitor_enabled"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Flex Flow resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the FlexFlowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FlexFlowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "FlexFlowInstance":
         """
         Fetch the FlexFlowInstance
 
 
         :returns: The fetched FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "FlexFlowInstance":
         """
         Asynchronous coroutine to fetch the FlexFlowInstance
 
 
         :returns: The fetched FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         return await self._proxy.fetch_async()
 
@@ -254,16 +233,16 @@ class FlexFlowInstance(InstanceResource):
         long_lived=values.unset,
         janitor_enabled=values.unset,
         integration_retry_count=values.unset,
-    ):
+    ) -> "FlexFlowInstance":
         """
         Update the FlexFlowInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param str chat_service_sid: The SID of the chat service.
-        :param FlexFlowInstance.ChannelType channel_type:
+        :param "FlexFlowInstance.ChannelType" channel_type:
         :param str contact_identity: The channel contact's Identity.
         :param bool enabled: Whether the new Flex Flow is enabled.
-        :param FlexFlowInstance.IntegrationType integration_type:
+        :param "FlexFlowInstance.IntegrationType" integration_type:
         :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -277,7 +256,6 @@ class FlexFlowInstance(InstanceResource):
         :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The updated FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -318,16 +296,16 @@ class FlexFlowInstance(InstanceResource):
         long_lived=values.unset,
         janitor_enabled=values.unset,
         integration_retry_count=values.unset,
-    ):
+    ) -> "FlexFlowInstance":
         """
         Asynchronous coroutine to update the FlexFlowInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param str chat_service_sid: The SID of the chat service.
-        :param FlexFlowInstance.ChannelType channel_type:
+        :param "FlexFlowInstance.ChannelType" channel_type:
         :param str contact_identity: The channel contact's Identity.
         :param bool enabled: Whether the new Flex Flow is enabled.
-        :param FlexFlowInstance.IntegrationType integration_type:
+        :param "FlexFlowInstance.IntegrationType" integration_type:
         :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -341,7 +319,6 @@ class FlexFlowInstance(InstanceResource):
         :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The updated FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -363,12 +340,11 @@ class FlexFlowInstance(InstanceResource):
             integration_retry_count=integration_retry_count,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.FlexFlowInstance {}>".format(context)
@@ -379,11 +355,8 @@ class FlexFlowContext(InstanceContext):
         """
         Initialize the FlexFlowContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Flex Flow resource to update.
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
         """
         super().__init__(version)
 
@@ -393,39 +366,36 @@ class FlexFlowContext(InstanceContext):
         }
         self._uri = "/FlexFlows/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the FlexFlowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FlexFlowInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> FlexFlowInstance:
         """
         Fetch the FlexFlowInstance
 
 
         :returns: The fetched FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
 
         payload = self._version.fetch(
@@ -439,13 +409,12 @@ class FlexFlowContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> FlexFlowInstance:
         """
         Asynchronous coroutine to fetch the FlexFlowInstance
 
 
         :returns: The fetched FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
 
         payload = await self._version.fetch_async(
@@ -478,16 +447,16 @@ class FlexFlowContext(InstanceContext):
         long_lived=values.unset,
         janitor_enabled=values.unset,
         integration_retry_count=values.unset,
-    ):
+    ) -> FlexFlowInstance:
         """
         Update the FlexFlowInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param str chat_service_sid: The SID of the chat service.
-        :param FlexFlowInstance.ChannelType channel_type:
+        :param "FlexFlowInstance.ChannelType" channel_type:
         :param str contact_identity: The channel contact's Identity.
         :param bool enabled: Whether the new Flex Flow is enabled.
-        :param FlexFlowInstance.IntegrationType integration_type:
+        :param "FlexFlowInstance.IntegrationType" integration_type:
         :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -501,7 +470,6 @@ class FlexFlowContext(InstanceContext):
         :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The updated FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         data = values.of(
             {
@@ -552,16 +520,16 @@ class FlexFlowContext(InstanceContext):
         long_lived=values.unset,
         janitor_enabled=values.unset,
         integration_retry_count=values.unset,
-    ):
+    ) -> FlexFlowInstance:
         """
         Asynchronous coroutine to update the FlexFlowInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param str chat_service_sid: The SID of the chat service.
-        :param FlexFlowInstance.ChannelType channel_type:
+        :param "FlexFlowInstance.ChannelType" channel_type:
         :param str contact_identity: The channel contact's Identity.
         :param bool enabled: Whether the new Flex Flow is enabled.
-        :param FlexFlowInstance.IntegrationType integration_type:
+        :param "FlexFlowInstance.IntegrationType" integration_type:
         :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -575,7 +543,6 @@ class FlexFlowContext(InstanceContext):
         :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The updated FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         data = values.of(
             {
@@ -607,26 +574,22 @@ class FlexFlowContext(InstanceContext):
 
         return FlexFlowInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.FlexFlowContext {}>".format(context)
 
 
 class FlexFlowPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> FlexFlowInstance:
         """
         Build an instance of FlexFlowInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         return FlexFlowInstance(self._version, payload)
 
@@ -644,10 +607,8 @@ class FlexFlowList(ListResource):
         """
         Initialize the FlexFlowList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
         """
         super().__init__(version)
 
@@ -672,16 +633,16 @@ class FlexFlowList(ListResource):
         long_lived=values.unset,
         janitor_enabled=values.unset,
         integration_retry_count=values.unset,
-    ):
+    ) -> FlexFlowInstance:
         """
         Create the FlexFlowInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param str chat_service_sid: The SID of the chat service.
-        :param FlexFlowInstance.ChannelType channel_type:
+        :param &quot;FlexFlowInstance.ChannelType&quot; channel_type:
         :param str contact_identity: The channel contact's Identity.
         :param bool enabled: Whether the new Flex Flow is enabled.
-        :param FlexFlowInstance.IntegrationType integration_type:
+        :param &quot;FlexFlowInstance.IntegrationType&quot; integration_type:
         :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -695,7 +656,6 @@ class FlexFlowList(ListResource):
         :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The created FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         data = values.of(
             {
@@ -746,16 +706,16 @@ class FlexFlowList(ListResource):
         long_lived=values.unset,
         janitor_enabled=values.unset,
         integration_retry_count=values.unset,
-    ):
+    ) -> FlexFlowInstance:
         """
         Asynchronously create the FlexFlowInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param str chat_service_sid: The SID of the chat service.
-        :param FlexFlowInstance.ChannelType channel_type:
+        :param &quot;FlexFlowInstance.ChannelType&quot; channel_type:
         :param str contact_identity: The channel contact's Identity.
         :param bool enabled: Whether the new Flex Flow is enabled.
-        :param FlexFlowInstance.IntegrationType integration_type:
+        :param &quot;FlexFlowInstance.IntegrationType&quot; integration_type:
         :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -769,7 +729,6 @@ class FlexFlowList(ListResource):
         :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The created FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         data = values.of(
             {
@@ -801,7 +760,9 @@ class FlexFlowList(ListResource):
 
         return FlexFlowInstance(self._version, payload)
 
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
+    def stream(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[FlexFlowInstance]:
         """
         Streams FlexFlowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -817,7 +778,6 @@ class FlexFlowList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
@@ -826,7 +786,7 @@ class FlexFlowList(ListResource):
 
     async def stream_async(
         self, friendly_name=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[FlexFlowInstance]:
         """
         Asynchronously streams FlexFlowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -842,7 +802,6 @@ class FlexFlowList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -851,7 +810,9 @@ class FlexFlowList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, friendly_name=values.unset, limit=None, page_size=None):
+    def list(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[FlexFlowInstance]:
         """
         Lists FlexFlowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -866,7 +827,6 @@ class FlexFlowList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
         """
         return list(
             self.stream(
@@ -876,7 +836,9 @@ class FlexFlowList(ListResource):
             )
         )
 
-    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[FlexFlowInstance]:
         """
         Asynchronously lists FlexFlowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -891,7 +853,6 @@ class FlexFlowList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
         """
         return list(
             await self.stream_async(
@@ -907,7 +868,7 @@ class FlexFlowList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> FlexFlowPage:
         """
         Retrieve a single page of FlexFlowInstance records from the API.
         Request is executed immediately
@@ -918,7 +879,6 @@ class FlexFlowList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
         """
         data = values.of(
             {
@@ -938,7 +898,7 @@ class FlexFlowList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> FlexFlowPage:
         """
         Asynchronously retrieve a single page of FlexFlowInstance records from the API.
         Request is executed immediately
@@ -949,7 +909,6 @@ class FlexFlowList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
         """
         data = values.of(
             {
@@ -965,7 +924,7 @@ class FlexFlowList(ListResource):
         )
         return FlexFlowPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> FlexFlowPage:
         """
         Retrieve a specific page of FlexFlowInstance records from the API.
         Request is executed immediately
@@ -973,12 +932,11 @@ class FlexFlowList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FlexFlowPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> FlexFlowPage:
         """
         Asynchronously retrieve a specific page of FlexFlowInstance records from the API.
         Request is executed immediately
@@ -986,38 +944,30 @@ class FlexFlowList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FlexFlowPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> FlexFlowContext:
         """
         Constructs a FlexFlowContext
 
         :param sid: The SID of the Flex Flow resource to update.
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
         """
         return FlexFlowContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> FlexFlowContext:
         """
         Constructs a FlexFlowContext
 
         :param sid: The SID of the Flex Flow resource to update.
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
         """
         return FlexFlowContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.FlexFlowList>"

@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import datetime
+from typing import List
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -24,9 +26,6 @@ class RecordingRulesInstance(InstanceResource):
     def __init__(self, version, payload, room_sid: str):
         """
         Initialize the RecordingRulesInstance
-
-        :returns: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
-        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
         """
         super().__init__(version)
 
@@ -42,43 +41,38 @@ class RecordingRulesInstance(InstanceResource):
         }
 
     @property
-    def room_sid(self):
+    def room_sid(self) -> str:
         """
         :returns: The SID of the Room resource for the Recording Rules
-        :rtype: str
         """
         return self._properties["room_sid"]
 
     @property
-    def rules(self):
+    def rules(self) -> List[str]:
         """
         :returns: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        :rtype: List[str]
         """
         return self._properties["rules"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.RecordingRulesInstance {}>".format(context)
@@ -89,11 +83,9 @@ class RecordingRulesList(ListResource):
         """
         Initialize the RecordingRulesList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the Room resource where the recording rules to update apply.
 
-        :returns: twilio.rest.video.v1.room.recording_rules.RecordingRulesList
-        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesList
         """
         super().__init__(version)
 
@@ -103,12 +95,11 @@ class RecordingRulesList(ListResource):
         }
         self._uri = "/Rooms/{room_sid}/RecordingRules".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> RecordingRulesInstance:
         """
         Asynchronously fetch the RecordingRulesInstance
 
         :returns: The fetched RecordingRulesInstance
-        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
         """
         payload = self._version.fetch(method="GET", uri=self._uri)
 
@@ -116,12 +107,11 @@ class RecordingRulesList(ListResource):
             self._version, payload, room_sid=self._solution["room_sid"]
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> RecordingRulesInstance:
         """
         Asynchronously fetch the RecordingRulesInstance
 
         :returns: The fetched RecordingRulesInstance
-        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
         """
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
@@ -129,14 +119,13 @@ class RecordingRulesList(ListResource):
             self._version, payload, room_sid=self._solution["room_sid"]
         )
 
-    def update(self, rules=values.unset):
+    def update(self, rules=values.unset) -> RecordingRulesInstance:
         """
         Update the RecordingRulesInstance
 
         :param object rules: A JSON-encoded array of recording rules.
 
         :returns: The created RecordingRulesInstance
-        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
         """
         data = values.of(
             {
@@ -154,14 +143,13 @@ class RecordingRulesList(ListResource):
             self._version, payload, room_sid=self._solution["room_sid"]
         )
 
-    async def update_async(self, rules=values.unset):
+    async def update_async(self, rules=values.unset) -> RecordingRulesInstance:
         """
         Asynchronously update the RecordingRulesInstance
 
         :param object rules: A JSON-encoded array of recording rules.
 
         :returns: The created RecordingRulesInstance
-        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
         """
         data = values.of(
             {
@@ -179,11 +167,10 @@ class RecordingRulesList(ListResource):
             self._version, payload, room_sid=self._solution["room_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.RecordingRulesList>"

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -25,9 +26,6 @@ class PhoneNumberInstance(InstanceResource):
     def __init__(self, version, payload, phone_number: Optional[str] = None):
         """
         Initialize the PhoneNumberInstance
-
-        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
         super().__init__(version)
 
@@ -48,13 +46,12 @@ class PhoneNumberInstance(InstanceResource):
         self._context: Optional[PhoneNumberContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "PhoneNumberContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: PhoneNumberContext for this PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
         """
         if self._context is None:
             self._context = PhoneNumberContext(
@@ -64,90 +61,82 @@ class PhoneNumberInstance(InstanceResource):
         return self._context
 
     @property
-    def phone_number(self):
+    def phone_number(self) -> str:
         """
         :returns: The phone number in E.164 format
-        :rtype: str
         """
         return self._properties["phone_number"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies the Inbound Processing Region assignments for this phone number.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A human readable description of the Inbound Processing Region assignments for this phone number, up to 64 characters.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def voice_region(self):
+    def voice_region(self) -> str:
         """
         :returns: The Inbound Processing Region used for this phone number for voice.
-        :rtype: str
         """
         return self._properties["voice_region"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this phone number was assigned an Inbound Processing Region, given in ISO 8601 format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that the Inbound Processing Region was updated for this phone number, given in ISO 8601 format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
-    def fetch(self):
+    def fetch(self) -> "PhoneNumberInstance":
         """
         Fetch the PhoneNumberInstance
 
 
         :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "PhoneNumberInstance":
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
 
 
         :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, voice_region=values.unset, friendly_name=values.unset):
+    def update(
+        self, voice_region=values.unset, friendly_name=values.unset
+    ) -> "PhoneNumberInstance":
         """
         Update the PhoneNumberInstance
 
@@ -155,14 +144,15 @@ class PhoneNumberInstance(InstanceResource):
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
         return self._proxy.update(
             voice_region=voice_region,
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, voice_region=values.unset, friendly_name=values.unset):
+    async def update_async(
+        self, voice_region=values.unset, friendly_name=values.unset
+    ) -> "PhoneNumberInstance":
         """
         Asynchronous coroutine to update the PhoneNumberInstance
 
@@ -170,19 +160,17 @@ class PhoneNumberInstance(InstanceResource):
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
         return await self._proxy.update_async(
             voice_region=voice_region,
             friendly_name=friendly_name,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Routes.V2.PhoneNumberInstance {}>".format(context)
@@ -193,11 +181,8 @@ class PhoneNumberContext(InstanceContext):
         """
         Initialize the PhoneNumberContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param phone_number: The phone number in E.164 format
-
-        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
         """
         super().__init__(version)
 
@@ -207,13 +192,12 @@ class PhoneNumberContext(InstanceContext):
         }
         self._uri = "/PhoneNumbers/{phone_number}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> PhoneNumberInstance:
         """
         Fetch the PhoneNumberInstance
 
 
         :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
 
         payload = self._version.fetch(
@@ -227,13 +211,12 @@ class PhoneNumberContext(InstanceContext):
             phone_number=self._solution["phone_number"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> PhoneNumberInstance:
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
 
 
         :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
 
         payload = await self._version.fetch_async(
@@ -247,7 +230,9 @@ class PhoneNumberContext(InstanceContext):
             phone_number=self._solution["phone_number"],
         )
 
-    def update(self, voice_region=values.unset, friendly_name=values.unset):
+    def update(
+        self, voice_region=values.unset, friendly_name=values.unset
+    ) -> PhoneNumberInstance:
         """
         Update the PhoneNumberInstance
 
@@ -255,7 +240,6 @@ class PhoneNumberContext(InstanceContext):
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
         data = values.of(
             {
@@ -274,7 +258,9 @@ class PhoneNumberContext(InstanceContext):
             self._version, payload, phone_number=self._solution["phone_number"]
         )
 
-    async def update_async(self, voice_region=values.unset, friendly_name=values.unset):
+    async def update_async(
+        self, voice_region=values.unset, friendly_name=values.unset
+    ) -> PhoneNumberInstance:
         """
         Asynchronous coroutine to update the PhoneNumberInstance
 
@@ -282,7 +268,6 @@ class PhoneNumberContext(InstanceContext):
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
         data = values.of(
             {
@@ -301,12 +286,11 @@ class PhoneNumberContext(InstanceContext):
             self._version, payload, phone_number=self._solution["phone_number"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Routes.V2.PhoneNumberContext {}>".format(context)
@@ -317,40 +301,31 @@ class PhoneNumberList(ListResource):
         """
         Initialize the PhoneNumberList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberList
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberList
         """
         super().__init__(version)
 
-    def get(self, phone_number):
+    def get(self, phone_number) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
 
         :param phone_number: The phone number in E.164 format
-
-        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(self._version, phone_number=phone_number)
 
-    def __call__(self, phone_number):
+    def __call__(self, phone_number) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
 
         :param phone_number: The phone number in E.164 format
-
-        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(self._version, phone_number=phone_number)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Routes.V2.PhoneNumberList>"

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +33,6 @@ class SyncListPermissionInstance(InstanceResource):
     ):
         """
         Initialize the SyncListPermissionInstance
-
-        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         super().__init__(version)
 
@@ -58,13 +55,12 @@ class SyncListPermissionInstance(InstanceResource):
         self._context: Optional[SyncListPermissionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SyncListPermissionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SyncListPermissionContext for this SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         if self._context is None:
             self._context = SyncListPermissionContext(
@@ -76,110 +72,98 @@ class SyncListPermissionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Twilio Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Sync Service Instance.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def list_sid(self):
+    def list_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Sync List to which the Permission applies.
-        :rtype: str
         """
         return self._properties["list_sid"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-        :rtype: str
         """
         return self._properties["identity"]
 
     @property
-    def read(self):
+    def read(self) -> bool:
         """
         :returns: Boolean flag specifying whether the identity can read the Sync List and its Items.
-        :rtype: bool
         """
         return self._properties["read"]
 
     @property
-    def write(self):
+    def write(self) -> bool:
         """
         :returns: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-        :rtype: bool
         """
         return self._properties["write"]
 
     @property
-    def manage(self):
+    def manage(self) -> bool:
         """
         :returns: Boolean flag specifying whether the identity can delete the Sync List.
-        :rtype: bool
         """
         return self._properties["manage"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: Contains an absolute URL for this Sync List Permission.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SyncListPermissionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SyncListPermissionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "SyncListPermissionInstance":
         """
         Fetch the SyncListPermissionInstance
 
 
         :returns: The fetched SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SyncListPermissionInstance":
         """
         Asynchronous coroutine to fetch the SyncListPermissionInstance
 
 
         :returns: The fetched SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, read, write, manage):
+    def update(self, read, write, manage) -> "SyncListPermissionInstance":
         """
         Update the SyncListPermissionInstance
 
@@ -188,7 +172,6 @@ class SyncListPermissionInstance(InstanceResource):
         :param bool manage: Boolean flag specifying whether the identity can delete the Sync List.
 
         :returns: The updated SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return self._proxy.update(
             read=read,
@@ -196,7 +179,7 @@ class SyncListPermissionInstance(InstanceResource):
             manage=manage,
         )
 
-    async def update_async(self, read, write, manage):
+    async def update_async(self, read, write, manage) -> "SyncListPermissionInstance":
         """
         Asynchronous coroutine to update the SyncListPermissionInstance
 
@@ -205,7 +188,6 @@ class SyncListPermissionInstance(InstanceResource):
         :param bool manage: Boolean flag specifying whether the identity can delete the Sync List.
 
         :returns: The updated SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return await self._proxy.update_async(
             read=read,
@@ -213,12 +195,11 @@ class SyncListPermissionInstance(InstanceResource):
             manage=manage,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Sync.SyncListPermissionInstance {}>".format(context)
@@ -231,13 +212,10 @@ class SyncListPermissionContext(InstanceContext):
         """
         Initialize the SyncListPermissionContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The unique SID identifier of the Sync Service Instance.
         :param list_sid: Identifier of the Sync List. Either a SID or a unique name.
         :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-
-        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         super().__init__(version)
 
@@ -253,39 +231,36 @@ class SyncListPermissionContext(InstanceContext):
             )
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SyncListPermissionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SyncListPermissionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> SyncListPermissionInstance:
         """
         Fetch the SyncListPermissionInstance
 
 
         :returns: The fetched SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
 
         payload = self._version.fetch(
@@ -301,13 +276,12 @@ class SyncListPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SyncListPermissionInstance:
         """
         Asynchronous coroutine to fetch the SyncListPermissionInstance
 
 
         :returns: The fetched SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
 
         payload = await self._version.fetch_async(
@@ -323,7 +297,7 @@ class SyncListPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    def update(self, read, write, manage):
+    def update(self, read, write, manage) -> SyncListPermissionInstance:
         """
         Update the SyncListPermissionInstance
 
@@ -332,7 +306,6 @@ class SyncListPermissionContext(InstanceContext):
         :param bool manage: Boolean flag specifying whether the identity can delete the Sync List.
 
         :returns: The updated SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         data = values.of(
             {
@@ -356,7 +329,7 @@ class SyncListPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    async def update_async(self, read, write, manage):
+    async def update_async(self, read, write, manage) -> SyncListPermissionInstance:
         """
         Asynchronous coroutine to update the SyncListPermissionInstance
 
@@ -365,7 +338,6 @@ class SyncListPermissionContext(InstanceContext):
         :param bool manage: Boolean flag specifying whether the identity can delete the Sync List.
 
         :returns: The updated SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         data = values.of(
             {
@@ -389,26 +361,22 @@ class SyncListPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Sync.SyncListPermissionContext {}>".format(context)
 
 
 class SyncListPermissionPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> SyncListPermissionInstance:
         """
         Build an instance of SyncListPermissionInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return SyncListPermissionInstance(
             self._version,
@@ -431,12 +399,10 @@ class SyncListPermissionList(ListResource):
         """
         Initialize the SyncListPermissionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid:
         :param list_sid: Identifier of the Sync List. Either a SID or a unique name.
 
-        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionList
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionList
         """
         super().__init__(version)
 
@@ -449,7 +415,7 @@ class SyncListPermissionList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[SyncListPermissionInstance]:
         """
         Streams SyncListPermissionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -464,14 +430,15 @@ class SyncListPermissionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[SyncListPermissionInstance]:
         """
         Asynchronously streams SyncListPermissionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -486,14 +453,13 @@ class SyncListPermissionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[SyncListPermissionInstance]:
         """
         Lists SyncListPermissionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -507,7 +473,6 @@ class SyncListPermissionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance]
         """
         return list(
             self.stream(
@@ -516,7 +481,9 @@ class SyncListPermissionList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[SyncListPermissionInstance]:
         """
         Asynchronously lists SyncListPermissionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -530,7 +497,6 @@ class SyncListPermissionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance]
         """
         return list(
             await self.stream_async(
@@ -541,7 +507,7 @@ class SyncListPermissionList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SyncListPermissionPage:
         """
         Retrieve a single page of SyncListPermissionInstance records from the API.
         Request is executed immediately
@@ -551,7 +517,6 @@ class SyncListPermissionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
         data = values.of(
             {
@@ -566,7 +531,7 @@ class SyncListPermissionList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SyncListPermissionPage:
         """
         Asynchronously retrieve a single page of SyncListPermissionInstance records from the API.
         Request is executed immediately
@@ -576,7 +541,6 @@ class SyncListPermissionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
         data = values.of(
             {
@@ -591,7 +555,7 @@ class SyncListPermissionList(ListResource):
         )
         return SyncListPermissionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> SyncListPermissionPage:
         """
         Retrieve a specific page of SyncListPermissionInstance records from the API.
         Request is executed immediately
@@ -599,12 +563,11 @@ class SyncListPermissionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SyncListPermissionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> SyncListPermissionPage:
         """
         Asynchronously retrieve a specific page of SyncListPermissionInstance records from the API.
         Request is executed immediately
@@ -612,19 +575,15 @@ class SyncListPermissionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SyncListPermissionPage(self._version, response, self._solution)
 
-    def get(self, identity):
+    def get(self, identity) -> SyncListPermissionContext:
         """
         Constructs a SyncListPermissionContext
 
         :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-
-        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         return SyncListPermissionContext(
             self._version,
@@ -633,14 +592,11 @@ class SyncListPermissionList(ListResource):
             identity=identity,
         )
 
-    def __call__(self, identity):
+    def __call__(self, identity) -> SyncListPermissionContext:
         """
         Constructs a SyncListPermissionContext
 
         :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-
-        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         return SyncListPermissionContext(
             self._version,
@@ -649,11 +605,10 @@ class SyncListPermissionList(ListResource):
             identity=identity,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Sync.SyncListPermissionList>"

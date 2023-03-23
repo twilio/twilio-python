@@ -25,9 +25,6 @@ class RecordingSettingsInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the RecordingSettingsInstance
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
         super().__init__(version)
 
@@ -46,13 +43,12 @@ class RecordingSettingsInstance(InstanceResource):
         self._context: Optional[RecordingSettingsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "RecordingSettingsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: RecordingSettingsContext for this RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
         """
         if self._context is None:
             self._context = RecordingSettingsContext(
@@ -61,66 +57,58 @@ class RecordingSettingsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource and show the user in the console
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def aws_credentials_sid(self):
+    def aws_credentials_sid(self) -> str:
         """
         :returns: The SID of the stored Credential resource.
-        :rtype: str
         """
         return self._properties["aws_credentials_sid"]
 
     @property
-    def aws_s3_url(self):
+    def aws_s3_url(self) -> str:
         """
         :returns: The URL of the AWS S3 bucket where the recordings are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
-        :rtype: str
         """
         return self._properties["aws_s3_url"]
 
     @property
-    def aws_storage_enabled(self):
+    def aws_storage_enabled(self) -> bool:
         """
         :returns: Whether all recordings are written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
-        :rtype: bool
         """
         return self._properties["aws_storage_enabled"]
 
     @property
-    def encryption_key_sid(self):
+    def encryption_key_sid(self) -> str:
         """
         :returns: The SID of the Public Key resource used for encryption.
-        :rtype: str
         """
         return self._properties["encryption_key_sid"]
 
     @property
-    def encryption_enabled(self):
+    def encryption_enabled(self) -> bool:
         """
         :returns: Whether all recordings are stored in an encrypted form. The default is `false`.
-        :rtype: bool
         """
         return self._properties["encryption_enabled"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
@@ -132,7 +120,7 @@ class RecordingSettingsInstance(InstanceResource):
         aws_s3_url=values.unset,
         aws_storage_enabled=values.unset,
         encryption_enabled=values.unset,
-    ):
+    ) -> "RecordingSettingsInstance":
         """
         Create the RecordingSettingsInstance
 
@@ -144,7 +132,6 @@ class RecordingSettingsInstance(InstanceResource):
         :param bool encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
 
         :returns: The created RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
         return self._proxy.create(
             friendly_name,
@@ -163,7 +150,7 @@ class RecordingSettingsInstance(InstanceResource):
         aws_s3_url=values.unset,
         aws_storage_enabled=values.unset,
         encryption_enabled=values.unset,
-    ):
+    ) -> "RecordingSettingsInstance":
         """
         Asynchronous coroutine to create the RecordingSettingsInstance
 
@@ -175,7 +162,6 @@ class RecordingSettingsInstance(InstanceResource):
         :param bool encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
 
         :returns: The created RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
         return await self._proxy.create_async(
             friendly_name,
@@ -186,32 +172,29 @@ class RecordingSettingsInstance(InstanceResource):
             encryption_enabled=encryption_enabled,
         )
 
-    def fetch(self):
+    def fetch(self) -> "RecordingSettingsInstance":
         """
         Fetch the RecordingSettingsInstance
 
 
         :returns: The fetched RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "RecordingSettingsInstance":
         """
         Asynchronous coroutine to fetch the RecordingSettingsInstance
 
 
         :returns: The fetched RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.RecordingSettingsInstance {}>".format(context)
@@ -222,10 +205,7 @@ class RecordingSettingsContext(InstanceContext):
         """
         Initialize the RecordingSettingsContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
@@ -239,7 +219,7 @@ class RecordingSettingsContext(InstanceContext):
         aws_s3_url=values.unset,
         aws_storage_enabled=values.unset,
         encryption_enabled=values.unset,
-    ):
+    ) -> RecordingSettingsInstance:
         """
         Create the RecordingSettingsInstance
 
@@ -251,7 +231,6 @@ class RecordingSettingsContext(InstanceContext):
         :param bool encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
 
         :returns: The created RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
         data = values.of(
             {
@@ -276,7 +255,7 @@ class RecordingSettingsContext(InstanceContext):
         aws_s3_url=values.unset,
         aws_storage_enabled=values.unset,
         encryption_enabled=values.unset,
-    ):
+    ) -> RecordingSettingsInstance:
         """
         Asynchronous coroutine to create the RecordingSettingsInstance
 
@@ -288,7 +267,6 @@ class RecordingSettingsContext(InstanceContext):
         :param bool encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
 
         :returns: The created RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
         data = values.of(
             {
@@ -307,13 +285,12 @@ class RecordingSettingsContext(InstanceContext):
 
         return RecordingSettingsInstance(self._version, payload)
 
-    def fetch(self):
+    def fetch(self) -> RecordingSettingsInstance:
         """
         Fetch the RecordingSettingsInstance
 
 
         :returns: The fetched RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
 
         payload = self._version.fetch(
@@ -326,13 +303,12 @@ class RecordingSettingsContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> RecordingSettingsInstance:
         """
         Asynchronous coroutine to fetch the RecordingSettingsInstance
 
 
         :returns: The fetched RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
 
         payload = await self._version.fetch_async(
@@ -345,12 +321,11 @@ class RecordingSettingsContext(InstanceContext):
             payload,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.Video.V1.RecordingSettingsContext>"
@@ -361,38 +336,29 @@ class RecordingSettingsList(ListResource):
         """
         Initialize the RecordingSettingsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsList
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsList
         """
         super().__init__(version)
 
-    def get(self):
+    def get(self) -> RecordingSettingsContext:
         """
         Constructs a RecordingSettingsContext
 
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
         """
         return RecordingSettingsContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> RecordingSettingsContext:
         """
         Constructs a RecordingSettingsContext
 
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
         """
         return RecordingSettingsContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.RecordingSettingsList>"

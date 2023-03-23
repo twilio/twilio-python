@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class RatePlanInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the RatePlanInstance
-
-        :returns: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         super().__init__(version)
 
@@ -61,13 +59,12 @@ class RatePlanInstance(InstanceResource):
         self._context: Optional[RatePlanContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "RatePlanContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: RatePlanContext for this RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         """
         if self._context is None:
             self._context = RatePlanContext(
@@ -77,174 +74,156 @@ class RatePlanInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the RatePlan resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RatePlan resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def data_enabled(self):
+    def data_enabled(self) -> bool:
         """
         :returns: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
-        :rtype: bool
         """
         return self._properties["data_enabled"]
 
     @property
-    def data_metering(self):
+    def data_metering(self) -> str:
         """
         :returns: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
-        :rtype: str
         """
         return self._properties["data_metering"]
 
     @property
-    def data_limit(self):
+    def data_limit(self) -> int:
         """
         :returns: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB.
-        :rtype: int
         """
         return self._properties["data_limit"]
 
     @property
-    def messaging_enabled(self):
+    def messaging_enabled(self) -> bool:
         """
         :returns: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
-        :rtype: bool
         """
         return self._properties["messaging_enabled"]
 
     @property
-    def voice_enabled(self):
+    def voice_enabled(self) -> bool:
         """
         :returns: Deprecated. Whether SIMs can make and receive voice calls.
-        :rtype: bool
         """
         return self._properties["voice_enabled"]
 
     @property
-    def national_roaming_enabled(self):
+    def national_roaming_enabled(self) -> bool:
         """
         :returns: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
-        :rtype: bool
         """
         return self._properties["national_roaming_enabled"]
 
     @property
-    def national_roaming_data_limit(self):
+    def national_roaming_data_limit(self) -> int:
         """
         :returns: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB.
-        :rtype: int
         """
         return self._properties["national_roaming_data_limit"]
 
     @property
-    def international_roaming(self):
+    def international_roaming(self) -> List[str]:
         """
         :returns: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
-        :rtype: List[str]
         """
         return self._properties["international_roaming"]
 
     @property
-    def international_roaming_data_limit(self):
+    def international_roaming_data_limit(self) -> int:
         """
         :returns: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
-        :rtype: int
         """
         return self._properties["international_roaming_data_limit"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the RatePlanInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RatePlanInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "RatePlanInstance":
         """
         Fetch the RatePlanInstance
 
 
         :returns: The fetched RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "RatePlanInstance":
         """
         Asynchronous coroutine to fetch the RatePlanInstance
 
 
         :returns: The fetched RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, unique_name=values.unset, friendly_name=values.unset):
+    def update(
+        self, unique_name=values.unset, friendly_name=values.unset
+    ) -> "RatePlanInstance":
         """
         Update the RatePlanInstance
 
@@ -252,14 +231,15 @@ class RatePlanInstance(InstanceResource):
         :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
 
         :returns: The updated RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         return self._proxy.update(
             unique_name=unique_name,
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, unique_name=values.unset, friendly_name=values.unset):
+    async def update_async(
+        self, unique_name=values.unset, friendly_name=values.unset
+    ) -> "RatePlanInstance":
         """
         Asynchronous coroutine to update the RatePlanInstance
 
@@ -267,19 +247,17 @@ class RatePlanInstance(InstanceResource):
         :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
 
         :returns: The updated RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         return await self._proxy.update_async(
             unique_name=unique_name,
             friendly_name=friendly_name,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Wireless.V1.RatePlanInstance {}>".format(context)
@@ -290,11 +268,8 @@ class RatePlanContext(InstanceContext):
         """
         Initialize the RatePlanContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the RatePlan resource to update.
-
-        :returns: twilio.rest.wireless.v1.rate_plan.RatePlanContext
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         """
         super().__init__(version)
 
@@ -304,39 +279,36 @@ class RatePlanContext(InstanceContext):
         }
         self._uri = "/RatePlans/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the RatePlanInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RatePlanInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> RatePlanInstance:
         """
         Fetch the RatePlanInstance
 
 
         :returns: The fetched RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
 
         payload = self._version.fetch(
@@ -350,13 +322,12 @@ class RatePlanContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> RatePlanInstance:
         """
         Asynchronous coroutine to fetch the RatePlanInstance
 
 
         :returns: The fetched RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
 
         payload = await self._version.fetch_async(
@@ -370,7 +341,9 @@ class RatePlanContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, unique_name=values.unset, friendly_name=values.unset):
+    def update(
+        self, unique_name=values.unset, friendly_name=values.unset
+    ) -> RatePlanInstance:
         """
         Update the RatePlanInstance
 
@@ -378,7 +351,6 @@ class RatePlanContext(InstanceContext):
         :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
 
         :returns: The updated RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         data = values.of(
             {
@@ -395,7 +367,9 @@ class RatePlanContext(InstanceContext):
 
         return RatePlanInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, unique_name=values.unset, friendly_name=values.unset):
+    async def update_async(
+        self, unique_name=values.unset, friendly_name=values.unset
+    ) -> RatePlanInstance:
         """
         Asynchronous coroutine to update the RatePlanInstance
 
@@ -403,7 +377,6 @@ class RatePlanContext(InstanceContext):
         :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
 
         :returns: The updated RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         data = values.of(
             {
@@ -420,26 +393,22 @@ class RatePlanContext(InstanceContext):
 
         return RatePlanInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Wireless.V1.RatePlanContext {}>".format(context)
 
 
 class RatePlanPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> RatePlanInstance:
         """
         Build an instance of RatePlanInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         return RatePlanInstance(self._version, payload)
 
@@ -457,10 +426,8 @@ class RatePlanList(ListResource):
         """
         Initialize the RatePlanList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.wireless.v1.rate_plan.RatePlanList
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanList
         """
         super().__init__(version)
 
@@ -479,7 +446,7 @@ class RatePlanList(ListResource):
         international_roaming=values.unset,
         national_roaming_data_limit=values.unset,
         international_roaming_data_limit=values.unset,
-    ):
+    ) -> RatePlanInstance:
         """
         Create the RatePlanInstance
 
@@ -496,7 +463,6 @@ class RatePlanList(ListResource):
         :param int international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
 
         :returns: The created RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         data = values.of(
             {
@@ -537,7 +503,7 @@ class RatePlanList(ListResource):
         international_roaming=values.unset,
         national_roaming_data_limit=values.unset,
         international_roaming_data_limit=values.unset,
-    ):
+    ) -> RatePlanInstance:
         """
         Asynchronously create the RatePlanInstance
 
@@ -554,7 +520,6 @@ class RatePlanList(ListResource):
         :param int international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
 
         :returns: The created RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
         data = values.of(
             {
@@ -582,7 +547,7 @@ class RatePlanList(ListResource):
 
         return RatePlanInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[RatePlanInstance]:
         """
         Streams RatePlanInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -597,14 +562,13 @@ class RatePlanList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.rate_plan.RatePlanInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[RatePlanInstance]:
         """
         Asynchronously streams RatePlanInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -619,14 +583,13 @@ class RatePlanList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.rate_plan.RatePlanInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[RatePlanInstance]:
         """
         Lists RatePlanInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -640,7 +603,6 @@ class RatePlanList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.rate_plan.RatePlanInstance]
         """
         return list(
             self.stream(
@@ -649,7 +611,7 @@ class RatePlanList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[RatePlanInstance]:
         """
         Asynchronously lists RatePlanInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -663,7 +625,6 @@ class RatePlanList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.rate_plan.RatePlanInstance]
         """
         return list(
             await self.stream_async(
@@ -674,7 +635,7 @@ class RatePlanList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> RatePlanPage:
         """
         Retrieve a single page of RatePlanInstance records from the API.
         Request is executed immediately
@@ -684,7 +645,6 @@ class RatePlanList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanPage
         """
         data = values.of(
             {
@@ -699,7 +659,7 @@ class RatePlanList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> RatePlanPage:
         """
         Asynchronously retrieve a single page of RatePlanInstance records from the API.
         Request is executed immediately
@@ -709,7 +669,6 @@ class RatePlanList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanPage
         """
         data = values.of(
             {
@@ -724,7 +683,7 @@ class RatePlanList(ListResource):
         )
         return RatePlanPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> RatePlanPage:
         """
         Retrieve a specific page of RatePlanInstance records from the API.
         Request is executed immediately
@@ -732,12 +691,11 @@ class RatePlanList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RatePlanPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> RatePlanPage:
         """
         Asynchronously retrieve a specific page of RatePlanInstance records from the API.
         Request is executed immediately
@@ -745,38 +703,30 @@ class RatePlanList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RatePlanInstance
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RatePlanPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> RatePlanContext:
         """
         Constructs a RatePlanContext
 
         :param sid: The SID of the RatePlan resource to update.
-
-        :returns: twilio.rest.wireless.v1.rate_plan.RatePlanContext
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         """
         return RatePlanContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> RatePlanContext:
         """
         Constructs a RatePlanContext
 
         :param sid: The SID of the RatePlan resource to update.
-
-        :returns: twilio.rest.wireless.v1.rate_plan.RatePlanContext
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         """
         return RatePlanContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Wireless.V1.RatePlanList>"

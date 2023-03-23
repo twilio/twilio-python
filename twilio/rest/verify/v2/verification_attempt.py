@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -36,9 +37,6 @@ class VerificationAttemptInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the VerificationAttemptInstance
-
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
         """
         super().__init__(version)
 
@@ -62,13 +60,12 @@ class VerificationAttemptInstance(InstanceResource):
         self._context: Optional[VerificationAttemptContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "VerificationAttemptContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: VerificationAttemptContext for this VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
         """
         if self._context is None:
             self._context = VerificationAttemptContext(
@@ -78,119 +75,105 @@ class VerificationAttemptInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The SID that uniquely identifies the verification attempt resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) used to generate the attempt.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def verification_sid(self):
+    def verification_sid(self) -> str:
         """
         :returns: The SID of the [Verification](https://www.twilio.com/docs/verify/api/verification) that generated the attempt.
-        :rtype: str
         """
         return self._properties["verification_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this Attempt was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this Attempt was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def conversion_status(self):
+    def conversion_status(self) -> "VerificationAttemptInstance.ConversionStatus":
         """
         :returns:
-        :rtype: VerificationAttemptInstance.ConversionStatus
         """
         return self._properties["conversion_status"]
 
     @property
-    def channel(self):
+    def channel(self) -> "VerificationAttemptInstance.Channels":
         """
         :returns:
-        :rtype: VerificationAttemptInstance.Channels
         """
         return self._properties["channel"]
 
     @property
-    def price(self):
+    def price(self) -> dict:
         """
         :returns: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
-        :rtype: dict
         """
         return self._properties["price"]
 
     @property
-    def channel_data(self):
+    def channel_data(self) -> dict:
         """
         :returns: An object containing the channel specific information for an attempt.
-        :rtype: dict
         """
         return self._properties["channel_data"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "VerificationAttemptInstance":
         """
         Fetch the VerificationAttemptInstance
 
 
         :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "VerificationAttemptInstance":
         """
         Asynchronous coroutine to fetch the VerificationAttemptInstance
 
 
         :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.VerificationAttemptInstance {}>".format(context)
@@ -201,11 +184,8 @@ class VerificationAttemptContext(InstanceContext):
         """
         Initialize the VerificationAttemptContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The unique SID identifier of a Verification Attempt
-
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
         """
         super().__init__(version)
 
@@ -215,13 +195,12 @@ class VerificationAttemptContext(InstanceContext):
         }
         self._uri = "/Attempts/{sid}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> VerificationAttemptInstance:
         """
         Fetch the VerificationAttemptInstance
 
 
         :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
         """
 
         payload = self._version.fetch(
@@ -235,13 +214,12 @@ class VerificationAttemptContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> VerificationAttemptInstance:
         """
         Asynchronous coroutine to fetch the VerificationAttemptInstance
 
 
         :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
         """
 
         payload = await self._version.fetch_async(
@@ -255,26 +233,22 @@ class VerificationAttemptContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.VerificationAttemptContext {}>".format(context)
 
 
 class VerificationAttemptPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> VerificationAttemptInstance:
         """
         Build an instance of VerificationAttemptInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
         """
         return VerificationAttemptInstance(self._version, payload)
 
@@ -292,10 +266,8 @@ class VerificationAttemptList(ListResource):
         """
         Initialize the VerificationAttemptList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptList
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptList
         """
         super().__init__(version)
 
@@ -313,7 +285,7 @@ class VerificationAttemptList(ListResource):
         status=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[VerificationAttemptInstance]:
         """
         Streams VerificationAttemptInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -324,10 +296,10 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param VerificationAttemptInstance.Channels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param VerificationAttemptInstance.ConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -336,7 +308,6 @@ class VerificationAttemptList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -365,7 +336,7 @@ class VerificationAttemptList(ListResource):
         status=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[VerificationAttemptInstance]:
         """
         Asynchronously streams VerificationAttemptInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -376,10 +347,10 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param VerificationAttemptInstance.Channels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param VerificationAttemptInstance.ConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -388,7 +359,6 @@ class VerificationAttemptList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -417,7 +387,7 @@ class VerificationAttemptList(ListResource):
         status=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[VerificationAttemptInstance]:
         """
         Lists VerificationAttemptInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -427,10 +397,10 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param VerificationAttemptInstance.Channels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param VerificationAttemptInstance.ConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -439,7 +409,6 @@ class VerificationAttemptList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance]
         """
         return list(
             self.stream(
@@ -468,7 +437,7 @@ class VerificationAttemptList(ListResource):
         status=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[VerificationAttemptInstance]:
         """
         Asynchronously lists VerificationAttemptInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -478,10 +447,10 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param VerificationAttemptInstance.Channels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param VerificationAttemptInstance.ConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -490,7 +459,6 @@ class VerificationAttemptList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance]
         """
         return list(
             await self.stream_async(
@@ -520,7 +488,7 @@ class VerificationAttemptList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> VerificationAttemptPage:
         """
         Retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
@@ -529,16 +497,15 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param VerificationAttemptInstance.Channels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param VerificationAttemptInstance.ConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptPage
         """
         data = values.of(
             {
@@ -572,7 +539,7 @@ class VerificationAttemptList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> VerificationAttemptPage:
         """
         Asynchronously retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
@@ -581,16 +548,15 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param VerificationAttemptInstance.Channels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param VerificationAttemptInstance.ConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptPage
         """
         data = values.of(
             {
@@ -613,7 +579,7 @@ class VerificationAttemptList(ListResource):
         )
         return VerificationAttemptPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> VerificationAttemptPage:
         """
         Retrieve a specific page of VerificationAttemptInstance records from the API.
         Request is executed immediately
@@ -621,12 +587,11 @@ class VerificationAttemptList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return VerificationAttemptPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> VerificationAttemptPage:
         """
         Asynchronously retrieve a specific page of VerificationAttemptInstance records from the API.
         Request is executed immediately
@@ -634,38 +599,30 @@ class VerificationAttemptList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return VerificationAttemptPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> VerificationAttemptContext:
         """
         Constructs a VerificationAttemptContext
 
         :param sid: The unique SID identifier of a Verification Attempt
-
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
         """
         return VerificationAttemptContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> VerificationAttemptContext:
         """
         Constructs a VerificationAttemptContext
 
         :param sid: The unique SID identifier of a Verification Attempt
-
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
         """
         return VerificationAttemptContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.VerificationAttemptList>"

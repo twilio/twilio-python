@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,9 +32,6 @@ class CredentialInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the CredentialInstance
-
-        :returns: twilio.rest.conversations.v1.credential.CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         super().__init__(version)
 
@@ -54,13 +52,12 @@ class CredentialInstance(InstanceResource):
         self._context: Optional[CredentialContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CredentialContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CredentialContext for this CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialContext
         """
         if self._context is None:
             self._context = CredentialContext(
@@ -70,106 +67,94 @@ class CredentialInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this credential.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The human-readable name of this credential, limited to 64 characters. Optional.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def type(self):
+    def type(self) -> "CredentialInstance.PushType":
         """
         :returns:
-        :rtype: CredentialInstance.PushType
         """
         return self._properties["type"]
 
     @property
-    def sandbox(self):
+    def sandbox(self) -> str:
         """
         :returns: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :rtype: str
         """
         return self._properties["sandbox"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: An absolute API resource URL for this credential.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CredentialInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CredentialInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "CredentialInstance":
         """
         Fetch the CredentialInstance
 
 
         :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CredentialInstance":
         """
         Asynchronous coroutine to fetch the CredentialInstance
 
 
         :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         return await self._proxy.fetch_async()
 
@@ -182,11 +167,11 @@ class CredentialInstance(InstanceResource):
         sandbox=values.unset,
         api_key=values.unset,
         secret=values.unset,
-    ):
+    ) -> "CredentialInstance":
         """
         Update the CredentialInstance
 
-        :param CredentialInstance.PushType type:
+        :param "CredentialInstance.PushType" type:
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
         :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
@@ -195,7 +180,6 @@ class CredentialInstance(InstanceResource):
         :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The updated CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         return self._proxy.update(
             type=type,
@@ -216,11 +200,11 @@ class CredentialInstance(InstanceResource):
         sandbox=values.unset,
         api_key=values.unset,
         secret=values.unset,
-    ):
+    ) -> "CredentialInstance":
         """
         Asynchronous coroutine to update the CredentialInstance
 
-        :param CredentialInstance.PushType type:
+        :param "CredentialInstance.PushType" type:
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
         :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
@@ -229,7 +213,6 @@ class CredentialInstance(InstanceResource):
         :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The updated CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         return await self._proxy.update_async(
             type=type,
@@ -241,12 +224,11 @@ class CredentialInstance(InstanceResource):
             secret=secret,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.CredentialInstance {}>".format(context)
@@ -257,11 +239,8 @@ class CredentialContext(InstanceContext):
         """
         Initialize the CredentialContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.credential.CredentialContext
-        :rtype: twilio.rest.conversations.v1.credential.CredentialContext
         """
         super().__init__(version)
 
@@ -271,39 +250,36 @@ class CredentialContext(InstanceContext):
         }
         self._uri = "/Credentials/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CredentialInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CredentialInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> CredentialInstance:
         """
         Fetch the CredentialInstance
 
 
         :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
 
         payload = self._version.fetch(
@@ -317,13 +293,12 @@ class CredentialContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CredentialInstance:
         """
         Asynchronous coroutine to fetch the CredentialInstance
 
 
         :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
 
         payload = await self._version.fetch_async(
@@ -346,11 +321,11 @@ class CredentialContext(InstanceContext):
         sandbox=values.unset,
         api_key=values.unset,
         secret=values.unset,
-    ):
+    ) -> CredentialInstance:
         """
         Update the CredentialInstance
 
-        :param CredentialInstance.PushType type:
+        :param "CredentialInstance.PushType" type:
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
         :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
@@ -359,7 +334,6 @@ class CredentialContext(InstanceContext):
         :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The updated CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         data = values.of(
             {
@@ -390,11 +364,11 @@ class CredentialContext(InstanceContext):
         sandbox=values.unset,
         api_key=values.unset,
         secret=values.unset,
-    ):
+    ) -> CredentialInstance:
         """
         Asynchronous coroutine to update the CredentialInstance
 
-        :param CredentialInstance.PushType type:
+        :param "CredentialInstance.PushType" type:
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
         :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
@@ -403,7 +377,6 @@ class CredentialContext(InstanceContext):
         :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The updated CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         data = values.of(
             {
@@ -425,26 +398,22 @@ class CredentialContext(InstanceContext):
 
         return CredentialInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.CredentialContext {}>".format(context)
 
 
 class CredentialPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CredentialInstance:
         """
         Build an instance of CredentialInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.credential.CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         return CredentialInstance(self._version, payload)
 
@@ -462,10 +431,8 @@ class CredentialList(ListResource):
         """
         Initialize the CredentialList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.conversations.v1.credential.CredentialList
-        :rtype: twilio.rest.conversations.v1.credential.CredentialList
         """
         super().__init__(version)
 
@@ -480,11 +447,11 @@ class CredentialList(ListResource):
         sandbox=values.unset,
         api_key=values.unset,
         secret=values.unset,
-    ):
+    ) -> CredentialInstance:
         """
         Create the CredentialInstance
 
-        :param CredentialInstance.PushType type:
+        :param &quot;CredentialInstance.PushType&quot; type:
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
         :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
@@ -493,7 +460,6 @@ class CredentialList(ListResource):
         :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The created CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         data = values.of(
             {
@@ -524,11 +490,11 @@ class CredentialList(ListResource):
         sandbox=values.unset,
         api_key=values.unset,
         secret=values.unset,
-    ):
+    ) -> CredentialInstance:
         """
         Asynchronously create the CredentialInstance
 
-        :param CredentialInstance.PushType type:
+        :param &quot;CredentialInstance.PushType&quot; type:
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
         :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
@@ -537,7 +503,6 @@ class CredentialList(ListResource):
         :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The created CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
         """
         data = values.of(
             {
@@ -559,7 +524,7 @@ class CredentialList(ListResource):
 
         return CredentialInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[CredentialInstance]:
         """
         Streams CredentialInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -574,14 +539,15 @@ class CredentialList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.credential.CredentialInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[CredentialInstance]:
         """
         Asynchronously streams CredentialInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -596,14 +562,13 @@ class CredentialList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.credential.CredentialInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[CredentialInstance]:
         """
         Lists CredentialInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -617,7 +582,6 @@ class CredentialList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.credential.CredentialInstance]
         """
         return list(
             self.stream(
@@ -626,7 +590,7 @@ class CredentialList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[CredentialInstance]:
         """
         Asynchronously lists CredentialInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -640,7 +604,6 @@ class CredentialList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.credential.CredentialInstance]
         """
         return list(
             await self.stream_async(
@@ -651,7 +614,7 @@ class CredentialList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> CredentialPage:
         """
         Retrieve a single page of CredentialInstance records from the API.
         Request is executed immediately
@@ -661,7 +624,6 @@ class CredentialList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialPage
         """
         data = values.of(
             {
@@ -676,7 +638,7 @@ class CredentialList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> CredentialPage:
         """
         Asynchronously retrieve a single page of CredentialInstance records from the API.
         Request is executed immediately
@@ -686,7 +648,6 @@ class CredentialList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialPage
         """
         data = values.of(
             {
@@ -701,7 +662,7 @@ class CredentialList(ListResource):
         )
         return CredentialPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CredentialPage:
         """
         Retrieve a specific page of CredentialInstance records from the API.
         Request is executed immediately
@@ -709,12 +670,11 @@ class CredentialList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CredentialPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CredentialPage:
         """
         Asynchronously retrieve a specific page of CredentialInstance records from the API.
         Request is executed immediately
@@ -722,38 +682,30 @@ class CredentialList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CredentialPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> CredentialContext:
         """
         Constructs a CredentialContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.credential.CredentialContext
-        :rtype: twilio.rest.conversations.v1.credential.CredentialContext
         """
         return CredentialContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> CredentialContext:
         """
         Constructs a CredentialContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.credential.CredentialContext
-        :rtype: twilio.rest.conversations.v1.credential.CredentialContext
         """
         return CredentialContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.CredentialList>"

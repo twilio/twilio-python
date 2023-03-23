@@ -25,9 +25,6 @@ class DefaultsInstance(InstanceResource):
     def __init__(self, version, payload, assistant_sid: str):
         """
         Initialize the DefaultsInstance
-
-        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         super().__init__(version)
 
@@ -44,13 +41,12 @@ class DefaultsInstance(InstanceResource):
         self._context: Optional[DefaultsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DefaultsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DefaultsContext for this DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
         """
         if self._context is None:
             self._context = DefaultsContext(
@@ -60,89 +56,80 @@ class DefaultsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Defaults resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def assistant_sid(self):
+    def assistant_sid(self) -> str:
         """
         :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
-        :rtype: str
         """
         return self._properties["assistant_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Defaults resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def data(self):
+    def data(self) -> dict:
         """
         :returns: The JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
-        :rtype: dict
         """
         return self._properties["data"]
 
-    def fetch(self):
+    def fetch(self) -> "DefaultsInstance":
         """
         Fetch the DefaultsInstance
 
 
         :returns: The fetched DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "DefaultsInstance":
         """
         Asynchronous coroutine to fetch the DefaultsInstance
 
 
         :returns: The fetched DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, defaults=values.unset):
+    def update(self, defaults=values.unset) -> "DefaultsInstance":
         """
         Update the DefaultsInstance
 
         :param object defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 
         :returns: The updated DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         return self._proxy.update(
             defaults=defaults,
         )
 
-    async def update_async(self, defaults=values.unset):
+    async def update_async(self, defaults=values.unset) -> "DefaultsInstance":
         """
         Asynchronous coroutine to update the DefaultsInstance
 
         :param object defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 
         :returns: The updated DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         return await self._proxy.update_async(
             defaults=defaults,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.DefaultsInstance {}>".format(context)
@@ -153,11 +140,8 @@ class DefaultsContext(InstanceContext):
         """
         Initialize the DefaultsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
         """
         super().__init__(version)
 
@@ -167,13 +151,12 @@ class DefaultsContext(InstanceContext):
         }
         self._uri = "/Assistants/{assistant_sid}/Defaults".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> DefaultsInstance:
         """
         Fetch the DefaultsInstance
 
 
         :returns: The fetched DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
 
         payload = self._version.fetch(
@@ -187,13 +170,12 @@ class DefaultsContext(InstanceContext):
             assistant_sid=self._solution["assistant_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> DefaultsInstance:
         """
         Asynchronous coroutine to fetch the DefaultsInstance
 
 
         :returns: The fetched DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
 
         payload = await self._version.fetch_async(
@@ -207,14 +189,13 @@ class DefaultsContext(InstanceContext):
             assistant_sid=self._solution["assistant_sid"],
         )
 
-    def update(self, defaults=values.unset):
+    def update(self, defaults=values.unset) -> DefaultsInstance:
         """
         Update the DefaultsInstance
 
         :param object defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 
         :returns: The updated DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         data = values.of(
             {
@@ -232,14 +213,13 @@ class DefaultsContext(InstanceContext):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    async def update_async(self, defaults=values.unset):
+    async def update_async(self, defaults=values.unset) -> DefaultsInstance:
         """
         Asynchronous coroutine to update the DefaultsInstance
 
         :param object defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 
         :returns: The updated DefaultsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         data = values.of(
             {
@@ -257,12 +237,11 @@ class DefaultsContext(InstanceContext):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.DefaultsContext {}>".format(context)
@@ -273,11 +252,9 @@ class DefaultsList(ListResource):
         """
         Initialize the DefaultsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
 
-        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsList
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsList
         """
         super().__init__(version)
 
@@ -286,35 +263,28 @@ class DefaultsList(ListResource):
             "assistant_sid": assistant_sid,
         }
 
-    def get(self):
+    def get(self) -> DefaultsContext:
         """
         Constructs a DefaultsContext
 
-
-        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
         """
         return DefaultsContext(
             self._version, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def __call__(self):
+    def __call__(self) -> DefaultsContext:
         """
         Constructs a DefaultsContext
 
-
-        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
         """
         return DefaultsContext(
             self._version, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Autopilot.V1.DefaultsList>"

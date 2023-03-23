@@ -24,9 +24,6 @@ class OauthInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the OauthInstance
-
-        :returns: twilio.rest.oauth.v1.oauth.OauthInstance
-        :rtype: twilio.rest.oauth.v1.oauth.OauthInstance
         """
         super().__init__(version)
 
@@ -39,13 +36,12 @@ class OauthInstance(InstanceResource):
         self._context: Optional[OauthContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "OauthContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: OauthContext for this OauthInstance
-        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
         """
         if self._context is None:
             self._context = OauthContext(
@@ -54,47 +50,42 @@ class OauthInstance(InstanceResource):
         return self._context
 
     @property
-    def keys(self):
+    def keys(self) -> dict:
         """
         :returns: A collection of certificates where are signed Twilio-issued tokens.
-        :rtype: dict
         """
         return self._properties["keys"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "OauthInstance":
         """
         Fetch the OauthInstance
 
 
         :returns: The fetched OauthInstance
-        :rtype: twilio.rest.oauth.v1.oauth.OauthInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "OauthInstance":
         """
         Asynchronous coroutine to fetch the OauthInstance
 
 
         :returns: The fetched OauthInstance
-        :rtype: twilio.rest.oauth.v1.oauth.OauthInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Oauth.V1.OauthInstance {}>".format(context)
@@ -105,22 +96,18 @@ class OauthContext(InstanceContext):
         """
         Initialize the OauthContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.oauth.v1.oauth.OauthContext
-        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
         self._uri = "/certs"
 
-    def fetch(self):
+    def fetch(self) -> OauthInstance:
         """
         Fetch the OauthInstance
 
 
         :returns: The fetched OauthInstance
-        :rtype: twilio.rest.oauth.v1.oauth.OauthInstance
         """
 
         payload = self._version.fetch(
@@ -133,13 +120,12 @@ class OauthContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> OauthInstance:
         """
         Asynchronous coroutine to fetch the OauthInstance
 
 
         :returns: The fetched OauthInstance
-        :rtype: twilio.rest.oauth.v1.oauth.OauthInstance
         """
 
         payload = await self._version.fetch_async(
@@ -152,12 +138,11 @@ class OauthContext(InstanceContext):
             payload,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.Oauth.V1.OauthContext>"
@@ -168,38 +153,29 @@ class OauthList(ListResource):
         """
         Initialize the OauthList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.oauth.v1.oauth.OauthList
-        :rtype: twilio.rest.oauth.v1.oauth.OauthList
         """
         super().__init__(version)
 
-    def get(self):
+    def get(self) -> OauthContext:
         """
         Constructs a OauthContext
 
-
-        :returns: twilio.rest.oauth.v1.oauth.OauthContext
-        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
         """
         return OauthContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> OauthContext:
         """
         Constructs a OauthContext
 
-
-        :returns: twilio.rest.oauth.v1.oauth.OauthContext
-        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
         """
         return OauthContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Oauth.V1.OauthList>"

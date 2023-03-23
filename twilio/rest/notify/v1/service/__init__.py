@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,9 +29,6 @@ class ServiceInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the ServiceInstance
-
-        :returns: twilio.rest.notify.v1.service.ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         super().__init__(version)
 
@@ -71,13 +69,12 @@ class ServiceInstance(InstanceResource):
         self._context: Optional[ServiceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ServiceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(
@@ -87,202 +84,178 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Service resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def apn_credential_sid(self):
+    def apn_credential_sid(self) -> str:
         """
         :returns: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-        :rtype: str
         """
         return self._properties["apn_credential_sid"]
 
     @property
-    def gcm_credential_sid(self):
+    def gcm_credential_sid(self) -> str:
         """
         :returns: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :rtype: str
         """
         return self._properties["gcm_credential_sid"]
 
     @property
-    def fcm_credential_sid(self):
+    def fcm_credential_sid(self) -> str:
         """
         :returns: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-        :rtype: str
         """
         return self._properties["fcm_credential_sid"]
 
     @property
-    def messaging_service_sid(self):
+    def messaging_service_sid(self) -> str:
         """
         :returns: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
-        :rtype: str
         """
         return self._properties["messaging_service_sid"]
 
     @property
-    def facebook_messenger_page_id(self):
+    def facebook_messenger_page_id(self) -> str:
         """
         :returns: Deprecated.
-        :rtype: str
         """
         return self._properties["facebook_messenger_page_id"]
 
     @property
-    def default_apn_notification_protocol_version(self):
+    def default_apn_notification_protocol_version(self) -> str:
         """
         :returns: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :rtype: str
         """
         return self._properties["default_apn_notification_protocol_version"]
 
     @property
-    def default_gcm_notification_protocol_version(self):
+    def default_gcm_notification_protocol_version(self) -> str:
         """
         :returns: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :rtype: str
         """
         return self._properties["default_gcm_notification_protocol_version"]
 
     @property
-    def default_fcm_notification_protocol_version(self):
+    def default_fcm_notification_protocol_version(self) -> str:
         """
         :returns: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :rtype: str
         """
         return self._properties["default_fcm_notification_protocol_version"]
 
     @property
-    def log_enabled(self):
+    def log_enabled(self) -> bool:
         """
         :returns: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
-        :rtype: bool
         """
         return self._properties["log_enabled"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Service resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of the Binding, Notification, Segment, and User resources related to the service.
-        :rtype: dict
         """
         return self._properties["links"]
 
     @property
-    def alexa_skill_id(self):
+    def alexa_skill_id(self) -> str:
         """
         :returns: Deprecated.
-        :rtype: str
         """
         return self._properties["alexa_skill_id"]
 
     @property
-    def default_alexa_notification_protocol_version(self):
+    def default_alexa_notification_protocol_version(self) -> str:
         """
         :returns: Deprecated.
-        :rtype: str
         """
         return self._properties["default_alexa_notification_protocol_version"]
 
     @property
-    def delivery_callback_url(self):
+    def delivery_callback_url(self) -> str:
         """
         :returns: URL to send delivery status callback.
-        :rtype: str
         """
         return self._properties["delivery_callback_url"]
 
     @property
-    def delivery_callback_enabled(self):
+    def delivery_callback_enabled(self) -> bool:
         """
         :returns: Callback configuration that enables delivery callbacks, default false
-        :rtype: bool
         """
         return self._properties["delivery_callback_enabled"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         return await self._proxy.fetch_async()
 
@@ -302,7 +275,7 @@ class ServiceInstance(InstanceResource):
         default_alexa_notification_protocol_version=values.unset,
         delivery_callback_url=values.unset,
         delivery_callback_enabled=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
@@ -322,7 +295,6 @@ class ServiceInstance(InstanceResource):
         :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -357,7 +329,7 @@ class ServiceInstance(InstanceResource):
         default_alexa_notification_protocol_version=values.unset,
         delivery_callback_url=values.unset,
         delivery_callback_enabled=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -377,7 +349,6 @@ class ServiceInstance(InstanceResource):
         :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -397,31 +368,24 @@ class ServiceInstance(InstanceResource):
         )
 
     @property
-    def bindings(self):
+    def bindings(self) -> BindingList:
         """
         Access the bindings
-
-        :returns: twilio.rest.notify.v1.service.BindingList
-        :rtype: twilio.rest.notify.v1.service.BindingList
         """
         return self._proxy.bindings
 
     @property
-    def notifications(self):
+    def notifications(self) -> NotificationList:
         """
         Access the notifications
-
-        :returns: twilio.rest.notify.v1.service.NotificationList
-        :rtype: twilio.rest.notify.v1.service.NotificationList
         """
         return self._proxy.notifications
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Notify.V1.ServiceInstance {}>".format(context)
@@ -432,11 +396,8 @@ class ServiceContext(InstanceContext):
         """
         Initialize the ServiceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.notify.v1.service.ServiceContext
-        :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
         super().__init__(version)
 
@@ -449,39 +410,36 @@ class ServiceContext(InstanceContext):
         self._bindings: Optional[BindingList] = None
         self._notifications: Optional[NotificationList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
 
         payload = self._version.fetch(
@@ -495,13 +453,12 @@ class ServiceContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -531,7 +488,7 @@ class ServiceContext(InstanceContext):
         default_alexa_notification_protocol_version=values.unset,
         delivery_callback_url=values.unset,
         delivery_callback_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
@@ -551,7 +508,6 @@ class ServiceContext(InstanceContext):
         :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -596,7 +552,7 @@ class ServiceContext(InstanceContext):
         default_alexa_notification_protocol_version=values.unset,
         delivery_callback_url=values.unset,
         delivery_callback_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -616,7 +572,6 @@ class ServiceContext(InstanceContext):
         :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -646,12 +601,9 @@ class ServiceContext(InstanceContext):
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def bindings(self):
+    def bindings(self) -> BindingList:
         """
         Access the bindings
-
-        :returns: twilio.rest.notify.v1.service.BindingList
-        :rtype: twilio.rest.notify.v1.service.BindingList
         """
         if self._bindings is None:
             self._bindings = BindingList(
@@ -661,12 +613,9 @@ class ServiceContext(InstanceContext):
         return self._bindings
 
     @property
-    def notifications(self):
+    def notifications(self) -> NotificationList:
         """
         Access the notifications
-
-        :returns: twilio.rest.notify.v1.service.NotificationList
-        :rtype: twilio.rest.notify.v1.service.NotificationList
         """
         if self._notifications is None:
             self._notifications = NotificationList(
@@ -675,26 +624,22 @@ class ServiceContext(InstanceContext):
             )
         return self._notifications
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Notify.V1.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.notify.v1.service.ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         return ServiceInstance(self._version, payload)
 
@@ -712,10 +657,8 @@ class ServiceList(ListResource):
         """
         Initialize the ServiceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.notify.v1.service.ServiceList
-        :rtype: twilio.rest.notify.v1.service.ServiceList
         """
         super().__init__(version)
 
@@ -737,7 +680,7 @@ class ServiceList(ListResource):
         default_alexa_notification_protocol_version=values.unset,
         delivery_callback_url=values.unset,
         delivery_callback_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
@@ -757,7 +700,6 @@ class ServiceList(ListResource):
         :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -802,7 +744,7 @@ class ServiceList(ListResource):
         default_alexa_notification_protocol_version=values.unset,
         delivery_callback_url=values.unset,
         delivery_callback_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
@@ -822,7 +764,6 @@ class ServiceList(ListResource):
         :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -851,7 +792,9 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
+    def stream(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -867,7 +810,6 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
@@ -876,7 +818,7 @@ class ServiceList(ListResource):
 
     async def stream_async(
         self, friendly_name=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -892,7 +834,6 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -901,7 +842,9 @@ class ServiceList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, friendly_name=values.unset, limit=None, page_size=None):
+    def list(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -916,7 +859,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.service.ServiceInstance]
         """
         return list(
             self.stream(
@@ -926,7 +868,9 @@ class ServiceList(ListResource):
             )
         )
 
-    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -941,7 +885,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.service.ServiceInstance]
         """
         return list(
             await self.stream_async(
@@ -957,7 +900,7 @@ class ServiceList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -968,7 +911,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServicePage
         """
         data = values.of(
             {
@@ -988,7 +930,7 @@ class ServiceList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -999,7 +941,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServicePage
         """
         data = values.of(
             {
@@ -1015,7 +956,7 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1023,12 +964,11 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServicePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1036,38 +976,30 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServicePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.notify.v1.service.ServiceContext
-        :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.notify.v1.service.ServiceContext
-        :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Notify.V1.ServiceList>"

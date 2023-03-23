@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,9 +31,6 @@ class ConfigurationInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the ConfigurationInstance
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
         super().__init__(version)
 
@@ -96,13 +94,12 @@ class ConfigurationInstance(InstanceResource):
         self._context: Optional[ConfigurationContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ConfigurationContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ConfigurationContext for this ConfigurationInstance
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
         """
         if self._context is None:
             self._context = ConfigurationContext(
@@ -111,397 +108,349 @@ class ConfigurationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Configuration resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the Configuration resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the Configuration resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def attributes(self):
+    def attributes(self) -> dict:
         """
         :returns: An object that contains application-specific data.
-        :rtype: dict
         """
         return self._properties["attributes"]
 
     @property
-    def status(self):
+    def status(self) -> "ConfigurationInstance.Status":
         """
         :returns:
-        :rtype: ConfigurationInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def taskrouter_workspace_sid(self):
+    def taskrouter_workspace_sid(self) -> str:
         """
         :returns: The SID of the TaskRouter Workspace.
-        :rtype: str
         """
         return self._properties["taskrouter_workspace_sid"]
 
     @property
-    def taskrouter_target_workflow_sid(self):
+    def taskrouter_target_workflow_sid(self) -> str:
         """
         :returns: The SID of the TaskRouter target Workflow.
-        :rtype: str
         """
         return self._properties["taskrouter_target_workflow_sid"]
 
     @property
-    def taskrouter_target_taskqueue_sid(self):
+    def taskrouter_target_taskqueue_sid(self) -> str:
         """
         :returns: The SID of the TaskRouter Target TaskQueue.
-        :rtype: str
         """
         return self._properties["taskrouter_target_taskqueue_sid"]
 
     @property
-    def taskrouter_taskqueues(self):
+    def taskrouter_taskqueues(self) -> List[object]:
         """
         :returns: The list of TaskRouter TaskQueues.
-        :rtype: List[object]
         """
         return self._properties["taskrouter_taskqueues"]
 
     @property
-    def taskrouter_skills(self):
+    def taskrouter_skills(self) -> List[object]:
         """
         :returns: The Skill description for TaskRouter workers.
-        :rtype: List[object]
         """
         return self._properties["taskrouter_skills"]
 
     @property
-    def taskrouter_worker_channels(self):
+    def taskrouter_worker_channels(self) -> dict:
         """
         :returns: The TaskRouter default channel capacities and availability for workers.
-        :rtype: dict
         """
         return self._properties["taskrouter_worker_channels"]
 
     @property
-    def taskrouter_worker_attributes(self):
+    def taskrouter_worker_attributes(self) -> dict:
         """
         :returns: The TaskRouter Worker attributes.
-        :rtype: dict
         """
         return self._properties["taskrouter_worker_attributes"]
 
     @property
-    def taskrouter_offline_activity_sid(self):
+    def taskrouter_offline_activity_sid(self) -> str:
         """
         :returns: The TaskRouter SID of the offline activity.
-        :rtype: str
         """
         return self._properties["taskrouter_offline_activity_sid"]
 
     @property
-    def runtime_domain(self):
+    def runtime_domain(self) -> str:
         """
         :returns: The URL where the Flex instance is hosted.
-        :rtype: str
         """
         return self._properties["runtime_domain"]
 
     @property
-    def messaging_service_instance_sid(self):
+    def messaging_service_instance_sid(self) -> str:
         """
         :returns: The SID of the Messaging service instance.
-        :rtype: str
         """
         return self._properties["messaging_service_instance_sid"]
 
     @property
-    def chat_service_instance_sid(self):
+    def chat_service_instance_sid(self) -> str:
         """
         :returns: The SID of the chat service this user belongs to.
-        :rtype: str
         """
         return self._properties["chat_service_instance_sid"]
 
     @property
-    def flex_service_instance_sid(self):
+    def flex_service_instance_sid(self) -> str:
         """
         :returns: The SID of the Flex service instance.
-        :rtype: str
         """
         return self._properties["flex_service_instance_sid"]
 
     @property
-    def ui_language(self):
+    def ui_language(self) -> str:
         """
         :returns: The primary language of the Flex UI.
-        :rtype: str
         """
         return self._properties["ui_language"]
 
     @property
-    def ui_attributes(self):
+    def ui_attributes(self) -> dict:
         """
         :returns: The object that describes Flex UI characteristics and settings.
-        :rtype: dict
         """
         return self._properties["ui_attributes"]
 
     @property
-    def ui_dependencies(self):
+    def ui_dependencies(self) -> dict:
         """
         :returns: The object that defines the NPM packages and versions to be used in Hosted Flex.
-        :rtype: dict
         """
         return self._properties["ui_dependencies"]
 
     @property
-    def ui_version(self):
+    def ui_version(self) -> str:
         """
         :returns: The Pinned UI version.
-        :rtype: str
         """
         return self._properties["ui_version"]
 
     @property
-    def service_version(self):
+    def service_version(self) -> str:
         """
         :returns: The Flex Service version.
-        :rtype: str
         """
         return self._properties["service_version"]
 
     @property
-    def call_recording_enabled(self):
+    def call_recording_enabled(self) -> bool:
         """
         :returns: Whether call recording is enabled.
-        :rtype: bool
         """
         return self._properties["call_recording_enabled"]
 
     @property
-    def call_recording_webhook_url(self):
+    def call_recording_webhook_url(self) -> str:
         """
         :returns: The call recording webhook URL.
-        :rtype: str
         """
         return self._properties["call_recording_webhook_url"]
 
     @property
-    def crm_enabled(self):
+    def crm_enabled(self) -> bool:
         """
         :returns: Whether CRM is present for Flex.
-        :rtype: bool
         """
         return self._properties["crm_enabled"]
 
     @property
-    def crm_type(self):
+    def crm_type(self) -> str:
         """
         :returns: The CRM type.
-        :rtype: str
         """
         return self._properties["crm_type"]
 
     @property
-    def crm_callback_url(self):
+    def crm_callback_url(self) -> str:
         """
         :returns: The CRM Callback URL.
-        :rtype: str
         """
         return self._properties["crm_callback_url"]
 
     @property
-    def crm_fallback_url(self):
+    def crm_fallback_url(self) -> str:
         """
         :returns: The CRM Fallback URL.
-        :rtype: str
         """
         return self._properties["crm_fallback_url"]
 
     @property
-    def crm_attributes(self):
+    def crm_attributes(self) -> dict:
         """
         :returns: An object that contains the CRM attributes.
-        :rtype: dict
         """
         return self._properties["crm_attributes"]
 
     @property
-    def public_attributes(self):
+    def public_attributes(self) -> dict:
         """
         :returns: The list of public attributes, which are visible to unauthenticated clients.
-        :rtype: dict
         """
         return self._properties["public_attributes"]
 
     @property
-    def plugin_service_enabled(self):
+    def plugin_service_enabled(self) -> bool:
         """
         :returns: Whether the plugin service enabled.
-        :rtype: bool
         """
         return self._properties["plugin_service_enabled"]
 
     @property
-    def plugin_service_attributes(self):
+    def plugin_service_attributes(self) -> dict:
         """
         :returns: The plugin service attributes.
-        :rtype: dict
         """
         return self._properties["plugin_service_attributes"]
 
     @property
-    def integrations(self):
+    def integrations(self) -> List[object]:
         """
         :returns: A list of objects that contain the configurations for the Integrations supported in this configuration.
-        :rtype: List[object]
         """
         return self._properties["integrations"]
 
     @property
-    def outbound_call_flows(self):
+    def outbound_call_flows(self) -> dict:
         """
         :returns: The list of outbound call flows.
-        :rtype: dict
         """
         return self._properties["outbound_call_flows"]
 
     @property
-    def serverless_service_sids(self):
+    def serverless_service_sids(self) -> List[str]:
         """
         :returns: The list of serverless service SIDs.
-        :rtype: List[str]
         """
         return self._properties["serverless_service_sids"]
 
     @property
-    def queue_stats_configuration(self):
+    def queue_stats_configuration(self) -> dict:
         """
         :returns: Configurable parameters for Queues Statistics.
-        :rtype: dict
         """
         return self._properties["queue_stats_configuration"]
 
     @property
-    def notifications(self):
+    def notifications(self) -> dict:
         """
         :returns: Configurable parameters for Notifications.
-        :rtype: dict
         """
         return self._properties["notifications"]
 
     @property
-    def markdown(self):
+    def markdown(self) -> dict:
         """
         :returns: Configurable parameters for Markdown.
-        :rtype: dict
         """
         return self._properties["markdown"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Configuration resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def flex_insights_hr(self):
+    def flex_insights_hr(self) -> dict:
         """
         :returns: Object with enabled/disabled flag with list of workspaces.
-        :rtype: dict
         """
         return self._properties["flex_insights_hr"]
 
     @property
-    def flex_insights_drilldown(self):
+    def flex_insights_drilldown(self) -> bool:
         """
         :returns: Setting this to true will redirect Flex UI to the URL set in flex_url
-        :rtype: bool
         """
         return self._properties["flex_insights_drilldown"]
 
     @property
-    def flex_url(self):
+    def flex_url(self) -> str:
         """
         :returns: URL to redirect to in case drilldown is enabled.
-        :rtype: str
         """
         return self._properties["flex_url"]
 
     @property
-    def channel_configs(self):
+    def channel_configs(self) -> List[object]:
         """
         :returns: Settings for different limits for Flex Conversations channels attachments.
-        :rtype: List[object]
         """
         return self._properties["channel_configs"]
 
     @property
-    def debugger_integration(self):
+    def debugger_integration(self) -> dict:
         """
         :returns: Configurable parameters for Debugger Integration.
-        :rtype: dict
         """
         return self._properties["debugger_integration"]
 
     @property
-    def flex_ui_status_report(self):
+    def flex_ui_status_report(self) -> dict:
         """
         :returns: Configurable parameters for Flex UI Status report.
-        :rtype: dict
         """
         return self._properties["flex_ui_status_report"]
 
-    def fetch(self, ui_version=values.unset):
+    def fetch(self, ui_version=values.unset) -> "ConfigurationInstance":
         """
         Fetch the ConfigurationInstance
 
         :param str ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
         return self._proxy.fetch(
             ui_version=ui_version,
         )
 
-    async def fetch_async(self, ui_version=values.unset):
+    async def fetch_async(self, ui_version=values.unset) -> "ConfigurationInstance":
         """
         Asynchronous coroutine to fetch the ConfigurationInstance
 
         :param str ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
         return await self._proxy.fetch_async(
             ui_version=ui_version,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.ConfigurationInstance {}>".format(context)
@@ -512,23 +461,19 @@ class ConfigurationContext(InstanceContext):
         """
         Initialize the ConfigurationContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
         self._uri = "/Configuration"
 
-    def fetch(self, ui_version=values.unset):
+    def fetch(self, ui_version=values.unset) -> ConfigurationInstance:
         """
         Fetch the ConfigurationInstance
 
         :param str ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
 
         data = values.of(
@@ -544,14 +489,13 @@ class ConfigurationContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self, ui_version=values.unset):
+    async def fetch_async(self, ui_version=values.unset) -> ConfigurationInstance:
         """
         Asynchronous coroutine to fetch the ConfigurationInstance
 
         :param str ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
 
         data = values.of(
@@ -569,12 +513,11 @@ class ConfigurationContext(InstanceContext):
             payload,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.FlexApi.V1.ConfigurationContext>"
@@ -585,38 +528,29 @@ class ConfigurationList(ListResource):
         """
         Initialize the ConfigurationList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationList
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationList
         """
         super().__init__(version)
 
-    def get(self):
+    def get(self) -> ConfigurationContext:
         """
         Constructs a ConfigurationContext
 
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
         """
         return ConfigurationContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> ConfigurationContext:
         """
         Constructs a ConfigurationContext
 
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
         """
         return ConfigurationContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.ConfigurationList>"

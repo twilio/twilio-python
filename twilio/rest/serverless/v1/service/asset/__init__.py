@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,9 +28,6 @@ class AssetInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the AssetInstance
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         super().__init__(version)
 
@@ -51,13 +49,12 @@ class AssetInstance(InstanceResource):
         self._context: Optional[AssetContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AssetContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AssetContext for this AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
         """
         if self._context is None:
             self._context = AssetContext(
@@ -68,151 +65,133 @@ class AssetInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Asset resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Asset resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the Service that the Asset resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the Asset resource. It can be a maximum of 255 characters.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the Asset resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the Asset resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Asset resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of the Asset resource's nested resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AssetInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AssetInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "AssetInstance":
         """
         Fetch the AssetInstance
 
 
         :returns: The fetched AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AssetInstance":
         """
         Asynchronous coroutine to fetch the AssetInstance
 
 
         :returns: The fetched AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name):
+    def update(self, friendly_name) -> "AssetInstance":
         """
         Update the AssetInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The updated AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, friendly_name):
+    async def update_async(self, friendly_name) -> "AssetInstance":
         """
         Asynchronous coroutine to update the AssetInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The updated AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
         )
 
     @property
-    def asset_versions(self):
+    def asset_versions(self) -> AssetVersionList:
         """
         Access the asset_versions
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetVersionList
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetVersionList
         """
         return self._proxy.asset_versions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.AssetInstance {}>".format(context)
@@ -223,12 +202,9 @@ class AssetContext(InstanceContext):
         """
         Initialize the AssetContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to update the Asset resource from.
         :param sid: The SID that identifies the Asset resource to update.
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetContext
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
         """
         super().__init__(version)
 
@@ -241,39 +217,36 @@ class AssetContext(InstanceContext):
 
         self._asset_versions: Optional[AssetVersionList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AssetInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AssetInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> AssetInstance:
         """
         Fetch the AssetInstance
 
 
         :returns: The fetched AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
 
         payload = self._version.fetch(
@@ -288,13 +261,12 @@ class AssetContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AssetInstance:
         """
         Asynchronous coroutine to fetch the AssetInstance
 
 
         :returns: The fetched AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
 
         payload = await self._version.fetch_async(
@@ -309,14 +281,13 @@ class AssetContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name):
+    def update(self, friendly_name) -> AssetInstance:
         """
         Update the AssetInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The updated AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         data = values.of(
             {
@@ -337,14 +308,13 @@ class AssetContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name):
+    async def update_async(self, friendly_name) -> AssetInstance:
         """
         Asynchronous coroutine to update the AssetInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The updated AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         data = values.of(
             {
@@ -366,12 +336,9 @@ class AssetContext(InstanceContext):
         )
 
     @property
-    def asset_versions(self):
+    def asset_versions(self) -> AssetVersionList:
         """
         Access the asset_versions
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetVersionList
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetVersionList
         """
         if self._asset_versions is None:
             self._asset_versions = AssetVersionList(
@@ -381,26 +348,22 @@ class AssetContext(InstanceContext):
             )
         return self._asset_versions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.AssetContext {}>".format(context)
 
 
 class AssetPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AssetInstance:
         """
         Build an instance of AssetInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         return AssetInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -420,11 +383,9 @@ class AssetList(ListResource):
         """
         Initialize the AssetList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Asset resources from.
 
-        :returns: twilio.rest.serverless.v1.service.asset.AssetList
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetList
         """
         super().__init__(version)
 
@@ -434,14 +395,13 @@ class AssetList(ListResource):
         }
         self._uri = "/Services/{service_sid}/Assets".format(**self._solution)
 
-    def create(self, friendly_name):
+    def create(self, friendly_name) -> AssetInstance:
         """
         Create the AssetInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The created AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         data = values.of(
             {
@@ -459,14 +419,13 @@ class AssetList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    async def create_async(self, friendly_name):
+    async def create_async(self, friendly_name) -> AssetInstance:
         """
         Asynchronously create the AssetInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The created AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         data = values.of(
             {
@@ -484,7 +443,7 @@ class AssetList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[AssetInstance]:
         """
         Streams AssetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -499,14 +458,13 @@ class AssetList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.asset.AssetInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[AssetInstance]:
         """
         Asynchronously streams AssetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -521,14 +479,13 @@ class AssetList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.asset.AssetInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[AssetInstance]:
         """
         Lists AssetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -542,7 +499,6 @@ class AssetList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.asset.AssetInstance]
         """
         return list(
             self.stream(
@@ -551,7 +507,7 @@ class AssetList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[AssetInstance]:
         """
         Asynchronously lists AssetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -565,7 +521,6 @@ class AssetList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.asset.AssetInstance]
         """
         return list(
             await self.stream_async(
@@ -576,7 +531,7 @@ class AssetList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AssetPage:
         """
         Retrieve a single page of AssetInstance records from the API.
         Request is executed immediately
@@ -586,7 +541,6 @@ class AssetList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetPage
         """
         data = values.of(
             {
@@ -601,7 +555,7 @@ class AssetList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AssetPage:
         """
         Asynchronously retrieve a single page of AssetInstance records from the API.
         Request is executed immediately
@@ -611,7 +565,6 @@ class AssetList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetPage
         """
         data = values.of(
             {
@@ -626,7 +579,7 @@ class AssetList(ListResource):
         )
         return AssetPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AssetPage:
         """
         Retrieve a specific page of AssetInstance records from the API.
         Request is executed immediately
@@ -634,12 +587,11 @@ class AssetList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AssetPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AssetPage:
         """
         Asynchronously retrieve a specific page of AssetInstance records from the API.
         Request is executed immediately
@@ -647,42 +599,34 @@ class AssetList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssetPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> AssetContext:
         """
         Constructs a AssetContext
 
         :param sid: The SID that identifies the Asset resource to update.
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetContext
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
         """
         return AssetContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> AssetContext:
         """
         Constructs a AssetContext
 
         :param sid: The SID that identifies the Asset resource to update.
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetContext
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
         """
         return AssetContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Serverless.V1.AssetList>"

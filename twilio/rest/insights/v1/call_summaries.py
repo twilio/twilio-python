@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import datetime
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -64,9 +66,6 @@ class CallSummariesInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the CallSummariesInstance
-
-        :returns: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
-        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
         """
         super().__init__(version)
 
@@ -98,201 +97,175 @@ class CallSummariesInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def answered_by(self):
+    def answered_by(self) -> "CallSummariesInstance.AnsweredBy":
         """
         :returns:
-        :rtype: CallSummariesInstance.AnsweredBy
         """
         return self._properties["answered_by"]
 
     @property
-    def call_type(self):
+    def call_type(self) -> "CallSummariesInstance.CallType":
         """
         :returns:
-        :rtype: CallSummariesInstance.CallType
         """
         return self._properties["call_type"]
 
     @property
-    def call_state(self):
+    def call_state(self) -> "CallSummariesInstance.CallState":
         """
         :returns:
-        :rtype: CallSummariesInstance.CallState
         """
         return self._properties["call_state"]
 
     @property
-    def processing_state(self):
+    def processing_state(self) -> "CallSummariesInstance.ProcessingState":
         """
         :returns:
-        :rtype: CallSummariesInstance.ProcessingState
         """
         return self._properties["processing_state"]
 
     @property
-    def created_time(self):
+    def created_time(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["created_time"]
 
     @property
-    def start_time(self):
+    def start_time(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["start_time"]
 
     @property
-    def end_time(self):
+    def end_time(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["end_time"]
 
     @property
-    def duration(self):
+    def duration(self) -> int:
         """
         :returns:
-        :rtype: int
         """
         return self._properties["duration"]
 
     @property
-    def connect_duration(self):
+    def connect_duration(self) -> int:
         """
         :returns:
-        :rtype: int
         """
         return self._properties["connect_duration"]
 
     @property
-    def _from(self):
+    def _from(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["_from"]
 
     @property
-    def to(self):
+    def to(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["to"]
 
     @property
-    def carrier_edge(self):
+    def carrier_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["carrier_edge"]
 
     @property
-    def client_edge(self):
+    def client_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["client_edge"]
 
     @property
-    def sdk_edge(self):
+    def sdk_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["sdk_edge"]
 
     @property
-    def sip_edge(self):
+    def sip_edge(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["sip_edge"]
 
     @property
-    def tags(self):
+    def tags(self) -> List[str]:
         """
         :returns:
-        :rtype: List[str]
         """
         return self._properties["tags"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def attributes(self):
+    def attributes(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["attributes"]
 
     @property
-    def properties(self):
+    def properties(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["properties"]
 
     @property
-    def trust(self):
+    def trust(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["trust"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.CallSummariesInstance {}>".format(context)
 
 
 class CallSummariesPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CallSummariesInstance:
         """
         Build an instance of CallSummariesInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
-        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
         """
         return CallSummariesInstance(self._version, payload)
 
@@ -310,10 +283,8 @@ class CallSummariesList(ListResource):
         """
         Initialize the CallSummariesList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.insights.v1.call_summaries.CallSummariesList
-        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesList
         """
         super().__init__(version)
 
@@ -341,7 +312,7 @@ class CallSummariesList(ListResource):
         abnormal_session=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CallSummariesInstance]:
         """
         Streams CallSummariesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -362,8 +333,8 @@ class CallSummariesList(ListResource):
         :param str call_type:
         :param str call_state:
         :param str direction:
-        :param CallSummariesInstance.ProcessingStateRequest processing_state:
-        :param CallSummariesInstance.SortBy sort_by:
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
         :param int limit: Upper limit for the number of records to return. stream()
@@ -374,7 +345,6 @@ class CallSummariesList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.call_summaries.CallSummariesInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -423,7 +393,7 @@ class CallSummariesList(ListResource):
         abnormal_session=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CallSummariesInstance]:
         """
         Asynchronously streams CallSummariesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -444,8 +414,8 @@ class CallSummariesList(ListResource):
         :param str call_type:
         :param str call_state:
         :param str direction:
-        :param CallSummariesInstance.ProcessingStateRequest processing_state:
-        :param CallSummariesInstance.SortBy sort_by:
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
         :param int limit: Upper limit for the number of records to return. stream()
@@ -456,7 +426,6 @@ class CallSummariesList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.call_summaries.CallSummariesInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -505,7 +474,7 @@ class CallSummariesList(ListResource):
         abnormal_session=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CallSummariesInstance]:
         """
         Lists CallSummariesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -525,8 +494,8 @@ class CallSummariesList(ListResource):
         :param str call_type:
         :param str call_state:
         :param str direction:
-        :param CallSummariesInstance.ProcessingStateRequest processing_state:
-        :param CallSummariesInstance.SortBy sort_by:
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -537,7 +506,6 @@ class CallSummariesList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.call_summaries.CallSummariesInstance]
         """
         return list(
             self.stream(
@@ -586,7 +554,7 @@ class CallSummariesList(ListResource):
         abnormal_session=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CallSummariesInstance]:
         """
         Asynchronously lists CallSummariesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -606,8 +574,8 @@ class CallSummariesList(ListResource):
         :param str call_type:
         :param str call_state:
         :param str direction:
-        :param CallSummariesInstance.ProcessingStateRequest processing_state:
-        :param CallSummariesInstance.SortBy sort_by:
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -618,7 +586,6 @@ class CallSummariesList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.call_summaries.CallSummariesInstance]
         """
         return list(
             await self.stream_async(
@@ -668,7 +635,7 @@ class CallSummariesList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CallSummariesPage:
         """
         Retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
@@ -687,8 +654,8 @@ class CallSummariesList(ListResource):
         :param str call_type:
         :param str call_state:
         :param str direction:
-        :param CallSummariesInstance.ProcessingStateRequest processing_state:
-        :param CallSummariesInstance.SortBy sort_by:
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
         :param str page_token: PageToken provided by the API
@@ -696,7 +663,6 @@ class CallSummariesList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CallSummariesInstance
-        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesPage
         """
         data = values.of(
             {
@@ -750,7 +716,7 @@ class CallSummariesList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CallSummariesPage:
         """
         Asynchronously retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
@@ -769,8 +735,8 @@ class CallSummariesList(ListResource):
         :param str call_type:
         :param str call_state:
         :param str direction:
-        :param CallSummariesInstance.ProcessingStateRequest processing_state:
-        :param CallSummariesInstance.SortBy sort_by:
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
         :param str page_token: PageToken provided by the API
@@ -778,7 +744,6 @@ class CallSummariesList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CallSummariesInstance
-        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesPage
         """
         data = values.of(
             {
@@ -811,7 +776,7 @@ class CallSummariesList(ListResource):
         )
         return CallSummariesPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CallSummariesPage:
         """
         Retrieve a specific page of CallSummariesInstance records from the API.
         Request is executed immediately
@@ -819,12 +784,11 @@ class CallSummariesList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CallSummariesInstance
-        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CallSummariesPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CallSummariesPage:
         """
         Asynchronously retrieve a specific page of CallSummariesInstance records from the API.
         Request is executed immediately
@@ -832,16 +796,14 @@ class CallSummariesList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CallSummariesInstance
-        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CallSummariesPage(self._version, response)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1.CallSummariesList>"
