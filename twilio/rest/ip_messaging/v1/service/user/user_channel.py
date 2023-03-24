@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -28,63 +28,41 @@ class UserChannelInstance(InstanceResource):
         INVITED = "invited"
         NOT_PARTICIPATING = "not_participating"
 
-    def __init__(self, version, payload, service_sid: str, user_sid: str):
-        """
-        Initialize the UserChannelInstance
-        """
+    """
+    :ivar account_sid: 
+    :ivar service_sid: 
+    :ivar channel_sid: 
+    :ivar member_sid: 
+    :ivar status: 
+    :ivar last_consumed_message_index: 
+    :ivar unread_messages_count: 
+    :ivar links: 
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], service_sid: str, user_sid: str
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._channel_sid: Optional[str] = payload.get("channel_sid")
-        self._member_sid: Optional[str] = payload.get("member_sid")
-        self._status: Optional["UserChannelInstance.ChannelStatus"] = payload.get(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.member_sid: Optional[str] = payload.get("member_sid")
+        self.status: Optional["UserChannelInstance.ChannelStatus"] = payload.get(
             "status"
         )
-        self._last_consumed_message_index: Optional[int] = deserialize.integer(
+        self.last_consumed_message_index: Optional[int] = deserialize.integer(
             payload.get("last_consumed_message_index")
         )
-        self._unread_messages_count: Optional[int] = deserialize.integer(
+        self.unread_messages_count: Optional[int] = deserialize.integer(
             payload.get("unread_messages_count")
         )
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
             "user_sid": user_sid,
         }
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        return self._service_sid
-
-    @property
-    def channel_sid(self) -> Optional[str]:
-        return self._channel_sid
-
-    @property
-    def member_sid(self) -> Optional[str]:
-        return self._member_sid
-
-    @property
-    def status(self) -> Optional["UserChannelInstance.ChannelStatus"]:
-        return self._status
-
-    @property
-    def last_consumed_message_index(self) -> Optional[int]:
-        return self._last_consumed_message_index
-
-    @property
-    def unread_messages_count(self) -> Optional[int]:
-        return self._unread_messages_count
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        return self._links
 
     def __repr__(self) -> str:
         """

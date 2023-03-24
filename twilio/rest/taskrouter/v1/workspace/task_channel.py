@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,32 +24,49 @@ from twilio.base.page import Page
 
 
 class TaskChannelInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the TaskChannelInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task Channel resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar sid: The unique string that we created to identify the Task Channel resource.
+    :ivar unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
+    :ivar workspace_sid: The SID of the Workspace that contains the Task Channel.
+    :ivar channel_optimized_routing: Whether the Task Channel will prioritize Workers that have been idle. When `true`, Workers that have been idle the longest are prioritized.
+    :ivar url: The absolute URL of the Task Channel resource.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._sid: Optional[str] = payload.get("sid")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
-        self._channel_optimized_routing: Optional[bool] = payload.get(
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.channel_optimized_routing: Optional[bool] = payload.get(
             "channel_optimized_routing"
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "workspace_sid": workspace_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[TaskChannelContext] = None
 
@@ -68,76 +85,6 @@ class TaskChannelInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task Channel resource.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Task Channel resource.
-        """
-        return self._sid
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
-        """
-        return self._unique_name
-
-    @property
-    def workspace_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Workspace that contains the Task Channel.
-        """
-        return self._workspace_sid
-
-    @property
-    def channel_optimized_routing(self) -> Optional[bool]:
-        """
-        :returns: Whether the Task Channel will prioritize Workers that have been idle. When `true`, Workers that have been idle the longest are prioritized.
-        """
-        return self._channel_optimized_routing
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Task Channel resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

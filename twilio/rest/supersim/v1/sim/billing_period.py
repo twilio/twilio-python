@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -28,87 +28,42 @@ class BillingPeriodInstance(InstanceResource):
         READY = "ready"
         ACTIVE = "active"
 
-    def __init__(self, version, payload, sim_sid: str):
-        """
-        Initialize the BillingPeriodInstance
-        """
+    """
+    :ivar sid: The SID of the Billing Period.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) the Super SIM belongs to.
+    :ivar sim_sid: The SID of the Super SIM the Billing Period belongs to.
+    :ivar start_time: The start time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar end_time: The end time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar period_type: 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], sim_sid: str):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._sim_sid: Optional[str] = payload.get("sim_sid")
-        self._start_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sim_sid: Optional[str] = payload.get("sim_sid")
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("start_time")
         )
-        self._end_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("end_time")
         )
-        self._period_type: Optional["BillingPeriodInstance.BpType"] = payload.get(
+        self.period_type: Optional["BillingPeriodInstance.BpType"] = payload.get(
             "period_type"
         )
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
 
         self._solution = {
             "sim_sid": sim_sid,
         }
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Billing Period.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) the Super SIM belongs to.
-        """
-        return self._account_sid
-
-    @property
-    def sim_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Super SIM the Billing Period belongs to.
-        """
-        return self._sim_sid
-
-    @property
-    def start_time(self) -> Optional[datetime]:
-        """
-        :returns: The start time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._start_time
-
-    @property
-    def end_time(self) -> Optional[datetime]:
-        """
-        :returns: The end time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._end_time
-
-    @property
-    def period_type(self) -> Optional["BillingPeriodInstance.BpType"]:
-        return self._period_type
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
 
     def __repr__(self) -> str:
         """

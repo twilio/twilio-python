@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,29 +24,45 @@ from twilio.base.page import Page
 
 
 class KeyInstance(InstanceResource):
-    def __init__(self, version, payload, fleet_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the KeyInstance
-        """
+
+    """
+    :ivar sid: Contains a 34 character string that uniquely identifies this Key credential resource.
+    :ivar url: Contains an absolute URL for this Key credential resource.
+    :ivar friendly_name: Contains a human readable descriptive text for this Key credential, up to 256 characters long.
+    :ivar fleet_sid: Specifies the unique string identifier of the Fleet that the given Key credential belongs to.
+    :ivar account_sid: Specifies the unique string identifier of the Account responsible for this Key credential.
+    :ivar device_sid: Specifies the unique string identifier of a Device authenticated with this Key credential.
+    :ivar secret: Contains the automatically generated secret belonging to this Key credential, used to authenticate the Device.
+    :ivar date_created: Specifies the date this Key credential was created, given in UTC ISO 8601 format.
+    :ivar date_updated: Specifies the date this Key credential was last updated, given in UTC ISO 8601 format.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        fleet_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._url: Optional[str] = payload.get("url")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._fleet_sid: Optional[str] = payload.get("fleet_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._device_sid: Optional[str] = payload.get("device_sid")
-        self._secret: Optional[str] = payload.get("secret")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.url: Optional[str] = payload.get("url")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.fleet_sid: Optional[str] = payload.get("fleet_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.device_sid: Optional[str] = payload.get("device_sid")
+        self.secret: Optional[str] = payload.get("secret")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
 
         self._solution = {
             "fleet_sid": fleet_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[KeyContext] = None
 
@@ -65,69 +81,6 @@ class KeyInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: Contains a 34 character string that uniquely identifies this Key credential resource.
-        """
-        return self._sid
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: Contains an absolute URL for this Key credential resource.
-        """
-        return self._url
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: Contains a human readable descriptive text for this Key credential, up to 256 characters long.
-        """
-        return self._friendly_name
-
-    @property
-    def fleet_sid(self) -> Optional[str]:
-        """
-        :returns: Specifies the unique string identifier of the Fleet that the given Key credential belongs to.
-        """
-        return self._fleet_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: Specifies the unique string identifier of the Account responsible for this Key credential.
-        """
-        return self._account_sid
-
-    @property
-    def device_sid(self) -> Optional[str]:
-        """
-        :returns: Specifies the unique string identifier of a Device authenticated with this Key credential.
-        """
-        return self._device_sid
-
-    @property
-    def secret(self) -> Optional[str]:
-        """
-        :returns: Contains the automatically generated secret belonging to this Key credential, used to authenticate the Device.
-        """
-        return self._secret
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: Specifies the date this Key credential was created, given in UTC ISO 8601 format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: Specifies the date this Key credential was last updated, given in UTC ISO 8601 format.
-        """
-        return self._date_updated
 
     def delete(self) -> bool:
         """

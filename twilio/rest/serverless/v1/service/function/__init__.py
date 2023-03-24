@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,28 +27,43 @@ from twilio.rest.serverless.v1.service.function.function_version import (
 
 
 class FunctionInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the FunctionInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the Function resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function resource.
+    :ivar service_sid: The SID of the Service that the Function resource is associated with.
+    :ivar friendly_name: The string that you assigned to describe the Function resource. It can be a maximum of 255 characters.
+    :ivar date_created: The date and time in GMT when the Function resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the Function resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Function resource.
+    :ivar links: The URLs of nested resources of the Function resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[FunctionContext] = None
 
@@ -67,62 +82,6 @@ class FunctionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Function resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function resource.
-        """
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Service that the Function resource is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the Function resource. It can be a maximum of 255 characters.
-        """
-        return self._friendly_name
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the Function resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the Function resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Function resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of nested resources of the Function resource.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

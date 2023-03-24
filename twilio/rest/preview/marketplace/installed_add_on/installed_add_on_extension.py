@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,25 +23,37 @@ from twilio.base.page import Page
 
 
 class InstalledAddOnExtensionInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the InstalledAddOn Extension resource.
+    :ivar installed_add_on_sid: The SID of the InstalledAddOn resource to which this extension applies.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar product_name: The name of the Product this Extension is used within.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource.
+    :ivar enabled: Whether the Extension will be invoked.
+    :ivar url: The absolute URL of the resource.
+    """
+
     def __init__(
-        self, version, payload, installed_add_on_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        installed_add_on_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the InstalledAddOnExtensionInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._installed_add_on_sid: Optional[str] = payload.get("installed_add_on_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._product_name: Optional[str] = payload.get("product_name")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._enabled: Optional[bool] = payload.get("enabled")
-        self._url: Optional[str] = payload.get("url")
+        self.sid: Optional[str] = payload.get("sid")
+        self.installed_add_on_sid: Optional[str] = payload.get("installed_add_on_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.product_name: Optional[str] = payload.get("product_name")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.enabled: Optional[bool] = payload.get("enabled")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "installed_add_on_sid": installed_add_on_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[InstalledAddOnExtensionContext] = None
 
@@ -60,55 +72,6 @@ class InstalledAddOnExtensionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the InstalledAddOn Extension resource.
-        """
-        return self._sid
-
-    @property
-    def installed_add_on_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the InstalledAddOn resource to which this extension applies.
-        """
-        return self._installed_add_on_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def product_name(self) -> Optional[str]:
-        """
-        :returns: The name of the Product this Extension is used within.
-        """
-        return self._product_name
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the resource.
-        """
-        return self._unique_name
-
-    @property
-    def enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether the Extension will be invoked.
-        """
-        return self._enabled
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
 
     def fetch(self) -> "InstalledAddOnExtensionInstance":
         """

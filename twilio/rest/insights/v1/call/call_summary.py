@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -52,51 +52,74 @@ class CallSummaryInstance(InstanceResource):
         COMPLETE = "complete"
         PARTIAL = "partial"
 
-    def __init__(self, version, payload, call_sid: str):
-        """
-        Initialize the CallSummaryInstance
-        """
+    """
+    :ivar account_sid: 
+    :ivar call_sid: 
+    :ivar call_type: 
+    :ivar call_state: 
+    :ivar answered_by: 
+    :ivar processing_state: 
+    :ivar created_time: 
+    :ivar start_time: 
+    :ivar end_time: 
+    :ivar duration: 
+    :ivar connect_duration: 
+    :ivar _from: 
+    :ivar to: 
+    :ivar carrier_edge: 
+    :ivar client_edge: 
+    :ivar sdk_edge: 
+    :ivar sip_edge: 
+    :ivar tags: 
+    :ivar url: 
+    :ivar attributes: 
+    :ivar properties: 
+    :ivar trust: 
+    :ivar annotation: 
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._call_sid: Optional[str] = payload.get("call_sid")
-        self._call_type: Optional["CallSummaryInstance.CallType"] = payload.get(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.call_type: Optional["CallSummaryInstance.CallType"] = payload.get(
             "call_type"
         )
-        self._call_state: Optional["CallSummaryInstance.CallState"] = payload.get(
+        self.call_state: Optional["CallSummaryInstance.CallState"] = payload.get(
             "call_state"
         )
-        self._answered_by: Optional["CallSummaryInstance.AnsweredBy"] = payload.get(
+        self.answered_by: Optional["CallSummaryInstance.AnsweredBy"] = payload.get(
             "answered_by"
         )
-        self._processing_state: Optional[
+        self.processing_state: Optional[
             "CallSummaryInstance.ProcessingState"
         ] = payload.get("processing_state")
-        self._created_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("created_time")
         )
-        self._start_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("start_time")
         )
-        self._end_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("end_time")
         )
-        self._duration: Optional[int] = deserialize.integer(payload.get("duration"))
-        self._connect_duration: Optional[int] = deserialize.integer(
+        self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self.connect_duration: Optional[int] = deserialize.integer(
             payload.get("connect_duration")
         )
-        self.__from: Optional[Dict[str, object]] = payload.get("from")
-        self._to: Optional[Dict[str, object]] = payload.get("to")
-        self._carrier_edge: Optional[Dict[str, object]] = payload.get("carrier_edge")
-        self._client_edge: Optional[Dict[str, object]] = payload.get("client_edge")
-        self._sdk_edge: Optional[Dict[str, object]] = payload.get("sdk_edge")
-        self._sip_edge: Optional[Dict[str, object]] = payload.get("sip_edge")
-        self._tags: Optional[List[str]] = payload.get("tags")
-        self._url: Optional[str] = payload.get("url")
-        self._attributes: Optional[Dict[str, object]] = payload.get("attributes")
-        self._properties: Optional[Dict[str, object]] = payload.get("properties")
-        self._trust: Optional[Dict[str, object]] = payload.get("trust")
-        self._annotation: Optional[Dict[str, object]] = payload.get("annotation")
+        self._from: Optional[Dict[str, object]] = payload.get("from")
+        self.to: Optional[Dict[str, object]] = payload.get("to")
+        self.carrier_edge: Optional[Dict[str, object]] = payload.get("carrier_edge")
+        self.client_edge: Optional[Dict[str, object]] = payload.get("client_edge")
+        self.sdk_edge: Optional[Dict[str, object]] = payload.get("sdk_edge")
+        self.sip_edge: Optional[Dict[str, object]] = payload.get("sip_edge")
+        self.tags: Optional[List[str]] = payload.get("tags")
+        self.url: Optional[str] = payload.get("url")
+        self.attributes: Optional[Dict[str, object]] = payload.get("attributes")
+        self.properties: Optional[Dict[str, object]] = payload.get("properties")
+        self.trust: Optional[Dict[str, object]] = payload.get("trust")
+        self.annotation: Optional[Dict[str, object]] = payload.get("annotation")
 
         self._solution = {
             "call_sid": call_sid,
@@ -117,98 +140,6 @@ class CallSummaryInstance(InstanceResource):
                 call_sid=self._solution["call_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def call_sid(self) -> Optional[str]:
-        return self._call_sid
-
-    @property
-    def call_type(self) -> Optional["CallSummaryInstance.CallType"]:
-        return self._call_type
-
-    @property
-    def call_state(self) -> Optional["CallSummaryInstance.CallState"]:
-        return self._call_state
-
-    @property
-    def answered_by(self) -> Optional["CallSummaryInstance.AnsweredBy"]:
-        return self._answered_by
-
-    @property
-    def processing_state(self) -> Optional["CallSummaryInstance.ProcessingState"]:
-        return self._processing_state
-
-    @property
-    def created_time(self) -> Optional[datetime]:
-        return self._created_time
-
-    @property
-    def start_time(self) -> Optional[datetime]:
-        return self._start_time
-
-    @property
-    def end_time(self) -> Optional[datetime]:
-        return self._end_time
-
-    @property
-    def duration(self) -> Optional[int]:
-        return self._duration
-
-    @property
-    def connect_duration(self) -> Optional[int]:
-        return self._connect_duration
-
-    @property
-    def _from(self) -> Optional[Dict[str, object]]:
-        return self.__from
-
-    @property
-    def to(self) -> Optional[Dict[str, object]]:
-        return self._to
-
-    @property
-    def carrier_edge(self) -> Optional[Dict[str, object]]:
-        return self._carrier_edge
-
-    @property
-    def client_edge(self) -> Optional[Dict[str, object]]:
-        return self._client_edge
-
-    @property
-    def sdk_edge(self) -> Optional[Dict[str, object]]:
-        return self._sdk_edge
-
-    @property
-    def sip_edge(self) -> Optional[Dict[str, object]]:
-        return self._sip_edge
-
-    @property
-    def tags(self) -> Optional[List[str]]:
-        return self._tags
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
-
-    @property
-    def attributes(self) -> Optional[Dict[str, object]]:
-        return self._attributes
-
-    @property
-    def properties(self) -> Optional[Dict[str, object]]:
-        return self._properties
-
-    @property
-    def trust(self) -> Optional[Dict[str, object]]:
-        return self._trust
-
-    @property
-    def annotation(self) -> Optional[Dict[str, object]]:
-        return self._annotation
 
     def fetch(self, processing_state=values.unset) -> "CallSummaryInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -36,34 +36,52 @@ class WebhookInstance(InstanceResource):
         V1 = "v1"
         V2 = "v2"
 
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the WebhookInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Webhook resource.
+    :ivar service_sid: The unique SID identifier of the Service.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
+    :ivar friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
+    :ivar event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+    :ivar status: 
+    :ivar version: 
+    :ivar webhook_url: The URL associated with this Webhook.
+    :ivar webhook_method: 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Webhook resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._event_types: Optional[List[str]] = payload.get("event_types")
-        self._status: Optional["WebhookInstance.Status"] = payload.get("status")
-        self._version: Optional["WebhookInstance.Version"] = payload.get("version")
-        self._webhook_url: Optional[str] = payload.get("webhook_url")
-        self._webhook_method: Optional["WebhookInstance.Methods"] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.event_types: Optional[List[str]] = payload.get("event_types")
+        self.status: Optional["WebhookInstance.Status"] = payload.get("status")
+        self.version: Optional["WebhookInstance.Version"] = payload.get("version")
+        self.webhook_url: Optional[str] = payload.get("webhook_url")
+        self.webhook_method: Optional["WebhookInstance.Methods"] = payload.get(
             "webhook_method"
         )
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[WebhookContext] = None
 
@@ -82,81 +100,6 @@ class WebhookInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Webhook resource.
-        """
-        return self._sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The unique SID identifier of the Service.
-        """
-        return self._service_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        """
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the webhook. **This value should not contain PII.**
-        """
-        return self._friendly_name
-
-    @property
-    def event_types(self) -> Optional[List[str]]:
-        """
-        :returns: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
-        """
-        return self._event_types
-
-    @property
-    def status(self) -> Optional["WebhookInstance.Status"]:
-        return self._status
-
-    @property
-    def version(self) -> Optional["WebhookInstance.Version"]:
-        return self._version
-
-    @property
-    def webhook_url(self) -> Optional[str]:
-        """
-        :returns: The URL associated with this Webhook.
-        """
-        return self._webhook_url
-
-    @property
-    def webhook_method(self) -> Optional["WebhookInstance.Methods"]:
-        return self._webhook_method
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Webhook resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

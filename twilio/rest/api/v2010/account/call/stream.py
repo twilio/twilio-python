@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,33 +27,40 @@ class StreamInstance(InstanceResource):
         IN_PROGRESS = "in-progress"
         STOPPED = "stopped"
 
+    """
+    :ivar sid: The SID of the Stream resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
+    :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
+    :ivar name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+    :ivar status: 
+    :ivar date_updated: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         call_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the StreamInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._call_sid: Optional[str] = payload.get("call_sid")
-        self._name: Optional[str] = payload.get("name")
-        self._status: Optional["StreamInstance.Status"] = payload.get("status")
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.name: Optional[str] = payload.get("name")
+        self.status: Optional["StreamInstance.Status"] = payload.get("status")
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._uri: Optional[str] = payload.get("uri")
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[StreamContext] = None
 
@@ -73,52 +80,6 @@ class StreamInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Stream resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
-        """
-        return self._account_sid
-
-    @property
-    def call_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
-        """
-        return self._call_sid
-
-    @property
-    def name(self) -> Optional[str]:
-        """
-        :returns: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
-        """
-        return self._name
-
-    @property
-    def status(self) -> Optional["StreamInstance.Status"]:
-        return self._status
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
 
     def update(self, status) -> "StreamInstance":
         """

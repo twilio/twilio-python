@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,24 +25,32 @@ from twilio.rest.events.v1.schema.schema_version import SchemaVersionList
 
 
 class SchemaInstance(InstanceResource):
-    def __init__(self, version, payload, id: Optional[str] = None):
-        """
-        Initialize the SchemaInstance
-        """
+
+    """
+    :ivar id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+    :ivar url: The URL of this resource.
+    :ivar links: Contains a dictionary of URL links to nested resources of this schema.
+    :ivar latest_version_date_created: The date that the latest schema version was created, given in ISO 8601 format.
+    :ivar latest_version: The latest version published of this schema.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._id: Optional[str] = payload.get("id")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
-        self._latest_version_date_created: Optional[
+        self.id: Optional[str] = payload.get("id")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.latest_version_date_created: Optional[
             datetime
         ] = deserialize.iso8601_datetime(payload.get("latest_version_date_created"))
-        self._latest_version: Optional[int] = deserialize.integer(
+        self.latest_version: Optional[int] = deserialize.integer(
             payload.get("latest_version")
         )
 
         self._solution = {
-            "id": id or self._id,
+            "id": id or self.id,
         }
         self._context: Optional[SchemaContext] = None
 
@@ -60,41 +68,6 @@ class SchemaInstance(InstanceResource):
                 id=self._solution["id"],
             )
         return self._context
-
-    @property
-    def id(self) -> Optional[str]:
-        """
-        :returns: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-        """
-        return self._id
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Contains a dictionary of URL links to nested resources of this schema.
-        """
-        return self._links
-
-    @property
-    def latest_version_date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that the latest schema version was created, given in ISO 8601 format.
-        """
-        return self._latest_version_date_created
-
-    @property
-    def latest_version(self) -> Optional[int]:
-        """
-        :returns: The latest version published of this schema.
-        """
-        return self._latest_version
 
     def fetch(self) -> "SchemaInstance":
         """

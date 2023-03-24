@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,18 +25,27 @@ from twilio.rest.bulkexports.v1.export.job import JobList
 
 
 class ExportInstance(InstanceResource):
-    def __init__(self, version, payload, resource_type: Optional[str] = None):
-        """
-        Initialize the ExportInstance
-        """
+
+    """
+    :ivar resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+    :ivar url: The URL of this resource.
+    :ivar links: Contains a dictionary of URL links to nested resources of this Export.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        resource_type: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._resource_type: Optional[str] = payload.get("resource_type")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.resource_type: Optional[str] = payload.get("resource_type")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "resource_type": resource_type or self._resource_type,
+            "resource_type": resource_type or self.resource_type,
         }
         self._context: Optional[ExportContext] = None
 
@@ -54,27 +63,6 @@ class ExportInstance(InstanceResource):
                 resource_type=self._solution["resource_type"],
             )
         return self._context
-
-    @property
-    def resource_type(self) -> Optional[str]:
-        """
-        :returns: The type of communication – Messages, Calls, Conferences, and Participants
-        """
-        return self._resource_type
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Contains a dictionary of URL links to nested resources of this Export.
-        """
-        return self._links
 
     def fetch(self) -> "ExportInstance":
         """

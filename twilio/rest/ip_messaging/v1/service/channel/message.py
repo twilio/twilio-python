@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,41 +28,54 @@ class MessageInstance(InstanceResource):
         ASC = "asc"
         DESC = "desc"
 
+    """
+    :ivar sid: 
+    :ivar account_sid: 
+    :ivar attributes: 
+    :ivar service_sid: 
+    :ivar to: 
+    :ivar channel_sid: 
+    :ivar date_created: 
+    :ivar date_updated: 
+    :ivar was_edited: 
+    :ivar _from: 
+    :ivar body: 
+    :ivar index: 
+    :ivar url: 
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         channel_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the MessageInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._attributes: Optional[str] = payload.get("attributes")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._to: Optional[str] = payload.get("to")
-        self._channel_sid: Optional[str] = payload.get("channel_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.to: Optional[str] = payload.get("to")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._was_edited: Optional[bool] = payload.get("was_edited")
-        self.__from: Optional[str] = payload.get("from")
-        self._body: Optional[str] = payload.get("body")
-        self._index: Optional[int] = deserialize.integer(payload.get("index"))
-        self._url: Optional[str] = payload.get("url")
+        self.was_edited: Optional[bool] = payload.get("was_edited")
+        self._from: Optional[str] = payload.get("from")
+        self.body: Optional[str] = payload.get("body")
+        self.index: Optional[int] = deserialize.integer(payload.get("index"))
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[MessageContext] = None
 
@@ -82,58 +95,6 @@ class MessageInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def attributes(self) -> Optional[str]:
-        return self._attributes
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        return self._service_sid
-
-    @property
-    def to(self) -> Optional[str]:
-        return self._to
-
-    @property
-    def channel_sid(self) -> Optional[str]:
-        return self._channel_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        return self._date_updated
-
-    @property
-    def was_edited(self) -> Optional[bool]:
-        return self._was_edited
-
-    @property
-    def _from(self) -> Optional[str]:
-        return self.__from
-
-    @property
-    def body(self) -> Optional[str]:
-        return self._body
-
-    @property
-    def index(self) -> Optional[int]:
-        return self._index
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def delete(self) -> bool:
         """

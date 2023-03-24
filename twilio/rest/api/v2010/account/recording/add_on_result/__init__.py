@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -35,44 +35,54 @@ class AddOnResultInstance(InstanceResource):
         PROCESSING = "processing"
         QUEUED = "queued"
 
+    """
+    :ivar sid: The unique string that that we created to identify the Recording AddOnResult resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource.
+    :ivar status: 
+    :ivar add_on_sid: The SID of the Add-on to which the result belongs.
+    :ivar add_on_configuration_sid: The SID of the Add-on configuration.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_completed: The date and time in GMT that the result was completed specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar reference_sid: The SID of the recording to which the AddOnResult resource belongs.
+    :ivar subresource_uris: A list of related resources identified by their relative URIs.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         reference_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the AddOnResultInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._status: Optional["AddOnResultInstance.Status"] = payload.get("status")
-        self._add_on_sid: Optional[str] = payload.get("add_on_sid")
-        self._add_on_configuration_sid: Optional[str] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.status: Optional["AddOnResultInstance.Status"] = payload.get("status")
+        self.add_on_sid: Optional[str] = payload.get("add_on_sid")
+        self.add_on_configuration_sid: Optional[str] = payload.get(
             "add_on_configuration_sid"
         )
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._date_completed: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_completed: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_completed")
         )
-        self._reference_sid: Optional[str] = payload.get("reference_sid")
-        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+        self.reference_sid: Optional[str] = payload.get("reference_sid")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
             "subresource_uris"
         )
 
         self._solution = {
             "account_sid": account_sid,
             "reference_sid": reference_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[AddOnResultContext] = None
 
@@ -92,73 +102,6 @@ class AddOnResultInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify the Recording AddOnResult resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource.
-        """
-        return self._account_sid
-
-    @property
-    def status(self) -> Optional["AddOnResultInstance.Status"]:
-        return self._status
-
-    @property
-    def add_on_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Add-on to which the result belongs.
-        """
-        return self._add_on_sid
-
-    @property
-    def add_on_configuration_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Add-on configuration.
-        """
-        return self._add_on_configuration_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def date_completed(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the result was completed specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_completed
-
-    @property
-    def reference_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the recording to which the AddOnResult resource belongs.
-        """
-        return self._reference_sid
-
-    @property
-    def subresource_uris(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: A list of related resources identified by their relative URIs.
-        """
-        return self._subresource_uris
 
     def delete(self) -> bool:
         """

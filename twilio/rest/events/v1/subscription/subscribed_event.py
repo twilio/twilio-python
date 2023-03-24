@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,25 +23,35 @@ from twilio.base.page import Page
 
 
 class SubscribedEventInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar type: Type of event being subscribed to.
+    :ivar schema_version: The schema version that the subscription should use.
+    :ivar subscription_sid: The unique SID identifier of the Subscription.
+    :ivar url: The URL of this resource.
+    """
+
     def __init__(
-        self, version, payload, subscription_sid: str, type: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        subscription_sid: str,
+        type: Optional[str] = None,
     ):
-        """
-        Initialize the SubscribedEventInstance
-        """
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._type: Optional[str] = payload.get("type")
-        self._schema_version: Optional[int] = deserialize.integer(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.type: Optional[str] = payload.get("type")
+        self.schema_version: Optional[int] = deserialize.integer(
             payload.get("schema_version")
         )
-        self._subscription_sid: Optional[str] = payload.get("subscription_sid")
-        self._url: Optional[str] = payload.get("url")
+        self.subscription_sid: Optional[str] = payload.get("subscription_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "subscription_sid": subscription_sid,
-            "type": type or self._type,
+            "type": type or self.type,
         }
         self._context: Optional[SubscribedEventContext] = None
 
@@ -60,41 +70,6 @@ class SubscribedEventInstance(InstanceResource):
                 type=self._solution["type"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._account_sid
-
-    @property
-    def type(self) -> Optional[str]:
-        """
-        :returns: Type of event being subscribed to.
-        """
-        return self._type
-
-    @property
-    def schema_version(self) -> Optional[int]:
-        """
-        :returns: The schema version that the subscription should use.
-        """
-        return self._schema_version
-
-    @property
-    def subscription_sid(self) -> Optional[str]:
-        """
-        :returns: The unique SID identifier of the Subscription.
-        """
-        return self._subscription_sid
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

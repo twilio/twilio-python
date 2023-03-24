@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,38 +24,49 @@ from twilio.base.page import Page
 
 
 class InviteInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the Invite resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Invite resource.
+    :ivar channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resource belongs to.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Invite resource is associated with.
+    :ivar identity: The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the resource.
+    :ivar created_by: The `identity` of the User that created the invite.
+    :ivar url: The absolute URL of the Invite resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         channel_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the InviteInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._channel_sid: Optional[str] = payload.get("channel_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._identity: Optional[str] = payload.get("identity")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._role_sid: Optional[str] = payload.get("role_sid")
-        self._created_by: Optional[str] = payload.get("created_by")
-        self._url: Optional[str] = payload.get("url")
+        self.role_sid: Optional[str] = payload.get("role_sid")
+        self.created_by: Optional[str] = payload.get("created_by")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[InviteContext] = None
 
@@ -75,76 +86,6 @@ class InviteInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Invite resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Invite resource.
-        """
-        return self._account_sid
-
-    @property
-    def channel_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resource belongs to.
-        """
-        return self._channel_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Invite resource is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def identity(self) -> Optional[str]:
-        """
-        :returns: The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
-        """
-        return self._identity
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def role_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the resource.
-        """
-        return self._role_sid
-
-    @property
-    def created_by(self) -> Optional[str]:
-        """
-        :returns: The `identity` of the User that created the invite.
-        """
-        return self._created_by
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Invite resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

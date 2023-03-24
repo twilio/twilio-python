@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -39,54 +39,79 @@ class HostedNumberOrderInstance(InstanceResource):
         PHONE_CALL = "phone-call"
         PHONE_BILL = "phone-bill"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the HostedNumberOrderInstance
-        """
+    """
+    :ivar sid: A 34 character string that uniquely identifies this HostedNumberOrder.
+    :ivar account_sid: A 34 character string that uniquely identifies the account.
+    :ivar incoming_phone_number_sid: A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/api/rest/incoming-phone-numbers) resource that represents the phone number being hosted.
+    :ivar address_sid: A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
+    :ivar signing_document_sid: A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents) the user needs to sign.
+    :ivar phone_number: Phone number to be hosted. This must be in [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g., +16175551212
+    :ivar capabilities: 
+    :ivar friendly_name: A 64 character string that is a human-readable text that describes this resource.
+    :ivar unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+    :ivar status: 
+    :ivar failure_reason: A message that explains why a hosted_number_order went to status \"action-required\"
+    :ivar date_created: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar verification_attempts: The number of attempts made to verify ownership of the phone number that is being hosted.
+    :ivar email: Email of the owner of this phone number that is being hosted.
+    :ivar cc_emails: A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+    :ivar url: The URL of this HostedNumberOrder.
+    :ivar verification_type: 
+    :ivar verification_document_sid: A 34 character string that uniquely identifies the Identity Document resource that represents the document for verifying ownership of the number to be hosted.
+    :ivar extension: A numerical extension to be used when making the ownership verification call.
+    :ivar call_delay: A value between 0-30 specifying the number of seconds to delay initiating the ownership verification call.
+    :ivar verification_code: A verification code provided in the response for a user to enter when they pick up the phone call.
+    :ivar verification_call_sids: A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._incoming_phone_number_sid: Optional[str] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.incoming_phone_number_sid: Optional[str] = payload.get(
             "incoming_phone_number_sid"
         )
-        self._address_sid: Optional[str] = payload.get("address_sid")
-        self._signing_document_sid: Optional[str] = payload.get("signing_document_sid")
-        self._phone_number: Optional[str] = payload.get("phone_number")
-        self._capabilities: Optional[str] = payload.get("capabilities")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._status: Optional["HostedNumberOrderInstance.Status"] = payload.get(
+        self.address_sid: Optional[str] = payload.get("address_sid")
+        self.signing_document_sid: Optional[str] = payload.get("signing_document_sid")
+        self.phone_number: Optional[str] = payload.get("phone_number")
+        self.capabilities: Optional[str] = payload.get("capabilities")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.status: Optional["HostedNumberOrderInstance.Status"] = payload.get(
             "status"
         )
-        self._failure_reason: Optional[str] = payload.get("failure_reason")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.failure_reason: Optional[str] = payload.get("failure_reason")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._verification_attempts: Optional[int] = deserialize.integer(
+        self.verification_attempts: Optional[int] = deserialize.integer(
             payload.get("verification_attempts")
         )
-        self._email: Optional[str] = payload.get("email")
-        self._cc_emails: Optional[List[str]] = payload.get("cc_emails")
-        self._url: Optional[str] = payload.get("url")
-        self._verification_type: Optional[
+        self.email: Optional[str] = payload.get("email")
+        self.cc_emails: Optional[List[str]] = payload.get("cc_emails")
+        self.url: Optional[str] = payload.get("url")
+        self.verification_type: Optional[
             "HostedNumberOrderInstance.VerificationType"
         ] = payload.get("verification_type")
-        self._verification_document_sid: Optional[str] = payload.get(
+        self.verification_document_sid: Optional[str] = payload.get(
             "verification_document_sid"
         )
-        self._extension: Optional[str] = payload.get("extension")
-        self._call_delay: Optional[int] = deserialize.integer(payload.get("call_delay"))
-        self._verification_code: Optional[str] = payload.get("verification_code")
-        self._verification_call_sids: Optional[List[str]] = payload.get(
+        self.extension: Optional[str] = payload.get("extension")
+        self.call_delay: Optional[int] = deserialize.integer(payload.get("call_delay"))
+        self.verification_code: Optional[str] = payload.get("verification_code")
+        self.verification_call_sids: Optional[List[str]] = payload.get(
             "verification_call_sids"
         )
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[HostedNumberOrderContext] = None
 
@@ -104,160 +129,6 @@ class HostedNumberOrderInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this HostedNumberOrder.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies the account.
-        """
-        return self._account_sid
-
-    @property
-    def incoming_phone_number_sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/api/rest/incoming-phone-numbers) resource that represents the phone number being hosted.
-        """
-        return self._incoming_phone_number_sid
-
-    @property
-    def address_sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
-        """
-        return self._address_sid
-
-    @property
-    def signing_document_sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents) the user needs to sign.
-        """
-        return self._signing_document_sid
-
-    @property
-    def phone_number(self) -> Optional[str]:
-        """
-        :returns: Phone number to be hosted. This must be in [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g., +16175551212
-        """
-        return self._phone_number
-
-    @property
-    def capabilities(self) -> Optional[str]:
-        return self._capabilities
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: A 64 character string that is a human-readable text that describes this resource.
-        """
-        return self._friendly_name
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        """
-        return self._unique_name
-
-    @property
-    def status(self) -> Optional["HostedNumberOrderInstance.Status"]:
-        return self._status
-
-    @property
-    def failure_reason(self) -> Optional[str]:
-        """
-        :returns: A message that explains why a hosted_number_order went to status \"action-required\"
-        """
-        return self._failure_reason
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def verification_attempts(self) -> Optional[int]:
-        """
-        :returns: The number of attempts made to verify ownership of the phone number that is being hosted.
-        """
-        return self._verification_attempts
-
-    @property
-    def email(self) -> Optional[str]:
-        """
-        :returns: Email of the owner of this phone number that is being hosted.
-        """
-        return self._email
-
-    @property
-    def cc_emails(self) -> Optional[List[str]]:
-        """
-        :returns: A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        """
-        return self._cc_emails
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of this HostedNumberOrder.
-        """
-        return self._url
-
-    @property
-    def verification_type(
-        self,
-    ) -> Optional["HostedNumberOrderInstance.VerificationType"]:
-        return self._verification_type
-
-    @property
-    def verification_document_sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies the Identity Document resource that represents the document for verifying ownership of the number to be hosted.
-        """
-        return self._verification_document_sid
-
-    @property
-    def extension(self) -> Optional[str]:
-        """
-        :returns: A numerical extension to be used when making the ownership verification call.
-        """
-        return self._extension
-
-    @property
-    def call_delay(self) -> Optional[int]:
-        """
-        :returns: A value between 0-30 specifying the number of seconds to delay initiating the ownership verification call.
-        """
-        return self._call_delay
-
-    @property
-    def verification_code(self) -> Optional[str]:
-        """
-        :returns: A verification code provided in the response for a user to enter when they pick up the phone call.
-        """
-        return self._verification_code
-
-    @property
-    def verification_call_sids(self) -> Optional[List[str]]:
-        """
-        :returns: A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
-        """
-        return self._verification_call_sids
 
     def delete(self) -> bool:
         """

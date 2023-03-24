@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -27,31 +27,22 @@ class SimIpAddressInstance(InstanceResource):
         IPV4 = "IPv4"
         IPV6 = "IPv6"
 
-    def __init__(self, version, payload, sim_sid: str):
-        """
-        Initialize the SimIpAddressInstance
-        """
+    """
+    :ivar ip_address: IP address assigned to the given Super SIM
+    :ivar ip_address_version: 
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], sim_sid: str):
         super().__init__(version)
 
-        self._ip_address: Optional[str] = payload.get("ip_address")
-        self._ip_address_version: Optional[
+        self.ip_address: Optional[str] = payload.get("ip_address")
+        self.ip_address_version: Optional[
             "SimIpAddressInstance.IpAddressVersion"
         ] = payload.get("ip_address_version")
 
         self._solution = {
             "sim_sid": sim_sid,
         }
-
-    @property
-    def ip_address(self) -> Optional[str]:
-        """
-        :returns: IP address assigned to the given Super SIM
-        """
-        return self._ip_address
-
-    @property
-    def ip_address_version(self) -> Optional["SimIpAddressInstance.IpAddressVersion"]:
-        return self._ip_address_version
 
     def __repr__(self) -> str:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,37 +24,54 @@ from twilio.base.page import Page
 
 
 class RatePlanInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the RatePlanInstance
-        """
+
+    """
+    :ivar sid:
+    :ivar unique_name:
+    :ivar account_sid:
+    :ivar friendly_name:
+    :ivar data_enabled:
+    :ivar data_metering:
+    :ivar data_limit:
+    :ivar messaging_enabled:
+    :ivar voice_enabled:
+    :ivar national_roaming_enabled:
+    :ivar international_roaming:
+    :ivar date_created:
+    :ivar date_updated:
+    :ivar url:
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._data_enabled: Optional[bool] = payload.get("data_enabled")
-        self._data_metering: Optional[str] = payload.get("data_metering")
-        self._data_limit: Optional[int] = deserialize.integer(payload.get("data_limit"))
-        self._messaging_enabled: Optional[bool] = payload.get("messaging_enabled")
-        self._voice_enabled: Optional[bool] = payload.get("voice_enabled")
-        self._national_roaming_enabled: Optional[bool] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.data_enabled: Optional[bool] = payload.get("data_enabled")
+        self.data_metering: Optional[str] = payload.get("data_metering")
+        self.data_limit: Optional[int] = deserialize.integer(payload.get("data_limit"))
+        self.messaging_enabled: Optional[bool] = payload.get("messaging_enabled")
+        self.voice_enabled: Optional[bool] = payload.get("voice_enabled")
+        self.national_roaming_enabled: Optional[bool] = payload.get(
             "national_roaming_enabled"
         )
-        self._international_roaming: Optional[List[str]] = payload.get(
+        self.international_roaming: Optional[List[str]] = payload.get(
             "international_roaming"
         )
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[RatePlanContext] = None
 
@@ -72,62 +89,6 @@ class RatePlanInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        return self._sid
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        return self._unique_name
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        return self._friendly_name
-
-    @property
-    def data_enabled(self) -> Optional[bool]:
-        return self._data_enabled
-
-    @property
-    def data_metering(self) -> Optional[str]:
-        return self._data_metering
-
-    @property
-    def data_limit(self) -> Optional[int]:
-        return self._data_limit
-
-    @property
-    def messaging_enabled(self) -> Optional[bool]:
-        return self._messaging_enabled
-
-    @property
-    def voice_enabled(self) -> Optional[bool]:
-        return self._voice_enabled
-
-    @property
-    def national_roaming_enabled(self) -> Optional[bool]:
-        return self._national_roaming_enabled
-
-    @property
-    def international_roaming(self) -> Optional[List[str]]:
-        return self._international_roaming
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def delete(self) -> bool:
         """

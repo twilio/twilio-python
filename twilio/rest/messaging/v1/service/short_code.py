@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,29 +24,45 @@ from twilio.base.page import Page
 
 
 class ShortCodeInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ShortCodeInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the ShortCode resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the resource is associated with.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar short_code: The [E.164](https://www.twilio.com/docs/glossary/what-e164) format of the short code.
+    :ivar country_code: The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
+    :ivar capabilities: An array of values that describe whether the number can receive calls or messages. Can be: `SMS` and `MMS`.
+    :ivar url: The absolute URL of the ShortCode resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._short_code: Optional[str] = payload.get("short_code")
-        self._country_code: Optional[str] = payload.get("country_code")
-        self._capabilities: Optional[List[str]] = payload.get("capabilities")
-        self._url: Optional[str] = payload.get("url")
+        self.short_code: Optional[str] = payload.get("short_code")
+        self.country_code: Optional[str] = payload.get("country_code")
+        self.capabilities: Optional[List[str]] = payload.get("capabilities")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ShortCodeContext] = None
 
@@ -65,69 +81,6 @@ class ShortCodeInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the ShortCode resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
-        """
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the resource is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def short_code(self) -> Optional[str]:
-        """
-        :returns: The [E.164](https://www.twilio.com/docs/glossary/what-e164) format of the short code.
-        """
-        return self._short_code
-
-    @property
-    def country_code(self) -> Optional[str]:
-        """
-        :returns: The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
-        """
-        return self._country_code
-
-    @property
-    def capabilities(self) -> Optional[List[str]]:
-        """
-        :returns: An array of values that describe whether the number can receive calls or messages. Can be: `SMS` and `MMS`.
-        """
-        return self._capabilities
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the ShortCode resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

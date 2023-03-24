@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,54 +24,81 @@ from twilio.base.page import Page
 
 
 class UsAppToPersonInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
+    :ivar brand_registration_sid: The unique string to identify the A2P brand.
+    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+    :ivar description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+    :ivar message_samples: Message samples, at least 1 and up to 5 sample messages (at least 2 for starter/sole proprietor), >=20 chars, <=1024 chars each.
+    :ivar us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, STARTER...]. STARTER campaign use cases can only be created by STARTER Brands, and there can only be one STARTER campaign created per STARTER Brand.
+    :ivar has_embedded_links: Indicate that this SMS campaign will send messages that contain links.
+    :ivar has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+    :ivar campaign_status: Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED.
+    :ivar campaign_id: The Campaign Registry (TCR) Campaign ID.
+    :ivar is_externally_registered: Indicates whether the campaign was registered externally or not.
+    :ivar rate_limits: Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
+    :ivar message_flow: Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+    :ivar opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
+    :ivar opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+    :ivar help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+    :ivar opt_in_keywords: If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
+    :ivar opt_out_keywords: End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+    :ivar help_keywords: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the US App to Person resource.
+    :ivar mock: A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
+    """
+
     def __init__(
-        self, version, payload, messaging_service_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        messaging_service_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the UsAppToPersonInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._brand_registration_sid: Optional[str] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.brand_registration_sid: Optional[str] = payload.get(
             "brand_registration_sid"
         )
-        self._messaging_service_sid: Optional[str] = payload.get(
-            "messaging_service_sid"
-        )
-        self._description: Optional[str] = payload.get("description")
-        self._message_samples: Optional[List[str]] = payload.get("message_samples")
-        self._us_app_to_person_usecase: Optional[str] = payload.get(
+        self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
+        self.description: Optional[str] = payload.get("description")
+        self.message_samples: Optional[List[str]] = payload.get("message_samples")
+        self.us_app_to_person_usecase: Optional[str] = payload.get(
             "us_app_to_person_usecase"
         )
-        self._has_embedded_links: Optional[bool] = payload.get("has_embedded_links")
-        self._has_embedded_phone: Optional[bool] = payload.get("has_embedded_phone")
-        self._campaign_status: Optional[str] = payload.get("campaign_status")
-        self._campaign_id: Optional[str] = payload.get("campaign_id")
-        self._is_externally_registered: Optional[bool] = payload.get(
+        self.has_embedded_links: Optional[bool] = payload.get("has_embedded_links")
+        self.has_embedded_phone: Optional[bool] = payload.get("has_embedded_phone")
+        self.campaign_status: Optional[str] = payload.get("campaign_status")
+        self.campaign_id: Optional[str] = payload.get("campaign_id")
+        self.is_externally_registered: Optional[bool] = payload.get(
             "is_externally_registered"
         )
-        self._rate_limits: Optional[Dict[str, object]] = payload.get("rate_limits")
-        self._message_flow: Optional[str] = payload.get("message_flow")
-        self._opt_in_message: Optional[str] = payload.get("opt_in_message")
-        self._opt_out_message: Optional[str] = payload.get("opt_out_message")
-        self._help_message: Optional[str] = payload.get("help_message")
-        self._opt_in_keywords: Optional[List[str]] = payload.get("opt_in_keywords")
-        self._opt_out_keywords: Optional[List[str]] = payload.get("opt_out_keywords")
-        self._help_keywords: Optional[List[str]] = payload.get("help_keywords")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.rate_limits: Optional[Dict[str, object]] = payload.get("rate_limits")
+        self.message_flow: Optional[str] = payload.get("message_flow")
+        self.opt_in_message: Optional[str] = payload.get("opt_in_message")
+        self.opt_out_message: Optional[str] = payload.get("opt_out_message")
+        self.help_message: Optional[str] = payload.get("help_message")
+        self.opt_in_keywords: Optional[List[str]] = payload.get("opt_in_keywords")
+        self.opt_out_keywords: Optional[List[str]] = payload.get("opt_out_keywords")
+        self.help_keywords: Optional[List[str]] = payload.get("help_keywords")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._mock: Optional[bool] = payload.get("mock")
+        self.url: Optional[str] = payload.get("url")
+        self.mock: Optional[bool] = payload.get("mock")
 
         self._solution = {
             "messaging_service_sid": messaging_service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[UsAppToPersonContext] = None
 
@@ -90,174 +117,6 @@ class UsAppToPersonInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
-        """
-        return self._account_sid
-
-    @property
-    def brand_registration_sid(self) -> Optional[str]:
-        """
-        :returns: The unique string to identify the A2P brand.
-        """
-        return self._brand_registration_sid
-
-    @property
-    def messaging_service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
-        """
-        return self._messaging_service_sid
-
-    @property
-    def description(self) -> Optional[str]:
-        """
-        :returns: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
-        """
-        return self._description
-
-    @property
-    def message_samples(self) -> Optional[List[str]]:
-        """
-        :returns: Message samples, at least 1 and up to 5 sample messages (at least 2 for starter/sole proprietor), >=20 chars, <=1024 chars each.
-        """
-        return self._message_samples
-
-    @property
-    def us_app_to_person_usecase(self) -> Optional[str]:
-        """
-        :returns: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, STARTER...]. STARTER campaign use cases can only be created by STARTER Brands, and there can only be one STARTER campaign created per STARTER Brand.
-        """
-        return self._us_app_to_person_usecase
-
-    @property
-    def has_embedded_links(self) -> Optional[bool]:
-        """
-        :returns: Indicate that this SMS campaign will send messages that contain links.
-        """
-        return self._has_embedded_links
-
-    @property
-    def has_embedded_phone(self) -> Optional[bool]:
-        """
-        :returns: Indicates that this SMS campaign will send messages that contain phone numbers.
-        """
-        return self._has_embedded_phone
-
-    @property
-    def campaign_status(self) -> Optional[str]:
-        """
-        :returns: Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED.
-        """
-        return self._campaign_status
-
-    @property
-    def campaign_id(self) -> Optional[str]:
-        """
-        :returns: The Campaign Registry (TCR) Campaign ID.
-        """
-        return self._campaign_id
-
-    @property
-    def is_externally_registered(self) -> Optional[bool]:
-        """
-        :returns: Indicates whether the campaign was registered externally or not.
-        """
-        return self._is_externally_registered
-
-    @property
-    def rate_limits(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
-        """
-        return self._rate_limits
-
-    @property
-    def message_flow(self) -> Optional[str]:
-        """
-        :returns: Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
-        """
-        return self._message_flow
-
-    @property
-    def opt_in_message(self) -> Optional[str]:
-        """
-        :returns: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
-        """
-        return self._opt_in_message
-
-    @property
-    def opt_out_message(self) -> Optional[str]:
-        """
-        :returns: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
-        """
-        return self._opt_out_message
-
-    @property
-    def help_message(self) -> Optional[str]:
-        """
-        :returns: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
-        """
-        return self._help_message
-
-    @property
-    def opt_in_keywords(self) -> Optional[List[str]]:
-        """
-        :returns: If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
-        """
-        return self._opt_in_keywords
-
-    @property
-    def opt_out_keywords(self) -> Optional[List[str]]:
-        """
-        :returns: End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
-        """
-        return self._opt_out_keywords
-
-    @property
-    def help_keywords(self) -> Optional[List[str]]:
-        """
-        :returns: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
-        """
-        return self._help_keywords
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the US App to Person resource.
-        """
-        return self._url
-
-    @property
-    def mock(self) -> Optional[bool]:
-        """
-        :returns: A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
-        """
-        return self._mock
 
     def delete(self) -> bool:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -24,106 +24,41 @@ from twilio.base.page import Page
 
 
 class LegacyContentInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the LegacyContentInstance
-        """
+
+    """
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar sid: The unique string that that we created to identify the Content resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
+    :ivar friendly_name: A string name used to describe the Content resource. Not visible to the end recipient.
+    :ivar language: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
+    :ivar variables: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
+    :ivar types: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
+    :ivar legacy_template_name: The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
+    :ivar legacy_body: The string body field of the legacy content template associated with this Content resource
+    :ivar url: The URL of the resource, relative to `https://content.twilio.com`.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._language: Optional[str] = payload.get("language")
-        self._variables: Optional[Dict[str, object]] = payload.get("variables")
-        self._types: Optional[Dict[str, object]] = payload.get("types")
-        self._legacy_template_name: Optional[str] = payload.get("legacy_template_name")
-        self._legacy_body: Optional[str] = payload.get("legacy_body")
-        self._url: Optional[str] = payload.get("url")
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.language: Optional[str] = payload.get("language")
+        self.variables: Optional[Dict[str, object]] = payload.get("variables")
+        self.types: Optional[Dict[str, object]] = payload.get("types")
+        self.legacy_template_name: Optional[str] = payload.get("legacy_template_name")
+        self.legacy_body: Optional[str] = payload.get("legacy_body")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify the Content resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
-        """
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: A string name used to describe the Content resource. Not visible to the end recipient.
-        """
-        return self._friendly_name
-
-    @property
-    def language(self) -> Optional[str]:
-        """
-        :returns: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
-        """
-        return self._language
-
-    @property
-    def variables(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
-        """
-        return self._variables
-
-    @property
-    def types(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
-        """
-        return self._types
-
-    @property
-    def legacy_template_name(self) -> Optional[str]:
-        """
-        :returns: The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
-        """
-        return self._legacy_template_name
-
-    @property
-    def legacy_body(self) -> Optional[str]:
-        """
-        :returns: The string body field of the legacy content template associated with this Content resource
-        """
-        return self._legacy_body
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of the resource, relative to `https://content.twilio.com`.
-        """
-        return self._url
 
     def __repr__(self) -> str:
         """

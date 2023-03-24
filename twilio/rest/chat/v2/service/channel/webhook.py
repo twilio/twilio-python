@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,37 +24,47 @@ from twilio.base.page import Page
 
 
 class WebhookInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the Channel Webhook resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel Webhook resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Channel Webhook resource is associated with.
+    :ivar channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resource belongs to.
+    :ivar type: The type of webhook. Can be: `webhook`, `studio`, or `trigger`.
+    :ivar url: The absolute URL of the Channel Webhook resource.
+    :ivar configuration: The JSON string that describes how the channel webhook is configured. The configuration object contains the `url`, `method`, `filters`, and `retry_count` values that are configured by the create and update actions.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         channel_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the WebhookInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._channel_sid: Optional[str] = payload.get("channel_sid")
-        self._type: Optional[str] = payload.get("type")
-        self._url: Optional[str] = payload.get("url")
-        self._configuration: Optional[Dict[str, object]] = payload.get("configuration")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.type: Optional[str] = payload.get("type")
+        self.url: Optional[str] = payload.get("url")
+        self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[WebhookContext] = None
 
@@ -74,69 +84,6 @@ class WebhookInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Channel Webhook resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel Webhook resource.
-        """
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Channel Webhook resource is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def channel_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resource belongs to.
-        """
-        return self._channel_sid
-
-    @property
-    def type(self) -> Optional[str]:
-        """
-        :returns: The type of webhook. Can be: `webhook`, `studio`, or `trigger`.
-        """
-        return self._type
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Channel Webhook resource.
-        """
-        return self._url
-
-    @property
-    def configuration(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The JSON string that describes how the channel webhook is configured. The configuration object contains the `url`, `method`, `filters`, and `retry_count` values that are configured by the create and update actions.
-        """
-        return self._configuration
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
 
     def delete(self) -> bool:
         """

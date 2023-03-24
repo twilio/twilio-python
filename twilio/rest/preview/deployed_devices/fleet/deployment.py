@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,28 +24,43 @@ from twilio.base.page import Page
 
 
 class DeploymentInstance(InstanceResource):
-    def __init__(self, version, payload, fleet_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the DeploymentInstance
-        """
+
+    """
+    :ivar sid: Contains a 34 character string that uniquely identifies this Deployment resource.
+    :ivar url: Contains an absolute URL for this Deployment resource.
+    :ivar friendly_name: Contains a human readable descriptive text for this Deployment, up to 64 characters long
+    :ivar fleet_sid: Specifies the unique string identifier of the Fleet that the given Deployment belongs to.
+    :ivar account_sid: Specifies the unique string identifier of the Account responsible for this Deployment.
+    :ivar sync_service_sid: Specifies the unique string identifier of the Twilio Sync service instance linked to and accessible by this Deployment.
+    :ivar date_created: Specifies the date this Deployment was created, given in UTC ISO 8601 format.
+    :ivar date_updated: Specifies the date this Deployment was last updated, given in UTC ISO 8601 format.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        fleet_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._url: Optional[str] = payload.get("url")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._fleet_sid: Optional[str] = payload.get("fleet_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._sync_service_sid: Optional[str] = payload.get("sync_service_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.url: Optional[str] = payload.get("url")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.fleet_sid: Optional[str] = payload.get("fleet_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sync_service_sid: Optional[str] = payload.get("sync_service_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
 
         self._solution = {
             "fleet_sid": fleet_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[DeploymentContext] = None
 
@@ -64,62 +79,6 @@ class DeploymentInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: Contains a 34 character string that uniquely identifies this Deployment resource.
-        """
-        return self._sid
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: Contains an absolute URL for this Deployment resource.
-        """
-        return self._url
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: Contains a human readable descriptive text for this Deployment, up to 64 characters long
-        """
-        return self._friendly_name
-
-    @property
-    def fleet_sid(self) -> Optional[str]:
-        """
-        :returns: Specifies the unique string identifier of the Fleet that the given Deployment belongs to.
-        """
-        return self._fleet_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: Specifies the unique string identifier of the Account responsible for this Deployment.
-        """
-        return self._account_sid
-
-    @property
-    def sync_service_sid(self) -> Optional[str]:
-        """
-        :returns: Specifies the unique string identifier of the Twilio Sync service instance linked to and accessible by this Deployment.
-        """
-        return self._sync_service_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: Specifies the date this Deployment was created, given in UTC ISO 8601 format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: Specifies the date this Deployment was last updated, given in UTC ISO 8601 format.
-        """
-        return self._date_updated
 
     def delete(self) -> bool:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,26 +24,37 @@ from twilio.base.page import Page
 
 
 class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the Item Assignment resource.
+    :ivar customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
+    :ivar object_sid: The SID of an object bag that holds information of the different items.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Identity resource.
+    """
+
     def __init__(
-        self, version, payload, customer_profile_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        customer_profile_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the CustomerProfilesEntityAssignmentsInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._customer_profile_sid: Optional[str] = payload.get("customer_profile_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._object_sid: Optional[str] = payload.get("object_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.customer_profile_sid: Optional[str] = payload.get("customer_profile_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.object_sid: Optional[str] = payload.get("object_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "customer_profile_sid": customer_profile_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[CustomerProfilesEntityAssignmentsContext] = None
 
@@ -62,48 +73,6 @@ class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Item Assignment resource.
-        """
-        return self._sid
-
-    @property
-    def customer_profile_sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the CustomerProfile resource.
-        """
-        return self._customer_profile_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
-        """
-        return self._account_sid
-
-    @property
-    def object_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of an object bag that holds information of the different items.
-        """
-        return self._object_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Identity resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

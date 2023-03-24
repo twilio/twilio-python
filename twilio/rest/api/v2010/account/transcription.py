@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,33 +29,52 @@ class TranscriptionInstance(InstanceResource):
         COMPLETED = "completed"
         FAILED = "failed"
 
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the TranscriptionInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource.
+    :ivar api_version: The API version used to create the transcription.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar duration: The duration of the transcribed audio in seconds.
+    :ivar price: The charge for the transcript in the currency associated with the account. This value is populated after the transcript is complete so it may not be available immediately.
+    :ivar price_unit: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+    :ivar recording_sid: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) from which the transcription was created.
+    :ivar sid: The unique string that that we created to identify the Transcription resource.
+    :ivar status: 
+    :ivar transcription_text: The text content of the transcription.
+    :ivar type: The transcription type. Can only be: `fast`.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._api_version: Optional[str] = payload.get("api_version")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.api_version: Optional[str] = payload.get("api_version")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._duration: Optional[str] = payload.get("duration")
-        self._price: Optional[float] = deserialize.decimal(payload.get("price"))
-        self._price_unit: Optional[str] = payload.get("price_unit")
-        self._recording_sid: Optional[str] = payload.get("recording_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._status: Optional["TranscriptionInstance.Status"] = payload.get("status")
-        self._transcription_text: Optional[str] = payload.get("transcription_text")
-        self._type: Optional[str] = payload.get("type")
-        self._uri: Optional[str] = payload.get("uri")
+        self.duration: Optional[str] = payload.get("duration")
+        self.price: Optional[float] = deserialize.decimal(payload.get("price"))
+        self.price_unit: Optional[str] = payload.get("price_unit")
+        self.recording_sid: Optional[str] = payload.get("recording_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.status: Optional["TranscriptionInstance.Status"] = payload.get("status")
+        self.transcription_text: Optional[str] = payload.get("transcription_text")
+        self.type: Optional[str] = payload.get("type")
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[TranscriptionContext] = None
 
@@ -74,94 +93,6 @@ class TranscriptionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource.
-        """
-        return self._account_sid
-
-    @property
-    def api_version(self) -> Optional[str]:
-        """
-        :returns: The API version used to create the transcription.
-        """
-        return self._api_version
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def duration(self) -> Optional[str]:
-        """
-        :returns: The duration of the transcribed audio in seconds.
-        """
-        return self._duration
-
-    @property
-    def price(self) -> Optional[float]:
-        """
-        :returns: The charge for the transcript in the currency associated with the account. This value is populated after the transcript is complete so it may not be available immediately.
-        """
-        return self._price
-
-    @property
-    def price_unit(self) -> Optional[str]:
-        """
-        :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        """
-        return self._price_unit
-
-    @property
-    def recording_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) from which the transcription was created.
-        """
-        return self._recording_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify the Transcription resource.
-        """
-        return self._sid
-
-    @property
-    def status(self) -> Optional["TranscriptionInstance.Status"]:
-        return self._status
-
-    @property
-    def transcription_text(self) -> Optional[str]:
-        """
-        :returns: The text content of the transcription.
-        """
-        return self._transcription_text
-
-    @property
-    def type(self) -> Optional[str]:
-        """
-        :returns: The transcription type. Can only be: `fast`.
-        """
-        return self._type
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
 
     def delete(self) -> bool:
         """

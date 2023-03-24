@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -34,34 +34,47 @@ class VerificationAttemptInstance(InstanceResource):
         CONVERTED = "converted"
         UNCONVERTED = "unconverted"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the VerificationAttemptInstance
-        """
+    """
+    :ivar sid: The SID that uniquely identifies the verification attempt resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) used to generate the attempt.
+    :ivar verification_sid: The SID of the [Verification](https://www.twilio.com/docs/verify/api/verification) that generated the attempt.
+    :ivar date_created: The date that this Attempt was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date that this Attempt was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar conversion_status: 
+    :ivar channel: 
+    :ivar price: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
+    :ivar channel_data: An object containing the channel specific information for an attempt.
+    :ivar url: 
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._verification_sid: Optional[str] = payload.get("verification_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.verification_sid: Optional[str] = payload.get("verification_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._conversion_status: Optional[
+        self.conversion_status: Optional[
             "VerificationAttemptInstance.ConversionStatus"
         ] = payload.get("conversion_status")
-        self._channel: Optional["VerificationAttemptInstance.Channels"] = payload.get(
+        self.channel: Optional["VerificationAttemptInstance.Channels"] = payload.get(
             "channel"
         )
-        self._price: Optional[Dict[str, object]] = payload.get("price")
-        self._channel_data: Optional[Dict[str, object]] = payload.get("channel_data")
-        self._url: Optional[str] = payload.get("url")
+        self.price: Optional[Dict[str, object]] = payload.get("price")
+        self.channel_data: Optional[Dict[str, object]] = payload.get("channel_data")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[VerificationAttemptContext] = None
 
@@ -79,76 +92,6 @@ class VerificationAttemptInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The SID that uniquely identifies the verification attempt resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
-        """
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) used to generate the attempt.
-        """
-        return self._service_sid
-
-    @property
-    def verification_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Verification](https://www.twilio.com/docs/verify/api/verification) that generated the attempt.
-        """
-        return self._verification_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this Attempt was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this Attempt was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def conversion_status(
-        self,
-    ) -> Optional["VerificationAttemptInstance.ConversionStatus"]:
-        return self._conversion_status
-
-    @property
-    def channel(self) -> Optional["VerificationAttemptInstance.Channels"]:
-        return self._channel
-
-    @property
-    def price(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
-        """
-        return self._price
-
-    @property
-    def channel_data(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: An object containing the channel specific information for an attempt.
-        """
-        return self._channel_data
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def fetch(self) -> "VerificationAttemptInstance":
         """

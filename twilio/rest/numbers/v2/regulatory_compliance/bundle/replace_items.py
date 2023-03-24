@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -31,99 +31,42 @@ class ReplaceItemsInstance(InstanceResource):
         TWILIO_APPROVED = "twilio-approved"
         PROVISIONALLY_APPROVED = "provisionally-approved"
 
-    def __init__(self, version, payload, bundle_sid: str):
-        """
-        Initialize the ReplaceItemsInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Bundle resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
+    :ivar regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar status: 
+    :ivar valid_until: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
+    :ivar email: The email address that will receive updates when the Bundle resource changes status.
+    :ivar status_callback: The URL we call to inform your application of status changes.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], bundle_sid: str):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._regulation_sid: Optional[str] = payload.get("regulation_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._status: Optional["ReplaceItemsInstance.Status"] = payload.get("status")
-        self._valid_until: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.regulation_sid: Optional[str] = payload.get("regulation_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.status: Optional["ReplaceItemsInstance.Status"] = payload.get("status")
+        self.valid_until: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("valid_until")
         )
-        self._email: Optional[str] = payload.get("email")
-        self._status_callback: Optional[str] = payload.get("status_callback")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.email: Optional[str] = payload.get("email")
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
 
         self._solution = {
             "bundle_sid": bundle_sid,
         }
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Bundle resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
-        """
-        return self._account_sid
-
-    @property
-    def regulation_sid(self) -> Optional[str]:
-        """
-        :returns: The unique string of a regulation that is associated to the Bundle resource.
-        """
-        return self._regulation_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def status(self) -> Optional["ReplaceItemsInstance.Status"]:
-        return self._status
-
-    @property
-    def valid_until(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
-        """
-        return self._valid_until
-
-    @property
-    def email(self) -> Optional[str]:
-        """
-        :returns: The email address that will receive updates when the Bundle resource changes status.
-        """
-        return self._email
-
-    @property
-    def status_callback(self) -> Optional[str]:
-        """
-        :returns: The URL we call to inform your application of status changes.
-        """
-        return self._status_callback
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
 
     def __repr__(self) -> str:
         """

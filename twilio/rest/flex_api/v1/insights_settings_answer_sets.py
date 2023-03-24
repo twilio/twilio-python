@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,55 +21,27 @@ from twilio.base.version import Version
 
 
 class InsightsSettingsAnswerSetsInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the InsightsSettingsAnswerSetsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+    :ivar answer_sets: The lis of answer sets
+    :ivar answer_set_categories: The list of answer set categories
+    :ivar not_applicable: The details for not applicable answer set
+    :ivar url:
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._answer_sets: Optional[Dict[str, object]] = payload.get("answer_sets")
-        self._answer_set_categories: Optional[Dict[str, object]] = payload.get(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.answer_sets: Optional[Dict[str, object]] = payload.get("answer_sets")
+        self.answer_set_categories: Optional[Dict[str, object]] = payload.get(
             "answer_set_categories"
         )
-        self._not_applicable: Optional[Dict[str, object]] = payload.get(
-            "not_applicable"
-        )
-        self._url: Optional[str] = payload.get("url")
+        self.not_applicable: Optional[Dict[str, object]] = payload.get("not_applicable")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        """
-        return self._account_sid
-
-    @property
-    def answer_sets(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The lis of answer sets
-        """
-        return self._answer_sets
-
-    @property
-    def answer_set_categories(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The list of answer set categories
-        """
-        return self._answer_set_categories
-
-    @property
-    def not_applicable(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The details for not applicable answer set
-        """
-        return self._not_applicable
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def __repr__(self) -> str:
         """

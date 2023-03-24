@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,30 +24,43 @@ from twilio.base.page import Page
 
 
 class WebhookInstance(InstanceResource):
+
+    """
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
+    :ivar conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+    :ivar target: The target of this webhook: `webhook`, `studio`, `trigger`
+    :ivar url: An absolute API resource URL for this webhook.
+    :ivar configuration: The configuration of this webhook. Is defined based on target.
+    :ivar date_created: The date that this resource was created.
+    :ivar date_updated: The date that this resource was last updated.
+    """
+
     def __init__(
-        self, version, payload, conversation_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        conversation_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the WebhookInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._conversation_sid: Optional[str] = payload.get("conversation_sid")
-        self._target: Optional[str] = payload.get("target")
-        self._url: Optional[str] = payload.get("url")
-        self._configuration: Optional[Dict[str, object]] = payload.get("configuration")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.conversation_sid: Optional[str] = payload.get("conversation_sid")
+        self.target: Optional[str] = payload.get("target")
+        self.url: Optional[str] = payload.get("url")
+        self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
 
         self._solution = {
             "conversation_sid": conversation_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[WebhookContext] = None
 
@@ -66,62 +79,6 @@ class WebhookInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
-        """
-        return self._account_sid
-
-    @property
-    def conversation_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-        """
-        return self._conversation_sid
-
-    @property
-    def target(self) -> Optional[str]:
-        """
-        :returns: The target of this webhook: `webhook`, `studio`, `trigger`
-        """
-        return self._target
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: An absolute API resource URL for this webhook.
-        """
-        return self._url
-
-    @property
-    def configuration(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The configuration of this webhook. Is defined based on target.
-        """
-        return self._configuration
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated.
-        """
-        return self._date_updated
 
     def delete(self) -> bool:
         """

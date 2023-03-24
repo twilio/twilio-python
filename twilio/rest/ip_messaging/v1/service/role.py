@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,29 +28,44 @@ class RoleInstance(InstanceResource):
         CHANNEL = "channel"
         DEPLOYMENT = "deployment"
 
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the RoleInstance
-        """
+    """
+    :ivar sid: 
+    :ivar account_sid: 
+    :ivar service_sid: 
+    :ivar friendly_name: 
+    :ivar type: 
+    :ivar permissions: 
+    :ivar date_created: 
+    :ivar date_updated: 
+    :ivar url: 
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._type: Optional["RoleInstance.RoleType"] = payload.get("type")
-        self._permissions: Optional[List[str]] = payload.get("permissions")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.type: Optional["RoleInstance.RoleType"] = payload.get("type")
+        self.permissions: Optional[List[str]] = payload.get("permissions")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[RoleContext] = None
 
@@ -69,42 +84,6 @@ class RoleInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        return self._service_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        return self._friendly_name
-
-    @property
-    def type(self) -> Optional["RoleInstance.RoleType"]:
-        return self._type
-
-    @property
-    def permissions(self) -> Optional[List[str]]:
-        return self._permissions
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def delete(self) -> bool:
         """

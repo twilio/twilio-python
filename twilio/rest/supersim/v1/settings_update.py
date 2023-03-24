@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -30,81 +30,36 @@ class SettingsUpdateInstance(InstanceResource):
         SUCCESSFUL = "successful"
         FAILED = "failed"
 
-    def __init__(self, version, payload):
-        """
-        Initialize the SettingsUpdateInstance
-        """
+    """
+    :ivar sid: The unique identifier of this Settings Update.
+    :ivar iccid: The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
+    :ivar sim_sid: The SID of the Super SIM to which this Settings Update was applied.
+    :ivar status: 
+    :ivar packages: Array containing the different Settings Packages that will be applied to the SIM after the update completes. Each object within the array indicates the name and the version of the Settings Package that will be on the SIM if the update is successful.
+    :ivar date_completed: The time, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, when the update successfully completed and the new settings were applied to the SIM.
+    :ivar date_created: The date that this Settings Update was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date that this Settings Update was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._iccid: Optional[str] = payload.get("iccid")
-        self._sim_sid: Optional[str] = payload.get("sim_sid")
-        self._status: Optional["SettingsUpdateInstance.Status"] = payload.get("status")
-        self._packages: Optional[List[object]] = payload.get("packages")
-        self._date_completed: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.iccid: Optional[str] = payload.get("iccid")
+        self.sim_sid: Optional[str] = payload.get("sim_sid")
+        self.status: Optional["SettingsUpdateInstance.Status"] = payload.get("status")
+        self.packages: Optional[List[object]] = payload.get("packages")
+        self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_completed")
         )
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
 
         self._solution = {}
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique identifier of this Settings Update.
-        """
-        return self._sid
-
-    @property
-    def iccid(self) -> Optional[str]:
-        """
-        :returns: The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
-        """
-        return self._iccid
-
-    @property
-    def sim_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Super SIM to which this Settings Update was applied.
-        """
-        return self._sim_sid
-
-    @property
-    def status(self) -> Optional["SettingsUpdateInstance.Status"]:
-        return self._status
-
-    @property
-    def packages(self) -> Optional[List[object]]:
-        """
-        :returns: Array containing the different Settings Packages that will be applied to the SIM after the update completes. Each object within the array indicates the name and the version of the Settings Package that will be on the SIM if the update is successful.
-        """
-        return self._packages
-
-    @property
-    def date_completed(self) -> Optional[datetime]:
-        """
-        :returns: The time, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, when the update successfully completed and the new settings were applied to the SIM.
-        """
-        return self._date_completed
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this Settings Update was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this Settings Update was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
 
     def __repr__(self) -> str:
         """

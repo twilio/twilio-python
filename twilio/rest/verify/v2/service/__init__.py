@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,43 +33,64 @@ from twilio.rest.verify.v2.service.webhook import WebhookList
 
 
 class ServiceInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ServiceInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the Service resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
+    :ivar friendly_name: The string that you assigned to describe the verification service. **This value should not contain PII.**
+    :ivar code_length: The length of the verification code to generate.
+    :ivar lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+    :ivar psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+    :ivar skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+    :ivar dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+    :ivar tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+    :ivar do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
+    :ivar custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+    :ivar push: Configurations for the Push factors (channel) created under this Service.
+    :ivar totp: Configurations for the TOTP factors (channel) created under this Service.
+    :ivar default_template_sid:
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar url: The absolute URL of the resource.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._code_length: Optional[int] = deserialize.integer(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.code_length: Optional[int] = deserialize.integer(
             payload.get("code_length")
         )
-        self._lookup_enabled: Optional[bool] = payload.get("lookup_enabled")
-        self._psd2_enabled: Optional[bool] = payload.get("psd2_enabled")
-        self._skip_sms_to_landlines: Optional[bool] = payload.get(
+        self.lookup_enabled: Optional[bool] = payload.get("lookup_enabled")
+        self.psd2_enabled: Optional[bool] = payload.get("psd2_enabled")
+        self.skip_sms_to_landlines: Optional[bool] = payload.get(
             "skip_sms_to_landlines"
         )
-        self._dtmf_input_required: Optional[bool] = payload.get("dtmf_input_required")
-        self._tts_name: Optional[str] = payload.get("tts_name")
-        self._do_not_share_warning_enabled: Optional[bool] = payload.get(
+        self.dtmf_input_required: Optional[bool] = payload.get("dtmf_input_required")
+        self.tts_name: Optional[str] = payload.get("tts_name")
+        self.do_not_share_warning_enabled: Optional[bool] = payload.get(
             "do_not_share_warning_enabled"
         )
-        self._custom_code_enabled: Optional[bool] = payload.get("custom_code_enabled")
-        self._push: Optional[Dict[str, object]] = payload.get("push")
-        self._totp: Optional[Dict[str, object]] = payload.get("totp")
-        self._default_template_sid: Optional[str] = payload.get("default_template_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.custom_code_enabled: Optional[bool] = payload.get("custom_code_enabled")
+        self.push: Optional[Dict[str, object]] = payload.get("push")
+        self.totp: Optional[Dict[str, object]] = payload.get("totp")
+        self.default_template_sid: Optional[str] = payload.get("default_template_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -87,129 +108,6 @@ class ServiceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Service resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        """
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the verification service. **This value should not contain PII.**
-        """
-        return self._friendly_name
-
-    @property
-    def code_length(self) -> Optional[int]:
-        """
-        :returns: The length of the verification code to generate.
-        """
-        return self._code_length
-
-    @property
-    def lookup_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether to perform a lookup with each verification started and return info about the phone number.
-        """
-        return self._lookup_enabled
-
-    @property
-    def psd2_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether to pass PSD2 transaction parameters when starting a verification.
-        """
-        return self._psd2_enabled
-
-    @property
-    def skip_sms_to_landlines(self) -> Optional[bool]:
-        """
-        :returns: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
-        """
-        return self._skip_sms_to_landlines
-
-    @property
-    def dtmf_input_required(self) -> Optional[bool]:
-        """
-        :returns: Whether to ask the user to press a number before delivering the verify code in a phone call.
-        """
-        return self._dtmf_input_required
-
-    @property
-    def tts_name(self) -> Optional[str]:
-        """
-        :returns: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
-        """
-        return self._tts_name
-
-    @property
-    def do_not_share_warning_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-        """
-        return self._do_not_share_warning_enabled
-
-    @property
-    def custom_code_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
-        """
-        return self._custom_code_enabled
-
-    @property
-    def push(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Configurations for the Push factors (channel) created under this Service.
-        """
-        return self._push
-
-    @property
-    def totp(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Configurations for the TOTP factors (channel) created under this Service.
-        """
-        return self._totp
-
-    @property
-    def default_template_sid(self) -> Optional[str]:
-        return self._default_template_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

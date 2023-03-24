@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,38 +24,49 @@ from twilio.base.page import Page
 
 
 class InviteInstance(InstanceResource):
+
+    """
+    :ivar sid:
+    :ivar account_sid:
+    :ivar channel_sid:
+    :ivar service_sid:
+    :ivar identity:
+    :ivar date_created:
+    :ivar date_updated:
+    :ivar role_sid:
+    :ivar created_by:
+    :ivar url:
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         channel_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the InviteInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._channel_sid: Optional[str] = payload.get("channel_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._identity: Optional[str] = payload.get("identity")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._role_sid: Optional[str] = payload.get("role_sid")
-        self._created_by: Optional[str] = payload.get("created_by")
-        self._url: Optional[str] = payload.get("url")
+        self.role_sid: Optional[str] = payload.get("role_sid")
+        self.created_by: Optional[str] = payload.get("created_by")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[InviteContext] = None
 
@@ -75,46 +86,6 @@ class InviteInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def channel_sid(self) -> Optional[str]:
-        return self._channel_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        return self._service_sid
-
-    @property
-    def identity(self) -> Optional[str]:
-        return self._identity
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        return self._date_updated
-
-    @property
-    def role_sid(self) -> Optional[str]:
-        return self._role_sid
-
-    @property
-    def created_by(self) -> Optional[str]:
-        return self._created_by
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def delete(self) -> bool:
         """

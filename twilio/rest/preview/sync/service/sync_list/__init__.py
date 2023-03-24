@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,30 +28,47 @@ from twilio.rest.preview.sync.service.sync_list.sync_list_permission import (
 
 
 class SyncListInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the SyncListInstance
-        """
+
+    """
+    :ivar sid:
+    :ivar unique_name:
+    :ivar account_sid:
+    :ivar service_sid:
+    :ivar url:
+    :ivar links:
+    :ivar revision:
+    :ivar date_created:
+    :ivar date_updated:
+    :ivar created_by:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
-        self._revision: Optional[str] = payload.get("revision")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.revision: Optional[str] = payload.get("revision")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._created_by: Optional[str] = payload.get("created_by")
+        self.created_by: Optional[str] = payload.get("created_by")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[SyncListContext] = None
 
@@ -70,46 +87,6 @@ class SyncListInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        return self._sid
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        return self._unique_name
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        return self._service_sid
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        return self._links
-
-    @property
-    def revision(self) -> Optional[str]:
-        return self._revision
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        return self._date_updated
-
-    @property
-    def created_by(self) -> Optional[str]:
-        return self._created_by
 
     def delete(self) -> bool:
         """

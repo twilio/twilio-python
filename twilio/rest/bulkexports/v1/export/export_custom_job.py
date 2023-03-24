@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,106 +23,41 @@ from twilio.base.page import Page
 
 
 class ExportCustomJobInstance(InstanceResource):
-    def __init__(self, version, payload, resource_type: str):
-        """
-        Initialize the ExportCustomJobInstance
-        """
+
+    """
+    :ivar friendly_name: The friendly name specified when creating the job
+    :ivar resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+    :ivar start_day: The start day for the custom export specified when creating the job
+    :ivar end_day: The end day for the export specified when creating the job
+    :ivar webhook_url: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied.
+    :ivar webhook_method: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+    :ivar email: The optional email to send the completion notification to
+    :ivar job_sid: The unique job_sid returned when the custom export was created
+    :ivar details: The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
+    :ivar job_queue_position: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
+    :ivar estimated_completion_time: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], resource_type: str):
         super().__init__(version)
 
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._resource_type: Optional[str] = payload.get("resource_type")
-        self._start_day: Optional[str] = payload.get("start_day")
-        self._end_day: Optional[str] = payload.get("end_day")
-        self._webhook_url: Optional[str] = payload.get("webhook_url")
-        self._webhook_method: Optional[str] = payload.get("webhook_method")
-        self._email: Optional[str] = payload.get("email")
-        self._job_sid: Optional[str] = payload.get("job_sid")
-        self._details: Optional[Dict[str, object]] = payload.get("details")
-        self._job_queue_position: Optional[str] = payload.get("job_queue_position")
-        self._estimated_completion_time: Optional[str] = payload.get(
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.resource_type: Optional[str] = payload.get("resource_type")
+        self.start_day: Optional[str] = payload.get("start_day")
+        self.end_day: Optional[str] = payload.get("end_day")
+        self.webhook_url: Optional[str] = payload.get("webhook_url")
+        self.webhook_method: Optional[str] = payload.get("webhook_method")
+        self.email: Optional[str] = payload.get("email")
+        self.job_sid: Optional[str] = payload.get("job_sid")
+        self.details: Optional[Dict[str, object]] = payload.get("details")
+        self.job_queue_position: Optional[str] = payload.get("job_queue_position")
+        self.estimated_completion_time: Optional[str] = payload.get(
             "estimated_completion_time"
         )
 
         self._solution = {
             "resource_type": resource_type,
         }
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The friendly name specified when creating the job
-        """
-        return self._friendly_name
-
-    @property
-    def resource_type(self) -> Optional[str]:
-        """
-        :returns: The type of communication – Messages, Calls, Conferences, and Participants
-        """
-        return self._resource_type
-
-    @property
-    def start_day(self) -> Optional[str]:
-        """
-        :returns: The start day for the custom export specified when creating the job
-        """
-        return self._start_day
-
-    @property
-    def end_day(self) -> Optional[str]:
-        """
-        :returns: The end day for the export specified when creating the job
-        """
-        return self._end_day
-
-    @property
-    def webhook_url(self) -> Optional[str]:
-        """
-        :returns: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied.
-        """
-        return self._webhook_url
-
-    @property
-    def webhook_method(self) -> Optional[str]:
-        """
-        :returns: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
-        """
-        return self._webhook_method
-
-    @property
-    def email(self) -> Optional[str]:
-        """
-        :returns: The optional email to send the completion notification to
-        """
-        return self._email
-
-    @property
-    def job_sid(self) -> Optional[str]:
-        """
-        :returns: The unique job_sid returned when the custom export was created
-        """
-        return self._job_sid
-
-    @property
-    def details(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
-        """
-        return self._details
-
-    @property
-    def job_queue_position(self) -> Optional[str]:
-        """
-        :returns: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
-        """
-        return self._job_queue_position
-
-    @property
-    def estimated_completion_time(self) -> Optional[str]:
-        """
-        :returns: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
-        """
-        return self._estimated_completion_time
 
     def __repr__(self) -> str:
         """

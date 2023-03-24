@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,30 +24,47 @@ from twilio.base.page import Page
 
 
 class WebhookInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the WebhookInstance
-        """
+
+    """
+    :ivar url: The absolute URL of the Webhook resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Webhook resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
+    :ivar sid: The unique string that we created to identify the Webhook resource.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+    :ivar events: The list of space-separated events that this Webhook is subscribed to.
+    :ivar webhook_url: The URL associated with this Webhook.
+    :ivar webhook_method: The method used when calling the webhook's URL.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assistant_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._url: Optional[str] = payload.get("url")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.url: Optional[str] = payload.get("url")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._events: Optional[str] = payload.get("events")
-        self._webhook_url: Optional[str] = payload.get("webhook_url")
-        self._webhook_method: Optional[str] = payload.get("webhook_method")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.events: Optional[str] = payload.get("events")
+        self.webhook_url: Optional[str] = payload.get("webhook_url")
+        self.webhook_method: Optional[str] = payload.get("webhook_method")
 
         self._solution = {
             "assistant_sid": assistant_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[WebhookContext] = None
 
@@ -66,76 +83,6 @@ class WebhookInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Webhook resource.
-        """
-        return self._url
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Webhook resource.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def assistant_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
-        """
-        return self._assistant_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Webhook resource.
-        """
-        return self._sid
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        """
-        return self._unique_name
-
-    @property
-    def events(self) -> Optional[str]:
-        """
-        :returns: The list of space-separated events that this Webhook is subscribed to.
-        """
-        return self._events
-
-    @property
-    def webhook_url(self) -> Optional[str]:
-        """
-        :returns: The URL associated with this Webhook.
-        """
-        return self._webhook_url
-
-    @property
-    def webhook_method(self) -> Optional[str]:
-        """
-        :returns: The method used when calling the webhook's URL.
-        """
-        return self._webhook_method
 
     def delete(self) -> bool:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,38 +24,49 @@ from twilio.base.page import Page
 
 
 class FieldValueInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The unique ID of the Account that created this Field Value.
+    :ivar date_created: The date that this resource was created
+    :ivar date_updated: The date that this resource was last updated
+    :ivar field_type_sid: The unique ID of the Field Type associated with this Field Value.
+    :ivar language: An ISO language-country string of the value.
+    :ivar assistant_sid: The unique ID of the Assistant.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar value: The Field Value itself.
+    :ivar url:
+    :ivar synonym_of: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         assistant_sid: str,
         field_type_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the FieldValueInstance
-        """
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._field_type_sid: Optional[str] = payload.get("field_type_sid")
-        self._language: Optional[str] = payload.get("language")
-        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._value: Optional[str] = payload.get("value")
-        self._url: Optional[str] = payload.get("url")
-        self._synonym_of: Optional[str] = payload.get("synonym_of")
+        self.field_type_sid: Optional[str] = payload.get("field_type_sid")
+        self.language: Optional[str] = payload.get("language")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.value: Optional[str] = payload.get("value")
+        self.url: Optional[str] = payload.get("url")
+        self.synonym_of: Optional[str] = payload.get("synonym_of")
 
         self._solution = {
             "assistant_sid": assistant_sid,
             "field_type_sid": field_type_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[FieldValueContext] = None
 
@@ -75,73 +86,6 @@ class FieldValueInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the Account that created this Field Value.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated
-        """
-        return self._date_updated
-
-    @property
-    def field_type_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the Field Type associated with this Field Value.
-        """
-        return self._field_type_sid
-
-    @property
-    def language(self) -> Optional[str]:
-        """
-        :returns: An ISO language-country string of the value.
-        """
-        return self._language
-
-    @property
-    def assistant_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the Assistant.
-        """
-        return self._assistant_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def value(self) -> Optional[str]:
-        """
-        :returns: The Field Value itself.
-        """
-        return self._value
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
-
-    @property
-    def synonym_of(self) -> Optional[str]:
-        """
-        :returns: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
-        """
-        return self._synonym_of
 
     def delete(self) -> bool:
         """

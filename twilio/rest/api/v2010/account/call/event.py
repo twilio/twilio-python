@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,33 +23,24 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, call_sid: str):
-        """
-        Initialize the EventInstance
-        """
+
+    """
+    :ivar request: Contains a dictionary representing the request of the call.
+    :ivar response: Contains a dictionary representing the call response, including a list of the call events.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], account_sid: str, call_sid: str
+    ):
         super().__init__(version)
 
-        self._request: Optional[Dict[str, object]] = payload.get("request")
-        self._response: Optional[Dict[str, object]] = payload.get("response")
+        self.request: Optional[Dict[str, object]] = payload.get("request")
+        self.response: Optional[Dict[str, object]] = payload.get("response")
 
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,
         }
-
-    @property
-    def request(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Contains a dictionary representing the request of the call.
-        """
-        return self._request
-
-    @property
-    def response(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Contains a dictionary representing the call response, including a list of the call events.
-        """
-        return self._response
 
     def __repr__(self) -> str:
         """

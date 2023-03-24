@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,34 +24,55 @@ from twilio.base.page import Page
 
 
 class QueryInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the QueryInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Query resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar results: The natural language analysis results that include the [Task](https://www.twilio.com/docs/autopilot/api/task) recognized and a list of identified [Fields](https://www.twilio.com/docs/autopilot/api/task-field).
+    :ivar language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query. For example: `en-US`.
+    :ivar model_build_sid: The SID of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) queried.
+    :ivar query: The end-user's natural language input.
+    :ivar sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
+    :ivar assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
+    :ivar sid: The unique string that we created to identify the Query resource.
+    :ivar status: The status of the Query. Can be: `pending-review`, `reviewed`, or `discarded`
+    :ivar url: The absolute URL of the Query resource.
+    :ivar source_channel: The communication channel from where the end-user input came.
+    :ivar dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assistant_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._results: Optional[Dict[str, object]] = payload.get("results")
-        self._language: Optional[str] = payload.get("language")
-        self._model_build_sid: Optional[str] = payload.get("model_build_sid")
-        self._query: Optional[str] = payload.get("query")
-        self._sample_sid: Optional[str] = payload.get("sample_sid")
-        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._status: Optional[str] = payload.get("status")
-        self._url: Optional[str] = payload.get("url")
-        self._source_channel: Optional[str] = payload.get("source_channel")
-        self._dialogue_sid: Optional[str] = payload.get("dialogue_sid")
+        self.results: Optional[Dict[str, object]] = payload.get("results")
+        self.language: Optional[str] = payload.get("language")
+        self.model_build_sid: Optional[str] = payload.get("model_build_sid")
+        self.query: Optional[str] = payload.get("query")
+        self.sample_sid: Optional[str] = payload.get("sample_sid")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.status: Optional[str] = payload.get("status")
+        self.url: Optional[str] = payload.get("url")
+        self.source_channel: Optional[str] = payload.get("source_channel")
+        self.dialogue_sid: Optional[str] = payload.get("dialogue_sid")
 
         self._solution = {
             "assistant_sid": assistant_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[QueryContext] = None
 
@@ -70,104 +91,6 @@ class QueryInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Query resource.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def results(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The natural language analysis results that include the [Task](https://www.twilio.com/docs/autopilot/api/task) recognized and a list of identified [Fields](https://www.twilio.com/docs/autopilot/api/task-field).
-        """
-        return self._results
-
-    @property
-    def language(self) -> Optional[str]:
-        """
-        :returns: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query. For example: `en-US`.
-        """
-        return self._language
-
-    @property
-    def model_build_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) queried.
-        """
-        return self._model_build_sid
-
-    @property
-    def query(self) -> Optional[str]:
-        """
-        :returns: The end-user's natural language input.
-        """
-        return self._query
-
-    @property
-    def sample_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
-        """
-        return self._sample_sid
-
-    @property
-    def assistant_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
-        """
-        return self._assistant_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Query resource.
-        """
-        return self._sid
-
-    @property
-    def status(self) -> Optional[str]:
-        """
-        :returns: The status of the Query. Can be: `pending-review`, `reviewed`, or `discarded`
-        """
-        return self._status
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Query resource.
-        """
-        return self._url
-
-    @property
-    def source_channel(self) -> Optional[str]:
-        """
-        :returns: The communication channel from where the end-user input came.
-        """
-        return self._source_channel
-
-    @property
-    def dialogue_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        """
-        return self._dialogue_sid
 
     def delete(self) -> bool:
         """

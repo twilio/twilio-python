@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,24 +27,33 @@ class RegulationInstance(InstanceResource):
         INDIVIDUAL = "individual"
         BUSINESS = "business"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the RegulationInstance
-        """
+    """
+    :ivar sid: The unique string that identifies the Regulation resource.
+    :ivar friendly_name: A human-readable description that is assigned to describe the Regulation resource. Examples can include Germany: Mobile - Business.
+    :ivar iso_country: The ISO country code of the phone number's country.
+    :ivar number_type: The type of phone number restricted by the regulatory requirement. For example, Germany mobile phone numbers provisioned by businesses require a business name with commercial register proof from the Handelsregisterauszug and a proof of address from Handelsregisterauszug or a trade license by Gewerbeanmeldung.
+    :ivar end_user_type: 
+    :ivar requirements: The SID of an object that holds the regulatory information of the phone number country, phone number type, and end user type.
+    :ivar url: The absolute URL of the Regulation resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._iso_country: Optional[str] = payload.get("iso_country")
-        self._number_type: Optional[str] = payload.get("number_type")
-        self._end_user_type: Optional["RegulationInstance.EndUserType"] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.iso_country: Optional[str] = payload.get("iso_country")
+        self.number_type: Optional[str] = payload.get("number_type")
+        self.end_user_type: Optional["RegulationInstance.EndUserType"] = payload.get(
             "end_user_type"
         )
-        self._requirements: Optional[Dict[str, object]] = payload.get("requirements")
-        self._url: Optional[str] = payload.get("url")
+        self.requirements: Optional[Dict[str, object]] = payload.get("requirements")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[RegulationContext] = None
 
@@ -62,52 +71,6 @@ class RegulationInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that identifies the Regulation resource.
-        """
-        return self._sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: A human-readable description that is assigned to describe the Regulation resource. Examples can include Germany: Mobile - Business.
-        """
-        return self._friendly_name
-
-    @property
-    def iso_country(self) -> Optional[str]:
-        """
-        :returns: The ISO country code of the phone number's country.
-        """
-        return self._iso_country
-
-    @property
-    def number_type(self) -> Optional[str]:
-        """
-        :returns: The type of phone number restricted by the regulatory requirement. For example, Germany mobile phone numbers provisioned by businesses require a business name with commercial register proof from the Handelsregisterauszug and a proof of address from Handelsregisterauszug or a trade license by Gewerbeanmeldung.
-        """
-        return self._number_type
-
-    @property
-    def end_user_type(self) -> Optional["RegulationInstance.EndUserType"]:
-        return self._end_user_type
-
-    @property
-    def requirements(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The SID of an object that holds the regulatory information of the phone number country, phone number type, and end user type.
-        """
-        return self._requirements
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Regulation resource.
-        """
-        return self._url
 
     def fetch(self) -> "RegulationInstance":
         """

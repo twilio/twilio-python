@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,35 +24,43 @@ from twilio.base.page import Page
 
 
 class CredentialInstance(InstanceResource):
+
+    """
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar account_sid: The unique id of the Account that is responsible for this resource.
+    :ivar credential_list_sid: The unique id that identifies the credential list that includes this credential.
+    :ivar username: The username for this credential.
+    :ivar date_created: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar date_updated: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar uri: The URI for this resource, relative to `https://api.twilio.com`
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         credential_list_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the CredentialInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._credential_list_sid: Optional[str] = payload.get("credential_list_sid")
-        self._username: Optional[str] = payload.get("username")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.credential_list_sid: Optional[str] = payload.get("credential_list_sid")
+        self.username: Optional[str] = payload.get("username")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._uri: Optional[str] = payload.get("uri")
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "credential_list_sid": credential_list_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[CredentialContext] = None
 
@@ -72,55 +80,6 @@ class CredentialInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique id of the Account that is responsible for this resource.
-        """
-        return self._account_sid
-
-    @property
-    def credential_list_sid(self) -> Optional[str]:
-        """
-        :returns: The unique id that identifies the credential list that includes this credential.
-        """
-        return self._credential_list_sid
-
-    @property
-    def username(self) -> Optional[str]:
-        """
-        :returns: The username for this credential.
-        """
-        return self._username
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._date_updated
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI for this resource, relative to `https://api.twilio.com`
-        """
-        return self._uri
 
     def delete(self) -> bool:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -27,179 +27,62 @@ class NotificationInstance(InstanceResource):
         HIGH = "high"
         LOW = "low"
 
-    def __init__(self, version, payload, service_sid: str):
-        """
-        Initialize the NotificationInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Notification resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) the resource is associated with.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar identities: The list of `identity` values of the Users to notify. We will attempt to deliver notifications only to Bindings with an identity in this list.
+    :ivar tags: The tags that select the Bindings to notify. Notifications will be attempted only to Bindings that have all of the tags listed in this property.
+    :ivar segments: The list of Segments to notify. The [Segment](https://www.twilio.com/docs/notify/api/segment-resource) resource is deprecated. Use the `tags` property, instead.
+    :ivar priority: 
+    :ivar ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
+    :ivar title: The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
+    :ivar body: The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
+    :ivar sound: The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property.
+    :ivar action: The actions to display for the notification. For APNS, translates to the `aps.category` value. For GCM, translates to the `data.twi_action` value. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
+    :ivar data: The custom key-value pairs of the notification's payload. For FCM and GCM, this value translates to `data` in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of `data` are inserted into the APNS payload as custom properties outside of the `aps` dictionary. In all channels, we reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
+    :ivar apn: The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS `Payload` item, therefore the `aps` key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed.
+    :ivar gcm: The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed.
+    :ivar fcm: The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
+    :ivar sms: The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/api/message-resource) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array.
+    :ivar facebook_messenger: Deprecated.
+    :ivar alexa: Deprecated.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._identities: Optional[List[str]] = payload.get("identities")
-        self._tags: Optional[List[str]] = payload.get("tags")
-        self._segments: Optional[List[str]] = payload.get("segments")
-        self._priority: Optional["NotificationInstance.Priority"] = payload.get(
+        self.identities: Optional[List[str]] = payload.get("identities")
+        self.tags: Optional[List[str]] = payload.get("tags")
+        self.segments: Optional[List[str]] = payload.get("segments")
+        self.priority: Optional["NotificationInstance.Priority"] = payload.get(
             "priority"
         )
-        self._ttl: Optional[int] = deserialize.integer(payload.get("ttl"))
-        self._title: Optional[str] = payload.get("title")
-        self._body: Optional[str] = payload.get("body")
-        self._sound: Optional[str] = payload.get("sound")
-        self._action: Optional[str] = payload.get("action")
-        self._data: Optional[Dict[str, object]] = payload.get("data")
-        self._apn: Optional[Dict[str, object]] = payload.get("apn")
-        self._gcm: Optional[Dict[str, object]] = payload.get("gcm")
-        self._fcm: Optional[Dict[str, object]] = payload.get("fcm")
-        self._sms: Optional[Dict[str, object]] = payload.get("sms")
-        self._facebook_messenger: Optional[Dict[str, object]] = payload.get(
+        self.ttl: Optional[int] = deserialize.integer(payload.get("ttl"))
+        self.title: Optional[str] = payload.get("title")
+        self.body: Optional[str] = payload.get("body")
+        self.sound: Optional[str] = payload.get("sound")
+        self.action: Optional[str] = payload.get("action")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
+        self.apn: Optional[Dict[str, object]] = payload.get("apn")
+        self.gcm: Optional[Dict[str, object]] = payload.get("gcm")
+        self.fcm: Optional[Dict[str, object]] = payload.get("fcm")
+        self.sms: Optional[Dict[str, object]] = payload.get("sms")
+        self.facebook_messenger: Optional[Dict[str, object]] = payload.get(
             "facebook_messenger"
         )
-        self._alexa: Optional[Dict[str, object]] = payload.get("alexa")
+        self.alexa: Optional[Dict[str, object]] = payload.get("alexa")
 
         self._solution = {
             "service_sid": service_sid,
         }
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Notification resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource.
-        """
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) the resource is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def identities(self) -> Optional[List[str]]:
-        """
-        :returns: The list of `identity` values of the Users to notify. We will attempt to deliver notifications only to Bindings with an identity in this list.
-        """
-        return self._identities
-
-    @property
-    def tags(self) -> Optional[List[str]]:
-        """
-        :returns: The tags that select the Bindings to notify. Notifications will be attempted only to Bindings that have all of the tags listed in this property.
-        """
-        return self._tags
-
-    @property
-    def segments(self) -> Optional[List[str]]:
-        """
-        :returns: The list of Segments to notify. The [Segment](https://www.twilio.com/docs/notify/api/segment-resource) resource is deprecated. Use the `tags` property, instead.
-        """
-        return self._segments
-
-    @property
-    def priority(self) -> Optional["NotificationInstance.Priority"]:
-        return self._priority
-
-    @property
-    def ttl(self) -> Optional[int]:
-        """
-        :returns: How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
-        """
-        return self._ttl
-
-    @property
-    def title(self) -> Optional[str]:
-        """
-        :returns: The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
-        """
-        return self._title
-
-    @property
-    def body(self) -> Optional[str]:
-        """
-        :returns: The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
-        """
-        return self._body
-
-    @property
-    def sound(self) -> Optional[str]:
-        """
-        :returns: The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property.
-        """
-        return self._sound
-
-    @property
-    def action(self) -> Optional[str]:
-        """
-        :returns: The actions to display for the notification. For APNS, translates to the `aps.category` value. For GCM, translates to the `data.twi_action` value. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
-        """
-        return self._action
-
-    @property
-    def data(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The custom key-value pairs of the notification's payload. For FCM and GCM, this value translates to `data` in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of `data` are inserted into the APNS payload as custom properties outside of the `aps` dictionary. In all channels, we reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
-        """
-        return self._data
-
-    @property
-    def apn(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS `Payload` item, therefore the `aps` key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed.
-        """
-        return self._apn
-
-    @property
-    def gcm(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed.
-        """
-        return self._gcm
-
-    @property
-    def fcm(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
-        """
-        return self._fcm
-
-    @property
-    def sms(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/api/message-resource) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array.
-        """
-        return self._sms
-
-    @property
-    def facebook_messenger(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Deprecated.
-        """
-        return self._facebook_messenger
-
-    @property
-    def alexa(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Deprecated.
-        """
-        return self._alexa
 
     def __repr__(self) -> str:
         """

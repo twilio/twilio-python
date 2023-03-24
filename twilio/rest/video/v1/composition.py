@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -35,48 +35,71 @@ class CompositionInstance(InstanceResource):
         DELETED = "deleted"
         FAILED = "failed"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the CompositionInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Composition resource.
+    :ivar status: 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_completed: The date and time in GMT when the composition's media processing task finished, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_deleted: The date and time in GMT when the composition generated media was deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar sid: The unique string that we created to identify the Composition resource.
+    :ivar room_sid: The SID of the Group Room that generated the audio and video tracks used in the composition. All media sources included in a composition must belong to the same Group Room.
+    :ivar audio_sources: The array of track names to include in the composition. The composition includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
+    :ivar audio_sources_excluded: The array of track names to exclude from the composition. The composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+    :ivar video_layout: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+    :ivar resolution: The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string's format is `{width}x{height}`, such as `640x480`.
+    :ivar trim: Whether to remove intervals with no media, as specified in the POST request that created the composition. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+    :ivar format: 
+    :ivar bitrate: The average bit rate of the composition's media.
+    :ivar size: The size of the composed media file in bytes.
+    :ivar duration: The duration of the composition's media file in seconds.
+    :ivar media_external_location: The URL of the media file associated with the composition when stored externally. See [External S3 Compositions](/docs/video/api/external-s3-compositions) for more details.
+    :ivar status_callback: The URL called using the `status_callback_method` to send status information on every composition event.
+    :ivar status_callback_method: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
+    :ivar url: The absolute URL of the resource.
+    :ivar links: The URL of the media file associated with the composition.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._status: Optional["CompositionInstance.Status"] = payload.get("status")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.status: Optional["CompositionInstance.Status"] = payload.get("status")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_completed: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_completed")
         )
-        self._date_deleted: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_deleted: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_deleted")
         )
-        self._sid: Optional[str] = payload.get("sid")
-        self._room_sid: Optional[str] = payload.get("room_sid")
-        self._audio_sources: Optional[List[str]] = payload.get("audio_sources")
-        self._audio_sources_excluded: Optional[List[str]] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.room_sid: Optional[str] = payload.get("room_sid")
+        self.audio_sources: Optional[List[str]] = payload.get("audio_sources")
+        self.audio_sources_excluded: Optional[List[str]] = payload.get(
             "audio_sources_excluded"
         )
-        self._video_layout: Optional[Dict[str, object]] = payload.get("video_layout")
-        self._resolution: Optional[str] = payload.get("resolution")
-        self._trim: Optional[bool] = payload.get("trim")
-        self._format: Optional["CompositionInstance.Format"] = payload.get("format")
-        self._bitrate: Optional[int] = deserialize.integer(payload.get("bitrate"))
-        self._size: Optional[int] = payload.get("size")
-        self._duration: Optional[int] = deserialize.integer(payload.get("duration"))
-        self._media_external_location: Optional[str] = payload.get(
+        self.video_layout: Optional[Dict[str, object]] = payload.get("video_layout")
+        self.resolution: Optional[str] = payload.get("resolution")
+        self.trim: Optional[bool] = payload.get("trim")
+        self.format: Optional["CompositionInstance.Format"] = payload.get("format")
+        self.bitrate: Optional[int] = deserialize.integer(payload.get("bitrate"))
+        self.size: Optional[int] = payload.get("size")
+        self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self.media_external_location: Optional[str] = payload.get(
             "media_external_location"
         )
-        self._status_callback: Optional[str] = payload.get("status_callback")
-        self._status_callback_method: Optional[str] = payload.get(
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.status_callback_method: Optional[str] = payload.get(
             "status_callback_method"
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[CompositionContext] = None
 
@@ -94,147 +117,6 @@ class CompositionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Composition resource.
-        """
-        return self._account_sid
-
-    @property
-    def status(self) -> Optional["CompositionInstance.Status"]:
-        return self._status
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_completed(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the composition's media processing task finished, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_completed
-
-    @property
-    def date_deleted(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the composition generated media was deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_deleted
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Composition resource.
-        """
-        return self._sid
-
-    @property
-    def room_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Group Room that generated the audio and video tracks used in the composition. All media sources included in a composition must belong to the same Group Room.
-        """
-        return self._room_sid
-
-    @property
-    def audio_sources(self) -> Optional[List[str]]:
-        """
-        :returns: The array of track names to include in the composition. The composition includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
-        """
-        return self._audio_sources
-
-    @property
-    def audio_sources_excluded(self) -> Optional[List[str]]:
-        """
-        :returns: The array of track names to exclude from the composition. The composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
-        """
-        return self._audio_sources_excluded
-
-    @property
-    def video_layout(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        """
-        return self._video_layout
-
-    @property
-    def resolution(self) -> Optional[str]:
-        """
-        :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string's format is `{width}x{height}`, such as `640x480`.
-        """
-        return self._resolution
-
-    @property
-    def trim(self) -> Optional[bool]:
-        """
-        :returns: Whether to remove intervals with no media, as specified in the POST request that created the composition. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        """
-        return self._trim
-
-    @property
-    def format(self) -> Optional["CompositionInstance.Format"]:
-        return self._format
-
-    @property
-    def bitrate(self) -> Optional[int]:
-        """
-        :returns: The average bit rate of the composition's media.
-        """
-        return self._bitrate
-
-    @property
-    def size(self) -> Optional[int]:
-        """
-        :returns: The size of the composed media file in bytes.
-        """
-        return self._size
-
-    @property
-    def duration(self) -> Optional[int]:
-        """
-        :returns: The duration of the composition's media file in seconds.
-        """
-        return self._duration
-
-    @property
-    def media_external_location(self) -> Optional[str]:
-        """
-        :returns: The URL of the media file associated with the composition when stored externally. See [External S3 Compositions](/docs/video/api/external-s3-compositions) for more details.
-        """
-        return self._media_external_location
-
-    @property
-    def status_callback(self) -> Optional[str]:
-        """
-        :returns: The URL called using the `status_callback_method` to send status information on every composition event.
-        """
-        return self._status_callback
-
-    @property
-    def status_callback_method(self) -> Optional[str]:
-        """
-        :returns: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
-        """
-        return self._status_callback_method
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URL of the media file associated with the composition.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

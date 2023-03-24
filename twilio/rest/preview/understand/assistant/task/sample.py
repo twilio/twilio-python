@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,38 +24,49 @@ from twilio.base.page import Page
 
 
 class SampleInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The unique ID of the Account that created this Sample.
+    :ivar date_created: The date that this resource was created
+    :ivar date_updated: The date that this resource was last updated
+    :ivar task_sid: The unique ID of the Task associated with this Sample.
+    :ivar language: An ISO language-country string of the sample.
+    :ivar assistant_sid: The unique ID of the Assistant.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+    :ivar url:
+    :ivar source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         assistant_sid: str,
         task_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the SampleInstance
-        """
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._task_sid: Optional[str] = payload.get("task_sid")
-        self._language: Optional[str] = payload.get("language")
-        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._tagged_text: Optional[str] = payload.get("tagged_text")
-        self._url: Optional[str] = payload.get("url")
-        self._source_channel: Optional[str] = payload.get("source_channel")
+        self.task_sid: Optional[str] = payload.get("task_sid")
+        self.language: Optional[str] = payload.get("language")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.tagged_text: Optional[str] = payload.get("tagged_text")
+        self.url: Optional[str] = payload.get("url")
+        self.source_channel: Optional[str] = payload.get("source_channel")
 
         self._solution = {
             "assistant_sid": assistant_sid,
             "task_sid": task_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[SampleContext] = None
 
@@ -75,73 +86,6 @@ class SampleInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the Account that created this Sample.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated
-        """
-        return self._date_updated
-
-    @property
-    def task_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the Task associated with this Sample.
-        """
-        return self._task_sid
-
-    @property
-    def language(self) -> Optional[str]:
-        """
-        :returns: An ISO language-country string of the sample.
-        """
-        return self._language
-
-    @property
-    def assistant_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the Assistant.
-        """
-        return self._assistant_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def tagged_text(self) -> Optional[str]:
-        """
-        :returns: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-        """
-        return self._tagged_text
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
-
-    @property
-    def source_channel(self) -> Optional[str]:
-        """
-        :returns: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
-        """
-        return self._source_channel
 
     def delete(self) -> bool:
         """

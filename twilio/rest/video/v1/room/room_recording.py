@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -45,39 +45,62 @@ class RoomRecordingInstance(InstanceResource):
         VIDEO = "video"
         DATA = "data"
 
-    def __init__(self, version, payload, room_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the RoomRecordingInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomRecording resource.
+    :ivar status: 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar sid: The unique string that we created to identify the RoomRecording resource.
+    :ivar source_sid: The SID of the recording source. For a Room Recording, this value is a `track_sid`.
+    :ivar size: The size of the recorded track in bytes.
+    :ivar url: The absolute URL of the resource.
+    :ivar type: 
+    :ivar duration: The duration of the recording rounded to the nearest second. Sub-second duration tracks have a `duration` of 1 second
+    :ivar container_format: 
+    :ivar codec: 
+    :ivar grouping_sids: A list of SIDs related to the Recording. Includes the `room_sid` and `participant_sid`.
+    :ivar track_name: The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
+    :ivar offset: The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room.
+    :ivar media_external_location: The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
+    :ivar room_sid: The SID of the Room resource the recording is associated with.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        room_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._status: Optional["RoomRecordingInstance.Status"] = payload.get("status")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.status: Optional["RoomRecordingInstance.Status"] = payload.get("status")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._sid: Optional[str] = payload.get("sid")
-        self._source_sid: Optional[str] = payload.get("source_sid")
-        self._size: Optional[int] = payload.get("size")
-        self._url: Optional[str] = payload.get("url")
-        self._type: Optional["RoomRecordingInstance.Type"] = payload.get("type")
-        self._duration: Optional[int] = deserialize.integer(payload.get("duration"))
-        self._container_format: Optional["RoomRecordingInstance.Format"] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.source_sid: Optional[str] = payload.get("source_sid")
+        self.size: Optional[int] = payload.get("size")
+        self.url: Optional[str] = payload.get("url")
+        self.type: Optional["RoomRecordingInstance.Type"] = payload.get("type")
+        self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self.container_format: Optional["RoomRecordingInstance.Format"] = payload.get(
             "container_format"
         )
-        self._codec: Optional["RoomRecordingInstance.Codec"] = payload.get("codec")
-        self._grouping_sids: Optional[Dict[str, object]] = payload.get("grouping_sids")
-        self._track_name: Optional[str] = payload.get("track_name")
-        self._offset: Optional[int] = payload.get("offset")
-        self._media_external_location: Optional[str] = payload.get(
+        self.codec: Optional["RoomRecordingInstance.Codec"] = payload.get("codec")
+        self.grouping_sids: Optional[Dict[str, object]] = payload.get("grouping_sids")
+        self.track_name: Optional[str] = payload.get("track_name")
+        self.offset: Optional[int] = payload.get("offset")
+        self.media_external_location: Optional[str] = payload.get(
             "media_external_location"
         )
-        self._room_sid: Optional[str] = payload.get("room_sid")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.room_sid: Optional[str] = payload.get("room_sid")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "room_sid": room_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[RoomRecordingContext] = None
 
@@ -96,113 +119,6 @@ class RoomRecordingInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomRecording resource.
-        """
-        return self._account_sid
-
-    @property
-    def status(self) -> Optional["RoomRecordingInstance.Status"]:
-        return self._status
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the RoomRecording resource.
-        """
-        return self._sid
-
-    @property
-    def source_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the recording source. For a Room Recording, this value is a `track_sid`.
-        """
-        return self._source_sid
-
-    @property
-    def size(self) -> Optional[int]:
-        """
-        :returns: The size of the recorded track in bytes.
-        """
-        return self._size
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
-
-    @property
-    def type(self) -> Optional["RoomRecordingInstance.Type"]:
-        return self._type
-
-    @property
-    def duration(self) -> Optional[int]:
-        """
-        :returns: The duration of the recording rounded to the nearest second. Sub-second duration tracks have a `duration` of 1 second
-        """
-        return self._duration
-
-    @property
-    def container_format(self) -> Optional["RoomRecordingInstance.Format"]:
-        return self._container_format
-
-    @property
-    def codec(self) -> Optional["RoomRecordingInstance.Codec"]:
-        return self._codec
-
-    @property
-    def grouping_sids(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: A list of SIDs related to the Recording. Includes the `room_sid` and `participant_sid`.
-        """
-        return self._grouping_sids
-
-    @property
-    def track_name(self) -> Optional[str]:
-        """
-        :returns: The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
-        """
-        return self._track_name
-
-    @property
-    def offset(self) -> Optional[int]:
-        """
-        :returns: The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room.
-        """
-        return self._offset
-
-    @property
-    def media_external_location(self) -> Optional[str]:
-        """
-        :returns: The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
-        """
-        return self._media_external_location
-
-    @property
-    def room_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Room resource the recording is associated with.
-        """
-        return self._room_sid
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

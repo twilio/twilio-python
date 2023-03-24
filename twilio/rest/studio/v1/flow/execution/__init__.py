@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,33 +30,50 @@ class ExecutionInstance(InstanceResource):
         ACTIVE = "active"
         ENDED = "ended"
 
-    def __init__(self, version, payload, flow_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ExecutionInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Execution resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Execution resource.
+    :ivar flow_sid: The SID of the Flow.
+    :ivar contact_sid: The SID of the Contact.
+    :ivar contact_channel_address: The phone number, SIP address or Client identifier that triggered the Execution. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+    :ivar context: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
+    :ivar status: 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the resource.
+    :ivar links: The URLs of nested resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        flow_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._flow_sid: Optional[str] = payload.get("flow_sid")
-        self._contact_sid: Optional[str] = payload.get("contact_sid")
-        self._contact_channel_address: Optional[str] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.flow_sid: Optional[str] = payload.get("flow_sid")
+        self.contact_sid: Optional[str] = payload.get("contact_sid")
+        self.contact_channel_address: Optional[str] = payload.get(
             "contact_channel_address"
         )
-        self._context: Optional[Dict[str, object]] = payload.get("context")
-        self._status: Optional["ExecutionInstance.Status"] = payload.get("status")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.context: Optional[Dict[str, object]] = payload.get("context")
+        self.status: Optional["ExecutionInstance.Status"] = payload.get("status")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "flow_sid": flow_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ExecutionContext] = None
 
@@ -75,80 +92,6 @@ class ExecutionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Execution resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Execution resource.
-        """
-        return self._account_sid
-
-    @property
-    def flow_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Flow.
-        """
-        return self._flow_sid
-
-    @property
-    def contact_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Contact.
-        """
-        return self._contact_sid
-
-    @property
-    def contact_channel_address(self) -> Optional[str]:
-        """
-        :returns: The phone number, SIP address or Client identifier that triggered the Execution. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-        """
-        return self._contact_channel_address
-
-    @property
-    def context(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
-        """
-        return self._context
-
-    @property
-    def status(self) -> Optional["ExecutionInstance.Status"]:
-        return self._status
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of nested resources.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

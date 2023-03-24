@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,28 +28,39 @@ class RoleInstance(InstanceResource):
         CONVERSATION = "conversation"
         SERVICE = "service"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the RoleInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Role resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Role resource.
+    :ivar chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Role resource is associated with.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar type: 
+    :ivar permissions: An array of the permissions the role has been granted.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: An absolute API resource URL for this user role.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._chat_service_sid: Optional[str] = payload.get("chat_service_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._type: Optional["RoleInstance.RoleType"] = payload.get("type")
-        self._permissions: Optional[List[str]] = payload.get("permissions")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.type: Optional["RoleInstance.RoleType"] = payload.get("type")
+        self.permissions: Optional[List[str]] = payload.get("permissions")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[RoleContext] = None
 
@@ -67,66 +78,6 @@ class RoleInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Role resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Role resource.
-        """
-        return self._account_sid
-
-    @property
-    def chat_service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Role resource is associated with.
-        """
-        return self._chat_service_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def type(self) -> Optional["RoleInstance.RoleType"]:
-        return self._type
-
-    @property
-    def permissions(self) -> Optional[List[str]]:
-        """
-        :returns: An array of the permissions the role has been granted.
-        """
-        return self._permissions
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: An absolute API resource URL for this user role.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

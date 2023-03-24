@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,30 +28,42 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
 
+    """
+    :ivar sid: The unique string that identifies the Evaluation resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the customer_profile resource.
+    :ivar policy_sid: The unique string of a policy that is associated to the customer_profile resource.
+    :ivar customer_profile_sid: The unique string that we created to identify the customer_profile resource.
+    :ivar status: 
+    :ivar results: The results of the Evaluation which includes the valid and invalid attributes.
+    :ivar date_created: 
+    :ivar url: 
+    """
+
     def __init__(
-        self, version, payload, customer_profile_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        customer_profile_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the CustomerProfilesEvaluationsInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._policy_sid: Optional[str] = payload.get("policy_sid")
-        self._customer_profile_sid: Optional[str] = payload.get("customer_profile_sid")
-        self._status: Optional[
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.policy_sid: Optional[str] = payload.get("policy_sid")
+        self.customer_profile_sid: Optional[str] = payload.get("customer_profile_sid")
+        self.status: Optional[
             "CustomerProfilesEvaluationsInstance.Status"
         ] = payload.get("status")
-        self._results: Optional[List[object]] = payload.get("results")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.results: Optional[List[object]] = payload.get("results")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "customer_profile_sid": customer_profile_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[CustomerProfilesEvaluationsContext] = None
 
@@ -70,53 +82,6 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that identifies the Evaluation resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the customer_profile resource.
-        """
-        return self._account_sid
-
-    @property
-    def policy_sid(self) -> Optional[str]:
-        """
-        :returns: The unique string of a policy that is associated to the customer_profile resource.
-        """
-        return self._policy_sid
-
-    @property
-    def customer_profile_sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the customer_profile resource.
-        """
-        return self._customer_profile_sid
-
-    @property
-    def status(self) -> Optional["CustomerProfilesEvaluationsInstance.Status"]:
-        return self._status
-
-    @property
-    def results(self) -> Optional[List[object]]:
-        """
-        :returns: The results of the Evaluation which includes the valid and invalid attributes.
-        """
-        return self._results
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def fetch(self) -> "CustomerProfilesEvaluationsInstance":
         """

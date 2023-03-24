@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,41 +33,59 @@ from twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics import (
 
 
 class WorkflowInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the WorkflowInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
+    :ivar assignment_callback_url: The URL that we call when a task managed by the Workflow is assigned to a Worker. See Assignment Callback URL for more information.
+    :ivar configuration: A JSON string that contains the Workflow's configuration. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar document_content_type: The MIME type of the document.
+    :ivar fallback_assignment_callback_url: The URL that we call when a call to the `assignment_callback_url` fails.
+    :ivar friendly_name: The string that you assigned to describe the Workflow resource. For example, `Customer Support` or `2014 Election Campaign`.
+    :ivar sid: The unique string that we created to identify the Workflow resource.
+    :ivar task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
+    :ivar workspace_sid: The SID of the Workspace that contains the Workflow.
+    :ivar url: The absolute URL of the Workflow resource.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._assignment_callback_url: Optional[str] = payload.get(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assignment_callback_url: Optional[str] = payload.get(
             "assignment_callback_url"
         )
-        self._configuration: Optional[str] = payload.get("configuration")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.configuration: Optional[str] = payload.get("configuration")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._document_content_type: Optional[str] = payload.get(
-            "document_content_type"
-        )
-        self._fallback_assignment_callback_url: Optional[str] = payload.get(
+        self.document_content_type: Optional[str] = payload.get("document_content_type")
+        self.fallback_assignment_callback_url: Optional[str] = payload.get(
             "fallback_assignment_callback_url"
         )
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._sid: Optional[str] = payload.get("sid")
-        self._task_reservation_timeout: Optional[int] = deserialize.integer(
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.sid: Optional[str] = payload.get("sid")
+        self.task_reservation_timeout: Optional[int] = deserialize.integer(
             payload.get("task_reservation_timeout")
         )
-        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "workspace_sid": workspace_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[WorkflowContext] = None
 
@@ -86,97 +104,6 @@ class WorkflowInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
-        """
-        return self._account_sid
-
-    @property
-    def assignment_callback_url(self) -> Optional[str]:
-        """
-        :returns: The URL that we call when a task managed by the Workflow is assigned to a Worker. See Assignment Callback URL for more information.
-        """
-        return self._assignment_callback_url
-
-    @property
-    def configuration(self) -> Optional[str]:
-        """
-        :returns: A JSON string that contains the Workflow's configuration. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
-        """
-        return self._configuration
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def document_content_type(self) -> Optional[str]:
-        """
-        :returns: The MIME type of the document.
-        """
-        return self._document_content_type
-
-    @property
-    def fallback_assignment_callback_url(self) -> Optional[str]:
-        """
-        :returns: The URL that we call when a call to the `assignment_callback_url` fails.
-        """
-        return self._fallback_assignment_callback_url
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the Workflow resource. For example, `Customer Support` or `2014 Election Campaign`.
-        """
-        return self._friendly_name
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Workflow resource.
-        """
-        return self._sid
-
-    @property
-    def task_reservation_timeout(self) -> Optional[int]:
-        """
-        :returns: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
-        """
-        return self._task_reservation_timeout
-
-    @property
-    def workspace_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Workspace that contains the Workflow.
-        """
-        return self._workspace_sid
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Workflow resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

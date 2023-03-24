@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,32 +28,50 @@ class FlowRevisionInstance(InstanceResource):
         DRAFT = "draft"
         PUBLISHED = "published"
 
-    def __init__(self, version, payload, sid: str, revision: Optional[str] = None):
-        """
-        Initialize the FlowRevisionInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Flow resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource.
+    :ivar friendly_name: The string that you assigned to describe the Flow.
+    :ivar definition: JSON representation of flow definition.
+    :ivar status: 
+    :ivar revision: The latest revision number of the Flow's definition.
+    :ivar commit_message: Description of change made in the revision.
+    :ivar valid: Boolean if the flow definition is valid.
+    :ivar errors: List of error in the flow definition.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        sid: str,
+        revision: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._definition: Optional[Dict[str, object]] = payload.get("definition")
-        self._status: Optional["FlowRevisionInstance.Status"] = payload.get("status")
-        self._revision: Optional[int] = deserialize.integer(payload.get("revision"))
-        self._commit_message: Optional[str] = payload.get("commit_message")
-        self._valid: Optional[bool] = payload.get("valid")
-        self._errors: Optional[List[object]] = payload.get("errors")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.definition: Optional[Dict[str, object]] = payload.get("definition")
+        self.status: Optional["FlowRevisionInstance.Status"] = payload.get("status")
+        self.revision: Optional[int] = deserialize.integer(payload.get("revision"))
+        self.commit_message: Optional[str] = payload.get("commit_message")
+        self.valid: Optional[bool] = payload.get("valid")
+        self.errors: Optional[List[object]] = payload.get("errors")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "sid": sid,
-            "revision": revision or self._revision,
+            "revision": revision or self.revision,
         }
         self._context: Optional[FlowRevisionContext] = None
 
@@ -72,87 +90,6 @@ class FlowRevisionInstance(InstanceResource):
                 revision=self._solution["revision"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Flow resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource.
-        """
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the Flow.
-        """
-        return self._friendly_name
-
-    @property
-    def definition(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: JSON representation of flow definition.
-        """
-        return self._definition
-
-    @property
-    def status(self) -> Optional["FlowRevisionInstance.Status"]:
-        return self._status
-
-    @property
-    def revision(self) -> Optional[int]:
-        """
-        :returns: The latest revision number of the Flow's definition.
-        """
-        return self._revision
-
-    @property
-    def commit_message(self) -> Optional[str]:
-        """
-        :returns: Description of change made in the revision.
-        """
-        return self._commit_message
-
-    @property
-    def valid(self) -> Optional[bool]:
-        """
-        :returns: Boolean if the flow definition is valid.
-        """
-        return self._valid
-
-    @property
-    def errors(self) -> Optional[List[object]]:
-        """
-        :returns: List of error in the flow definition.
-        """
-        return self._errors
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
 
     def fetch(self) -> "FlowRevisionInstance":
         """

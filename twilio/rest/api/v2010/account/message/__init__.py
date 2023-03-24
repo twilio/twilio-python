@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -47,48 +47,70 @@ class MessageInstance(InstanceResource):
         PARTIALLY_DELIVERED = "partially_delivered"
         CANCELED = "canceled"
 
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the MessageInstance
-        """
+    """
+    :ivar body: The message text. Can be up to 1,600 characters long.
+    :ivar num_segments: The number of segments that make up the complete message. A message body that is too large to be sent in a single SMS message is segmented and charged as multiple messages. Inbound messages over 160 characters are reassembled when the message is received. Note: When using a Messaging Service to send messages, `num_segments` will always be 0 in Twilio's response to your API request.
+    :ivar direction: 
+    :ivar _from: The phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or [Wireless SIM](https://www.twilio.com/docs/wireless/tutorials/communications-guides/how-to-send-and-receive-text-messages) that initiated the message. For incoming messages, this will be the number of the sending phone. For outgoing messages, this value will be one of your Twilio phone numbers or the alphanumeric sender ID used.
+    :ivar to: The phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format that received the message. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the sending phone.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar price: The amount billed for the message, in the currency specified by `price_unit`.  Note that your account is charged for each segment we send to the handset. Populated after the message has been sent. May not be immediately available.
+    :ivar error_message: The description of the `error_code` if your message `status` is `failed` or `undelivered`. If the message was successful, this value is null.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that sent the message that created the resource.
+    :ivar num_media: The number of media files associated with the message. A message can send up to 10 media files.
+    :ivar status: 
+    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) used with the message. The value is null if a Messaging Service was not used.
+    :ivar sid: The unique string that that we created to identify the Message resource.
+    :ivar date_sent: The date and time in GMT that the resource was sent specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. For outgoing messages, this is when we sent the message. For incoming messages, this is when we made the HTTP request to your application. 
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar error_code: The error code returned if your message `status` is `failed` or `undelivered`. The error_code provides more information about the failure. If the message was successful, this value is null.
+    :ivar price_unit: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+    :ivar api_version: The API version used to process the message.
+    :ivar subresource_uris: A list of related resources identified by their URIs relative to `https://api.twilio.com`
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._body: Optional[str] = payload.get("body")
-        self._num_segments: Optional[str] = payload.get("num_segments")
-        self._direction: Optional["MessageInstance.Direction"] = payload.get(
-            "direction"
-        )
-        self.__from: Optional[str] = payload.get("from")
-        self._to: Optional[str] = payload.get("to")
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.body: Optional[str] = payload.get("body")
+        self.num_segments: Optional[str] = payload.get("num_segments")
+        self.direction: Optional["MessageInstance.Direction"] = payload.get("direction")
+        self._from: Optional[str] = payload.get("from")
+        self.to: Optional[str] = payload.get("to")
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._price: Optional[str] = payload.get("price")
-        self._error_message: Optional[str] = payload.get("error_message")
-        self._uri: Optional[str] = payload.get("uri")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._num_media: Optional[str] = payload.get("num_media")
-        self._status: Optional["MessageInstance.Status"] = payload.get("status")
-        self._messaging_service_sid: Optional[str] = payload.get(
-            "messaging_service_sid"
-        )
-        self._sid: Optional[str] = payload.get("sid")
-        self._date_sent: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.price: Optional[str] = payload.get("price")
+        self.error_message: Optional[str] = payload.get("error_message")
+        self.uri: Optional[str] = payload.get("uri")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.num_media: Optional[str] = payload.get("num_media")
+        self.status: Optional["MessageInstance.Status"] = payload.get("status")
+        self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.date_sent: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_sent")
         )
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
-        self._price_unit: Optional[str] = payload.get("price_unit")
-        self._api_version: Optional[str] = payload.get("api_version")
-        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+        self.error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
+        self.price_unit: Optional[str] = payload.get("price_unit")
+        self.api_version: Optional[str] = payload.get("api_version")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
             "subresource_uris"
         )
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[MessageContext] = None
 
@@ -107,140 +129,6 @@ class MessageInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def body(self) -> Optional[str]:
-        """
-        :returns: The message text. Can be up to 1,600 characters long.
-        """
-        return self._body
-
-    @property
-    def num_segments(self) -> Optional[str]:
-        """
-        :returns: The number of segments that make up the complete message. A message body that is too large to be sent in a single SMS message is segmented and charged as multiple messages. Inbound messages over 160 characters are reassembled when the message is received. Note: When using a Messaging Service to send messages, `num_segments` will always be 0 in Twilio's response to your API request.
-        """
-        return self._num_segments
-
-    @property
-    def direction(self) -> Optional["MessageInstance.Direction"]:
-        return self._direction
-
-    @property
-    def _from(self) -> Optional[str]:
-        """
-        :returns: The phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or [Wireless SIM](https://www.twilio.com/docs/wireless/tutorials/communications-guides/how-to-send-and-receive-text-messages) that initiated the message. For incoming messages, this will be the number of the sending phone. For outgoing messages, this value will be one of your Twilio phone numbers or the alphanumeric sender ID used.
-        """
-        return self.__from
-
-    @property
-    def to(self) -> Optional[str]:
-        """
-        :returns: The phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format that received the message. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the sending phone.
-        """
-        return self._to
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def price(self) -> Optional[str]:
-        """
-        :returns: The amount billed for the message, in the currency specified by `price_unit`.  Note that your account is charged for each segment we send to the handset. Populated after the message has been sent. May not be immediately available.
-        """
-        return self._price
-
-    @property
-    def error_message(self) -> Optional[str]:
-        """
-        :returns: The description of the `error_code` if your message `status` is `failed` or `undelivered`. If the message was successful, this value is null.
-        """
-        return self._error_message
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that sent the message that created the resource.
-        """
-        return self._account_sid
-
-    @property
-    def num_media(self) -> Optional[str]:
-        """
-        :returns: The number of media files associated with the message. A message can send up to 10 media files.
-        """
-        return self._num_media
-
-    @property
-    def status(self) -> Optional["MessageInstance.Status"]:
-        return self._status
-
-    @property
-    def messaging_service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) used with the message. The value is null if a Messaging Service was not used.
-        """
-        return self._messaging_service_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify the Message resource.
-        """
-        return self._sid
-
-    @property
-    def date_sent(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was sent specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. For outgoing messages, this is when we sent the message. For incoming messages, this is when we made the HTTP request to your application.
-        """
-        return self._date_sent
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def error_code(self) -> Optional[int]:
-        """
-        :returns: The error code returned if your message `status` is `failed` or `undelivered`. The error_code provides more information about the failure. If the message was successful, this value is null.
-        """
-        return self._error_code
-
-    @property
-    def price_unit(self) -> Optional[str]:
-        """
-        :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        """
-        return self._price_unit
-
-    @property
-    def api_version(self) -> Optional[str]:
-        """
-        :returns: The API version used to process the message.
-        """
-        return self._api_version
-
-    @property
-    def subresource_uris(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: A list of related resources identified by their URIs relative to `https://api.twilio.com`
-        """
-        return self._subresource_uris
 
     def delete(self) -> bool:
         """

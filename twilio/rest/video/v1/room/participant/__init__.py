@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,36 +32,54 @@ class ParticipantInstance(InstanceResource):
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
 
-    def __init__(self, version, payload, room_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ParticipantInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the RoomParticipant resource.
+    :ivar room_sid: The SID of the participant's room.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomParticipant resource.
+    :ivar status: 
+    :ivar identity: The application-defined string that uniquely identifies the resource's User within a Room. If a client joins with an existing Identity, the existing client is disconnected. See [access tokens](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens) and [limits](https://www.twilio.com/docs/video/programmable-video-limits) for more info. 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar start_time: The time of participant connected to the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+    :ivar end_time: The time when the participant disconnected from the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+    :ivar duration: The duration in seconds that the participant was `connected`. Populated only after the participant is `disconnected`.
+    :ivar url: The absolute URL of the resource.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        room_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._room_sid: Optional[str] = payload.get("room_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._status: Optional["ParticipantInstance.Status"] = payload.get("status")
-        self._identity: Optional[str] = payload.get("identity")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.room_sid: Optional[str] = payload.get("room_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.status: Optional["ParticipantInstance.Status"] = payload.get("status")
+        self.identity: Optional[str] = payload.get("identity")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._start_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("start_time")
         )
-        self._end_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("end_time")
         )
-        self._duration: Optional[int] = deserialize.integer(payload.get("duration"))
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "room_sid": room_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ParticipantContext] = None
 
@@ -80,87 +98,6 @@ class ParticipantInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the RoomParticipant resource.
-        """
-        return self._sid
-
-    @property
-    def room_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the participant's room.
-        """
-        return self._room_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomParticipant resource.
-        """
-        return self._account_sid
-
-    @property
-    def status(self) -> Optional["ParticipantInstance.Status"]:
-        return self._status
-
-    @property
-    def identity(self) -> Optional[str]:
-        """
-        :returns: The application-defined string that uniquely identifies the resource's User within a Room. If a client joins with an existing Identity, the existing client is disconnected. See [access tokens](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens) and [limits](https://www.twilio.com/docs/video/programmable-video-limits) for more info.
-        """
-        return self._identity
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def start_time(self) -> Optional[datetime]:
-        """
-        :returns: The time of participant connected to the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        """
-        return self._start_time
-
-    @property
-    def end_time(self) -> Optional[datetime]:
-        """
-        :returns: The time when the participant disconnected from the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        """
-        return self._end_time
-
-    @property
-    def duration(self) -> Optional[int]:
-        """
-        :returns: The duration in seconds that the participant was `connected`. Populated only after the participant is `disconnected`.
-        """
-        return self._duration
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._links
 
     def fetch(self) -> "ParticipantInstance":
         """

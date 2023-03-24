@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,37 +24,47 @@ from twilio.base.page import Page
 
 
 class BucketInstance(InstanceResource):
+
+    """
+    :ivar sid: A 34 character string that uniquely identifies this Bucket.
+    :ivar rate_limit_sid: The Twilio-provided string that uniquely identifies the Rate Limit resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Rate Limit resource.
+    :ivar max: Maximum number of requests permitted in during the interval.
+    :ivar interval: Number of seconds that the rate limit will be enforced over.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar url: The URL of this resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         rate_limit_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the BucketInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._rate_limit_sid: Optional[str] = payload.get("rate_limit_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._max: Optional[int] = deserialize.integer(payload.get("max"))
-        self._interval: Optional[int] = deserialize.integer(payload.get("interval"))
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.rate_limit_sid: Optional[str] = payload.get("rate_limit_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.max: Optional[int] = deserialize.integer(payload.get("max"))
+        self.interval: Optional[int] = deserialize.integer(payload.get("interval"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "rate_limit_sid": rate_limit_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[BucketContext] = None
 
@@ -74,69 +84,6 @@ class BucketInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this Bucket.
-        """
-        return self._sid
-
-    @property
-    def rate_limit_sid(self) -> Optional[str]:
-        """
-        :returns: The Twilio-provided string that uniquely identifies the Rate Limit resource.
-        """
-        return self._rate_limit_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Rate Limit resource.
-        """
-        return self._account_sid
-
-    @property
-    def max(self) -> Optional[int]:
-        """
-        :returns: Maximum number of requests permitted in during the interval.
-        """
-        return self._max
-
-    @property
-    def interval(self) -> Optional[int]:
-        """
-        :returns: Number of seconds that the rate limit will be enforced over.
-        """
-        return self._interval
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

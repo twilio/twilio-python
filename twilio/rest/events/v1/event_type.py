@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,26 +24,36 @@ from twilio.base.page import Page
 
 
 class EventTypeInstance(InstanceResource):
-    def __init__(self, version, payload, type: Optional[str] = None):
-        """
-        Initialize the EventTypeInstance
-        """
+
+    """
+    :ivar type: A string that uniquely identifies this Event Type.
+    :ivar schema_id: A string that uniquely identifies the Schema this Event Type adheres to.
+    :ivar date_created: The date that this Event Type was created, given in ISO 8601 format.
+    :ivar date_updated: The date that this Event Type was updated, given in ISO 8601 format.
+    :ivar description: A human readable description for this Event Type.
+    :ivar url: The URL of this resource.
+    :ivar links:
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], type: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._type: Optional[str] = payload.get("type")
-        self._schema_id: Optional[str] = payload.get("schema_id")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.type: Optional[str] = payload.get("type")
+        self.schema_id: Optional[str] = payload.get("schema_id")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._description: Optional[str] = payload.get("description")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.description: Optional[str] = payload.get("description")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "type": type or self._type,
+            "type": type or self.type,
         }
         self._context: Optional[EventTypeContext] = None
 
@@ -61,52 +71,6 @@ class EventTypeInstance(InstanceResource):
                 type=self._solution["type"],
             )
         return self._context
-
-    @property
-    def type(self) -> Optional[str]:
-        """
-        :returns: A string that uniquely identifies this Event Type.
-        """
-        return self._type
-
-    @property
-    def schema_id(self) -> Optional[str]:
-        """
-        :returns: A string that uniquely identifies the Schema this Event Type adheres to.
-        """
-        return self._schema_id
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this Event Type was created, given in ISO 8601 format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this Event Type was updated, given in ISO 8601 format.
-        """
-        return self._date_updated
-
-    @property
-    def description(self) -> Optional[str]:
-        """
-        :returns: A human readable description for this Event Type.
-        """
-        return self._description
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        return self._links
 
     def fetch(self) -> "EventTypeInstance":
         """

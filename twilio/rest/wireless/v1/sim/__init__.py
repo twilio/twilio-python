@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -39,51 +39,73 @@ class SimInstance(InstanceResource):
         SCHEDULED = "scheduled"
         UPDATING = "updating"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the SimInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Sim resource.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource belongs.
+    :ivar rate_plan_sid: The SID of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource is assigned.
+    :ivar friendly_name: The string that you assigned to describe the Sim resource.
+    :ivar iccid: The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
+    :ivar e_id: Deprecated.
+    :ivar status: 
+    :ivar reset_status: 
+    :ivar commands_callback_url: The URL we call using the `commands_callback_method` when the SIM originates a machine-to-machine [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+    :ivar commands_callback_method: The HTTP method we use to call `commands_callback_url`.  Can be: `POST` or `GET`. Default is `POST`.
+    :ivar sms_fallback_method: Deprecated.
+    :ivar sms_fallback_url: Deprecated.
+    :ivar sms_method: Deprecated.
+    :ivar sms_url: Deprecated.
+    :ivar voice_fallback_method: Deprecated. The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
+    :ivar voice_fallback_url: Deprecated. The URL we call using the `voice_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
+    :ivar voice_method: Deprecated. The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`. Default is `POST`.
+    :ivar voice_url: Deprecated. The URL we call using the `voice_method` when the SIM-connected device makes a voice call.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar date_updated: The date and time in GMT when the Sim resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar url: The absolute URL of the resource.
+    :ivar links: The URLs of related subresources.
+    :ivar ip_address: Deprecated.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._rate_plan_sid: Optional[str] = payload.get("rate_plan_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._iccid: Optional[str] = payload.get("iccid")
-        self._e_id: Optional[str] = payload.get("e_id")
-        self._status: Optional["SimInstance.Status"] = payload.get("status")
-        self._reset_status: Optional["SimInstance.ResetStatus"] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.rate_plan_sid: Optional[str] = payload.get("rate_plan_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.iccid: Optional[str] = payload.get("iccid")
+        self.e_id: Optional[str] = payload.get("e_id")
+        self.status: Optional["SimInstance.Status"] = payload.get("status")
+        self.reset_status: Optional["SimInstance.ResetStatus"] = payload.get(
             "reset_status"
         )
-        self._commands_callback_url: Optional[str] = payload.get(
-            "commands_callback_url"
-        )
-        self._commands_callback_method: Optional[str] = payload.get(
+        self.commands_callback_url: Optional[str] = payload.get("commands_callback_url")
+        self.commands_callback_method: Optional[str] = payload.get(
             "commands_callback_method"
         )
-        self._sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
-        self._sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
-        self._sms_method: Optional[str] = payload.get("sms_method")
-        self._sms_url: Optional[str] = payload.get("sms_url")
-        self._voice_fallback_method: Optional[str] = payload.get(
-            "voice_fallback_method"
-        )
-        self._voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
-        self._voice_method: Optional[str] = payload.get("voice_method")
-        self._voice_url: Optional[str] = payload.get("voice_url")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
+        self.sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
+        self.sms_method: Optional[str] = payload.get("sms_method")
+        self.sms_url: Optional[str] = payload.get("sms_url")
+        self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
+        self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
+        self.voice_method: Optional[str] = payload.get("voice_method")
+        self.voice_url: Optional[str] = payload.get("voice_url")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
-        self._ip_address: Optional[str] = payload.get("ip_address")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.ip_address: Optional[str] = payload.get("ip_address")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[SimContext] = None
 
@@ -101,168 +123,6 @@ class SimInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Sim resource.
-        """
-        return self._sid
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        """
-        return self._unique_name
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource belongs.
-        """
-        return self._account_sid
-
-    @property
-    def rate_plan_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource is assigned.
-        """
-        return self._rate_plan_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the Sim resource.
-        """
-        return self._friendly_name
-
-    @property
-    def iccid(self) -> Optional[str]:
-        """
-        :returns: The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
-        """
-        return self._iccid
-
-    @property
-    def e_id(self) -> Optional[str]:
-        """
-        :returns: Deprecated.
-        """
-        return self._e_id
-
-    @property
-    def status(self) -> Optional["SimInstance.Status"]:
-        return self._status
-
-    @property
-    def reset_status(self) -> Optional["SimInstance.ResetStatus"]:
-        return self._reset_status
-
-    @property
-    def commands_callback_url(self) -> Optional[str]:
-        """
-        :returns: The URL we call using the `commands_callback_method` when the SIM originates a machine-to-machine [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        """
-        return self._commands_callback_url
-
-    @property
-    def commands_callback_method(self) -> Optional[str]:
-        """
-        :returns: The HTTP method we use to call `commands_callback_url`.  Can be: `POST` or `GET`. Default is `POST`.
-        """
-        return self._commands_callback_method
-
-    @property
-    def sms_fallback_method(self) -> Optional[str]:
-        """
-        :returns: Deprecated.
-        """
-        return self._sms_fallback_method
-
-    @property
-    def sms_fallback_url(self) -> Optional[str]:
-        """
-        :returns: Deprecated.
-        """
-        return self._sms_fallback_url
-
-    @property
-    def sms_method(self) -> Optional[str]:
-        """
-        :returns: Deprecated.
-        """
-        return self._sms_method
-
-    @property
-    def sms_url(self) -> Optional[str]:
-        """
-        :returns: Deprecated.
-        """
-        return self._sms_url
-
-    @property
-    def voice_fallback_method(self) -> Optional[str]:
-        """
-        :returns: Deprecated. The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
-        """
-        return self._voice_fallback_method
-
-    @property
-    def voice_fallback_url(self) -> Optional[str]:
-        """
-        :returns: Deprecated. The URL we call using the `voice_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
-        """
-        return self._voice_fallback_url
-
-    @property
-    def voice_method(self) -> Optional[str]:
-        """
-        :returns: Deprecated. The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`. Default is `POST`.
-        """
-        return self._voice_method
-
-    @property
-    def voice_url(self) -> Optional[str]:
-        """
-        :returns: Deprecated. The URL we call using the `voice_method` when the SIM-connected device makes a voice call.
-        """
-        return self._voice_url
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the Sim resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of related subresources.
-        """
-        return self._links
-
-    @property
-    def ip_address(self) -> Optional[str]:
-        """
-        :returns: Deprecated.
-        """
-        return self._ip_address
 
     def delete(self) -> bool:
         """

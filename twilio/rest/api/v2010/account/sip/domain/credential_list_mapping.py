@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,35 +24,43 @@ from twilio.base.page import Page
 
 
 class CredentialListMappingInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The unique id of the Account that is responsible for this resource.
+    :ivar date_created: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar date_updated: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar domain_sid: The unique string that is created to identify the SipDomain resource.
+    :ivar friendly_name: A human readable descriptive text for this resource, up to 64 characters long.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar uri: The URI for this resource, relative to `https://api.twilio.com`
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         domain_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the CredentialListMappingInstance
-        """
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._domain_sid: Optional[str] = payload.get("domain_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._sid: Optional[str] = payload.get("sid")
-        self._uri: Optional[str] = payload.get("uri")
+        self.domain_sid: Optional[str] = payload.get("domain_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.sid: Optional[str] = payload.get("sid")
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "domain_sid": domain_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[CredentialListMappingContext] = None
 
@@ -72,55 +80,6 @@ class CredentialListMappingInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique id of the Account that is responsible for this resource.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._date_updated
-
-    @property
-    def domain_sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that is created to identify the SipDomain resource.
-        """
-        return self._domain_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: A human readable descriptive text for this resource, up to 64 characters long.
-        """
-        return self._friendly_name
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI for this resource, relative to `https://api.twilio.com`
-        """
-        return self._uri
 
     def delete(self) -> bool:
         """

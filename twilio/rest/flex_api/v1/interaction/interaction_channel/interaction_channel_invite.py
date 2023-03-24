@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,54 +23,34 @@ from twilio.base.page import Page
 
 
 class InteractionChannelInviteInstance(InstanceResource):
-    def __init__(self, version, payload, interaction_sid: str, channel_sid: str):
-        """
-        Initialize the InteractionChannelInviteInstance
-        """
+
+    """
+    :ivar sid: The unique string created by Twilio to identify an Interaction Channel Invite resource.
+    :ivar interaction_sid: The Interaction SID for this Channel.
+    :ivar channel_sid: The Channel SID for this Invite.
+    :ivar routing: A JSON object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
+    :ivar url:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        interaction_sid: str,
+        channel_sid: str,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._interaction_sid: Optional[str] = payload.get("interaction_sid")
-        self._channel_sid: Optional[str] = payload.get("channel_sid")
-        self._routing: Optional[Dict[str, object]] = payload.get("routing")
-        self._url: Optional[str] = payload.get("url")
+        self.sid: Optional[str] = payload.get("sid")
+        self.interaction_sid: Optional[str] = payload.get("interaction_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.routing: Optional[Dict[str, object]] = payload.get("routing")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "interaction_sid": interaction_sid,
             "channel_sid": channel_sid,
         }
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string created by Twilio to identify an Interaction Channel Invite resource.
-        """
-        return self._sid
-
-    @property
-    def interaction_sid(self) -> Optional[str]:
-        """
-        :returns: The Interaction SID for this Channel.
-        """
-        return self._interaction_sid
-
-    @property
-    def channel_sid(self) -> Optional[str]:
-        """
-        :returns: The Channel SID for this Invite.
-        """
-        return self._channel_sid
-
-    @property
-    def routing(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: A JSON object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
-        """
-        return self._routing
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def __repr__(self) -> str:
         """

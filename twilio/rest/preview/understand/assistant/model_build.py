@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,32 +31,48 @@ class ModelBuildInstance(InstanceResource):
         FAILED = "failed"
         CANCELED = "canceled"
 
-    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ModelBuildInstance
-        """
+    """
+    :ivar account_sid: The unique ID of the Account that created this Model Build.
+    :ivar date_created: The date that this resource was created
+    :ivar date_updated: The date that this resource was last updated
+    :ivar assistant_sid: The unique ID of the parent Assistant.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar status: 
+    :ivar unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+    :ivar url: 
+    :ivar build_duration: The time in seconds it took to build the model.
+    :ivar error_code: 
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assistant_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._status: Optional["ModelBuildInstance.Status"] = payload.get("status")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._url: Optional[str] = payload.get("url")
-        self._build_duration: Optional[int] = deserialize.integer(
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.status: Optional["ModelBuildInstance.Status"] = payload.get("status")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.url: Optional[str] = payload.get("url")
+        self.build_duration: Optional[int] = deserialize.integer(
             payload.get("build_duration")
         )
-        self._error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
+        self.error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
 
         self._solution = {
             "assistant_sid": assistant_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ModelBuildContext] = None
 
@@ -75,67 +91,6 @@ class ModelBuildInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the Account that created this Model Build.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated
-        """
-        return self._date_updated
-
-    @property
-    def assistant_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the parent Assistant.
-        """
-        return self._assistant_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def status(self) -> Optional["ModelBuildInstance.Status"]:
-        return self._status
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        """
-        return self._unique_name
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
-
-    @property
-    def build_duration(self) -> Optional[int]:
-        """
-        :returns: The time in seconds it took to build the model.
-        """
-        return self._build_duration
-
-    @property
-    def error_code(self) -> Optional[int]:
-        return self._error_code
 
     def delete(self) -> bool:
         """

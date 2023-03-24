@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,25 +22,31 @@ from twilio.base.version import Version
 
 
 class UsageInstance(InstanceResource):
-    def __init__(self, version, payload, sim_sid: str):
-        """
-        Initialize the UsageInstance
-        """
+
+    """
+    :ivar sim_sid:
+    :ivar sim_unique_name:
+    :ivar account_sid:
+    :ivar period:
+    :ivar commands_usage:
+    :ivar commands_costs:
+    :ivar data_usage:
+    :ivar data_costs:
+    :ivar url:
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], sim_sid: str):
         super().__init__(version)
 
-        self._sim_sid: Optional[str] = payload.get("sim_sid")
-        self._sim_unique_name: Optional[str] = payload.get("sim_unique_name")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._period: Optional[Dict[str, object]] = payload.get("period")
-        self._commands_usage: Optional[Dict[str, object]] = payload.get(
-            "commands_usage"
-        )
-        self._commands_costs: Optional[Dict[str, object]] = payload.get(
-            "commands_costs"
-        )
-        self._data_usage: Optional[Dict[str, object]] = payload.get("data_usage")
-        self._data_costs: Optional[Dict[str, object]] = payload.get("data_costs")
-        self._url: Optional[str] = payload.get("url")
+        self.sim_sid: Optional[str] = payload.get("sim_sid")
+        self.sim_unique_name: Optional[str] = payload.get("sim_unique_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.period: Optional[Dict[str, object]] = payload.get("period")
+        self.commands_usage: Optional[Dict[str, object]] = payload.get("commands_usage")
+        self.commands_costs: Optional[Dict[str, object]] = payload.get("commands_costs")
+        self.data_usage: Optional[Dict[str, object]] = payload.get("data_usage")
+        self.data_costs: Optional[Dict[str, object]] = payload.get("data_costs")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "sim_sid": sim_sid,
@@ -61,42 +67,6 @@ class UsageInstance(InstanceResource):
                 sim_sid=self._solution["sim_sid"],
             )
         return self._context
-
-    @property
-    def sim_sid(self) -> Optional[str]:
-        return self._sim_sid
-
-    @property
-    def sim_unique_name(self) -> Optional[str]:
-        return self._sim_unique_name
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def period(self) -> Optional[Dict[str, object]]:
-        return self._period
-
-    @property
-    def commands_usage(self) -> Optional[Dict[str, object]]:
-        return self._commands_usage
-
-    @property
-    def commands_costs(self) -> Optional[Dict[str, object]]:
-        return self._commands_costs
-
-    @property
-    def data_usage(self) -> Optional[Dict[str, object]]:
-        return self._data_usage
-
-    @property
-    def data_costs(self) -> Optional[Dict[str, object]]:
-        return self._data_costs
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def fetch(self, end=values.unset, start=values.unset) -> "UsageInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,20 +24,26 @@ from twilio.base.page import Page
 
 
 class AccountSecretInstance(InstanceResource):
-    def __init__(self, version, payload, key: Optional[str] = None):
-        """
-        Initialize the AccountSecretInstance
-        """
+
+    """
+    :ivar key: The secret key; up to 100 characters.
+    :ivar date_rotated:
+    :ivar url: The absolute URL of the Secret.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], key: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._key: Optional[str] = payload.get("key")
-        self._date_rotated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.key: Optional[str] = payload.get("key")
+        self.date_rotated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_rotated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "key": key or self._key,
+            "key": key or self.key,
         }
         self._context: Optional[AccountSecretContext] = None
 
@@ -55,24 +61,6 @@ class AccountSecretInstance(InstanceResource):
                 key=self._solution["key"],
             )
         return self._context
-
-    @property
-    def key(self) -> Optional[str]:
-        """
-        :returns: The secret key; up to 100 characters.
-        """
-        return self._key
-
-    @property
-    def date_rotated(self) -> Optional[datetime]:
-        return self._date_rotated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Secret.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

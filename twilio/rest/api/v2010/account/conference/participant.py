@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,46 +32,60 @@ class ParticipantInstance(InstanceResource):
         COMPLETE = "complete"
         FAILED = "failed"
 
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
+    :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Participant resource is associated with.
+    :ivar label: The user-specified label of this participant, if one was given when the participant was created. This may be used to fetch, update or delete the participant.
+    :ivar call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+    :ivar coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+    :ivar conference_sid: The SID of the conference the participant is in.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar end_conference_on_exit: Whether the conference ends when the participant leaves. Can be: `true` or `false` and the default is `false`. If `true`, the conference ends and all other participants drop out when the participant leaves.
+    :ivar muted: Whether the participant is muted. Can be `true` or `false`.
+    :ivar hold: Whether the participant is on hold. Can be `true` or `false`.
+    :ivar start_conference_on_enter: Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+    :ivar status: 
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         conference_sid: str,
         call_sid: Optional[str] = None,
     ):
-        """
-        Initialize the ParticipantInstance
-        """
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._call_sid: Optional[str] = payload.get("call_sid")
-        self._label: Optional[str] = payload.get("label")
-        self._call_sid_to_coach: Optional[str] = payload.get("call_sid_to_coach")
-        self._coaching: Optional[bool] = payload.get("coaching")
-        self._conference_sid: Optional[str] = payload.get("conference_sid")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.label: Optional[str] = payload.get("label")
+        self.call_sid_to_coach: Optional[str] = payload.get("call_sid_to_coach")
+        self.coaching: Optional[bool] = payload.get("coaching")
+        self.conference_sid: Optional[str] = payload.get("conference_sid")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._end_conference_on_exit: Optional[bool] = payload.get(
+        self.end_conference_on_exit: Optional[bool] = payload.get(
             "end_conference_on_exit"
         )
-        self._muted: Optional[bool] = payload.get("muted")
-        self._hold: Optional[bool] = payload.get("hold")
-        self._start_conference_on_enter: Optional[bool] = payload.get(
+        self.muted: Optional[bool] = payload.get("muted")
+        self.hold: Optional[bool] = payload.get("hold")
+        self.start_conference_on_enter: Optional[bool] = payload.get(
             "start_conference_on_enter"
         )
-        self._status: Optional["ParticipantInstance.Status"] = payload.get("status")
-        self._uri: Optional[str] = payload.get("uri")
+        self.status: Optional["ParticipantInstance.Status"] = payload.get("status")
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "conference_sid": conference_sid,
-            "call_sid": call_sid or self._call_sid,
+            "call_sid": call_sid or self.call_sid,
         }
         self._context: Optional[ParticipantContext] = None
 
@@ -91,101 +105,6 @@ class ParticipantInstance(InstanceResource):
                 call_sid=self._solution["call_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
-        """
-        return self._account_sid
-
-    @property
-    def call_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Participant resource is associated with.
-        """
-        return self._call_sid
-
-    @property
-    def label(self) -> Optional[str]:
-        """
-        :returns: The user-specified label of this participant, if one was given when the participant was created. This may be used to fetch, update or delete the participant.
-        """
-        return self._label
-
-    @property
-    def call_sid_to_coach(self) -> Optional[str]:
-        """
-        :returns: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-        """
-        return self._call_sid_to_coach
-
-    @property
-    def coaching(self) -> Optional[bool]:
-        """
-        :returns: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        """
-        return self._coaching
-
-    @property
-    def conference_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the conference the participant is in.
-        """
-        return self._conference_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def end_conference_on_exit(self) -> Optional[bool]:
-        """
-        :returns: Whether the conference ends when the participant leaves. Can be: `true` or `false` and the default is `false`. If `true`, the conference ends and all other participants drop out when the participant leaves.
-        """
-        return self._end_conference_on_exit
-
-    @property
-    def muted(self) -> Optional[bool]:
-        """
-        :returns: Whether the participant is muted. Can be `true` or `false`.
-        """
-        return self._muted
-
-    @property
-    def hold(self) -> Optional[bool]:
-        """
-        :returns: Whether the participant is on hold. Can be `true` or `false`.
-        """
-        return self._hold
-
-    @property
-    def start_conference_on_enter(self) -> Optional[bool]:
-        """
-        :returns: Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-        """
-        return self._start_conference_on_enter
-
-    @property
-    def status(self) -> Optional["ParticipantInstance.Status"]:
-        return self._status
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
 
     def delete(self) -> bool:
         """

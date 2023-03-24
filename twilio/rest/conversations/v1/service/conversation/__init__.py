@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,38 +38,54 @@ class ConversationInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
+    """
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
+    :ivar chat_service_sid: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
+    :ivar messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+    :ivar attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+    :ivar state: 
+    :ivar date_created: The date that this resource was created.
+    :ivar date_updated: The date that this resource was last updated.
+    :ivar timers: Timer date values representing state update for this conversation.
+    :ivar url: An absolute API resource URL for this conversation.
+    :ivar links: Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation.
+    :ivar bindings: 
+    """
+
     def __init__(
-        self, version, payload, chat_service_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        chat_service_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the ConversationInstance
-        """
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._chat_service_sid: Optional[str] = payload.get("chat_service_sid")
-        self._messaging_service_sid: Optional[str] = payload.get(
-            "messaging_service_sid"
-        )
-        self._sid: Optional[str] = payload.get("sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._attributes: Optional[str] = payload.get("attributes")
-        self._state: Optional["ConversationInstance.State"] = payload.get("state")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.state: Optional["ConversationInstance.State"] = payload.get("state")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._timers: Optional[Dict[str, object]] = payload.get("timers")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
-        self._bindings: Optional[Dict[str, object]] = payload.get("bindings")
+        self.timers: Optional[Dict[str, object]] = payload.get("timers")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.bindings: Optional[Dict[str, object]] = payload.get("bindings")
 
         self._solution = {
             "chat_service_sid": chat_service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ConversationContext] = None
 
@@ -88,98 +104,6 @@ class ConversationInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
-        """
-        return self._account_sid
-
-    @property
-    def chat_service_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
-        """
-        return self._chat_service_sid
-
-    @property
-    def messaging_service_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        """
-        return self._messaging_service_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The human-readable name of this conversation, limited to 256 characters. Optional.
-        """
-        return self._friendly_name
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-        """
-        return self._unique_name
-
-    @property
-    def attributes(self) -> Optional[str]:
-        """
-        :returns: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
-        """
-        return self._attributes
-
-    @property
-    def state(self) -> Optional["ConversationInstance.State"]:
-        return self._state
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated.
-        """
-        return self._date_updated
-
-    @property
-    def timers(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Timer date values representing state update for this conversation.
-        """
-        return self._timers
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: An absolute API resource URL for this conversation.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation.
-        """
-        return self._links
-
-    @property
-    def bindings(self) -> Optional[Dict[str, object]]:
-        return self._bindings
 
     def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,13 +22,15 @@ from twilio.base.version import Version
 
 
 class DeactivationsInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the DeactivationsInstance
-        """
+
+    """
+    :ivar redirect_to: Returns an authenticated url that redirects to a file containing the deactivated numbers for the requested day. This url is valid for up to two minutes.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._redirect_to: Optional[str] = payload.get("redirect_to")
+        self.redirect_to: Optional[str] = payload.get("redirect_to")
 
         self._solution = {}
         self._context: Optional[DeactivationsContext] = None
@@ -46,13 +48,6 @@ class DeactivationsInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def redirect_to(self) -> Optional[str]:
-        """
-        :returns: Returns an authenticated url that redirects to a file containing the deactivated numbers for the requested day. This url is valid for up to two minutes.
-        """
-        return self._redirect_to
 
     def fetch(self, date=values.unset) -> "DeactivationsInstance":
         """

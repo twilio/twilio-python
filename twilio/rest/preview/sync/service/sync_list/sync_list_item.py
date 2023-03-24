@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,38 +32,48 @@ class SyncListItemInstance(InstanceResource):
         ASC = "asc"
         DESC = "desc"
 
+    """
+    :ivar index: 
+    :ivar account_sid: 
+    :ivar service_sid: 
+    :ivar list_sid: 
+    :ivar url: 
+    :ivar revision: 
+    :ivar data: 
+    :ivar date_created: 
+    :ivar date_updated: 
+    :ivar created_by: 
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         list_sid: str,
         index: Optional[int] = None,
     ):
-        """
-        Initialize the SyncListItemInstance
-        """
         super().__init__(version)
 
-        self._index: Optional[int] = deserialize.integer(payload.get("index"))
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._list_sid: Optional[str] = payload.get("list_sid")
-        self._url: Optional[str] = payload.get("url")
-        self._revision: Optional[str] = payload.get("revision")
-        self._data: Optional[Dict[str, object]] = payload.get("data")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.index: Optional[int] = deserialize.integer(payload.get("index"))
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.list_sid: Optional[str] = payload.get("list_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.revision: Optional[str] = payload.get("revision")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._created_by: Optional[str] = payload.get("created_by")
+        self.created_by: Optional[str] = payload.get("created_by")
 
         self._solution = {
             "service_sid": service_sid,
             "list_sid": list_sid,
-            "index": index or self._index,
+            "index": index or self.index,
         }
         self._context: Optional[SyncListItemContext] = None
 
@@ -83,46 +93,6 @@ class SyncListItemInstance(InstanceResource):
                 index=self._solution["index"],
             )
         return self._context
-
-    @property
-    def index(self) -> Optional[int]:
-        return self._index
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        return self._service_sid
-
-    @property
-    def list_sid(self) -> Optional[str]:
-        return self._list_sid
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
-
-    @property
-    def revision(self) -> Optional[str]:
-        return self._revision
-
-    @property
-    def data(self) -> Optional[Dict[str, object]]:
-        return self._data
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        return self._date_updated
-
-    @property
-    def created_by(self) -> Optional[str]:
-        return self._created_by
 
     def delete(self, if_match=values.unset) -> bool:
         """

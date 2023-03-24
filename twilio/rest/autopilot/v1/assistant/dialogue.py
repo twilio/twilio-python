@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,21 +21,33 @@ from twilio.base.version import Version
 
 
 class DialogueInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the DialogueInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Dialogue resource.
+    :ivar assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
+    :ivar sid: The unique string that we created to identify the Dialogue resource.
+    :ivar data: The JSON string that describes the dialogue session object.
+    :ivar url: The absolute URL of the Dialogue resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assistant_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._data: Optional[Dict[str, object]] = payload.get("data")
-        self._url: Optional[str] = payload.get("url")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "assistant_sid": assistant_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[DialogueContext] = None
 
@@ -54,41 +66,6 @@ class DialogueInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Dialogue resource.
-        """
-        return self._account_sid
-
-    @property
-    def assistant_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
-        """
-        return self._assistant_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Dialogue resource.
-        """
-        return self._sid
-
-    @property
-    def data(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The JSON string that describes the dialogue session object.
-        """
-        return self._data
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Dialogue resource.
-        """
-        return self._url
 
     def fetch(self) -> "DialogueInstance":
         """

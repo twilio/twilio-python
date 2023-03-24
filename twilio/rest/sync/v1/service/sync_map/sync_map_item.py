@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,41 +32,52 @@ class SyncMapItemInstance(InstanceResource):
         ASC = "asc"
         DESC = "desc"
 
+    """
+    :ivar key: The unique, user-defined key for the Map Item.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Map Item resource.
+    :ivar service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
+    :ivar map_sid: The SID of the Sync Map that contains the Map Item.
+    :ivar url: The absolute URL of the Map Item resource.
+    :ivar revision: The current revision of the Map Item, represented as a string.
+    :ivar data: An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+    :ivar date_expires: The date and time in GMT when the Map Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Map Item does not expire, this value is `null`.  The Map Item might not be deleted immediately after it expires.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar created_by: The identity of the Map Item's creator. If the Map Item is created from the client SDK, the value matches the Access Token's `identity` field. If the Map Item was created from the REST API, the value is `system`.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         map_sid: str,
         key: Optional[str] = None,
     ):
-        """
-        Initialize the SyncMapItemInstance
-        """
         super().__init__(version)
 
-        self._key: Optional[str] = payload.get("key")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._map_sid: Optional[str] = payload.get("map_sid")
-        self._url: Optional[str] = payload.get("url")
-        self._revision: Optional[str] = payload.get("revision")
-        self._data: Optional[Dict[str, object]] = payload.get("data")
-        self._date_expires: Optional[datetime] = deserialize.iso8601_datetime(
+        self.key: Optional[str] = payload.get("key")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.map_sid: Optional[str] = payload.get("map_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.revision: Optional[str] = payload.get("revision")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
+        self.date_expires: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_expires")
         )
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._created_by: Optional[str] = payload.get("created_by")
+        self.created_by: Optional[str] = payload.get("created_by")
 
         self._solution = {
             "service_sid": service_sid,
             "map_sid": map_sid,
-            "key": key or self._key,
+            "key": key or self.key,
         }
         self._context: Optional[SyncMapItemContext] = None
 
@@ -86,83 +97,6 @@ class SyncMapItemInstance(InstanceResource):
                 key=self._solution["key"],
             )
         return self._context
-
-    @property
-    def key(self) -> Optional[str]:
-        """
-        :returns: The unique, user-defined key for the Map Item.
-        """
-        return self._key
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Map Item resource.
-        """
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def map_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Sync Map that contains the Map Item.
-        """
-        return self._map_sid
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Map Item resource.
-        """
-        return self._url
-
-    @property
-    def revision(self) -> Optional[str]:
-        """
-        :returns: The current revision of the Map Item, represented as a string.
-        """
-        return self._revision
-
-    @property
-    def data(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        """
-        return self._data
-
-    @property
-    def date_expires(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the Map Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Map Item does not expire, this value is `null`.  The Map Item might not be deleted immediately after it expires.
-        """
-        return self._date_expires
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def created_by(self) -> Optional[str]:
-        """
-        :returns: The identity of the Map Item's creator. If the Map Item is created from the client SDK, the value matches the Access Token's `identity` field. If the Map Item was created from the REST API, the value is `system`.
-        """
-        return self._created_by
 
     def delete(self, if_match=values.unset) -> bool:
         """

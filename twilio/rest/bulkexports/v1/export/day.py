@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,22 +23,35 @@ from twilio.base.page import Page
 
 
 class DayInstance(InstanceResource):
-    def __init__(self, version, payload, resource_type: str, day: Optional[str] = None):
-        """
-        Initialize the DayInstance
-        """
+
+    """
+    :ivar redirect_to:
+    :ivar day: The ISO 8601 format date of the resources in the file, for a UTC day
+    :ivar size: The size of the day's data file in bytes
+    :ivar create_date: The ISO 8601 format date when resources is created
+    :ivar friendly_name: The friendly name specified when creating the job
+    :ivar resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        resource_type: str,
+        day: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._redirect_to: Optional[str] = payload.get("redirect_to")
-        self._day: Optional[str] = payload.get("day")
-        self._size: Optional[int] = deserialize.integer(payload.get("size"))
-        self._create_date: Optional[str] = payload.get("create_date")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._resource_type: Optional[str] = payload.get("resource_type")
+        self.redirect_to: Optional[str] = payload.get("redirect_to")
+        self.day: Optional[str] = payload.get("day")
+        self.size: Optional[int] = deserialize.integer(payload.get("size"))
+        self.create_date: Optional[str] = payload.get("create_date")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.resource_type: Optional[str] = payload.get("resource_type")
 
         self._solution = {
             "resource_type": resource_type,
-            "day": day or self._day,
+            "day": day or self.day,
         }
         self._context: Optional[DayContext] = None
 
@@ -57,45 +70,6 @@ class DayInstance(InstanceResource):
                 day=self._solution["day"],
             )
         return self._context
-
-    @property
-    def redirect_to(self) -> Optional[str]:
-        return self._redirect_to
-
-    @property
-    def day(self) -> Optional[str]:
-        """
-        :returns: The ISO 8601 format date of the resources in the file, for a UTC day
-        """
-        return self._day
-
-    @property
-    def size(self) -> Optional[int]:
-        """
-        :returns: The size of the day's data file in bytes
-        """
-        return self._size
-
-    @property
-    def create_date(self) -> Optional[str]:
-        """
-        :returns: The ISO 8601 format date when resources is created
-        """
-        return self._create_date
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The friendly name specified when creating the job
-        """
-        return self._friendly_name
-
-    @property
-    def resource_type(self) -> Optional[str]:
-        """
-        :returns: The type of communication – Messages, Calls, Conferences, and Participants
-        """
-        return self._resource_type
 
     def fetch(self) -> "DayInstance":
         """

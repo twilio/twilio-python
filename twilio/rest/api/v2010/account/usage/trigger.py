@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -354,44 +354,64 @@ class TriggerInstance(InstanceResource):
         WIRELESS_USAGE_SMS = "wireless-usage-sms"
         WIRELESS_USAGE_VOICE = "wireless-usage-voice"
 
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the TriggerInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the trigger monitors.
+    :ivar api_version: The API version used to create the resource.
+    :ivar callback_method: The HTTP method we use to call `callback_url`. Can be: `GET` or `POST`.
+    :ivar callback_url: The URL we call using the `callback_method` when the trigger fires.
+    :ivar current_value: The current value of the field the trigger is watching.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_fired: The date and time in GMT that the trigger was last fired specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar friendly_name: The string that you assigned to describe the trigger.
+    :ivar recurring: 
+    :ivar sid: The unique string that that we created to identify the UsageTrigger resource.
+    :ivar trigger_by: 
+    :ivar trigger_value: The value at which the trigger will fire.  Must be a positive, numeric value.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar usage_category: 
+    :ivar usage_record_uri: The URI of the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource this trigger watches, relative to `https://api.twilio.com`.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._api_version: Optional[str] = payload.get("api_version")
-        self._callback_method: Optional[str] = payload.get("callback_method")
-        self._callback_url: Optional[str] = payload.get("callback_url")
-        self._current_value: Optional[str] = payload.get("current_value")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.api_version: Optional[str] = payload.get("api_version")
+        self.callback_method: Optional[str] = payload.get("callback_method")
+        self.callback_url: Optional[str] = payload.get("callback_url")
+        self.current_value: Optional[str] = payload.get("current_value")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_fired: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_fired: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_fired")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._recurring: Optional["TriggerInstance.Recurring"] = payload.get(
-            "recurring"
-        )
-        self._sid: Optional[str] = payload.get("sid")
-        self._trigger_by: Optional["TriggerInstance.TriggerField"] = payload.get(
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.recurring: Optional["TriggerInstance.Recurring"] = payload.get("recurring")
+        self.sid: Optional[str] = payload.get("sid")
+        self.trigger_by: Optional["TriggerInstance.TriggerField"] = payload.get(
             "trigger_by"
         )
-        self._trigger_value: Optional[str] = payload.get("trigger_value")
-        self._uri: Optional[str] = payload.get("uri")
-        self._usage_category: Optional["TriggerInstance.UsageCategory"] = payload.get(
+        self.trigger_value: Optional[str] = payload.get("trigger_value")
+        self.uri: Optional[str] = payload.get("uri")
+        self.usage_category: Optional["TriggerInstance.UsageCategory"] = payload.get(
             "usage_category"
         )
-        self._usage_record_uri: Optional[str] = payload.get("usage_record_uri")
+        self.usage_record_uri: Optional[str] = payload.get("usage_record_uri")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[TriggerContext] = None
 
@@ -410,109 +430,6 @@ class TriggerInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the trigger monitors.
-        """
-        return self._account_sid
-
-    @property
-    def api_version(self) -> Optional[str]:
-        """
-        :returns: The API version used to create the resource.
-        """
-        return self._api_version
-
-    @property
-    def callback_method(self) -> Optional[str]:
-        """
-        :returns: The HTTP method we use to call `callback_url`. Can be: `GET` or `POST`.
-        """
-        return self._callback_method
-
-    @property
-    def callback_url(self) -> Optional[str]:
-        """
-        :returns: The URL we call using the `callback_method` when the trigger fires.
-        """
-        return self._callback_url
-
-    @property
-    def current_value(self) -> Optional[str]:
-        """
-        :returns: The current value of the field the trigger is watching.
-        """
-        return self._current_value
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_fired(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the trigger was last fired specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_fired
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the trigger.
-        """
-        return self._friendly_name
-
-    @property
-    def recurring(self) -> Optional["TriggerInstance.Recurring"]:
-        return self._recurring
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify the UsageTrigger resource.
-        """
-        return self._sid
-
-    @property
-    def trigger_by(self) -> Optional["TriggerInstance.TriggerField"]:
-        return self._trigger_by
-
-    @property
-    def trigger_value(self) -> Optional[str]:
-        """
-        :returns: The value at which the trigger will fire.  Must be a positive, numeric value.
-        """
-        return self._trigger_value
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
-
-    @property
-    def usage_category(self) -> Optional["TriggerInstance.UsageCategory"]:
-        return self._usage_category
-
-    @property
-    def usage_record_uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource this trigger watches, relative to `https://api.twilio.com`.
-        """
-        return self._usage_record_uri
 
     def delete(self) -> bool:
         """

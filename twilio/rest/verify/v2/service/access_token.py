@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,30 +26,46 @@ class AccessTokenInstance(InstanceResource):
     class FactorTypes(object):
         PUSH = "push"
 
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the AccessTokenInstance
-        """
+    """
+    :ivar sid: A 34 character string that uniquely identifies this Access Token.
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar service_sid: The unique SID identifier of the Verify Service.
+    :ivar entity_identity: The unique external identifier for the Entity of the Service.
+    :ivar factor_type: 
+    :ivar factor_friendly_name: A human readable description of this factor, up to 64 characters. For a push factor, this can be the device's name.
+    :ivar token: The access token generated for enrollment, this is an encrypted json web token.
+    :ivar url: The URL of this resource.
+    :ivar ttl: How long, in seconds, the access token is valid. Max: 5 minutes
+    :ivar date_created: The date that this access token was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._entity_identity: Optional[str] = payload.get("entity_identity")
-        self._factor_type: Optional["AccessTokenInstance.FactorTypes"] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.entity_identity: Optional[str] = payload.get("entity_identity")
+        self.factor_type: Optional["AccessTokenInstance.FactorTypes"] = payload.get(
             "factor_type"
         )
-        self._factor_friendly_name: Optional[str] = payload.get("factor_friendly_name")
-        self._token: Optional[str] = payload.get("token")
-        self._url: Optional[str] = payload.get("url")
-        self._ttl: Optional[int] = deserialize.integer(payload.get("ttl"))
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.factor_friendly_name: Optional[str] = payload.get("factor_friendly_name")
+        self.token: Optional[str] = payload.get("token")
+        self.url: Optional[str] = payload.get("url")
+        self.ttl: Optional[int] = deserialize.integer(payload.get("ttl"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[AccessTokenContext] = None
 
@@ -68,73 +84,6 @@ class AccessTokenInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this Access Token.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The unique SID identifier of the Verify Service.
-        """
-        return self._service_sid
-
-    @property
-    def entity_identity(self) -> Optional[str]:
-        """
-        :returns: The unique external identifier for the Entity of the Service.
-        """
-        return self._entity_identity
-
-    @property
-    def factor_type(self) -> Optional["AccessTokenInstance.FactorTypes"]:
-        return self._factor_type
-
-    @property
-    def factor_friendly_name(self) -> Optional[str]:
-        """
-        :returns: A human readable description of this factor, up to 64 characters. For a push factor, this can be the device's name.
-        """
-        return self._factor_friendly_name
-
-    @property
-    def token(self) -> Optional[str]:
-        """
-        :returns: The access token generated for enrollment, this is an encrypted json web token.
-        """
-        return self._token
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._url
-
-    @property
-    def ttl(self) -> Optional[int]:
-        """
-        :returns: How long, in seconds, the access token is valid. Max: 5 minutes
-        """
-        return self._ttl
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this access token was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
 
     def fetch(self) -> "AccessTokenInstance":
         """

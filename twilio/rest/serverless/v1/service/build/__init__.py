@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,27 +38,39 @@ class BuildInstance(InstanceResource):
         COMPLETED = "completed"
         FAILED = "failed"
 
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the BuildInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Build resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
+    :ivar service_sid: The SID of the Service that the Build resource is associated with.
+    :ivar status: 
+    :ivar asset_versions: The list of Asset Version resource SIDs that are included in the Build.
+    :ivar function_versions: The list of Function Version resource SIDs that are included in the Build.
+    :ivar dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+    :ivar runtime: 
+    :ivar date_created: The date and time in GMT when the Build resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the Build resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Build resource.
+    :ivar links: 
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
         
-        self._sid: Optional[str] = payload.get('sid')
-        self._account_sid: Optional[str] = payload.get('account_sid')
-        self._service_sid: Optional[str] = payload.get('service_sid')
-        self._status: Optional["BuildInstance.Status"] = payload.get('status')
-        self._asset_versions: Optional[List[object]] = payload.get('asset_versions')
-        self._function_versions: Optional[List[object]] = payload.get('function_versions')
-        self._dependencies: Optional[List[object]] = payload.get('dependencies')
-        self._runtime: Optional["BuildInstance.Runtime"] = payload.get('runtime')
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get('date_created'))
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get('date_updated'))
-        self._url: Optional[str] = payload.get('url')
-        self._links: Optional[Dict[str, object]] = payload.get('links')
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.status: Optional["BuildInstance.Status"] = payload.get("status")
+        self.asset_versions: Optional[List[object]] = payload.get("asset_versions")
+        self.function_versions: Optional[List[object]] = payload.get("function_versions")
+        self.dependencies: Optional[List[object]] = payload.get("dependencies")
+        self.runtime: Optional["BuildInstance.Runtime"] = payload.get("runtime")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = { 'service_sid': service_sid, 'sid': sid or self._sid,  }
+        self._solution = { "service_sid": service_sid, "sid": sid or self.sid,  }
         self._context: Optional[BuildContext] = None
 
     @property
@@ -72,84 +84,6 @@ class BuildInstance(InstanceResource):
         if self._context is None:
             self._context = BuildContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
         return self._context
-    
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Build resource.
-        """
-        return self._sid
-    
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
-        """
-        return self._account_sid
-    
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Service that the Build resource is associated with.
-        """
-        return self._service_sid
-    
-    @property
-    def status(self) -> Optional["BuildInstance.Status"]:
-        
-        return self._status
-    
-    @property
-    def asset_versions(self) -> Optional[List[object]]:
-        """
-        :returns: The list of Asset Version resource SIDs that are included in the Build.
-        """
-        return self._asset_versions
-    
-    @property
-    def function_versions(self) -> Optional[List[object]]:
-        """
-        :returns: The list of Function Version resource SIDs that are included in the Build.
-        """
-        return self._function_versions
-    
-    @property
-    def dependencies(self) -> Optional[List[object]]:
-        """
-        :returns: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
-        """
-        return self._dependencies
-    
-    @property
-    def runtime(self) -> Optional["BuildInstance.Runtime"]:
-        
-        return self._runtime
-    
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the Build resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-    
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the Build resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-    
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Build resource.
-        """
-        return self._url
-    
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        
-        return self._links
     
     
     def delete(self) -> bool:

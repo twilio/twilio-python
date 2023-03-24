@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,25 +23,37 @@ from twilio.base.page import Page
 
 
 class CountryInstance(InstanceResource):
-    def __init__(self, version, payload, iso_country: Optional[str] = None):
-        """
-        Initialize the CountryInstance
-        """
+
+    """
+    :ivar country: The name of the country.
+    :ivar iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+    :ivar outbound_prefix_prices: The list of [OutboundPrefixPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-prefix-price-with-origin) records.
+    :ivar inbound_call_prices: The list of [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) records.
+    :ivar price_unit: The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        iso_country: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._country: Optional[str] = payload.get("country")
-        self._iso_country: Optional[str] = payload.get("iso_country")
-        self._outbound_prefix_prices: Optional[List[str]] = payload.get(
+        self.country: Optional[str] = payload.get("country")
+        self.iso_country: Optional[str] = payload.get("iso_country")
+        self.outbound_prefix_prices: Optional[List[str]] = payload.get(
             "outbound_prefix_prices"
         )
-        self._inbound_call_prices: Optional[List[str]] = payload.get(
+        self.inbound_call_prices: Optional[List[str]] = payload.get(
             "inbound_call_prices"
         )
-        self._price_unit: Optional[str] = payload.get("price_unit")
-        self._url: Optional[str] = payload.get("url")
+        self.price_unit: Optional[str] = payload.get("price_unit")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "iso_country": iso_country or self._iso_country,
+            "iso_country": iso_country or self.iso_country,
         }
         self._context: Optional[CountryContext] = None
 
@@ -59,48 +71,6 @@ class CountryInstance(InstanceResource):
                 iso_country=self._solution["iso_country"],
             )
         return self._context
-
-    @property
-    def country(self) -> Optional[str]:
-        """
-        :returns: The name of the country.
-        """
-        return self._country
-
-    @property
-    def iso_country(self) -> Optional[str]:
-        """
-        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-        """
-        return self._iso_country
-
-    @property
-    def outbound_prefix_prices(self) -> Optional[List[str]]:
-        """
-        :returns: The list of [OutboundPrefixPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-prefix-price-with-origin) records.
-        """
-        return self._outbound_prefix_prices
-
-    @property
-    def inbound_call_prices(self) -> Optional[List[str]]:
-        """
-        :returns: The list of [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) records.
-        """
-        return self._inbound_call_prices
-
-    @property
-    def price_unit(self) -> Optional[str]:
-        """
-        :returns: The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        """
-        return self._price_unit
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
 
     def fetch(self) -> "CountryInstance":
         """

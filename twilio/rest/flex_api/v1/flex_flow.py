@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -37,37 +37,53 @@ class FlexFlowInstance(InstanceResource):
         EXTERNAL = "external"
         TASK = "task"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the FlexFlowInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Flow resource and owns this Workflow.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar sid: The unique string that we created to identify the Flex Flow resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar chat_service_sid: The SID of the chat service.
+    :ivar channel_type: 
+    :ivar contact_identity: The channel contact's Identity.
+    :ivar enabled: Whether the Flex Flow is enabled.
+    :ivar integration_type: 
+    :ivar integration: An object that contains specific parameters for the integration.
+    :ivar long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+    :ivar janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+    :ivar url: The absolute URL of the Flex Flow resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._sid: Optional[str] = payload.get("sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._chat_service_sid: Optional[str] = payload.get("chat_service_sid")
-        self._channel_type: Optional["FlexFlowInstance.ChannelType"] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self.channel_type: Optional["FlexFlowInstance.ChannelType"] = payload.get(
             "channel_type"
         )
-        self._contact_identity: Optional[str] = payload.get("contact_identity")
-        self._enabled: Optional[bool] = payload.get("enabled")
-        self._integration_type: Optional[
+        self.contact_identity: Optional[str] = payload.get("contact_identity")
+        self.enabled: Optional[bool] = payload.get("enabled")
+        self.integration_type: Optional[
             "FlexFlowInstance.IntegrationType"
         ] = payload.get("integration_type")
-        self._integration: Optional[Dict[str, object]] = payload.get("integration")
-        self._long_lived: Optional[bool] = payload.get("long_lived")
-        self._janitor_enabled: Optional[bool] = payload.get("janitor_enabled")
-        self._url: Optional[str] = payload.get("url")
+        self.integration: Optional[Dict[str, object]] = payload.get("integration")
+        self.long_lived: Optional[bool] = payload.get("long_lived")
+        self.janitor_enabled: Optional[bool] = payload.get("janitor_enabled")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[FlexFlowContext] = None
 
@@ -85,98 +101,6 @@ class FlexFlowInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Flow resource and owns this Workflow.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Flex Flow resource.
-        """
-        return self._sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def chat_service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the chat service.
-        """
-        return self._chat_service_sid
-
-    @property
-    def channel_type(self) -> Optional["FlexFlowInstance.ChannelType"]:
-        return self._channel_type
-
-    @property
-    def contact_identity(self) -> Optional[str]:
-        """
-        :returns: The channel contact's Identity.
-        """
-        return self._contact_identity
-
-    @property
-    def enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether the Flex Flow is enabled.
-        """
-        return self._enabled
-
-    @property
-    def integration_type(self) -> Optional["FlexFlowInstance.IntegrationType"]:
-        return self._integration_type
-
-    @property
-    def integration(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: An object that contains specific parameters for the integration.
-        """
-        return self._integration
-
-    @property
-    def long_lived(self) -> Optional[bool]:
-        """
-        :returns: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        """
-        return self._long_lived
-
-    @property
-    def janitor_enabled(self) -> Optional[bool]:
-        """
-        :returns: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        """
-        return self._janitor_enabled
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Flex Flow resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

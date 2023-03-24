@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,37 +30,58 @@ class VerificationInstance(InstanceResource):
         WHATSAPP = "whatsapp"
         SNA = "sna"
 
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the VerificationInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Verification resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
+    :ivar to: The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+    :ivar channel: 
+    :ivar status: The status of the verification. One of: `pending`, `approved`, or `canceled`
+    :ivar valid: Use \"status\" instead. Legacy property indicating whether the verification was successful.
+    :ivar lookup: Information about the phone number being verified.
+    :ivar amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+    :ivar payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+    :ivar send_code_attempts: An array of verification attempt objects containing the channel attempted and the channel-specific transaction SID.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar sna: The set of fields used for a silent network auth (`sna`) verification. Contains a single field with the URL to be invoked to verify the phone number.
+    :ivar url: The absolute URL of the Verification resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._to: Optional[str] = payload.get("to")
-        self._channel: Optional["VerificationInstance.Channel"] = payload.get("channel")
-        self._status: Optional[str] = payload.get("status")
-        self._valid: Optional[bool] = payload.get("valid")
-        self._lookup: Optional[Dict[str, object]] = payload.get("lookup")
-        self._amount: Optional[str] = payload.get("amount")
-        self._payee: Optional[str] = payload.get("payee")
-        self._send_code_attempts: Optional[List[object]] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.to: Optional[str] = payload.get("to")
+        self.channel: Optional["VerificationInstance.Channel"] = payload.get("channel")
+        self.status: Optional[str] = payload.get("status")
+        self.valid: Optional[bool] = payload.get("valid")
+        self.lookup: Optional[Dict[str, object]] = payload.get("lookup")
+        self.amount: Optional[str] = payload.get("amount")
+        self.payee: Optional[str] = payload.get("payee")
+        self.send_code_attempts: Optional[List[object]] = payload.get(
             "send_code_attempts"
         )
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._sna: Optional[Dict[str, object]] = payload.get("sna")
-        self._url: Optional[str] = payload.get("url")
+        self.sna: Optional[Dict[str, object]] = payload.get("sna")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[VerificationContext] = None
 
@@ -79,108 +100,6 @@ class VerificationInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Verification resource.
-        """
-        return self._sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
-        """
-        return self._account_sid
-
-    @property
-    def to(self) -> Optional[str]:
-        """
-        :returns: The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        """
-        return self._to
-
-    @property
-    def channel(self) -> Optional["VerificationInstance.Channel"]:
-        return self._channel
-
-    @property
-    def status(self) -> Optional[str]:
-        """
-        :returns: The status of the verification. One of: `pending`, `approved`, or `canceled`
-        """
-        return self._status
-
-    @property
-    def valid(self) -> Optional[bool]:
-        """
-        :returns: Use \"status\" instead. Legacy property indicating whether the verification was successful.
-        """
-        return self._valid
-
-    @property
-    def lookup(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Information about the phone number being verified.
-        """
-        return self._lookup
-
-    @property
-    def amount(self) -> Optional[str]:
-        """
-        :returns: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        """
-        return self._amount
-
-    @property
-    def payee(self) -> Optional[str]:
-        """
-        :returns: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        """
-        return self._payee
-
-    @property
-    def send_code_attempts(self) -> Optional[List[object]]:
-        """
-        :returns: An array of verification attempt objects containing the channel attempted and the channel-specific transaction SID.
-        """
-        return self._send_code_attempts
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def sna(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The set of fields used for a silent network auth (`sna`) verification. Contains a single field with the URL to be invoked to verify the phone number.
-        """
-        return self._sna
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Verification resource.
-        """
-        return self._url
 
     def fetch(self) -> "VerificationInstance":
         """

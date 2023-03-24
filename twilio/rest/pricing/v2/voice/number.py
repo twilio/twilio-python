@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,25 +22,39 @@ from twilio.base.version import Version
 
 
 class NumberInstance(InstanceResource):
-    def __init__(self, version, payload, destination_number: Optional[str] = None):
-        """
-        Initialize the NumberInstance
-        """
+
+    """
+    :ivar destination_number: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+    :ivar origination_number: The origination phone number in [[E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+    :ivar country: The name of the country.
+    :ivar iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+    :ivar outbound_call_prices: The list of [OutboundCallPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-call-price-with-origin) records.
+    :ivar inbound_call_price:
+    :ivar price_unit: The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        destination_number: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._destination_number: Optional[str] = payload.get("destination_number")
-        self._origination_number: Optional[str] = payload.get("origination_number")
-        self._country: Optional[str] = payload.get("country")
-        self._iso_country: Optional[str] = payload.get("iso_country")
-        self._outbound_call_prices: Optional[List[str]] = payload.get(
+        self.destination_number: Optional[str] = payload.get("destination_number")
+        self.origination_number: Optional[str] = payload.get("origination_number")
+        self.country: Optional[str] = payload.get("country")
+        self.iso_country: Optional[str] = payload.get("iso_country")
+        self.outbound_call_prices: Optional[List[str]] = payload.get(
             "outbound_call_prices"
         )
-        self._inbound_call_price: Optional[str] = payload.get("inbound_call_price")
-        self._price_unit: Optional[str] = payload.get("price_unit")
-        self._url: Optional[str] = payload.get("url")
+        self.inbound_call_price: Optional[str] = payload.get("inbound_call_price")
+        self.price_unit: Optional[str] = payload.get("price_unit")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "destination_number": destination_number or self._destination_number,
+            "destination_number": destination_number or self.destination_number,
         }
         self._context: Optional[NumberContext] = None
 
@@ -58,59 +72,6 @@ class NumberInstance(InstanceResource):
                 destination_number=self._solution["destination_number"],
             )
         return self._context
-
-    @property
-    def destination_number(self) -> Optional[str]:
-        """
-        :returns: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        """
-        return self._destination_number
-
-    @property
-    def origination_number(self) -> Optional[str]:
-        """
-        :returns: The origination phone number in [[E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        """
-        return self._origination_number
-
-    @property
-    def country(self) -> Optional[str]:
-        """
-        :returns: The name of the country.
-        """
-        return self._country
-
-    @property
-    def iso_country(self) -> Optional[str]:
-        """
-        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-        """
-        return self._iso_country
-
-    @property
-    def outbound_call_prices(self) -> Optional[List[str]]:
-        """
-        :returns: The list of [OutboundCallPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-call-price-with-origin) records.
-        """
-        return self._outbound_call_prices
-
-    @property
-    def inbound_call_price(self) -> Optional[str]:
-        return self._inbound_call_price
-
-    @property
-    def price_unit(self) -> Optional[str]:
-        """
-        :returns: The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        """
-        return self._price_unit
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
 
     def fetch(self, origination_number=values.unset) -> "NumberInstance":
         """

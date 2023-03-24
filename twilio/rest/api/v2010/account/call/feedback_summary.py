@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import date, datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,46 +29,66 @@ class FeedbackSummaryInstance(InstanceResource):
         COMPLETED = "completed"
         FAILED = "failed"
 
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the FeedbackSummaryInstance
-        """
+    """
+    :ivar account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+    :ivar call_count: The total number of calls.
+    :ivar call_feedback_count: The total number of calls with a feedback entry.
+    :ivar date_created: The date that this resource was created, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar date_updated: The date that this resource was last updated, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar end_date: The last date for which feedback entries are included in this Feedback Summary, formatted as `YYYY-MM-DD` and specified in UTC.
+    :ivar include_subaccounts: Whether the feedback summary includes subaccounts; `true` if it does, otherwise `false`.
+    :ivar issues: A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
+    :ivar quality_score_average: The average QualityScore of the feedback entries.
+    :ivar quality_score_median: The median QualityScore of the feedback entries.
+    :ivar quality_score_standard_deviation: The standard deviation of the quality scores.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar start_date: The first date for which feedback entries are included in this feedback summary, formatted as `YYYY-MM-DD` and specified in UTC.
+    :ivar status: 
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._call_count: Optional[int] = deserialize.integer(payload.get("call_count"))
-        self._call_feedback_count: Optional[int] = deserialize.integer(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.call_count: Optional[int] = deserialize.integer(payload.get("call_count"))
+        self.call_feedback_count: Optional[int] = deserialize.integer(
             payload.get("call_feedback_count")
         )
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._end_date: Optional[date] = deserialize.iso8601_date(
+        self.end_date: Optional[date] = deserialize.iso8601_date(
             payload.get("end_date")
         )
-        self._include_subaccounts: Optional[bool] = payload.get("include_subaccounts")
-        self._issues: Optional[List[object]] = payload.get("issues")
-        self._quality_score_average: Optional[float] = deserialize.decimal(
+        self.include_subaccounts: Optional[bool] = payload.get("include_subaccounts")
+        self.issues: Optional[List[object]] = payload.get("issues")
+        self.quality_score_average: Optional[float] = deserialize.decimal(
             payload.get("quality_score_average")
         )
-        self._quality_score_median: Optional[float] = deserialize.decimal(
+        self.quality_score_median: Optional[float] = deserialize.decimal(
             payload.get("quality_score_median")
         )
-        self._quality_score_standard_deviation: Optional[float] = deserialize.decimal(
+        self.quality_score_standard_deviation: Optional[float] = deserialize.decimal(
             payload.get("quality_score_standard_deviation")
         )
-        self._sid: Optional[str] = payload.get("sid")
-        self._start_date: Optional[date] = deserialize.iso8601_date(
+        self.sid: Optional[str] = payload.get("sid")
+        self.start_date: Optional[date] = deserialize.iso8601_date(
             payload.get("start_date")
         )
-        self._status: Optional["FeedbackSummaryInstance.Status"] = payload.get("status")
+        self.status: Optional["FeedbackSummaryInstance.Status"] = payload.get("status")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[FeedbackSummaryContext] = None
 
@@ -87,101 +107,6 @@ class FeedbackSummaryInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-        """
-        return self._account_sid
-
-    @property
-    def call_count(self) -> Optional[int]:
-        """
-        :returns: The total number of calls.
-        """
-        return self._call_count
-
-    @property
-    def call_feedback_count(self) -> Optional[int]:
-        """
-        :returns: The total number of calls with a feedback entry.
-        """
-        return self._call_feedback_count
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._date_updated
-
-    @property
-    def end_date(self) -> Optional[date]:
-        """
-        :returns: The last date for which feedback entries are included in this Feedback Summary, formatted as `YYYY-MM-DD` and specified in UTC.
-        """
-        return self._end_date
-
-    @property
-    def include_subaccounts(self) -> Optional[bool]:
-        """
-        :returns: Whether the feedback summary includes subaccounts; `true` if it does, otherwise `false`.
-        """
-        return self._include_subaccounts
-
-    @property
-    def issues(self) -> Optional[List[object]]:
-        """
-        :returns: A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
-        """
-        return self._issues
-
-    @property
-    def quality_score_average(self) -> Optional[float]:
-        """
-        :returns: The average QualityScore of the feedback entries.
-        """
-        return self._quality_score_average
-
-    @property
-    def quality_score_median(self) -> Optional[float]:
-        """
-        :returns: The median QualityScore of the feedback entries.
-        """
-        return self._quality_score_median
-
-    @property
-    def quality_score_standard_deviation(self) -> Optional[float]:
-        """
-        :returns: The standard deviation of the quality scores.
-        """
-        return self._quality_score_standard_deviation
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def start_date(self) -> Optional[date]:
-        """
-        :returns: The first date for which feedback entries are included in this feedback summary, formatted as `YYYY-MM-DD` and specified in UTC.
-        """
-        return self._start_date
-
-    @property
-    def status(self) -> Optional["FeedbackSummaryInstance.Status"]:
-        return self._status
 
     def delete(self) -> bool:
         """

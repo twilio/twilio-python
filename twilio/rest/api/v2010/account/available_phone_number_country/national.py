@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,118 +23,50 @@ from twilio.base.page import Page
 
 
 class NationalInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, country_code: str):
-        """
-        Initialize the NationalInstance
-        """
+
+    """
+    :ivar friendly_name: A formatted version of the phone number.
+    :ivar phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+    :ivar lata: The [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) of this phone number. Available for only phone numbers from the US and Canada.
+    :ivar locality: The locality or city of this phone number's location.
+    :ivar rate_center: The [rate center](https://en.wikipedia.org/wiki/Telephone_exchange) of this phone number. Available for only phone numbers from the US and Canada.
+    :ivar latitude: The latitude of this phone number's location. Available for only phone numbers from the US and Canada.
+    :ivar longitude: The longitude of this phone number's location. Available for only phone numbers from the US and Canada.
+    :ivar region: The two-letter state or province abbreviation of this phone number's location. Available for only phone numbers from the US and Canada.
+    :ivar postal_code: The postal or ZIP code of this phone number's location. Available for only phone numbers from the US and Canada.
+    :ivar iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of this phone number.
+    :ivar address_requirements: The type of [Address](https://www.twilio.com/docs/usage/api/address) resource the phone number requires. Can be: `none`, `any`, `local`, or `foreign`. `none` means no address is required. `any` means an address is required, but it can be anywhere in the world. `local` means an address in the phone number's country is required. `foreign` means an address outside of the phone number's country is required.
+    :ivar beta: Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
+    :ivar capabilities:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        country_code: str,
+    ):
         super().__init__(version)
 
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._phone_number: Optional[str] = payload.get("phone_number")
-        self._lata: Optional[str] = payload.get("lata")
-        self._locality: Optional[str] = payload.get("locality")
-        self._rate_center: Optional[str] = payload.get("rate_center")
-        self._latitude: Optional[float] = deserialize.decimal(payload.get("latitude"))
-        self._longitude: Optional[float] = deserialize.decimal(payload.get("longitude"))
-        self._region: Optional[str] = payload.get("region")
-        self._postal_code: Optional[str] = payload.get("postal_code")
-        self._iso_country: Optional[str] = payload.get("iso_country")
-        self._address_requirements: Optional[str] = payload.get("address_requirements")
-        self._beta: Optional[bool] = payload.get("beta")
-        self._capabilities: Optional[str] = payload.get("capabilities")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.phone_number: Optional[str] = payload.get("phone_number")
+        self.lata: Optional[str] = payload.get("lata")
+        self.locality: Optional[str] = payload.get("locality")
+        self.rate_center: Optional[str] = payload.get("rate_center")
+        self.latitude: Optional[float] = deserialize.decimal(payload.get("latitude"))
+        self.longitude: Optional[float] = deserialize.decimal(payload.get("longitude"))
+        self.region: Optional[str] = payload.get("region")
+        self.postal_code: Optional[str] = payload.get("postal_code")
+        self.iso_country: Optional[str] = payload.get("iso_country")
+        self.address_requirements: Optional[str] = payload.get("address_requirements")
+        self.beta: Optional[bool] = payload.get("beta")
+        self.capabilities: Optional[str] = payload.get("capabilities")
 
         self._solution = {
             "account_sid": account_sid,
             "country_code": country_code,
         }
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: A formatted version of the phone number.
-        """
-        return self._friendly_name
-
-    @property
-    def phone_number(self) -> Optional[str]:
-        """
-        :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        """
-        return self._phone_number
-
-    @property
-    def lata(self) -> Optional[str]:
-        """
-        :returns: The [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) of this phone number. Available for only phone numbers from the US and Canada.
-        """
-        return self._lata
-
-    @property
-    def locality(self) -> Optional[str]:
-        """
-        :returns: The locality or city of this phone number's location.
-        """
-        return self._locality
-
-    @property
-    def rate_center(self) -> Optional[str]:
-        """
-        :returns: The [rate center](https://en.wikipedia.org/wiki/Telephone_exchange) of this phone number. Available for only phone numbers from the US and Canada.
-        """
-        return self._rate_center
-
-    @property
-    def latitude(self) -> Optional[float]:
-        """
-        :returns: The latitude of this phone number's location. Available for only phone numbers from the US and Canada.
-        """
-        return self._latitude
-
-    @property
-    def longitude(self) -> Optional[float]:
-        """
-        :returns: The longitude of this phone number's location. Available for only phone numbers from the US and Canada.
-        """
-        return self._longitude
-
-    @property
-    def region(self) -> Optional[str]:
-        """
-        :returns: The two-letter state or province abbreviation of this phone number's location. Available for only phone numbers from the US and Canada.
-        """
-        return self._region
-
-    @property
-    def postal_code(self) -> Optional[str]:
-        """
-        :returns: The postal or ZIP code of this phone number's location. Available for only phone numbers from the US and Canada.
-        """
-        return self._postal_code
-
-    @property
-    def iso_country(self) -> Optional[str]:
-        """
-        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of this phone number.
-        """
-        return self._iso_country
-
-    @property
-    def address_requirements(self) -> Optional[str]:
-        """
-        :returns: The type of [Address](https://www.twilio.com/docs/usage/api/address) resource the phone number requires. Can be: `none`, `any`, `local`, or `foreign`. `none` means no address is required. `any` means an address is required, but it can be anywhere in the world. `local` means an address in the phone number's country is required. `foreign` means an address outside of the phone number's country is required.
-        """
-        return self._address_requirements
-
-    @property
-    def beta(self) -> Optional[bool]:
-        """
-        :returns: Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
-        """
-        return self._beta
-
-    @property
-    def capabilities(self) -> Optional[str]:
-        return self._capabilities
 
     def __repr__(self) -> str:
         """

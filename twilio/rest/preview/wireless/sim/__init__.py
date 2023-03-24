@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,47 +25,68 @@ from twilio.rest.preview.wireless.sim.usage import UsageList
 
 
 class SimInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the SimInstance
-        """
+
+    """
+    :ivar sid:
+    :ivar unique_name:
+    :ivar account_sid:
+    :ivar rate_plan_sid:
+    :ivar friendly_name:
+    :ivar iccid:
+    :ivar e_id:
+    :ivar status:
+    :ivar commands_callback_url:
+    :ivar commands_callback_method:
+    :ivar sms_fallback_method:
+    :ivar sms_fallback_url:
+    :ivar sms_method:
+    :ivar sms_url:
+    :ivar voice_fallback_method:
+    :ivar voice_fallback_url:
+    :ivar voice_method:
+    :ivar voice_url:
+    :ivar date_created:
+    :ivar date_updated:
+    :ivar url:
+    :ivar links:
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._rate_plan_sid: Optional[str] = payload.get("rate_plan_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._iccid: Optional[str] = payload.get("iccid")
-        self._e_id: Optional[str] = payload.get("e_id")
-        self._status: Optional[str] = payload.get("status")
-        self._commands_callback_url: Optional[str] = payload.get(
-            "commands_callback_url"
-        )
-        self._commands_callback_method: Optional[str] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.rate_plan_sid: Optional[str] = payload.get("rate_plan_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.iccid: Optional[str] = payload.get("iccid")
+        self.e_id: Optional[str] = payload.get("e_id")
+        self.status: Optional[str] = payload.get("status")
+        self.commands_callback_url: Optional[str] = payload.get("commands_callback_url")
+        self.commands_callback_method: Optional[str] = payload.get(
             "commands_callback_method"
         )
-        self._sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
-        self._sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
-        self._sms_method: Optional[str] = payload.get("sms_method")
-        self._sms_url: Optional[str] = payload.get("sms_url")
-        self._voice_fallback_method: Optional[str] = payload.get(
-            "voice_fallback_method"
-        )
-        self._voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
-        self._voice_method: Optional[str] = payload.get("voice_method")
-        self._voice_url: Optional[str] = payload.get("voice_url")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
+        self.sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
+        self.sms_method: Optional[str] = payload.get("sms_method")
+        self.sms_url: Optional[str] = payload.get("sms_url")
+        self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
+        self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
+        self.voice_method: Optional[str] = payload.get("voice_method")
+        self.voice_url: Optional[str] = payload.get("voice_url")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[SimContext] = None
 
@@ -83,94 +104,6 @@ class SimInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        return self._sid
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        return self._unique_name
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def rate_plan_sid(self) -> Optional[str]:
-        return self._rate_plan_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        return self._friendly_name
-
-    @property
-    def iccid(self) -> Optional[str]:
-        return self._iccid
-
-    @property
-    def e_id(self) -> Optional[str]:
-        return self._e_id
-
-    @property
-    def status(self) -> Optional[str]:
-        return self._status
-
-    @property
-    def commands_callback_url(self) -> Optional[str]:
-        return self._commands_callback_url
-
-    @property
-    def commands_callback_method(self) -> Optional[str]:
-        return self._commands_callback_method
-
-    @property
-    def sms_fallback_method(self) -> Optional[str]:
-        return self._sms_fallback_method
-
-    @property
-    def sms_fallback_url(self) -> Optional[str]:
-        return self._sms_fallback_url
-
-    @property
-    def sms_method(self) -> Optional[str]:
-        return self._sms_method
-
-    @property
-    def sms_url(self) -> Optional[str]:
-        return self._sms_url
-
-    @property
-    def voice_fallback_method(self) -> Optional[str]:
-        return self._voice_fallback_method
-
-    @property
-    def voice_fallback_url(self) -> Optional[str]:
-        return self._voice_fallback_url
-
-    @property
-    def voice_method(self) -> Optional[str]:
-        return self._voice_method
-
-    @property
-    def voice_url(self) -> Optional[str]:
-        return self._voice_url
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        return self._links
 
     def fetch(self) -> "SimInstance":
         """

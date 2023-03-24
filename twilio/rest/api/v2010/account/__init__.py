@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -61,31 +61,43 @@ class AccountInstance(InstanceResource):
         TRIAL = "Trial"
         FULL = "Full"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the AccountInstance
-        """
+    """
+    :ivar auth_token: The authorization token for this account. This token should be kept a secret, so no sharing.
+    :ivar date_created: The date that this account was created, in GMT in RFC 2822 format
+    :ivar date_updated: The date that this account was last updated, in GMT in RFC 2822 format.
+    :ivar friendly_name: A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
+    :ivar owner_account_sid: The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar status: 
+    :ivar subresource_uris: A Map of various subresources available for the given Account Instance
+    :ivar type: 
+    :ivar uri: The URI for this resource, relative to `https://api.twilio.com`
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._auth_token: Optional[str] = payload.get("auth_token")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.auth_token: Optional[str] = payload.get("auth_token")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._owner_account_sid: Optional[str] = payload.get("owner_account_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._status: Optional["AccountInstance.Status"] = payload.get("status")
-        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.owner_account_sid: Optional[str] = payload.get("owner_account_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.status: Optional["AccountInstance.Status"] = payload.get("status")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
             "subresource_uris"
         )
-        self._type: Optional["AccountInstance.Type"] = payload.get("type")
-        self._uri: Optional[str] = payload.get("uri")
+        self.type: Optional["AccountInstance.Type"] = payload.get("type")
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[AccountContext] = None
 
@@ -103,70 +115,6 @@ class AccountInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def auth_token(self) -> Optional[str]:
-        """
-        :returns: The authorization token for this account. This token should be kept a secret, so no sharing.
-        """
-        return self._auth_token
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this account was created, in GMT in RFC 2822 format
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this account was last updated, in GMT in RFC 2822 format.
-        """
-        return self._date_updated
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
-        """
-        return self._friendly_name
-
-    @property
-    def owner_account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
-        """
-        return self._owner_account_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def status(self) -> Optional["AccountInstance.Status"]:
-        return self._status
-
-    @property
-    def subresource_uris(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: A Map of various subresources available for the given Account Instance
-        """
-        return self._subresource_uris
-
-    @property
-    def type(self) -> Optional["AccountInstance.Type"]:
-        return self._type
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI for this resource, relative to `https://api.twilio.com`
-        """
-        return self._uri
 
     def fetch(self) -> "AccountInstance":
         """

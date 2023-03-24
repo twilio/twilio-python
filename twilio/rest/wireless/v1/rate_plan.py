@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,43 +24,62 @@ from twilio.base.page import Page
 
 
 class RatePlanInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the RatePlanInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the RatePlan resource.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RatePlan resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
+    :ivar data_metering: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
+    :ivar data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB.
+    :ivar messaging_enabled: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
+    :ivar voice_enabled: Deprecated. Whether SIMs can make and receive voice calls.
+    :ivar national_roaming_enabled: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
+    :ivar national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB.
+    :ivar international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
+    :ivar international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._data_enabled: Optional[bool] = payload.get("data_enabled")
-        self._data_metering: Optional[str] = payload.get("data_metering")
-        self._data_limit: Optional[int] = deserialize.integer(payload.get("data_limit"))
-        self._messaging_enabled: Optional[bool] = payload.get("messaging_enabled")
-        self._voice_enabled: Optional[bool] = payload.get("voice_enabled")
-        self._national_roaming_enabled: Optional[bool] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.data_enabled: Optional[bool] = payload.get("data_enabled")
+        self.data_metering: Optional[str] = payload.get("data_metering")
+        self.data_limit: Optional[int] = deserialize.integer(payload.get("data_limit"))
+        self.messaging_enabled: Optional[bool] = payload.get("messaging_enabled")
+        self.voice_enabled: Optional[bool] = payload.get("voice_enabled")
+        self.national_roaming_enabled: Optional[bool] = payload.get(
             "national_roaming_enabled"
         )
-        self._national_roaming_data_limit: Optional[int] = deserialize.integer(
+        self.national_roaming_data_limit: Optional[int] = deserialize.integer(
             payload.get("national_roaming_data_limit")
         )
-        self._international_roaming: Optional[List[str]] = payload.get(
+        self.international_roaming: Optional[List[str]] = payload.get(
             "international_roaming"
         )
-        self._international_roaming_data_limit: Optional[int] = deserialize.integer(
+        self.international_roaming_data_limit: Optional[int] = deserialize.integer(
             payload.get("international_roaming_data_limit")
         )
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[RatePlanContext] = None
 
@@ -78,118 +97,6 @@ class RatePlanInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the RatePlan resource.
-        """
-        return self._sid
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        """
-        return self._unique_name
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RatePlan resource.
-        """
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def data_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
-        """
-        return self._data_enabled
-
-    @property
-    def data_metering(self) -> Optional[str]:
-        """
-        :returns: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
-        """
-        return self._data_metering
-
-    @property
-    def data_limit(self) -> Optional[int]:
-        """
-        :returns: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB.
-        """
-        return self._data_limit
-
-    @property
-    def messaging_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
-        """
-        return self._messaging_enabled
-
-    @property
-    def voice_enabled(self) -> Optional[bool]:
-        """
-        :returns: Deprecated. Whether SIMs can make and receive voice calls.
-        """
-        return self._voice_enabled
-
-    @property
-    def national_roaming_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
-        """
-        return self._national_roaming_enabled
-
-    @property
-    def national_roaming_data_limit(self) -> Optional[int]:
-        """
-        :returns: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB.
-        """
-        return self._national_roaming_data_limit
-
-    @property
-    def international_roaming(self) -> Optional[List[str]]:
-        """
-        :returns: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
-        """
-        return self._international_roaming
-
-    @property
-    def international_roaming_data_limit(self) -> Optional[int]:
-        """
-        :returns: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
-        """
-        return self._international_roaming_data_limit
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

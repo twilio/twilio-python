@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,41 +28,58 @@ from twilio.rest.sync.v1.service.sync_stream import SyncStreamList
 
 
 class ServiceInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ServiceInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the Service resource.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. It is a read-only property, it cannot be assigned using REST API.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Service resource.
+    :ivar webhook_url: The URL we call when Sync objects are manipulated.
+    :ivar webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
+    :ivar reachability_webhooks_enabled: Whether the service instance calls `webhook_url` when client endpoints connect to Sync. The default is `false`.
+    :ivar acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource. It is disabled (false) by default.
+    :ivar reachability_debouncing_enabled: Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
+    :ivar reachability_debouncing_window: The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before `webhook_url` is called, if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the reachability event from occurring.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._webhook_url: Optional[str] = payload.get("webhook_url")
-        self._webhooks_from_rest_enabled: Optional[bool] = payload.get(
+        self.url: Optional[str] = payload.get("url")
+        self.webhook_url: Optional[str] = payload.get("webhook_url")
+        self.webhooks_from_rest_enabled: Optional[bool] = payload.get(
             "webhooks_from_rest_enabled"
         )
-        self._reachability_webhooks_enabled: Optional[bool] = payload.get(
+        self.reachability_webhooks_enabled: Optional[bool] = payload.get(
             "reachability_webhooks_enabled"
         )
-        self._acl_enabled: Optional[bool] = payload.get("acl_enabled")
-        self._reachability_debouncing_enabled: Optional[bool] = payload.get(
+        self.acl_enabled: Optional[bool] = payload.get("acl_enabled")
+        self.reachability_debouncing_enabled: Optional[bool] = payload.get(
             "reachability_debouncing_enabled"
         )
-        self._reachability_debouncing_window: Optional[int] = deserialize.integer(
+        self.reachability_debouncing_window: Optional[int] = deserialize.integer(
             payload.get("reachability_debouncing_window")
         )
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -80,104 +97,6 @@ class ServiceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Service resource.
-        """
-        return self._sid
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. It is a read-only property, it cannot be assigned using REST API.
-        """
-        return self._unique_name
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        """
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Service resource.
-        """
-        return self._url
-
-    @property
-    def webhook_url(self) -> Optional[str]:
-        """
-        :returns: The URL we call when Sync objects are manipulated.
-        """
-        return self._webhook_url
-
-    @property
-    def webhooks_from_rest_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
-        """
-        return self._webhooks_from_rest_enabled
-
-    @property
-    def reachability_webhooks_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether the service instance calls `webhook_url` when client endpoints connect to Sync. The default is `false`.
-        """
-        return self._reachability_webhooks_enabled
-
-    @property
-    def acl_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource. It is disabled (false) by default.
-        """
-        return self._acl_enabled
-
-    @property
-    def reachability_debouncing_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
-        """
-        return self._reachability_debouncing_enabled
-
-    @property
-    def reachability_debouncing_window(self) -> Optional[int]:
-        """
-        :returns: The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before `webhook_url` is called, if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the reachability event from occurring.
-        """
-        return self._reachability_debouncing_window
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

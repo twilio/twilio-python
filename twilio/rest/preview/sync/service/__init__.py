@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,31 +27,44 @@ from twilio.rest.preview.sync.service.sync_map import SyncMapList
 
 
 class ServiceInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ServiceInstance
-        """
+
+    """
+    :ivar sid:
+    :ivar account_sid:
+    :ivar friendly_name:
+    :ivar date_created:
+    :ivar date_updated:
+    :ivar url:
+    :ivar webhook_url:
+    :ivar reachability_webhooks_enabled:
+    :ivar acl_enabled:
+    :ivar links:
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._webhook_url: Optional[str] = payload.get("webhook_url")
-        self._reachability_webhooks_enabled: Optional[bool] = payload.get(
+        self.url: Optional[str] = payload.get("url")
+        self.webhook_url: Optional[str] = payload.get("webhook_url")
+        self.reachability_webhooks_enabled: Optional[bool] = payload.get(
             "reachability_webhooks_enabled"
         )
-        self._acl_enabled: Optional[bool] = payload.get("acl_enabled")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.acl_enabled: Optional[bool] = payload.get("acl_enabled")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -69,46 +82,6 @@ class ServiceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        return self._friendly_name
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
-
-    @property
-    def webhook_url(self) -> Optional[str]:
-        return self._webhook_url
-
-    @property
-    def reachability_webhooks_enabled(self) -> Optional[bool]:
-        return self._reachability_webhooks_enabled
-
-    @property
-    def acl_enabled(self) -> Optional[bool]:
-        return self._acl_enabled
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        return self._links
 
     def delete(self) -> bool:
         """

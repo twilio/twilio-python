@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,19 +30,26 @@ class WebhookInstance(InstanceResource):
         WEBHOOK = "webhook"
         FLEX = "flex"
 
-    def __init__(self, version, payload):
-        """
-        Initialize the WebhookInstance
-        """
+    """
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
+    :ivar method: 
+    :ivar filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+    :ivar pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+    :ivar post_webhook_url: The absolute url the post-event webhook request should be sent to.
+    :ivar target: 
+    :ivar url: An absolute API resource API resource URL for this webhook.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._method: Optional["WebhookInstance.Method"] = payload.get("method")
-        self._filters: Optional[List[str]] = payload.get("filters")
-        self._pre_webhook_url: Optional[str] = payload.get("pre_webhook_url")
-        self._post_webhook_url: Optional[str] = payload.get("post_webhook_url")
-        self._target: Optional["WebhookInstance.Target"] = payload.get("target")
-        self._url: Optional[str] = payload.get("url")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.method: Optional["WebhookInstance.Method"] = payload.get("method")
+        self.filters: Optional[List[str]] = payload.get("filters")
+        self.pre_webhook_url: Optional[str] = payload.get("pre_webhook_url")
+        self.post_webhook_url: Optional[str] = payload.get("post_webhook_url")
+        self.target: Optional["WebhookInstance.Target"] = payload.get("target")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[WebhookContext] = None
@@ -60,49 +67,6 @@ class WebhookInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
-        """
-        return self._account_sid
-
-    @property
-    def method(self) -> Optional["WebhookInstance.Method"]:
-        return self._method
-
-    @property
-    def filters(self) -> Optional[List[str]]:
-        """
-        :returns: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
-        """
-        return self._filters
-
-    @property
-    def pre_webhook_url(self) -> Optional[str]:
-        """
-        :returns: The absolute url the pre-event webhook request should be sent to.
-        """
-        return self._pre_webhook_url
-
-    @property
-    def post_webhook_url(self) -> Optional[str]:
-        """
-        :returns: The absolute url the post-event webhook request should be sent to.
-        """
-        return self._post_webhook_url
-
-    @property
-    def target(self) -> Optional["WebhookInstance.Target"]:
-        return self._target
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: An absolute API resource API resource URL for this webhook.
-        """
-        return self._url
 
     def fetch(self) -> "WebhookInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -52,63 +52,76 @@ class InteractionInstance(InstanceResource):
         VOICE = "voice"
         UNKNOWN = "unknown"
 
+    """
+    :ivar sid: The unique string that we created to identify the Interaction resource.
+    :ivar session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
+    :ivar service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Interaction resource.
+    :ivar data: A JSON string that includes the message body of message interactions (e.g. `{\"body\": \"hello\"}`) or the call duration (when available) of a call (e.g. `{\"duration\": \"5\"}`).
+    :ivar type: 
+    :ivar inbound_participant_sid: The SID of the inbound [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
+    :ivar inbound_resource_sid: The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message.
+    :ivar inbound_resource_status: 
+    :ivar inbound_resource_type: The inbound resource type. Can be [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
+    :ivar inbound_resource_url: The URL of the Twilio inbound resource
+    :ivar outbound_participant_sid: The SID of the outbound [Participant](https://www.twilio.com/docs/proxy/api/participant)).
+    :ivar outbound_resource_sid: The SID of the outbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
+    :ivar outbound_resource_status: 
+    :ivar outbound_resource_type: The outbound resource type. Can be: [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
+    :ivar outbound_resource_url: The URL of the Twilio outbound resource.
+    :ivar date_created: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Interaction was created.
+    :ivar date_updated: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
+    :ivar url: The absolute URL of the Interaction resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         session_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the InteractionInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._session_sid: Optional[str] = payload.get("session_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._data: Optional[str] = payload.get("data")
-        self._type: Optional["InteractionInstance.Type"] = payload.get("type")
-        self._inbound_participant_sid: Optional[str] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.session_sid: Optional[str] = payload.get("session_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.data: Optional[str] = payload.get("data")
+        self.type: Optional["InteractionInstance.Type"] = payload.get("type")
+        self.inbound_participant_sid: Optional[str] = payload.get(
             "inbound_participant_sid"
         )
-        self._inbound_resource_sid: Optional[str] = payload.get("inbound_resource_sid")
-        self._inbound_resource_status: Optional[
+        self.inbound_resource_sid: Optional[str] = payload.get("inbound_resource_sid")
+        self.inbound_resource_status: Optional[
             "InteractionInstance.ResourceStatus"
         ] = payload.get("inbound_resource_status")
-        self._inbound_resource_type: Optional[str] = payload.get(
-            "inbound_resource_type"
-        )
-        self._inbound_resource_url: Optional[str] = payload.get("inbound_resource_url")
-        self._outbound_participant_sid: Optional[str] = payload.get(
+        self.inbound_resource_type: Optional[str] = payload.get("inbound_resource_type")
+        self.inbound_resource_url: Optional[str] = payload.get("inbound_resource_url")
+        self.outbound_participant_sid: Optional[str] = payload.get(
             "outbound_participant_sid"
         )
-        self._outbound_resource_sid: Optional[str] = payload.get(
-            "outbound_resource_sid"
-        )
-        self._outbound_resource_status: Optional[
+        self.outbound_resource_sid: Optional[str] = payload.get("outbound_resource_sid")
+        self.outbound_resource_status: Optional[
             "InteractionInstance.ResourceStatus"
         ] = payload.get("outbound_resource_status")
-        self._outbound_resource_type: Optional[str] = payload.get(
+        self.outbound_resource_type: Optional[str] = payload.get(
             "outbound_resource_type"
         )
-        self._outbound_resource_url: Optional[str] = payload.get(
-            "outbound_resource_url"
-        )
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.outbound_resource_url: Optional[str] = payload.get("outbound_resource_url")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "session_sid": session_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[InteractionContext] = None
 
@@ -128,132 +141,6 @@ class InteractionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Interaction resource.
-        """
-        return self._sid
-
-    @property
-    def session_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
-        """
-        return self._session_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
-        """
-        return self._service_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Interaction resource.
-        """
-        return self._account_sid
-
-    @property
-    def data(self) -> Optional[str]:
-        """
-        :returns: A JSON string that includes the message body of message interactions (e.g. `{\"body\": \"hello\"}`) or the call duration (when available) of a call (e.g. `{\"duration\": \"5\"}`).
-        """
-        return self._data
-
-    @property
-    def type(self) -> Optional["InteractionInstance.Type"]:
-        return self._type
-
-    @property
-    def inbound_participant_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the inbound [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
-        """
-        return self._inbound_participant_sid
-
-    @property
-    def inbound_resource_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message.
-        """
-        return self._inbound_resource_sid
-
-    @property
-    def inbound_resource_status(self) -> Optional["InteractionInstance.ResourceStatus"]:
-        return self._inbound_resource_status
-
-    @property
-    def inbound_resource_type(self) -> Optional[str]:
-        """
-        :returns: The inbound resource type. Can be [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
-        """
-        return self._inbound_resource_type
-
-    @property
-    def inbound_resource_url(self) -> Optional[str]:
-        """
-        :returns: The URL of the Twilio inbound resource
-        """
-        return self._inbound_resource_url
-
-    @property
-    def outbound_participant_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the outbound [Participant](https://www.twilio.com/docs/proxy/api/participant)).
-        """
-        return self._outbound_participant_sid
-
-    @property
-    def outbound_resource_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the outbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
-        """
-        return self._outbound_resource_sid
-
-    @property
-    def outbound_resource_status(
-        self,
-    ) -> Optional["InteractionInstance.ResourceStatus"]:
-        return self._outbound_resource_status
-
-    @property
-    def outbound_resource_type(self) -> Optional[str]:
-        """
-        :returns: The outbound resource type. Can be: [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
-        """
-        return self._outbound_resource_type
-
-    @property
-    def outbound_resource_url(self) -> Optional[str]:
-        """
-        :returns: The URL of the Twilio outbound resource.
-        """
-        return self._outbound_resource_url
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Interaction was created.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Interaction resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

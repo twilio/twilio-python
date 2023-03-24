@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,33 +24,53 @@ from twilio.base.page import Page
 
 
 class QueryInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the QueryInstance
-        """
+
+    """
+    :ivar account_sid: The unique ID of the Account that created this Query.
+    :ivar date_created: The date that this resource was created
+    :ivar date_updated: The date that this resource was last updated
+    :ivar results: The natural language analysis results which include the Task recognized, the confidence score and a list of identified Fields.
+    :ivar language: An ISO language-country string of the sample.
+    :ivar model_build_sid: The unique ID of the Model Build queried.
+    :ivar query: The end-user's natural language input.
+    :ivar sample_sid: An optional reference to the Sample created from this query.
+    :ivar assistant_sid: The unique ID of the parent Assistant.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+    :ivar url:
+    :ivar source_channel: The communication channel where this end-user input came from
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assistant_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._results: Optional[Dict[str, object]] = payload.get("results")
-        self._language: Optional[str] = payload.get("language")
-        self._model_build_sid: Optional[str] = payload.get("model_build_sid")
-        self._query: Optional[str] = payload.get("query")
-        self._sample_sid: Optional[str] = payload.get("sample_sid")
-        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._status: Optional[str] = payload.get("status")
-        self._url: Optional[str] = payload.get("url")
-        self._source_channel: Optional[str] = payload.get("source_channel")
+        self.results: Optional[Dict[str, object]] = payload.get("results")
+        self.language: Optional[str] = payload.get("language")
+        self.model_build_sid: Optional[str] = payload.get("model_build_sid")
+        self.query: Optional[str] = payload.get("query")
+        self.sample_sid: Optional[str] = payload.get("sample_sid")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.status: Optional[str] = payload.get("status")
+        self.url: Optional[str] = payload.get("url")
+        self.source_channel: Optional[str] = payload.get("source_channel")
 
         self._solution = {
             "assistant_sid": assistant_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[QueryContext] = None
 
@@ -69,94 +89,6 @@ class QueryInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the Account that created this Query.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated
-        """
-        return self._date_updated
-
-    @property
-    def results(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The natural language analysis results which include the Task recognized, the confidence score and a list of identified Fields.
-        """
-        return self._results
-
-    @property
-    def language(self) -> Optional[str]:
-        """
-        :returns: An ISO language-country string of the sample.
-        """
-        return self._language
-
-    @property
-    def model_build_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the Model Build queried.
-        """
-        return self._model_build_sid
-
-    @property
-    def query(self) -> Optional[str]:
-        """
-        :returns: The end-user's natural language input.
-        """
-        return self._query
-
-    @property
-    def sample_sid(self) -> Optional[str]:
-        """
-        :returns: An optional reference to the Sample created from this query.
-        """
-        return self._sample_sid
-
-    @property
-    def assistant_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the parent Assistant.
-        """
-        return self._assistant_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def status(self) -> Optional[str]:
-        """
-        :returns: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        """
-        return self._status
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
-
-    @property
-    def source_channel(self) -> Optional[str]:
-        """
-        :returns: The communication channel where this end-user input came from
-        """
-        return self._source_channel
 
     def delete(self) -> bool:
         """

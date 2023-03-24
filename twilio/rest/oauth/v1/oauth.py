@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,14 +21,17 @@ from twilio.base.version import Version
 
 
 class OauthInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the OauthInstance
-        """
+
+    """
+    :ivar keys: A collection of certificates where are signed Twilio-issued tokens.
+    :ivar url:
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._keys: Optional[Dict[str, object]] = payload.get("keys")
-        self._url: Optional[str] = payload.get("url")
+        self.keys: Optional[Dict[str, object]] = payload.get("keys")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[OauthContext] = None
@@ -46,17 +49,6 @@ class OauthInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def keys(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: A collection of certificates where are signed Twilio-issued tokens.
-        """
-        return self._keys
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def fetch(self) -> "OauthInstance":
         """

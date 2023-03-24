@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,35 +23,45 @@ from twilio.base.page import Page
 
 
 class AssignedAddOnExtensionInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that that we created to identify the resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
+    :ivar resource_sid: The SID of the Phone Number to which the Add-on is assigned.
+    :ivar assigned_add_on_sid: The SID that uniquely identifies the assigned Add-on installation.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar product_name: A string that you assigned to describe the Product this Extension is used within.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar enabled: Whether the Extension will be invoked.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         resource_sid: str,
         assigned_add_on_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the AssignedAddOnExtensionInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._resource_sid: Optional[str] = payload.get("resource_sid")
-        self._assigned_add_on_sid: Optional[str] = payload.get("assigned_add_on_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._product_name: Optional[str] = payload.get("product_name")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._uri: Optional[str] = payload.get("uri")
-        self._enabled: Optional[bool] = payload.get("enabled")
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.resource_sid: Optional[str] = payload.get("resource_sid")
+        self.assigned_add_on_sid: Optional[str] = payload.get("assigned_add_on_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.product_name: Optional[str] = payload.get("product_name")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.uri: Optional[str] = payload.get("uri")
+        self.enabled: Optional[bool] = payload.get("enabled")
 
         self._solution = {
             "account_sid": account_sid,
             "resource_sid": resource_sid,
             "assigned_add_on_sid": assigned_add_on_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[AssignedAddOnExtensionContext] = None
 
@@ -72,69 +82,6 @@ class AssignedAddOnExtensionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify the resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
-        """
-        return self._account_sid
-
-    @property
-    def resource_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Phone Number to which the Add-on is assigned.
-        """
-        return self._resource_sid
-
-    @property
-    def assigned_add_on_sid(self) -> Optional[str]:
-        """
-        :returns: The SID that uniquely identifies the assigned Add-on installation.
-        """
-        return self._assigned_add_on_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def product_name(self) -> Optional[str]:
-        """
-        :returns: A string that you assigned to describe the Product this Extension is used within.
-        """
-        return self._product_name
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        """
-        return self._unique_name
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
-
-    @property
-    def enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether the Extension will be invoked.
-        """
-        return self._enabled
 
     def fetch(self) -> "AssignedAddOnExtensionInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,31 +27,49 @@ from twilio.rest.serverless.v1.service.environment.variable import VariableList
 
 
 class EnvironmentInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the EnvironmentInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the Environment resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
+    :ivar service_sid: The SID of the Service that the Environment resource is associated with.
+    :ivar build_sid: The SID of the build deployed in the environment.
+    :ivar unique_name: A user-defined string that uniquely identifies the Environment resource.
+    :ivar domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name.
+    :ivar domain_name: The domain name for all Functions and Assets deployed in the Environment, using the Service unique name, a randomly-generated Service suffix, and an optional Environment domain suffix.
+    :ivar date_created: The date and time in GMT when the Environment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the Environment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Environment resource.
+    :ivar links: The URLs of the Environment resource's nested resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._build_sid: Optional[str] = payload.get("build_sid")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._domain_suffix: Optional[str] = payload.get("domain_suffix")
-        self._domain_name: Optional[str] = payload.get("domain_name")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.build_sid: Optional[str] = payload.get("build_sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.domain_suffix: Optional[str] = payload.get("domain_suffix")
+        self.domain_name: Optional[str] = payload.get("domain_name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[EnvironmentContext] = None
 
@@ -70,83 +88,6 @@ class EnvironmentInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Environment resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
-        """
-        return self._account_sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Service that the Environment resource is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def build_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the build deployed in the environment.
-        """
-        return self._build_sid
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: A user-defined string that uniquely identifies the Environment resource.
-        """
-        return self._unique_name
-
-    @property
-    def domain_suffix(self) -> Optional[str]:
-        """
-        :returns: A URL-friendly name that represents the environment and forms part of the domain name.
-        """
-        return self._domain_suffix
-
-    @property
-    def domain_name(self) -> Optional[str]:
-        """
-        :returns: The domain name for all Functions and Assets deployed in the Environment, using the Service unique name, a randomly-generated Service suffix, and an optional Environment domain suffix.
-        """
-        return self._domain_name
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the Environment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the Environment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Environment resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of the Environment resource's nested resources.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

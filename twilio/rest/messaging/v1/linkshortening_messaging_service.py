@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,28 +22,30 @@ from twilio.base.version import Version
 
 
 class LinkshorteningMessagingServiceInstance(InstanceResource):
+
+    """
+    :ivar domain_sid: The unique string identifies the domain resource
+    :ivar messaging_service_sid: The unique string that identifies the messaging service
+    :ivar url:
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         domain_sid: Optional[str] = None,
         messaging_service_sid: Optional[str] = None,
     ):
-        """
-        Initialize the LinkshorteningMessagingServiceInstance
-        """
         super().__init__(version)
 
-        self._domain_sid: Optional[str] = payload.get("domain_sid")
-        self._messaging_service_sid: Optional[str] = payload.get(
-            "messaging_service_sid"
-        )
-        self._url: Optional[str] = payload.get("url")
+        self.domain_sid: Optional[str] = payload.get("domain_sid")
+        self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "domain_sid": domain_sid or self._domain_sid,
+            "domain_sid": domain_sid or self.domain_sid,
             "messaging_service_sid": messaging_service_sid
-            or self._messaging_service_sid,
+            or self.messaging_service_sid,
         }
         self._context: Optional[LinkshorteningMessagingServiceContext] = None
 
@@ -62,24 +64,6 @@ class LinkshorteningMessagingServiceInstance(InstanceResource):
                 messaging_service_sid=self._solution["messaging_service_sid"],
             )
         return self._context
-
-    @property
-    def domain_sid(self) -> Optional[str]:
-        """
-        :returns: The unique string identifies the domain resource
-        """
-        return self._domain_sid
-
-    @property
-    def messaging_service_sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that identifies the messaging service
-        """
-        return self._messaging_service_sid
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def create(self) -> "LinkshorteningMessagingServiceInstance":
         """

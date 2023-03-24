@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,16 +22,21 @@ from twilio.base.version import Version
 
 
 class SettingInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the SettingInstance
-        """
+
+    """
+    :ivar account_sid:
+    :ivar advanced_features:
+    :ivar voice_trace:
+    :ivar url:
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._advanced_features: Optional[bool] = payload.get("advanced_features")
-        self._voice_trace: Optional[bool] = payload.get("voice_trace")
-        self._url: Optional[str] = payload.get("url")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.advanced_features: Optional[bool] = payload.get("advanced_features")
+        self.voice_trace: Optional[bool] = payload.get("voice_trace")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[SettingContext] = None
@@ -49,22 +54,6 @@ class SettingInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def advanced_features(self) -> Optional[bool]:
-        return self._advanced_features
-
-    @property
-    def voice_trace(self) -> Optional[bool]:
-        return self._voice_trace
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def fetch(self, subaccount_sid=values.unset) -> "SettingInstance":
         """

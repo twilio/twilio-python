@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -44,40 +44,53 @@ class WorkspaceInstance(InstanceResource):
         FIFO = "FIFO"
         LIFO = "LIFO"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the WorkspaceInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar default_activity_name: The name of the default activity.
+    :ivar default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+    :ivar event_callback_url: The URL we call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+    :ivar events_filter: The list of Workspace events for which to call `event_callback_url`. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+    :ivar friendly_name: The string that you assigned to describe the Workspace resource. For example `Customer Support` or `2014 Election Campaign`.
+    :ivar multi_task_enabled: Whether multi-tasking is enabled. The default is `true`, which enables multi-tasking. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking each Worker would only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+    :ivar sid: The unique string that we created to identify the Workspace resource.
+    :ivar timeout_activity_name: The name of the timeout activity.
+    :ivar timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+    :ivar prioritize_queue_order: 
+    :ivar url: The absolute URL of the Workspace resource.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._default_activity_name: Optional[str] = payload.get(
-            "default_activity_name"
-        )
-        self._default_activity_sid: Optional[str] = payload.get("default_activity_sid")
-        self._event_callback_url: Optional[str] = payload.get("event_callback_url")
-        self._events_filter: Optional[str] = payload.get("events_filter")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._multi_task_enabled: Optional[bool] = payload.get("multi_task_enabled")
-        self._sid: Optional[str] = payload.get("sid")
-        self._timeout_activity_name: Optional[str] = payload.get(
-            "timeout_activity_name"
-        )
-        self._timeout_activity_sid: Optional[str] = payload.get("timeout_activity_sid")
-        self._prioritize_queue_order: Optional[
+        self.default_activity_name: Optional[str] = payload.get("default_activity_name")
+        self.default_activity_sid: Optional[str] = payload.get("default_activity_sid")
+        self.event_callback_url: Optional[str] = payload.get("event_callback_url")
+        self.events_filter: Optional[str] = payload.get("events_filter")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.multi_task_enabled: Optional[bool] = payload.get("multi_task_enabled")
+        self.sid: Optional[str] = payload.get("sid")
+        self.timeout_activity_name: Optional[str] = payload.get("timeout_activity_name")
+        self.timeout_activity_sid: Optional[str] = payload.get("timeout_activity_sid")
+        self.prioritize_queue_order: Optional[
             "WorkspaceInstance.QueueOrder"
         ] = payload.get("prioritize_queue_order")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[WorkspaceContext] = None
 
@@ -95,108 +108,6 @@ class WorkspaceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def default_activity_name(self) -> Optional[str]:
-        """
-        :returns: The name of the default activity.
-        """
-        return self._default_activity_name
-
-    @property
-    def default_activity_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Activity that will be used when new Workers are created in the Workspace.
-        """
-        return self._default_activity_sid
-
-    @property
-    def event_callback_url(self) -> Optional[str]:
-        """
-        :returns: The URL we call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        """
-        return self._event_callback_url
-
-    @property
-    def events_filter(self) -> Optional[str]:
-        """
-        :returns: The list of Workspace events for which to call `event_callback_url`. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        """
-        return self._events_filter
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the Workspace resource. For example `Customer Support` or `2014 Election Campaign`.
-        """
-        return self._friendly_name
-
-    @property
-    def multi_task_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether multi-tasking is enabled. The default is `true`, which enables multi-tasking. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking each Worker would only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        """
-        return self._multi_task_enabled
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Workspace resource.
-        """
-        return self._sid
-
-    @property
-    def timeout_activity_name(self) -> Optional[str]:
-        """
-        :returns: The name of the timeout activity.
-        """
-        return self._timeout_activity_name
-
-    @property
-    def timeout_activity_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        """
-        return self._timeout_activity_sid
-
-    @property
-    def prioritize_queue_order(self) -> Optional["WorkspaceInstance.QueueOrder"]:
-        return self._prioritize_queue_order
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Workspace resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

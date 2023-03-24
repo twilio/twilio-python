@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -35,30 +35,41 @@ class SmsCommandInstance(InstanceResource):
         RECEIVED = "received"
         FAILED = "failed"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the SmsCommandInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the SMS Command resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SMS Command resource.
+    :ivar sim_sid: The SID of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this SMS Command was sent to or from.
+    :ivar payload: The message body of the SMS Command sent to or from the SIM. For text mode messages, this can be up to 160 characters.
+    :ivar status: 
+    :ivar direction: 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the SMS Command resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._sim_sid: Optional[str] = payload.get("sim_sid")
-        self._payload: Optional[str] = payload.get("payload")
-        self._status: Optional["SmsCommandInstance.Status"] = payload.get("status")
-        self._direction: Optional["SmsCommandInstance.Direction"] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sim_sid: Optional[str] = payload.get("sim_sid")
+        self.payload: Optional[str] = payload.get("payload")
+        self.status: Optional["SmsCommandInstance.Status"] = payload.get("status")
+        self.direction: Optional["SmsCommandInstance.Direction"] = payload.get(
             "direction"
         )
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[SmsCommandContext] = None
 
@@ -76,63 +87,6 @@ class SmsCommandInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the SMS Command resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SMS Command resource.
-        """
-        return self._account_sid
-
-    @property
-    def sim_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this SMS Command was sent to or from.
-        """
-        return self._sim_sid
-
-    @property
-    def payload(self) -> Optional[str]:
-        """
-        :returns: The message body of the SMS Command sent to or from the SIM. For text mode messages, this can be up to 160 characters.
-        """
-        return self._payload
-
-    @property
-    def status(self) -> Optional["SmsCommandInstance.Status"]:
-        return self._status
-
-    @property
-    def direction(self) -> Optional["SmsCommandInstance.Direction"]:
-        return self._direction
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the SMS Command resource.
-        """
-        return self._url
 
     def fetch(self) -> "SmsCommandInstance":
         """

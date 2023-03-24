@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,34 +24,53 @@ from twilio.base.page import Page
 
 
 class DeviceInstance(InstanceResource):
-    def __init__(self, version, payload, fleet_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the DeviceInstance
-        """
+
+    """
+    :ivar sid: Contains a 34 character string that uniquely identifies this Device resource.
+    :ivar url: Contains an absolute URL for this Device resource.
+    :ivar unique_name: Contains a unique and addressable name of this Device, assigned by the developer, up to 128 characters long.
+    :ivar friendly_name: Contains a human readable descriptive text for this Device, up to 256 characters long
+    :ivar fleet_sid: Specifies the unique string identifier of the Fleet that the given Device belongs to.
+    :ivar enabled: Contains a boolean flag indicating whether the device is enabled or not, blocks device connectivity if set to false.
+    :ivar account_sid: Specifies the unique string identifier of the Account responsible for this Device.
+    :ivar identity: Contains an arbitrary string identifier representing a human user associated with this Device, assigned by the developer, up to 256 characters long.
+    :ivar deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is associated with.
+    :ivar date_created: Specifies the date this Device was created, given in UTC ISO 8601 format.
+    :ivar date_updated: Specifies the date this Device was last updated, given in UTC ISO 8601 format.
+    :ivar date_authenticated: Specifies the date this Device was last authenticated, given in UTC ISO 8601 format.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        fleet_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._url: Optional[str] = payload.get("url")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._fleet_sid: Optional[str] = payload.get("fleet_sid")
-        self._enabled: Optional[bool] = payload.get("enabled")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._identity: Optional[str] = payload.get("identity")
-        self._deployment_sid: Optional[str] = payload.get("deployment_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.url: Optional[str] = payload.get("url")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.fleet_sid: Optional[str] = payload.get("fleet_sid")
+        self.enabled: Optional[bool] = payload.get("enabled")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.deployment_sid: Optional[str] = payload.get("deployment_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._date_authenticated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_authenticated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_authenticated")
         )
 
         self._solution = {
             "fleet_sid": fleet_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[DeviceContext] = None
 
@@ -70,90 +89,6 @@ class DeviceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: Contains a 34 character string that uniquely identifies this Device resource.
-        """
-        return self._sid
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: Contains an absolute URL for this Device resource.
-        """
-        return self._url
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: Contains a unique and addressable name of this Device, assigned by the developer, up to 128 characters long.
-        """
-        return self._unique_name
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: Contains a human readable descriptive text for this Device, up to 256 characters long
-        """
-        return self._friendly_name
-
-    @property
-    def fleet_sid(self) -> Optional[str]:
-        """
-        :returns: Specifies the unique string identifier of the Fleet that the given Device belongs to.
-        """
-        return self._fleet_sid
-
-    @property
-    def enabled(self) -> Optional[bool]:
-        """
-        :returns: Contains a boolean flag indicating whether the device is enabled or not, blocks device connectivity if set to false.
-        """
-        return self._enabled
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: Specifies the unique string identifier of the Account responsible for this Device.
-        """
-        return self._account_sid
-
-    @property
-    def identity(self) -> Optional[str]:
-        """
-        :returns: Contains an arbitrary string identifier representing a human user associated with this Device, assigned by the developer, up to 256 characters long.
-        """
-        return self._identity
-
-    @property
-    def deployment_sid(self) -> Optional[str]:
-        """
-        :returns: Specifies the unique string identifier of the Deployment group that this Device is associated with.
-        """
-        return self._deployment_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: Specifies the date this Device was created, given in UTC ISO 8601 format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: Specifies the date this Device was last updated, given in UTC ISO 8601 format.
-        """
-        return self._date_updated
-
-    @property
-    def date_authenticated(self) -> Optional[datetime]:
-        """
-        :returns: Specifies the date this Device was last authenticated, given in UTC ISO 8601 format.
-        """
-        return self._date_authenticated
 
     def delete(self) -> bool:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,35 +24,43 @@ from twilio.base.page import Page
 
 
 class MediaInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Media resource.
+    :ivar content_type: The default [mime-type](https://en.wikipedia.org/wiki/Internet_media_type) of the media, for example `image/jpeg`, `image/png`, or `image/gif`
+    :ivar date_created: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar parent_sid: The SID of the resource that created the media.
+    :ivar sid: The unique string that that we created to identify this Media resource.
+    :ivar uri: The URI of this resource, relative to `https://api.twilio.com`.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         message_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the MediaInstance
-        """
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._content_type: Optional[str] = payload.get("content_type")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.content_type: Optional[str] = payload.get("content_type")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._parent_sid: Optional[str] = payload.get("parent_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._uri: Optional[str] = payload.get("uri")
+        self.parent_sid: Optional[str] = payload.get("parent_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "message_sid": message_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[MediaContext] = None
 
@@ -72,55 +80,6 @@ class MediaInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Media resource.
-        """
-        return self._account_sid
-
-    @property
-    def content_type(self) -> Optional[str]:
-        """
-        :returns: The default [mime-type](https://en.wikipedia.org/wiki/Internet_media_type) of the media, for example `image/jpeg`, `image/png`, or `image/gif`
-        """
-        return self._content_type
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def parent_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the resource that created the media.
-        """
-        return self._parent_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify this Media resource.
-        """
-        return self._sid
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of this resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
 
     def delete(self) -> bool:
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -28,20 +28,25 @@ class BuildStatusInstance(InstanceResource):
         COMPLETED = "completed"
         FAILED = "failed"
 
-    def __init__(self, version, payload, service_sid: str, sid: str):
-        """
-        Initialize the BuildStatusInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Build resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
+    :ivar service_sid: The SID of the Service that the Build resource is associated with.
+    :ivar status: 
+    :ivar url: The absolute URL of the Build Status resource.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, sid: str):
         super().__init__(version)
 
         
-        self._sid: Optional[str] = payload.get('sid')
-        self._account_sid: Optional[str] = payload.get('account_sid')
-        self._service_sid: Optional[str] = payload.get('service_sid')
-        self._status: Optional["BuildStatusInstance.Status"] = payload.get('status')
-        self._url: Optional[str] = payload.get('url')
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.status: Optional["BuildStatusInstance.Status"] = payload.get("status")
+        self.url: Optional[str] = payload.get("url")
 
-        self._solution = { 'service_sid': service_sid, 'sid': sid,  }
+        self._solution = { "service_sid": service_sid, "sid": sid,  }
         self._context: Optional[BuildStatusContext] = None
 
     @property
@@ -55,39 +60,6 @@ class BuildStatusInstance(InstanceResource):
         if self._context is None:
             self._context = BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
         return self._context
-    
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Build resource.
-        """
-        return self._sid
-    
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
-        """
-        return self._account_sid
-    
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Service that the Build resource is associated with.
-        """
-        return self._service_sid
-    
-    @property
-    def status(self) -> Optional["BuildStatusInstance.Status"]:
-        
-        return self._status
-    
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Build Status resource.
-        """
-        return self._url
     
     
     def fetch(self) -> "BuildStatusInstance":

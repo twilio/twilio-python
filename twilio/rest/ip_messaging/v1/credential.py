@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,27 +29,37 @@ class CredentialInstance(InstanceResource):
         APN = "apn"
         FCM = "fcm"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the CredentialInstance
-        """
+    """
+    :ivar sid: 
+    :ivar account_sid: 
+    :ivar friendly_name: 
+    :ivar type: 
+    :ivar sandbox: 
+    :ivar date_created: 
+    :ivar date_updated: 
+    :ivar url: 
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._type: Optional["CredentialInstance.PushService"] = payload.get("type")
-        self._sandbox: Optional[str] = payload.get("sandbox")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.type: Optional["CredentialInstance.PushService"] = payload.get("type")
+        self.sandbox: Optional[str] = payload.get("sandbox")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[CredentialContext] = None
 
@@ -67,38 +77,6 @@ class CredentialInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        return self._friendly_name
-
-    @property
-    def type(self) -> Optional["CredentialInstance.PushService"]:
-        return self._type
-
-    @property
-    def sandbox(self) -> Optional[str]:
-        return self._sandbox
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def delete(self) -> bool:
         """

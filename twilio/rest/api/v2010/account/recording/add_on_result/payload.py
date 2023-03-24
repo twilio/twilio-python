@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,37 +24,49 @@ from twilio.base.page import Page
 
 
 class PayloadInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that that we created to identify the Recording AddOnResult Payload resource.
+    :ivar add_on_result_sid: The SID of the AddOnResult to which the payload belongs.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource.
+    :ivar label: The string provided by the vendor that describes the payload.
+    :ivar add_on_sid: The SID of the Add-on to which the result belongs.
+    :ivar add_on_configuration_sid: The SID of the Add-on configuration.
+    :ivar content_type: The MIME type of the payload.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar reference_sid: The SID of the recording to which the AddOnResult resource that contains the payload belongs.
+    :ivar subresource_uris: A list of related resources identified by their relative URIs.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         reference_sid: str,
         add_on_result_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the PayloadInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._add_on_result_sid: Optional[str] = payload.get("add_on_result_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._label: Optional[str] = payload.get("label")
-        self._add_on_sid: Optional[str] = payload.get("add_on_sid")
-        self._add_on_configuration_sid: Optional[str] = payload.get(
+        self.sid: Optional[str] = payload.get("sid")
+        self.add_on_result_sid: Optional[str] = payload.get("add_on_result_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.label: Optional[str] = payload.get("label")
+        self.add_on_sid: Optional[str] = payload.get("add_on_sid")
+        self.add_on_configuration_sid: Optional[str] = payload.get(
             "add_on_configuration_sid"
         )
-        self._content_type: Optional[str] = payload.get("content_type")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.content_type: Optional[str] = payload.get("content_type")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._reference_sid: Optional[str] = payload.get("reference_sid")
-        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+        self.reference_sid: Optional[str] = payload.get("reference_sid")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
             "subresource_uris"
         )
 
@@ -62,7 +74,7 @@ class PayloadInstance(InstanceResource):
             "account_sid": account_sid,
             "reference_sid": reference_sid,
             "add_on_result_sid": add_on_result_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[PayloadContext] = None
 
@@ -83,83 +95,6 @@ class PayloadInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify the Recording AddOnResult Payload resource.
-        """
-        return self._sid
-
-    @property
-    def add_on_result_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the AddOnResult to which the payload belongs.
-        """
-        return self._add_on_result_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource.
-        """
-        return self._account_sid
-
-    @property
-    def label(self) -> Optional[str]:
-        """
-        :returns: The string provided by the vendor that describes the payload.
-        """
-        return self._label
-
-    @property
-    def add_on_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Add-on to which the result belongs.
-        """
-        return self._add_on_sid
-
-    @property
-    def add_on_configuration_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Add-on configuration.
-        """
-        return self._add_on_configuration_sid
-
-    @property
-    def content_type(self) -> Optional[str]:
-        """
-        :returns: The MIME type of the payload.
-        """
-        return self._content_type
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def reference_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the recording to which the AddOnResult resource that contains the payload belongs.
-        """
-        return self._reference_sid
-
-    @property
-    def subresource_uris(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: A list of related resources identified by their relative URIs.
-        """
-        return self._subresource_uris
 
     def delete(self) -> bool:
         """

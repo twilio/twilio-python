@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -22,56 +22,27 @@ from twilio.base.version import Version
 
 
 class ValidationRequestInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str):
-        """
-        Initialize the ValidationRequestInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the Caller ID.
+    :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Caller ID is associated with.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar phone_number: The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+    :ivar validation_code: The 6 digit validation code that someone must enter to validate the Caller ID  when `phone_number` is called.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._call_sid: Optional[str] = payload.get("call_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._phone_number: Optional[str] = payload.get("phone_number")
-        self._validation_code: Optional[str] = payload.get("validation_code")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.phone_number: Optional[str] = payload.get("phone_number")
+        self.validation_code: Optional[str] = payload.get("validation_code")
 
         self._solution = {
             "account_sid": account_sid,
         }
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the Caller ID.
-        """
-        return self._account_sid
-
-    @property
-    def call_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Caller ID is associated with.
-        """
-        return self._call_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def phone_number(self) -> Optional[str]:
-        """
-        :returns: The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        """
-        return self._phone_number
-
-    @property
-    def validation_code(self) -> Optional[str]:
-        """
-        :returns: The 6 digit validation code that someone must enter to validate the Caller ID  when `phone_number` is called.
-        """
-        return self._validation_code
 
     def __repr__(self) -> str:
         """

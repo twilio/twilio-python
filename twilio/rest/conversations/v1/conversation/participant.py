@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,38 +28,54 @@ class ParticipantInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
+    """
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this participant.
+    :ivar conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
+    :ivar attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+    :ivar messaging_binding: Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
+    :ivar role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
+    :ivar date_created: The date that this resource was created.
+    :ivar date_updated: The date that this resource was last updated.
+    :ivar url: An absolute API resource URL for this participant.
+    :ivar last_read_message_index: Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+    :ivar last_read_timestamp: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+    """
+
     def __init__(
-        self, version, payload, conversation_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        conversation_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the ParticipantInstance
-        """
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._conversation_sid: Optional[str] = payload.get("conversation_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._identity: Optional[str] = payload.get("identity")
-        self._attributes: Optional[str] = payload.get("attributes")
-        self._messaging_binding: Optional[Dict[str, object]] = payload.get(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.conversation_sid: Optional[str] = payload.get("conversation_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.messaging_binding: Optional[Dict[str, object]] = payload.get(
             "messaging_binding"
         )
-        self._role_sid: Optional[str] = payload.get("role_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.role_sid: Optional[str] = payload.get("role_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._last_read_message_index: Optional[int] = deserialize.integer(
+        self.url: Optional[str] = payload.get("url")
+        self.last_read_message_index: Optional[int] = deserialize.integer(
             payload.get("last_read_message_index")
         )
-        self._last_read_timestamp: Optional[str] = payload.get("last_read_timestamp")
+        self.last_read_timestamp: Optional[str] = payload.get("last_read_timestamp")
 
         self._solution = {
             "conversation_sid": conversation_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ParticipantContext] = None
 
@@ -78,90 +94,6 @@ class ParticipantInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this participant.
-        """
-        return self._account_sid
-
-    @property
-    def conversation_sid(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-        """
-        return self._conversation_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
-
-    @property
-    def identity(self) -> Optional[str]:
-        """
-        :returns: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
-        """
-        return self._identity
-
-    @property
-    def attributes(self) -> Optional[str]:
-        """
-        :returns: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
-        """
-        return self._attributes
-
-    @property
-    def messaging_binding(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
-        """
-        return self._messaging_binding
-
-    @property
-    def role_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
-        """
-        return self._role_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: An absolute API resource URL for this participant.
-        """
-        return self._url
-
-    @property
-    def last_read_message_index(self) -> Optional[int]:
-        """
-        :returns: Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-        """
-        return self._last_read_message_index
-
-    @property
-    def last_read_timestamp(self) -> Optional[str]:
-        """
-        :returns: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-        """
-        return self._last_read_timestamp
 
     def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """

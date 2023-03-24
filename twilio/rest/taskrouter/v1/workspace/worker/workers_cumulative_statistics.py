@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,42 +23,55 @@ from twilio.base.version import Version
 
 
 class WorkersCumulativeStatisticsInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str):
-        """
-        Initialize the WorkersCumulativeStatisticsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
+    :ivar start_time: The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar end_time: The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar activity_durations: The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity.
+    :ivar reservations_created: The total number of Reservations that were created.
+    :ivar reservations_accepted: The total number of Reservations that were accepted.
+    :ivar reservations_rejected: The total number of Reservations that were rejected.
+    :ivar reservations_timed_out: The total number of Reservations that were timed out.
+    :ivar reservations_canceled: The total number of Reservations that were canceled.
+    :ivar reservations_rescinded: The total number of Reservations that were rescinded.
+    :ivar workspace_sid: The SID of the Workspace that contains the Workers.
+    :ivar url: The absolute URL of the Workers statistics resource.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], workspace_sid: str):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._start_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("start_time")
         )
-        self._end_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("end_time")
         )
-        self._activity_durations: Optional[List[object]] = payload.get(
+        self.activity_durations: Optional[List[object]] = payload.get(
             "activity_durations"
         )
-        self._reservations_created: Optional[int] = deserialize.integer(
+        self.reservations_created: Optional[int] = deserialize.integer(
             payload.get("reservations_created")
         )
-        self._reservations_accepted: Optional[int] = deserialize.integer(
+        self.reservations_accepted: Optional[int] = deserialize.integer(
             payload.get("reservations_accepted")
         )
-        self._reservations_rejected: Optional[int] = deserialize.integer(
+        self.reservations_rejected: Optional[int] = deserialize.integer(
             payload.get("reservations_rejected")
         )
-        self._reservations_timed_out: Optional[int] = deserialize.integer(
+        self.reservations_timed_out: Optional[int] = deserialize.integer(
             payload.get("reservations_timed_out")
         )
-        self._reservations_canceled: Optional[int] = deserialize.integer(
+        self.reservations_canceled: Optional[int] = deserialize.integer(
             payload.get("reservations_canceled")
         )
-        self._reservations_rescinded: Optional[int] = deserialize.integer(
+        self.reservations_rescinded: Optional[int] = deserialize.integer(
             payload.get("reservations_rescinded")
         )
-        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
-        self._url: Optional[str] = payload.get("url")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -79,90 +92,6 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
                 workspace_sid=self._solution["workspace_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
-        """
-        return self._account_sid
-
-    @property
-    def start_time(self) -> Optional[datetime]:
-        """
-        :returns: The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._start_time
-
-    @property
-    def end_time(self) -> Optional[datetime]:
-        """
-        :returns: The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._end_time
-
-    @property
-    def activity_durations(self) -> Optional[List[object]]:
-        """
-        :returns: The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity.
-        """
-        return self._activity_durations
-
-    @property
-    def reservations_created(self) -> Optional[int]:
-        """
-        :returns: The total number of Reservations that were created.
-        """
-        return self._reservations_created
-
-    @property
-    def reservations_accepted(self) -> Optional[int]:
-        """
-        :returns: The total number of Reservations that were accepted.
-        """
-        return self._reservations_accepted
-
-    @property
-    def reservations_rejected(self) -> Optional[int]:
-        """
-        :returns: The total number of Reservations that were rejected.
-        """
-        return self._reservations_rejected
-
-    @property
-    def reservations_timed_out(self) -> Optional[int]:
-        """
-        :returns: The total number of Reservations that were timed out.
-        """
-        return self._reservations_timed_out
-
-    @property
-    def reservations_canceled(self) -> Optional[int]:
-        """
-        :returns: The total number of Reservations that were canceled.
-        """
-        return self._reservations_canceled
-
-    @property
-    def reservations_rescinded(self) -> Optional[int]:
-        """
-        :returns: The total number of Reservations that were rescinded.
-        """
-        return self._reservations_rescinded
-
-    @property
-    def workspace_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Workspace that contains the Workers.
-        """
-        return self._workspace_sid
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Workers statistics resource.
-        """
-        return self._url
 
     def fetch(
         self,

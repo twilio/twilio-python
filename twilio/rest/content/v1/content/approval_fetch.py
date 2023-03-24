@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,16 +21,21 @@ from twilio.base.version import Version
 
 
 class ApprovalFetchInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str):
-        """
-        Initialize the ApprovalFetchInstance
-        """
+
+    """
+    :ivar sid: The unique string that that we created to identify the Content resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
+    :ivar whatsapp: Contains the whatsapp approval information for the Content resource, with fields such as approval status, rejection reason, and category, amongst others.
+    :ivar url: The URL of the resource, relative to `https://content.twilio.com`.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: str):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._whatsapp: Optional[Dict[str, object]] = payload.get("whatsapp")
-        self._url: Optional[str] = payload.get("url")
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.whatsapp: Optional[Dict[str, object]] = payload.get("whatsapp")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "sid": sid,
@@ -51,34 +56,6 @@ class ApprovalFetchInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify the Content resource.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
-        """
-        return self._account_sid
-
-    @property
-    def whatsapp(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Contains the whatsapp approval information for the Content resource, with fields such as approval status, rejection reason, and category, amongst others.
-        """
-        return self._whatsapp
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of the resource, relative to `https://content.twilio.com`.
-        """
-        return self._url
 
     def fetch(self) -> "ApprovalFetchInstance":
         """

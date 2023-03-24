@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,27 +23,41 @@ from twilio.base.version import Version
 
 
 class PhoneNumberInstance(InstanceResource):
-    def __init__(self, version, payload, phone_number: Optional[str] = None):
-        """
-        Initialize the PhoneNumberInstance
-        """
+
+    """
+    :ivar phone_number: The phone number in E.164 format
+    :ivar url: The absolute URL of the resource.
+    :ivar sid: A 34 character string that uniquely identifies the Inbound Processing Region assignments for this phone number.
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar friendly_name: A human readable description of the Inbound Processing Region assignments for this phone number, up to 64 characters.
+    :ivar voice_region: The Inbound Processing Region used for this phone number for voice.
+    :ivar date_created: The date that this phone number was assigned an Inbound Processing Region, given in ISO 8601 format.
+    :ivar date_updated: The date that the Inbound Processing Region was updated for this phone number, given in ISO 8601 format.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        phone_number: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._phone_number: Optional[str] = payload.get("phone_number")
-        self._url: Optional[str] = payload.get("url")
-        self._sid: Optional[str] = payload.get("sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._voice_region: Optional[str] = payload.get("voice_region")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.phone_number: Optional[str] = payload.get("phone_number")
+        self.url: Optional[str] = payload.get("url")
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.voice_region: Optional[str] = payload.get("voice_region")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
 
         self._solution = {
-            "phone_number": phone_number or self._phone_number,
+            "phone_number": phone_number or self.phone_number,
         }
         self._context: Optional[PhoneNumberContext] = None
 
@@ -61,62 +75,6 @@ class PhoneNumberInstance(InstanceResource):
                 phone_number=self._solution["phone_number"],
             )
         return self._context
-
-    @property
-    def phone_number(self) -> Optional[str]:
-        """
-        :returns: The phone number in E.164 format
-        """
-        return self._phone_number
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies the Inbound Processing Region assignments for this phone number.
-        """
-        return self._sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: A human readable description of the Inbound Processing Region assignments for this phone number, up to 64 characters.
-        """
-        return self._friendly_name
-
-    @property
-    def voice_region(self) -> Optional[str]:
-        """
-        :returns: The Inbound Processing Region used for this phone number for voice.
-        """
-        return self._voice_region
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this phone number was assigned an Inbound Processing Region, given in ISO 8601 format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that the Inbound Processing Region was updated for this phone number, given in ISO 8601 format.
-        """
-        return self._date_updated
 
     def fetch(self) -> "PhoneNumberInstance":
         """

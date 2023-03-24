@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,44 +38,66 @@ class SessionInstance(InstanceResource):
         FAILED = "failed"
         UNKNOWN = "unknown"
 
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the SessionInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Session resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/proxy/api/service) the session is associated with.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Session resource.
+    :ivar date_started: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session started.
+    :ivar date_ended: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session ended.
+    :ivar date_last_interaction: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session last had an interaction.
+    :ivar date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. Supports UTF-8 characters. **This value should not have PII.**
+    :ivar status: 
+    :ivar closed_reason: The reason the Session ended.
+    :ivar ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+    :ivar mode: 
+    :ivar date_created: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
+    :ivar date_updated: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
+    :ivar url: The absolute URL of the Session resource.
+    :ivar links: The URLs of resources related to the Session.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._service_sid: Optional[str] = payload.get("service_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_started: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_started: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_started")
         )
-        self._date_ended: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_ended: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_ended")
         )
-        self._date_last_interaction: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_last_interaction: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_last_interaction")
         )
-        self._date_expiry: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_expiry: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_expiry")
         )
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._status: Optional["SessionInstance.Status"] = payload.get("status")
-        self._closed_reason: Optional[str] = payload.get("closed_reason")
-        self._ttl: Optional[int] = deserialize.integer(payload.get("ttl"))
-        self._mode: Optional["SessionInstance.Mode"] = payload.get("mode")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.status: Optional["SessionInstance.Status"] = payload.get("status")
+        self.closed_reason: Optional[str] = payload.get("closed_reason")
+        self.ttl: Optional[int] = deserialize.integer(payload.get("ttl"))
+        self.mode: Optional["SessionInstance.Mode"] = payload.get("mode")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[SessionContext] = None
 
@@ -94,112 +116,6 @@ class SessionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Session resource.
-        """
-        return self._sid
-
-    @property
-    def service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/proxy/api/service) the session is associated with.
-        """
-        return self._service_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Session resource.
-        """
-        return self._account_sid
-
-    @property
-    def date_started(self) -> Optional[datetime]:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session started.
-        """
-        return self._date_started
-
-    @property
-    def date_ended(self) -> Optional[datetime]:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session ended.
-        """
-        return self._date_ended
-
-    @property
-    def date_last_interaction(self) -> Optional[datetime]:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session last had an interaction.
-        """
-        return self._date_last_interaction
-
-    @property
-    def date_expiry(self) -> Optional[datetime]:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
-        """
-        return self._date_expiry
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. Supports UTF-8 characters. **This value should not have PII.**
-        """
-        return self._unique_name
-
-    @property
-    def status(self) -> Optional["SessionInstance.Status"]:
-        return self._status
-
-    @property
-    def closed_reason(self) -> Optional[str]:
-        """
-        :returns: The reason the Session ended.
-        """
-        return self._closed_reason
-
-    @property
-    def ttl(self) -> Optional[int]:
-        """
-        :returns: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-        """
-        return self._ttl
-
-    @property
-    def mode(self) -> Optional["SessionInstance.Mode"]:
-        return self._mode
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Session resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of resources related to the Session.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

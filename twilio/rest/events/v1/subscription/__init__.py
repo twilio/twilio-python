@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,27 +25,38 @@ from twilio.rest.events.v1.subscription.subscribed_event import SubscribedEventL
 
 
 class SubscriptionInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the SubscriptionInstance
-        """
+
+    """
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar sid: A 34 character string that uniquely identifies this Subscription.
+    :ivar date_created: The date that this Subscription was created, given in ISO 8601 format.
+    :ivar date_updated: The date that this Subscription was updated, given in ISO 8601 format.
+    :ivar description: A human readable description for the Subscription
+    :ivar sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+    :ivar url: The URL of this resource.
+    :ivar links: Contains a dictionary of URL links to nested resources of this Subscription.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._sid: Optional[str] = payload.get("sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._description: Optional[str] = payload.get("description")
-        self._sink_sid: Optional[str] = payload.get("sink_sid")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.description: Optional[str] = payload.get("description")
+        self.sink_sid: Optional[str] = payload.get("sink_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[SubscriptionContext] = None
 
@@ -63,62 +74,6 @@ class SubscriptionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._account_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this Subscription.
-        """
-        return self._sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this Subscription was created, given in ISO 8601 format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this Subscription was updated, given in ISO 8601 format.
-        """
-        return self._date_updated
-
-    @property
-    def description(self) -> Optional[str]:
-        """
-        :returns: A human readable description for the Subscription
-        """
-        return self._description
-
-    @property
-    def sink_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        """
-        return self._sink_sid
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Contains a dictionary of URL links to nested resources of this Subscription.
-        """
-        return self._links
 
     def delete(self) -> bool:
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,24 +23,35 @@ from twilio.base.page import Page
 
 
 class AvailableAddOnExtensionInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the AvailableAddOnExtension resource.
+    :ivar available_add_on_sid: The SID of the AvailableAddOn resource to which this extension applies.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar product_name: The name of the Product this Extension is used within.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource.
+    :ivar url: The absolute URL of the resource.
+    """
+
     def __init__(
-        self, version, payload, available_add_on_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        available_add_on_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the AvailableAddOnExtensionInstance
-        """
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._available_add_on_sid: Optional[str] = payload.get("available_add_on_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._product_name: Optional[str] = payload.get("product_name")
-        self._unique_name: Optional[str] = payload.get("unique_name")
-        self._url: Optional[str] = payload.get("url")
+        self.sid: Optional[str] = payload.get("sid")
+        self.available_add_on_sid: Optional[str] = payload.get("available_add_on_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.product_name: Optional[str] = payload.get("product_name")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "available_add_on_sid": available_add_on_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[AvailableAddOnExtensionContext] = None
 
@@ -59,48 +70,6 @@ class AvailableAddOnExtensionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the AvailableAddOnExtension resource.
-        """
-        return self._sid
-
-    @property
-    def available_add_on_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the AvailableAddOn resource to which this extension applies.
-        """
-        return self._available_add_on_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def product_name(self) -> Optional[str]:
-        """
-        :returns: The name of the Product this Extension is used within.
-        """
-        return self._product_name
-
-    @property
-    def unique_name(self) -> Optional[str]:
-        """
-        :returns: An application-defined string that uniquely identifies the resource.
-        """
-        return self._unique_name
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
 
     def fetch(self) -> "AvailableAddOnExtensionInstance":
         """

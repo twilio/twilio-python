@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,25 +24,33 @@ from twilio.rest.conversations.v1.configuration.webhook import WebhookList
 
 
 class ConfigurationInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the ConfigurationInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
+    :ivar default_chat_service_sid: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) used when creating a conversation.
+    :ivar default_messaging_service_sid: The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) used when creating a conversation.
+    :ivar default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+    :ivar default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+    :ivar url: An absolute API resource URL for this global configuration.
+    :ivar links: Contains absolute API resource URLs to access the webhook and default service configurations.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._default_chat_service_sid: Optional[str] = payload.get(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.default_chat_service_sid: Optional[str] = payload.get(
             "default_chat_service_sid"
         )
-        self._default_messaging_service_sid: Optional[str] = payload.get(
+        self.default_messaging_service_sid: Optional[str] = payload.get(
             "default_messaging_service_sid"
         )
-        self._default_inactive_timer: Optional[str] = payload.get(
+        self.default_inactive_timer: Optional[str] = payload.get(
             "default_inactive_timer"
         )
-        self._default_closed_timer: Optional[str] = payload.get("default_closed_timer")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.default_closed_timer: Optional[str] = payload.get("default_closed_timer")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {}
         self._context: Optional[ConfigurationContext] = None
@@ -60,55 +68,6 @@ class ConfigurationInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
-        """
-        return self._account_sid
-
-    @property
-    def default_chat_service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) used when creating a conversation.
-        """
-        return self._default_chat_service_sid
-
-    @property
-    def default_messaging_service_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) used when creating a conversation.
-        """
-        return self._default_messaging_service_sid
-
-    @property
-    def default_inactive_timer(self) -> Optional[str]:
-        """
-        :returns: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        """
-        return self._default_inactive_timer
-
-    @property
-    def default_closed_timer(self) -> Optional[str]:
-        """
-        :returns: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        """
-        return self._default_closed_timer
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: An absolute API resource URL for this global configuration.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Contains absolute API resource URLs to access the webhook and default service configurations.
-        """
-        return self._links
 
     def fetch(self) -> "ConfigurationInstance":
         """

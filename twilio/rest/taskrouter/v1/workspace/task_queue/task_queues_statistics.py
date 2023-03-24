@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,56 +23,27 @@ from twilio.base.page import Page
 
 
 class TaskQueuesStatisticsInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str):
-        """
-        Initialize the TaskQueuesStatisticsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
+    :ivar cumulative: An object that contains the cumulative statistics for the TaskQueues.
+    :ivar realtime: An object that contains the real-time statistics for the TaskQueues.
+    :ivar task_queue_sid: The SID of the TaskQueue from which these statistics were calculated.
+    :ivar workspace_sid: The SID of the Workspace that contains the TaskQueues.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], workspace_sid: str):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._cumulative: Optional[Dict[str, object]] = payload.get("cumulative")
-        self._realtime: Optional[Dict[str, object]] = payload.get("realtime")
-        self._task_queue_sid: Optional[str] = payload.get("task_queue_sid")
-        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.cumulative: Optional[Dict[str, object]] = payload.get("cumulative")
+        self.realtime: Optional[Dict[str, object]] = payload.get("realtime")
+        self.task_queue_sid: Optional[str] = payload.get("task_queue_sid")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
 
         self._solution = {
             "workspace_sid": workspace_sid,
         }
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
-        """
-        return self._account_sid
-
-    @property
-    def cumulative(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: An object that contains the cumulative statistics for the TaskQueues.
-        """
-        return self._cumulative
-
-    @property
-    def realtime(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: An object that contains the real-time statistics for the TaskQueues.
-        """
-        return self._realtime
-
-    @property
-    def task_queue_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the TaskQueue from which these statistics were calculated.
-        """
-        return self._task_queue_sid
-
-    @property
-    def workspace_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Workspace that contains the TaskQueues.
-        """
-        return self._workspace_sid
 
     def __repr__(self) -> str:
         """

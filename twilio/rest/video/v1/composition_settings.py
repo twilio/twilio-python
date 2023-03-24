@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,20 +22,29 @@ from twilio.base.version import Version
 
 
 class CompositionSettingsInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the CompositionSettingsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CompositionSettings resource.
+    :ivar friendly_name: The string that you assigned to describe the resource and that will be shown in the console
+    :ivar aws_credentials_sid: The SID of the stored Credential resource.
+    :ivar aws_s3_url: The URL of the AWS S3 bucket where the compositions are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+    :ivar aws_storage_enabled: Whether all compositions are written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
+    :ivar encryption_key_sid: The SID of the Public Key resource used for encryption.
+    :ivar encryption_enabled: Whether all compositions are stored in an encrypted form. The default is `false`.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._aws_credentials_sid: Optional[str] = payload.get("aws_credentials_sid")
-        self._aws_s3_url: Optional[str] = payload.get("aws_s3_url")
-        self._aws_storage_enabled: Optional[bool] = payload.get("aws_storage_enabled")
-        self._encryption_key_sid: Optional[str] = payload.get("encryption_key_sid")
-        self._encryption_enabled: Optional[bool] = payload.get("encryption_enabled")
-        self._url: Optional[str] = payload.get("url")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.aws_credentials_sid: Optional[str] = payload.get("aws_credentials_sid")
+        self.aws_s3_url: Optional[str] = payload.get("aws_s3_url")
+        self.aws_storage_enabled: Optional[bool] = payload.get("aws_storage_enabled")
+        self.encryption_key_sid: Optional[str] = payload.get("encryption_key_sid")
+        self.encryption_enabled: Optional[bool] = payload.get("encryption_enabled")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[CompositionSettingsContext] = None
@@ -53,62 +62,6 @@ class CompositionSettingsInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CompositionSettings resource.
-        """
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource and that will be shown in the console
-        """
-        return self._friendly_name
-
-    @property
-    def aws_credentials_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the stored Credential resource.
-        """
-        return self._aws_credentials_sid
-
-    @property
-    def aws_s3_url(self) -> Optional[str]:
-        """
-        :returns: The URL of the AWS S3 bucket where the compositions are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
-        """
-        return self._aws_s3_url
-
-    @property
-    def aws_storage_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether all compositions are written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
-        """
-        return self._aws_storage_enabled
-
-    @property
-    def encryption_key_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Public Key resource used for encryption.
-        """
-        return self._encryption_key_sid
-
-    @property
-    def encryption_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether all compositions are stored in an encrypted form. The default is `false`.
-        """
-        return self._encryption_enabled
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
 
     def create(
         self,

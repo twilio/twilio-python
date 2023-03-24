@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,16 +22,21 @@ from twilio.base.version import Version
 
 
 class DefaultsInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str):
-        """
-        Initialize the DefaultsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Defaults resource.
+    :ivar assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
+    :ivar url: The absolute URL of the Defaults resource.
+    :ivar data: The JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], assistant_sid: str):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
-        self._url: Optional[str] = payload.get("url")
-        self._data: Optional[Dict[str, object]] = payload.get("data")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
 
         self._solution = {
             "assistant_sid": assistant_sid,
@@ -52,34 +57,6 @@ class DefaultsInstance(InstanceResource):
                 assistant_sid=self._solution["assistant_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Defaults resource.
-        """
-        return self._account_sid
-
-    @property
-    def assistant_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
-        """
-        return self._assistant_sid
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the Defaults resource.
-        """
-        return self._url
-
-    @property
-    def data(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
-        """
-        return self._data
 
     def fetch(self) -> "DefaultsInstance":
         """

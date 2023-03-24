@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,24 +33,32 @@ class FeedbackInstance(InstanceResource):
         POST_DIAL_DELAY = "post-dial-delay"
         UNSOLICITED_CALL = "unsolicited-call"
 
-    def __init__(self, version, payload, account_sid: str, call_sid: str):
-        """
-        Initialize the FeedbackInstance
-        """
+    """
+    :ivar account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+    :ivar date_created: The date that this resource was created, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar date_updated: The date that this resource was last updated, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar issues: A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+    :ivar quality_score: `1` to `5` quality score where `1` represents imperfect experience and `5` represents a perfect call.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], account_sid: str, call_sid: str
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._issues: Optional[List["FeedbackInstance.Issues"]] = payload.get("issues")
-        self._quality_score: Optional[int] = deserialize.integer(
+        self.issues: Optional[List["FeedbackInstance.Issues"]] = payload.get("issues")
+        self.quality_score: Optional[int] = deserialize.integer(
             payload.get("quality_score")
         )
-        self._sid: Optional[str] = payload.get("sid")
+        self.sid: Optional[str] = payload.get("sid")
 
         self._solution = {
             "account_sid": account_sid,
@@ -73,48 +81,6 @@ class FeedbackInstance(InstanceResource):
                 call_sid=self._solution["call_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was created, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date that this resource was last updated, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._date_updated
-
-    @property
-    def issues(self) -> Optional[List["FeedbackInstance.Issues"]]:
-        """
-        :returns: A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
-        """
-        return self._issues
-
-    @property
-    def quality_score(self) -> Optional[int]:
-        """
-        :returns: `1` to `5` quality score where `1` represents imperfect experience and `5` represents a perfect call.
-        """
-        return self._quality_score
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._sid
 
     def fetch(self) -> "FeedbackInstance":
         """

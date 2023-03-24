@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -40,25 +40,35 @@ from twilio.rest.api.v2010.account.available_phone_number_country.voip import Vo
 
 
 class AvailablePhoneNumberCountryInstance(InstanceResource):
+
+    """
+    :ivar country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country.
+    :ivar country: The name of the country.
+    :ivar uri: The URI of the Country resource, relative to `https://api.twilio.com`.
+    :ivar beta: Whether all phone numbers available in the country are new to the Twilio platform. `true` if they are and `false` if all numbers are not in the Twilio Phone Number Beta program.
+    :ivar subresource_uris: A list of related AvailablePhoneNumber resources identified by their URIs relative to `https://api.twilio.com`.
+    """
+
     def __init__(
-        self, version, payload, account_sid: str, country_code: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        country_code: Optional[str] = None,
     ):
-        """
-        Initialize the AvailablePhoneNumberCountryInstance
-        """
         super().__init__(version)
 
-        self._country_code: Optional[str] = payload.get("country_code")
-        self._country: Optional[str] = payload.get("country")
-        self._uri: Optional[str] = payload.get("uri")
-        self._beta: Optional[bool] = payload.get("beta")
-        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+        self.country_code: Optional[str] = payload.get("country_code")
+        self.country: Optional[str] = payload.get("country")
+        self.uri: Optional[str] = payload.get("uri")
+        self.beta: Optional[bool] = payload.get("beta")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
             "subresource_uris"
         )
 
         self._solution = {
             "account_sid": account_sid,
-            "country_code": country_code or self._country_code,
+            "country_code": country_code or self.country_code,
         }
         self._context: Optional[AvailablePhoneNumberCountryContext] = None
 
@@ -77,41 +87,6 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
                 country_code=self._solution["country_code"],
             )
         return self._context
-
-    @property
-    def country_code(self) -> Optional[str]:
-        """
-        :returns: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country.
-        """
-        return self._country_code
-
-    @property
-    def country(self) -> Optional[str]:
-        """
-        :returns: The name of the country.
-        """
-        return self._country
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the Country resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
-
-    @property
-    def beta(self) -> Optional[bool]:
-        """
-        :returns: Whether all phone numbers available in the country are new to the Twilio platform. `true` if they are and `false` if all numbers are not in the Twilio Phone Number Beta program.
-        """
-        return self._beta
-
-    @property
-    def subresource_uris(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: A list of related AvailablePhoneNumber resources identified by their URIs relative to `https://api.twilio.com`.
-        """
-        return self._subresource_uris
 
     def fetch(self) -> "AvailablePhoneNumberCountryInstance":
         """

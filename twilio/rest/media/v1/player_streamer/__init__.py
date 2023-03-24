@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -41,37 +41,51 @@ class PlayerStreamerInstance(InstanceResource):
         ENDED = "ended"
         FAILED = "failed"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the PlayerStreamerInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PlayerStreamer resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar video: Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
+    :ivar links: The URLs of related resources.
+    :ivar sid: The unique string generated to identify the PlayerStreamer resource.
+    :ivar status: 
+    :ivar url: The absolute URL of the resource.
+    :ivar status_callback: The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+    :ivar status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+    :ivar ended_reason: 
+    :ivar max_duration: The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._video: Optional[bool] = payload.get("video")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
-        self._sid: Optional[str] = payload.get("sid")
-        self._status: Optional["PlayerStreamerInstance.Status"] = payload.get("status")
-        self._url: Optional[str] = payload.get("url")
-        self._status_callback: Optional[str] = payload.get("status_callback")
-        self._status_callback_method: Optional[str] = payload.get(
+        self.video: Optional[bool] = payload.get("video")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.sid: Optional[str] = payload.get("sid")
+        self.status: Optional["PlayerStreamerInstance.Status"] = payload.get("status")
+        self.url: Optional[str] = payload.get("url")
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.status_callback_method: Optional[str] = payload.get(
             "status_callback_method"
         )
-        self._ended_reason: Optional[
-            "PlayerStreamerInstance.EndedReason"
-        ] = payload.get("ended_reason")
-        self._max_duration: Optional[int] = deserialize.integer(
+        self.ended_reason: Optional["PlayerStreamerInstance.EndedReason"] = payload.get(
+            "ended_reason"
+        )
+        self.max_duration: Optional[int] = deserialize.integer(
             payload.get("max_duration")
         )
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[PlayerStreamerContext] = None
 
@@ -89,84 +103,6 @@ class PlayerStreamerInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PlayerStreamer resource.
-        """
-        return self._account_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
-
-    @property
-    def video(self) -> Optional[bool]:
-        """
-        :returns: Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
-        """
-        return self._video
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._links
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string generated to identify the PlayerStreamer resource.
-        """
-        return self._sid
-
-    @property
-    def status(self) -> Optional["PlayerStreamerInstance.Status"]:
-        return self._status
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
-
-    @property
-    def status_callback(self) -> Optional[str]:
-        """
-        :returns: The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
-        """
-        return self._status_callback
-
-    @property
-    def status_callback_method(self) -> Optional[str]:
-        """
-        :returns: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
-        """
-        return self._status_callback_method
-
-    @property
-    def ended_reason(self) -> Optional["PlayerStreamerInstance.EndedReason"]:
-        return self._ended_reason
-
-    @property
-    def max_duration(self) -> Optional[int]:
-        """
-        :returns: The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
-        """
-        return self._max_duration
 
     def fetch(self) -> "PlayerStreamerInstance":
         """

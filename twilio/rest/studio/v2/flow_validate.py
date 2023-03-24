@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -22,22 +22,17 @@ from twilio.base.version import Version
 
 
 class FlowValidateInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the FlowValidateInstance
-        """
+
+    """
+    :ivar valid: Boolean if the flow definition is valid.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._valid: Optional[bool] = payload.get("valid")
+        self.valid: Optional[bool] = payload.get("valid")
 
         self._solution = {}
-
-    @property
-    def valid(self) -> Optional[bool]:
-        """
-        :returns: Boolean if the flow definition is valid.
-        """
-        return self._valid
 
     def __repr__(self) -> str:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,35 +24,49 @@ from twilio.base.page import Page
 
 
 class ConnectionPolicyTargetInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Target resource.
+    :ivar connection_policy_sid: The SID of the Connection Policy that owns the Target.
+    :ivar sid: The unique string that we created to identify the Target resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
+    :ivar priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
+    :ivar weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
+    :ivar enabled: Whether the target is enabled. The default is `true`.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar url: The absolute URL of the resource.
+    """
+
     def __init__(
-        self, version, payload, connection_policy_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        connection_policy_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the ConnectionPolicyTargetInstance
-        """
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._connection_policy_sid: Optional[str] = payload.get(
-            "connection_policy_sid"
-        )
-        self._sid: Optional[str] = payload.get("sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._target: Optional[str] = payload.get("target")
-        self._priority: Optional[int] = deserialize.integer(payload.get("priority"))
-        self._weight: Optional[int] = deserialize.integer(payload.get("weight"))
-        self._enabled: Optional[bool] = payload.get("enabled")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.connection_policy_sid: Optional[str] = payload.get("connection_policy_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.target: Optional[str] = payload.get("target")
+        self.priority: Optional[int] = deserialize.integer(payload.get("priority"))
+        self.weight: Optional[int] = deserialize.integer(payload.get("weight"))
+        self.enabled: Optional[bool] = payload.get("enabled")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "connection_policy_sid": connection_policy_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ConnectionPolicyTargetContext] = None
 
@@ -71,83 +85,6 @@ class ConnectionPolicyTargetInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Target resource.
-        """
-        return self._account_sid
-
-    @property
-    def connection_policy_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Connection Policy that owns the Target.
-        """
-        return self._connection_policy_sid
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the Target resource.
-        """
-        return self._sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def target(self) -> Optional[str]:
-        """
-        :returns: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
-        """
-        return self._target
-
-    @property
-    def priority(self) -> Optional[int]:
-        """
-        :returns: The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
-        """
-        return self._priority
-
-    @property
-    def weight(self) -> Optional[int]:
-        """
-        :returns: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
-        """
-        return self._weight
-
-    @property
-    def enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether the target is enabled. The default is `true`.
-        """
-        return self._enabled
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

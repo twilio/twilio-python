@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,19 +23,31 @@ from twilio.base.version import Version
 
 
 class SubscribeRulesInstance(InstanceResource):
-    def __init__(self, version, payload, room_sid: str, participant_sid: str):
-        """
-        Initialize the SubscribeRulesInstance
-        """
+
+    """
+    :ivar participant_sid: The SID of the Participant resource for the Subscribe Rules.
+    :ivar room_sid: The SID of the Room resource for the Subscribe Rules
+    :ivar rules: A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        room_sid: str,
+        participant_sid: str,
+    ):
         super().__init__(version)
 
-        self._participant_sid: Optional[str] = payload.get("participant_sid")
-        self._room_sid: Optional[str] = payload.get("room_sid")
-        self._rules: Optional[List[str]] = payload.get("rules")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.participant_sid: Optional[str] = payload.get("participant_sid")
+        self.room_sid: Optional[str] = payload.get("room_sid")
+        self.rules: Optional[List[str]] = payload.get("rules")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
 
@@ -43,41 +55,6 @@ class SubscribeRulesInstance(InstanceResource):
             "room_sid": room_sid,
             "participant_sid": participant_sid,
         }
-
-    @property
-    def participant_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Participant resource for the Subscribe Rules.
-        """
-        return self._participant_sid
-
-    @property
-    def room_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the Room resource for the Subscribe Rules
-        """
-        return self._room_sid
-
-    @property
-    def rules(self) -> Optional[List[str]]:
-        """
-        :returns: A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
-        """
-        return self._rules
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._date_updated
 
     def __repr__(self) -> str:
         """

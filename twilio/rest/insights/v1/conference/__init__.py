@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -71,66 +71,94 @@ class ConferenceInstance(InstanceResource):
         LOW_MOS = "low_mos"
         DETECTED_SILENCE = "detected_silence"
 
-    def __init__(self, version, payload, conference_sid: Optional[str] = None):
-        """
-        Initialize the ConferenceInstance
-        """
+    """
+    :ivar conference_sid: The unique SID identifier of the Conference.
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar friendly_name: Custom label for the conference resource, up to 64 characters.
+    :ivar create_time: Conference creation date and time in ISO 8601 format.
+    :ivar start_time: Timestamp in ISO 8601 format when the conference started. Conferences do not start until at least two participants join, at least one of whom has startConferenceOnEnter=true.
+    :ivar end_time: Conference end date and time in ISO 8601 format.
+    :ivar duration_seconds: Conference duration in seconds.
+    :ivar connect_duration_seconds: Duration of the between conference start event and conference end event in seconds.
+    :ivar status: 
+    :ivar max_participants: Maximum number of concurrent participants as specified by the configuration.
+    :ivar max_concurrent_participants: Actual maximum number of concurrent participants in the conference.
+    :ivar unique_participants: Unique conference participants based on caller ID.
+    :ivar end_reason: 
+    :ivar ended_by: Call SID of the participant whose actions ended the conference.
+    :ivar mixer_region: 
+    :ivar mixer_region_requested: 
+    :ivar recording_enabled: Boolean. Indicates whether recording was enabled at the conference mixer.
+    :ivar detected_issues: Potential issues detected by Twilio during the conference.
+    :ivar tags: Tags for detected conference conditions and participant behaviors which may be of interest.
+    :ivar tag_info: Object. Contains details about conference tags including severity.
+    :ivar processing_state: 
+    :ivar url: The URL of this resource.
+    :ivar links: Contains a dictionary of URL links to nested resources of this Conference.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        conference_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._conference_sid: Optional[str] = payload.get("conference_sid")
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._create_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.conference_sid: Optional[str] = payload.get("conference_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.create_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("create_time")
         )
-        self._start_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("start_time")
         )
-        self._end_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("end_time")
         )
-        self._duration_seconds: Optional[int] = deserialize.integer(
+        self.duration_seconds: Optional[int] = deserialize.integer(
             payload.get("duration_seconds")
         )
-        self._connect_duration_seconds: Optional[int] = deserialize.integer(
+        self.connect_duration_seconds: Optional[int] = deserialize.integer(
             payload.get("connect_duration_seconds")
         )
-        self._status: Optional["ConferenceInstance.ConferenceStatus"] = payload.get(
+        self.status: Optional["ConferenceInstance.ConferenceStatus"] = payload.get(
             "status"
         )
-        self._max_participants: Optional[int] = deserialize.integer(
+        self.max_participants: Optional[int] = deserialize.integer(
             payload.get("max_participants")
         )
-        self._max_concurrent_participants: Optional[int] = deserialize.integer(
+        self.max_concurrent_participants: Optional[int] = deserialize.integer(
             payload.get("max_concurrent_participants")
         )
-        self._unique_participants: Optional[int] = deserialize.integer(
+        self.unique_participants: Optional[int] = deserialize.integer(
             payload.get("unique_participants")
         )
-        self._end_reason: Optional[
+        self.end_reason: Optional[
             "ConferenceInstance.ConferenceEndReason"
         ] = payload.get("end_reason")
-        self._ended_by: Optional[str] = payload.get("ended_by")
-        self._mixer_region: Optional["ConferenceInstance.Region"] = payload.get(
+        self.ended_by: Optional[str] = payload.get("ended_by")
+        self.mixer_region: Optional["ConferenceInstance.Region"] = payload.get(
             "mixer_region"
         )
-        self._mixer_region_requested: Optional[
+        self.mixer_region_requested: Optional[
             "ConferenceInstance.Region"
         ] = payload.get("mixer_region_requested")
-        self._recording_enabled: Optional[bool] = payload.get("recording_enabled")
-        self._detected_issues: Optional[Dict[str, object]] = payload.get(
+        self.recording_enabled: Optional[bool] = payload.get("recording_enabled")
+        self.detected_issues: Optional[Dict[str, object]] = payload.get(
             "detected_issues"
         )
-        self._tags: Optional[List["ConferenceInstance.Tag"]] = payload.get("tags")
-        self._tag_info: Optional[Dict[str, object]] = payload.get("tag_info")
-        self._processing_state: Optional[
+        self.tags: Optional[List["ConferenceInstance.Tag"]] = payload.get("tags")
+        self.tag_info: Optional[Dict[str, object]] = payload.get("tag_info")
+        self.processing_state: Optional[
             "ConferenceInstance.ProcessingState"
         ] = payload.get("processing_state")
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "conference_sid": conference_sid or self._conference_sid,
+            "conference_sid": conference_sid or self.conference_sid,
         }
         self._context: Optional[ConferenceContext] = None
 
@@ -148,152 +176,6 @@ class ConferenceInstance(InstanceResource):
                 conference_sid=self._solution["conference_sid"],
             )
         return self._context
-
-    @property
-    def conference_sid(self) -> Optional[str]:
-        """
-        :returns: The unique SID identifier of the Conference.
-        """
-        return self._conference_sid
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._account_sid
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: Custom label for the conference resource, up to 64 characters.
-        """
-        return self._friendly_name
-
-    @property
-    def create_time(self) -> Optional[datetime]:
-        """
-        :returns: Conference creation date and time in ISO 8601 format.
-        """
-        return self._create_time
-
-    @property
-    def start_time(self) -> Optional[datetime]:
-        """
-        :returns: Timestamp in ISO 8601 format when the conference started. Conferences do not start until at least two participants join, at least one of whom has startConferenceOnEnter=true.
-        """
-        return self._start_time
-
-    @property
-    def end_time(self) -> Optional[datetime]:
-        """
-        :returns: Conference end date and time in ISO 8601 format.
-        """
-        return self._end_time
-
-    @property
-    def duration_seconds(self) -> Optional[int]:
-        """
-        :returns: Conference duration in seconds.
-        """
-        return self._duration_seconds
-
-    @property
-    def connect_duration_seconds(self) -> Optional[int]:
-        """
-        :returns: Duration of the between conference start event and conference end event in seconds.
-        """
-        return self._connect_duration_seconds
-
-    @property
-    def status(self) -> Optional["ConferenceInstance.ConferenceStatus"]:
-        return self._status
-
-    @property
-    def max_participants(self) -> Optional[int]:
-        """
-        :returns: Maximum number of concurrent participants as specified by the configuration.
-        """
-        return self._max_participants
-
-    @property
-    def max_concurrent_participants(self) -> Optional[int]:
-        """
-        :returns: Actual maximum number of concurrent participants in the conference.
-        """
-        return self._max_concurrent_participants
-
-    @property
-    def unique_participants(self) -> Optional[int]:
-        """
-        :returns: Unique conference participants based on caller ID.
-        """
-        return self._unique_participants
-
-    @property
-    def end_reason(self) -> Optional["ConferenceInstance.ConferenceEndReason"]:
-        return self._end_reason
-
-    @property
-    def ended_by(self) -> Optional[str]:
-        """
-        :returns: Call SID of the participant whose actions ended the conference.
-        """
-        return self._ended_by
-
-    @property
-    def mixer_region(self) -> Optional["ConferenceInstance.Region"]:
-        return self._mixer_region
-
-    @property
-    def mixer_region_requested(self) -> Optional["ConferenceInstance.Region"]:
-        return self._mixer_region_requested
-
-    @property
-    def recording_enabled(self) -> Optional[bool]:
-        """
-        :returns: Boolean. Indicates whether recording was enabled at the conference mixer.
-        """
-        return self._recording_enabled
-
-    @property
-    def detected_issues(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Potential issues detected by Twilio during the conference.
-        """
-        return self._detected_issues
-
-    @property
-    def tags(self) -> Optional[List["ConferenceInstance.Tag"]]:
-        """
-        :returns: Tags for detected conference conditions and participant behaviors which may be of interest.
-        """
-        return self._tags
-
-    @property
-    def tag_info(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Object. Contains details about conference tags including severity.
-        """
-        return self._tag_info
-
-    @property
-    def processing_state(self) -> Optional["ConferenceInstance.ProcessingState"]:
-        return self._processing_state
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Contains a dictionary of URL links to nested resources of this Conference.
-        """
-        return self._links
 
     def fetch(self) -> "ConferenceInstance":
         """

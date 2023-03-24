@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,25 +24,34 @@ from twilio.base.page import Page
 
 
 class SourceIpMappingInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the SourceIpMappingInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the IP Record resource.
+    :ivar ip_record_sid: The Twilio-provided string that uniquely identifies the IP Record resource to map from.
+    :ivar sip_domain_sid: The SID of the SIP Domain that the IP Record is mapped to.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._sid: Optional[str] = payload.get("sid")
-        self._ip_record_sid: Optional[str] = payload.get("ip_record_sid")
-        self._sip_domain_sid: Optional[str] = payload.get("sip_domain_sid")
-        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+        self.sid: Optional[str] = payload.get("sid")
+        self.ip_record_sid: Optional[str] = payload.get("ip_record_sid")
+        self.sip_domain_sid: Optional[str] = payload.get("sip_domain_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self._url: Optional[str] = payload.get("url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[SourceIpMappingContext] = None
 
@@ -60,48 +69,6 @@ class SourceIpMappingInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that we created to identify the IP Record resource.
-        """
-        return self._sid
-
-    @property
-    def ip_record_sid(self) -> Optional[str]:
-        """
-        :returns: The Twilio-provided string that uniquely identifies the IP Record resource to map from.
-        """
-        return self._ip_record_sid
-
-    @property
-    def sip_domain_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the SIP Domain that the IP Record is mapped to.
-        """
-        return self._sip_domain_sid
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._url
 
     def delete(self) -> bool:
         """

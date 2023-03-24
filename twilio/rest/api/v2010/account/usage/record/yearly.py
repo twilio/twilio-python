@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import date
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -343,139 +343,52 @@ class YearlyInstance(InstanceResource):
         WIRELESS_USAGE_SMS = "wireless-usage-sms"
         WIRELESS_USAGE_VOICE = "wireless-usage-voice"
 
-    def __init__(self, version, payload, account_sid: str):
-        """
-        Initialize the YearlyInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage.
+    :ivar api_version: The API version used to create the resource.
+    :ivar as_of: Usage records up to date as of this timestamp, formatted as YYYY-MM-DDTHH:MM:SS+00:00. All timestamps are in GMT
+    :ivar category: 
+    :ivar count: The number of usage events, such as the number of calls.
+    :ivar count_unit: The units in which `count` is measured, such as `calls` for calls or `messages` for SMS.
+    :ivar description: A plain-language description of the usage category.
+    :ivar end_date: The last date for which usage is included in the UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
+    :ivar price: The total price of the usage in the currency specified in `price_unit` and associated with the account.
+    :ivar price_unit: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format, such as `usd`, `eur`, and `jpy`.
+    :ivar start_date: The first date for which usage is included in this UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
+    :ivar subresource_uris: A list of related resources identified by their URIs. For more information, see [List Subresources](https://www.twilio.com/docs/usage/api/usage-record#list-subresources).
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar usage: The amount used to bill usage and measured in units described in `usage_unit`.
+    :ivar usage_unit: The units in which `usage` is measured, such as `minutes` for calls or `messages` for SMS.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._api_version: Optional[str] = payload.get("api_version")
-        self._as_of: Optional[str] = payload.get("as_of")
-        self._category: Optional["YearlyInstance.Category"] = payload.get("category")
-        self._count: Optional[str] = payload.get("count")
-        self._count_unit: Optional[str] = payload.get("count_unit")
-        self._description: Optional[str] = payload.get("description")
-        self._end_date: Optional[date] = deserialize.iso8601_date(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.api_version: Optional[str] = payload.get("api_version")
+        self.as_of: Optional[str] = payload.get("as_of")
+        self.category: Optional["YearlyInstance.Category"] = payload.get("category")
+        self.count: Optional[str] = payload.get("count")
+        self.count_unit: Optional[str] = payload.get("count_unit")
+        self.description: Optional[str] = payload.get("description")
+        self.end_date: Optional[date] = deserialize.iso8601_date(
             payload.get("end_date")
         )
-        self._price: Optional[float] = deserialize.decimal(payload.get("price"))
-        self._price_unit: Optional[str] = payload.get("price_unit")
-        self._start_date: Optional[date] = deserialize.iso8601_date(
+        self.price: Optional[float] = deserialize.decimal(payload.get("price"))
+        self.price_unit: Optional[str] = payload.get("price_unit")
+        self.start_date: Optional[date] = deserialize.iso8601_date(
             payload.get("start_date")
         )
-        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
             "subresource_uris"
         )
-        self._uri: Optional[str] = payload.get("uri")
-        self._usage: Optional[str] = payload.get("usage")
-        self._usage_unit: Optional[str] = payload.get("usage_unit")
+        self.uri: Optional[str] = payload.get("uri")
+        self.usage: Optional[str] = payload.get("usage")
+        self.usage_unit: Optional[str] = payload.get("usage_unit")
 
         self._solution = {
             "account_sid": account_sid,
         }
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage.
-        """
-        return self._account_sid
-
-    @property
-    def api_version(self) -> Optional[str]:
-        """
-        :returns: The API version used to create the resource.
-        """
-        return self._api_version
-
-    @property
-    def as_of(self) -> Optional[str]:
-        """
-        :returns: Usage records up to date as of this timestamp, formatted as YYYY-MM-DDTHH:MM:SS+00:00. All timestamps are in GMT
-        """
-        return self._as_of
-
-    @property
-    def category(self) -> Optional["YearlyInstance.Category"]:
-        return self._category
-
-    @property
-    def count(self) -> Optional[str]:
-        """
-        :returns: The number of usage events, such as the number of calls.
-        """
-        return self._count
-
-    @property
-    def count_unit(self) -> Optional[str]:
-        """
-        :returns: The units in which `count` is measured, such as `calls` for calls or `messages` for SMS.
-        """
-        return self._count_unit
-
-    @property
-    def description(self) -> Optional[str]:
-        """
-        :returns: A plain-language description of the usage category.
-        """
-        return self._description
-
-    @property
-    def end_date(self) -> Optional[date]:
-        """
-        :returns: The last date for which usage is included in the UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
-        """
-        return self._end_date
-
-    @property
-    def price(self) -> Optional[float]:
-        """
-        :returns: The total price of the usage in the currency specified in `price_unit` and associated with the account.
-        """
-        return self._price
-
-    @property
-    def price_unit(self) -> Optional[str]:
-        """
-        :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format, such as `usd`, `eur`, and `jpy`.
-        """
-        return self._price_unit
-
-    @property
-    def start_date(self) -> Optional[date]:
-        """
-        :returns: The first date for which usage is included in this UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
-        """
-        return self._start_date
-
-    @property
-    def subresource_uris(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: A list of related resources identified by their URIs. For more information, see [List Subresources](https://www.twilio.com/docs/usage/api/usage-record#list-subresources).
-        """
-        return self._subresource_uris
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
-
-    @property
-    def usage(self) -> Optional[str]:
-        """
-        :returns: The amount used to bill usage and measured in units described in `usage_unit`.
-        """
-        return self._usage
-
-    @property
-    def usage_unit(self) -> Optional[str]:
-        """
-        :returns: The units in which `usage` is measured, such as `minutes` for calls or `messages` for SMS.
-        """
-        return self._usage_unit
 
     def __repr__(self) -> str:
         """

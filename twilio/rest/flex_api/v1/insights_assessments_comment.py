@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,107 +23,39 @@ from twilio.base.page import Page
 
 
 class InsightsAssessmentsCommentInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the InsightsAssessmentsCommentInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+    :ivar assessment_id: The unique ID of the assessment.
+    :ivar comment: The comment added for assessment.
+    :ivar offset: The offset
+    :ivar report: The flag indicating if this assessment is part of report
+    :ivar weight: The weightage given to this comment
+    :ivar agent_id: The id of the agent.
+    :ivar segment_id: The id of the segment.
+    :ivar user_name: The name of the user.
+    :ivar user_email: The email id of the user.
+    :ivar timestamp: The timestamp when the record is inserted
+    :ivar url:
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._assessment_id: Optional[str] = payload.get("assessment_id")
-        self._comment: Optional[Dict[str, object]] = payload.get("comment")
-        self._offset: Optional[float] = deserialize.decimal(payload.get("offset"))
-        self._report: Optional[bool] = payload.get("report")
-        self._weight: Optional[float] = deserialize.decimal(payload.get("weight"))
-        self._agent_id: Optional[str] = payload.get("agent_id")
-        self._segment_id: Optional[str] = payload.get("segment_id")
-        self._user_name: Optional[str] = payload.get("user_name")
-        self._user_email: Optional[str] = payload.get("user_email")
-        self._timestamp: Optional[float] = deserialize.decimal(payload.get("timestamp"))
-        self._url: Optional[str] = payload.get("url")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assessment_id: Optional[str] = payload.get("assessment_id")
+        self.comment: Optional[Dict[str, object]] = payload.get("comment")
+        self.offset: Optional[float] = deserialize.decimal(payload.get("offset"))
+        self.report: Optional[bool] = payload.get("report")
+        self.weight: Optional[float] = deserialize.decimal(payload.get("weight"))
+        self.agent_id: Optional[str] = payload.get("agent_id")
+        self.segment_id: Optional[str] = payload.get("segment_id")
+        self.user_name: Optional[str] = payload.get("user_name")
+        self.user_email: Optional[str] = payload.get("user_email")
+        self.timestamp: Optional[float] = deserialize.decimal(payload.get("timestamp"))
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        """
-        return self._account_sid
-
-    @property
-    def assessment_id(self) -> Optional[str]:
-        """
-        :returns: The unique ID of the assessment.
-        """
-        return self._assessment_id
-
-    @property
-    def comment(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: The comment added for assessment.
-        """
-        return self._comment
-
-    @property
-    def offset(self) -> Optional[float]:
-        """
-        :returns: The offset
-        """
-        return self._offset
-
-    @property
-    def report(self) -> Optional[bool]:
-        """
-        :returns: The flag indicating if this assessment is part of report
-        """
-        return self._report
-
-    @property
-    def weight(self) -> Optional[float]:
-        """
-        :returns: The weightage given to this comment
-        """
-        return self._weight
-
-    @property
-    def agent_id(self) -> Optional[str]:
-        """
-        :returns: The id of the agent.
-        """
-        return self._agent_id
-
-    @property
-    def segment_id(self) -> Optional[str]:
-        """
-        :returns: The id of the segment.
-        """
-        return self._segment_id
-
-    @property
-    def user_name(self) -> Optional[str]:
-        """
-        :returns: The name of the user.
-        """
-        return self._user_name
-
-    @property
-    def user_email(self) -> Optional[str]:
-        """
-        :returns: The email id of the user.
-        """
-        return self._user_email
-
-    @property
-    def timestamp(self) -> Optional[float]:
-        """
-        :returns: The timestamp when the record is inserted
-        """
-        return self._timestamp
-
-    @property
-    def url(self) -> Optional[str]:
-        return self._url
 
     def __repr__(self) -> str:
         """

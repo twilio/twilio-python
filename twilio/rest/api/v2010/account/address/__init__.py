@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,36 +27,59 @@ from twilio.rest.api.v2010.account.address.dependent_phone_number import (
 
 
 class AddressInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the AddressInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource.
+    :ivar city: The city in which the address is located.
+    :ivar customer_name: The name associated with the address.This property has a maximum length of 16 4-byte characters, or 21 3-byte characters.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar iso_country: The ISO country code of the address.
+    :ivar postal_code: The postal code of the address.
+    :ivar region: The state or region of the address.
+    :ivar sid: The unique string that that we created to identify the Address resource.
+    :ivar street: The number and street address of the address.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar emergency_enabled: Whether emergency calling has been enabled on this number.
+    :ivar validated: Whether the address has been validated to comply with local regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been validated. `false` indicate the country doesn't require validation or the Address is not valid.
+    :ivar verified: Whether the address has been verified to comply with regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been verified. `false` indicate the country doesn't require verified or the Address is not valid.
+    :ivar street_secondary: The additional number and street address of the address.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._city: Optional[str] = payload.get("city")
-        self._customer_name: Optional[str] = payload.get("customer_name")
-        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.city: Optional[str] = payload.get("city")
+        self.customer_name: Optional[str] = payload.get("customer_name")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_created")
         )
-        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self._friendly_name: Optional[str] = payload.get("friendly_name")
-        self._iso_country: Optional[str] = payload.get("iso_country")
-        self._postal_code: Optional[str] = payload.get("postal_code")
-        self._region: Optional[str] = payload.get("region")
-        self._sid: Optional[str] = payload.get("sid")
-        self._street: Optional[str] = payload.get("street")
-        self._uri: Optional[str] = payload.get("uri")
-        self._emergency_enabled: Optional[bool] = payload.get("emergency_enabled")
-        self._validated: Optional[bool] = payload.get("validated")
-        self._verified: Optional[bool] = payload.get("verified")
-        self._street_secondary: Optional[str] = payload.get("street_secondary")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.iso_country: Optional[str] = payload.get("iso_country")
+        self.postal_code: Optional[str] = payload.get("postal_code")
+        self.region: Optional[str] = payload.get("region")
+        self.sid: Optional[str] = payload.get("sid")
+        self.street: Optional[str] = payload.get("street")
+        self.uri: Optional[str] = payload.get("uri")
+        self.emergency_enabled: Optional[bool] = payload.get("emergency_enabled")
+        self.validated: Optional[bool] = payload.get("validated")
+        self.verified: Optional[bool] = payload.get("verified")
+        self.street_secondary: Optional[str] = payload.get("street_secondary")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[AddressContext] = None
 
@@ -75,118 +98,6 @@ class AddressInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource.
-        """
-        return self._account_sid
-
-    @property
-    def city(self) -> Optional[str]:
-        """
-        :returns: The city in which the address is located.
-        """
-        return self._city
-
-    @property
-    def customer_name(self) -> Optional[str]:
-        """
-        :returns: The name associated with the address.This property has a maximum length of 16 4-byte characters, or 21 3-byte characters.
-        """
-        return self._customer_name
-
-    @property
-    def date_created(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_created
-
-    @property
-    def date_updated(self) -> Optional[datetime]:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._date_updated
-
-    @property
-    def friendly_name(self) -> Optional[str]:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._friendly_name
-
-    @property
-    def iso_country(self) -> Optional[str]:
-        """
-        :returns: The ISO country code of the address.
-        """
-        return self._iso_country
-
-    @property
-    def postal_code(self) -> Optional[str]:
-        """
-        :returns: The postal code of the address.
-        """
-        return self._postal_code
-
-    @property
-    def region(self) -> Optional[str]:
-        """
-        :returns: The state or region of the address.
-        """
-        return self._region
-
-    @property
-    def sid(self) -> Optional[str]:
-        """
-        :returns: The unique string that that we created to identify the Address resource.
-        """
-        return self._sid
-
-    @property
-    def street(self) -> Optional[str]:
-        """
-        :returns: The number and street address of the address.
-        """
-        return self._street
-
-    @property
-    def uri(self) -> Optional[str]:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._uri
-
-    @property
-    def emergency_enabled(self) -> Optional[bool]:
-        """
-        :returns: Whether emergency calling has been enabled on this number.
-        """
-        return self._emergency_enabled
-
-    @property
-    def validated(self) -> Optional[bool]:
-        """
-        :returns: Whether the address has been validated to comply with local regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been validated. `false` indicate the country doesn't require validation or the Address is not valid.
-        """
-        return self._validated
-
-    @property
-    def verified(self) -> Optional[bool]:
-        """
-        :returns: Whether the address has been verified to comply with regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been verified. `false` indicate the country doesn't require verified or the Address is not valid.
-        """
-        return self._verified
-
-    @property
-    def street_secondary(self) -> Optional[str]:
-        """
-        :returns: The additional number and street address of the address.
-        """
-        return self._street_secondary
 
     def delete(self) -> bool:
         """

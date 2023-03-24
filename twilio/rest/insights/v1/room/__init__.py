@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -76,71 +76,99 @@ class RoomInstance(InstanceResource):
         DE1 = "de1"
         GLL = "gll"
 
-    def __init__(self, version, payload, room_sid: Optional[str] = None):
-        """
-        Initialize the RoomInstance
-        """
+    """
+    :ivar account_sid: Account SID associated with this room.
+    :ivar room_sid: Unique identifier for the room.
+    :ivar room_name: Room friendly name.
+    :ivar create_time: Creation time of the room.
+    :ivar end_time: End time for the room.
+    :ivar room_type: 
+    :ivar room_status: 
+    :ivar status_callback: Webhook provided for status callbacks.
+    :ivar status_callback_method: HTTP method provided for status callback URL.
+    :ivar created_method: 
+    :ivar end_reason: 
+    :ivar max_participants: Max number of total participants allowed by the application settings.
+    :ivar unique_participants: Number of participants. May include duplicate identities for participants who left and rejoined.
+    :ivar unique_participant_identities: Unique number of participant identities.
+    :ivar concurrent_participants: Actual number of concurrent participants.
+    :ivar max_concurrent_participants: Maximum number of participants allowed in the room at the same time allowed by the application settings.
+    :ivar codecs: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+    :ivar media_region: 
+    :ivar duration_sec: Total room duration from create time to end time.
+    :ivar total_participant_duration_sec: Combined amount of participant time in the room.
+    :ivar total_recording_duration_sec: Combined amount of recorded seconds for participants in the room.
+    :ivar processing_state: 
+    :ivar recording_enabled: Boolean indicating if recording is enabled for the room.
+    :ivar edge_location: 
+    :ivar url: URL for the room resource.
+    :ivar links: Room subresources.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], room_sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._account_sid: Optional[str] = payload.get("account_sid")
-        self._room_sid: Optional[str] = payload.get("room_sid")
-        self._room_name: Optional[str] = payload.get("room_name")
-        self._create_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.room_sid: Optional[str] = payload.get("room_sid")
+        self.room_name: Optional[str] = payload.get("room_name")
+        self.create_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("create_time")
         )
-        self._end_time: Optional[datetime] = deserialize.iso8601_datetime(
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("end_time")
         )
-        self._room_type: Optional["RoomInstance.RoomType"] = payload.get("room_type")
-        self._room_status: Optional["RoomInstance.RoomStatus"] = payload.get(
+        self.room_type: Optional["RoomInstance.RoomType"] = payload.get("room_type")
+        self.room_status: Optional["RoomInstance.RoomStatus"] = payload.get(
             "room_status"
         )
-        self._status_callback: Optional[str] = payload.get("status_callback")
-        self._status_callback_method: Optional[str] = payload.get(
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.status_callback_method: Optional[str] = payload.get(
             "status_callback_method"
         )
-        self._created_method: Optional["RoomInstance.CreatedMethod"] = payload.get(
+        self.created_method: Optional["RoomInstance.CreatedMethod"] = payload.get(
             "created_method"
         )
-        self._end_reason: Optional["RoomInstance.EndReason"] = payload.get("end_reason")
-        self._max_participants: Optional[int] = deserialize.integer(
+        self.end_reason: Optional["RoomInstance.EndReason"] = payload.get("end_reason")
+        self.max_participants: Optional[int] = deserialize.integer(
             payload.get("max_participants")
         )
-        self._unique_participants: Optional[int] = deserialize.integer(
+        self.unique_participants: Optional[int] = deserialize.integer(
             payload.get("unique_participants")
         )
-        self._unique_participant_identities: Optional[int] = deserialize.integer(
+        self.unique_participant_identities: Optional[int] = deserialize.integer(
             payload.get("unique_participant_identities")
         )
-        self._concurrent_participants: Optional[int] = deserialize.integer(
+        self.concurrent_participants: Optional[int] = deserialize.integer(
             payload.get("concurrent_participants")
         )
-        self._max_concurrent_participants: Optional[int] = deserialize.integer(
+        self.max_concurrent_participants: Optional[int] = deserialize.integer(
             payload.get("max_concurrent_participants")
         )
-        self._codecs: Optional[List["RoomInstance.Codec"]] = payload.get("codecs")
-        self._media_region: Optional["RoomInstance.TwilioRealm"] = payload.get(
+        self.codecs: Optional[List["RoomInstance.Codec"]] = payload.get("codecs")
+        self.media_region: Optional["RoomInstance.TwilioRealm"] = payload.get(
             "media_region"
         )
-        self._duration_sec: Optional[int] = payload.get("duration_sec")
-        self._total_participant_duration_sec: Optional[int] = payload.get(
+        self.duration_sec: Optional[int] = payload.get("duration_sec")
+        self.total_participant_duration_sec: Optional[int] = payload.get(
             "total_participant_duration_sec"
         )
-        self._total_recording_duration_sec: Optional[int] = payload.get(
+        self.total_recording_duration_sec: Optional[int] = payload.get(
             "total_recording_duration_sec"
         )
-        self._processing_state: Optional["RoomInstance.ProcessingState"] = payload.get(
+        self.processing_state: Optional["RoomInstance.ProcessingState"] = payload.get(
             "processing_state"
         )
-        self._recording_enabled: Optional[bool] = payload.get("recording_enabled")
-        self._edge_location: Optional["RoomInstance.EdgeLocation"] = payload.get(
+        self.recording_enabled: Optional[bool] = payload.get("recording_enabled")
+        self.edge_location: Optional["RoomInstance.EdgeLocation"] = payload.get(
             "edge_location"
         )
-        self._url: Optional[str] = payload.get("url")
-        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "room_sid": room_sid or self._room_sid,
+            "room_sid": room_sid or self.room_sid,
         }
         self._context: Optional[RoomContext] = None
 
@@ -158,167 +186,6 @@ class RoomInstance(InstanceResource):
                 room_sid=self._solution["room_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> Optional[str]:
-        """
-        :returns: Account SID associated with this room.
-        """
-        return self._account_sid
-
-    @property
-    def room_sid(self) -> Optional[str]:
-        """
-        :returns: Unique identifier for the room.
-        """
-        return self._room_sid
-
-    @property
-    def room_name(self) -> Optional[str]:
-        """
-        :returns: Room friendly name.
-        """
-        return self._room_name
-
-    @property
-    def create_time(self) -> Optional[datetime]:
-        """
-        :returns: Creation time of the room.
-        """
-        return self._create_time
-
-    @property
-    def end_time(self) -> Optional[datetime]:
-        """
-        :returns: End time for the room.
-        """
-        return self._end_time
-
-    @property
-    def room_type(self) -> Optional["RoomInstance.RoomType"]:
-        return self._room_type
-
-    @property
-    def room_status(self) -> Optional["RoomInstance.RoomStatus"]:
-        return self._room_status
-
-    @property
-    def status_callback(self) -> Optional[str]:
-        """
-        :returns: Webhook provided for status callbacks.
-        """
-        return self._status_callback
-
-    @property
-    def status_callback_method(self) -> Optional[str]:
-        """
-        :returns: HTTP method provided for status callback URL.
-        """
-        return self._status_callback_method
-
-    @property
-    def created_method(self) -> Optional["RoomInstance.CreatedMethod"]:
-        return self._created_method
-
-    @property
-    def end_reason(self) -> Optional["RoomInstance.EndReason"]:
-        return self._end_reason
-
-    @property
-    def max_participants(self) -> Optional[int]:
-        """
-        :returns: Max number of total participants allowed by the application settings.
-        """
-        return self._max_participants
-
-    @property
-    def unique_participants(self) -> Optional[int]:
-        """
-        :returns: Number of participants. May include duplicate identities for participants who left and rejoined.
-        """
-        return self._unique_participants
-
-    @property
-    def unique_participant_identities(self) -> Optional[int]:
-        """
-        :returns: Unique number of participant identities.
-        """
-        return self._unique_participant_identities
-
-    @property
-    def concurrent_participants(self) -> Optional[int]:
-        """
-        :returns: Actual number of concurrent participants.
-        """
-        return self._concurrent_participants
-
-    @property
-    def max_concurrent_participants(self) -> Optional[int]:
-        """
-        :returns: Maximum number of participants allowed in the room at the same time allowed by the application settings.
-        """
-        return self._max_concurrent_participants
-
-    @property
-    def codecs(self) -> Optional[List["RoomInstance.Codec"]]:
-        """
-        :returns: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        """
-        return self._codecs
-
-    @property
-    def media_region(self) -> Optional["RoomInstance.TwilioRealm"]:
-        return self._media_region
-
-    @property
-    def duration_sec(self) -> Optional[int]:
-        """
-        :returns: Total room duration from create time to end time.
-        """
-        return self._duration_sec
-
-    @property
-    def total_participant_duration_sec(self) -> Optional[int]:
-        """
-        :returns: Combined amount of participant time in the room.
-        """
-        return self._total_participant_duration_sec
-
-    @property
-    def total_recording_duration_sec(self) -> Optional[int]:
-        """
-        :returns: Combined amount of recorded seconds for participants in the room.
-        """
-        return self._total_recording_duration_sec
-
-    @property
-    def processing_state(self) -> Optional["RoomInstance.ProcessingState"]:
-        return self._processing_state
-
-    @property
-    def recording_enabled(self) -> Optional[bool]:
-        """
-        :returns: Boolean indicating if recording is enabled for the room.
-        """
-        return self._recording_enabled
-
-    @property
-    def edge_location(self) -> Optional["RoomInstance.EdgeLocation"]:
-        return self._edge_location
-
-    @property
-    def url(self) -> Optional[str]:
-        """
-        :returns: URL for the room resource.
-        """
-        return self._url
-
-    @property
-    def links(self) -> Optional[Dict[str, object]]:
-        """
-        :returns: Room subresources.
-        """
-        return self._links
 
     def fetch(self) -> "RoomInstance":
         """
