@@ -28,11 +28,9 @@ class UsageList(ListResource):
         """
         Initialize the UsageList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 
-        :returns: twilio.rest.api.v2010.account.usage.UsageList
-        :rtype: twilio.rest.api.v2010.account.usage.UsageList
         """
         super().__init__(version)
 
@@ -46,12 +44,9 @@ class UsageList(ListResource):
         self._triggers: Optional[TriggerList] = None
 
     @property
-    def records(self):
+    def records(self) -> RecordList:
         """
         Access the records
-
-        :returns: twilio.rest.api.v2010.account.usage.RecordList
-        :rtype: twilio.rest.api.v2010.account.usage.RecordList
         """
         if self._records is None:
             self._records = RecordList(
@@ -60,12 +55,9 @@ class UsageList(ListResource):
         return self._records
 
     @property
-    def triggers(self):
+    def triggers(self) -> TriggerList:
         """
         Access the triggers
-
-        :returns: twilio.rest.api.v2010.account.usage.TriggerList
-        :rtype: twilio.rest.api.v2010.account.usage.TriggerList
         """
         if self._triggers is None:
             self._triggers = TriggerList(
@@ -73,11 +65,10 @@ class UsageList(ListResource):
             )
         return self._triggers
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.UsageList>"

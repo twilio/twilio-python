@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,9 +28,6 @@ class ContentInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the ContentInstance
-
-        :returns: twilio.rest.content.v1.content.ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentInstance
         """
         super().__init__(version)
 
@@ -52,13 +50,12 @@ class ContentInstance(InstanceResource):
         self._context: Optional[ContentContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ContentContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ContentContext for this ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentContext
         """
         if self._context is None:
             self._context = ContentContext(
@@ -68,141 +65,123 @@ class ContentInstance(InstanceResource):
         return self._context
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the Content resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A string name used to describe the Content resource. Not visible to the end recipient.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def language(self):
+    def language(self) -> str:
         """
         :returns: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
-        :rtype: str
         """
         return self._properties["language"]
 
     @property
-    def variables(self):
+    def variables(self) -> dict:
         """
         :returns: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
-        :rtype: dict
         """
         return self._properties["variables"]
 
     @property
-    def types(self):
+    def types(self) -> dict:
         """
         :returns: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
-        :rtype: dict
         """
         return self._properties["types"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of the resource, relative to `https://content.twilio.com`.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: A list of links related to the Content resource, such as approval_fetch and approval_create
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ContentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ContentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ContentInstance":
         """
         Fetch the ContentInstance
 
 
         :returns: The fetched ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ContentInstance":
         """
         Asynchronous coroutine to fetch the ContentInstance
 
 
         :returns: The fetched ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def approval_fetch(self):
+    def approval_fetch(self) -> ApprovalFetchList:
         """
         Access the approval_fetch
-
-        :returns: twilio.rest.content.v1.content.ApprovalFetchList
-        :rtype: twilio.rest.content.v1.content.ApprovalFetchList
         """
         return self._proxy.approval_fetch
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Content.V1.ContentInstance {}>".format(context)
@@ -213,11 +192,8 @@ class ContentContext(InstanceContext):
         """
         Initialize the ContentContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
-
-        :returns: twilio.rest.content.v1.content.ContentContext
-        :rtype: twilio.rest.content.v1.content.ContentContext
         """
         super().__init__(version)
 
@@ -229,39 +205,36 @@ class ContentContext(InstanceContext):
 
         self._approval_fetch: Optional[ApprovalFetchList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ContentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ContentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ContentInstance:
         """
         Fetch the ContentInstance
 
 
         :returns: The fetched ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentInstance
         """
 
         payload = self._version.fetch(
@@ -275,13 +248,12 @@ class ContentContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ContentInstance:
         """
         Asynchronous coroutine to fetch the ContentInstance
 
 
         :returns: The fetched ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentInstance
         """
 
         payload = await self._version.fetch_async(
@@ -296,12 +268,9 @@ class ContentContext(InstanceContext):
         )
 
     @property
-    def approval_fetch(self):
+    def approval_fetch(self) -> ApprovalFetchList:
         """
         Access the approval_fetch
-
-        :returns: twilio.rest.content.v1.content.ApprovalFetchList
-        :rtype: twilio.rest.content.v1.content.ApprovalFetchList
         """
         if self._approval_fetch is None:
             self._approval_fetch = ApprovalFetchList(
@@ -310,26 +279,22 @@ class ContentContext(InstanceContext):
             )
         return self._approval_fetch
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Content.V1.ContentContext {}>".format(context)
 
 
 class ContentPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ContentInstance:
         """
         Build an instance of ContentInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.content.v1.content.ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentInstance
         """
         return ContentInstance(self._version, payload)
 
@@ -347,16 +312,14 @@ class ContentList(ListResource):
         """
         Initialize the ContentList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.content.v1.content.ContentList
-        :rtype: twilio.rest.content.v1.content.ContentList
         """
         super().__init__(version)
 
         self._uri = "/Content"
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ContentInstance]:
         """
         Streams ContentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -371,14 +334,13 @@ class ContentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.content.v1.content.ContentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[ContentInstance]:
         """
         Asynchronously streams ContentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -393,14 +355,13 @@ class ContentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.content.v1.content.ContentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ContentInstance]:
         """
         Lists ContentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -414,7 +375,6 @@ class ContentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.content.v1.content.ContentInstance]
         """
         return list(
             self.stream(
@@ -423,7 +383,7 @@ class ContentList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ContentInstance]:
         """
         Asynchronously lists ContentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -437,7 +397,6 @@ class ContentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.content.v1.content.ContentInstance]
         """
         return list(
             await self.stream_async(
@@ -448,7 +407,7 @@ class ContentList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ContentPage:
         """
         Retrieve a single page of ContentInstance records from the API.
         Request is executed immediately
@@ -458,7 +417,6 @@ class ContentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentPage
         """
         data = values.of(
             {
@@ -473,7 +431,7 @@ class ContentList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ContentPage:
         """
         Asynchronously retrieve a single page of ContentInstance records from the API.
         Request is executed immediately
@@ -483,7 +441,6 @@ class ContentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentPage
         """
         data = values.of(
             {
@@ -498,7 +455,7 @@ class ContentList(ListResource):
         )
         return ContentPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ContentPage:
         """
         Retrieve a specific page of ContentInstance records from the API.
         Request is executed immediately
@@ -506,12 +463,11 @@ class ContentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ContentPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ContentPage:
         """
         Asynchronously retrieve a specific page of ContentInstance records from the API.
         Request is executed immediately
@@ -519,38 +475,30 @@ class ContentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ContentPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> ContentContext:
         """
         Constructs a ContentContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
-
-        :returns: twilio.rest.content.v1.content.ContentContext
-        :rtype: twilio.rest.content.v1.content.ContentContext
         """
         return ContentContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ContentContext:
         """
         Constructs a ContentContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
-
-        :returns: twilio.rest.content.v1.content.ContentContext
-        :rtype: twilio.rest.content.v1.content.ContentContext
         """
         return ContentContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Content.V1.ContentList>"

@@ -24,9 +24,6 @@ class EngagementContextInstance(InstanceResource):
     def __init__(self, version, payload, flow_sid: str, engagement_sid: str):
         """
         Initialize the EngagementContextInstance
-
-        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
         """
         super().__init__(version)
 
@@ -45,13 +42,12 @@ class EngagementContextInstance(InstanceResource):
         self._context: Optional[EngagementContextContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "EngagementContextContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: EngagementContextContext for this EngagementContextInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
         """
         if self._context is None:
             self._context = EngagementContextContext(
@@ -62,71 +58,63 @@ class EngagementContextInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def context(self):
+    def context(self) -> dict:
         """
         :returns: As your flow executes, we save the state in what's called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.
-        :rtype: dict
         """
         return self._properties["context"]
 
     @property
-    def engagement_sid(self):
+    def engagement_sid(self) -> str:
         """
         :returns: The SID of the Engagement.
-        :rtype: str
         """
         return self._properties["engagement_sid"]
 
     @property
-    def flow_sid(self):
+    def flow_sid(self) -> str:
         """
         :returns: The SID of the Flow.
-        :rtype: str
         """
         return self._properties["flow_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "EngagementContextInstance":
         """
         Fetch the EngagementContextInstance
 
 
         :returns: The fetched EngagementContextInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "EngagementContextInstance":
         """
         Asynchronous coroutine to fetch the EngagementContextInstance
 
 
         :returns: The fetched EngagementContextInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V1.EngagementContextInstance {}>".format(context)
@@ -137,12 +125,9 @@ class EngagementContextContext(InstanceContext):
         """
         Initialize the EngagementContextContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param flow_sid: The SID of the Flow.
         :param engagement_sid: The SID of the Engagement.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
         """
         super().__init__(version)
 
@@ -155,13 +140,12 @@ class EngagementContextContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> EngagementContextInstance:
         """
         Fetch the EngagementContextInstance
 
 
         :returns: The fetched EngagementContextInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
         """
 
         payload = self._version.fetch(
@@ -176,13 +160,12 @@ class EngagementContextContext(InstanceContext):
             engagement_sid=self._solution["engagement_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> EngagementContextInstance:
         """
         Asynchronous coroutine to fetch the EngagementContextInstance
 
 
         :returns: The fetched EngagementContextInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
         """
 
         payload = await self._version.fetch_async(
@@ -197,12 +180,11 @@ class EngagementContextContext(InstanceContext):
             engagement_sid=self._solution["engagement_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V1.EngagementContextContext {}>".format(context)
@@ -213,12 +195,10 @@ class EngagementContextList(ListResource):
         """
         Initialize the EngagementContextList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param flow_sid: The SID of the Flow.
         :param engagement_sid: The SID of the Engagement.
 
-        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
         """
         super().__init__(version)
 
@@ -228,13 +208,10 @@ class EngagementContextList(ListResource):
             "engagement_sid": engagement_sid,
         }
 
-    def get(self):
+    def get(self) -> EngagementContextContext:
         """
         Constructs a EngagementContextContext
 
-
-        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
         """
         return EngagementContextContext(
             self._version,
@@ -242,13 +219,10 @@ class EngagementContextList(ListResource):
             engagement_sid=self._solution["engagement_sid"],
         )
 
-    def __call__(self):
+    def __call__(self) -> EngagementContextContext:
         """
         Constructs a EngagementContextContext
 
-
-        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
         """
         return EngagementContextContext(
             self._version,
@@ -256,11 +230,10 @@ class EngagementContextList(ListResource):
             engagement_sid=self._solution["engagement_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V1.EngagementContextList>"

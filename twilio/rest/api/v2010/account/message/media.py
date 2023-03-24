@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +34,6 @@ class MediaInstance(InstanceResource):
     ):
         """
         Initialize the MediaInstance
-
-        :returns: twilio.rest.api.v2010.account.message.media.MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         super().__init__(version)
 
@@ -57,13 +55,12 @@ class MediaInstance(InstanceResource):
         self._context: Optional[MediaContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "MediaContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: MediaContext for this MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
         """
         if self._context is None:
             self._context = MediaContext(
@@ -75,107 +72,95 @@ class MediaInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Media resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def content_type(self):
+    def content_type(self) -> str:
         """
         :returns: The default [mime-type](https://en.wikipedia.org/wiki/Internet_media_type) of the media, for example `image/jpeg`, `image/png`, or `image/gif`
-        :rtype: str
         """
         return self._properties["content_type"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def parent_sid(self):
+    def parent_sid(self) -> str:
         """
         :returns: The SID of the resource that created the media.
-        :rtype: str
         """
         return self._properties["parent_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify this Media resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of this resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the MediaInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the MediaInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "MediaInstance":
         """
         Fetch the MediaInstance
 
 
         :returns: The fetched MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "MediaInstance":
         """
         Asynchronous coroutine to fetch the MediaInstance
 
 
         :returns: The fetched MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.MediaInstance {}>".format(context)
@@ -186,13 +171,10 @@ class MediaContext(InstanceContext):
         """
         Initialize the MediaContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.
         :param message_sid: The SID of the Message resource that this Media resource belongs to.
         :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
-
-        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
         """
         super().__init__(version)
 
@@ -208,39 +190,36 @@ class MediaContext(InstanceContext):
             )
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the MediaInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the MediaInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> MediaInstance:
         """
         Fetch the MediaInstance
 
 
         :returns: The fetched MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
 
         payload = self._version.fetch(
@@ -256,13 +235,12 @@ class MediaContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> MediaInstance:
         """
         Asynchronous coroutine to fetch the MediaInstance
 
 
         :returns: The fetched MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
 
         payload = await self._version.fetch_async(
@@ -278,26 +256,22 @@ class MediaContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.MediaContext {}>".format(context)
 
 
 class MediaPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> MediaInstance:
         """
         Build an instance of MediaInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.message.media.MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         return MediaInstance(
             self._version,
@@ -320,12 +294,10 @@ class MediaList(ListResource):
         """
         Initialize the MediaList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to read.
         :param message_sid: The SID of the Message resource that this Media resource belongs to.
 
-        :returns: twilio.rest.api.v2010.account.message.media.MediaList
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaList
         """
         super().__init__(version)
 
@@ -345,7 +317,7 @@ class MediaList(ListResource):
         date_created_after=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[MediaInstance]:
         """
         Streams MediaInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -363,7 +335,6 @@ class MediaList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.message.media.MediaInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -382,7 +353,7 @@ class MediaList(ListResource):
         date_created_after=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[MediaInstance]:
         """
         Asynchronously streams MediaInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -400,7 +371,6 @@ class MediaList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.message.media.MediaInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -419,7 +389,7 @@ class MediaList(ListResource):
         date_created_after=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[MediaInstance]:
         """
         Lists MediaInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -436,7 +406,6 @@ class MediaList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.message.media.MediaInstance]
         """
         return list(
             self.stream(
@@ -455,7 +424,7 @@ class MediaList(ListResource):
         date_created_after=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[MediaInstance]:
         """
         Asynchronously lists MediaInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -472,7 +441,6 @@ class MediaList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.message.media.MediaInstance]
         """
         return list(
             await self.stream_async(
@@ -492,7 +460,7 @@ class MediaList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> MediaPage:
         """
         Retrieve a single page of MediaInstance records from the API.
         Request is executed immediately
@@ -505,7 +473,6 @@ class MediaList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
         data = values.of(
             {
@@ -529,7 +496,7 @@ class MediaList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> MediaPage:
         """
         Asynchronously retrieve a single page of MediaInstance records from the API.
         Request is executed immediately
@@ -542,7 +509,6 @@ class MediaList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
         data = values.of(
             {
@@ -560,7 +526,7 @@ class MediaList(ListResource):
         )
         return MediaPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> MediaPage:
         """
         Retrieve a specific page of MediaInstance records from the API.
         Request is executed immediately
@@ -568,12 +534,11 @@ class MediaList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MediaPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> MediaPage:
         """
         Asynchronously retrieve a specific page of MediaInstance records from the API.
         Request is executed immediately
@@ -581,19 +546,15 @@ class MediaList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return MediaPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> MediaContext:
         """
         Constructs a MediaContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
-
-        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
         """
         return MediaContext(
             self._version,
@@ -602,14 +563,11 @@ class MediaList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> MediaContext:
         """
         Constructs a MediaContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
-
-        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
         """
         return MediaContext(
             self._version,
@@ -618,11 +576,10 @@ class MediaList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.MediaList>"

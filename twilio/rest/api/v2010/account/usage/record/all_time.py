@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import date
+from typing import List
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -344,9 +346,6 @@ class AllTimeInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str):
         """
         Initialize the AllTimeInstance
-
-        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
         """
         super().__init__(version)
 
@@ -373,145 +372,126 @@ class AllTimeInstance(InstanceResource):
         }
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def api_version(self):
+    def api_version(self) -> str:
         """
         :returns: The API version used to create the resource.
-        :rtype: str
         """
         return self._properties["api_version"]
 
     @property
-    def as_of(self):
+    def as_of(self) -> str:
         """
         :returns: Usage records up to date as of this timestamp, formatted as YYYY-MM-DDTHH:MM:SS+00:00. All timestamps are in GMT
-        :rtype: str
         """
         return self._properties["as_of"]
 
     @property
-    def category(self):
+    def category(self) -> "AllTimeInstance.Category":
         """
         :returns:
-        :rtype: AllTimeInstance.Category
         """
         return self._properties["category"]
 
     @property
-    def count(self):
+    def count(self) -> str:
         """
         :returns: The number of usage events, such as the number of calls.
-        :rtype: str
         """
         return self._properties["count"]
 
     @property
-    def count_unit(self):
+    def count_unit(self) -> str:
         """
         :returns: The units in which `count` is measured, such as `calls` for calls or `messages` for SMS.
-        :rtype: str
         """
         return self._properties["count_unit"]
 
     @property
-    def description(self):
+    def description(self) -> str:
         """
         :returns: A plain-language description of the usage category.
-        :rtype: str
         """
         return self._properties["description"]
 
     @property
-    def end_date(self):
+    def end_date(self) -> date:
         """
         :returns: The last date for which usage is included in the UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
-        :rtype: date
         """
         return self._properties["end_date"]
 
     @property
-    def price(self):
+    def price(self) -> float:
         """
         :returns: The total price of the usage in the currency specified in `price_unit` and associated with the account.
-        :rtype: float
         """
         return self._properties["price"]
 
     @property
-    def price_unit(self):
+    def price_unit(self) -> str:
         """
         :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format, such as `usd`, `eur`, and `jpy`.
-        :rtype: str
         """
         return self._properties["price_unit"]
 
     @property
-    def start_date(self):
+    def start_date(self) -> date:
         """
         :returns: The first date for which usage is included in this UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
-        :rtype: date
         """
         return self._properties["start_date"]
 
     @property
-    def subresource_uris(self):
+    def subresource_uris(self) -> dict:
         """
         :returns: A list of related resources identified by their URIs. For more information, see [List Subresources](https://www.twilio.com/docs/usage/api/usage-record#list-subresources).
-        :rtype: dict
         """
         return self._properties["subresource_uris"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
     @property
-    def usage(self):
+    def usage(self) -> str:
         """
         :returns: The amount used to bill usage and measured in units described in `usage_unit`.
-        :rtype: str
         """
         return self._properties["usage"]
 
     @property
-    def usage_unit(self):
+    def usage_unit(self) -> str:
         """
         :returns: The units in which `usage` is measured, such as `minutes` for calls or `messages` for SMS.
-        :rtype: str
         """
         return self._properties["usage_unit"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AllTimeInstance {}>".format(context)
 
 
 class AllTimePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AllTimeInstance:
         """
         Build an instance of AllTimeInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
         """
         return AllTimeInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -531,11 +511,9 @@ class AllTimeList(ListResource):
         """
         Initialize the AllTimeList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 
-        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeList
-        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeList
         """
         super().__init__(version)
 
@@ -555,14 +533,14 @@ class AllTimeList(ListResource):
         include_subaccounts=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[AllTimeInstance]:
         """
         Streams AllTimeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param AllTimeInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param &quot;AllTimeInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
@@ -574,7 +552,6 @@ class AllTimeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -595,14 +572,14 @@ class AllTimeList(ListResource):
         include_subaccounts=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[AllTimeInstance]:
         """
         Asynchronously streams AllTimeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param AllTimeInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param &quot;AllTimeInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
@@ -614,7 +591,6 @@ class AllTimeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -635,13 +611,13 @@ class AllTimeList(ListResource):
         include_subaccounts=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[AllTimeInstance]:
         """
         Lists AllTimeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param AllTimeInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param &quot;AllTimeInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
@@ -653,7 +629,6 @@ class AllTimeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance]
         """
         return list(
             self.stream(
@@ -674,13 +649,13 @@ class AllTimeList(ListResource):
         include_subaccounts=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[AllTimeInstance]:
         """
         Asynchronously lists AllTimeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param AllTimeInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param &quot;AllTimeInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
@@ -692,7 +667,6 @@ class AllTimeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance]
         """
         return list(
             await self.stream_async(
@@ -714,12 +688,12 @@ class AllTimeList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> AllTimePage:
         """
         Retrieve a single page of AllTimeInstance records from the API.
         Request is executed immediately
 
-        :param AllTimeInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param &quot;AllTimeInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
@@ -728,7 +702,6 @@ class AllTimeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AllTimeInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimePage
         """
         data = values.of(
             {
@@ -754,12 +727,12 @@ class AllTimeList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> AllTimePage:
         """
         Asynchronously retrieve a single page of AllTimeInstance records from the API.
         Request is executed immediately
 
-        :param AllTimeInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param &quot;AllTimeInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
@@ -768,7 +741,6 @@ class AllTimeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AllTimeInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimePage
         """
         data = values.of(
             {
@@ -787,7 +759,7 @@ class AllTimeList(ListResource):
         )
         return AllTimePage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AllTimePage:
         """
         Retrieve a specific page of AllTimeInstance records from the API.
         Request is executed immediately
@@ -795,12 +767,11 @@ class AllTimeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AllTimeInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AllTimePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AllTimePage:
         """
         Asynchronously retrieve a specific page of AllTimeInstance records from the API.
         Request is executed immediately
@@ -808,16 +779,14 @@ class AllTimeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AllTimeInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AllTimePage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.AllTimeList>"

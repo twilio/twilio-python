@@ -24,9 +24,6 @@ class AppManifestInstance(InstanceResource):
     def __init__(self, version, payload, app_sid: str):
         """
         Initialize the AppManifestInstance
-
-        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestInstance
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestInstance
         """
         super().__init__(version)
 
@@ -43,13 +40,12 @@ class AppManifestInstance(InstanceResource):
         self._context: Optional[AppManifestContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AppManifestContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AppManifestContext for this AppManifestInstance
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
         """
         if self._context is None:
             self._context = AppManifestContext(
@@ -59,63 +55,56 @@ class AppManifestInstance(InstanceResource):
         return self._context
 
     @property
-    def app_sid(self):
+    def app_sid(self) -> str:
         """
         :returns: A 34-character string that uniquely identifies this App.
-        :rtype: str
         """
         return self._properties["app_sid"]
 
     @property
-    def hash(self):
+    def hash(self) -> str:
         """
         :returns: App manifest hash represented as `hash_algorithm:hash_value`.
-        :rtype: str
         """
         return self._properties["hash"]
 
     @property
-    def encoded_bytes(self):
+    def encoded_bytes(self) -> str:
         """
         :returns: The base-64 encoded manifest
-        :rtype: str
         """
         return self._properties["encoded_bytes"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of this Manifest.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "AppManifestInstance":
         """
         Fetch the AppManifestInstance
 
 
         :returns: The fetched AppManifestInstance
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AppManifestInstance":
         """
         Asynchronous coroutine to fetch the AppManifestInstance
 
 
         :returns: The fetched AppManifestInstance
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.AppManifestInstance {}>".format(context)
@@ -126,11 +115,8 @@ class AppManifestContext(InstanceContext):
         """
         Initialize the AppManifestContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param app_sid: A 34-character string that uniquely identifies this App.
-
-        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
         """
         super().__init__(version)
 
@@ -140,13 +126,12 @@ class AppManifestContext(InstanceContext):
         }
         self._uri = "/Apps/{app_sid}/Manifest".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> AppManifestInstance:
         """
         Fetch the AppManifestInstance
 
 
         :returns: The fetched AppManifestInstance
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestInstance
         """
 
         payload = self._version.fetch(
@@ -160,13 +145,12 @@ class AppManifestContext(InstanceContext):
             app_sid=self._solution["app_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AppManifestInstance:
         """
         Asynchronous coroutine to fetch the AppManifestInstance
 
 
         :returns: The fetched AppManifestInstance
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestInstance
         """
 
         payload = await self._version.fetch_async(
@@ -180,12 +164,11 @@ class AppManifestContext(InstanceContext):
             app_sid=self._solution["app_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.AppManifestContext {}>".format(context)
@@ -196,11 +179,9 @@ class AppManifestList(ListResource):
         """
         Initialize the AppManifestList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param app_sid: A 34-character string that uniquely identifies this App.
 
-        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
         """
         super().__init__(version)
 
@@ -209,31 +190,24 @@ class AppManifestList(ListResource):
             "app_sid": app_sid,
         }
 
-    def get(self):
+    def get(self) -> AppManifestContext:
         """
         Constructs a AppManifestContext
 
-
-        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
         """
         return AppManifestContext(self._version, app_sid=self._solution["app_sid"])
 
-    def __call__(self):
+    def __call__(self) -> AppManifestContext:
         """
         Constructs a AppManifestContext
 
-
-        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
         """
         return AppManifestContext(self._version, app_sid=self._solution["app_sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Microvisor.V1.AppManifestList>"

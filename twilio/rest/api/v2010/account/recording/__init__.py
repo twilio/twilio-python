@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -46,9 +47,6 @@ class RecordingInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the RecordingInstance
-
-        :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         super().__init__(version)
 
@@ -81,13 +79,12 @@ class RecordingInstance(InstanceResource):
         self._context: Optional[RecordingContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "RecordingContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: RecordingContext for this RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         if self._context is None:
             self._context = RecordingContext(
@@ -98,229 +95,201 @@ class RecordingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def api_version(self):
+    def api_version(self) -> str:
         """
         :returns: The API version used during the recording.
-        :rtype: str
         """
         return self._properties["api_version"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Recording resource is associated with. This will always refer to the parent leg of a two-leg call.
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def conference_sid(self):
+    def conference_sid(self) -> str:
         """
         :returns: The Conference SID that identifies the conference associated with the recording, if a conference recording.
-        :rtype: str
         """
         return self._properties["conference_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def start_time(self):
+    def start_time(self) -> datetime:
         """
         :returns: The start time of the recording in GMT and in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        :rtype: datetime
         """
         return self._properties["start_time"]
 
     @property
-    def duration(self):
+    def duration(self) -> str:
         """
         :returns: The length of the recording in seconds.
-        :rtype: str
         """
         return self._properties["duration"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the Recording resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def price(self):
+    def price(self) -> str:
         """
         :returns: The one-time cost of creating the recording in the `price_unit` currency.
-        :rtype: str
         """
         return self._properties["price"]
 
     @property
-    def price_unit(self):
+    def price_unit(self) -> str:
         """
         :returns: The currency used in the `price` property. Example: `USD`.
-        :rtype: str
         """
         return self._properties["price_unit"]
 
     @property
-    def status(self):
+    def status(self) -> "RecordingInstance.Status":
         """
         :returns:
-        :rtype: RecordingInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def channels(self):
+    def channels(self) -> int:
         """
         :returns: The number of channels in the final recording file. Can be: `1` or `2`. You can split a call with two legs into two separate recording channels if you record using [TwiML Dial](https://www.twilio.com/docs/voice/twiml/dial#record) or the [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls#manage-your-outbound-call).
-        :rtype: int
         """
         return self._properties["channels"]
 
     @property
-    def source(self):
+    def source(self) -> "RecordingInstance.Source":
         """
         :returns:
-        :rtype: RecordingInstance.Source
         """
         return self._properties["source"]
 
     @property
-    def error_code(self):
+    def error_code(self) -> int:
         """
         :returns: The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
-        :rtype: int
         """
         return self._properties["error_code"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
     @property
-    def encryption_details(self):
+    def encryption_details(self) -> dict:
         """
         :returns: How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
-        :rtype: dict
         """
         return self._properties["encryption_details"]
 
     @property
-    def subresource_uris(self):
+    def subresource_uris(self) -> dict:
         """
         :returns: A list of related resources identified by their relative URIs.
-        :rtype: dict
         """
         return self._properties["subresource_uris"]
 
     @property
-    def media_url(self):
+    def media_url(self) -> str:
         """
         :returns: The URL of the media file associated with this recording resource. When stored externally, this is the full URL location of the media file.
-        :rtype: str
         """
         return self._properties["media_url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the RecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self, include_soft_deleted=values.unset):
+    def fetch(self, include_soft_deleted=values.unset) -> "RecordingInstance":
         """
         Fetch the RecordingInstance
 
         :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         return self._proxy.fetch(
             include_soft_deleted=include_soft_deleted,
         )
 
-    async def fetch_async(self, include_soft_deleted=values.unset):
+    async def fetch_async(
+        self, include_soft_deleted=values.unset
+    ) -> "RecordingInstance":
         """
         Asynchronous coroutine to fetch the RecordingInstance
 
         :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         return await self._proxy.fetch_async(
             include_soft_deleted=include_soft_deleted,
         )
 
     @property
-    def add_on_results(self):
+    def add_on_results(self) -> AddOnResultList:
         """
         Access the add_on_results
-
-        :returns: twilio.rest.api.v2010.account.recording.AddOnResultList
-        :rtype: twilio.rest.api.v2010.account.recording.AddOnResultList
         """
         return self._proxy.add_on_results
 
     @property
-    def transcriptions(self):
+    def transcriptions(self) -> TranscriptionList:
         """
         Access the transcriptions
-
-        :returns: twilio.rest.api.v2010.account.recording.TranscriptionList
-        :rtype: twilio.rest.api.v2010.account.recording.TranscriptionList
         """
         return self._proxy.transcriptions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.RecordingInstance {}>".format(context)
@@ -331,12 +300,9 @@ class RecordingContext(InstanceContext):
         """
         Initialize the RecordingContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
         :param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         super().__init__(version)
 
@@ -352,40 +318,37 @@ class RecordingContext(InstanceContext):
         self._add_on_results: Optional[AddOnResultList] = None
         self._transcriptions: Optional[TranscriptionList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the RecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self, include_soft_deleted=values.unset):
+    def fetch(self, include_soft_deleted=values.unset) -> RecordingInstance:
         """
         Fetch the RecordingInstance
 
         :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
 
         data = values.of(
@@ -403,14 +366,13 @@ class RecordingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self, include_soft_deleted=values.unset):
+    async def fetch_async(self, include_soft_deleted=values.unset) -> RecordingInstance:
         """
         Asynchronous coroutine to fetch the RecordingInstance
 
         :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
 
         data = values.of(
@@ -431,12 +393,9 @@ class RecordingContext(InstanceContext):
         )
 
     @property
-    def add_on_results(self):
+    def add_on_results(self) -> AddOnResultList:
         """
         Access the add_on_results
-
-        :returns: twilio.rest.api.v2010.account.recording.AddOnResultList
-        :rtype: twilio.rest.api.v2010.account.recording.AddOnResultList
         """
         if self._add_on_results is None:
             self._add_on_results = AddOnResultList(
@@ -447,12 +406,9 @@ class RecordingContext(InstanceContext):
         return self._add_on_results
 
     @property
-    def transcriptions(self):
+    def transcriptions(self) -> TranscriptionList:
         """
         Access the transcriptions
-
-        :returns: twilio.rest.api.v2010.account.recording.TranscriptionList
-        :rtype: twilio.rest.api.v2010.account.recording.TranscriptionList
         """
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
@@ -462,26 +418,22 @@ class RecordingContext(InstanceContext):
             )
         return self._transcriptions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.RecordingContext {}>".format(context)
 
 
 class RecordingPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> RecordingInstance:
         """
         Build an instance of RecordingInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         return RecordingInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -501,11 +453,9 @@ class RecordingList(ListResource):
         """
         Initialize the RecordingList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
 
-        :returns: twilio.rest.api.v2010.account.recording.RecordingList
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingList
         """
         super().__init__(version)
 
@@ -525,7 +475,7 @@ class RecordingList(ListResource):
         include_soft_deleted=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RecordingInstance]:
         """
         Streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -546,7 +496,6 @@ class RecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.RecordingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -571,7 +520,7 @@ class RecordingList(ListResource):
         include_soft_deleted=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RecordingInstance]:
         """
         Asynchronously streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -592,7 +541,6 @@ class RecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.RecordingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -617,7 +565,7 @@ class RecordingList(ListResource):
         include_soft_deleted=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RecordingInstance]:
         """
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -637,7 +585,6 @@ class RecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.RecordingInstance]
         """
         return list(
             self.stream(
@@ -662,7 +609,7 @@ class RecordingList(ListResource):
         include_soft_deleted=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RecordingInstance]:
         """
         Asynchronously lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -682,7 +629,6 @@ class RecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.RecordingInstance]
         """
         return list(
             await self.stream_async(
@@ -708,7 +654,7 @@ class RecordingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> RecordingPage:
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
@@ -724,7 +670,6 @@ class RecordingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
         data = values.of(
             {
@@ -754,7 +699,7 @@ class RecordingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> RecordingPage:
         """
         Asynchronously retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
@@ -770,7 +715,6 @@ class RecordingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
         data = values.of(
             {
@@ -791,7 +735,7 @@ class RecordingList(ListResource):
         )
         return RecordingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> RecordingPage:
         """
         Retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
@@ -799,12 +743,11 @@ class RecordingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RecordingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> RecordingPage:
         """
         Asynchronously retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
@@ -812,42 +755,34 @@ class RecordingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RecordingPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> RecordingContext:
         """
         Constructs a RecordingContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         return RecordingContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> RecordingContext:
         """
         Constructs a RecordingContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         return RecordingContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.RecordingList>"

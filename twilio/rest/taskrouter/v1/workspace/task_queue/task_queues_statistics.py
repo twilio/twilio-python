@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +26,6 @@ class TaskQueuesStatisticsInstance(InstanceResource):
     def __init__(self, version, payload, workspace_sid: str):
         """
         Initialize the TaskQueuesStatisticsInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
         """
         super().__init__(version)
 
@@ -44,65 +42,56 @@ class TaskQueuesStatisticsInstance(InstanceResource):
         }
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def cumulative(self):
+    def cumulative(self) -> dict:
         """
         :returns: An object that contains the cumulative statistics for the TaskQueues.
-        :rtype: dict
         """
         return self._properties["cumulative"]
 
     @property
-    def realtime(self):
+    def realtime(self) -> dict:
         """
         :returns: An object that contains the real-time statistics for the TaskQueues.
-        :rtype: dict
         """
         return self._properties["realtime"]
 
     @property
-    def task_queue_sid(self):
+    def task_queue_sid(self) -> str:
         """
         :returns: The SID of the TaskQueue from which these statistics were calculated.
-        :rtype: str
         """
         return self._properties["task_queue_sid"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace that contains the TaskQueues.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {}>".format(context)
 
 
 class TaskQueuesStatisticsPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> TaskQueuesStatisticsInstance:
         """
         Build an instance of TaskQueuesStatisticsInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
         """
         return TaskQueuesStatisticsInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -122,11 +111,9 @@ class TaskQueuesStatisticsList(ListResource):
         """
         Initialize the TaskQueuesStatisticsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the TaskQueues to read.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
         """
         super().__init__(version)
 
@@ -148,7 +135,7 @@ class TaskQueuesStatisticsList(ListResource):
         split_by_wait_time=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TaskQueuesStatisticsInstance]:
         """
         Streams TaskQueuesStatisticsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -169,7 +156,6 @@ class TaskQueuesStatisticsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -194,7 +180,7 @@ class TaskQueuesStatisticsList(ListResource):
         split_by_wait_time=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TaskQueuesStatisticsInstance]:
         """
         Asynchronously streams TaskQueuesStatisticsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -215,7 +201,6 @@ class TaskQueuesStatisticsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -240,7 +225,7 @@ class TaskQueuesStatisticsList(ListResource):
         split_by_wait_time=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TaskQueuesStatisticsInstance]:
         """
         Lists TaskQueuesStatisticsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -260,7 +245,6 @@ class TaskQueuesStatisticsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance]
         """
         return list(
             self.stream(
@@ -285,7 +269,7 @@ class TaskQueuesStatisticsList(ListResource):
         split_by_wait_time=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TaskQueuesStatisticsInstance]:
         """
         Asynchronously lists TaskQueuesStatisticsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -305,7 +289,6 @@ class TaskQueuesStatisticsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance]
         """
         return list(
             await self.stream_async(
@@ -331,7 +314,7 @@ class TaskQueuesStatisticsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TaskQueuesStatisticsPage:
         """
         Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
@@ -347,7 +330,6 @@ class TaskQueuesStatisticsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskQueuesStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage
         """
         data = values.of(
             {
@@ -377,7 +359,7 @@ class TaskQueuesStatisticsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TaskQueuesStatisticsPage:
         """
         Asynchronously retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
@@ -393,7 +375,6 @@ class TaskQueuesStatisticsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskQueuesStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage
         """
         data = values.of(
             {
@@ -414,7 +395,7 @@ class TaskQueuesStatisticsList(ListResource):
         )
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> TaskQueuesStatisticsPage:
         """
         Retrieve a specific page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
@@ -422,12 +403,11 @@ class TaskQueuesStatisticsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskQueuesStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> TaskQueuesStatisticsPage:
         """
         Asynchronously retrieve a specific page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
@@ -435,16 +415,14 @@ class TaskQueuesStatisticsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskQueuesStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsList>"

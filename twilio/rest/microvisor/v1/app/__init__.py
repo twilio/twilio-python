@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,9 +28,6 @@ class AppInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the AppInstance
-
-        :returns: twilio.rest.microvisor.v1.app.AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
         super().__init__(version)
 
@@ -50,13 +48,12 @@ class AppInstance(InstanceResource):
         self._context: Optional[AppContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AppContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AppContext for this AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppContext
         """
         if self._context is None:
             self._context = AppContext(
@@ -66,125 +63,109 @@ class AppInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34-character string that uniquely identifies this App.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def hash(self):
+    def hash(self) -> str:
         """
         :returns: App manifest hash represented as `hash_algorithm:hash_value`.
-        :rtype: str
         """
         return self._properties["hash"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: A developer-defined string that uniquely identifies the App. This value must be unique for all Apps on this Account. The `unique_name` value may be used as an alternative to the `sid` in the URL path to address the resource.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this App was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this App was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of this resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AppInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AppInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "AppInstance":
         """
         Fetch the AppInstance
 
 
         :returns: The fetched AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AppInstance":
         """
         Asynchronous coroutine to fetch the AppInstance
 
 
         :returns: The fetched AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def app_manifests(self):
+    def app_manifests(self) -> AppManifestList:
         """
         Access the app_manifests
-
-        :returns: twilio.rest.microvisor.v1.app.AppManifestList
-        :rtype: twilio.rest.microvisor.v1.app.AppManifestList
         """
         return self._proxy.app_manifests
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.AppInstance {}>".format(context)
@@ -195,11 +176,8 @@ class AppContext(InstanceContext):
         """
         Initialize the AppContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: A 34-character string that uniquely identifies this App.
-
-        :returns: twilio.rest.microvisor.v1.app.AppContext
-        :rtype: twilio.rest.microvisor.v1.app.AppContext
         """
         super().__init__(version)
 
@@ -211,39 +189,36 @@ class AppContext(InstanceContext):
 
         self._app_manifests: Optional[AppManifestList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AppInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AppInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> AppInstance:
         """
         Fetch the AppInstance
 
 
         :returns: The fetched AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
 
         payload = self._version.fetch(
@@ -257,13 +232,12 @@ class AppContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AppInstance:
         """
         Asynchronous coroutine to fetch the AppInstance
 
 
         :returns: The fetched AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
 
         payload = await self._version.fetch_async(
@@ -278,12 +252,9 @@ class AppContext(InstanceContext):
         )
 
     @property
-    def app_manifests(self):
+    def app_manifests(self) -> AppManifestList:
         """
         Access the app_manifests
-
-        :returns: twilio.rest.microvisor.v1.app.AppManifestList
-        :rtype: twilio.rest.microvisor.v1.app.AppManifestList
         """
         if self._app_manifests is None:
             self._app_manifests = AppManifestList(
@@ -292,26 +263,22 @@ class AppContext(InstanceContext):
             )
         return self._app_manifests
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.AppContext {}>".format(context)
 
 
 class AppPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AppInstance:
         """
         Build an instance of AppInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.app.AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
         return AppInstance(self._version, payload)
 
@@ -329,16 +296,14 @@ class AppList(ListResource):
         """
         Initialize the AppList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.microvisor.v1.app.AppList
-        :rtype: twilio.rest.microvisor.v1.app.AppList
         """
         super().__init__(version)
 
         self._uri = "/Apps"
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[AppInstance]:
         """
         Streams AppInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -353,14 +318,13 @@ class AppList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.app.AppInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[AppInstance]:
         """
         Asynchronously streams AppInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -375,14 +339,13 @@ class AppList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.app.AppInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[AppInstance]:
         """
         Lists AppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -396,7 +359,6 @@ class AppList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.app.AppInstance]
         """
         return list(
             self.stream(
@@ -405,7 +367,7 @@ class AppList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[AppInstance]:
         """
         Asynchronously lists AppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -419,7 +381,6 @@ class AppList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.app.AppInstance]
         """
         return list(
             await self.stream_async(
@@ -430,7 +391,7 @@ class AppList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AppPage:
         """
         Retrieve a single page of AppInstance records from the API.
         Request is executed immediately
@@ -440,7 +401,6 @@ class AppList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppPage
         """
         data = values.of(
             {
@@ -455,7 +415,7 @@ class AppList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AppPage:
         """
         Asynchronously retrieve a single page of AppInstance records from the API.
         Request is executed immediately
@@ -465,7 +425,6 @@ class AppList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppPage
         """
         data = values.of(
             {
@@ -480,7 +439,7 @@ class AppList(ListResource):
         )
         return AppPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AppPage:
         """
         Retrieve a specific page of AppInstance records from the API.
         Request is executed immediately
@@ -488,12 +447,11 @@ class AppList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AppPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AppPage:
         """
         Asynchronously retrieve a specific page of AppInstance records from the API.
         Request is executed immediately
@@ -501,38 +459,30 @@ class AppList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AppPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> AppContext:
         """
         Constructs a AppContext
 
         :param sid: A 34-character string that uniquely identifies this App.
-
-        :returns: twilio.rest.microvisor.v1.app.AppContext
-        :rtype: twilio.rest.microvisor.v1.app.AppContext
         """
         return AppContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> AppContext:
         """
         Constructs a AppContext
 
         :param sid: A 34-character string that uniquely identifies this App.
-
-        :returns: twilio.rest.microvisor.v1.app.AppContext
-        :rtype: twilio.rest.microvisor.v1.app.AppContext
         """
         return AppContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Microvisor.V1.AppList>"

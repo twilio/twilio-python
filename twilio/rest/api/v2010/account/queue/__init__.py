@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,9 +28,6 @@ class QueueInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the QueueInstance
-
-        :returns: twilio.rest.api.v2010.account.queue.QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         super().__init__(version)
 
@@ -52,13 +50,12 @@ class QueueInstance(InstanceResource):
         self._context: Optional[QueueContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "QueueContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: QueueContext for this QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
         """
         if self._context is None:
             self._context = QueueContext(
@@ -69,118 +66,107 @@ class QueueInstance(InstanceResource):
         return self._context
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def current_size(self):
+    def current_size(self) -> int:
         """
         :returns: The number of calls currently in the queue.
-        :rtype: int
         """
         return self._properties["current_size"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A string that you assigned to describe this resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of this resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Queue resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def average_wait_time(self):
+    def average_wait_time(self) -> int:
         """
         :returns:  The average wait time in seconds of the members in this queue. This is calculated at the time of the request.
-        :rtype: int
         """
         return self._properties["average_wait_time"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify this Queue resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def max_size(self):
+    def max_size(self) -> int:
         """
         :returns:  The maximum number of calls that can be in the queue. The default is 1000 and the maximum is 5000.
-        :rtype: int
         """
         return self._properties["max_size"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the QueueInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the QueueInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "QueueInstance":
         """
         Fetch the QueueInstance
 
 
         :returns: The fetched QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "QueueInstance":
         """
         Asynchronous coroutine to fetch the QueueInstance
 
 
         :returns: The fetched QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name=values.unset, max_size=values.unset):
+    def update(
+        self, friendly_name=values.unset, max_size=values.unset
+    ) -> "QueueInstance":
         """
         Update the QueueInstance
 
@@ -188,14 +174,15 @@ class QueueInstance(InstanceResource):
         :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
             max_size=max_size,
         )
 
-    async def update_async(self, friendly_name=values.unset, max_size=values.unset):
+    async def update_async(
+        self, friendly_name=values.unset, max_size=values.unset
+    ) -> "QueueInstance":
         """
         Asynchronous coroutine to update the QueueInstance
 
@@ -203,7 +190,6 @@ class QueueInstance(InstanceResource):
         :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -211,21 +197,17 @@ class QueueInstance(InstanceResource):
         )
 
     @property
-    def members(self):
+    def members(self) -> MemberList:
         """
         Access the members
-
-        :returns: twilio.rest.api.v2010.account.queue.MemberList
-        :rtype: twilio.rest.api.v2010.account.queue.MemberList
         """
         return self._proxy.members
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.QueueInstance {}>".format(context)
@@ -236,12 +218,9 @@ class QueueContext(InstanceContext):
         """
         Initialize the QueueContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update.
         :param sid: The Twilio-provided string that uniquely identifies the Queue resource to update
-
-        :returns: twilio.rest.api.v2010.account.queue.QueueContext
-        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
         """
         super().__init__(version)
 
@@ -254,39 +233,36 @@ class QueueContext(InstanceContext):
 
         self._members: Optional[MemberList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the QueueInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the QueueInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> QueueInstance:
         """
         Fetch the QueueInstance
 
 
         :returns: The fetched QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
 
         payload = self._version.fetch(
@@ -301,13 +277,12 @@ class QueueContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> QueueInstance:
         """
         Asynchronous coroutine to fetch the QueueInstance
 
 
         :returns: The fetched QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
 
         payload = await self._version.fetch_async(
@@ -322,7 +297,9 @@ class QueueContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name=values.unset, max_size=values.unset):
+    def update(
+        self, friendly_name=values.unset, max_size=values.unset
+    ) -> QueueInstance:
         """
         Update the QueueInstance
 
@@ -330,7 +307,6 @@ class QueueContext(InstanceContext):
         :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         data = values.of(
             {
@@ -352,7 +328,9 @@ class QueueContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name=values.unset, max_size=values.unset):
+    async def update_async(
+        self, friendly_name=values.unset, max_size=values.unset
+    ) -> QueueInstance:
         """
         Asynchronous coroutine to update the QueueInstance
 
@@ -360,7 +338,6 @@ class QueueContext(InstanceContext):
         :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         data = values.of(
             {
@@ -383,12 +360,9 @@ class QueueContext(InstanceContext):
         )
 
     @property
-    def members(self):
+    def members(self) -> MemberList:
         """
         Access the members
-
-        :returns: twilio.rest.api.v2010.account.queue.MemberList
-        :rtype: twilio.rest.api.v2010.account.queue.MemberList
         """
         if self._members is None:
             self._members = MemberList(
@@ -398,26 +372,22 @@ class QueueContext(InstanceContext):
             )
         return self._members
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.QueueContext {}>".format(context)
 
 
 class QueuePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> QueueInstance:
         """
         Build an instance of QueueInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.queue.QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         return QueueInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -437,11 +407,9 @@ class QueueList(ListResource):
         """
         Initialize the QueueList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resources to read.
 
-        :returns: twilio.rest.api.v2010.account.queue.QueueList
-        :rtype: twilio.rest.api.v2010.account.queue.QueueList
         """
         super().__init__(version)
 
@@ -451,7 +419,7 @@ class QueueList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Queues.json".format(**self._solution)
 
-    def create(self, friendly_name, max_size=values.unset):
+    def create(self, friendly_name, max_size=values.unset) -> QueueInstance:
         """
         Create the QueueInstance
 
@@ -459,7 +427,6 @@ class QueueList(ListResource):
         :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The created QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         data = values.of(
             {
@@ -478,7 +445,7 @@ class QueueList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    async def create_async(self, friendly_name, max_size=values.unset):
+    async def create_async(self, friendly_name, max_size=values.unset) -> QueueInstance:
         """
         Asynchronously create the QueueInstance
 
@@ -486,7 +453,6 @@ class QueueList(ListResource):
         :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The created QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         data = values.of(
             {
@@ -505,7 +471,7 @@ class QueueList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[QueueInstance]:
         """
         Streams QueueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -520,14 +486,13 @@ class QueueList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.queue.QueueInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[QueueInstance]:
         """
         Asynchronously streams QueueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -542,14 +507,13 @@ class QueueList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.queue.QueueInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[QueueInstance]:
         """
         Lists QueueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -563,7 +527,6 @@ class QueueList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.queue.QueueInstance]
         """
         return list(
             self.stream(
@@ -572,7 +535,7 @@ class QueueList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[QueueInstance]:
         """
         Asynchronously lists QueueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -586,7 +549,6 @@ class QueueList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.queue.QueueInstance]
         """
         return list(
             await self.stream_async(
@@ -597,7 +559,7 @@ class QueueList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> QueuePage:
         """
         Retrieve a single page of QueueInstance records from the API.
         Request is executed immediately
@@ -607,7 +569,6 @@ class QueueList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueuePage
         """
         data = values.of(
             {
@@ -622,7 +583,7 @@ class QueueList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> QueuePage:
         """
         Asynchronously retrieve a single page of QueueInstance records from the API.
         Request is executed immediately
@@ -632,7 +593,6 @@ class QueueList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueuePage
         """
         data = values.of(
             {
@@ -647,7 +607,7 @@ class QueueList(ListResource):
         )
         return QueuePage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> QueuePage:
         """
         Retrieve a specific page of QueueInstance records from the API.
         Request is executed immediately
@@ -655,12 +615,11 @@ class QueueList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueuePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return QueuePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> QueuePage:
         """
         Asynchronously retrieve a specific page of QueueInstance records from the API.
         Request is executed immediately
@@ -668,42 +627,34 @@ class QueueList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueuePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return QueuePage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> QueueContext:
         """
         Constructs a QueueContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Queue resource to update
-
-        :returns: twilio.rest.api.v2010.account.queue.QueueContext
-        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
         """
         return QueueContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> QueueContext:
         """
         Constructs a QueueContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Queue resource to update
-
-        :returns: twilio.rest.api.v2010.account.queue.QueueContext
-        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
         """
         return QueueContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.QueueList>"

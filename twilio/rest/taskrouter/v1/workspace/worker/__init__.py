@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -40,9 +41,6 @@ class WorkerInstance(InstanceResource):
     def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
         """
         Initialize the WorkerInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         super().__init__(version)
 
@@ -71,13 +69,12 @@ class WorkerInstance(InstanceResource):
         self._context: Optional[WorkerContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "WorkerContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: WorkerContext for this WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         """
         if self._context is None:
             self._context = WorkerContext(
@@ -88,152 +85,135 @@ class WorkerInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def activity_name(self):
+    def activity_name(self) -> str:
         """
         :returns: The `friendly_name` of the Worker's current Activity.
-        :rtype: str
         """
         return self._properties["activity_name"]
 
     @property
-    def activity_sid(self):
+    def activity_sid(self) -> str:
         """
         :returns: The SID of the Worker's current Activity.
-        :rtype: str
         """
         return self._properties["activity_sid"]
 
     @property
-    def attributes(self):
+    def attributes(self) -> str:
         """
         :returns: The JSON string that describes the Worker. For example: `{ \"email\": \"Bob@example.com\", \"phone\": \"+5095551234\" }`. **Note** If this property has been assigned a value, it will only be displayed in FETCH actions that return a single resource. Otherwise, this property will be null, even if it has a value. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker.
-        :rtype: str
         """
         return self._properties["attributes"]
 
     @property
-    def available(self):
+    def available(self) -> bool:
         """
         :returns: Whether the Worker is available to perform tasks.
-        :rtype: bool
         """
         return self._properties["available"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_status_changed(self):
+    def date_status_changed(self) -> datetime:
         """
         :returns: The date and time in GMT of the last change to the Worker's activity specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Used to calculate Workflow statistics.
-        :rtype: datetime
         """
         return self._properties["date_status_changed"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource. Friendly names are case insensitive, and unique within the TaskRouter Workspace.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Worker resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace that contains the Worker.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Worker resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self, if_match=values.unset):
+    def delete(self, if_match=values.unset) -> bool:
         """
         Deletes the WorkerInstance
 
         :param str if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete(
             if_match=if_match,
         )
 
-    async def delete_async(self, if_match=values.unset):
+    async def delete_async(self, if_match=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the WorkerInstance
 
         :param str if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async(
             if_match=if_match,
         )
 
-    def fetch(self):
+    def fetch(self) -> "WorkerInstance":
         """
         Fetch the WorkerInstance
 
 
         :returns: The fetched WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "WorkerInstance":
         """
         Asynchronous coroutine to fetch the WorkerInstance
 
 
         :returns: The fetched WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         return await self._proxy.fetch_async()
 
@@ -244,7 +224,7 @@ class WorkerInstance(InstanceResource):
         attributes=values.unset,
         friendly_name=values.unset,
         reject_pending_reservations=values.unset,
-    ):
+    ) -> "WorkerInstance":
         """
         Update the WorkerInstance
 
@@ -255,7 +235,6 @@ class WorkerInstance(InstanceResource):
         :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 
         :returns: The updated WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         return self._proxy.update(
             if_match=if_match,
@@ -272,7 +251,7 @@ class WorkerInstance(InstanceResource):
         attributes=values.unset,
         friendly_name=values.unset,
         reject_pending_reservations=values.unset,
-    ):
+    ) -> "WorkerInstance":
         """
         Asynchronous coroutine to update the WorkerInstance
 
@@ -283,7 +262,6 @@ class WorkerInstance(InstanceResource):
         :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 
         :returns: The updated WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         return await self._proxy.update_async(
             if_match=if_match,
@@ -294,41 +272,31 @@ class WorkerInstance(InstanceResource):
         )
 
     @property
-    def reservations(self):
+    def reservations(self) -> ReservationList:
         """
         Access the reservations
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
         """
         return self._proxy.reservations
 
     @property
-    def worker_channels(self):
+    def worker_channels(self) -> WorkerChannelList:
         """
         Access the worker_channels
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
         """
         return self._proxy.worker_channels
 
     @property
-    def statistics(self):
+    def statistics(self) -> WorkerStatisticsList:
         """
         Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
         """
         return self._proxy.statistics
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkerInstance {}>".format(context)
@@ -339,12 +307,9 @@ class WorkerContext(InstanceContext):
         """
         Initialize the WorkerContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Worker to update.
         :param sid: The SID of the Worker resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         """
         super().__init__(version)
 
@@ -359,14 +324,13 @@ class WorkerContext(InstanceContext):
         self._worker_channels: Optional[WorkerChannelList] = None
         self._statistics: Optional[WorkerStatisticsList] = None
 
-    def delete(self, if_match=values.unset):
+    def delete(self, if_match=values.unset) -> bool:
         """
         Deletes the WorkerInstance
 
         :param str if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -376,14 +340,13 @@ class WorkerContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, if_match=values.unset):
+    async def delete_async(self, if_match=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the WorkerInstance
 
         :param str if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -395,13 +358,12 @@ class WorkerContext(InstanceContext):
             method="DELETE", uri=self._uri, headers=headers
         )
 
-    def fetch(self):
+    def fetch(self) -> WorkerInstance:
         """
         Fetch the WorkerInstance
 
 
         :returns: The fetched WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
 
         payload = self._version.fetch(
@@ -416,13 +378,12 @@ class WorkerContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> WorkerInstance:
         """
         Asynchronous coroutine to fetch the WorkerInstance
 
 
         :returns: The fetched WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
 
         payload = await self._version.fetch_async(
@@ -444,7 +405,7 @@ class WorkerContext(InstanceContext):
         attributes=values.unset,
         friendly_name=values.unset,
         reject_pending_reservations=values.unset,
-    ):
+    ) -> WorkerInstance:
         """
         Update the WorkerInstance
 
@@ -455,7 +416,6 @@ class WorkerContext(InstanceContext):
         :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 
         :returns: The updated WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         data = values.of(
             {
@@ -489,7 +449,7 @@ class WorkerContext(InstanceContext):
         attributes=values.unset,
         friendly_name=values.unset,
         reject_pending_reservations=values.unset,
-    ):
+    ) -> WorkerInstance:
         """
         Asynchronous coroutine to update the WorkerInstance
 
@@ -500,7 +460,6 @@ class WorkerContext(InstanceContext):
         :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 
         :returns: The updated WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         data = values.of(
             {
@@ -528,12 +487,9 @@ class WorkerContext(InstanceContext):
         )
 
     @property
-    def reservations(self):
+    def reservations(self) -> ReservationList:
         """
         Access the reservations
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
         """
         if self._reservations is None:
             self._reservations = ReservationList(
@@ -544,12 +500,9 @@ class WorkerContext(InstanceContext):
         return self._reservations
 
     @property
-    def worker_channels(self):
+    def worker_channels(self) -> WorkerChannelList:
         """
         Access the worker_channels
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
         """
         if self._worker_channels is None:
             self._worker_channels = WorkerChannelList(
@@ -560,12 +513,9 @@ class WorkerContext(InstanceContext):
         return self._worker_channels
 
     @property
-    def statistics(self):
+    def statistics(self) -> WorkerStatisticsList:
         """
         Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
         """
         if self._statistics is None:
             self._statistics = WorkerStatisticsList(
@@ -575,26 +525,22 @@ class WorkerContext(InstanceContext):
             )
         return self._statistics
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkerContext {}>".format(context)
 
 
 class WorkerPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> WorkerInstance:
         """
         Build an instance of WorkerInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         return WorkerInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -614,11 +560,9 @@ class WorkerList(ListResource):
         """
         Initialize the WorkerList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Workers to read.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
         """
         super().__init__(version)
 
@@ -632,7 +576,9 @@ class WorkerList(ListResource):
         self._real_time_statistics: Optional[WorkersRealTimeStatisticsList] = None
         self._statistics: Optional[WorkersStatisticsList] = None
 
-    def create(self, friendly_name, activity_sid=values.unset, attributes=values.unset):
+    def create(
+        self, friendly_name, activity_sid=values.unset, attributes=values.unset
+    ) -> WorkerInstance:
         """
         Create the WorkerInstance
 
@@ -641,7 +587,6 @@ class WorkerList(ListResource):
         :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
 
         :returns: The created WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         data = values.of(
             {
@@ -663,7 +608,7 @@ class WorkerList(ListResource):
 
     async def create_async(
         self, friendly_name, activity_sid=values.unset, attributes=values.unset
-    ):
+    ) -> WorkerInstance:
         """
         Asynchronously create the WorkerInstance
 
@@ -672,7 +617,6 @@ class WorkerList(ListResource):
         :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
 
         :returns: The created WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         data = values.of(
             {
@@ -704,7 +648,7 @@ class WorkerList(ListResource):
         ordering=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[WorkerInstance]:
         """
         Streams WorkerInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -727,7 +671,6 @@ class WorkerList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -756,7 +699,7 @@ class WorkerList(ListResource):
         ordering=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[WorkerInstance]:
         """
         Asynchronously streams WorkerInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -779,7 +722,6 @@ class WorkerList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -808,7 +750,7 @@ class WorkerList(ListResource):
         ordering=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[WorkerInstance]:
         """
         Lists WorkerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -830,7 +772,6 @@ class WorkerList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
         """
         return list(
             self.stream(
@@ -859,7 +800,7 @@ class WorkerList(ListResource):
         ordering=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[WorkerInstance]:
         """
         Asynchronously lists WorkerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -881,7 +822,6 @@ class WorkerList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
         """
         return list(
             await self.stream_async(
@@ -911,7 +851,7 @@ class WorkerList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> WorkerPage:
         """
         Retrieve a single page of WorkerInstance records from the API.
         Request is executed immediately
@@ -929,7 +869,6 @@ class WorkerList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         """
         data = values.of(
             {
@@ -963,7 +902,7 @@ class WorkerList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> WorkerPage:
         """
         Asynchronously retrieve a single page of WorkerInstance records from the API.
         Request is executed immediately
@@ -981,7 +920,6 @@ class WorkerList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         """
         data = values.of(
             {
@@ -1004,7 +942,7 @@ class WorkerList(ListResource):
         )
         return WorkerPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> WorkerPage:
         """
         Retrieve a specific page of WorkerInstance records from the API.
         Request is executed immediately
@@ -1012,12 +950,11 @@ class WorkerList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return WorkerPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> WorkerPage:
         """
         Asynchronously retrieve a specific page of WorkerInstance records from the API.
         Request is executed immediately
@@ -1025,18 +962,14 @@ class WorkerList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return WorkerPage(self._version, response, self._solution)
 
     @property
-    def cumulative_statistics(self):
+    def cumulative_statistics(self) -> WorkersCumulativeStatisticsList:
         """
         Access the cumulative_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
         """
         if self._cumulative_statistics is None:
             self._cumulative_statistics = WorkersCumulativeStatisticsList(
@@ -1045,12 +978,9 @@ class WorkerList(ListResource):
         return self._cumulative_statistics
 
     @property
-    def real_time_statistics(self):
+    def real_time_statistics(self) -> WorkersRealTimeStatisticsList:
         """
         Access the real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
         """
         if self._real_time_statistics is None:
             self._real_time_statistics = WorkersRealTimeStatisticsList(
@@ -1059,12 +989,9 @@ class WorkerList(ListResource):
         return self._real_time_statistics
 
     @property
-    def statistics(self):
+    def statistics(self) -> WorkersStatisticsList:
         """
         Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
         """
         if self._statistics is None:
             self._statistics = WorkersStatisticsList(
@@ -1072,37 +999,30 @@ class WorkerList(ListResource):
             )
         return self._statistics
 
-    def get(self, sid):
+    def get(self, sid) -> WorkerContext:
         """
         Constructs a WorkerContext
 
         :param sid: The SID of the Worker resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         """
         return WorkerContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> WorkerContext:
         """
         Constructs a WorkerContext
 
         :param sid: The SID of the Worker resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         """
         return WorkerContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.WorkerList>"

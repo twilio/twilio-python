@@ -13,6 +13,8 @@ r"""
 """
 
 
+from typing import List
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -22,9 +24,6 @@ class UsecaseInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the UsecaseInstance
-
-        :returns: twilio.rest.messaging.v1.usecase.UsecaseInstance
-        :rtype: twilio.rest.messaging.v1.usecase.UsecaseInstance
         """
         super().__init__(version)
 
@@ -35,19 +34,17 @@ class UsecaseInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def usecases(self):
+    def usecases(self) -> List[object]:
         """
         :returns: Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
-        :rtype: List[object]
         """
         return self._properties["usecases"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.UsecaseInstance {}>".format(context)
@@ -58,42 +55,37 @@ class UsecaseList(ListResource):
         """
         Initialize the UsecaseList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.messaging.v1.usecase.UsecaseList
-        :rtype: twilio.rest.messaging.v1.usecase.UsecaseList
         """
         super().__init__(version)
 
         self._uri = "/Services/Usecases"
 
-    def fetch(self):
+    def fetch(self) -> UsecaseInstance:
         """
         Asynchronously fetch the UsecaseInstance
 
         :returns: The fetched UsecaseInstance
-        :rtype: twilio.rest.messaging.v1.usecase.UsecaseInstance
         """
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return UsecaseInstance(self._version, payload)
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> UsecaseInstance:
         """
         Asynchronously fetch the UsecaseInstance
 
         :returns: The fetched UsecaseInstance
-        :rtype: twilio.rest.messaging.v1.usecase.UsecaseInstance
         """
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return UsecaseInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.UsecaseList>"

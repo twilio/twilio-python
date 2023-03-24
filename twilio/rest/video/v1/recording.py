@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -47,9 +48,6 @@ class RecordingInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the RecordingInstance
-
-        :returns: twilio.rest.video.v1.recording.RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
         """
         super().__init__(version)
 
@@ -80,13 +78,12 @@ class RecordingInstance(InstanceResource):
         self._context: Optional[RecordingContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "RecordingContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: RecordingContext for this RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
         """
         if self._context is None:
             self._context = RecordingContext(
@@ -96,195 +93,172 @@ class RecordingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "RecordingInstance.Status":
         """
         :returns:
-        :rtype: RecordingInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Recording resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def source_sid(self):
+    def source_sid(self) -> str:
         """
         :returns: The SID of the recording source. For a Room Recording, this value is a `track_sid`.
-        :rtype: str
         """
         return self._properties["source_sid"]
 
     @property
-    def size(self):
+    def size(self) -> int:
         """
         :returns: The size of the recorded track, in bytes.
-        :rtype: int
         """
         return self._properties["size"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def type(self):
+    def type(self) -> "RecordingInstance.Type":
         """
         :returns:
-        :rtype: RecordingInstance.Type
         """
         return self._properties["type"]
 
     @property
-    def duration(self):
+    def duration(self) -> int:
         """
         :returns: The duration of the recording in seconds rounded to the nearest second. Sub-second tracks have a `Duration` property of 1 second
-        :rtype: int
         """
         return self._properties["duration"]
 
     @property
-    def container_format(self):
+    def container_format(self) -> "RecordingInstance.Format":
         """
         :returns:
-        :rtype: RecordingInstance.Format
         """
         return self._properties["container_format"]
 
     @property
-    def codec(self):
+    def codec(self) -> "RecordingInstance.Codec":
         """
         :returns:
-        :rtype: RecordingInstance.Codec
         """
         return self._properties["codec"]
 
     @property
-    def grouping_sids(self):
+    def grouping_sids(self) -> dict:
         """
         :returns: A list of SIDs related to the recording. Includes the `room_sid` and `participant_sid`.
-        :rtype: dict
         """
         return self._properties["grouping_sids"]
 
     @property
-    def track_name(self):
+    def track_name(self) -> str:
         """
         :returns: The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
-        :rtype: str
         """
         return self._properties["track_name"]
 
     @property
-    def offset(self):
+    def offset(self) -> int:
         """
         :returns: The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room.
-        :rtype: int
         """
         return self._properties["offset"]
 
     @property
-    def media_external_location(self):
+    def media_external_location(self) -> str:
         """
         :returns: The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
-        :rtype: str
         """
         return self._properties["media_external_location"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL called using the `status_callback_method` to send status information on every recording event.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def status_callback_method(self):
+    def status_callback_method(self) -> str:
         """
         :returns: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
-        :rtype: str
         """
         return self._properties["status_callback_method"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the RecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "RecordingInstance":
         """
         Fetch the RecordingInstance
 
 
         :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "RecordingInstance":
         """
         Asynchronous coroutine to fetch the RecordingInstance
 
 
         :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.RecordingInstance {}>".format(context)
@@ -295,11 +269,8 @@ class RecordingContext(InstanceContext):
         """
         Initialize the RecordingContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Recording resource to fetch.
-
-        :returns: twilio.rest.video.v1.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
         """
         super().__init__(version)
 
@@ -309,39 +280,36 @@ class RecordingContext(InstanceContext):
         }
         self._uri = "/Recordings/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the RecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RecordingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> RecordingInstance:
         """
         Fetch the RecordingInstance
 
 
         :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
         """
 
         payload = self._version.fetch(
@@ -355,13 +323,12 @@ class RecordingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> RecordingInstance:
         """
         Asynchronous coroutine to fetch the RecordingInstance
 
 
         :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
         """
 
         payload = await self._version.fetch_async(
@@ -375,26 +342,22 @@ class RecordingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.RecordingContext {}>".format(context)
 
 
 class RecordingPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> RecordingInstance:
         """
         Build an instance of RecordingInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.recording.RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
         """
         return RecordingInstance(self._version, payload)
 
@@ -412,10 +375,8 @@ class RecordingList(ListResource):
         """
         Initialize the RecordingList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.video.v1.recording.RecordingList
-        :rtype: twilio.rest.video.v1.recording.RecordingList
         """
         super().__init__(version)
 
@@ -431,19 +392,19 @@ class RecordingList(ListResource):
         media_type=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RecordingInstance]:
         """
         Streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RecordingInstance.Status status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-        :param RecordingInstance.Type media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
+        :param &quot;RecordingInstance.Type&quot; media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -452,7 +413,6 @@ class RecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.recording.RecordingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -477,19 +437,19 @@ class RecordingList(ListResource):
         media_type=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RecordingInstance]:
         """
         Asynchronously streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RecordingInstance.Status status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-        :param RecordingInstance.Type media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
+        :param &quot;RecordingInstance.Type&quot; media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -498,7 +458,6 @@ class RecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.recording.RecordingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -523,18 +482,18 @@ class RecordingList(ListResource):
         media_type=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RecordingInstance]:
         """
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RecordingInstance.Status status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-        :param RecordingInstance.Type media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
+        :param &quot;RecordingInstance.Type&quot; media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -543,7 +502,6 @@ class RecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.recording.RecordingInstance]
         """
         return list(
             self.stream(
@@ -568,18 +526,18 @@ class RecordingList(ListResource):
         media_type=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RecordingInstance]:
         """
         Asynchronously lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RecordingInstance.Status status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-        :param RecordingInstance.Type media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
+        :param &quot;RecordingInstance.Type&quot; media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -588,7 +546,6 @@ class RecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.recording.RecordingInstance]
         """
         return list(
             await self.stream_async(
@@ -614,23 +571,22 @@ class RecordingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> RecordingPage:
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param RecordingInstance.Status status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-        :param RecordingInstance.Type media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
+        :param &quot;RecordingInstance.Type&quot; media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingPage
         """
         data = values.of(
             {
@@ -660,23 +616,22 @@ class RecordingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> RecordingPage:
         """
         Asynchronously retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param RecordingInstance.Status status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+        :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-        :param RecordingInstance.Type media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
+        :param &quot;RecordingInstance.Type&quot; media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingPage
         """
         data = values.of(
             {
@@ -697,7 +652,7 @@ class RecordingList(ListResource):
         )
         return RecordingPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> RecordingPage:
         """
         Retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
@@ -705,12 +660,11 @@ class RecordingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RecordingPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> RecordingPage:
         """
         Asynchronously retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
@@ -718,38 +672,30 @@ class RecordingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RecordingPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> RecordingContext:
         """
         Constructs a RecordingContext
 
         :param sid: The SID of the Recording resource to fetch.
-
-        :returns: twilio.rest.video.v1.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
         """
         return RecordingContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> RecordingContext:
         """
         Constructs a RecordingContext
 
         :param sid: The SID of the Recording resource to fetch.
-
-        :returns: twilio.rest.video.v1.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
         """
         return RecordingContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.RecordingList>"

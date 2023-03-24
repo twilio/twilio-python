@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -44,9 +45,6 @@ class AddOnResultInstance(InstanceResource):
     ):
         """
         Initialize the AddOnResultInstance
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
         super().__init__(version)
 
@@ -73,13 +71,12 @@ class AddOnResultInstance(InstanceResource):
         self._context: Optional[AddOnResultContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AddOnResultContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AddOnResultContext for this AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         if self._context is None:
             self._context = AddOnResultContext(
@@ -91,141 +88,123 @@ class AddOnResultInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the Recording AddOnResult resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "AddOnResultInstance.Status":
         """
         :returns:
-        :rtype: AddOnResultInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def add_on_sid(self):
+    def add_on_sid(self) -> str:
         """
         :returns: The SID of the Add-on to which the result belongs.
-        :rtype: str
         """
         return self._properties["add_on_sid"]
 
     @property
-    def add_on_configuration_sid(self):
+    def add_on_configuration_sid(self) -> str:
         """
         :returns: The SID of the Add-on configuration.
-        :rtype: str
         """
         return self._properties["add_on_configuration_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def date_completed(self):
+    def date_completed(self) -> datetime:
         """
         :returns: The date and time in GMT that the result was completed specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_completed"]
 
     @property
-    def reference_sid(self):
+    def reference_sid(self) -> str:
         """
         :returns: The SID of the recording to which the AddOnResult resource belongs.
-        :rtype: str
         """
         return self._properties["reference_sid"]
 
     @property
-    def subresource_uris(self):
+    def subresource_uris(self) -> dict:
         """
         :returns: A list of related resources identified by their relative URIs.
-        :rtype: dict
         """
         return self._properties["subresource_uris"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AddOnResultInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AddOnResultInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "AddOnResultInstance":
         """
         Fetch the AddOnResultInstance
 
 
         :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AddOnResultInstance":
         """
         Asynchronous coroutine to fetch the AddOnResultInstance
 
 
         :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def payloads(self):
+    def payloads(self) -> PayloadList:
         """
         Access the payloads
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
         """
         return self._proxy.payloads
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AddOnResultInstance {}>".format(context)
@@ -238,13 +217,10 @@ class AddOnResultContext(InstanceContext):
         """
         Initialize the AddOnResultContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.
         :param reference_sid: The SID of the recording to which the result to fetch belongs.
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         super().__init__(version)
 
@@ -260,39 +236,36 @@ class AddOnResultContext(InstanceContext):
 
         self._payloads: Optional[PayloadList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AddOnResultInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AddOnResultInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> AddOnResultInstance:
         """
         Fetch the AddOnResultInstance
 
 
         :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
 
         payload = self._version.fetch(
@@ -308,13 +281,12 @@ class AddOnResultContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AddOnResultInstance:
         """
         Asynchronous coroutine to fetch the AddOnResultInstance
 
 
         :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
 
         payload = await self._version.fetch_async(
@@ -331,12 +303,9 @@ class AddOnResultContext(InstanceContext):
         )
 
     @property
-    def payloads(self):
+    def payloads(self) -> PayloadList:
         """
         Access the payloads
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
         """
         if self._payloads is None:
             self._payloads = PayloadList(
@@ -347,26 +316,22 @@ class AddOnResultContext(InstanceContext):
             )
         return self._payloads
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AddOnResultContext {}>".format(context)
 
 
 class AddOnResultPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AddOnResultInstance:
         """
         Build an instance of AddOnResultInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
         return AddOnResultInstance(
             self._version,
@@ -389,12 +354,10 @@ class AddOnResultList(ListResource):
         """
         Initialize the AddOnResultList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to read.
         :param reference_sid: The SID of the recording to which the result to read belongs.
 
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
         """
         super().__init__(version)
 
@@ -407,7 +370,7 @@ class AddOnResultList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[AddOnResultInstance]:
         """
         Streams AddOnResultInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -422,14 +385,15 @@ class AddOnResultList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[AddOnResultInstance]:
         """
         Asynchronously streams AddOnResultInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -444,14 +408,13 @@ class AddOnResultList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[AddOnResultInstance]:
         """
         Lists AddOnResultInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -465,7 +428,6 @@ class AddOnResultList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance]
         """
         return list(
             self.stream(
@@ -474,7 +436,7 @@ class AddOnResultList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[AddOnResultInstance]:
         """
         Asynchronously lists AddOnResultInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -488,7 +450,6 @@ class AddOnResultList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance]
         """
         return list(
             await self.stream_async(
@@ -499,7 +460,7 @@ class AddOnResultList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AddOnResultPage:
         """
         Retrieve a single page of AddOnResultInstance records from the API.
         Request is executed immediately
@@ -509,7 +470,6 @@ class AddOnResultList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
         """
         data = values.of(
             {
@@ -524,7 +484,7 @@ class AddOnResultList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AddOnResultPage:
         """
         Asynchronously retrieve a single page of AddOnResultInstance records from the API.
         Request is executed immediately
@@ -534,7 +494,6 @@ class AddOnResultList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
         """
         data = values.of(
             {
@@ -549,7 +508,7 @@ class AddOnResultList(ListResource):
         )
         return AddOnResultPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AddOnResultPage:
         """
         Retrieve a specific page of AddOnResultInstance records from the API.
         Request is executed immediately
@@ -557,12 +516,11 @@ class AddOnResultList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AddOnResultPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AddOnResultPage:
         """
         Asynchronously retrieve a specific page of AddOnResultInstance records from the API.
         Request is executed immediately
@@ -570,19 +528,15 @@ class AddOnResultList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AddOnResultPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> AddOnResultContext:
         """
         Constructs a AddOnResultContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         return AddOnResultContext(
             self._version,
@@ -591,14 +545,11 @@ class AddOnResultList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> AddOnResultContext:
         """
         Constructs a AddOnResultContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         return AddOnResultContext(
             self._version,
@@ -607,11 +558,10 @@ class AddOnResultList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.AddOnResultList>"

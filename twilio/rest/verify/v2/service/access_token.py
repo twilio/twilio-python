@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -28,9 +29,6 @@ class AccessTokenInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the AccessTokenInstance
-
-        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
         super().__init__(version)
 
@@ -54,13 +52,12 @@ class AccessTokenInstance(InstanceResource):
         self._context: Optional[AccessTokenContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AccessTokenContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AccessTokenContext for this AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenContext
         """
         if self._context is None:
             self._context = AccessTokenContext(
@@ -71,111 +68,98 @@ class AccessTokenInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this Access Token.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Verify Service.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def entity_identity(self):
+    def entity_identity(self) -> str:
         """
         :returns: The unique external identifier for the Entity of the Service.
-        :rtype: str
         """
         return self._properties["entity_identity"]
 
     @property
-    def factor_type(self):
+    def factor_type(self) -> "AccessTokenInstance.FactorTypes":
         """
         :returns:
-        :rtype: AccessTokenInstance.FactorTypes
         """
         return self._properties["factor_type"]
 
     @property
-    def factor_friendly_name(self):
+    def factor_friendly_name(self) -> str:
         """
         :returns: A human readable description of this factor, up to 64 characters. For a push factor, this can be the device's name.
-        :rtype: str
         """
         return self._properties["factor_friendly_name"]
 
     @property
-    def token(self):
+    def token(self) -> str:
         """
         :returns: The access token generated for enrollment, this is an encrypted json web token.
-        :rtype: str
         """
         return self._properties["token"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of this resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def ttl(self):
+    def ttl(self) -> int:
         """
         :returns: How long, in seconds, the access token is valid. Max: 5 minutes
-        :rtype: int
         """
         return self._properties["ttl"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this access token was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
-    def fetch(self):
+    def fetch(self) -> "AccessTokenInstance":
         """
         Fetch the AccessTokenInstance
 
 
         :returns: The fetched AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AccessTokenInstance":
         """
         Asynchronous coroutine to fetch the AccessTokenInstance
 
 
         :returns: The fetched AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.AccessTokenInstance {}>".format(context)
@@ -186,12 +170,9 @@ class AccessTokenContext(InstanceContext):
         """
         Initialize the AccessTokenContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The unique SID identifier of the Service.
         :param sid: A 34 character string that uniquely identifies this Access Token.
-
-        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenContext
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenContext
         """
         super().__init__(version)
 
@@ -204,13 +185,12 @@ class AccessTokenContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> AccessTokenInstance:
         """
         Fetch the AccessTokenInstance
 
 
         :returns: The fetched AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
 
         payload = self._version.fetch(
@@ -225,13 +205,12 @@ class AccessTokenContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AccessTokenInstance:
         """
         Asynchronous coroutine to fetch the AccessTokenInstance
 
 
         :returns: The fetched AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
 
         payload = await self._version.fetch_async(
@@ -246,12 +225,11 @@ class AccessTokenContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.AccessTokenContext {}>".format(context)
@@ -262,11 +240,9 @@ class AccessTokenList(ListResource):
         """
         Initialize the AccessTokenList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The unique SID identifier of the Service.
 
-        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenList
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenList
         """
         super().__init__(version)
 
@@ -278,17 +254,16 @@ class AccessTokenList(ListResource):
 
     def create(
         self, identity, factor_type, factor_friendly_name=values.unset, ttl=values.unset
-    ):
+    ) -> AccessTokenInstance:
         """
         Create the AccessTokenInstance
 
         :param str identity: The unique external identifier for the Entity of the Service. This identifier should be immutable, not PII, and generated by your external system, such as your user's UUID, GUID, or SID.
-        :param AccessTokenInstance.FactorTypes factor_type:
+        :param &quot;AccessTokenInstance.FactorTypes&quot; factor_type:
         :param str factor_friendly_name: The friendly name of the factor that is going to be created with this access token
         :param int ttl: How long, in seconds, the access token is valid. Can be an integer between 60 and 300. Default is 60.
 
         :returns: The created AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
         data = values.of(
             {
@@ -311,17 +286,16 @@ class AccessTokenList(ListResource):
 
     async def create_async(
         self, identity, factor_type, factor_friendly_name=values.unset, ttl=values.unset
-    ):
+    ) -> AccessTokenInstance:
         """
         Asynchronously create the AccessTokenInstance
 
         :param str identity: The unique external identifier for the Entity of the Service. This identifier should be immutable, not PII, and generated by your external system, such as your user's UUID, GUID, or SID.
-        :param AccessTokenInstance.FactorTypes factor_type:
+        :param &quot;AccessTokenInstance.FactorTypes&quot; factor_type:
         :param str factor_friendly_name: The friendly name of the factor that is going to be created with this access token
         :param int ttl: How long, in seconds, the access token is valid. Can be an integer between 60 and 300. Default is 60.
 
         :returns: The created AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
         data = values.of(
             {
@@ -342,37 +316,30 @@ class AccessTokenList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def get(self, sid):
+    def get(self, sid) -> AccessTokenContext:
         """
         Constructs a AccessTokenContext
 
         :param sid: A 34 character string that uniquely identifies this Access Token.
-
-        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenContext
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenContext
         """
         return AccessTokenContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> AccessTokenContext:
         """
         Constructs a AccessTokenContext
 
         :param sid: A 34 character string that uniquely identifies this Access Token.
-
-        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenContext
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenContext
         """
         return AccessTokenContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.AccessTokenList>"

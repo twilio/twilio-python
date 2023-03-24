@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -37,9 +38,6 @@ class CompositionInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the CompositionInstance
-
-        :returns: twilio.rest.video.v1.composition.CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         super().__init__(version)
 
@@ -75,13 +73,12 @@ class CompositionInstance(InstanceResource):
         self._context: Optional[CompositionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CompositionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CompositionContext for this CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionContext
         """
         if self._context is None:
             self._context = CompositionContext(
@@ -91,219 +88,193 @@ class CompositionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Composition resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "CompositionInstance.Status":
         """
         :returns:
-        :rtype: CompositionInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_completed(self):
+    def date_completed(self) -> datetime:
         """
         :returns: The date and time in GMT when the composition's media processing task finished, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_completed"]
 
     @property
-    def date_deleted(self):
+    def date_deleted(self) -> datetime:
         """
         :returns: The date and time in GMT when the composition generated media was deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_deleted"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Composition resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def room_sid(self):
+    def room_sid(self) -> str:
         """
         :returns: The SID of the Group Room that generated the audio and video tracks used in the composition. All media sources included in a composition must belong to the same Group Room.
-        :rtype: str
         """
         return self._properties["room_sid"]
 
     @property
-    def audio_sources(self):
+    def audio_sources(self) -> List[str]:
         """
         :returns: The array of track names to include in the composition. The composition includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
-        :rtype: List[str]
         """
         return self._properties["audio_sources"]
 
     @property
-    def audio_sources_excluded(self):
+    def audio_sources_excluded(self) -> List[str]:
         """
         :returns: The array of track names to exclude from the composition. The composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
-        :rtype: List[str]
         """
         return self._properties["audio_sources_excluded"]
 
     @property
-    def video_layout(self):
+    def video_layout(self) -> dict:
         """
         :returns: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :rtype: dict
         """
         return self._properties["video_layout"]
 
     @property
-    def resolution(self):
+    def resolution(self) -> str:
         """
         :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string's format is `{width}x{height}`, such as `640x480`.
-        :rtype: str
         """
         return self._properties["resolution"]
 
     @property
-    def trim(self):
+    def trim(self) -> bool:
         """
         :returns: Whether to remove intervals with no media, as specified in the POST request that created the composition. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :rtype: bool
         """
         return self._properties["trim"]
 
     @property
-    def format(self):
+    def format(self) -> "CompositionInstance.Format":
         """
         :returns:
-        :rtype: CompositionInstance.Format
         """
         return self._properties["format"]
 
     @property
-    def bitrate(self):
+    def bitrate(self) -> int:
         """
         :returns: The average bit rate of the composition's media.
-        :rtype: int
         """
         return self._properties["bitrate"]
 
     @property
-    def size(self):
+    def size(self) -> int:
         """
         :returns: The size of the composed media file in bytes.
-        :rtype: int
         """
         return self._properties["size"]
 
     @property
-    def duration(self):
+    def duration(self) -> int:
         """
         :returns: The duration of the composition's media file in seconds.
-        :rtype: int
         """
         return self._properties["duration"]
 
     @property
-    def media_external_location(self):
+    def media_external_location(self) -> str:
         """
         :returns: The URL of the media file associated with the composition when stored externally. See [External S3 Compositions](/docs/video/api/external-s3-compositions) for more details.
-        :rtype: str
         """
         return self._properties["media_external_location"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL called using the `status_callback_method` to send status information on every composition event.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def status_callback_method(self):
+    def status_callback_method(self) -> str:
         """
         :returns: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
-        :rtype: str
         """
         return self._properties["status_callback_method"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URL of the media file associated with the composition.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CompositionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CompositionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "CompositionInstance":
         """
         Fetch the CompositionInstance
 
 
         :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CompositionInstance":
         """
         Asynchronous coroutine to fetch the CompositionInstance
 
 
         :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.CompositionInstance {}>".format(context)
@@ -314,11 +285,8 @@ class CompositionContext(InstanceContext):
         """
         Initialize the CompositionContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Composition resource to fetch.
-
-        :returns: twilio.rest.video.v1.composition.CompositionContext
-        :rtype: twilio.rest.video.v1.composition.CompositionContext
         """
         super().__init__(version)
 
@@ -328,39 +296,36 @@ class CompositionContext(InstanceContext):
         }
         self._uri = "/Compositions/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CompositionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CompositionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> CompositionInstance:
         """
         Fetch the CompositionInstance
 
 
         :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
 
         payload = self._version.fetch(
@@ -374,13 +339,12 @@ class CompositionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CompositionInstance:
         """
         Asynchronous coroutine to fetch the CompositionInstance
 
 
         :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
 
         payload = await self._version.fetch_async(
@@ -394,26 +358,22 @@ class CompositionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.CompositionContext {}>".format(context)
 
 
 class CompositionPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CompositionInstance:
         """
         Build an instance of CompositionInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.composition.CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         return CompositionInstance(self._version, payload)
 
@@ -431,10 +391,8 @@ class CompositionList(ListResource):
         """
         Initialize the CompositionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.video.v1.composition.CompositionList
-        :rtype: twilio.rest.video.v1.composition.CompositionList
         """
         super().__init__(version)
 
@@ -451,7 +409,7 @@ class CompositionList(ListResource):
         status_callback=values.unset,
         status_callback_method=values.unset,
         trim=values.unset,
-    ):
+    ) -> CompositionInstance:
         """
         Create the CompositionInstance
 
@@ -460,13 +418,12 @@ class CompositionList(ListResource):
         :param List[str] audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
         :param List[str] audio_sources_excluded: An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionInstance.Format format:
+        :param &quot;CompositionInstance.Format&quot; format:
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
         :param bool trim: Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 
         :returns: The created CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         data = values.of(
             {
@@ -503,7 +460,7 @@ class CompositionList(ListResource):
         status_callback=values.unset,
         status_callback_method=values.unset,
         trim=values.unset,
-    ):
+    ) -> CompositionInstance:
         """
         Asynchronously create the CompositionInstance
 
@@ -512,13 +469,12 @@ class CompositionList(ListResource):
         :param List[str] audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
         :param List[str] audio_sources_excluded: An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionInstance.Format format:
+        :param &quot;CompositionInstance.Format&quot; format:
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
         :param bool trim: Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 
         :returns: The created CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         data = values.of(
             {
@@ -552,14 +508,14 @@ class CompositionList(ListResource):
         room_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CompositionInstance]:
         """
         Streams CompositionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param CompositionInstance.Status status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
+        :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
@@ -571,7 +527,6 @@ class CompositionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition.CompositionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -592,14 +547,14 @@ class CompositionList(ListResource):
         room_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CompositionInstance]:
         """
         Asynchronously streams CompositionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param CompositionInstance.Status status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
+        :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
@@ -611,7 +566,6 @@ class CompositionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition.CompositionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -632,13 +586,13 @@ class CompositionList(ListResource):
         room_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CompositionInstance]:
         """
         Lists CompositionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param CompositionInstance.Status status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
+        :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
@@ -650,7 +604,6 @@ class CompositionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition.CompositionInstance]
         """
         return list(
             self.stream(
@@ -671,13 +624,13 @@ class CompositionList(ListResource):
         room_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CompositionInstance]:
         """
         Asynchronously lists CompositionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param CompositionInstance.Status status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
+        :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
@@ -689,7 +642,6 @@ class CompositionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition.CompositionInstance]
         """
         return list(
             await self.stream_async(
@@ -711,12 +663,12 @@ class CompositionList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CompositionPage:
         """
         Retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
 
-        :param CompositionInstance.Status status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
+        :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
@@ -725,7 +677,6 @@ class CompositionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionPage
         """
         data = values.of(
             {
@@ -751,12 +702,12 @@ class CompositionList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CompositionPage:
         """
         Asynchronously retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
 
-        :param CompositionInstance.Status status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
+        :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
@@ -765,7 +716,6 @@ class CompositionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionPage
         """
         data = values.of(
             {
@@ -784,7 +734,7 @@ class CompositionList(ListResource):
         )
         return CompositionPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CompositionPage:
         """
         Retrieve a specific page of CompositionInstance records from the API.
         Request is executed immediately
@@ -792,12 +742,11 @@ class CompositionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CompositionPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CompositionPage:
         """
         Asynchronously retrieve a specific page of CompositionInstance records from the API.
         Request is executed immediately
@@ -805,38 +754,30 @@ class CompositionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CompositionPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> CompositionContext:
         """
         Constructs a CompositionContext
 
         :param sid: The SID of the Composition resource to fetch.
-
-        :returns: twilio.rest.video.v1.composition.CompositionContext
-        :rtype: twilio.rest.video.v1.composition.CompositionContext
         """
         return CompositionContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> CompositionContext:
         """
         Constructs a CompositionContext
 
         :param sid: The SID of the Composition resource to fetch.
-
-        :returns: twilio.rest.video.v1.composition.CompositionContext
-        :rtype: twilio.rest.video.v1.composition.CompositionContext
         """
         return CompositionContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.CompositionList>"

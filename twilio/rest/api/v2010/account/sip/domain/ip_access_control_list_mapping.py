@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +34,6 @@ class IpAccessControlListMappingInstance(InstanceResource):
     ):
         """
         Initialize the IpAccessControlListMappingInstance
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         super().__init__(version)
 
@@ -57,13 +55,12 @@ class IpAccessControlListMappingInstance(InstanceResource):
         self._context: Optional[IpAccessControlListMappingContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "IpAccessControlListMappingContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: IpAccessControlListMappingContext for this IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         """
         if self._context is None:
             self._context = IpAccessControlListMappingContext(
@@ -75,107 +72,95 @@ class IpAccessControlListMappingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique id of the Account that is responsible for this resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def domain_sid(self):
+    def domain_sid(self) -> str:
         """
         :returns: The unique string that is created to identify the SipDomain resource.
-        :rtype: str
         """
         return self._properties["domain_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A human readable descriptive text for this resource, up to 64 characters long.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI for this resource, relative to `https://api.twilio.com`
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the IpAccessControlListMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IpAccessControlListMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "IpAccessControlListMappingInstance":
         """
         Fetch the IpAccessControlListMappingInstance
 
 
         :returns: The fetched IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "IpAccessControlListMappingInstance":
         """
         Asynchronous coroutine to fetch the IpAccessControlListMappingInstance
 
 
         :returns: The fetched IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.IpAccessControlListMappingInstance {}>".format(
@@ -188,13 +173,10 @@ class IpAccessControlListMappingContext(InstanceContext):
         """
         Initialize the IpAccessControlListMappingContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The unique id of the Account that is responsible for this resource.
         :param domain_sid: A 34 character string that uniquely identifies the SIP domain.
         :param sid: A 34 character string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         """
         super().__init__(version)
 
@@ -208,39 +190,36 @@ class IpAccessControlListMappingContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the IpAccessControlListMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IpAccessControlListMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> IpAccessControlListMappingInstance:
         """
         Fetch the IpAccessControlListMappingInstance
 
 
         :returns: The fetched IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
 
         payload = self._version.fetch(
@@ -256,13 +235,12 @@ class IpAccessControlListMappingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> IpAccessControlListMappingInstance:
         """
         Asynchronous coroutine to fetch the IpAccessControlListMappingInstance
 
 
         :returns: The fetched IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
 
         payload = await self._version.fetch_async(
@@ -278,26 +256,22 @@ class IpAccessControlListMappingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.IpAccessControlListMappingContext {}>".format(context)
 
 
 class IpAccessControlListMappingPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> IpAccessControlListMappingInstance:
         """
         Build an instance of IpAccessControlListMappingInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         return IpAccessControlListMappingInstance(
             self._version,
@@ -320,12 +294,10 @@ class IpAccessControlListMappingList(ListResource):
         """
         Initialize the IpAccessControlListMappingList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The unique id of the Account that is responsible for this resource.
         :param domain_sid: A 34 character string that uniquely identifies the SIP domain.
 
-        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
         """
         super().__init__(version)
 
@@ -338,14 +310,13 @@ class IpAccessControlListMappingList(ListResource):
             **self._solution
         )
 
-    def create(self, ip_access_control_list_sid):
+    def create(self, ip_access_control_list_sid) -> IpAccessControlListMappingInstance:
         """
         Create the IpAccessControlListMappingInstance
 
         :param str ip_access_control_list_sid: The unique id of the IP access control list to map to the SIP domain.
 
         :returns: The created IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         data = values.of(
             {
@@ -366,14 +337,15 @@ class IpAccessControlListMappingList(ListResource):
             domain_sid=self._solution["domain_sid"],
         )
 
-    async def create_async(self, ip_access_control_list_sid):
+    async def create_async(
+        self, ip_access_control_list_sid
+    ) -> IpAccessControlListMappingInstance:
         """
         Asynchronously create the IpAccessControlListMappingInstance
 
         :param str ip_access_control_list_sid: The unique id of the IP access control list to map to the SIP domain.
 
         :returns: The created IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         data = values.of(
             {
@@ -394,7 +366,9 @@ class IpAccessControlListMappingList(ListResource):
             domain_sid=self._solution["domain_sid"],
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(
+        self, limit=None, page_size=None
+    ) -> List[IpAccessControlListMappingInstance]:
         """
         Streams IpAccessControlListMappingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -409,14 +383,15 @@ class IpAccessControlListMappingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[IpAccessControlListMappingInstance]:
         """
         Asynchronously streams IpAccessControlListMappingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -431,14 +406,15 @@ class IpAccessControlListMappingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(
+        self, limit=None, page_size=None
+    ) -> List[IpAccessControlListMappingInstance]:
         """
         Lists IpAccessControlListMappingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -452,7 +428,6 @@ class IpAccessControlListMappingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance]
         """
         return list(
             self.stream(
@@ -461,7 +436,9 @@ class IpAccessControlListMappingList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[IpAccessControlListMappingInstance]:
         """
         Asynchronously lists IpAccessControlListMappingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -475,7 +452,6 @@ class IpAccessControlListMappingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance]
         """
         return list(
             await self.stream_async(
@@ -486,7 +462,7 @@ class IpAccessControlListMappingList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> IpAccessControlListMappingPage:
         """
         Retrieve a single page of IpAccessControlListMappingInstance records from the API.
         Request is executed immediately
@@ -496,7 +472,6 @@ class IpAccessControlListMappingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
         """
         data = values.of(
             {
@@ -511,7 +486,7 @@ class IpAccessControlListMappingList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> IpAccessControlListMappingPage:
         """
         Asynchronously retrieve a single page of IpAccessControlListMappingInstance records from the API.
         Request is executed immediately
@@ -521,7 +496,6 @@ class IpAccessControlListMappingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
         """
         data = values.of(
             {
@@ -536,7 +510,7 @@ class IpAccessControlListMappingList(ListResource):
         )
         return IpAccessControlListMappingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> IpAccessControlListMappingPage:
         """
         Retrieve a specific page of IpAccessControlListMappingInstance records from the API.
         Request is executed immediately
@@ -544,12 +518,11 @@ class IpAccessControlListMappingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return IpAccessControlListMappingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> IpAccessControlListMappingPage:
         """
         Asynchronously retrieve a specific page of IpAccessControlListMappingInstance records from the API.
         Request is executed immediately
@@ -557,19 +530,15 @@ class IpAccessControlListMappingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return IpAccessControlListMappingPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> IpAccessControlListMappingContext:
         """
         Constructs a IpAccessControlListMappingContext
 
         :param sid: A 34 character string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         """
         return IpAccessControlListMappingContext(
             self._version,
@@ -578,14 +547,11 @@ class IpAccessControlListMappingList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> IpAccessControlListMappingContext:
         """
         Constructs a IpAccessControlListMappingContext
 
         :param sid: A 34 character string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         """
         return IpAccessControlListMappingContext(
             self._version,
@@ -594,11 +560,10 @@ class IpAccessControlListMappingList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.IpAccessControlListMappingList>"

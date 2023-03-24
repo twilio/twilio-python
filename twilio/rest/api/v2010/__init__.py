@@ -43,7 +43,7 @@ class V2010(Version):
         return self._account
 
     @account.setter
-    def account(self, value: AccountContext):
+    def account(self, value: AccountContext) -> None:
         """
         Setter to override account
         :param value: value to use as account

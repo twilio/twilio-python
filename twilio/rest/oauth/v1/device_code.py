@@ -24,9 +24,6 @@ class DeviceCodeInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the DeviceCodeInstance
-
-        :returns: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
-        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
         """
         super().__init__(version)
 
@@ -42,59 +39,52 @@ class DeviceCodeInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def device_code(self):
+    def device_code(self) -> str:
         """
         :returns: The device verification code.
-        :rtype: str
         """
         return self._properties["device_code"]
 
     @property
-    def user_code(self):
+    def user_code(self) -> str:
         """
         :returns: The verification code which end user uses to verify authorization request.
-        :rtype: str
         """
         return self._properties["user_code"]
 
     @property
-    def verification_uri(self):
+    def verification_uri(self) -> str:
         """
         :returns: The URI that the end user visits to verify authorization request.
-        :rtype: str
         """
         return self._properties["verification_uri"]
 
     @property
-    def verification_uri_complete(self):
+    def verification_uri_complete(self) -> str:
         """
         :returns: The URI with user_code that the end-user alternatively visits to verify authorization request.
-        :rtype: str
         """
         return self._properties["verification_uri_complete"]
 
     @property
-    def expires_in(self):
+    def expires_in(self) -> int:
         """
         :returns: The expiration time of the device_code and user_code in seconds.
-        :rtype: int
         """
         return self._properties["expires_in"]
 
     @property
-    def interval(self):
+    def interval(self) -> int:
         """
         :returns: The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint.
-        :rtype: int
         """
         return self._properties["interval"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Oauth.V1.DeviceCodeInstance {}>".format(context)
@@ -105,16 +95,14 @@ class DeviceCodeList(ListResource):
         """
         Initialize the DeviceCodeList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.oauth.v1.device_code.DeviceCodeList
-        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeList
         """
         super().__init__(version)
 
         self._uri = "/device/code"
 
-    def create(self, client_sid, scopes, audiences=values.unset):
+    def create(self, client_sid, scopes, audiences=values.unset) -> DeviceCodeInstance:
         """
         Create the DeviceCodeInstance
 
@@ -123,7 +111,6 @@ class DeviceCodeList(ListResource):
         :param List[str] audiences: An array of intended audiences for token requests
 
         :returns: The created DeviceCodeInstance
-        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
         """
         data = values.of(
             {
@@ -141,7 +128,9 @@ class DeviceCodeList(ListResource):
 
         return DeviceCodeInstance(self._version, payload)
 
-    async def create_async(self, client_sid, scopes, audiences=values.unset):
+    async def create_async(
+        self, client_sid, scopes, audiences=values.unset
+    ) -> DeviceCodeInstance:
         """
         Asynchronously create the DeviceCodeInstance
 
@@ -150,7 +139,6 @@ class DeviceCodeList(ListResource):
         :param List[str] audiences: An array of intended audiences for token requests
 
         :returns: The created DeviceCodeInstance
-        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
         """
         data = values.of(
             {
@@ -168,11 +156,10 @@ class DeviceCodeList(ListResource):
 
         return DeviceCodeInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Oauth.V1.DeviceCodeList>"

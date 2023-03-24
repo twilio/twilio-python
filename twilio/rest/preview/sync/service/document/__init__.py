@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,9 +30,6 @@ class DocumentInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the DocumentInstance
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         super().__init__(version)
 
@@ -56,13 +54,12 @@ class DocumentInstance(InstanceResource):
         self._context: Optional[DocumentContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DocumentContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DocumentContext for this DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
         """
         if self._context is None:
             self._context = DocumentContext(
@@ -73,134 +70,119 @@ class DocumentInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["links"]
 
     @property
-    def revision(self):
+    def revision(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["revision"]
 
     @property
-    def data(self):
+    def data(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["data"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def created_by(self):
+    def created_by(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["created_by"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DocumentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DocumentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "DocumentInstance":
         """
         Fetch the DocumentInstance
 
 
         :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "DocumentInstance":
         """
         Asynchronous coroutine to fetch the DocumentInstance
 
 
         :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, data, if_match=values.unset):
+    def update(self, data, if_match=values.unset) -> "DocumentInstance":
         """
         Update the DocumentInstance
 
@@ -208,14 +190,13 @@ class DocumentInstance(InstanceResource):
         :param str if_match: The If-Match HTTP request header
 
         :returns: The updated DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return self._proxy.update(
             data=data,
             if_match=if_match,
         )
 
-    async def update_async(self, data, if_match=values.unset):
+    async def update_async(self, data, if_match=values.unset) -> "DocumentInstance":
         """
         Asynchronous coroutine to update the DocumentInstance
 
@@ -223,7 +204,6 @@ class DocumentInstance(InstanceResource):
         :param str if_match: The If-Match HTTP request header
 
         :returns: The updated DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return await self._proxy.update_async(
             data=data,
@@ -231,21 +211,17 @@ class DocumentInstance(InstanceResource):
         )
 
     @property
-    def document_permissions(self):
+    def document_permissions(self) -> DocumentPermissionList:
         """
         Access the document_permissions
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentPermissionList
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPermissionList
         """
         return self._proxy.document_permissions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Sync.DocumentInstance {}>".format(context)
@@ -256,12 +232,9 @@ class DocumentContext(InstanceContext):
         """
         Initialize the DocumentContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid:
         :param sid:
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentContext
-        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
         """
         super().__init__(version)
 
@@ -274,39 +247,36 @@ class DocumentContext(InstanceContext):
 
         self._document_permissions: Optional[DocumentPermissionList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the DocumentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DocumentInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> DocumentInstance:
         """
         Fetch the DocumentInstance
 
 
         :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
 
         payload = self._version.fetch(
@@ -321,13 +291,12 @@ class DocumentContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> DocumentInstance:
         """
         Asynchronous coroutine to fetch the DocumentInstance
 
 
         :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
 
         payload = await self._version.fetch_async(
@@ -342,7 +311,7 @@ class DocumentContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, data, if_match=values.unset):
+    def update(self, data, if_match=values.unset) -> DocumentInstance:
         """
         Update the DocumentInstance
 
@@ -350,7 +319,6 @@ class DocumentContext(InstanceContext):
         :param str if_match: The If-Match HTTP request header
 
         :returns: The updated DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         data = values.of(
             {
@@ -374,7 +342,7 @@ class DocumentContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, data, if_match=values.unset):
+    async def update_async(self, data, if_match=values.unset) -> DocumentInstance:
         """
         Asynchronous coroutine to update the DocumentInstance
 
@@ -382,7 +350,6 @@ class DocumentContext(InstanceContext):
         :param str if_match: The If-Match HTTP request header
 
         :returns: The updated DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         data = values.of(
             {
@@ -407,12 +374,9 @@ class DocumentContext(InstanceContext):
         )
 
     @property
-    def document_permissions(self):
+    def document_permissions(self) -> DocumentPermissionList:
         """
         Access the document_permissions
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentPermissionList
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPermissionList
         """
         if self._document_permissions is None:
             self._document_permissions = DocumentPermissionList(
@@ -422,26 +386,22 @@ class DocumentContext(InstanceContext):
             )
         return self._document_permissions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Sync.DocumentContext {}>".format(context)
 
 
 class DocumentPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> DocumentInstance:
         """
         Build an instance of DocumentInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return DocumentInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -461,11 +421,9 @@ class DocumentList(ListResource):
         """
         Initialize the DocumentList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid:
 
-        :returns: twilio.rest.preview.sync.service.document.DocumentList
-        :rtype: twilio.rest.preview.sync.service.document.DocumentList
         """
         super().__init__(version)
 
@@ -475,7 +433,7 @@ class DocumentList(ListResource):
         }
         self._uri = "/Services/{service_sid}/Documents".format(**self._solution)
 
-    def create(self, unique_name=values.unset, data=values.unset):
+    def create(self, unique_name=values.unset, data=values.unset) -> DocumentInstance:
         """
         Create the DocumentInstance
 
@@ -483,7 +441,6 @@ class DocumentList(ListResource):
         :param object data:
 
         :returns: The created DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         data = values.of(
             {
@@ -502,7 +459,9 @@ class DocumentList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    async def create_async(self, unique_name=values.unset, data=values.unset):
+    async def create_async(
+        self, unique_name=values.unset, data=values.unset
+    ) -> DocumentInstance:
         """
         Asynchronously create the DocumentInstance
 
@@ -510,7 +469,6 @@ class DocumentList(ListResource):
         :param object data:
 
         :returns: The created DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         data = values.of(
             {
@@ -529,7 +487,7 @@ class DocumentList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[DocumentInstance]:
         """
         Streams DocumentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -544,14 +502,13 @@ class DocumentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.document.DocumentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[DocumentInstance]:
         """
         Asynchronously streams DocumentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -566,14 +523,13 @@ class DocumentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.document.DocumentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[DocumentInstance]:
         """
         Lists DocumentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -587,7 +543,6 @@ class DocumentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.document.DocumentInstance]
         """
         return list(
             self.stream(
@@ -596,7 +551,7 @@ class DocumentList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[DocumentInstance]:
         """
         Asynchronously lists DocumentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -610,7 +565,6 @@ class DocumentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.service.document.DocumentInstance]
         """
         return list(
             await self.stream_async(
@@ -621,7 +575,7 @@ class DocumentList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DocumentPage:
         """
         Retrieve a single page of DocumentInstance records from the API.
         Request is executed immediately
@@ -631,7 +585,6 @@ class DocumentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
         """
         data = values.of(
             {
@@ -646,7 +599,7 @@ class DocumentList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DocumentPage:
         """
         Asynchronously retrieve a single page of DocumentInstance records from the API.
         Request is executed immediately
@@ -656,7 +609,6 @@ class DocumentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
         """
         data = values.of(
             {
@@ -671,7 +623,7 @@ class DocumentList(ListResource):
         )
         return DocumentPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> DocumentPage:
         """
         Retrieve a specific page of DocumentInstance records from the API.
         Request is executed immediately
@@ -679,12 +631,11 @@ class DocumentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DocumentPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> DocumentPage:
         """
         Asynchronously retrieve a specific page of DocumentInstance records from the API.
         Request is executed immediately
@@ -692,42 +643,34 @@ class DocumentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DocumentPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> DocumentContext:
         """
         Constructs a DocumentContext
 
         :param sid:
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentContext
-        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
         """
         return DocumentContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> DocumentContext:
         """
         Constructs a DocumentContext
 
         :param sid:
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentContext
-        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
         """
         return DocumentContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Sync.DocumentList>"

@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -41,9 +42,6 @@ class FunctionVersionInstance(InstanceResource):
     ):
         """
         Initialize the FunctionVersionInstance
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
         super().__init__(version)
 
@@ -67,13 +65,12 @@ class FunctionVersionInstance(InstanceResource):
         self._context: Optional[FunctionVersionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "FunctionVersionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: FunctionVersionContext for this FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         """
         if self._context is None:
             self._context = FunctionVersionContext(
@@ -85,113 +82,98 @@ class FunctionVersionInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Function Version resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the Service that the Function Version resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def function_sid(self):
+    def function_sid(self) -> str:
         """
         :returns: The SID of the Function resource that is the parent of the Function Version resource.
-        :rtype: str
         """
         return self._properties["function_sid"]
 
     @property
-    def path(self):
+    def path(self) -> str:
         """
         :returns: The URL-friendly string by which the Function Version resource can be referenced. It can be a maximum of 255 characters. All paths begin with a forward slash ('/'). If a Function Version creation request is submitted with a path not containing a leading slash, the path will automatically be prepended with one.
-        :rtype: str
         """
         return self._properties["path"]
 
     @property
-    def visibility(self):
+    def visibility(self) -> "FunctionVersionInstance.Visibility":
         """
         :returns:
-        :rtype: FunctionVersionInstance.Visibility
         """
         return self._properties["visibility"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the Function Version resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Function Version resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "FunctionVersionInstance":
         """
         Fetch the FunctionVersionInstance
 
 
         :returns: The fetched FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "FunctionVersionInstance":
         """
         Asynchronous coroutine to fetch the FunctionVersionInstance
 
 
         :returns: The fetched FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def function_version_content(self):
+    def function_version_content(self) -> FunctionVersionContentList:
         """
         Access the function_version_content
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContentList
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContentList
         """
         return self._proxy.function_version_content
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.FunctionVersionInstance {}>".format(context)
@@ -202,13 +184,10 @@ class FunctionVersionContext(InstanceContext):
         """
         Initialize the FunctionVersionContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Function Version resource from.
         :param function_sid: The SID of the function that is the parent of the Function Version resource to fetch.
         :param sid: The SID of the Function Version resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         """
         super().__init__(version)
 
@@ -226,13 +205,12 @@ class FunctionVersionContext(InstanceContext):
 
         self._function_version_content: Optional[FunctionVersionContentList] = None
 
-    def fetch(self):
+    def fetch(self) -> FunctionVersionInstance:
         """
         Fetch the FunctionVersionInstance
 
 
         :returns: The fetched FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
 
         payload = self._version.fetch(
@@ -248,13 +226,12 @@ class FunctionVersionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> FunctionVersionInstance:
         """
         Asynchronous coroutine to fetch the FunctionVersionInstance
 
 
         :returns: The fetched FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
 
         payload = await self._version.fetch_async(
@@ -271,12 +248,9 @@ class FunctionVersionContext(InstanceContext):
         )
 
     @property
-    def function_version_content(self):
+    def function_version_content(self) -> FunctionVersionContentList:
         """
         Access the function_version_content
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContentList
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContentList
         """
         if self._function_version_content is None:
             self._function_version_content = FunctionVersionContentList(
@@ -287,26 +261,22 @@ class FunctionVersionContext(InstanceContext):
             )
         return self._function_version_content
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.FunctionVersionContext {}>".format(context)
 
 
 class FunctionVersionPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> FunctionVersionInstance:
         """
         Build an instance of FunctionVersionInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
         return FunctionVersionInstance(
             self._version,
@@ -329,12 +299,10 @@ class FunctionVersionList(ListResource):
         """
         Initialize the FunctionVersionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Function Version resources from.
         :param function_sid: The SID of the function that is the parent of the Function Version resources to read.
 
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
         """
         super().__init__(version)
 
@@ -347,7 +315,7 @@ class FunctionVersionList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[FunctionVersionInstance]:
         """
         Streams FunctionVersionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -362,14 +330,15 @@ class FunctionVersionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[FunctionVersionInstance]:
         """
         Asynchronously streams FunctionVersionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -384,14 +353,13 @@ class FunctionVersionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[FunctionVersionInstance]:
         """
         Lists FunctionVersionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -405,7 +373,6 @@ class FunctionVersionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
         """
         return list(
             self.stream(
@@ -414,7 +381,9 @@ class FunctionVersionList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[FunctionVersionInstance]:
         """
         Asynchronously lists FunctionVersionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -428,7 +397,6 @@ class FunctionVersionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
         """
         return list(
             await self.stream_async(
@@ -439,7 +407,7 @@ class FunctionVersionList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> FunctionVersionPage:
         """
         Retrieve a single page of FunctionVersionInstance records from the API.
         Request is executed immediately
@@ -449,7 +417,6 @@ class FunctionVersionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
         """
         data = values.of(
             {
@@ -464,7 +431,7 @@ class FunctionVersionList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> FunctionVersionPage:
         """
         Asynchronously retrieve a single page of FunctionVersionInstance records from the API.
         Request is executed immediately
@@ -474,7 +441,6 @@ class FunctionVersionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
         """
         data = values.of(
             {
@@ -489,7 +455,7 @@ class FunctionVersionList(ListResource):
         )
         return FunctionVersionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> FunctionVersionPage:
         """
         Retrieve a specific page of FunctionVersionInstance records from the API.
         Request is executed immediately
@@ -497,12 +463,11 @@ class FunctionVersionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FunctionVersionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> FunctionVersionPage:
         """
         Asynchronously retrieve a specific page of FunctionVersionInstance records from the API.
         Request is executed immediately
@@ -510,19 +475,15 @@ class FunctionVersionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FunctionVersionPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> FunctionVersionContext:
         """
         Constructs a FunctionVersionContext
 
         :param sid: The SID of the Function Version resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         """
         return FunctionVersionContext(
             self._version,
@@ -531,14 +492,11 @@ class FunctionVersionList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> FunctionVersionContext:
         """
         Constructs a FunctionVersionContext
 
         :param sid: The SID of the Function Version resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         """
         return FunctionVersionContext(
             self._version,
@@ -547,11 +505,10 @@ class FunctionVersionList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Serverless.V1.FunctionVersionList>"

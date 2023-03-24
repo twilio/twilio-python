@@ -24,9 +24,6 @@ class SinkValidateInstance(InstanceResource):
     def __init__(self, version, payload, sid: str):
         """
         Initialize the SinkValidateInstance
-
-        :returns: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
-        :rtype: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
         """
         super().__init__(version)
 
@@ -39,19 +36,17 @@ class SinkValidateInstance(InstanceResource):
         }
 
     @property
-    def result(self):
+    def result(self) -> str:
         """
         :returns: Feedback indicating whether the given Sink was validated.
-        :rtype: str
         """
         return self._properties["result"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Events.V1.SinkValidateInstance {}>".format(context)
@@ -62,11 +57,9 @@ class SinkValidateList(ListResource):
         """
         Initialize the SinkValidateList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies the Sink being validated.
 
-        :returns: twilio.rest.events.v1.sink.sink_validate.SinkValidateList
-        :rtype: twilio.rest.events.v1.sink.sink_validate.SinkValidateList
         """
         super().__init__(version)
 
@@ -76,14 +69,13 @@ class SinkValidateList(ListResource):
         }
         self._uri = "/Sinks/{sid}/Validate".format(**self._solution)
 
-    def create(self, test_id):
+    def create(self, test_id) -> SinkValidateInstance:
         """
         Create the SinkValidateInstance
 
         :param str test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
 
         :returns: The created SinkValidateInstance
-        :rtype: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
         """
         data = values.of(
             {
@@ -99,14 +91,13 @@ class SinkValidateList(ListResource):
 
         return SinkValidateInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def create_async(self, test_id):
+    async def create_async(self, test_id) -> SinkValidateInstance:
         """
         Asynchronously create the SinkValidateInstance
 
         :param str test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
 
         :returns: The created SinkValidateInstance
-        :rtype: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
         """
         data = values.of(
             {
@@ -122,11 +113,10 @@ class SinkValidateList(ListResource):
 
         return SinkValidateInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Events.V1.SinkValidateList>"

@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -35,9 +36,6 @@ class TaskInstance(InstanceResource):
     def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
         """
         Initialize the TaskInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         super().__init__(version)
 
@@ -74,13 +72,12 @@ class TaskInstance(InstanceResource):
         self._context: Optional[TaskContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "TaskContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: TaskContext for this TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
         if self._context is None:
             self._context = TaskContext(
@@ -91,216 +88,191 @@ class TaskInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def age(self):
+    def age(self) -> int:
         """
         :returns: The number of seconds since the Task was created.
-        :rtype: int
         """
         return self._properties["age"]
 
     @property
-    def assignment_status(self):
+    def assignment_status(self) -> "TaskInstance.Status":
         """
         :returns:
-        :rtype: TaskInstance.Status
         """
         return self._properties["assignment_status"]
 
     @property
-    def attributes(self):
+    def attributes(self) -> str:
         """
         :returns: The JSON string with custom attributes of the work. **Note** If this property has been assigned a value, it will only be displayed in FETCH action that returns a single resource. Otherwise, it will be null.
-        :rtype: str
         """
         return self._properties["attributes"]
 
     @property
-    def addons(self):
+    def addons(self) -> str:
         """
         :returns: An object that contains the [addon](https://www.twilio.com/docs/taskrouter/marketplace) data for all installed addons.
-        :rtype: str
         """
         return self._properties["addons"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def task_queue_entered_date(self):
+    def task_queue_entered_date(self) -> datetime:
         """
         :returns: The date and time in GMT when the Task entered the TaskQueue, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["task_queue_entered_date"]
 
     @property
-    def priority(self):
+    def priority(self) -> int:
         """
         :returns: The current priority score of the Task as assigned to a Worker by the workflow. Tasks with higher priority values will be assigned before Tasks with lower values.
-        :rtype: int
         """
         return self._properties["priority"]
 
     @property
-    def reason(self):
+    def reason(self) -> str:
         """
         :returns: The reason the Task was canceled or completed, if applicable.
-        :rtype: str
         """
         return self._properties["reason"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Task resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def task_queue_sid(self):
+    def task_queue_sid(self) -> str:
         """
         :returns: The SID of the TaskQueue.
-        :rtype: str
         """
         return self._properties["task_queue_sid"]
 
     @property
-    def task_queue_friendly_name(self):
+    def task_queue_friendly_name(self) -> str:
         """
         :returns: The friendly name of the TaskQueue.
-        :rtype: str
         """
         return self._properties["task_queue_friendly_name"]
 
     @property
-    def task_channel_sid(self):
+    def task_channel_sid(self) -> str:
         """
         :returns: The SID of the TaskChannel.
-        :rtype: str
         """
         return self._properties["task_channel_sid"]
 
     @property
-    def task_channel_unique_name(self):
+    def task_channel_unique_name(self) -> str:
         """
         :returns: The unique name of the TaskChannel.
-        :rtype: str
         """
         return self._properties["task_channel_unique_name"]
 
     @property
-    def timeout(self):
+    def timeout(self) -> int:
         """
         :returns: The amount of time in seconds that the Task can live before being assigned.
-        :rtype: int
         """
         return self._properties["timeout"]
 
     @property
-    def workflow_sid(self):
+    def workflow_sid(self) -> str:
         """
         :returns: The SID of the Workflow that is controlling the Task.
-        :rtype: str
         """
         return self._properties["workflow_sid"]
 
     @property
-    def workflow_friendly_name(self):
+    def workflow_friendly_name(self) -> str:
         """
         :returns: The friendly name of the Workflow that is controlling the Task.
-        :rtype: str
         """
         return self._properties["workflow_friendly_name"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace that contains the Task.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Task resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self, if_match=values.unset):
+    def delete(self, if_match=values.unset) -> bool:
         """
         Deletes the TaskInstance
 
         :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete(
             if_match=if_match,
         )
 
-    async def delete_async(self, if_match=values.unset):
+    async def delete_async(self, if_match=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the TaskInstance
 
         :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async(
             if_match=if_match,
         )
 
-    def fetch(self):
+    def fetch(self) -> "TaskInstance":
         """
         Fetch the TaskInstance
 
 
         :returns: The fetched TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "TaskInstance":
         """
         Asynchronous coroutine to fetch the TaskInstance
 
 
         :returns: The fetched TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return await self._proxy.fetch_async()
 
@@ -312,19 +284,18 @@ class TaskInstance(InstanceResource):
         reason=values.unset,
         priority=values.unset,
         task_channel=values.unset,
-    ):
+    ) -> "TaskInstance":
         """
         Update the TaskInstance
 
         :param str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
         :param str attributes: The JSON string that describes the custom attributes of the task.
-        :param TaskInstance.Status assignment_status:
+        :param "TaskInstance.Status" assignment_status:
         :param str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The updated TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return self._proxy.update(
             if_match=if_match,
@@ -343,19 +314,18 @@ class TaskInstance(InstanceResource):
         reason=values.unset,
         priority=values.unset,
         task_channel=values.unset,
-    ):
+    ) -> "TaskInstance":
         """
         Asynchronous coroutine to update the TaskInstance
 
         :param str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
         :param str attributes: The JSON string that describes the custom attributes of the task.
-        :param TaskInstance.Status assignment_status:
+        :param "TaskInstance.Status" assignment_status:
         :param str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The updated TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return await self._proxy.update_async(
             if_match=if_match,
@@ -367,21 +337,17 @@ class TaskInstance(InstanceResource):
         )
 
     @property
-    def reservations(self):
+    def reservations(self) -> ReservationList:
         """
         Access the reservations
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.ReservationList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.ReservationList
         """
         return self._proxy.reservations
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.TaskInstance {}>".format(context)
@@ -392,12 +358,9 @@ class TaskContext(InstanceContext):
         """
         Initialize the TaskContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Task to update.
         :param sid: The SID of the Task resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
         super().__init__(version)
 
@@ -410,14 +373,13 @@ class TaskContext(InstanceContext):
 
         self._reservations: Optional[ReservationList] = None
 
-    def delete(self, if_match=values.unset):
+    def delete(self, if_match=values.unset) -> bool:
         """
         Deletes the TaskInstance
 
         :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -427,14 +389,13 @@ class TaskContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, if_match=values.unset):
+    async def delete_async(self, if_match=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the TaskInstance
 
         :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -446,13 +407,12 @@ class TaskContext(InstanceContext):
             method="DELETE", uri=self._uri, headers=headers
         )
 
-    def fetch(self):
+    def fetch(self) -> TaskInstance:
         """
         Fetch the TaskInstance
 
 
         :returns: The fetched TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
 
         payload = self._version.fetch(
@@ -467,13 +427,12 @@ class TaskContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> TaskInstance:
         """
         Asynchronous coroutine to fetch the TaskInstance
 
 
         :returns: The fetched TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
 
         payload = await self._version.fetch_async(
@@ -496,19 +455,18 @@ class TaskContext(InstanceContext):
         reason=values.unset,
         priority=values.unset,
         task_channel=values.unset,
-    ):
+    ) -> TaskInstance:
         """
         Update the TaskInstance
 
         :param str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
         :param str attributes: The JSON string that describes the custom attributes of the task.
-        :param TaskInstance.Status assignment_status:
+        :param "TaskInstance.Status" assignment_status:
         :param str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The updated TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         data = values.of(
             {
@@ -544,19 +502,18 @@ class TaskContext(InstanceContext):
         reason=values.unset,
         priority=values.unset,
         task_channel=values.unset,
-    ):
+    ) -> TaskInstance:
         """
         Asynchronous coroutine to update the TaskInstance
 
         :param str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
         :param str attributes: The JSON string that describes the custom attributes of the task.
-        :param TaskInstance.Status assignment_status:
+        :param "TaskInstance.Status" assignment_status:
         :param str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The updated TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         data = values.of(
             {
@@ -585,12 +542,9 @@ class TaskContext(InstanceContext):
         )
 
     @property
-    def reservations(self):
+    def reservations(self) -> ReservationList:
         """
         Access the reservations
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.ReservationList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.ReservationList
         """
         if self._reservations is None:
             self._reservations = ReservationList(
@@ -600,26 +554,22 @@ class TaskContext(InstanceContext):
             )
         return self._reservations
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.TaskContext {}>".format(context)
 
 
 class TaskPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> TaskInstance:
         """
         Build an instance of TaskInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return TaskInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -639,11 +589,9 @@ class TaskList(ListResource):
         """
         Initialize the TaskList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Tasks to read.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskList
         """
         super().__init__(version)
 
@@ -660,7 +608,7 @@ class TaskList(ListResource):
         task_channel=values.unset,
         workflow_sid=values.unset,
         attributes=values.unset,
-    ):
+    ) -> TaskInstance:
         """
         Create the TaskInstance
 
@@ -671,7 +619,6 @@ class TaskList(ListResource):
         :param str attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
 
         :returns: The created TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         data = values.of(
             {
@@ -700,7 +647,7 @@ class TaskList(ListResource):
         task_channel=values.unset,
         workflow_sid=values.unset,
         attributes=values.unset,
-    ):
+    ) -> TaskInstance:
         """
         Asynchronously create the TaskInstance
 
@@ -711,7 +658,6 @@ class TaskList(ListResource):
         :param str attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
 
         :returns: The created TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         data = values.of(
             {
@@ -746,7 +692,7 @@ class TaskList(ListResource):
         has_addons=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TaskInstance]:
         """
         Streams TaskInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -770,7 +716,6 @@ class TaskList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.TaskInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -801,7 +746,7 @@ class TaskList(ListResource):
         has_addons=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TaskInstance]:
         """
         Asynchronously streams TaskInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -825,7 +770,6 @@ class TaskList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.TaskInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -856,7 +800,7 @@ class TaskList(ListResource):
         has_addons=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TaskInstance]:
         """
         Lists TaskInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -879,7 +823,6 @@ class TaskList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.TaskInstance]
         """
         return list(
             self.stream(
@@ -910,7 +853,7 @@ class TaskList(ListResource):
         has_addons=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TaskInstance]:
         """
         Asynchronously lists TaskInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -933,7 +876,6 @@ class TaskList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.TaskInstance]
         """
         return list(
             await self.stream_async(
@@ -965,7 +907,7 @@ class TaskList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TaskPage:
         """
         Retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
@@ -984,7 +926,6 @@ class TaskList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
         data = values.of(
             {
@@ -1020,7 +961,7 @@ class TaskList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TaskPage:
         """
         Asynchronously retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
@@ -1039,7 +980,6 @@ class TaskList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
         data = values.of(
             {
@@ -1063,7 +1003,7 @@ class TaskList(ListResource):
         )
         return TaskPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> TaskPage:
         """
         Retrieve a specific page of TaskInstance records from the API.
         Request is executed immediately
@@ -1071,12 +1011,11 @@ class TaskList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TaskPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> TaskPage:
         """
         Asynchronously retrieve a specific page of TaskInstance records from the API.
         Request is executed immediately
@@ -1084,42 +1023,34 @@ class TaskList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TaskPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> TaskContext:
         """
         Constructs a TaskContext
 
         :param sid: The SID of the Task resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
         return TaskContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> TaskContext:
         """
         Constructs a TaskContext
 
         :param sid: The SID of the Task resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
         return TaskContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.TaskList>"

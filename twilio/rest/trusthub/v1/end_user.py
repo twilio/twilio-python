@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class EndUserInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the EndUserInstance
-
-        :returns: twilio.rest.trusthub.v1.end_user.EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         super().__init__(version)
 
@@ -49,13 +47,12 @@ class EndUserInstance(InstanceResource):
         self._context: Optional[EndUserContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "EndUserContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: EndUserContext for this EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserContext
         """
         if self._context is None:
             self._context = EndUserContext(
@@ -65,110 +62,100 @@ class EndUserInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string created by Twilio to identify the End User resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the End User resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def type(self):
+    def type(self) -> str:
         """
         :returns: The type of end user of the Bundle resource - can be `individual` or `business`.
-        :rtype: str
         """
         return self._properties["type"]
 
     @property
-    def attributes(self):
+    def attributes(self) -> dict:
         """
         :returns: The set of parameters that are the attributes of the End Users resource which are listed in the End User Types.
-        :rtype: dict
         """
         return self._properties["attributes"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the End User resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the EndUserInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the EndUserInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "EndUserInstance":
         """
         Fetch the EndUserInstance
 
 
         :returns: The fetched EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "EndUserInstance":
         """
         Asynchronous coroutine to fetch the EndUserInstance
 
 
         :returns: The fetched EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name=values.unset, attributes=values.unset):
+    def update(
+        self, friendly_name=values.unset, attributes=values.unset
+    ) -> "EndUserInstance":
         """
         Update the EndUserInstance
 
@@ -176,14 +163,15 @@ class EndUserInstance(InstanceResource):
         :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
         :returns: The updated EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
             attributes=attributes,
         )
 
-    async def update_async(self, friendly_name=values.unset, attributes=values.unset):
+    async def update_async(
+        self, friendly_name=values.unset, attributes=values.unset
+    ) -> "EndUserInstance":
         """
         Asynchronous coroutine to update the EndUserInstance
 
@@ -191,19 +179,17 @@ class EndUserInstance(InstanceResource):
         :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
         :returns: The updated EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
             attributes=attributes,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.EndUserInstance {}>".format(context)
@@ -214,11 +200,8 @@ class EndUserContext(InstanceContext):
         """
         Initialize the EndUserContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The unique string created by Twilio to identify the End User resource.
-
-        :returns: twilio.rest.trusthub.v1.end_user.EndUserContext
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserContext
         """
         super().__init__(version)
 
@@ -228,39 +211,36 @@ class EndUserContext(InstanceContext):
         }
         self._uri = "/EndUsers/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the EndUserInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the EndUserInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> EndUserInstance:
         """
         Fetch the EndUserInstance
 
 
         :returns: The fetched EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
 
         payload = self._version.fetch(
@@ -274,13 +254,12 @@ class EndUserContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> EndUserInstance:
         """
         Asynchronous coroutine to fetch the EndUserInstance
 
 
         :returns: The fetched EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
 
         payload = await self._version.fetch_async(
@@ -294,7 +273,9 @@ class EndUserContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name=values.unset, attributes=values.unset):
+    def update(
+        self, friendly_name=values.unset, attributes=values.unset
+    ) -> EndUserInstance:
         """
         Update the EndUserInstance
 
@@ -302,7 +283,6 @@ class EndUserContext(InstanceContext):
         :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
         :returns: The updated EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         data = values.of(
             {
@@ -319,7 +299,9 @@ class EndUserContext(InstanceContext):
 
         return EndUserInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, friendly_name=values.unset, attributes=values.unset):
+    async def update_async(
+        self, friendly_name=values.unset, attributes=values.unset
+    ) -> EndUserInstance:
         """
         Asynchronous coroutine to update the EndUserInstance
 
@@ -327,7 +309,6 @@ class EndUserContext(InstanceContext):
         :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
         :returns: The updated EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         data = values.of(
             {
@@ -344,26 +325,22 @@ class EndUserContext(InstanceContext):
 
         return EndUserInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.EndUserContext {}>".format(context)
 
 
 class EndUserPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> EndUserInstance:
         """
         Build an instance of EndUserInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.end_user.EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         return EndUserInstance(self._version, payload)
 
@@ -381,16 +358,14 @@ class EndUserList(ListResource):
         """
         Initialize the EndUserList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.trusthub.v1.end_user.EndUserList
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserList
         """
         super().__init__(version)
 
         self._uri = "/EndUsers"
 
-    def create(self, friendly_name, type, attributes=values.unset):
+    def create(self, friendly_name, type, attributes=values.unset) -> EndUserInstance:
         """
         Create the EndUserInstance
 
@@ -399,7 +374,6 @@ class EndUserList(ListResource):
         :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
         :returns: The created EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         data = values.of(
             {
@@ -417,7 +391,9 @@ class EndUserList(ListResource):
 
         return EndUserInstance(self._version, payload)
 
-    async def create_async(self, friendly_name, type, attributes=values.unset):
+    async def create_async(
+        self, friendly_name, type, attributes=values.unset
+    ) -> EndUserInstance:
         """
         Asynchronously create the EndUserInstance
 
@@ -426,7 +402,6 @@ class EndUserList(ListResource):
         :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
 
         :returns: The created EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
         """
         data = values.of(
             {
@@ -444,7 +419,7 @@ class EndUserList(ListResource):
 
         return EndUserInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[EndUserInstance]:
         """
         Streams EndUserInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -459,14 +434,13 @@ class EndUserList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.end_user.EndUserInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[EndUserInstance]:
         """
         Asynchronously streams EndUserInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -481,14 +455,13 @@ class EndUserList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.end_user.EndUserInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[EndUserInstance]:
         """
         Lists EndUserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -502,7 +475,6 @@ class EndUserList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.end_user.EndUserInstance]
         """
         return list(
             self.stream(
@@ -511,7 +483,7 @@ class EndUserList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[EndUserInstance]:
         """
         Asynchronously lists EndUserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -525,7 +497,6 @@ class EndUserList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.end_user.EndUserInstance]
         """
         return list(
             await self.stream_async(
@@ -536,7 +507,7 @@ class EndUserList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> EndUserPage:
         """
         Retrieve a single page of EndUserInstance records from the API.
         Request is executed immediately
@@ -546,7 +517,6 @@ class EndUserList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserPage
         """
         data = values.of(
             {
@@ -561,7 +531,7 @@ class EndUserList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> EndUserPage:
         """
         Asynchronously retrieve a single page of EndUserInstance records from the API.
         Request is executed immediately
@@ -571,7 +541,6 @@ class EndUserList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserPage
         """
         data = values.of(
             {
@@ -586,7 +555,7 @@ class EndUserList(ListResource):
         )
         return EndUserPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> EndUserPage:
         """
         Retrieve a specific page of EndUserInstance records from the API.
         Request is executed immediately
@@ -594,12 +563,11 @@ class EndUserList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return EndUserPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> EndUserPage:
         """
         Asynchronously retrieve a specific page of EndUserInstance records from the API.
         Request is executed immediately
@@ -607,38 +575,30 @@ class EndUserList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EndUserInstance
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return EndUserPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> EndUserContext:
         """
         Constructs a EndUserContext
 
         :param sid: The unique string created by Twilio to identify the End User resource.
-
-        :returns: twilio.rest.trusthub.v1.end_user.EndUserContext
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserContext
         """
         return EndUserContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> EndUserContext:
         """
         Constructs a EndUserContext
 
         :param sid: The unique string created by Twilio to identify the End User resource.
-
-        :returns: twilio.rest.trusthub.v1.end_user.EndUserContext
-        :rtype: twilio.rest.trusthub.v1.end_user.EndUserContext
         """
         return EndUserContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub.V1.EndUserList>"

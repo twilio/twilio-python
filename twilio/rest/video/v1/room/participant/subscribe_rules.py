@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import datetime
+from typing import List
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -24,9 +26,6 @@ class SubscribeRulesInstance(InstanceResource):
     def __init__(self, version, payload, room_sid: str, participant_sid: str):
         """
         Initialize the SubscribeRulesInstance
-
-        :returns: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
         """
         super().__init__(version)
 
@@ -44,51 +43,45 @@ class SubscribeRulesInstance(InstanceResource):
         }
 
     @property
-    def participant_sid(self):
+    def participant_sid(self) -> str:
         """
         :returns: The SID of the Participant resource for the Subscribe Rules.
-        :rtype: str
         """
         return self._properties["participant_sid"]
 
     @property
-    def room_sid(self):
+    def room_sid(self) -> str:
         """
         :returns: The SID of the Room resource for the Subscribe Rules
-        :rtype: str
         """
         return self._properties["room_sid"]
 
     @property
-    def rules(self):
+    def rules(self) -> List[str]:
         """
         :returns: A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
-        :rtype: List[str]
         """
         return self._properties["rules"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.SubscribeRulesInstance {}>".format(context)
@@ -99,12 +92,10 @@ class SubscribeRulesList(ListResource):
         """
         Initialize the SubscribeRulesList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the Room resource where the subscribe rules to update apply.
         :param participant_sid: The SID of the Participant resource to update the Subscribe Rules.
 
-        :returns: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesList
-        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesList
         """
         super().__init__(version)
 
@@ -119,12 +110,11 @@ class SubscribeRulesList(ListResource):
             )
         )
 
-    def fetch(self):
+    def fetch(self) -> SubscribeRulesInstance:
         """
         Asynchronously fetch the SubscribeRulesInstance
 
         :returns: The fetched SubscribeRulesInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
         """
         payload = self._version.fetch(method="GET", uri=self._uri)
 
@@ -135,12 +125,11 @@ class SubscribeRulesList(ListResource):
             participant_sid=self._solution["participant_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SubscribeRulesInstance:
         """
         Asynchronously fetch the SubscribeRulesInstance
 
         :returns: The fetched SubscribeRulesInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
         """
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
@@ -151,14 +140,13 @@ class SubscribeRulesList(ListResource):
             participant_sid=self._solution["participant_sid"],
         )
 
-    def update(self, rules=values.unset):
+    def update(self, rules=values.unset) -> SubscribeRulesInstance:
         """
         Update the SubscribeRulesInstance
 
         :param object rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 
         :returns: The created SubscribeRulesInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
         """
         data = values.of(
             {
@@ -179,14 +167,13 @@ class SubscribeRulesList(ListResource):
             participant_sid=self._solution["participant_sid"],
         )
 
-    async def update_async(self, rules=values.unset):
+    async def update_async(self, rules=values.unset) -> SubscribeRulesInstance:
         """
         Asynchronously update the SubscribeRulesInstance
 
         :param object rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 
         :returns: The created SubscribeRulesInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
         """
         data = values.of(
             {
@@ -207,11 +194,10 @@ class SubscribeRulesList(ListResource):
             participant_sid=self._solution["participant_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.SubscribeRulesList>"

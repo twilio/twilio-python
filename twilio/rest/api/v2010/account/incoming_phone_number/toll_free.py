@@ -13,6 +13,8 @@ r"""
 """
 
 
+from datetime import datetime
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -47,9 +49,6 @@ class TollFreeInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str):
         """
         Initialize the TollFreeInstance
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
         """
         super().__init__(version)
 
@@ -95,297 +94,259 @@ class TollFreeInstance(InstanceResource):
         }
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def address_sid(self):
+    def address_sid(self) -> str:
         """
         :returns: The SID of the Address resource associated with the phone number.
-        :rtype: str
         """
         return self._properties["address_sid"]
 
     @property
-    def address_requirements(self):
+    def address_requirements(self) -> "TollFreeInstance.AddressRequirement":
         """
         :returns:
-        :rtype: TollFreeInstance.AddressRequirement
         """
         return self._properties["address_requirements"]
 
     @property
-    def api_version(self):
+    def api_version(self) -> str:
         """
         :returns: The API version used to start a new TwiML session.
-        :rtype: str
         """
         return self._properties["api_version"]
 
     @property
-    def beta(self):
+    def beta(self) -> bool:
         """
         :returns: Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
-        :rtype: bool
         """
         return self._properties["beta"]
 
     @property
-    def capabilities(self):
+    def capabilities(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["capabilities"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def identity_sid(self):
+    def identity_sid(self) -> str:
         """
         :returns: The SID of the Identity resource that we associate with the phone number. Some regions require an Identity to meet local regulations.
-        :rtype: str
         """
         return self._properties["identity_sid"]
 
     @property
-    def phone_number(self):
+    def phone_number(self) -> str:
         """
         :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        :rtype: str
         """
         return self._properties["phone_number"]
 
     @property
-    def origin(self):
+    def origin(self) -> str:
         """
         :returns: The phone number's origin. `twilio` identifies Twilio-owned phone numbers and `hosted` identifies hosted phone numbers.
-        :rtype: str
         """
         return self._properties["origin"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def sms_application_sid(self):
+    def sms_application_sid(self) -> str:
         """
         :returns: The SID of the application that handles SMS messages sent to the phone number. If an `sms_application_sid` is present, we ignore all `sms_*_url` values and use those of the application.
-        :rtype: str
         """
         return self._properties["sms_application_sid"]
 
     @property
-    def sms_fallback_method(self):
+    def sms_fallback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["sms_fallback_method"]
 
     @property
-    def sms_fallback_url(self):
+    def sms_fallback_url(self) -> str:
         """
         :returns: The URL that we call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :rtype: str
         """
         return self._properties["sms_fallback_url"]
 
     @property
-    def sms_method(self):
+    def sms_method(self) -> str:
         """
         :returns: The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["sms_method"]
 
     @property
-    def sms_url(self):
+    def sms_url(self) -> str:
         """
         :returns: The URL we call when the phone number receives an incoming SMS message.
-        :rtype: str
         """
         return self._properties["sms_url"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL we call using the `status_callback_method` to send status information to your application.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def status_callback_method(self):
+    def status_callback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["status_callback_method"]
 
     @property
-    def trunk_sid(self):
+    def trunk_sid(self) -> str:
         """
         :returns: The SID of the Trunk that handles calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :rtype: str
         """
         return self._properties["trunk_sid"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
     @property
-    def voice_receive_mode(self):
+    def voice_receive_mode(self) -> "TollFreeInstance.VoiceReceiveMode":
         """
         :returns:
-        :rtype: TollFreeInstance.VoiceReceiveMode
         """
         return self._properties["voice_receive_mode"]
 
     @property
-    def voice_application_sid(self):
+    def voice_application_sid(self) -> str:
         """
         :returns: The SID of the application that handles calls to the phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
-        :rtype: str
         """
         return self._properties["voice_application_sid"]
 
     @property
-    def voice_caller_id_lookup(self):
+    def voice_caller_id_lookup(self) -> bool:
         """
         :returns: Whether we look up the caller's caller-ID name from the CNAM database ($0.01 per look up). Can be: `true` or `false`.
-        :rtype: bool
         """
         return self._properties["voice_caller_id_lookup"]
 
     @property
-    def voice_fallback_method(self):
+    def voice_fallback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["voice_fallback_method"]
 
     @property
-    def voice_fallback_url(self):
+    def voice_fallback_url(self) -> str:
         """
         :returns: The URL that we call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :rtype: str
         """
         return self._properties["voice_fallback_url"]
 
     @property
-    def voice_method(self):
+    def voice_method(self) -> str:
         """
         :returns: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["voice_method"]
 
     @property
-    def voice_url(self):
+    def voice_url(self) -> str:
         """
         :returns: The URL we call when the phone number receives a call. The `voice_url` will not be used if a `voice_application_sid` or a `trunk_sid` is set.
-        :rtype: str
         """
         return self._properties["voice_url"]
 
     @property
-    def emergency_status(self):
+    def emergency_status(self) -> "TollFreeInstance.EmergencyStatus":
         """
         :returns:
-        :rtype: TollFreeInstance.EmergencyStatus
         """
         return self._properties["emergency_status"]
 
     @property
-    def emergency_address_sid(self):
+    def emergency_address_sid(self) -> str:
         """
         :returns: The SID of the emergency address configuration that we use for emergency calling from this phone number.
-        :rtype: str
         """
         return self._properties["emergency_address_sid"]
 
     @property
-    def emergency_address_status(self):
+    def emergency_address_status(self) -> "TollFreeInstance.EmergencyAddressStatus":
         """
         :returns:
-        :rtype: TollFreeInstance.EmergencyAddressStatus
         """
         return self._properties["emergency_address_status"]
 
     @property
-    def bundle_sid(self):
+    def bundle_sid(self) -> str:
         """
         :returns: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
-        :rtype: str
         """
         return self._properties["bundle_sid"]
 
     @property
-    def status(self):
+    def status(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["status"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.TollFreeInstance {}>".format(context)
 
 
 class TollFreePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> TollFreeInstance:
         """
         Build an instance of TollFreeInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
         """
         return TollFreeInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -405,11 +366,9 @@ class TollFreeList(ListResource):
         """
         Initialize the TollFreeList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeList
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeList
         """
         super().__init__(version)
 
@@ -446,7 +405,7 @@ class TollFreeList(ListResource):
         trunk_sid=values.unset,
         voice_receive_mode=values.unset,
         bundle_sid=values.unset,
-    ):
+    ) -> TollFreeInstance:
         """
         Create the TollFreeInstance
 
@@ -468,14 +427,13 @@ class TollFreeList(ListResource):
         :param str voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
         :param str identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an Identity to meet local regulations.
         :param str address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-        :param TollFreeInstance.EmergencyStatus emergency_status:
+        :param &quot;TollFreeInstance.EmergencyStatus&quot; emergency_status:
         :param str emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
         :param str trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :param TollFreeInstance.VoiceReceiveMode voice_receive_mode:
+        :param &quot;TollFreeInstance.VoiceReceiveMode&quot; voice_receive_mode:
         :param str bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 
         :returns: The created TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
         """
         data = values.of(
             {
@@ -540,7 +498,7 @@ class TollFreeList(ListResource):
         trunk_sid=values.unset,
         voice_receive_mode=values.unset,
         bundle_sid=values.unset,
-    ):
+    ) -> TollFreeInstance:
         """
         Asynchronously create the TollFreeInstance
 
@@ -562,14 +520,13 @@ class TollFreeList(ListResource):
         :param str voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
         :param str identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an Identity to meet local regulations.
         :param str address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-        :param TollFreeInstance.EmergencyStatus emergency_status:
+        :param &quot;TollFreeInstance.EmergencyStatus&quot; emergency_status:
         :param str emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
         :param str trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :param TollFreeInstance.VoiceReceiveMode voice_receive_mode:
+        :param &quot;TollFreeInstance.VoiceReceiveMode&quot; voice_receive_mode:
         :param str bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 
         :returns: The created TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
         """
         data = values.of(
             {
@@ -617,7 +574,7 @@ class TollFreeList(ListResource):
         origin=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TollFreeInstance]:
         """
         Streams TollFreeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -636,7 +593,6 @@ class TollFreeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -657,7 +613,7 @@ class TollFreeList(ListResource):
         origin=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TollFreeInstance]:
         """
         Asynchronously streams TollFreeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -676,7 +632,6 @@ class TollFreeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -697,7 +652,7 @@ class TollFreeList(ListResource):
         origin=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TollFreeInstance]:
         """
         Lists TollFreeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -715,7 +670,6 @@ class TollFreeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance]
         """
         return list(
             self.stream(
@@ -736,7 +690,7 @@ class TollFreeList(ListResource):
         origin=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TollFreeInstance]:
         """
         Asynchronously lists TollFreeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -754,7 +708,6 @@ class TollFreeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance]
         """
         return list(
             await self.stream_async(
@@ -776,7 +729,7 @@ class TollFreeList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TollFreePage:
         """
         Retrieve a single page of TollFreeInstance records from the API.
         Request is executed immediately
@@ -790,7 +743,6 @@ class TollFreeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreePage
         """
         data = values.of(
             {
@@ -816,7 +768,7 @@ class TollFreeList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TollFreePage:
         """
         Asynchronously retrieve a single page of TollFreeInstance records from the API.
         Request is executed immediately
@@ -830,7 +782,6 @@ class TollFreeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreePage
         """
         data = values.of(
             {
@@ -849,7 +800,7 @@ class TollFreeList(ListResource):
         )
         return TollFreePage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> TollFreePage:
         """
         Retrieve a specific page of TollFreeInstance records from the API.
         Request is executed immediately
@@ -857,12 +808,11 @@ class TollFreeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TollFreePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> TollFreePage:
         """
         Asynchronously retrieve a specific page of TollFreeInstance records from the API.
         Request is executed immediately
@@ -870,16 +820,14 @@ class TollFreeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TollFreePage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.TollFreeList>"

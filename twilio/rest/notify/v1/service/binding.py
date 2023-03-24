@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class BindingInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the BindingInstance
-
-        :returns: twilio.rest.notify.v1.service.binding.BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         super().__init__(version)
 
@@ -58,13 +56,12 @@ class BindingInstance(InstanceResource):
         self._context: Optional[BindingContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "BindingContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: BindingContext for this BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
         if self._context is None:
             self._context = BindingContext(
@@ -75,163 +72,144 @@ class BindingInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Binding resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Binding resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) the resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def credential_sid(self):
+    def credential_sid(self) -> str:
         """
         :returns: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm` type Bindings.
-        :rtype: str
         """
         return self._properties["credential_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def notification_protocol_version(self):
+    def notification_protocol_version(self) -> str:
         """
         :returns: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` in the [Service](https://www.twilio.com/docs/notify/api/service-resource) for the protocol. The current version is `\"3\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
-        :rtype: str
         """
         return self._properties["notification_protocol_version"]
 
     @property
-    def endpoint(self):
+    def endpoint(self) -> str:
         """
         :returns: Deprecated.
-        :rtype: str
         """
         return self._properties["endpoint"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns: The `identity` value that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
-        :rtype: str
         """
         return self._properties["identity"]
 
     @property
-    def binding_type(self):
+    def binding_type(self) -> str:
         """
         :returns: The transport technology to use for the Binding. Can be: `apn`, `fcm`, `gcm`, `sms`, or `facebook-messenger`.
-        :rtype: str
         """
         return self._properties["binding_type"]
 
     @property
-    def address(self):
+    def address(self) -> str:
         """
         :returns: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
-        :rtype: str
         """
         return self._properties["address"]
 
     @property
-    def tags(self):
+    def tags(self) -> List[str]:
         """
         :returns: The list of tags associated with this Binding. Tags can be used to select the Bindings to use when sending a notification. Maximum 20 tags are allowed.
-        :rtype: List[str]
         """
         return self._properties["tags"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Binding resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the BindingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the BindingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "BindingInstance":
         """
         Fetch the BindingInstance
 
 
         :returns: The fetched BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "BindingInstance":
         """
         Asynchronous coroutine to fetch the BindingInstance
 
 
         :returns: The fetched BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Notify.V1.BindingInstance {}>".format(context)
@@ -242,12 +220,9 @@ class BindingContext(InstanceContext):
         """
         Initialize the BindingContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to fetch the resource from.
         :param sid: The Twilio-provided string that uniquely identifies the Binding resource to fetch.
-
-        :returns: twilio.rest.notify.v1.service.binding.BindingContext
-        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
         super().__init__(version)
 
@@ -258,39 +233,36 @@ class BindingContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Bindings/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the BindingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the BindingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> BindingInstance:
         """
         Fetch the BindingInstance
 
 
         :returns: The fetched BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
 
         payload = self._version.fetch(
@@ -305,13 +277,12 @@ class BindingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> BindingInstance:
         """
         Asynchronous coroutine to fetch the BindingInstance
 
 
         :returns: The fetched BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
 
         payload = await self._version.fetch_async(
@@ -326,26 +297,22 @@ class BindingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Notify.V1.BindingContext {}>".format(context)
 
 
 class BindingPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> BindingInstance:
         """
         Build an instance of BindingInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.notify.v1.service.binding.BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         return BindingInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -365,11 +332,9 @@ class BindingList(ListResource):
         """
         Initialize the BindingList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to read the resource from.
 
-        :returns: twilio.rest.notify.v1.service.binding.BindingList
-        :rtype: twilio.rest.notify.v1.service.binding.BindingList
         """
         super().__init__(version)
 
@@ -388,12 +353,12 @@ class BindingList(ListResource):
         notification_protocol_version=values.unset,
         credential_sid=values.unset,
         endpoint=values.unset,
-    ):
+    ) -> BindingInstance:
         """
         Create the BindingInstance
 
         :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
-        :param BindingInstance.BindingType binding_type:
+        :param &quot;BindingInstance.BindingType&quot; binding_type:
         :param str address: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
         :param List[str] tag: A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
         :param str notification_protocol_version: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\\\"3\\\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
@@ -401,7 +366,6 @@ class BindingList(ListResource):
         :param str endpoint: Deprecated.
 
         :returns: The created BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         data = values.of(
             {
@@ -434,12 +398,12 @@ class BindingList(ListResource):
         notification_protocol_version=values.unset,
         credential_sid=values.unset,
         endpoint=values.unset,
-    ):
+    ) -> BindingInstance:
         """
         Asynchronously create the BindingInstance
 
         :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
-        :param BindingInstance.BindingType binding_type:
+        :param &quot;BindingInstance.BindingType&quot; binding_type:
         :param str address: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
         :param List[str] tag: A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
         :param str notification_protocol_version: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\\\"3\\\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
@@ -447,7 +411,6 @@ class BindingList(ListResource):
         :param str endpoint: Deprecated.
 
         :returns: The created BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         data = values.of(
             {
@@ -479,7 +442,7 @@ class BindingList(ListResource):
         tag=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[BindingInstance]:
         """
         Streams BindingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -498,7 +461,6 @@ class BindingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.service.binding.BindingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -519,7 +481,7 @@ class BindingList(ListResource):
         tag=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[BindingInstance]:
         """
         Asynchronously streams BindingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -538,7 +500,6 @@ class BindingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.service.binding.BindingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -559,7 +520,7 @@ class BindingList(ListResource):
         tag=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[BindingInstance]:
         """
         Lists BindingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -577,7 +538,6 @@ class BindingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.service.binding.BindingInstance]
         """
         return list(
             self.stream(
@@ -598,7 +558,7 @@ class BindingList(ListResource):
         tag=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[BindingInstance]:
         """
         Asynchronously lists BindingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -616,7 +576,6 @@ class BindingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.service.binding.BindingInstance]
         """
         return list(
             await self.stream_async(
@@ -638,7 +597,7 @@ class BindingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> BindingPage:
         """
         Retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
@@ -652,7 +611,6 @@ class BindingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingPage
         """
         data = values.of(
             {
@@ -678,7 +636,7 @@ class BindingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> BindingPage:
         """
         Asynchronously retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
@@ -692,7 +650,6 @@ class BindingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingPage
         """
         data = values.of(
             {
@@ -711,7 +668,7 @@ class BindingList(ListResource):
         )
         return BindingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> BindingPage:
         """
         Retrieve a specific page of BindingInstance records from the API.
         Request is executed immediately
@@ -719,12 +676,11 @@ class BindingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return BindingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> BindingPage:
         """
         Asynchronously retrieve a specific page of BindingInstance records from the API.
         Request is executed immediately
@@ -732,42 +688,34 @@ class BindingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return BindingPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> BindingContext:
         """
         Constructs a BindingContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Binding resource to fetch.
-
-        :returns: twilio.rest.notify.v1.service.binding.BindingContext
-        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
         return BindingContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> BindingContext:
         """
         Constructs a BindingContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Binding resource to fetch.
-
-        :returns: twilio.rest.notify.v1.service.binding.BindingContext
-        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
         return BindingContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Notify.V1.BindingList>"

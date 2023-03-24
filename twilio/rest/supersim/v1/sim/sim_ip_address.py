@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -29,9 +30,6 @@ class SimIpAddressInstance(InstanceResource):
     def __init__(self, version, payload, sim_sid: str):
         """
         Initialize the SimIpAddressInstance
-
-        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
         """
         super().__init__(version)
 
@@ -45,41 +43,35 @@ class SimIpAddressInstance(InstanceResource):
         }
 
     @property
-    def ip_address(self):
+    def ip_address(self) -> str:
         """
         :returns: IP address assigned to the given Super SIM
-        :rtype: str
         """
         return self._properties["ip_address"]
 
     @property
-    def ip_address_version(self):
+    def ip_address_version(self) -> "SimIpAddressInstance.IpAddressVersion":
         """
         :returns:
-        :rtype: SimIpAddressInstance.IpAddressVersion
         """
         return self._properties["ip_address_version"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Supersim.V1.SimIpAddressInstance {}>".format(context)
 
 
 class SimIpAddressPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> SimIpAddressInstance:
         """
         Build an instance of SimIpAddressInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
         """
         return SimIpAddressInstance(
             self._version, payload, sim_sid=self._solution["sim_sid"]
@@ -99,11 +91,9 @@ class SimIpAddressList(ListResource):
         """
         Initialize the SimIpAddressList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sim_sid: The SID of the Super SIM to list IP Addresses for.
 
-        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList
         """
         super().__init__(version)
 
@@ -113,7 +103,7 @@ class SimIpAddressList(ListResource):
         }
         self._uri = "/Sims/{sim_sid}/IpAddresses".format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[SimIpAddressInstance]:
         """
         Streams SimIpAddressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -128,14 +118,15 @@ class SimIpAddressList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[SimIpAddressInstance]:
         """
         Asynchronously streams SimIpAddressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -150,14 +141,13 @@ class SimIpAddressList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[SimIpAddressInstance]:
         """
         Lists SimIpAddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -171,7 +161,6 @@ class SimIpAddressList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance]
         """
         return list(
             self.stream(
@@ -180,7 +169,9 @@ class SimIpAddressList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[SimIpAddressInstance]:
         """
         Asynchronously lists SimIpAddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -194,7 +185,6 @@ class SimIpAddressList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance]
         """
         return list(
             await self.stream_async(
@@ -205,7 +195,7 @@ class SimIpAddressList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SimIpAddressPage:
         """
         Retrieve a single page of SimIpAddressInstance records from the API.
         Request is executed immediately
@@ -215,7 +205,6 @@ class SimIpAddressList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SimIpAddressInstance
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressPage
         """
         data = values.of(
             {
@@ -230,7 +219,7 @@ class SimIpAddressList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SimIpAddressPage:
         """
         Asynchronously retrieve a single page of SimIpAddressInstance records from the API.
         Request is executed immediately
@@ -240,7 +229,6 @@ class SimIpAddressList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SimIpAddressInstance
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressPage
         """
         data = values.of(
             {
@@ -255,7 +243,7 @@ class SimIpAddressList(ListResource):
         )
         return SimIpAddressPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> SimIpAddressPage:
         """
         Retrieve a specific page of SimIpAddressInstance records from the API.
         Request is executed immediately
@@ -263,12 +251,11 @@ class SimIpAddressList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SimIpAddressInstance
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SimIpAddressPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> SimIpAddressPage:
         """
         Asynchronously retrieve a specific page of SimIpAddressInstance records from the API.
         Request is executed immediately
@@ -276,16 +263,14 @@ class SimIpAddressList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SimIpAddressInstance
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SimIpAddressPage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Supersim.V1.SimIpAddressList>"

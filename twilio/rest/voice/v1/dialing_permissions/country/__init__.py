@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,9 +29,6 @@ class CountryInstance(InstanceResource):
     def __init__(self, version, payload, iso_code: Optional[str] = None):
         """
         Initialize the CountryInstance
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
         super().__init__(version)
 
@@ -57,13 +54,12 @@ class CountryInstance(InstanceResource):
         self._context: Optional[CountryContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CountryContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CountryContext for this CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         if self._context is None:
             self._context = CountryContext(
@@ -73,113 +69,98 @@ class CountryInstance(InstanceResource):
         return self._context
 
     @property
-    def iso_code(self):
+    def iso_code(self) -> str:
         """
         :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-        :rtype: str
         """
         return self._properties["iso_code"]
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         :returns: The name of the country.
-        :rtype: str
         """
         return self._properties["name"]
 
     @property
-    def continent(self):
+    def continent(self) -> str:
         """
         :returns: The name of the continent in which the country is located.
-        :rtype: str
         """
         return self._properties["continent"]
 
     @property
-    def country_codes(self):
+    def country_codes(self) -> List[str]:
         """
         :returns: The E.164 assigned [country codes(s)](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
-        :rtype: List[str]
         """
         return self._properties["country_codes"]
 
     @property
-    def low_risk_numbers_enabled(self):
+    def low_risk_numbers_enabled(self) -> bool:
         """
         :returns: Whether dialing to low-risk numbers is enabled.
-        :rtype: bool
         """
         return self._properties["low_risk_numbers_enabled"]
 
     @property
-    def high_risk_special_numbers_enabled(self):
+    def high_risk_special_numbers_enabled(self) -> bool:
         """
         :returns: Whether dialing to high-risk special services numbers is enabled. These prefixes include number ranges allocated by the country and include premium numbers, special services, shared cost, and others
-        :rtype: bool
         """
         return self._properties["high_risk_special_numbers_enabled"]
 
     @property
-    def high_risk_tollfraud_numbers_enabled(self):
+    def high_risk_tollfraud_numbers_enabled(self) -> bool:
         """
         :returns: Whether dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers is enabled. These prefixes include narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks, also known as [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud). These prefixes are collected from anti-fraud databases and verified by analyzing calls on our network. These prefixes are not available for download and are updated frequently
-        :rtype: bool
         """
         return self._properties["high_risk_tollfraud_numbers_enabled"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of this resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: A list of URLs related to this resource.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "CountryInstance":
         """
         Fetch the CountryInstance
 
 
         :returns: The fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CountryInstance":
         """
         Asynchronous coroutine to fetch the CountryInstance
 
 
         :returns: The fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def highrisk_special_prefixes(self):
+    def highrisk_special_prefixes(self) -> HighriskSpecialPrefixList:
         """
         Access the highrisk_special_prefixes
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
         """
         return self._proxy.highrisk_special_prefixes
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Voice.V1.CountryInstance {}>".format(context)
@@ -190,11 +171,8 @@ class CountryContext(InstanceContext):
         """
         Initialize the CountryContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         super().__init__(version)
 
@@ -206,13 +184,12 @@ class CountryContext(InstanceContext):
 
         self._highrisk_special_prefixes: Optional[HighriskSpecialPrefixList] = None
 
-    def fetch(self):
+    def fetch(self) -> CountryInstance:
         """
         Fetch the CountryInstance
 
 
         :returns: The fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
 
         payload = self._version.fetch(
@@ -226,13 +203,12 @@ class CountryContext(InstanceContext):
             iso_code=self._solution["iso_code"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CountryInstance:
         """
         Asynchronous coroutine to fetch the CountryInstance
 
 
         :returns: The fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
 
         payload = await self._version.fetch_async(
@@ -247,12 +223,9 @@ class CountryContext(InstanceContext):
         )
 
     @property
-    def highrisk_special_prefixes(self):
+    def highrisk_special_prefixes(self) -> HighriskSpecialPrefixList:
         """
         Access the highrisk_special_prefixes
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
         """
         if self._highrisk_special_prefixes is None:
             self._highrisk_special_prefixes = HighriskSpecialPrefixList(
@@ -261,26 +234,22 @@ class CountryContext(InstanceContext):
             )
         return self._highrisk_special_prefixes
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Voice.V1.CountryContext {}>".format(context)
 
 
 class CountryPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CountryInstance:
         """
         Build an instance of CountryInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
         return CountryInstance(self._version, payload)
 
@@ -298,10 +267,8 @@ class CountryList(ListResource):
         """
         Initialize the CountryList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryList
         """
         super().__init__(version)
 
@@ -317,7 +284,7 @@ class CountryList(ListResource):
         high_risk_tollfraud_numbers_enabled=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CountryInstance]:
         """
         Streams CountryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -338,7 +305,6 @@ class CountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.CountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -363,7 +329,7 @@ class CountryList(ListResource):
         high_risk_tollfraud_numbers_enabled=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CountryInstance]:
         """
         Asynchronously streams CountryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -384,7 +350,6 @@ class CountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.CountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -409,7 +374,7 @@ class CountryList(ListResource):
         high_risk_tollfraud_numbers_enabled=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CountryInstance]:
         """
         Lists CountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -429,7 +394,6 @@ class CountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.CountryInstance]
         """
         return list(
             self.stream(
@@ -454,7 +418,7 @@ class CountryList(ListResource):
         high_risk_tollfraud_numbers_enabled=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[CountryInstance]:
         """
         Asynchronously lists CountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -474,7 +438,6 @@ class CountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.CountryInstance]
         """
         return list(
             await self.stream_async(
@@ -500,7 +463,7 @@ class CountryList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CountryPage:
         """
         Retrieve a single page of CountryInstance records from the API.
         Request is executed immediately
@@ -516,7 +479,6 @@ class CountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         data = values.of(
             {
@@ -546,7 +508,7 @@ class CountryList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> CountryPage:
         """
         Asynchronously retrieve a single page of CountryInstance records from the API.
         Request is executed immediately
@@ -562,7 +524,6 @@ class CountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         data = values.of(
             {
@@ -583,7 +544,7 @@ class CountryList(ListResource):
         )
         return CountryPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CountryPage:
         """
         Retrieve a specific page of CountryInstance records from the API.
         Request is executed immediately
@@ -591,12 +552,11 @@ class CountryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CountryPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CountryPage:
         """
         Asynchronously retrieve a specific page of CountryInstance records from the API.
         Request is executed immediately
@@ -604,38 +564,30 @@ class CountryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CountryPage(self._version, response)
 
-    def get(self, iso_code):
+    def get(self, iso_code) -> CountryContext:
         """
         Constructs a CountryContext
 
         :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         return CountryContext(self._version, iso_code=iso_code)
 
-    def __call__(self, iso_code):
+    def __call__(self, iso_code) -> CountryContext:
         """
         Constructs a CountryContext
 
         :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         return CountryContext(self._version, iso_code=iso_code)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Voice.V1.CountryList>"

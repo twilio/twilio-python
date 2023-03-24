@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +34,6 @@ class IpAddressInstance(InstanceResource):
     ):
         """
         Initialize the IpAddressInstance
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         super().__init__(version)
 
@@ -61,13 +59,12 @@ class IpAddressInstance(InstanceResource):
         self._context: Optional[IpAddressContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "IpAddressContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: IpAddressContext for this IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         if self._context is None:
             self._context = IpAddressContext(
@@ -79,114 +76,101 @@ class IpAddressInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique id of the Account that is responsible for this resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A human readable descriptive text for this resource, up to 255 characters long.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def ip_address(self):
+    def ip_address(self) -> str:
         """
         :returns: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :rtype: str
         """
         return self._properties["ip_address"]
 
     @property
-    def cidr_prefix_length(self):
+    def cidr_prefix_length(self) -> int:
         """
         :returns: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-        :rtype: int
         """
         return self._properties["cidr_prefix_length"]
 
     @property
-    def ip_access_control_list_sid(self):
+    def ip_access_control_list_sid(self) -> str:
         """
         :returns: The unique id of the IpAccessControlList resource that includes this resource.
-        :rtype: str
         """
         return self._properties["ip_access_control_list_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI for this resource, relative to `https://api.twilio.com`
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the IpAddressInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IpAddressInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "IpAddressInstance":
         """
         Fetch the IpAddressInstance
 
 
         :returns: The fetched IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "IpAddressInstance":
         """
         Asynchronous coroutine to fetch the IpAddressInstance
 
 
         :returns: The fetched IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         return await self._proxy.fetch_async()
 
@@ -195,7 +179,7 @@ class IpAddressInstance(InstanceResource):
         ip_address=values.unset,
         friendly_name=values.unset,
         cidr_prefix_length=values.unset,
-    ):
+    ) -> "IpAddressInstance":
         """
         Update the IpAddressInstance
 
@@ -204,7 +188,6 @@ class IpAddressInstance(InstanceResource):
         :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         return self._proxy.update(
             ip_address=ip_address,
@@ -217,7 +200,7 @@ class IpAddressInstance(InstanceResource):
         ip_address=values.unset,
         friendly_name=values.unset,
         cidr_prefix_length=values.unset,
-    ):
+    ) -> "IpAddressInstance":
         """
         Asynchronous coroutine to update the IpAddressInstance
 
@@ -226,7 +209,6 @@ class IpAddressInstance(InstanceResource):
         :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         return await self._proxy.update_async(
             ip_address=ip_address,
@@ -234,12 +216,11 @@ class IpAddressInstance(InstanceResource):
             cidr_prefix_length=cidr_prefix_length,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.IpAddressInstance {}>".format(context)
@@ -256,13 +237,10 @@ class IpAddressContext(InstanceContext):
         """
         Initialize the IpAddressContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
         :param ip_access_control_list_sid: The IpAccessControlList Sid that identifies the IpAddress resources to update.
         :param sid: A 34 character string that identifies the IpAddress resource to update.
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         super().__init__(version)
 
@@ -276,39 +254,36 @@ class IpAddressContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the IpAddressInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IpAddressInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> IpAddressInstance:
         """
         Fetch the IpAddressInstance
 
 
         :returns: The fetched IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
 
         payload = self._version.fetch(
@@ -324,13 +299,12 @@ class IpAddressContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> IpAddressInstance:
         """
         Asynchronous coroutine to fetch the IpAddressInstance
 
 
         :returns: The fetched IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
 
         payload = await self._version.fetch_async(
@@ -351,7 +325,7 @@ class IpAddressContext(InstanceContext):
         ip_address=values.unset,
         friendly_name=values.unset,
         cidr_prefix_length=values.unset,
-    ):
+    ) -> IpAddressInstance:
         """
         Update the IpAddressInstance
 
@@ -360,7 +334,6 @@ class IpAddressContext(InstanceContext):
         :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         data = values.of(
             {
@@ -389,7 +362,7 @@ class IpAddressContext(InstanceContext):
         ip_address=values.unset,
         friendly_name=values.unset,
         cidr_prefix_length=values.unset,
-    ):
+    ) -> IpAddressInstance:
         """
         Asynchronous coroutine to update the IpAddressInstance
 
@@ -398,7 +371,6 @@ class IpAddressContext(InstanceContext):
         :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         data = values.of(
             {
@@ -422,26 +394,22 @@ class IpAddressContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.IpAddressContext {}>".format(context)
 
 
 class IpAddressPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> IpAddressInstance:
         """
         Build an instance of IpAddressInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         return IpAddressInstance(
             self._version,
@@ -466,12 +434,10 @@ class IpAddressList(ListResource):
         """
         Initialize the IpAddressList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
         :param ip_access_control_list_sid: The IpAccessControlList Sid that identifies the IpAddress resources to read.
 
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
         """
         super().__init__(version)
 
@@ -484,7 +450,9 @@ class IpAddressList(ListResource):
             **self._solution
         )
 
-    def create(self, friendly_name, ip_address, cidr_prefix_length=values.unset):
+    def create(
+        self, friendly_name, ip_address, cidr_prefix_length=values.unset
+    ) -> IpAddressInstance:
         """
         Create the IpAddressInstance
 
@@ -493,7 +461,6 @@ class IpAddressList(ListResource):
         :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The created IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         data = values.of(
             {
@@ -518,7 +485,7 @@ class IpAddressList(ListResource):
 
     async def create_async(
         self, friendly_name, ip_address, cidr_prefix_length=values.unset
-    ):
+    ) -> IpAddressInstance:
         """
         Asynchronously create the IpAddressInstance
 
@@ -527,7 +494,6 @@ class IpAddressList(ListResource):
         :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The created IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         data = values.of(
             {
@@ -550,7 +516,7 @@ class IpAddressList(ListResource):
             ip_access_control_list_sid=self._solution["ip_access_control_list_sid"],
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[IpAddressInstance]:
         """
         Streams IpAddressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -565,14 +531,13 @@ class IpAddressList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[IpAddressInstance]:
         """
         Asynchronously streams IpAddressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -587,14 +552,13 @@ class IpAddressList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[IpAddressInstance]:
         """
         Lists IpAddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -608,7 +572,6 @@ class IpAddressList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance]
         """
         return list(
             self.stream(
@@ -617,7 +580,7 @@ class IpAddressList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[IpAddressInstance]:
         """
         Asynchronously lists IpAddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -631,7 +594,6 @@ class IpAddressList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance]
         """
         return list(
             await self.stream_async(
@@ -642,7 +604,7 @@ class IpAddressList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> IpAddressPage:
         """
         Retrieve a single page of IpAddressInstance records from the API.
         Request is executed immediately
@@ -652,7 +614,6 @@ class IpAddressList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         """
         data = values.of(
             {
@@ -667,7 +628,7 @@ class IpAddressList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> IpAddressPage:
         """
         Asynchronously retrieve a single page of IpAddressInstance records from the API.
         Request is executed immediately
@@ -677,7 +638,6 @@ class IpAddressList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         """
         data = values.of(
             {
@@ -692,7 +652,7 @@ class IpAddressList(ListResource):
         )
         return IpAddressPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> IpAddressPage:
         """
         Retrieve a specific page of IpAddressInstance records from the API.
         Request is executed immediately
@@ -700,12 +660,11 @@ class IpAddressList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return IpAddressPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> IpAddressPage:
         """
         Asynchronously retrieve a specific page of IpAddressInstance records from the API.
         Request is executed immediately
@@ -713,19 +672,15 @@ class IpAddressList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return IpAddressPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> IpAddressContext:
         """
         Constructs a IpAddressContext
 
         :param sid: A 34 character string that identifies the IpAddress resource to update.
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         return IpAddressContext(
             self._version,
@@ -734,14 +689,11 @@ class IpAddressList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> IpAddressContext:
         """
         Constructs a IpAddressContext
 
         :param sid: A 34 character string that identifies the IpAddress resource to update.
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         return IpAddressContext(
             self._version,
@@ -750,11 +702,10 @@ class IpAddressList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.IpAddressList>"

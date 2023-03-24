@@ -25,9 +25,6 @@ class SafelistInstance(InstanceResource):
     def __init__(self, version, payload, phone_number: Optional[str] = None):
         """
         Initialize the SafelistInstance
-
-        :returns: twilio.rest.verify.v2.safelist.SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
         """
         super().__init__(version)
 
@@ -43,13 +40,12 @@ class SafelistInstance(InstanceResource):
         self._context: Optional[SafelistContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SafelistContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SafelistContext for this SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
         """
         if self._context is None:
             self._context = SafelistContext(
@@ -59,75 +55,67 @@ class SafelistInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the SafeList resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def phone_number(self):
+    def phone_number(self) -> str:
         """
         :returns: The phone number in SafeList.
-        :rtype: str
         """
         return self._properties["phone_number"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the SafeList resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SafelistInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SafelistInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "SafelistInstance":
         """
         Fetch the SafelistInstance
 
 
         :returns: The fetched SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SafelistInstance":
         """
         Asynchronous coroutine to fetch the SafelistInstance
 
 
         :returns: The fetched SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.SafelistInstance {}>".format(context)
@@ -138,11 +126,8 @@ class SafelistContext(InstanceContext):
         """
         Initialize the SafelistContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-
-        :returns: twilio.rest.verify.v2.safelist.SafelistContext
-        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
         """
         super().__init__(version)
 
@@ -152,39 +137,36 @@ class SafelistContext(InstanceContext):
         }
         self._uri = "/SafeList/Numbers/{phone_number}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SafelistInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SafelistInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> SafelistInstance:
         """
         Fetch the SafelistInstance
 
 
         :returns: The fetched SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
         """
 
         payload = self._version.fetch(
@@ -198,13 +180,12 @@ class SafelistContext(InstanceContext):
             phone_number=self._solution["phone_number"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SafelistInstance:
         """
         Asynchronous coroutine to fetch the SafelistInstance
 
 
         :returns: The fetched SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
         """
 
         payload = await self._version.fetch_async(
@@ -218,12 +199,11 @@ class SafelistContext(InstanceContext):
             phone_number=self._solution["phone_number"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.SafelistContext {}>".format(context)
@@ -234,23 +214,20 @@ class SafelistList(ListResource):
         """
         Initialize the SafelistList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.verify.v2.safelist.SafelistList
-        :rtype: twilio.rest.verify.v2.safelist.SafelistList
         """
         super().__init__(version)
 
         self._uri = "/SafeList/Numbers"
 
-    def create(self, phone_number):
+    def create(self, phone_number) -> SafelistInstance:
         """
         Create the SafelistInstance
 
         :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
         :returns: The created SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
         """
         data = values.of(
             {
@@ -266,14 +243,13 @@ class SafelistList(ListResource):
 
         return SafelistInstance(self._version, payload)
 
-    async def create_async(self, phone_number):
+    async def create_async(self, phone_number) -> SafelistInstance:
         """
         Asynchronously create the SafelistInstance
 
         :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
         :returns: The created SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
         """
         data = values.of(
             {
@@ -289,33 +265,26 @@ class SafelistList(ListResource):
 
         return SafelistInstance(self._version, payload)
 
-    def get(self, phone_number):
+    def get(self, phone_number) -> SafelistContext:
         """
         Constructs a SafelistContext
 
         :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-
-        :returns: twilio.rest.verify.v2.safelist.SafelistContext
-        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
         """
         return SafelistContext(self._version, phone_number=phone_number)
 
-    def __call__(self, phone_number):
+    def __call__(self, phone_number) -> SafelistContext:
         """
         Constructs a SafelistContext
 
         :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-
-        :returns: twilio.rest.verify.v2.safelist.SafelistContext
-        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
         """
         return SafelistContext(self._version, phone_number=phone_number)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.SafelistList>"

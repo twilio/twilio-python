@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,9 +29,6 @@ class DeviceInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the DeviceInstance
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
         super().__init__(version)
 
@@ -52,13 +50,12 @@ class DeviceInstance(InstanceResource):
         self._context: Optional[DeviceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DeviceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DeviceContext for this DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceContext
         """
         if self._context is None:
             self._context = DeviceContext(
@@ -68,94 +65,83 @@ class DeviceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34-character string that uniquely identifies this Device.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: A developer-defined string that uniquely identifies the Device. This value must be unique for all Devices on this Account. The `unique_name` value may be used as an alternative to the `sid` in the URL path to address the resource.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def app(self):
+    def app(self) -> dict:
         """
         :returns: Information about the target App and the App reported by this Device. Contains the properties `target_sid`, `date_targeted`, `update_status` (one of `up-to-date`, `pending` and `error`), `update_error_code`, `reported_sid` and `date_reported`.
-        :rtype: dict
         """
         return self._properties["app"]
 
     @property
-    def logging(self):
+    def logging(self) -> dict:
         """
         :returns: Object specifying whether application logging is enabled for this Device. Contains the properties `enabled` and `date_expires`.
-        :rtype: dict
         """
         return self._properties["logging"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this Device was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this Device was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of this resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The absolute URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "DeviceInstance":
         """
         Fetch the DeviceInstance
 
 
         :returns: The fetched DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "DeviceInstance":
         """
         Asynchronous coroutine to fetch the DeviceInstance
 
 
         :returns: The fetched DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
         return await self._proxy.fetch_async()
 
@@ -164,7 +150,7 @@ class DeviceInstance(InstanceResource):
         unique_name=values.unset,
         target_app=values.unset,
         logging_enabled=values.unset,
-    ):
+    ) -> "DeviceInstance":
         """
         Update the DeviceInstance
 
@@ -173,7 +159,6 @@ class DeviceInstance(InstanceResource):
         :param bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
 
         :returns: The updated DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
         return self._proxy.update(
             unique_name=unique_name,
@@ -186,7 +171,7 @@ class DeviceInstance(InstanceResource):
         unique_name=values.unset,
         target_app=values.unset,
         logging_enabled=values.unset,
-    ):
+    ) -> "DeviceInstance":
         """
         Asynchronous coroutine to update the DeviceInstance
 
@@ -195,7 +180,6 @@ class DeviceInstance(InstanceResource):
         :param bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
 
         :returns: The updated DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
         return await self._proxy.update_async(
             unique_name=unique_name,
@@ -204,31 +188,24 @@ class DeviceInstance(InstanceResource):
         )
 
     @property
-    def device_configs(self):
+    def device_configs(self) -> DeviceConfigList:
         """
         Access the device_configs
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceConfigList
-        :rtype: twilio.rest.microvisor.v1.device.DeviceConfigList
         """
         return self._proxy.device_configs
 
     @property
-    def device_secrets(self):
+    def device_secrets(self) -> DeviceSecretList:
         """
         Access the device_secrets
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceSecretList
-        :rtype: twilio.rest.microvisor.v1.device.DeviceSecretList
         """
         return self._proxy.device_secrets
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.DeviceInstance {}>".format(context)
@@ -239,11 +216,8 @@ class DeviceContext(InstanceContext):
         """
         Initialize the DeviceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: A 34-character string that uniquely identifies this Device.
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceContext
-        :rtype: twilio.rest.microvisor.v1.device.DeviceContext
         """
         super().__init__(version)
 
@@ -256,13 +230,12 @@ class DeviceContext(InstanceContext):
         self._device_configs: Optional[DeviceConfigList] = None
         self._device_secrets: Optional[DeviceSecretList] = None
 
-    def fetch(self):
+    def fetch(self) -> DeviceInstance:
         """
         Fetch the DeviceInstance
 
 
         :returns: The fetched DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
 
         payload = self._version.fetch(
@@ -276,13 +249,12 @@ class DeviceContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> DeviceInstance:
         """
         Asynchronous coroutine to fetch the DeviceInstance
 
 
         :returns: The fetched DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -301,7 +273,7 @@ class DeviceContext(InstanceContext):
         unique_name=values.unset,
         target_app=values.unset,
         logging_enabled=values.unset,
-    ):
+    ) -> DeviceInstance:
         """
         Update the DeviceInstance
 
@@ -310,7 +282,6 @@ class DeviceContext(InstanceContext):
         :param bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
 
         :returns: The updated DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
         data = values.of(
             {
@@ -333,7 +304,7 @@ class DeviceContext(InstanceContext):
         unique_name=values.unset,
         target_app=values.unset,
         logging_enabled=values.unset,
-    ):
+    ) -> DeviceInstance:
         """
         Asynchronous coroutine to update the DeviceInstance
 
@@ -342,7 +313,6 @@ class DeviceContext(InstanceContext):
         :param bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
 
         :returns: The updated DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
         data = values.of(
             {
@@ -361,12 +331,9 @@ class DeviceContext(InstanceContext):
         return DeviceInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def device_configs(self):
+    def device_configs(self) -> DeviceConfigList:
         """
         Access the device_configs
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceConfigList
-        :rtype: twilio.rest.microvisor.v1.device.DeviceConfigList
         """
         if self._device_configs is None:
             self._device_configs = DeviceConfigList(
@@ -376,12 +343,9 @@ class DeviceContext(InstanceContext):
         return self._device_configs
 
     @property
-    def device_secrets(self):
+    def device_secrets(self) -> DeviceSecretList:
         """
         Access the device_secrets
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceSecretList
-        :rtype: twilio.rest.microvisor.v1.device.DeviceSecretList
         """
         if self._device_secrets is None:
             self._device_secrets = DeviceSecretList(
@@ -390,26 +354,22 @@ class DeviceContext(InstanceContext):
             )
         return self._device_secrets
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.DeviceContext {}>".format(context)
 
 
 class DevicePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> DeviceInstance:
         """
         Build an instance of DeviceInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
         return DeviceInstance(self._version, payload)
 
@@ -427,16 +387,14 @@ class DeviceList(ListResource):
         """
         Initialize the DeviceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.microvisor.v1.device.DeviceList
-        :rtype: twilio.rest.microvisor.v1.device.DeviceList
         """
         super().__init__(version)
 
         self._uri = "/Devices"
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[DeviceInstance]:
         """
         Streams DeviceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -451,14 +409,13 @@ class DeviceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device.DeviceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[DeviceInstance]:
         """
         Asynchronously streams DeviceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -473,14 +430,13 @@ class DeviceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device.DeviceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[DeviceInstance]:
         """
         Lists DeviceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -494,7 +450,6 @@ class DeviceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device.DeviceInstance]
         """
         return list(
             self.stream(
@@ -503,7 +458,7 @@ class DeviceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[DeviceInstance]:
         """
         Asynchronously lists DeviceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -517,7 +472,6 @@ class DeviceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device.DeviceInstance]
         """
         return list(
             await self.stream_async(
@@ -528,7 +482,7 @@ class DeviceList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DevicePage:
         """
         Retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
@@ -538,7 +492,6 @@ class DeviceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DevicePage
         """
         data = values.of(
             {
@@ -553,7 +506,7 @@ class DeviceList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DevicePage:
         """
         Asynchronously retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
@@ -563,7 +516,6 @@ class DeviceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DevicePage
         """
         data = values.of(
             {
@@ -578,7 +530,7 @@ class DeviceList(ListResource):
         )
         return DevicePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> DevicePage:
         """
         Retrieve a specific page of DeviceInstance records from the API.
         Request is executed immediately
@@ -586,12 +538,11 @@ class DeviceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DevicePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DevicePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> DevicePage:
         """
         Asynchronously retrieve a specific page of DeviceInstance records from the API.
         Request is executed immediately
@@ -599,38 +550,30 @@ class DeviceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DevicePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DevicePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> DeviceContext:
         """
         Constructs a DeviceContext
 
         :param sid: A 34-character string that uniquely identifies this Device.
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceContext
-        :rtype: twilio.rest.microvisor.v1.device.DeviceContext
         """
         return DeviceContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> DeviceContext:
         """
         Constructs a DeviceContext
 
         :param sid: A 34-character string that uniquely identifies this Device.
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceContext
-        :rtype: twilio.rest.microvisor.v1.device.DeviceContext
         """
         return DeviceContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Microvisor.V1.DeviceList>"

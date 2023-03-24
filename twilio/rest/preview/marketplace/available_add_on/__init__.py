@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,9 +29,6 @@ class AvailableAddOnInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the AvailableAddOnInstance
-
-        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
         super().__init__(version)
 
@@ -51,13 +48,12 @@ class AvailableAddOnInstance(InstanceResource):
         self._context: Optional[AvailableAddOnContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AvailableAddOnContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AvailableAddOnContext for this AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         """
         if self._context is None:
             self._context = AvailableAddOnContext(
@@ -67,97 +63,84 @@ class AvailableAddOnInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the AvailableAddOn resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def description(self):
+    def description(self) -> str:
         """
         :returns: A short description of the Add-on's functionality.
-        :rtype: str
         """
         return self._properties["description"]
 
     @property
-    def pricing_type(self):
+    def pricing_type(self) -> str:
         """
         :returns: How customers are charged for using this Add-on.
-        :rtype: str
         """
         return self._properties["pricing_type"]
 
     @property
-    def configuration_schema(self):
+    def configuration_schema(self) -> dict:
         """
         :returns: The JSON object with the configuration that must be provided when installing a given Add-on.
-        :rtype: dict
         """
         return self._properties["configuration_schema"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "AvailableAddOnInstance":
         """
         Fetch the AvailableAddOnInstance
 
 
         :returns: The fetched AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AvailableAddOnInstance":
         """
         Asynchronous coroutine to fetch the AvailableAddOnInstance
 
 
         :returns: The fetched AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
         return await self._proxy.fetch_async()
 
     @property
-    def extensions(self):
+    def extensions(self) -> AvailableAddOnExtensionList:
         """
         Access the extensions
-
-        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnExtensionList
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnExtensionList
         """
         return self._proxy.extensions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Marketplace.AvailableAddOnInstance {}>".format(context)
@@ -168,11 +151,8 @@ class AvailableAddOnContext(InstanceContext):
         """
         Initialize the AvailableAddOnContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the AvailableAddOn resource to fetch.
-
-        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         """
         super().__init__(version)
 
@@ -184,13 +164,12 @@ class AvailableAddOnContext(InstanceContext):
 
         self._extensions: Optional[AvailableAddOnExtensionList] = None
 
-    def fetch(self):
+    def fetch(self) -> AvailableAddOnInstance:
         """
         Fetch the AvailableAddOnInstance
 
 
         :returns: The fetched AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
 
         payload = self._version.fetch(
@@ -204,13 +183,12 @@ class AvailableAddOnContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AvailableAddOnInstance:
         """
         Asynchronous coroutine to fetch the AvailableAddOnInstance
 
 
         :returns: The fetched AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
 
         payload = await self._version.fetch_async(
@@ -225,12 +203,9 @@ class AvailableAddOnContext(InstanceContext):
         )
 
     @property
-    def extensions(self):
+    def extensions(self) -> AvailableAddOnExtensionList:
         """
         Access the extensions
-
-        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnExtensionList
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnExtensionList
         """
         if self._extensions is None:
             self._extensions = AvailableAddOnExtensionList(
@@ -239,26 +214,22 @@ class AvailableAddOnContext(InstanceContext):
             )
         return self._extensions
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Marketplace.AvailableAddOnContext {}>".format(context)
 
 
 class AvailableAddOnPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AvailableAddOnInstance:
         """
         Build an instance of AvailableAddOnInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
         return AvailableAddOnInstance(self._version, payload)
 
@@ -276,16 +247,14 @@ class AvailableAddOnList(ListResource):
         """
         Initialize the AvailableAddOnList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
         """
         super().__init__(version)
 
         self._uri = "/AvailableAddOns"
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[AvailableAddOnInstance]:
         """
         Streams AvailableAddOnInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -300,14 +269,15 @@ class AvailableAddOnList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[AvailableAddOnInstance]:
         """
         Asynchronously streams AvailableAddOnInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -322,14 +292,13 @@ class AvailableAddOnList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[AvailableAddOnInstance]:
         """
         Lists AvailableAddOnInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -343,7 +312,6 @@ class AvailableAddOnList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance]
         """
         return list(
             self.stream(
@@ -352,7 +320,9 @@ class AvailableAddOnList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[AvailableAddOnInstance]:
         """
         Asynchronously lists AvailableAddOnInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -366,7 +336,6 @@ class AvailableAddOnList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance]
         """
         return list(
             await self.stream_async(
@@ -377,7 +346,7 @@ class AvailableAddOnList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AvailableAddOnPage:
         """
         Retrieve a single page of AvailableAddOnInstance records from the API.
         Request is executed immediately
@@ -387,7 +356,6 @@ class AvailableAddOnList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnPage
         """
         data = values.of(
             {
@@ -402,7 +370,7 @@ class AvailableAddOnList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AvailableAddOnPage:
         """
         Asynchronously retrieve a single page of AvailableAddOnInstance records from the API.
         Request is executed immediately
@@ -412,7 +380,6 @@ class AvailableAddOnList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnPage
         """
         data = values.of(
             {
@@ -427,7 +394,7 @@ class AvailableAddOnList(ListResource):
         )
         return AvailableAddOnPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AvailableAddOnPage:
         """
         Retrieve a specific page of AvailableAddOnInstance records from the API.
         Request is executed immediately
@@ -435,12 +402,11 @@ class AvailableAddOnList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AvailableAddOnPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AvailableAddOnPage:
         """
         Asynchronously retrieve a specific page of AvailableAddOnInstance records from the API.
         Request is executed immediately
@@ -448,38 +414,30 @@ class AvailableAddOnList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AvailableAddOnPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> AvailableAddOnContext:
         """
         Constructs a AvailableAddOnContext
 
         :param sid: The SID of the AvailableAddOn resource to fetch.
-
-        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         """
         return AvailableAddOnContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> AvailableAddOnContext:
         """
         Constructs a AvailableAddOnContext
 
         :param sid: The SID of the AvailableAddOn resource to fetch.
-
-        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         """
         return AvailableAddOnContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Marketplace.AvailableAddOnList>"

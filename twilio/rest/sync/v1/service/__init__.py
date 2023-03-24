@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,9 +31,6 @@ class ServiceInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the ServiceInstance
-
-        :returns: twilio.rest.sync.v1.service.ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         super().__init__(version)
 
@@ -65,13 +63,12 @@ class ServiceInstance(InstanceResource):
         self._context: Optional[ServiceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ServiceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(
@@ -81,154 +78,136 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Service resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource. It is a read-only property, it cannot be assigned using REST API.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Service resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def webhook_url(self):
+    def webhook_url(self) -> str:
         """
         :returns: The URL we call when Sync objects are manipulated.
-        :rtype: str
         """
         return self._properties["webhook_url"]
 
     @property
-    def webhooks_from_rest_enabled(self):
+    def webhooks_from_rest_enabled(self) -> bool:
         """
         :returns: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
-        :rtype: bool
         """
         return self._properties["webhooks_from_rest_enabled"]
 
     @property
-    def reachability_webhooks_enabled(self):
+    def reachability_webhooks_enabled(self) -> bool:
         """
         :returns: Whether the service instance calls `webhook_url` when client endpoints connect to Sync. The default is `false`.
-        :rtype: bool
         """
         return self._properties["reachability_webhooks_enabled"]
 
     @property
-    def acl_enabled(self):
+    def acl_enabled(self) -> bool:
         """
         :returns: Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource. It is disabled (false) by default.
-        :rtype: bool
         """
         return self._properties["acl_enabled"]
 
     @property
-    def reachability_debouncing_enabled(self):
+    def reachability_debouncing_enabled(self) -> bool:
         """
         :returns: Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
-        :rtype: bool
         """
         return self._properties["reachability_debouncing_enabled"]
 
     @property
-    def reachability_debouncing_window(self):
+    def reachability_debouncing_window(self) -> int:
         """
         :returns: The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before `webhook_url` is called, if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the reachability event from occurring.
-        :rtype: int
         """
         return self._properties["reachability_debouncing_window"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         return await self._proxy.fetch_async()
 
@@ -241,7 +220,7 @@ class ServiceInstance(InstanceResource):
         reachability_debouncing_enabled=values.unset,
         reachability_debouncing_window=values.unset,
         webhooks_from_rest_enabled=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
@@ -254,7 +233,6 @@ class ServiceInstance(InstanceResource):
         :param bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         return self._proxy.update(
             webhook_url=webhook_url,
@@ -275,7 +253,7 @@ class ServiceInstance(InstanceResource):
         reachability_debouncing_enabled=values.unset,
         reachability_debouncing_window=values.unset,
         webhooks_from_rest_enabled=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -288,7 +266,6 @@ class ServiceInstance(InstanceResource):
         :param bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         return await self._proxy.update_async(
             webhook_url=webhook_url,
@@ -301,51 +278,38 @@ class ServiceInstance(InstanceResource):
         )
 
     @property
-    def documents(self):
+    def documents(self) -> DocumentList:
         """
         Access the documents
-
-        :returns: twilio.rest.sync.v1.service.DocumentList
-        :rtype: twilio.rest.sync.v1.service.DocumentList
         """
         return self._proxy.documents
 
     @property
-    def sync_lists(self):
+    def sync_lists(self) -> SyncListList:
         """
         Access the sync_lists
-
-        :returns: twilio.rest.sync.v1.service.SyncListList
-        :rtype: twilio.rest.sync.v1.service.SyncListList
         """
         return self._proxy.sync_lists
 
     @property
-    def sync_maps(self):
+    def sync_maps(self) -> SyncMapList:
         """
         Access the sync_maps
-
-        :returns: twilio.rest.sync.v1.service.SyncMapList
-        :rtype: twilio.rest.sync.v1.service.SyncMapList
         """
         return self._proxy.sync_maps
 
     @property
-    def sync_streams(self):
+    def sync_streams(self) -> SyncStreamList:
         """
         Access the sync_streams
-
-        :returns: twilio.rest.sync.v1.service.SyncStreamList
-        :rtype: twilio.rest.sync.v1.service.SyncStreamList
         """
         return self._proxy.sync_streams
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Sync.V1.ServiceInstance {}>".format(context)
@@ -356,11 +320,8 @@ class ServiceContext(InstanceContext):
         """
         Initialize the ServiceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Service resource to update.
-
-        :returns: twilio.rest.sync.v1.service.ServiceContext
-        :rtype: twilio.rest.sync.v1.service.ServiceContext
         """
         super().__init__(version)
 
@@ -375,39 +336,36 @@ class ServiceContext(InstanceContext):
         self._sync_maps: Optional[SyncMapList] = None
         self._sync_streams: Optional[SyncStreamList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
 
         payload = self._version.fetch(
@@ -421,13 +379,12 @@ class ServiceContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -450,7 +407,7 @@ class ServiceContext(InstanceContext):
         reachability_debouncing_enabled=values.unset,
         reachability_debouncing_window=values.unset,
         webhooks_from_rest_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
@@ -463,7 +420,6 @@ class ServiceContext(InstanceContext):
         :param bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -494,7 +450,7 @@ class ServiceContext(InstanceContext):
         reachability_debouncing_enabled=values.unset,
         reachability_debouncing_window=values.unset,
         webhooks_from_rest_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -507,7 +463,6 @@ class ServiceContext(InstanceContext):
         :param bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -530,12 +485,9 @@ class ServiceContext(InstanceContext):
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def documents(self):
+    def documents(self) -> DocumentList:
         """
         Access the documents
-
-        :returns: twilio.rest.sync.v1.service.DocumentList
-        :rtype: twilio.rest.sync.v1.service.DocumentList
         """
         if self._documents is None:
             self._documents = DocumentList(
@@ -545,12 +497,9 @@ class ServiceContext(InstanceContext):
         return self._documents
 
     @property
-    def sync_lists(self):
+    def sync_lists(self) -> SyncListList:
         """
         Access the sync_lists
-
-        :returns: twilio.rest.sync.v1.service.SyncListList
-        :rtype: twilio.rest.sync.v1.service.SyncListList
         """
         if self._sync_lists is None:
             self._sync_lists = SyncListList(
@@ -560,12 +509,9 @@ class ServiceContext(InstanceContext):
         return self._sync_lists
 
     @property
-    def sync_maps(self):
+    def sync_maps(self) -> SyncMapList:
         """
         Access the sync_maps
-
-        :returns: twilio.rest.sync.v1.service.SyncMapList
-        :rtype: twilio.rest.sync.v1.service.SyncMapList
         """
         if self._sync_maps is None:
             self._sync_maps = SyncMapList(
@@ -575,12 +521,9 @@ class ServiceContext(InstanceContext):
         return self._sync_maps
 
     @property
-    def sync_streams(self):
+    def sync_streams(self) -> SyncStreamList:
         """
         Access the sync_streams
-
-        :returns: twilio.rest.sync.v1.service.SyncStreamList
-        :rtype: twilio.rest.sync.v1.service.SyncStreamList
         """
         if self._sync_streams is None:
             self._sync_streams = SyncStreamList(
@@ -589,26 +532,22 @@ class ServiceContext(InstanceContext):
             )
         return self._sync_streams
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Sync.V1.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.sync.v1.service.ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         return ServiceInstance(self._version, payload)
 
@@ -626,10 +565,8 @@ class ServiceList(ListResource):
         """
         Initialize the ServiceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.sync.v1.service.ServiceList
-        :rtype: twilio.rest.sync.v1.service.ServiceList
         """
         super().__init__(version)
 
@@ -644,7 +581,7 @@ class ServiceList(ListResource):
         reachability_debouncing_enabled=values.unset,
         reachability_debouncing_window=values.unset,
         webhooks_from_rest_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
@@ -657,7 +594,6 @@ class ServiceList(ListResource):
         :param bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -688,7 +624,7 @@ class ServiceList(ListResource):
         reachability_debouncing_enabled=values.unset,
         reachability_debouncing_window=values.unset,
         webhooks_from_rest_enabled=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
@@ -701,7 +637,6 @@ class ServiceList(ListResource):
         :param bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -723,7 +658,7 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -738,14 +673,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -760,14 +694,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -781,7 +714,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.service.ServiceInstance]
         """
         return list(
             self.stream(
@@ -790,7 +722,7 @@ class ServiceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -804,7 +736,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.service.ServiceInstance]
         """
         return list(
             await self.stream_async(
@@ -815,7 +746,7 @@ class ServiceList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -825,7 +756,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServicePage
         """
         data = values.of(
             {
@@ -840,7 +770,7 @@ class ServiceList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -850,7 +780,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServicePage
         """
         data = values.of(
             {
@@ -865,7 +794,7 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -873,12 +802,11 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServicePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -886,38 +814,30 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServicePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The SID of the Service resource to update.
-
-        :returns: twilio.rest.sync.v1.service.ServiceContext
-        :rtype: twilio.rest.sync.v1.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The SID of the Service resource to update.
-
-        :returns: twilio.rest.sync.v1.service.ServiceContext
-        :rtype: twilio.rest.sync.v1.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Sync.V1.ServiceList>"

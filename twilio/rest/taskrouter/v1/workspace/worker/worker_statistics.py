@@ -25,9 +25,6 @@ class WorkerStatisticsInstance(InstanceResource):
     def __init__(self, version, payload, workspace_sid: str, worker_sid: str):
         """
         Initialize the WorkerStatisticsInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
         """
         super().__init__(version)
 
@@ -46,13 +43,12 @@ class WorkerStatisticsInstance(InstanceResource):
         self._context: Optional[WorkerStatisticsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "WorkerStatisticsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: WorkerStatisticsContext for this WorkerStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsContext
         """
         if self._context is None:
             self._context = WorkerStatisticsContext(
@@ -63,42 +59,37 @@ class WorkerStatisticsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def cumulative(self):
+    def cumulative(self) -> dict:
         """
         :returns: An object that contains the cumulative statistics for the Worker.
-        :rtype: dict
         """
         return self._properties["cumulative"]
 
     @property
-    def worker_sid(self):
+    def worker_sid(self) -> str:
         """
         :returns: The SID of the Worker that contains the WorkerChannel.
-        :rtype: str
         """
         return self._properties["worker_sid"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace that contains the WorkerChannel.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the WorkerChannel statistics resource.
-        :rtype: str
         """
         return self._properties["url"]
 
@@ -108,7 +99,7 @@ class WorkerStatisticsInstance(InstanceResource):
         start_date=values.unset,
         end_date=values.unset,
         task_channel=values.unset,
-    ):
+    ) -> "WorkerStatisticsInstance":
         """
         Fetch the WorkerStatisticsInstance
 
@@ -118,7 +109,6 @@ class WorkerStatisticsInstance(InstanceResource):
         :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkerStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
         """
         return self._proxy.fetch(
             minutes=minutes,
@@ -133,7 +123,7 @@ class WorkerStatisticsInstance(InstanceResource):
         start_date=values.unset,
         end_date=values.unset,
         task_channel=values.unset,
-    ):
+    ) -> "WorkerStatisticsInstance":
         """
         Asynchronous coroutine to fetch the WorkerStatisticsInstance
 
@@ -143,7 +133,6 @@ class WorkerStatisticsInstance(InstanceResource):
         :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkerStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
         """
         return await self._proxy.fetch_async(
             minutes=minutes,
@@ -152,12 +141,11 @@ class WorkerStatisticsInstance(InstanceResource):
             task_channel=task_channel,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkerStatisticsInstance {}>".format(context)
@@ -168,12 +156,9 @@ class WorkerStatisticsContext(InstanceContext):
         """
         Initialize the WorkerStatisticsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the WorkerChannel to fetch.
         :param worker_sid: The SID of the Worker with the WorkerChannel to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsContext
         """
         super().__init__(version)
 
@@ -194,7 +179,7 @@ class WorkerStatisticsContext(InstanceContext):
         start_date=values.unset,
         end_date=values.unset,
         task_channel=values.unset,
-    ):
+    ) -> WorkerStatisticsInstance:
         """
         Fetch the WorkerStatisticsInstance
 
@@ -204,7 +189,6 @@ class WorkerStatisticsContext(InstanceContext):
         :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkerStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
         """
 
         data = values.of(
@@ -231,7 +215,7 @@ class WorkerStatisticsContext(InstanceContext):
         start_date=values.unset,
         end_date=values.unset,
         task_channel=values.unset,
-    ):
+    ) -> WorkerStatisticsInstance:
         """
         Asynchronous coroutine to fetch the WorkerStatisticsInstance
 
@@ -241,7 +225,6 @@ class WorkerStatisticsContext(InstanceContext):
         :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkerStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
         """
 
         data = values.of(
@@ -264,12 +247,11 @@ class WorkerStatisticsContext(InstanceContext):
             worker_sid=self._solution["worker_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkerStatisticsContext {}>".format(context)
@@ -280,12 +262,10 @@ class WorkerStatisticsList(ListResource):
         """
         Initialize the WorkerStatisticsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the WorkerChannel to fetch.
         :param worker_sid: The SID of the Worker with the WorkerChannel to fetch.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsList
         """
         super().__init__(version)
 
@@ -295,13 +275,10 @@ class WorkerStatisticsList(ListResource):
             "worker_sid": worker_sid,
         }
 
-    def get(self):
+    def get(self) -> WorkerStatisticsContext:
         """
         Constructs a WorkerStatisticsContext
 
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsContext
         """
         return WorkerStatisticsContext(
             self._version,
@@ -309,13 +286,10 @@ class WorkerStatisticsList(ListResource):
             worker_sid=self._solution["worker_sid"],
         )
 
-    def __call__(self):
+    def __call__(self) -> WorkerStatisticsContext:
         """
         Constructs a WorkerStatisticsContext
 
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsContext
         """
         return WorkerStatisticsContext(
             self._version,
@@ -323,11 +297,10 @@ class WorkerStatisticsList(ListResource):
             worker_sid=self._solution["worker_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.WorkerStatisticsList>"

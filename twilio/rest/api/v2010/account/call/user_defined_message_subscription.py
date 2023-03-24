@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -32,9 +33,6 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
     ):
         """
         Initialize the UserDefinedMessageSubscriptionInstance
-
-        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionInstance
         """
         super().__init__(version)
 
@@ -54,13 +52,12 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
         self._context: Optional[UserDefinedMessageSubscriptionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "UserDefinedMessageSubscriptionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: UserDefinedMessageSubscriptionContext for this UserDefinedMessageSubscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
         """
         if self._context is None:
             self._context = UserDefinedMessageSubscriptionContext(
@@ -72,71 +69,63 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages.
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The SID that uniquely identifies this User Defined Message Subscription.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this User Defined Message Subscription was created, given in RFC 2822 format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the User Defined Message Subscription Resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the UserDefinedMessageSubscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserDefinedMessageSubscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.UserDefinedMessageSubscriptionInstance {}>".format(
@@ -149,13 +138,10 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
         """
         Initialize the UserDefinedMessageSubscriptionContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages.
         :param sid: The SID that uniquely identifies this User Defined Message Subscription.
-
-        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
         """
         super().__init__(version)
 
@@ -169,38 +155,35 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the UserDefinedMessageSubscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserDefinedMessageSubscriptionInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.UserDefinedMessageSubscriptionContext {}>".format(
@@ -213,12 +196,10 @@ class UserDefinedMessageSubscriptionList(ListResource):
         """
         Initialize the UserDefinedMessageSubscriptionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Messages subscription is associated with. This refers to the Call SID that is producing the user defined messages.
 
-        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList
         """
         super().__init__(version)
 
@@ -231,7 +212,9 @@ class UserDefinedMessageSubscriptionList(ListResource):
             **self._solution
         )
 
-    def create(self, callback, idempotency_key=values.unset, method=values.unset):
+    def create(
+        self, callback, idempotency_key=values.unset, method=values.unset
+    ) -> UserDefinedMessageSubscriptionInstance:
         """
         Create the UserDefinedMessageSubscriptionInstance
 
@@ -240,7 +223,6 @@ class UserDefinedMessageSubscriptionList(ListResource):
         :param str method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
 
         :returns: The created UserDefinedMessageSubscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionInstance
         """
         data = values.of(
             {
@@ -265,7 +247,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
     async def create_async(
         self, callback, idempotency_key=values.unset, method=values.unset
-    ):
+    ) -> UserDefinedMessageSubscriptionInstance:
         """
         Asynchronously create the UserDefinedMessageSubscriptionInstance
 
@@ -274,7 +256,6 @@ class UserDefinedMessageSubscriptionList(ListResource):
         :param str method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
 
         :returns: The created UserDefinedMessageSubscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionInstance
         """
         data = values.of(
             {
@@ -297,14 +278,11 @@ class UserDefinedMessageSubscriptionList(ListResource):
             call_sid=self._solution["call_sid"],
         )
 
-    def get(self, sid):
+    def get(self, sid) -> UserDefinedMessageSubscriptionContext:
         """
         Constructs a UserDefinedMessageSubscriptionContext
 
         :param sid: The SID that uniquely identifies this User Defined Message Subscription.
-
-        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
         """
         return UserDefinedMessageSubscriptionContext(
             self._version,
@@ -313,14 +291,11 @@ class UserDefinedMessageSubscriptionList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> UserDefinedMessageSubscriptionContext:
         """
         Constructs a UserDefinedMessageSubscriptionContext
 
         :param sid: The SID that uniquely identifies this User Defined Message Subscription.
-
-        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
         """
         return UserDefinedMessageSubscriptionContext(
             self._version,
@@ -329,11 +304,10 @@ class UserDefinedMessageSubscriptionList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.UserDefinedMessageSubscriptionList>"

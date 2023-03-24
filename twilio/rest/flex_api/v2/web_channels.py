@@ -24,9 +24,6 @@ class WebChannelsInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the WebChannelsInstance
-
-        :returns: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
-        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
         """
         super().__init__(version)
 
@@ -38,27 +35,24 @@ class WebChannelsInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def conversation_sid(self):
+    def conversation_sid(self) -> str:
         """
         :returns: The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.
-        :rtype: str
         """
         return self._properties["conversation_sid"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns: The unique string representing the User created and should be authorized to participate in the Conversation. For more details, see [User Identity & Access Tokens](https://www.twilio.com/docs/conversations/identity).
-        :rtype: str
         """
         return self._properties["identity"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V2.WebChannelsInstance {}>".format(context)
@@ -69,10 +63,8 @@ class WebChannelsList(ListResource):
         """
         Initialize the WebChannelsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v2.web_channels.WebChannelsList
-        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsList
         """
         super().__init__(version)
 
@@ -84,7 +76,7 @@ class WebChannelsList(ListResource):
         chat_friendly_name=values.unset,
         customer_friendly_name=values.unset,
         pre_engagement_data=values.unset,
-    ):
+    ) -> WebChannelsInstance:
         """
         Create the WebChannelsInstance
 
@@ -94,7 +86,6 @@ class WebChannelsList(ListResource):
         :param str pre_engagement_data: The pre-engagement data.
 
         :returns: The created WebChannelsInstance
-        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
         """
         data = values.of(
             {
@@ -119,7 +110,7 @@ class WebChannelsList(ListResource):
         chat_friendly_name=values.unset,
         customer_friendly_name=values.unset,
         pre_engagement_data=values.unset,
-    ):
+    ) -> WebChannelsInstance:
         """
         Asynchronously create the WebChannelsInstance
 
@@ -129,7 +120,6 @@ class WebChannelsList(ListResource):
         :param str pre_engagement_data: The pre-engagement data.
 
         :returns: The created WebChannelsInstance
-        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
         """
         data = values.of(
             {
@@ -148,11 +138,10 @@ class WebChannelsList(ListResource):
 
         return WebChannelsInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V2.WebChannelsList>"

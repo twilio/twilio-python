@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,9 +33,6 @@ class VerificationInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the VerificationInstance
-
-        :returns: twilio.rest.verify.v2.service.verification.VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         super().__init__(version)
 
@@ -63,13 +61,12 @@ class VerificationInstance(InstanceResource):
         self._context: Optional[VerificationContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "VerificationContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: VerificationContext for this VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationContext
         """
         if self._context is None:
             self._context = VerificationContext(
@@ -80,177 +77,157 @@ class VerificationInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Verification resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def to(self):
+    def to(self) -> str:
         """
         :returns: The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        :rtype: str
         """
         return self._properties["to"]
 
     @property
-    def channel(self):
+    def channel(self) -> "VerificationInstance.Channel":
         """
         :returns:
-        :rtype: VerificationInstance.Channel
         """
         return self._properties["channel"]
 
     @property
-    def status(self):
+    def status(self) -> str:
         """
         :returns: The status of the verification. One of: `pending`, `approved`, or `canceled`
-        :rtype: str
         """
         return self._properties["status"]
 
     @property
-    def valid(self):
+    def valid(self) -> bool:
         """
         :returns: Use \"status\" instead. Legacy property indicating whether the verification was successful.
-        :rtype: bool
         """
         return self._properties["valid"]
 
     @property
-    def lookup(self):
+    def lookup(self) -> dict:
         """
         :returns: Information about the phone number being verified.
-        :rtype: dict
         """
         return self._properties["lookup"]
 
     @property
-    def amount(self):
+    def amount(self) -> str:
         """
         :returns: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :rtype: str
         """
         return self._properties["amount"]
 
     @property
-    def payee(self):
+    def payee(self) -> str:
         """
         :returns: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :rtype: str
         """
         return self._properties["payee"]
 
     @property
-    def send_code_attempts(self):
+    def send_code_attempts(self) -> List[object]:
         """
         :returns: An array of verification attempt objects containing the channel attempted and the channel-specific transaction SID.
-        :rtype: List[object]
         """
         return self._properties["send_code_attempts"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def sna(self):
+    def sna(self) -> dict:
         """
         :returns: The set of fields used for a silent network auth (`sna`) verification. Contains a single field with the URL to be invoked to verify the phone number.
-        :rtype: dict
         """
         return self._properties["sna"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Verification resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "VerificationInstance":
         """
         Fetch the VerificationInstance
 
 
         :returns: The fetched VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "VerificationInstance":
         """
         Asynchronous coroutine to fetch the VerificationInstance
 
 
         :returns: The fetched VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status):
+    def update(self, status) -> "VerificationInstance":
         """
         Update the VerificationInstance
 
-        :param VerificationInstance.Status status:
+        :param "VerificationInstance.Status" status:
 
         :returns: The updated VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         return self._proxy.update(
             status=status,
         )
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> "VerificationInstance":
         """
         Asynchronous coroutine to update the VerificationInstance
 
-        :param VerificationInstance.Status status:
+        :param "VerificationInstance.Status" status:
 
         :returns: The updated VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         return await self._proxy.update_async(
             status=status,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.VerificationInstance {}>".format(context)
@@ -261,12 +238,9 @@ class VerificationContext(InstanceContext):
         """
         Initialize the VerificationContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to update the resource from.
         :param sid: The Twilio-provided string that uniquely identifies the Verification resource to update.
-
-        :returns: twilio.rest.verify.v2.service.verification.VerificationContext
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationContext
         """
         super().__init__(version)
 
@@ -279,13 +253,12 @@ class VerificationContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> VerificationInstance:
         """
         Fetch the VerificationInstance
 
 
         :returns: The fetched VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
 
         payload = self._version.fetch(
@@ -300,13 +273,12 @@ class VerificationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> VerificationInstance:
         """
         Asynchronous coroutine to fetch the VerificationInstance
 
 
         :returns: The fetched VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
 
         payload = await self._version.fetch_async(
@@ -321,14 +293,13 @@ class VerificationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status):
+    def update(self, status) -> VerificationInstance:
         """
         Update the VerificationInstance
 
-        :param VerificationInstance.Status status:
+        :param "VerificationInstance.Status" status:
 
         :returns: The updated VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         data = values.of(
             {
@@ -349,14 +320,13 @@ class VerificationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> VerificationInstance:
         """
         Asynchronous coroutine to update the VerificationInstance
 
-        :param VerificationInstance.Status status:
+        :param "VerificationInstance.Status" status:
 
         :returns: The updated VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         data = values.of(
             {
@@ -377,12 +347,11 @@ class VerificationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.VerificationContext {}>".format(context)
@@ -393,11 +362,9 @@ class VerificationList(ListResource):
         """
         Initialize the VerificationList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to create the resource under.
 
-        :returns: twilio.rest.verify.v2.service.verification.VerificationList
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationList
         """
         super().__init__(version)
 
@@ -424,7 +391,7 @@ class VerificationList(ListResource):
         template_sid=values.unset,
         template_custom_substitutions=values.unset,
         device_ip=values.unset,
-    ):
+    ) -> VerificationInstance:
         """
         Create the VerificationInstance
 
@@ -445,7 +412,6 @@ class VerificationList(ListResource):
         :param str device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 
         :returns: The created VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         data = values.of(
             {
@@ -494,7 +460,7 @@ class VerificationList(ListResource):
         template_sid=values.unset,
         template_custom_substitutions=values.unset,
         device_ip=values.unset,
-    ):
+    ) -> VerificationInstance:
         """
         Asynchronously create the VerificationInstance
 
@@ -515,7 +481,6 @@ class VerificationList(ListResource):
         :param str device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 
         :returns: The created VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         data = values.of(
             {
@@ -547,37 +512,30 @@ class VerificationList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def get(self, sid):
+    def get(self, sid) -> VerificationContext:
         """
         Constructs a VerificationContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Verification resource to update.
-
-        :returns: twilio.rest.verify.v2.service.verification.VerificationContext
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationContext
         """
         return VerificationContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> VerificationContext:
         """
         Constructs a VerificationContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Verification resource to update.
-
-        :returns: twilio.rest.verify.v2.service.verification.VerificationContext
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationContext
         """
         return VerificationContext(
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.VerificationList>"

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,9 +28,6 @@ class SubscribedEventInstance(InstanceResource):
     ):
         """
         Initialize the SubscribedEventInstance
-
-        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         super().__init__(version)
 
@@ -49,13 +46,12 @@ class SubscribedEventInstance(InstanceResource):
         self._context: Optional[SubscribedEventContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SubscribedEventContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SubscribedEventContext for this SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
         """
         if self._context is None:
             self._context = SubscribedEventContext(
@@ -66,117 +62,107 @@ class SubscribedEventInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Account.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def type(self):
+    def type(self) -> str:
         """
         :returns: Type of event being subscribed to.
-        :rtype: str
         """
         return self._properties["type"]
 
     @property
-    def schema_version(self):
+    def schema_version(self) -> int:
         """
         :returns: The schema version that the subscription should use.
-        :rtype: int
         """
         return self._properties["schema_version"]
 
     @property
-    def subscription_sid(self):
+    def subscription_sid(self) -> str:
         """
         :returns: The unique SID identifier of the Subscription.
-        :rtype: str
         """
         return self._properties["subscription_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of this resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SubscribedEventInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SubscribedEventInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "SubscribedEventInstance":
         """
         Fetch the SubscribedEventInstance
 
 
         :returns: The fetched SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SubscribedEventInstance":
         """
         Asynchronous coroutine to fetch the SubscribedEventInstance
 
 
         :returns: The fetched SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, schema_version=values.unset):
+    def update(self, schema_version=values.unset) -> "SubscribedEventInstance":
         """
         Update the SubscribedEventInstance
 
         :param int schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         return self._proxy.update(
             schema_version=schema_version,
         )
 
-    async def update_async(self, schema_version=values.unset):
+    async def update_async(
+        self, schema_version=values.unset
+    ) -> "SubscribedEventInstance":
         """
         Asynchronous coroutine to update the SubscribedEventInstance
 
         :param int schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         return await self._proxy.update_async(
             schema_version=schema_version,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Events.V1.SubscribedEventInstance {}>".format(context)
@@ -187,12 +173,9 @@ class SubscribedEventContext(InstanceContext):
         """
         Initialize the SubscribedEventContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param subscription_sid: The unique SID identifier of the Subscription.
         :param type: Type of event being subscribed to.
-
-        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
         """
         super().__init__(version)
 
@@ -205,39 +188,36 @@ class SubscribedEventContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SubscribedEventInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SubscribedEventInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> SubscribedEventInstance:
         """
         Fetch the SubscribedEventInstance
 
 
         :returns: The fetched SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
 
         payload = self._version.fetch(
@@ -252,13 +232,12 @@ class SubscribedEventContext(InstanceContext):
             type=self._solution["type"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SubscribedEventInstance:
         """
         Asynchronous coroutine to fetch the SubscribedEventInstance
 
 
         :returns: The fetched SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
 
         payload = await self._version.fetch_async(
@@ -273,14 +252,13 @@ class SubscribedEventContext(InstanceContext):
             type=self._solution["type"],
         )
 
-    def update(self, schema_version=values.unset):
+    def update(self, schema_version=values.unset) -> SubscribedEventInstance:
         """
         Update the SubscribedEventInstance
 
         :param int schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         data = values.of(
             {
@@ -301,14 +279,15 @@ class SubscribedEventContext(InstanceContext):
             type=self._solution["type"],
         )
 
-    async def update_async(self, schema_version=values.unset):
+    async def update_async(
+        self, schema_version=values.unset
+    ) -> SubscribedEventInstance:
         """
         Asynchronous coroutine to update the SubscribedEventInstance
 
         :param int schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         data = values.of(
             {
@@ -329,26 +308,22 @@ class SubscribedEventContext(InstanceContext):
             type=self._solution["type"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Events.V1.SubscribedEventContext {}>".format(context)
 
 
 class SubscribedEventPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> SubscribedEventInstance:
         """
         Build an instance of SubscribedEventInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         return SubscribedEventInstance(
             self._version, payload, subscription_sid=self._solution["subscription_sid"]
@@ -368,11 +343,9 @@ class SubscribedEventList(ListResource):
         """
         Initialize the SubscribedEventList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param subscription_sid: The unique SID identifier of the Subscription.
 
-        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventList
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventList
         """
         super().__init__(version)
 
@@ -384,7 +357,7 @@ class SubscribedEventList(ListResource):
             **self._solution
         )
 
-    def create(self, type, schema_version=values.unset):
+    def create(self, type, schema_version=values.unset) -> SubscribedEventInstance:
         """
         Create the SubscribedEventInstance
 
@@ -392,7 +365,6 @@ class SubscribedEventList(ListResource):
         :param int schema_version: The schema version that the subscription should use.
 
         :returns: The created SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         data = values.of(
             {
@@ -411,7 +383,9 @@ class SubscribedEventList(ListResource):
             self._version, payload, subscription_sid=self._solution["subscription_sid"]
         )
 
-    async def create_async(self, type, schema_version=values.unset):
+    async def create_async(
+        self, type, schema_version=values.unset
+    ) -> SubscribedEventInstance:
         """
         Asynchronously create the SubscribedEventInstance
 
@@ -419,7 +393,6 @@ class SubscribedEventList(ListResource):
         :param int schema_version: The schema version that the subscription should use.
 
         :returns: The created SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         data = values.of(
             {
@@ -438,7 +411,7 @@ class SubscribedEventList(ListResource):
             self._version, payload, subscription_sid=self._solution["subscription_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[SubscribedEventInstance]:
         """
         Streams SubscribedEventInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -453,14 +426,15 @@ class SubscribedEventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[SubscribedEventInstance]:
         """
         Asynchronously streams SubscribedEventInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -475,14 +449,13 @@ class SubscribedEventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[SubscribedEventInstance]:
         """
         Lists SubscribedEventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -496,7 +469,6 @@ class SubscribedEventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance]
         """
         return list(
             self.stream(
@@ -505,7 +477,9 @@ class SubscribedEventList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[SubscribedEventInstance]:
         """
         Asynchronously lists SubscribedEventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -519,7 +493,6 @@ class SubscribedEventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance]
         """
         return list(
             await self.stream_async(
@@ -530,7 +503,7 @@ class SubscribedEventList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SubscribedEventPage:
         """
         Retrieve a single page of SubscribedEventInstance records from the API.
         Request is executed immediately
@@ -540,7 +513,6 @@ class SubscribedEventList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventPage
         """
         data = values.of(
             {
@@ -555,7 +527,7 @@ class SubscribedEventList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SubscribedEventPage:
         """
         Asynchronously retrieve a single page of SubscribedEventInstance records from the API.
         Request is executed immediately
@@ -565,7 +537,6 @@ class SubscribedEventList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventPage
         """
         data = values.of(
             {
@@ -580,7 +551,7 @@ class SubscribedEventList(ListResource):
         )
         return SubscribedEventPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> SubscribedEventPage:
         """
         Retrieve a specific page of SubscribedEventInstance records from the API.
         Request is executed immediately
@@ -588,12 +559,11 @@ class SubscribedEventList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SubscribedEventPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> SubscribedEventPage:
         """
         Asynchronously retrieve a specific page of SubscribedEventInstance records from the API.
         Request is executed immediately
@@ -601,19 +571,15 @@ class SubscribedEventList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SubscribedEventPage(self._version, response, self._solution)
 
-    def get(self, type):
+    def get(self, type) -> SubscribedEventContext:
         """
         Constructs a SubscribedEventContext
 
         :param type: Type of event being subscribed to.
-
-        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
         """
         return SubscribedEventContext(
             self._version,
@@ -621,14 +587,11 @@ class SubscribedEventList(ListResource):
             type=type,
         )
 
-    def __call__(self, type):
+    def __call__(self, type) -> SubscribedEventContext:
         """
         Constructs a SubscribedEventContext
 
         :param type: Type of event being subscribed to.
-
-        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
         """
         return SubscribedEventContext(
             self._version,
@@ -636,11 +599,10 @@ class SubscribedEventList(ListResource):
             type=type,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Events.V1.SubscribedEventList>"

@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class TaskChannelInstance(InstanceResource):
     def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
         """
         Initialize the TaskChannelInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         super().__init__(version)
 
@@ -52,13 +50,12 @@ class TaskChannelInstance(InstanceResource):
         self._context: Optional[TaskChannelContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "TaskChannelContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: TaskChannelContext for this TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         if self._context is None:
             self._context = TaskChannelContext(
@@ -69,128 +66,114 @@ class TaskChannelInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task Channel resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Task Channel resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace that contains the Task Channel.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
     @property
-    def channel_optimized_routing(self):
+    def channel_optimized_routing(self) -> bool:
         """
         :returns: Whether the Task Channel will prioritize Workers that have been idle. When `true`, Workers that have been idle the longest are prioritized.
-        :rtype: bool
         """
         return self._properties["channel_optimized_routing"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Task Channel resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the TaskChannelInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TaskChannelInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "TaskChannelInstance":
         """
         Fetch the TaskChannelInstance
 
 
         :returns: The fetched TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "TaskChannelInstance":
         """
         Asynchronous coroutine to fetch the TaskChannelInstance
 
 
         :returns: The fetched TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return await self._proxy.fetch_async()
 
     def update(
         self, friendly_name=values.unset, channel_optimized_routing=values.unset
-    ):
+    ) -> "TaskChannelInstance":
         """
         Update the TaskChannelInstance
 
@@ -198,7 +181,6 @@ class TaskChannelInstance(InstanceResource):
         :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The updated TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -207,7 +189,7 @@ class TaskChannelInstance(InstanceResource):
 
     async def update_async(
         self, friendly_name=values.unset, channel_optimized_routing=values.unset
-    ):
+    ) -> "TaskChannelInstance":
         """
         Asynchronous coroutine to update the TaskChannelInstance
 
@@ -215,19 +197,17 @@ class TaskChannelInstance(InstanceResource):
         :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The updated TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
             channel_optimized_routing=channel_optimized_routing,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.TaskChannelInstance {}>".format(context)
@@ -238,12 +218,9 @@ class TaskChannelContext(InstanceContext):
         """
         Initialize the TaskChannelContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Task Channel to update.
         :param sid: The SID of the Task Channel resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         super().__init__(version)
 
@@ -256,39 +233,36 @@ class TaskChannelContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the TaskChannelInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TaskChannelInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> TaskChannelInstance:
         """
         Fetch the TaskChannelInstance
 
 
         :returns: The fetched TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
 
         payload = self._version.fetch(
@@ -303,13 +277,12 @@ class TaskChannelContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> TaskChannelInstance:
         """
         Asynchronous coroutine to fetch the TaskChannelInstance
 
 
         :returns: The fetched TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
 
         payload = await self._version.fetch_async(
@@ -326,7 +299,7 @@ class TaskChannelContext(InstanceContext):
 
     def update(
         self, friendly_name=values.unset, channel_optimized_routing=values.unset
-    ):
+    ) -> TaskChannelInstance:
         """
         Update the TaskChannelInstance
 
@@ -334,7 +307,6 @@ class TaskChannelContext(InstanceContext):
         :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The updated TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         data = values.of(
             {
@@ -358,7 +330,7 @@ class TaskChannelContext(InstanceContext):
 
     async def update_async(
         self, friendly_name=values.unset, channel_optimized_routing=values.unset
-    ):
+    ) -> TaskChannelInstance:
         """
         Asynchronous coroutine to update the TaskChannelInstance
 
@@ -366,7 +338,6 @@ class TaskChannelContext(InstanceContext):
         :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The updated TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         data = values.of(
             {
@@ -388,26 +359,22 @@ class TaskChannelContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.TaskChannelContext {}>".format(context)
 
 
 class TaskChannelPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> TaskChannelInstance:
         """
         Build an instance of TaskChannelInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return TaskChannelInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -427,11 +394,9 @@ class TaskChannelList(ListResource):
         """
         Initialize the TaskChannelList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Task Channel to read.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
         """
         super().__init__(version)
 
@@ -443,7 +408,7 @@ class TaskChannelList(ListResource):
 
     def create(
         self, friendly_name, unique_name, channel_optimized_routing=values.unset
-    ):
+    ) -> TaskChannelInstance:
         """
         Create the TaskChannelInstance
 
@@ -452,7 +417,6 @@ class TaskChannelList(ListResource):
         :param bool channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The created TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         data = values.of(
             {
@@ -474,7 +438,7 @@ class TaskChannelList(ListResource):
 
     async def create_async(
         self, friendly_name, unique_name, channel_optimized_routing=values.unset
-    ):
+    ) -> TaskChannelInstance:
         """
         Asynchronously create the TaskChannelInstance
 
@@ -483,7 +447,6 @@ class TaskChannelList(ListResource):
         :param bool channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The created TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         data = values.of(
             {
@@ -503,7 +466,7 @@ class TaskChannelList(ListResource):
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[TaskChannelInstance]:
         """
         Streams TaskChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -518,14 +481,15 @@ class TaskChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[TaskChannelInstance]:
         """
         Asynchronously streams TaskChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -540,14 +504,13 @@ class TaskChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[TaskChannelInstance]:
         """
         Lists TaskChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -561,7 +524,6 @@ class TaskChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance]
         """
         return list(
             self.stream(
@@ -570,7 +532,7 @@ class TaskChannelList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[TaskChannelInstance]:
         """
         Asynchronously lists TaskChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -584,7 +546,6 @@ class TaskChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance]
         """
         return list(
             await self.stream_async(
@@ -595,7 +556,7 @@ class TaskChannelList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> TaskChannelPage:
         """
         Retrieve a single page of TaskChannelInstance records from the API.
         Request is executed immediately
@@ -605,7 +566,6 @@ class TaskChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         """
         data = values.of(
             {
@@ -620,7 +580,7 @@ class TaskChannelList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> TaskChannelPage:
         """
         Asynchronously retrieve a single page of TaskChannelInstance records from the API.
         Request is executed immediately
@@ -630,7 +590,6 @@ class TaskChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         """
         data = values.of(
             {
@@ -645,7 +604,7 @@ class TaskChannelList(ListResource):
         )
         return TaskChannelPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> TaskChannelPage:
         """
         Retrieve a specific page of TaskChannelInstance records from the API.
         Request is executed immediately
@@ -653,12 +612,11 @@ class TaskChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TaskChannelPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> TaskChannelPage:
         """
         Asynchronously retrieve a specific page of TaskChannelInstance records from the API.
         Request is executed immediately
@@ -666,42 +624,34 @@ class TaskChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TaskChannelPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> TaskChannelContext:
         """
         Constructs a TaskChannelContext
 
         :param sid: The SID of the Task Channel resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         return TaskChannelContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> TaskChannelContext:
         """
         Constructs a TaskChannelContext
 
         :param sid: The SID of the Task Channel resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         return TaskChannelContext(
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.TaskChannelList>"

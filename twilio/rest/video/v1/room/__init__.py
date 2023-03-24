@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -44,9 +45,6 @@ class RoomInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the RoomInstance
-
-        :returns: twilio.rest.video.v1.room.RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         super().__init__(version)
 
@@ -93,13 +91,12 @@ class RoomInstance(InstanceResource):
         self._context: Optional[RoomContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "RoomContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: RoomContext for this RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomContext
         """
         if self._context is None:
             self._context = RoomContext(
@@ -109,279 +106,241 @@ class RoomInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Room resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def status(self):
+    def status(self) -> "RoomInstance.RoomStatus":
         """
         :returns:
-        :rtype: RoomInstance.RoomStatus
         """
         return self._properties["status"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Room resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def enable_turn(self):
+    def enable_turn(self) -> bool:
         """
         :returns: Deprecated, now always considered to be true.
-        :rtype: bool
         """
         return self._properties["enable_turn"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL we call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def status_callback_method(self):
+    def status_callback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
-        :rtype: str
         """
         return self._properties["status_callback_method"]
 
     @property
-    def end_time(self):
+    def end_time(self) -> datetime:
         """
         :returns: The UTC end time of the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :rtype: datetime
         """
         return self._properties["end_time"]
 
     @property
-    def duration(self):
+    def duration(self) -> int:
         """
         :returns: The duration of the room in seconds.
-        :rtype: int
         """
         return self._properties["duration"]
 
     @property
-    def type(self):
+    def type(self) -> "RoomInstance.RoomType":
         """
         :returns:
-        :rtype: RoomInstance.RoomType
         """
         return self._properties["type"]
 
     @property
-    def max_participants(self):
+    def max_participants(self) -> int:
         """
         :returns: The maximum number of concurrent Participants allowed in the room.
-        :rtype: int
         """
         return self._properties["max_participants"]
 
     @property
-    def max_participant_duration(self):
+    def max_participant_duration(self) -> int:
         """
         :returns: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
-        :rtype: int
         """
         return self._properties["max_participant_duration"]
 
     @property
-    def max_concurrent_published_tracks(self):
+    def max_concurrent_published_tracks(self) -> int:
         """
         :returns: The maximum number of published audio, video, and data tracks all participants combined are allowed to publish in the room at the same time. Check [Programmable Video Limits](https://www.twilio.com/docs/video/programmable-video-limits) for more details. If it is set to 0 it means unconstrained.
-        :rtype: int
         """
         return self._properties["max_concurrent_published_tracks"]
 
     @property
-    def record_participants_on_connect(self):
+    def record_participants_on_connect(self) -> bool:
         """
         :returns: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :rtype: bool
         """
         return self._properties["record_participants_on_connect"]
 
     @property
-    def video_codecs(self):
+    def video_codecs(self) -> List["RoomInstance.VideoCodec"]:
         """
         :returns: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :rtype: List[RoomInstance.VideoCodec]
         """
         return self._properties["video_codecs"]
 
     @property
-    def media_region(self):
+    def media_region(self) -> str:
         """
         :returns: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#media-servers). ***This feature is not available in `peer-to-peer` rooms.***
-        :rtype: str
         """
         return self._properties["media_region"]
 
     @property
-    def audio_only(self):
+    def audio_only(self) -> bool:
         """
         :returns: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
-        :rtype: bool
         """
         return self._properties["audio_only"]
 
     @property
-    def empty_room_timeout(self):
+    def empty_room_timeout(self) -> int:
         """
         :returns: Specifies how long (in minutes) a room will remain active after last participant leaves. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
-        :rtype: int
         """
         return self._properties["empty_room_timeout"]
 
     @property
-    def unused_room_timeout(self):
+    def unused_room_timeout(self) -> int:
         """
         :returns: Specifies how long (in minutes) a room will remain active if no one joins. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
-        :rtype: int
         """
         return self._properties["unused_room_timeout"]
 
     @property
-    def large_room(self):
+    def large_room(self) -> bool:
         """
         :returns: Indicates if this is a large room.
-        :rtype: bool
         """
         return self._properties["large_room"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "RoomInstance":
         """
         Fetch the RoomInstance
 
 
         :returns: The fetched RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "RoomInstance":
         """
         Asynchronous coroutine to fetch the RoomInstance
 
 
         :returns: The fetched RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status):
+    def update(self, status) -> "RoomInstance":
         """
         Update the RoomInstance
 
-        :param RoomInstance.RoomStatus status:
+        :param "RoomInstance.RoomStatus" status:
 
         :returns: The updated RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return self._proxy.update(
             status=status,
         )
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> "RoomInstance":
         """
         Asynchronous coroutine to update the RoomInstance
 
-        :param RoomInstance.RoomStatus status:
+        :param "RoomInstance.RoomStatus" status:
 
         :returns: The updated RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return await self._proxy.update_async(
             status=status,
         )
 
     @property
-    def participants(self):
+    def participants(self) -> ParticipantList:
         """
         Access the participants
-
-        :returns: twilio.rest.video.v1.room.ParticipantList
-        :rtype: twilio.rest.video.v1.room.ParticipantList
         """
         return self._proxy.participants
 
     @property
-    def recording_rules(self):
+    def recording_rules(self) -> RecordingRulesList:
         """
         Access the recording_rules
-
-        :returns: twilio.rest.video.v1.room.RecordingRulesList
-        :rtype: twilio.rest.video.v1.room.RecordingRulesList
         """
         return self._proxy.recording_rules
 
     @property
-    def recordings(self):
+    def recordings(self) -> RoomRecordingList:
         """
         Access the recordings
-
-        :returns: twilio.rest.video.v1.room.RoomRecordingList
-        :rtype: twilio.rest.video.v1.room.RoomRecordingList
         """
         return self._proxy.recordings
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.RoomInstance {}>".format(context)
@@ -392,11 +351,8 @@ class RoomContext(InstanceContext):
         """
         Initialize the RoomContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Room resource to update.
-
-        :returns: twilio.rest.video.v1.room.RoomContext
-        :rtype: twilio.rest.video.v1.room.RoomContext
         """
         super().__init__(version)
 
@@ -410,13 +366,12 @@ class RoomContext(InstanceContext):
         self._recording_rules: Optional[RecordingRulesList] = None
         self._recordings: Optional[RoomRecordingList] = None
 
-    def fetch(self):
+    def fetch(self) -> RoomInstance:
         """
         Fetch the RoomInstance
 
 
         :returns: The fetched RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
 
         payload = self._version.fetch(
@@ -430,13 +385,12 @@ class RoomContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> RoomInstance:
         """
         Asynchronous coroutine to fetch the RoomInstance
 
 
         :returns: The fetched RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
 
         payload = await self._version.fetch_async(
@@ -450,14 +404,13 @@ class RoomContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status):
+    def update(self, status) -> RoomInstance:
         """
         Update the RoomInstance
 
-        :param RoomInstance.RoomStatus status:
+        :param "RoomInstance.RoomStatus" status:
 
         :returns: The updated RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         data = values.of(
             {
@@ -473,14 +426,13 @@ class RoomContext(InstanceContext):
 
         return RoomInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> RoomInstance:
         """
         Asynchronous coroutine to update the RoomInstance
 
-        :param RoomInstance.RoomStatus status:
+        :param "RoomInstance.RoomStatus" status:
 
         :returns: The updated RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         data = values.of(
             {
@@ -497,12 +449,9 @@ class RoomContext(InstanceContext):
         return RoomInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def participants(self):
+    def participants(self) -> ParticipantList:
         """
         Access the participants
-
-        :returns: twilio.rest.video.v1.room.ParticipantList
-        :rtype: twilio.rest.video.v1.room.ParticipantList
         """
         if self._participants is None:
             self._participants = ParticipantList(
@@ -512,12 +461,9 @@ class RoomContext(InstanceContext):
         return self._participants
 
     @property
-    def recording_rules(self):
+    def recording_rules(self) -> RecordingRulesList:
         """
         Access the recording_rules
-
-        :returns: twilio.rest.video.v1.room.RecordingRulesList
-        :rtype: twilio.rest.video.v1.room.RecordingRulesList
         """
         if self._recording_rules is None:
             self._recording_rules = RecordingRulesList(
@@ -527,12 +473,9 @@ class RoomContext(InstanceContext):
         return self._recording_rules
 
     @property
-    def recordings(self):
+    def recordings(self) -> RoomRecordingList:
         """
         Access the recordings
-
-        :returns: twilio.rest.video.v1.room.RoomRecordingList
-        :rtype: twilio.rest.video.v1.room.RoomRecordingList
         """
         if self._recordings is None:
             self._recordings = RoomRecordingList(
@@ -541,26 +484,22 @@ class RoomContext(InstanceContext):
             )
         return self._recordings
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.RoomContext {}>".format(context)
 
 
 class RoomPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> RoomInstance:
         """
         Build an instance of RoomInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return RoomInstance(self._version, payload)
 
@@ -578,10 +517,8 @@ class RoomList(ListResource):
         """
         Initialize the RoomList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.video.v1.room.RoomList
-        :rtype: twilio.rest.video.v1.room.RoomList
         """
         super().__init__(version)
 
@@ -604,18 +541,18 @@ class RoomList(ListResource):
         empty_room_timeout=values.unset,
         unused_room_timeout=values.unset,
         large_room=values.unset,
-    ):
+    ) -> RoomInstance:
         """
         Create the RoomInstance
 
         :param bool enable_turn: Deprecated, now always considered to be true.
-        :param RoomInstance.RoomType type:
+        :param &quot;RoomInstance.RoomType&quot; type:
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
         :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
         :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param List[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param List[&quot;RoomInstance.VideoCodec&quot;] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
         :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
         :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
         :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
@@ -625,7 +562,6 @@ class RoomList(ListResource):
         :param bool large_room: When set to true, indicated that this is the large room.
 
         :returns: The created RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         data = values.of(
             {
@@ -672,18 +608,18 @@ class RoomList(ListResource):
         empty_room_timeout=values.unset,
         unused_room_timeout=values.unset,
         large_room=values.unset,
-    ):
+    ) -> RoomInstance:
         """
         Asynchronously create the RoomInstance
 
         :param bool enable_turn: Deprecated, now always considered to be true.
-        :param RoomInstance.RoomType type:
+        :param &quot;RoomInstance.RoomType&quot; type:
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
         :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
         :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param List[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param List[&quot;RoomInstance.VideoCodec&quot;] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
         :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
         :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
         :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
@@ -693,7 +629,6 @@ class RoomList(ListResource):
         :param bool large_room: When set to true, indicated that this is the large room.
 
         :returns: The created RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         data = values.of(
             {
@@ -731,14 +666,14 @@ class RoomList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RoomInstance]:
         """
         Streams RoomInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -750,7 +685,6 @@ class RoomList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -771,14 +705,14 @@ class RoomList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RoomInstance]:
         """
         Asynchronously streams RoomInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -790,7 +724,6 @@ class RoomList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -811,13 +744,13 @@ class RoomList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RoomInstance]:
         """
         Lists RoomInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -829,7 +762,6 @@ class RoomList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
         """
         return list(
             self.stream(
@@ -850,13 +782,13 @@ class RoomList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[RoomInstance]:
         """
         Asynchronously lists RoomInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -868,7 +800,6 @@ class RoomList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
         """
         return list(
             await self.stream_async(
@@ -890,12 +821,12 @@ class RoomList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> RoomPage:
         """
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -904,7 +835,6 @@ class RoomList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomPage
         """
         data = values.of(
             {
@@ -930,12 +860,12 @@ class RoomList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> RoomPage:
         """
         Asynchronously retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -944,7 +874,6 @@ class RoomList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomPage
         """
         data = values.of(
             {
@@ -963,7 +892,7 @@ class RoomList(ListResource):
         )
         return RoomPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> RoomPage:
         """
         Retrieve a specific page of RoomInstance records from the API.
         Request is executed immediately
@@ -971,12 +900,11 @@ class RoomList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RoomPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> RoomPage:
         """
         Asynchronously retrieve a specific page of RoomInstance records from the API.
         Request is executed immediately
@@ -984,38 +912,30 @@ class RoomList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RoomPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> RoomContext:
         """
         Constructs a RoomContext
 
         :param sid: The SID of the Room resource to update.
-
-        :returns: twilio.rest.video.v1.room.RoomContext
-        :rtype: twilio.rest.video.v1.room.RoomContext
         """
         return RoomContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> RoomContext:
         """
         Constructs a RoomContext
 
         :param sid: The SID of the Room resource to update.
-
-        :returns: twilio.rest.video.v1.room.RoomContext
-        :rtype: twilio.rest.video.v1.room.RoomContext
         """
         return RoomContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.RoomList>"

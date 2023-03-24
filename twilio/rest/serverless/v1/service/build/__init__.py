@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -40,9 +41,6 @@ class BuildInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the BuildInstance
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         super().__init__(version)
 
@@ -65,171 +63,150 @@ class BuildInstance(InstanceResource):
         self._context: Optional[BuildContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> 'BuildContext':
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: BuildContext for this BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
         """
         if self._context is None:
             self._context = BuildContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
         return self._context
     
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Build resource.
-        :rtype: str
         """
         return self._properties['sid']
     
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
-        :rtype: str
         """
         return self._properties['account_sid']
     
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the Service that the Build resource is associated with.
-        :rtype: str
         """
         return self._properties['service_sid']
     
     @property
-    def status(self):
+    def status(self) -> "BuildInstance.Status":
         """
         :returns: 
-        :rtype: BuildInstance.Status
         """
         return self._properties['status']
     
     @property
-    def asset_versions(self):
+    def asset_versions(self) -> List[object]:
         """
         :returns: The list of Asset Version resource SIDs that are included in the Build.
-        :rtype: List[object]
         """
         return self._properties['asset_versions']
     
     @property
-    def function_versions(self):
+    def function_versions(self) -> List[object]:
         """
         :returns: The list of Function Version resource SIDs that are included in the Build.
-        :rtype: List[object]
         """
         return self._properties['function_versions']
     
     @property
-    def dependencies(self):
+    def dependencies(self) -> List[object]:
         """
         :returns: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
-        :rtype: List[object]
         """
         return self._properties['dependencies']
     
     @property
-    def runtime(self):
+    def runtime(self) -> "BuildInstance.Runtime":
         """
         :returns: 
-        :rtype: BuildInstance.Runtime
         """
         return self._properties['runtime']
     
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the Build resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties['date_created']
     
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the Build resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties['date_updated']
     
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Build resource.
-        :rtype: str
         """
         return self._properties['url']
     
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: 
-        :rtype: dict
         """
         return self._properties['links']
     
     
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the BuildInstance
         
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the BuildInstance
         
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
     
     
-    def fetch(self):
+    def fetch(self) -> "BuildInstance":
         """
         Fetch the BuildInstance
         
 
         :returns: The fetched BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "BuildInstance":
         """
         Asynchronous coroutine to fetch the BuildInstance
         
 
         :returns: The fetched BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         return await self._proxy.fetch_async()
     
     @property
-    def build_status(self):
+    def build_status(self) -> BuildStatusList:
         """
         Access the build_status
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildStatusList
-        :rtype: twilio.rest.serverless.v1.service.build.BuildStatusList
         """
         return self._proxy.build_status
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.BuildInstance {}>'.format(context)
@@ -240,12 +217,9 @@ class BuildContext(InstanceContext):
         """
         Initialize the BuildContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Build resource from.
         :param sid: The SID of the Build resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildContext
-        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
         """
         super().__init__(version)
 
@@ -260,34 +234,31 @@ class BuildContext(InstanceContext):
         self._build_status: Optional[BuildStatusList] = None
     
     
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the BuildInstance
 
         
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the BuildInstance
 
         
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(method='DELETE', uri=self._uri,)
     
     
-    def fetch(self):
+    def fetch(self) -> BuildInstance:
         """
         Fetch the BuildInstance
         
 
         :returns: The fetched BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         
         payload = self._version.fetch(method='GET', uri=self._uri, )
@@ -300,13 +271,12 @@ class BuildContext(InstanceContext):
             
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> BuildInstance:
         """
         Asynchronous coroutine to fetch the BuildInstance
         
 
         :returns: The fetched BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         
         payload = await self._version.fetch_async(method='GET', uri=self._uri, )
@@ -321,12 +291,9 @@ class BuildContext(InstanceContext):
     
     
     @property
-    def build_status(self):
+    def build_status(self) -> BuildStatusList:
         """
         Access the build_status
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildStatusList
-        :rtype: twilio.rest.serverless.v1.service.build.BuildStatusList
         """
         if self._build_status is None:
             self._build_status = BuildStatusList(
@@ -336,12 +303,11 @@ class BuildContext(InstanceContext):
             )
         return self._build_status
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.BuildContext {}>'.format(context)
@@ -356,14 +322,11 @@ class BuildContext(InstanceContext):
 
 class BuildPage(Page):
 
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> BuildInstance:
         """
         Build an instance of BuildInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         return BuildInstance(self._version, payload, service_sid=self._solution["service_sid"])
 
@@ -385,11 +348,9 @@ class BuildList(ListResource):
         """
         Initialize the BuildList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Build resources from.
         
-        :returns: twilio.rest.serverless.v1.service.build.BuildList
-        :rtype: twilio.rest.serverless.v1.service.build.BuildList
         """
         super().__init__(version)
 
@@ -402,7 +363,7 @@ class BuildList(ListResource):
     
     
     
-    def create(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset):
+    def create(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset) -> BuildInstance:
         """
         Create the BuildInstance
 
@@ -412,7 +373,6 @@ class BuildList(ListResource):
         :param str runtime: The Runtime version that will be used to run the Build resource when it is deployed.
         
         :returns: The created BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         data = values.of({ 
             'AssetVersions': serialize.map(asset_versions, lambda e: e),
@@ -425,7 +385,7 @@ class BuildList(ListResource):
 
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
-    async def create_async(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset):
+    async def create_async(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset) -> BuildInstance:
         """
         Asynchronously create the BuildInstance
 
@@ -435,7 +395,6 @@ class BuildList(ListResource):
         :param str runtime: The Runtime version that will be used to run the Build resource when it is deployed.
         
         :returns: The created BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         data = values.of({ 
             'AssetVersions': serialize.map(asset_versions, lambda e: e),
@@ -449,7 +408,7 @@ class BuildList(ListResource):
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[BuildInstance]:
         """
         Streams BuildInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -464,7 +423,6 @@ class BuildList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.build.BuildInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -473,7 +431,7 @@ class BuildList(ListResource):
 
         return self._version.stream(page, limits['limit'])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[BuildInstance]:
         """
         Asynchronously streams BuildInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -488,7 +446,6 @@ class BuildList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.build.BuildInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -497,7 +454,7 @@ class BuildList(ListResource):
 
         return await self._version.stream_async(page, limits['limit'])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[BuildInstance]:
         """
         Lists BuildInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -511,14 +468,13 @@ class BuildList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.build.BuildInstance]
         """
         return list(self.stream(
             limit=limit,
             page_size=page_size,
         ))
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[BuildInstance]:
         """
         Asynchronously lists BuildInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -532,14 +488,13 @@ class BuildList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.build.BuildInstance]
         """
         return list(await self.stream_async(
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset) -> BuildPage:
         """
         Retrieve a single page of BuildInstance records from the API.
         Request is executed immediately
@@ -549,7 +504,6 @@ class BuildList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -560,7 +514,7 @@ class BuildList(ListResource):
         response = self._version.page(method='GET', uri=self._uri, params=data)
         return BuildPage(self._version, response, self._solution)
 
-    async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset) -> BuildPage:
         """
         Asynchronously retrieve a single page of BuildInstance records from the API.
         Request is executed immediately
@@ -570,7 +524,6 @@ class BuildList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -581,7 +534,7 @@ class BuildList(ListResource):
         response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return BuildPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> BuildPage:
         """
         Retrieve a specific page of BuildInstance records from the API.
         Request is executed immediately
@@ -589,7 +542,6 @@ class BuildList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -597,7 +549,7 @@ class BuildList(ListResource):
         )
         return BuildPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> BuildPage:
         """
         Asynchronously retrieve a specific page of BuildInstance records from the API.
         Request is executed immediately
@@ -605,7 +557,6 @@ class BuildList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildPage
         """
         response = await self._version.domain.twilio.request_async(
             'GET',
@@ -617,34 +568,27 @@ class BuildList(ListResource):
 
 
 
-    def get(self, sid):
+    def get(self, sid) -> BuildContext:
         """
         Constructs a BuildContext
         
         :param sid: The SID of the Build resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildContext
-        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
         """
         return BuildContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> BuildContext:
         """
         Constructs a BuildContext
         
         :param sid: The SID of the Build resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildContext
-        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
         """
         return BuildContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return '<Twilio.Serverless.V1.BuildList>'
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -32,9 +33,6 @@ class PaymentInstance(InstanceResource):
     ):
         """
         Initialize the PaymentInstance
-
-        :returns: twilio.rest.api.v2010.account.call.payment.PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
         """
         super().__init__(version)
 
@@ -55,13 +53,12 @@ class PaymentInstance(InstanceResource):
         self._context: Optional[PaymentContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "PaymentContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: PaymentContext for this PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentContext
         """
         if self._context is None:
             self._context = PaymentContext(
@@ -73,50 +70,44 @@ class PaymentInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Payments resource is associated with. This will refer to the call sid that is producing the payment card (credit/ACH) information thru DTMF.
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The SID of the Payments resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
@@ -126,17 +117,16 @@ class PaymentInstance(InstanceResource):
         status_callback,
         capture=values.unset,
         status=values.unset,
-    ):
+    ) -> "PaymentInstance":
         """
         Update the PaymentInstance
 
         :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
         :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :param PaymentInstance.Capture capture:
-        :param PaymentInstance.Status status:
+        :param "PaymentInstance.Capture" capture:
+        :param "PaymentInstance.Status" status:
 
         :returns: The updated PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
         """
         return self._proxy.update(
             idempotency_key=idempotency_key,
@@ -151,17 +141,16 @@ class PaymentInstance(InstanceResource):
         status_callback,
         capture=values.unset,
         status=values.unset,
-    ):
+    ) -> "PaymentInstance":
         """
         Asynchronous coroutine to update the PaymentInstance
 
         :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
         :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :param PaymentInstance.Capture capture:
-        :param PaymentInstance.Status status:
+        :param "PaymentInstance.Capture" capture:
+        :param "PaymentInstance.Status" status:
 
         :returns: The updated PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
         """
         return await self._proxy.update_async(
             idempotency_key=idempotency_key,
@@ -170,12 +159,11 @@ class PaymentInstance(InstanceResource):
             status=status,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.PaymentInstance {}>".format(context)
@@ -186,13 +174,10 @@ class PaymentContext(InstanceContext):
         """
         Initialize the PaymentContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.
         :param call_sid: The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource.
         :param sid: The SID of Payments session that needs to be updated.
-
-        :returns: twilio.rest.api.v2010.account.call.payment.PaymentContext
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentContext
         """
         super().__init__(version)
 
@@ -214,17 +199,16 @@ class PaymentContext(InstanceContext):
         status_callback,
         capture=values.unset,
         status=values.unset,
-    ):
+    ) -> PaymentInstance:
         """
         Update the PaymentInstance
 
         :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
         :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :param PaymentInstance.Capture capture:
-        :param PaymentInstance.Status status:
+        :param "PaymentInstance.Capture" capture:
+        :param "PaymentInstance.Status" status:
 
         :returns: The updated PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
         """
         data = values.of(
             {
@@ -255,17 +239,16 @@ class PaymentContext(InstanceContext):
         status_callback,
         capture=values.unset,
         status=values.unset,
-    ):
+    ) -> PaymentInstance:
         """
         Asynchronous coroutine to update the PaymentInstance
 
         :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
         :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :param PaymentInstance.Capture capture:
-        :param PaymentInstance.Status status:
+        :param "PaymentInstance.Capture" capture:
+        :param "PaymentInstance.Status" status:
 
         :returns: The updated PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
         """
         data = values.of(
             {
@@ -290,12 +273,11 @@ class PaymentContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.PaymentContext {}>".format(context)
@@ -306,12 +288,10 @@ class PaymentList(ListResource):
         """
         Initialize the PaymentList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
         :param call_sid: The SID of the call that will create the resource. Call leg associated with this sid is expected to provide payment information thru DTMF.
 
-        :returns: twilio.rest.api.v2010.account.call.payment.PaymentList
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentList
         """
         super().__init__(version)
 
@@ -342,13 +322,13 @@ class PaymentList(ListResource):
         timeout=values.unset,
         token_type=values.unset,
         valid_card_types=values.unset,
-    ):
+    ) -> PaymentInstance:
         """
         Create the PaymentInstance
 
         :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
         :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
-        :param PaymentInstance.BankAccountType bank_account_type:
+        :param &quot;PaymentInstance.BankAccountType&quot; bank_account_type:
         :param float charge_amount: A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
         :param str currency: The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
         :param str description: The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
@@ -356,15 +336,14 @@ class PaymentList(ListResource):
         :param int min_postal_code_length: A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
         :param object parameter: A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
         :param str payment_connector: This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
-        :param PaymentInstance.PaymentMethod payment_method:
+        :param &quot;PaymentInstance.PaymentMethod&quot; payment_method:
         :param bool postal_code: Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
         :param bool security_code: Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
         :param int timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
-        :param PaymentInstance.TokenType token_type:
+        :param &quot;PaymentInstance.TokenType&quot; token_type:
         :param str valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
 
         :returns: The created PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
         """
         data = values.of(
             {
@@ -418,13 +397,13 @@ class PaymentList(ListResource):
         timeout=values.unset,
         token_type=values.unset,
         valid_card_types=values.unset,
-    ):
+    ) -> PaymentInstance:
         """
         Asynchronously create the PaymentInstance
 
         :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
         :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
-        :param PaymentInstance.BankAccountType bank_account_type:
+        :param &quot;PaymentInstance.BankAccountType&quot; bank_account_type:
         :param float charge_amount: A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
         :param str currency: The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
         :param str description: The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
@@ -432,15 +411,14 @@ class PaymentList(ListResource):
         :param int min_postal_code_length: A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
         :param object parameter: A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
         :param str payment_connector: This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
-        :param PaymentInstance.PaymentMethod payment_method:
+        :param &quot;PaymentInstance.PaymentMethod&quot; payment_method:
         :param bool postal_code: Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
         :param bool security_code: Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
         :param int timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
-        :param PaymentInstance.TokenType token_type:
+        :param &quot;PaymentInstance.TokenType&quot; token_type:
         :param str valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
 
         :returns: The created PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
         """
         data = values.of(
             {
@@ -476,14 +454,11 @@ class PaymentList(ListResource):
             call_sid=self._solution["call_sid"],
         )
 
-    def get(self, sid):
+    def get(self, sid) -> PaymentContext:
         """
         Constructs a PaymentContext
 
         :param sid: The SID of Payments session that needs to be updated.
-
-        :returns: twilio.rest.api.v2010.account.call.payment.PaymentContext
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentContext
         """
         return PaymentContext(
             self._version,
@@ -492,14 +467,11 @@ class PaymentList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> PaymentContext:
         """
         Constructs a PaymentContext
 
         :param sid: The SID of Payments session that needs to be updated.
-
-        :returns: twilio.rest.api.v2010.account.call.payment.PaymentContext
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentContext
         """
         return PaymentContext(
             self._version,
@@ -508,11 +480,10 @@ class PaymentList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.PaymentList>"

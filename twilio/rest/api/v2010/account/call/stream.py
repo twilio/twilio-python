@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -36,9 +37,6 @@ class StreamInstance(InstanceResource):
     ):
         """
         Initialize the StreamInstance
-
-        :returns: twilio.rest.api.v2010.account.call.stream.StreamInstance
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
         """
         super().__init__(version)
 
@@ -60,13 +58,12 @@ class StreamInstance(InstanceResource):
         self._context: Optional[StreamContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "StreamContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: StreamContext for this StreamInstance
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamContext
         """
         if self._context is None:
             self._context = StreamContext(
@@ -78,93 +75,83 @@ class StreamInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The SID of the Stream resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         :returns: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
-        :rtype: str
         """
         return self._properties["name"]
 
     @property
-    def status(self):
+    def status(self) -> "StreamInstance.Status":
         """
         :returns:
-        :rtype: StreamInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def update(self, status):
+    def update(self, status) -> "StreamInstance":
         """
         Update the StreamInstance
 
-        :param StreamInstance.UpdateStatus status:
+        :param "StreamInstance.UpdateStatus" status:
 
         :returns: The updated StreamInstance
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
         """
         return self._proxy.update(
             status=status,
         )
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> "StreamInstance":
         """
         Asynchronous coroutine to update the StreamInstance
 
-        :param StreamInstance.UpdateStatus status:
+        :param "StreamInstance.UpdateStatus" status:
 
         :returns: The updated StreamInstance
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
         """
         return await self._proxy.update_async(
             status=status,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.StreamInstance {}>".format(context)
@@ -175,13 +162,10 @@ class StreamContext(InstanceContext):
         """
         Initialize the StreamContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
         :param sid: The SID of the Stream resource, or the `name` used when creating the resource
-
-        :returns: twilio.rest.api.v2010.account.call.stream.StreamContext
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamContext
         """
         super().__init__(version)
 
@@ -197,14 +181,13 @@ class StreamContext(InstanceContext):
             )
         )
 
-    def update(self, status):
+    def update(self, status) -> StreamInstance:
         """
         Update the StreamInstance
 
-        :param StreamInstance.UpdateStatus status:
+        :param "StreamInstance.UpdateStatus" status:
 
         :returns: The updated StreamInstance
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
         """
         data = values.of(
             {
@@ -226,14 +209,13 @@ class StreamContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status):
+    async def update_async(self, status) -> StreamInstance:
         """
         Asynchronous coroutine to update the StreamInstance
 
-        :param StreamInstance.UpdateStatus status:
+        :param "StreamInstance.UpdateStatus" status:
 
         :returns: The updated StreamInstance
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
         """
         data = values.of(
             {
@@ -255,12 +237,11 @@ class StreamContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.StreamContext {}>".format(context)
@@ -271,12 +252,10 @@ class StreamList(ListResource):
         """
         Initialize the StreamList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
 
-        :returns: twilio.rest.api.v2010.account.call.stream.StreamList
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamList
         """
         super().__init__(version)
 
@@ -494,13 +473,13 @@ class StreamList(ListResource):
         parameter98_value=values.unset,
         parameter99_name=values.unset,
         parameter99_value=values.unset,
-    ):
+    ) -> StreamInstance:
         """
         Create the StreamInstance
 
         :param str url: Relative or absolute url where WebSocket connection will be established.
         :param str name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
-        :param StreamInstance.Track track:
+        :param &quot;StreamInstance.Track&quot; track:
         :param str status_callback: Absolute URL of the status callback.
         :param str status_callback_method: The http method for the status_callback (one of GET, POST).
         :param str parameter1_name: Parameter name
@@ -703,7 +682,6 @@ class StreamList(ListResource):
         :param str parameter99_value: Parameter value
 
         :returns: The created StreamInstance
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
         """
         data = values.of(
             {
@@ -1131,13 +1109,13 @@ class StreamList(ListResource):
         parameter98_value=values.unset,
         parameter99_name=values.unset,
         parameter99_value=values.unset,
-    ):
+    ) -> StreamInstance:
         """
         Asynchronously create the StreamInstance
 
         :param str url: Relative or absolute url where WebSocket connection will be established.
         :param str name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
-        :param StreamInstance.Track track:
+        :param &quot;StreamInstance.Track&quot; track:
         :param str status_callback: Absolute URL of the status callback.
         :param str status_callback_method: The http method for the status_callback (one of GET, POST).
         :param str parameter1_name: Parameter name
@@ -1340,7 +1318,6 @@ class StreamList(ListResource):
         :param str parameter99_value: Parameter value
 
         :returns: The created StreamInstance
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
         """
         data = values.of(
             {
@@ -1563,14 +1540,11 @@ class StreamList(ListResource):
             call_sid=self._solution["call_sid"],
         )
 
-    def get(self, sid):
+    def get(self, sid) -> StreamContext:
         """
         Constructs a StreamContext
 
         :param sid: The SID of the Stream resource, or the `name` used when creating the resource
-
-        :returns: twilio.rest.api.v2010.account.call.stream.StreamContext
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamContext
         """
         return StreamContext(
             self._version,
@@ -1579,14 +1553,11 @@ class StreamList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> StreamContext:
         """
         Constructs a StreamContext
 
         :param sid: The SID of the Stream resource, or the `name` used when creating the resource
-
-        :returns: twilio.rest.api.v2010.account.call.stream.StreamContext
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamContext
         """
         return StreamContext(
             self._version,
@@ -1595,11 +1566,10 @@ class StreamList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.StreamList>"

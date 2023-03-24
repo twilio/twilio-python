@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class QueryInstance(InstanceResource):
     def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
         """
         Initialize the QueryInstance
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         super().__init__(version)
 
@@ -55,13 +53,12 @@ class QueryInstance(InstanceResource):
         self._context: Optional[QueryContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "QueryContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: QueryContext for this QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
         """
         if self._context is None:
             self._context = QueryContext(
@@ -72,150 +69,133 @@ class QueryInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the Account that created this Query.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def results(self):
+    def results(self) -> dict:
         """
         :returns: The natural language analysis results which include the Task recognized, the confidence score and a list of identified Fields.
-        :rtype: dict
         """
         return self._properties["results"]
 
     @property
-    def language(self):
+    def language(self) -> str:
         """
         :returns: An ISO language-country string of the sample.
-        :rtype: str
         """
         return self._properties["language"]
 
     @property
-    def model_build_sid(self):
+    def model_build_sid(self) -> str:
         """
         :returns: The unique ID of the Model Build queried.
-        :rtype: str
         """
         return self._properties["model_build_sid"]
 
     @property
-    def query(self):
+    def query(self) -> str:
         """
         :returns: The end-user's natural language input.
-        :rtype: str
         """
         return self._properties["query"]
 
     @property
-    def sample_sid(self):
+    def sample_sid(self) -> str:
         """
         :returns: An optional reference to the Sample created from this query.
-        :rtype: str
         """
         return self._properties["sample_sid"]
 
     @property
-    def assistant_sid(self):
+    def assistant_sid(self) -> str:
         """
         :returns: The unique ID of the parent Assistant.
-        :rtype: str
         """
         return self._properties["assistant_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def status(self):
+    def status(self) -> str:
         """
         :returns: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :rtype: str
         """
         return self._properties["status"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def source_channel(self):
+    def source_channel(self) -> str:
         """
         :returns: The communication channel where this end-user input came from
-        :rtype: str
         """
         return self._properties["source_channel"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the QueryInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the QueryInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "QueryInstance":
         """
         Fetch the QueryInstance
 
 
         :returns: The fetched QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "QueryInstance":
         """
         Asynchronous coroutine to fetch the QueryInstance
 
 
         :returns: The fetched QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, sample_sid=values.unset, status=values.unset):
+    def update(self, sample_sid=values.unset, status=values.unset) -> "QueryInstance":
         """
         Update the QueryInstance
 
@@ -223,14 +203,15 @@ class QueryInstance(InstanceResource):
         :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: The updated QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         return self._proxy.update(
             sample_sid=sample_sid,
             status=status,
         )
 
-    async def update_async(self, sample_sid=values.unset, status=values.unset):
+    async def update_async(
+        self, sample_sid=values.unset, status=values.unset
+    ) -> "QueryInstance":
         """
         Asynchronous coroutine to update the QueryInstance
 
@@ -238,19 +219,17 @@ class QueryInstance(InstanceResource):
         :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: The updated QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         return await self._proxy.update_async(
             sample_sid=sample_sid,
             status=status,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.QueryInstance {}>".format(context)
@@ -261,12 +240,9 @@ class QueryContext(InstanceContext):
         """
         Initialize the QueryContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The unique ID of the parent Assistant.
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryContext
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
         """
         super().__init__(version)
 
@@ -277,39 +253,36 @@ class QueryContext(InstanceContext):
         }
         self._uri = "/Assistants/{assistant_sid}/Queries/{sid}".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the QueryInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the QueryInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> QueryInstance:
         """
         Fetch the QueryInstance
 
 
         :returns: The fetched QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
 
         payload = self._version.fetch(
@@ -324,13 +297,12 @@ class QueryContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> QueryInstance:
         """
         Asynchronous coroutine to fetch the QueryInstance
 
 
         :returns: The fetched QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
 
         payload = await self._version.fetch_async(
@@ -345,7 +317,7 @@ class QueryContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, sample_sid=values.unset, status=values.unset):
+    def update(self, sample_sid=values.unset, status=values.unset) -> QueryInstance:
         """
         Update the QueryInstance
 
@@ -353,7 +325,6 @@ class QueryContext(InstanceContext):
         :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: The updated QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         data = values.of(
             {
@@ -375,7 +346,9 @@ class QueryContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, sample_sid=values.unset, status=values.unset):
+    async def update_async(
+        self, sample_sid=values.unset, status=values.unset
+    ) -> QueryInstance:
         """
         Asynchronous coroutine to update the QueryInstance
 
@@ -383,7 +356,6 @@ class QueryContext(InstanceContext):
         :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: The updated QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         data = values.of(
             {
@@ -405,26 +377,22 @@ class QueryContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.QueryContext {}>".format(context)
 
 
 class QueryPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> QueryInstance:
         """
         Build an instance of QueryInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         return QueryInstance(
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
@@ -444,11 +412,9 @@ class QueryList(ListResource):
         """
         Initialize the QueryList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The unique ID of the parent Assistant.
 
-        :returns: twilio.rest.preview.understand.assistant.query.QueryList
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryList
         """
         super().__init__(version)
 
@@ -465,7 +431,7 @@ class QueryList(ListResource):
         tasks=values.unset,
         model_build=values.unset,
         field=values.unset,
-    ):
+    ) -> QueryInstance:
         """
         Create the QueryInstance
 
@@ -476,7 +442,6 @@ class QueryList(ListResource):
         :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
 
         :returns: The created QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         data = values.of(
             {
@@ -505,7 +470,7 @@ class QueryList(ListResource):
         tasks=values.unset,
         model_build=values.unset,
         field=values.unset,
-    ):
+    ) -> QueryInstance:
         """
         Asynchronously create the QueryInstance
 
@@ -516,7 +481,6 @@ class QueryList(ListResource):
         :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
 
         :returns: The created QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         data = values.of(
             {
@@ -545,7 +509,7 @@ class QueryList(ListResource):
         status=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[QueryInstance]:
         """
         Streams QueryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -563,7 +527,6 @@ class QueryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -582,7 +545,7 @@ class QueryList(ListResource):
         status=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[QueryInstance]:
         """
         Asynchronously streams QueryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -600,7 +563,6 @@ class QueryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -619,7 +581,7 @@ class QueryList(ListResource):
         status=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[QueryInstance]:
         """
         Lists QueryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -636,7 +598,6 @@ class QueryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
         """
         return list(
             self.stream(
@@ -655,7 +616,7 @@ class QueryList(ListResource):
         status=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[QueryInstance]:
         """
         Asynchronously lists QueryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -672,7 +633,6 @@ class QueryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
         """
         return list(
             await self.stream_async(
@@ -692,7 +652,7 @@ class QueryList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> QueryPage:
         """
         Retrieve a single page of QueryInstance records from the API.
         Request is executed immediately
@@ -705,7 +665,6 @@ class QueryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
         """
         data = values.of(
             {
@@ -729,7 +688,7 @@ class QueryList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> QueryPage:
         """
         Asynchronously retrieve a single page of QueryInstance records from the API.
         Request is executed immediately
@@ -742,7 +701,6 @@ class QueryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
         """
         data = values.of(
             {
@@ -760,7 +718,7 @@ class QueryList(ListResource):
         )
         return QueryPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> QueryPage:
         """
         Retrieve a specific page of QueryInstance records from the API.
         Request is executed immediately
@@ -768,12 +726,11 @@ class QueryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return QueryPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> QueryPage:
         """
         Asynchronously retrieve a specific page of QueryInstance records from the API.
         Request is executed immediately
@@ -781,42 +738,34 @@ class QueryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return QueryPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> QueryContext:
         """
         Constructs a QueryContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryContext
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
         """
         return QueryContext(
             self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> QueryContext:
         """
         Constructs a QueryContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryContext
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
         """
         return QueryContext(
             self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Understand.QueryList>"

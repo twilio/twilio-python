@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -34,9 +35,6 @@ class PayloadInstance(InstanceResource):
     ):
         """
         Initialize the PayloadInstance
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         super().__init__(version)
 
@@ -63,13 +61,12 @@ class PayloadInstance(InstanceResource):
         self._context: Optional[PayloadContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "PayloadContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: PayloadContext for this PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         if self._context is None:
             self._context = PayloadContext(
@@ -82,139 +79,123 @@ class PayloadInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the Recording AddOnResult Payload resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def add_on_result_sid(self):
+    def add_on_result_sid(self) -> str:
         """
         :returns: The SID of the AddOnResult to which the payload belongs.
-        :rtype: str
         """
         return self._properties["add_on_result_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def label(self):
+    def label(self) -> str:
         """
         :returns: The string provided by the vendor that describes the payload.
-        :rtype: str
         """
         return self._properties["label"]
 
     @property
-    def add_on_sid(self):
+    def add_on_sid(self) -> str:
         """
         :returns: The SID of the Add-on to which the result belongs.
-        :rtype: str
         """
         return self._properties["add_on_sid"]
 
     @property
-    def add_on_configuration_sid(self):
+    def add_on_configuration_sid(self) -> str:
         """
         :returns: The SID of the Add-on configuration.
-        :rtype: str
         """
         return self._properties["add_on_configuration_sid"]
 
     @property
-    def content_type(self):
+    def content_type(self) -> str:
         """
         :returns: The MIME type of the payload.
-        :rtype: str
         """
         return self._properties["content_type"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def reference_sid(self):
+    def reference_sid(self) -> str:
         """
         :returns: The SID of the recording to which the AddOnResult resource that contains the payload belongs.
-        :rtype: str
         """
         return self._properties["reference_sid"]
 
     @property
-    def subresource_uris(self):
+    def subresource_uris(self) -> dict:
         """
         :returns: A list of related resources identified by their relative URIs.
-        :rtype: dict
         """
         return self._properties["subresource_uris"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the PayloadInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PayloadInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "PayloadInstance":
         """
         Fetch the PayloadInstance
 
 
         :returns: The fetched PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "PayloadInstance":
         """
         Asynchronous coroutine to fetch the PayloadInstance
 
 
         :returns: The fetched PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.PayloadInstance {}>".format(context)
@@ -232,14 +213,11 @@ class PayloadContext(InstanceContext):
         """
         Initialize the PayloadContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch.
         :param reference_sid: The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs.
         :param add_on_result_sid: The SID of the AddOnResult to which the payload to fetch belongs.
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         super().__init__(version)
 
@@ -254,39 +232,36 @@ class PayloadContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the PayloadInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PayloadInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> PayloadInstance:
         """
         Fetch the PayloadInstance
 
 
         :returns: The fetched PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
 
         payload = self._version.fetch(
@@ -303,13 +278,12 @@ class PayloadContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> PayloadInstance:
         """
         Asynchronous coroutine to fetch the PayloadInstance
 
 
         :returns: The fetched PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
 
         payload = await self._version.fetch_async(
@@ -326,26 +300,22 @@ class PayloadContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.PayloadContext {}>".format(context)
 
 
 class PayloadPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> PayloadInstance:
         """
         Build an instance of PayloadInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         return PayloadInstance(
             self._version,
@@ -375,13 +345,11 @@ class PayloadList(ListResource):
         """
         Initialize the PayloadList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read.
         :param reference_sid: The SID of the recording to which the AddOnResult resource that contains the payloads to read belongs.
         :param add_on_result_sid: The SID of the AddOnResult to which the payloads to read belongs.
 
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
         """
         super().__init__(version)
 
@@ -395,7 +363,7 @@ class PayloadList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[PayloadInstance]:
         """
         Streams PayloadInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -410,14 +378,13 @@ class PayloadList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[PayloadInstance]:
         """
         Asynchronously streams PayloadInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -432,14 +399,13 @@ class PayloadList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[PayloadInstance]:
         """
         Lists PayloadInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -453,7 +419,6 @@ class PayloadList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance]
         """
         return list(
             self.stream(
@@ -462,7 +427,7 @@ class PayloadList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[PayloadInstance]:
         """
         Asynchronously lists PayloadInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -476,7 +441,6 @@ class PayloadList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance]
         """
         return list(
             await self.stream_async(
@@ -487,7 +451,7 @@ class PayloadList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> PayloadPage:
         """
         Retrieve a single page of PayloadInstance records from the API.
         Request is executed immediately
@@ -497,7 +461,6 @@ class PayloadList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         data = values.of(
             {
@@ -512,7 +475,7 @@ class PayloadList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> PayloadPage:
         """
         Asynchronously retrieve a single page of PayloadInstance records from the API.
         Request is executed immediately
@@ -522,7 +485,6 @@ class PayloadList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         data = values.of(
             {
@@ -537,7 +499,7 @@ class PayloadList(ListResource):
         )
         return PayloadPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> PayloadPage:
         """
         Retrieve a specific page of PayloadInstance records from the API.
         Request is executed immediately
@@ -545,12 +507,11 @@ class PayloadList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return PayloadPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> PayloadPage:
         """
         Asynchronously retrieve a specific page of PayloadInstance records from the API.
         Request is executed immediately
@@ -558,19 +519,15 @@ class PayloadList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return PayloadPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> PayloadContext:
         """
         Constructs a PayloadContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         return PayloadContext(
             self._version,
@@ -580,14 +537,11 @@ class PayloadList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> PayloadContext:
         """
         Constructs a PayloadContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         return PayloadContext(
             self._version,
@@ -597,11 +551,10 @@ class PayloadList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.PayloadList>"

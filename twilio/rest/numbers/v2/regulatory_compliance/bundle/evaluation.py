@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,9 +31,6 @@ class EvaluationInstance(InstanceResource):
     def __init__(self, version, payload, bundle_sid: str, sid: Optional[str] = None):
         """
         Initialize the EvaluationInstance
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
         super().__init__(version)
 
@@ -54,13 +52,12 @@ class EvaluationInstance(InstanceResource):
         self._context: Optional[EvaluationContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "EvaluationContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: EvaluationContext for this EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
         """
         if self._context is None:
             self._context = EvaluationContext(
@@ -71,95 +68,84 @@ class EvaluationInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that identifies the Evaluation resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def regulation_sid(self):
+    def regulation_sid(self) -> str:
         """
         :returns: The unique string of a regulation that is associated to the Bundle resource.
-        :rtype: str
         """
         return self._properties["regulation_sid"]
 
     @property
-    def bundle_sid(self):
+    def bundle_sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Bundle resource.
-        :rtype: str
         """
         return self._properties["bundle_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "EvaluationInstance.Status":
         """
         :returns:
-        :rtype: EvaluationInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def results(self):
+    def results(self) -> List[object]:
         """
         :returns: The results of the Evaluation which includes the valid and invalid attributes.
-        :rtype: List[object]
         """
         return self._properties["results"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "EvaluationInstance":
         """
         Fetch the EvaluationInstance
 
 
         :returns: The fetched EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "EvaluationInstance":
         """
         Asynchronous coroutine to fetch the EvaluationInstance
 
 
         :returns: The fetched EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Numbers.V2.EvaluationInstance {}>".format(context)
@@ -170,12 +156,9 @@ class EvaluationContext(InstanceContext):
         """
         Initialize the EvaluationContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param bundle_sid: The unique string that we created to identify the Bundle resource.
         :param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
         """
         super().__init__(version)
 
@@ -190,13 +173,12 @@ class EvaluationContext(InstanceContext):
             )
         )
 
-    def fetch(self):
+    def fetch(self) -> EvaluationInstance:
         """
         Fetch the EvaluationInstance
 
 
         :returns: The fetched EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
 
         payload = self._version.fetch(
@@ -211,13 +193,12 @@ class EvaluationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> EvaluationInstance:
         """
         Asynchronous coroutine to fetch the EvaluationInstance
 
 
         :returns: The fetched EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
 
         payload = await self._version.fetch_async(
@@ -232,26 +213,22 @@ class EvaluationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Numbers.V2.EvaluationContext {}>".format(context)
 
 
 class EvaluationPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> EvaluationInstance:
         """
         Build an instance of EvaluationInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
         return EvaluationInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
@@ -271,11 +248,9 @@ class EvaluationList(ListResource):
         """
         Initialize the EvaluationList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param bundle_sid: The unique string that identifies the Bundle resource.
 
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
         """
         super().__init__(version)
 
@@ -287,13 +262,12 @@ class EvaluationList(ListResource):
             **self._solution
         )
 
-    def create(self):
+    def create(self) -> EvaluationInstance:
         """
         Create the EvaluationInstance
 
 
         :returns: The created EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
 
         payload = self._version.create(
@@ -305,13 +279,12 @@ class EvaluationList(ListResource):
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
 
-    async def create_async(self):
+    async def create_async(self) -> EvaluationInstance:
         """
         Asynchronously create the EvaluationInstance
 
 
         :returns: The created EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
 
         payload = await self._version.create_async(
@@ -323,7 +296,7 @@ class EvaluationList(ListResource):
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[EvaluationInstance]:
         """
         Streams EvaluationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -338,14 +311,15 @@ class EvaluationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[EvaluationInstance]:
         """
         Asynchronously streams EvaluationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -360,14 +334,13 @@ class EvaluationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[EvaluationInstance]:
         """
         Lists EvaluationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -381,7 +354,6 @@ class EvaluationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance]
         """
         return list(
             self.stream(
@@ -390,7 +362,7 @@ class EvaluationList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[EvaluationInstance]:
         """
         Asynchronously lists EvaluationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -404,7 +376,6 @@ class EvaluationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance]
         """
         return list(
             await self.stream_async(
@@ -415,7 +386,7 @@ class EvaluationList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> EvaluationPage:
         """
         Retrieve a single page of EvaluationInstance records from the API.
         Request is executed immediately
@@ -425,7 +396,6 @@ class EvaluationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         data = values.of(
             {
@@ -440,7 +410,7 @@ class EvaluationList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> EvaluationPage:
         """
         Asynchronously retrieve a single page of EvaluationInstance records from the API.
         Request is executed immediately
@@ -450,7 +420,6 @@ class EvaluationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         data = values.of(
             {
@@ -465,7 +434,7 @@ class EvaluationList(ListResource):
         )
         return EvaluationPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> EvaluationPage:
         """
         Retrieve a specific page of EvaluationInstance records from the API.
         Request is executed immediately
@@ -473,12 +442,11 @@ class EvaluationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return EvaluationPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> EvaluationPage:
         """
         Asynchronously retrieve a specific page of EvaluationInstance records from the API.
         Request is executed immediately
@@ -486,42 +454,34 @@ class EvaluationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return EvaluationPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> EvaluationContext:
         """
         Constructs a EvaluationContext
 
         :param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
         """
         return EvaluationContext(
             self._version, bundle_sid=self._solution["bundle_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> EvaluationContext:
         """
         Constructs a EvaluationContext
 
         :param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
         """
         return EvaluationContext(
             self._version, bundle_sid=self._solution["bundle_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Numbers.V2.EvaluationList>"

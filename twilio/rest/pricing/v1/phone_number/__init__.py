@@ -27,10 +27,8 @@ class PhoneNumberList(ListResource):
         """
         Initialize the PhoneNumberList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.pricing.v1.phone_number.PhoneNumberList
-        :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberList
         """
         super().__init__(version)
 
@@ -39,22 +37,18 @@ class PhoneNumberList(ListResource):
         self._countries: Optional[CountryList] = None
 
     @property
-    def countries(self):
+    def countries(self) -> CountryList:
         """
         Access the countries
-
-        :returns: twilio.rest.pricing.v1.phone_number.CountryList
-        :rtype: twilio.rest.pricing.v1.phone_number.CountryList
         """
         if self._countries is None:
             self._countries = CountryList(self._version)
         return self._countries
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Pricing.V1.PhoneNumberList>"

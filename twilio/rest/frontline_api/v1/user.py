@@ -29,9 +29,6 @@ class UserInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the UserInstance
-
-        :returns: twilio.rest.frontline_api.v1.user.UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
         super().__init__(version)
 
@@ -51,13 +48,12 @@ class UserInstance(InstanceResource):
         self._context: Optional[UserContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "UserContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: UserContext for this UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserContext
         """
         if self._context is None:
             self._context = UserContext(
@@ -67,78 +63,69 @@ class UserInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the User resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns: The application-defined string that uniquely identifies the resource's User. This value is often a username or an email address, and is case-sensitive.
-        :rtype: str
         """
         return self._properties["identity"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the User.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def avatar(self):
+    def avatar(self) -> str:
         """
         :returns: The avatar URL which will be shown in Frontline application.
-        :rtype: str
         """
         return self._properties["avatar"]
 
     @property
-    def state(self):
+    def state(self) -> "UserInstance.StateType":
         """
         :returns:
-        :rtype: UserInstance.StateType
         """
         return self._properties["state"]
 
     @property
-    def is_available(self):
+    def is_available(self) -> bool:
         """
         :returns: Whether the User is available for new conversations. Defaults to `false` for new users.
-        :rtype: bool
         """
         return self._properties["is_available"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: An absolute API resource URL for this user.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "UserInstance":
         """
         Fetch the UserInstance
 
 
         :returns: The fetched UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "UserInstance":
         """
         Asynchronous coroutine to fetch the UserInstance
 
 
         :returns: The fetched UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
         return await self._proxy.fetch_async()
 
@@ -148,17 +135,16 @@ class UserInstance(InstanceResource):
         avatar=values.unset,
         state=values.unset,
         is_available=values.unset,
-    ):
+    ) -> "UserInstance":
         """
         Update the UserInstance
 
         :param str friendly_name: The string that you assigned to describe the User.
         :param str avatar: The avatar URL which will be shown in Frontline application.
-        :param UserInstance.StateType state:
+        :param "UserInstance.StateType" state:
         :param bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -173,17 +159,16 @@ class UserInstance(InstanceResource):
         avatar=values.unset,
         state=values.unset,
         is_available=values.unset,
-    ):
+    ) -> "UserInstance":
         """
         Asynchronous coroutine to update the UserInstance
 
         :param str friendly_name: The string that you assigned to describe the User.
         :param str avatar: The avatar URL which will be shown in Frontline application.
-        :param UserInstance.StateType state:
+        :param "UserInstance.StateType" state:
         :param bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -192,12 +177,11 @@ class UserInstance(InstanceResource):
             is_available=is_available,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FrontlineApi.V1.UserInstance {}>".format(context)
@@ -208,11 +192,8 @@ class UserContext(InstanceContext):
         """
         Initialize the UserContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-
-        :returns: twilio.rest.frontline_api.v1.user.UserContext
-        :rtype: twilio.rest.frontline_api.v1.user.UserContext
         """
         super().__init__(version)
 
@@ -222,13 +203,12 @@ class UserContext(InstanceContext):
         }
         self._uri = "/Users/{sid}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> UserInstance:
         """
         Fetch the UserInstance
 
 
         :returns: The fetched UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
 
         payload = self._version.fetch(
@@ -242,13 +222,12 @@ class UserContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> UserInstance:
         """
         Asynchronous coroutine to fetch the UserInstance
 
 
         :returns: The fetched UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
 
         payload = await self._version.fetch_async(
@@ -268,17 +247,16 @@ class UserContext(InstanceContext):
         avatar=values.unset,
         state=values.unset,
         is_available=values.unset,
-    ):
+    ) -> UserInstance:
         """
         Update the UserInstance
 
         :param str friendly_name: The string that you assigned to describe the User.
         :param str avatar: The avatar URL which will be shown in Frontline application.
-        :param UserInstance.StateType state:
+        :param "UserInstance.StateType" state:
         :param bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
         data = values.of(
             {
@@ -303,17 +281,16 @@ class UserContext(InstanceContext):
         avatar=values.unset,
         state=values.unset,
         is_available=values.unset,
-    ):
+    ) -> UserInstance:
         """
         Asynchronous coroutine to update the UserInstance
 
         :param str friendly_name: The string that you assigned to describe the User.
         :param str avatar: The avatar URL which will be shown in Frontline application.
-        :param UserInstance.StateType state:
+        :param "UserInstance.StateType" state:
         :param bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
         data = values.of(
             {
@@ -332,12 +309,11 @@ class UserContext(InstanceContext):
 
         return UserInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FrontlineApi.V1.UserContext {}>".format(context)
@@ -348,40 +324,31 @@ class UserList(ListResource):
         """
         Initialize the UserList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.frontline_api.v1.user.UserList
-        :rtype: twilio.rest.frontline_api.v1.user.UserList
         """
         super().__init__(version)
 
-    def get(self, sid):
+    def get(self, sid) -> UserContext:
         """
         Constructs a UserContext
 
         :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-
-        :returns: twilio.rest.frontline_api.v1.user.UserContext
-        :rtype: twilio.rest.frontline_api.v1.user.UserContext
         """
         return UserContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> UserContext:
         """
         Constructs a UserContext
 
         :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-
-        :returns: twilio.rest.frontline_api.v1.user.UserContext
-        :rtype: twilio.rest.frontline_api.v1.user.UserContext
         """
         return UserContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FrontlineApi.V1.UserList>"

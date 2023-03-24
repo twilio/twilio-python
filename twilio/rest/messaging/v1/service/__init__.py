@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,9 +39,6 @@ class ServiceInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the ServiceInstance
-
-        :returns: twilio.rest.messaging.v1.service.ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         super().__init__(version)
 
@@ -78,13 +76,12 @@ class ServiceInstance(InstanceResource):
         self._context: Optional[ServiceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ServiceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(
@@ -94,226 +91,199 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Service resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def inbound_request_url(self):
+    def inbound_request_url(self) -> str:
         """
         :returns: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
-        :rtype: str
         """
         return self._properties["inbound_request_url"]
 
     @property
-    def inbound_method(self):
+    def inbound_method(self) -> str:
         """
         :returns: The HTTP method we use to call `inbound_request_url`. Can be `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["inbound_method"]
 
     @property
-    def fallback_url(self):
+    def fallback_url(self) -> str:
         """
         :returns: The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
-        :rtype: str
         """
         return self._properties["fallback_url"]
 
     @property
-    def fallback_method(self):
+    def fallback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `fallback_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["fallback_method"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL we call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def sticky_sender(self):
+    def sticky_sender(self) -> bool:
         """
         :returns: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
-        :rtype: bool
         """
         return self._properties["sticky_sender"]
 
     @property
-    def mms_converter(self):
+    def mms_converter(self) -> bool:
         """
         :returns: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
-        :rtype: bool
         """
         return self._properties["mms_converter"]
 
     @property
-    def smart_encoding(self):
+    def smart_encoding(self) -> bool:
         """
         :returns: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :rtype: bool
         """
         return self._properties["smart_encoding"]
 
     @property
-    def scan_message_content(self):
+    def scan_message_content(self) -> "ServiceInstance.ScanMessageContent":
         """
         :returns:
-        :rtype: ServiceInstance.ScanMessageContent
         """
         return self._properties["scan_message_content"]
 
     @property
-    def fallback_to_long_code(self):
+    def fallback_to_long_code(self) -> bool:
         """
         :returns: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
-        :rtype: bool
         """
         return self._properties["fallback_to_long_code"]
 
     @property
-    def area_code_geomatch(self):
+    def area_code_geomatch(self) -> bool:
         """
         :returns: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
-        :rtype: bool
         """
         return self._properties["area_code_geomatch"]
 
     @property
-    def synchronous_validation(self):
+    def synchronous_validation(self) -> bool:
         """
         :returns: Reserved.
-        :rtype: bool
         """
         return self._properties["synchronous_validation"]
 
     @property
-    def validity_period(self):
+    def validity_period(self) -> int:
         """
         :returns: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
-        :rtype: int
         """
         return self._properties["validity_period"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Service resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The absolute URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
     @property
-    def usecase(self):
+    def usecase(self) -> str:
         """
         :returns: A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..]
-        :rtype: str
         """
         return self._properties["usecase"]
 
     @property
-    def us_app_to_person_registered(self):
+    def us_app_to_person_registered(self) -> bool:
         """
         :returns: Whether US A2P campaign is registered for this Service.
-        :rtype: bool
         """
         return self._properties["us_app_to_person_registered"]
 
     @property
-    def use_inbound_webhook_on_number(self):
+    def use_inbound_webhook_on_number(self) -> bool:
         """
         :returns: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
-        :rtype: bool
         """
         return self._properties["use_inbound_webhook_on_number"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         return await self._proxy.fetch_async()
 
@@ -335,7 +305,7 @@ class ServiceInstance(InstanceResource):
         synchronous_validation=values.unset,
         usecase=values.unset,
         use_inbound_webhook_on_number=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
@@ -348,7 +318,7 @@ class ServiceInstance(InstanceResource):
         :param bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
         :param bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
         :param bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :param ServiceInstance.ScanMessageContent scan_message_content:
+        :param "ServiceInstance.ScanMessageContent" scan_message_content:
         :param bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
         :param bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
         :param int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -357,7 +327,6 @@ class ServiceInstance(InstanceResource):
         :param bool use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -396,7 +365,7 @@ class ServiceInstance(InstanceResource):
         synchronous_validation=values.unset,
         usecase=values.unset,
         use_inbound_webhook_on_number=values.unset,
-    ):
+    ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -409,7 +378,7 @@ class ServiceInstance(InstanceResource):
         :param bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
         :param bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
         :param bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :param ServiceInstance.ScanMessageContent scan_message_content:
+        :param "ServiceInstance.ScanMessageContent" scan_message_content:
         :param bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
         :param bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
         :param int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -418,7 +387,6 @@ class ServiceInstance(InstanceResource):
         :param bool use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -440,61 +408,45 @@ class ServiceInstance(InstanceResource):
         )
 
     @property
-    def alpha_senders(self):
+    def alpha_senders(self) -> AlphaSenderList:
         """
         Access the alpha_senders
-
-        :returns: twilio.rest.messaging.v1.service.AlphaSenderList
-        :rtype: twilio.rest.messaging.v1.service.AlphaSenderList
         """
         return self._proxy.alpha_senders
 
     @property
-    def phone_numbers(self):
+    def phone_numbers(self) -> PhoneNumberList:
         """
         Access the phone_numbers
-
-        :returns: twilio.rest.messaging.v1.service.PhoneNumberList
-        :rtype: twilio.rest.messaging.v1.service.PhoneNumberList
         """
         return self._proxy.phone_numbers
 
     @property
-    def short_codes(self):
+    def short_codes(self) -> ShortCodeList:
         """
         Access the short_codes
-
-        :returns: twilio.rest.messaging.v1.service.ShortCodeList
-        :rtype: twilio.rest.messaging.v1.service.ShortCodeList
         """
         return self._proxy.short_codes
 
     @property
-    def us_app_to_person(self):
+    def us_app_to_person(self) -> UsAppToPersonList:
         """
         Access the us_app_to_person
-
-        :returns: twilio.rest.messaging.v1.service.UsAppToPersonList
-        :rtype: twilio.rest.messaging.v1.service.UsAppToPersonList
         """
         return self._proxy.us_app_to_person
 
     @property
-    def us_app_to_person_usecases(self):
+    def us_app_to_person_usecases(self) -> UsAppToPersonUsecaseList:
         """
         Access the us_app_to_person_usecases
-
-        :returns: twilio.rest.messaging.v1.service.UsAppToPersonUsecaseList
-        :rtype: twilio.rest.messaging.v1.service.UsAppToPersonUsecaseList
         """
         return self._proxy.us_app_to_person_usecases
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.ServiceInstance {}>".format(context)
@@ -505,11 +457,8 @@ class ServiceContext(InstanceContext):
         """
         Initialize the ServiceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Service resource to update.
-
-        :returns: twilio.rest.messaging.v1.service.ServiceContext
-        :rtype: twilio.rest.messaging.v1.service.ServiceContext
         """
         super().__init__(version)
 
@@ -525,39 +474,36 @@ class ServiceContext(InstanceContext):
         self._us_app_to_person: Optional[UsAppToPersonList] = None
         self._us_app_to_person_usecases: Optional[UsAppToPersonUsecaseList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
 
         payload = self._version.fetch(
@@ -571,13 +517,12 @@ class ServiceContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
 
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -609,7 +554,7 @@ class ServiceContext(InstanceContext):
         synchronous_validation=values.unset,
         usecase=values.unset,
         use_inbound_webhook_on_number=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
@@ -622,7 +567,7 @@ class ServiceContext(InstanceContext):
         :param bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
         :param bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
         :param bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :param ServiceInstance.ScanMessageContent scan_message_content:
+        :param "ServiceInstance.ScanMessageContent" scan_message_content:
         :param bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
         :param bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
         :param int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -631,7 +576,6 @@ class ServiceContext(InstanceContext):
         :param bool use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -680,7 +624,7 @@ class ServiceContext(InstanceContext):
         synchronous_validation=values.unset,
         usecase=values.unset,
         use_inbound_webhook_on_number=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
@@ -693,7 +637,7 @@ class ServiceContext(InstanceContext):
         :param bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
         :param bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
         :param bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :param ServiceInstance.ScanMessageContent scan_message_content:
+        :param "ServiceInstance.ScanMessageContent" scan_message_content:
         :param bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
         :param bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
         :param int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -702,7 +646,6 @@ class ServiceContext(InstanceContext):
         :param bool use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -734,12 +677,9 @@ class ServiceContext(InstanceContext):
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def alpha_senders(self):
+    def alpha_senders(self) -> AlphaSenderList:
         """
         Access the alpha_senders
-
-        :returns: twilio.rest.messaging.v1.service.AlphaSenderList
-        :rtype: twilio.rest.messaging.v1.service.AlphaSenderList
         """
         if self._alpha_senders is None:
             self._alpha_senders = AlphaSenderList(
@@ -749,12 +689,9 @@ class ServiceContext(InstanceContext):
         return self._alpha_senders
 
     @property
-    def phone_numbers(self):
+    def phone_numbers(self) -> PhoneNumberList:
         """
         Access the phone_numbers
-
-        :returns: twilio.rest.messaging.v1.service.PhoneNumberList
-        :rtype: twilio.rest.messaging.v1.service.PhoneNumberList
         """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(
@@ -764,12 +701,9 @@ class ServiceContext(InstanceContext):
         return self._phone_numbers
 
     @property
-    def short_codes(self):
+    def short_codes(self) -> ShortCodeList:
         """
         Access the short_codes
-
-        :returns: twilio.rest.messaging.v1.service.ShortCodeList
-        :rtype: twilio.rest.messaging.v1.service.ShortCodeList
         """
         if self._short_codes is None:
             self._short_codes = ShortCodeList(
@@ -779,12 +713,9 @@ class ServiceContext(InstanceContext):
         return self._short_codes
 
     @property
-    def us_app_to_person(self):
+    def us_app_to_person(self) -> UsAppToPersonList:
         """
         Access the us_app_to_person
-
-        :returns: twilio.rest.messaging.v1.service.UsAppToPersonList
-        :rtype: twilio.rest.messaging.v1.service.UsAppToPersonList
         """
         if self._us_app_to_person is None:
             self._us_app_to_person = UsAppToPersonList(
@@ -794,12 +725,9 @@ class ServiceContext(InstanceContext):
         return self._us_app_to_person
 
     @property
-    def us_app_to_person_usecases(self):
+    def us_app_to_person_usecases(self) -> UsAppToPersonUsecaseList:
         """
         Access the us_app_to_person_usecases
-
-        :returns: twilio.rest.messaging.v1.service.UsAppToPersonUsecaseList
-        :rtype: twilio.rest.messaging.v1.service.UsAppToPersonUsecaseList
         """
         if self._us_app_to_person_usecases is None:
             self._us_app_to_person_usecases = UsAppToPersonUsecaseList(
@@ -808,26 +736,22 @@ class ServiceContext(InstanceContext):
             )
         return self._us_app_to_person_usecases
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.service.ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         return ServiceInstance(self._version, payload)
 
@@ -845,10 +769,8 @@ class ServiceList(ListResource):
         """
         Initialize the ServiceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.messaging.v1.service.ServiceList
-        :rtype: twilio.rest.messaging.v1.service.ServiceList
         """
         super().__init__(version)
 
@@ -872,7 +794,7 @@ class ServiceList(ListResource):
         synchronous_validation=values.unset,
         usecase=values.unset,
         use_inbound_webhook_on_number=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
@@ -885,7 +807,7 @@ class ServiceList(ListResource):
         :param bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
         :param bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
         :param bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :param ServiceInstance.ScanMessageContent scan_message_content:
+        :param &quot;ServiceInstance.ScanMessageContent&quot; scan_message_content:
         :param bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
         :param bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
         :param int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -894,7 +816,6 @@ class ServiceList(ListResource):
         :param bool use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -943,7 +864,7 @@ class ServiceList(ListResource):
         synchronous_validation=values.unset,
         usecase=values.unset,
         use_inbound_webhook_on_number=values.unset,
-    ):
+    ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
@@ -956,7 +877,7 @@ class ServiceList(ListResource):
         :param bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
         :param bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
         :param bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :param ServiceInstance.ScanMessageContent scan_message_content:
+        :param &quot;ServiceInstance.ScanMessageContent&quot; scan_message_content:
         :param bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
         :param bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
         :param int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -965,7 +886,6 @@ class ServiceList(ListResource):
         :param bool use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
         data = values.of(
             {
@@ -996,7 +916,7 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -1011,14 +931,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -1033,14 +952,13 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -1054,7 +972,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.ServiceInstance]
         """
         return list(
             self.stream(
@@ -1063,7 +980,7 @@ class ServiceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -1077,7 +994,6 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.ServiceInstance]
         """
         return list(
             await self.stream_async(
@@ -1088,7 +1004,7 @@ class ServiceList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1098,7 +1014,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServicePage
         """
         data = values.of(
             {
@@ -1113,7 +1028,7 @@ class ServiceList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1123,7 +1038,6 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServicePage
         """
         data = values.of(
             {
@@ -1138,7 +1052,7 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1146,12 +1060,11 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServicePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
@@ -1159,38 +1072,30 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.messaging.v1.service.ServicePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The SID of the Service resource to update.
-
-        :returns: twilio.rest.messaging.v1.service.ServiceContext
-        :rtype: twilio.rest.messaging.v1.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ServiceContext:
         """
         Constructs a ServiceContext
 
         :param sid: The SID of the Service resource to update.
-
-        :returns: twilio.rest.messaging.v1.service.ServiceContext
-        :rtype: twilio.rest.messaging.v1.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.ServiceList>"

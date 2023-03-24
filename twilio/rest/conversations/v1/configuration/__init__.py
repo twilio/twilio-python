@@ -27,9 +27,6 @@ class ConfigurationInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the ConfigurationInstance
-
-        :returns: twilio.rest.conversations.v1.configuration.ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
         super().__init__(version)
 
@@ -49,13 +46,12 @@ class ConfigurationInstance(InstanceResource):
         self._context: Optional[ConfigurationContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ConfigurationContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ConfigurationContext for this ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
         """
         if self._context is None:
             self._context = ConfigurationContext(
@@ -64,78 +60,69 @@ class ConfigurationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def default_chat_service_sid(self):
+    def default_chat_service_sid(self) -> str:
         """
         :returns: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) used when creating a conversation.
-        :rtype: str
         """
         return self._properties["default_chat_service_sid"]
 
     @property
-    def default_messaging_service_sid(self):
+    def default_messaging_service_sid(self) -> str:
         """
         :returns: The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) used when creating a conversation.
-        :rtype: str
         """
         return self._properties["default_messaging_service_sid"]
 
     @property
-    def default_inactive_timer(self):
+    def default_inactive_timer(self) -> str:
         """
         :returns: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :rtype: str
         """
         return self._properties["default_inactive_timer"]
 
     @property
-    def default_closed_timer(self):
+    def default_closed_timer(self) -> str:
         """
         :returns: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :rtype: str
         """
         return self._properties["default_closed_timer"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: An absolute API resource URL for this global configuration.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: Contains absolute API resource URLs to access the webhook and default service configurations.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "ConfigurationInstance":
         """
         Fetch the ConfigurationInstance
 
 
         :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ConfigurationInstance":
         """
         Asynchronous coroutine to fetch the ConfigurationInstance
 
 
         :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
         return await self._proxy.fetch_async()
 
@@ -145,7 +132,7 @@ class ConfigurationInstance(InstanceResource):
         default_messaging_service_sid=values.unset,
         default_inactive_timer=values.unset,
         default_closed_timer=values.unset,
-    ):
+    ) -> "ConfigurationInstance":
         """
         Update the ConfigurationInstance
 
@@ -155,7 +142,6 @@ class ConfigurationInstance(InstanceResource):
         :param str default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 
         :returns: The updated ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
         return self._proxy.update(
             default_chat_service_sid=default_chat_service_sid,
@@ -170,7 +156,7 @@ class ConfigurationInstance(InstanceResource):
         default_messaging_service_sid=values.unset,
         default_inactive_timer=values.unset,
         default_closed_timer=values.unset,
-    ):
+    ) -> "ConfigurationInstance":
         """
         Asynchronous coroutine to update the ConfigurationInstance
 
@@ -180,7 +166,6 @@ class ConfigurationInstance(InstanceResource):
         :param str default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 
         :returns: The updated ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
         return await self._proxy.update_async(
             default_chat_service_sid=default_chat_service_sid,
@@ -189,12 +174,11 @@ class ConfigurationInstance(InstanceResource):
             default_closed_timer=default_closed_timer,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.ConfigurationInstance {}>".format(context)
@@ -205,22 +189,18 @@ class ConfigurationContext(InstanceContext):
         """
         Initialize the ConfigurationContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
         self._uri = "/Configuration"
 
-    def fetch(self):
+    def fetch(self) -> ConfigurationInstance:
         """
         Fetch the ConfigurationInstance
 
 
         :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
 
         payload = self._version.fetch(
@@ -233,13 +213,12 @@ class ConfigurationContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ConfigurationInstance:
         """
         Asynchronous coroutine to fetch the ConfigurationInstance
 
 
         :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
 
         payload = await self._version.fetch_async(
@@ -258,7 +237,7 @@ class ConfigurationContext(InstanceContext):
         default_messaging_service_sid=values.unset,
         default_inactive_timer=values.unset,
         default_closed_timer=values.unset,
-    ):
+    ) -> ConfigurationInstance:
         """
         Update the ConfigurationInstance
 
@@ -268,7 +247,6 @@ class ConfigurationContext(InstanceContext):
         :param str default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 
         :returns: The updated ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
         data = values.of(
             {
@@ -293,7 +271,7 @@ class ConfigurationContext(InstanceContext):
         default_messaging_service_sid=values.unset,
         default_inactive_timer=values.unset,
         default_closed_timer=values.unset,
-    ):
+    ) -> ConfigurationInstance:
         """
         Asynchronous coroutine to update the ConfigurationInstance
 
@@ -303,7 +281,6 @@ class ConfigurationContext(InstanceContext):
         :param str default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 
         :returns: The updated ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
         data = values.of(
             {
@@ -322,12 +299,11 @@ class ConfigurationContext(InstanceContext):
 
         return ConfigurationInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.Conversations.V1.ConfigurationContext>"
@@ -338,52 +314,40 @@ class ConfigurationList(ListResource):
         """
         Initialize the ConfigurationList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.conversations.v1.configuration.ConfigurationList
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationList
         """
         super().__init__(version)
 
         self._webhooks: Optional[WebhookList] = None
 
     @property
-    def webhooks(self):
+    def webhooks(self) -> WebhookList:
         """
         Access the webhooks
-
-        :returns: twilio.rest.conversations.v1.configuration.WebhookList
-        :rtype: twilio.rest.conversations.v1.configuration.WebhookList
         """
         if self._webhooks is None:
             self._webhooks = WebhookList(self._version)
         return self._webhooks
 
-    def get(self):
+    def get(self) -> ConfigurationContext:
         """
         Constructs a ConfigurationContext
 
-
-        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
         """
         return ConfigurationContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> ConfigurationContext:
         """
         Constructs a ConfigurationContext
 
-
-        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
         """
         return ConfigurationContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.ConfigurationList>"

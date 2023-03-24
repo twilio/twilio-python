@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,9 +39,6 @@ class AssetVersionInstance(InstanceResource):
     ):
         """
         Initialize the AssetVersionInstance
-
-        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
         super().__init__(version)
 
@@ -63,13 +61,12 @@ class AssetVersionInstance(InstanceResource):
         self._context: Optional[AssetVersionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AssetVersionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AssetVersionContext for this AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         """
         if self._context is None:
             self._context = AssetVersionContext(
@@ -81,95 +78,84 @@ class AssetVersionInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Asset Version resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Asset Version resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns: The SID of the Service that the Asset Version resource is associated with.
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def asset_sid(self):
+    def asset_sid(self) -> str:
         """
         :returns: The SID of the Asset resource that is the parent of the Asset Version.
-        :rtype: str
         """
         return self._properties["asset_sid"]
 
     @property
-    def path(self):
+    def path(self) -> str:
         """
         :returns: The URL-friendly string by which the Asset Version can be referenced. It can be a maximum of 255 characters. All paths begin with a forward slash ('/'). If an Asset Version creation request is submitted with a path not containing a leading slash, the path will automatically be prepended with one.
-        :rtype: str
         """
         return self._properties["path"]
 
     @property
-    def visibility(self):
+    def visibility(self) -> "AssetVersionInstance.Visibility":
         """
         :returns:
-        :rtype: AssetVersionInstance.Visibility
         """
         return self._properties["visibility"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the Asset Version resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Asset Version resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "AssetVersionInstance":
         """
         Fetch the AssetVersionInstance
 
 
         :returns: The fetched AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AssetVersionInstance":
         """
         Asynchronous coroutine to fetch the AssetVersionInstance
 
 
         :returns: The fetched AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.AssetVersionInstance {}>".format(context)
@@ -180,13 +166,10 @@ class AssetVersionContext(InstanceContext):
         """
         Initialize the AssetVersionContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Asset Version resource from.
         :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version resource to fetch.
         :param sid: The SID of the Asset Version resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         """
         super().__init__(version)
 
@@ -200,13 +183,12 @@ class AssetVersionContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> AssetVersionInstance:
         """
         Fetch the AssetVersionInstance
 
 
         :returns: The fetched AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
 
         payload = self._version.fetch(
@@ -222,13 +204,12 @@ class AssetVersionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AssetVersionInstance:
         """
         Asynchronous coroutine to fetch the AssetVersionInstance
 
 
         :returns: The fetched AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
 
         payload = await self._version.fetch_async(
@@ -244,26 +225,22 @@ class AssetVersionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.AssetVersionContext {}>".format(context)
 
 
 class AssetVersionPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AssetVersionInstance:
         """
         Build an instance of AssetVersionInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
         return AssetVersionInstance(
             self._version,
@@ -286,12 +263,10 @@ class AssetVersionList(ListResource):
         """
         Initialize the AssetVersionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Asset Version resource from.
         :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version resources to read.
 
-        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
         """
         super().__init__(version)
 
@@ -304,7 +279,7 @@ class AssetVersionList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[AssetVersionInstance]:
         """
         Streams AssetVersionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -319,14 +294,15 @@ class AssetVersionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[AssetVersionInstance]:
         """
         Asynchronously streams AssetVersionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -341,14 +317,13 @@ class AssetVersionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[AssetVersionInstance]:
         """
         Lists AssetVersionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -362,7 +337,6 @@ class AssetVersionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance]
         """
         return list(
             self.stream(
@@ -371,7 +345,9 @@ class AssetVersionList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[AssetVersionInstance]:
         """
         Asynchronously lists AssetVersionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -385,7 +361,6 @@ class AssetVersionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance]
         """
         return list(
             await self.stream_async(
@@ -396,7 +371,7 @@ class AssetVersionList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AssetVersionPage:
         """
         Retrieve a single page of AssetVersionInstance records from the API.
         Request is executed immediately
@@ -406,7 +381,6 @@ class AssetVersionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         """
         data = values.of(
             {
@@ -421,7 +395,7 @@ class AssetVersionList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AssetVersionPage:
         """
         Asynchronously retrieve a single page of AssetVersionInstance records from the API.
         Request is executed immediately
@@ -431,7 +405,6 @@ class AssetVersionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         """
         data = values.of(
             {
@@ -446,7 +419,7 @@ class AssetVersionList(ListResource):
         )
         return AssetVersionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AssetVersionPage:
         """
         Retrieve a specific page of AssetVersionInstance records from the API.
         Request is executed immediately
@@ -454,12 +427,11 @@ class AssetVersionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AssetVersionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AssetVersionPage:
         """
         Asynchronously retrieve a specific page of AssetVersionInstance records from the API.
         Request is executed immediately
@@ -467,19 +439,15 @@ class AssetVersionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssetVersionPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> AssetVersionContext:
         """
         Constructs a AssetVersionContext
 
         :param sid: The SID of the Asset Version resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         """
         return AssetVersionContext(
             self._version,
@@ -488,14 +456,11 @@ class AssetVersionList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> AssetVersionContext:
         """
         Constructs a AssetVersionContext
 
         :param sid: The SID of the Asset Version resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         """
         return AssetVersionContext(
             self._version,
@@ -504,11 +469,10 @@ class AssetVersionList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Serverless.V1.AssetVersionList>"

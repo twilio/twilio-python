@@ -25,9 +25,6 @@ class TaskActionsInstance(InstanceResource):
     def __init__(self, version, payload, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskActionsInstance
-
-        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
         super().__init__(version)
 
@@ -46,13 +43,12 @@ class TaskActionsInstance(InstanceResource):
         self._context: Optional[TaskActionsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "TaskActionsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: TaskActionsContext for this TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
         """
         if self._context is None:
             self._context = TaskActionsContext(
@@ -63,97 +59,87 @@ class TaskActionsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the Account that created this Field.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def assistant_sid(self):
+    def assistant_sid(self) -> str:
         """
         :returns: The unique ID of the parent Assistant.
-        :rtype: str
         """
         return self._properties["assistant_sid"]
 
     @property
-    def task_sid(self):
+    def task_sid(self) -> str:
         """
         :returns: The unique ID of the Task.
-        :rtype: str
         """
         return self._properties["task_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def data(self):
+    def data(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["data"]
 
-    def fetch(self):
+    def fetch(self) -> "TaskActionsInstance":
         """
         Fetch the TaskActionsInstance
 
 
         :returns: The fetched TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "TaskActionsInstance":
         """
         Asynchronous coroutine to fetch the TaskActionsInstance
 
 
         :returns: The fetched TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, actions=values.unset):
+    def update(self, actions=values.unset) -> "TaskActionsInstance":
         """
         Update the TaskActionsInstance
 
         :param object actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: The updated TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
         return self._proxy.update(
             actions=actions,
         )
 
-    async def update_async(self, actions=values.unset):
+    async def update_async(self, actions=values.unset) -> "TaskActionsInstance":
         """
         Asynchronous coroutine to update the TaskActionsInstance
 
         :param object actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: The updated TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
         return await self._proxy.update_async(
             actions=actions,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.TaskActionsInstance {}>".format(context)
@@ -164,12 +150,9 @@ class TaskActionsContext(InstanceContext):
         """
         Initialize the TaskActionsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The unique ID of the parent Assistant.
         :param task_sid: The unique ID of the Task.
-
-        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
         """
         super().__init__(version)
 
@@ -182,13 +165,12 @@ class TaskActionsContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> TaskActionsInstance:
         """
         Fetch the TaskActionsInstance
 
 
         :returns: The fetched TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
 
         payload = self._version.fetch(
@@ -203,13 +185,12 @@ class TaskActionsContext(InstanceContext):
             task_sid=self._solution["task_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> TaskActionsInstance:
         """
         Asynchronous coroutine to fetch the TaskActionsInstance
 
 
         :returns: The fetched TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
 
         payload = await self._version.fetch_async(
@@ -224,14 +205,13 @@ class TaskActionsContext(InstanceContext):
             task_sid=self._solution["task_sid"],
         )
 
-    def update(self, actions=values.unset):
+    def update(self, actions=values.unset) -> TaskActionsInstance:
         """
         Update the TaskActionsInstance
 
         :param object actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: The updated TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
         data = values.of(
             {
@@ -252,14 +232,13 @@ class TaskActionsContext(InstanceContext):
             task_sid=self._solution["task_sid"],
         )
 
-    async def update_async(self, actions=values.unset):
+    async def update_async(self, actions=values.unset) -> TaskActionsInstance:
         """
         Asynchronous coroutine to update the TaskActionsInstance
 
         :param object actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: The updated TaskActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
         data = values.of(
             {
@@ -280,12 +259,11 @@ class TaskActionsContext(InstanceContext):
             task_sid=self._solution["task_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.TaskActionsContext {}>".format(context)
@@ -296,12 +274,10 @@ class TaskActionsList(ListResource):
         """
         Initialize the TaskActionsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid: The unique ID of the parent Assistant.
         :param task_sid: The unique ID of the Task.
 
-        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList
         """
         super().__init__(version)
 
@@ -311,13 +287,10 @@ class TaskActionsList(ListResource):
             "task_sid": task_sid,
         }
 
-    def get(self):
+    def get(self) -> TaskActionsContext:
         """
         Constructs a TaskActionsContext
 
-
-        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
         """
         return TaskActionsContext(
             self._version,
@@ -325,13 +298,10 @@ class TaskActionsList(ListResource):
             task_sid=self._solution["task_sid"],
         )
 
-    def __call__(self):
+    def __call__(self) -> TaskActionsContext:
         """
         Constructs a TaskActionsContext
 
-
-        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
         """
         return TaskActionsContext(
             self._version,
@@ -339,11 +309,10 @@ class TaskActionsList(ListResource):
             task_sid=self._solution["task_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Understand.TaskActionsList>"

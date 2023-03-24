@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class KeyInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the KeyInstance
-
-        :returns: twilio.rest.api.v2010.account.key.KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         super().__init__(version)
 
@@ -46,13 +44,12 @@ class KeyInstance(InstanceResource):
         self._context: Optional[KeyContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "KeyContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: KeyContext for this KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyContext
         """
         if self._context is None:
             self._context = KeyContext(
@@ -63,109 +60,98 @@ class KeyInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the Key resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the KeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the KeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "KeyInstance":
         """
         Fetch the KeyInstance
 
 
         :returns: The fetched KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "KeyInstance":
         """
         Asynchronous coroutine to fetch the KeyInstance
 
 
         :returns: The fetched KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name=values.unset) -> "KeyInstance":
         """
         Update the KeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, friendly_name=values.unset):
+    async def update_async(self, friendly_name=values.unset) -> "KeyInstance":
         """
         Asynchronous coroutine to update the KeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.KeyInstance {}>".format(context)
@@ -176,12 +162,9 @@ class KeyContext(InstanceContext):
         """
         Initialize the KeyContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.
         :param sid: The Twilio-provided string that uniquely identifies the Key resource to update.
-
-        :returns: twilio.rest.api.v2010.account.key.KeyContext
-        :rtype: twilio.rest.api.v2010.account.key.KeyContext
         """
         super().__init__(version)
 
@@ -192,39 +175,36 @@ class KeyContext(InstanceContext):
         }
         self._uri = "/Accounts/{account_sid}/Keys/{sid}.json".format(**self._solution)
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the KeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the KeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> KeyInstance:
         """
         Fetch the KeyInstance
 
 
         :returns: The fetched KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
 
         payload = self._version.fetch(
@@ -239,13 +219,12 @@ class KeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> KeyInstance:
         """
         Asynchronous coroutine to fetch the KeyInstance
 
 
         :returns: The fetched KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
 
         payload = await self._version.fetch_async(
@@ -260,14 +239,13 @@ class KeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name=values.unset) -> KeyInstance:
         """
         Update the KeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         data = values.of(
             {
@@ -288,14 +266,13 @@ class KeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name=values.unset):
+    async def update_async(self, friendly_name=values.unset) -> KeyInstance:
         """
         Asynchronous coroutine to update the KeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         data = values.of(
             {
@@ -316,26 +293,22 @@ class KeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.KeyContext {}>".format(context)
 
 
 class KeyPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> KeyInstance:
         """
         Build an instance of KeyInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.key.KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         return KeyInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -355,11 +328,9 @@ class KeyList(ListResource):
         """
         Initialize the KeyList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read.
 
-        :returns: twilio.rest.api.v2010.account.key.KeyList
-        :rtype: twilio.rest.api.v2010.account.key.KeyList
         """
         super().__init__(version)
 
@@ -369,7 +340,7 @@ class KeyList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Keys.json".format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[KeyInstance]:
         """
         Streams KeyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -384,14 +355,13 @@ class KeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.key.KeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[KeyInstance]:
         """
         Asynchronously streams KeyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -406,14 +376,13 @@ class KeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.key.KeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[KeyInstance]:
         """
         Lists KeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -427,7 +396,6 @@ class KeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.key.KeyInstance]
         """
         return list(
             self.stream(
@@ -436,7 +404,7 @@ class KeyList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[KeyInstance]:
         """
         Asynchronously lists KeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -450,7 +418,6 @@ class KeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.key.KeyInstance]
         """
         return list(
             await self.stream_async(
@@ -461,7 +428,7 @@ class KeyList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> KeyPage:
         """
         Retrieve a single page of KeyInstance records from the API.
         Request is executed immediately
@@ -471,7 +438,6 @@ class KeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyPage
         """
         data = values.of(
             {
@@ -486,7 +452,7 @@ class KeyList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> KeyPage:
         """
         Asynchronously retrieve a single page of KeyInstance records from the API.
         Request is executed immediately
@@ -496,7 +462,6 @@ class KeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyPage
         """
         data = values.of(
             {
@@ -511,7 +476,7 @@ class KeyList(ListResource):
         )
         return KeyPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> KeyPage:
         """
         Retrieve a specific page of KeyInstance records from the API.
         Request is executed immediately
@@ -519,12 +484,11 @@ class KeyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return KeyPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> KeyPage:
         """
         Asynchronously retrieve a specific page of KeyInstance records from the API.
         Request is executed immediately
@@ -532,42 +496,34 @@ class KeyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return KeyPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> KeyContext:
         """
         Constructs a KeyContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Key resource to update.
-
-        :returns: twilio.rest.api.v2010.account.key.KeyContext
-        :rtype: twilio.rest.api.v2010.account.key.KeyContext
         """
         return KeyContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> KeyContext:
         """
         Constructs a KeyContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Key resource to update.
-
-        :returns: twilio.rest.api.v2010.account.key.KeyContext
-        :rtype: twilio.rest.api.v2010.account.key.KeyContext
         """
         return KeyContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.KeyList>"

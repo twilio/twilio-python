@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -60,9 +61,6 @@ class ParticipantInstance(InstanceResource):
     ):
         """
         Initialize the ParticipantInstance
-
-        :returns: twilio.rest.insights.v1.room.participant.ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
         super().__init__(version)
 
@@ -93,13 +91,12 @@ class ParticipantInstance(InstanceResource):
         self._context: Optional[ParticipantContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ParticipantContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ParticipantContext for this ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
         """
         if self._context is None:
             self._context = ParticipantContext(
@@ -110,167 +107,147 @@ class ParticipantInstance(InstanceResource):
         return self._context
 
     @property
-    def participant_sid(self):
+    def participant_sid(self) -> str:
         """
         :returns: Unique identifier for the participant.
-        :rtype: str
         """
         return self._properties["participant_sid"]
 
     @property
-    def participant_identity(self):
+    def participant_identity(self) -> str:
         """
         :returns: The application-defined string that uniquely identifies the participant within a Room.
-        :rtype: str
         """
         return self._properties["participant_identity"]
 
     @property
-    def join_time(self):
+    def join_time(self) -> datetime:
         """
         :returns: When the participant joined the room.
-        :rtype: datetime
         """
         return self._properties["join_time"]
 
     @property
-    def leave_time(self):
+    def leave_time(self) -> datetime:
         """
         :returns: When the participant left the room.
-        :rtype: datetime
         """
         return self._properties["leave_time"]
 
     @property
-    def duration_sec(self):
+    def duration_sec(self) -> int:
         """
         :returns: Amount of time in seconds the participant was in the room.
-        :rtype: int
         """
         return self._properties["duration_sec"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: Account SID associated with the room.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def room_sid(self):
+    def room_sid(self) -> str:
         """
         :returns: Unique identifier for the room.
-        :rtype: str
         """
         return self._properties["room_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "ParticipantInstance.RoomStatus":
         """
         :returns:
-        :rtype: ParticipantInstance.RoomStatus
         """
         return self._properties["status"]
 
     @property
-    def codecs(self):
+    def codecs(self) -> List["ParticipantInstance.Codec"]:
         """
         :returns: Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
-        :rtype: List[ParticipantInstance.Codec]
         """
         return self._properties["codecs"]
 
     @property
-    def end_reason(self):
+    def end_reason(self) -> str:
         """
         :returns: Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#end_reason).
-        :rtype: str
         """
         return self._properties["end_reason"]
 
     @property
-    def error_code(self):
+    def error_code(self) -> int:
         """
         :returns: Errors encountered by the participant.
-        :rtype: int
         """
         return self._properties["error_code"]
 
     @property
-    def error_code_url(self):
+    def error_code_url(self) -> str:
         """
         :returns: Twilio error code dictionary link.
-        :rtype: str
         """
         return self._properties["error_code_url"]
 
     @property
-    def media_region(self):
+    def media_region(self) -> "ParticipantInstance.TwilioRealm":
         """
         :returns:
-        :rtype: ParticipantInstance.TwilioRealm
         """
         return self._properties["media_region"]
 
     @property
-    def properties(self):
+    def properties(self) -> dict:
         """
         :returns: Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#properties) for more information.
-        :rtype: dict
         """
         return self._properties["properties"]
 
     @property
-    def edge_location(self):
+    def edge_location(self) -> "ParticipantInstance.EdgeLocation":
         """
         :returns:
-        :rtype: ParticipantInstance.EdgeLocation
         """
         return self._properties["edge_location"]
 
     @property
-    def publisher_info(self):
+    def publisher_info(self) -> dict:
         """
         :returns: Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#publisher_info) for more information.
-        :rtype: dict
         """
         return self._properties["publisher_info"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: URL of the participant resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "ParticipantInstance":
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ParticipantInstance":
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.ParticipantInstance {}>".format(context)
@@ -281,12 +258,9 @@ class ParticipantContext(InstanceContext):
         """
         Initialize the ParticipantContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the Room resource.
         :param participant_sid: The SID of the Participant resource.
-
-        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
         """
         super().__init__(version)
 
@@ -299,13 +273,12 @@ class ParticipantContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> ParticipantInstance:
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
 
         payload = self._version.fetch(
@@ -320,13 +293,12 @@ class ParticipantContext(InstanceContext):
             participant_sid=self._solution["participant_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ParticipantInstance:
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
 
         payload = await self._version.fetch_async(
@@ -341,26 +313,22 @@ class ParticipantContext(InstanceContext):
             participant_sid=self._solution["participant_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.ParticipantContext {}>".format(context)
 
 
 class ParticipantPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.insights.v1.room.participant.ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
         return ParticipantInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
@@ -380,11 +348,9 @@ class ParticipantList(ListResource):
         """
         Initialize the ParticipantList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the Room resource.
 
-        :returns: twilio.rest.insights.v1.room.participant.ParticipantList
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantList
         """
         super().__init__(version)
 
@@ -394,7 +360,7 @@ class ParticipantList(ListResource):
         }
         self._uri = "/Video/Rooms/{room_sid}/Participants".format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ParticipantInstance]:
         """
         Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -409,14 +375,15 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.room.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[ParticipantInstance]:
         """
         Asynchronously streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -431,14 +398,13 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.room.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ParticipantInstance]:
         """
         Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -452,7 +418,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.room.participant.ParticipantInstance]
         """
         return list(
             self.stream(
@@ -461,7 +426,7 @@ class ParticipantList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ParticipantInstance]:
         """
         Asynchronously lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -475,7 +440,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.room.participant.ParticipantInstance]
         """
         return list(
             await self.stream_async(
@@ -486,7 +450,7 @@ class ParticipantList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ParticipantPage:
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -496,7 +460,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -511,7 +474,7 @@ class ParticipantList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ParticipantPage:
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -521,7 +484,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -536,7 +498,7 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ParticipantPage:
         """
         Retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -544,12 +506,11 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ParticipantPage:
         """
         Asynchronously retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -557,19 +518,15 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    def get(self, participant_sid):
+    def get(self, participant_sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param participant_sid: The SID of the Participant resource.
-
-        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -577,14 +534,11 @@ class ParticipantList(ListResource):
             participant_sid=participant_sid,
         )
 
-    def __call__(self, participant_sid):
+    def __call__(self, participant_sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param participant_sid: The SID of the Participant resource.
-
-        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -592,11 +546,10 @@ class ParticipantList(ListResource):
             participant_sid=participant_sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1.ParticipantList>"

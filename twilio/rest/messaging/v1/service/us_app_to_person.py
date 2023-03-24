@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,9 +29,6 @@ class UsAppToPersonInstance(InstanceResource):
     ):
         """
         Initialize the UsAppToPersonInstance
-
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
         super().__init__(version)
 
@@ -68,13 +66,12 @@ class UsAppToPersonInstance(InstanceResource):
         self._context: Optional[UsAppToPersonContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "UsAppToPersonContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: UsAppToPersonContext for this UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
         """
         if self._context is None:
             self._context = UsAppToPersonContext(
@@ -85,243 +82,214 @@ class UsAppToPersonInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def brand_registration_sid(self):
+    def brand_registration_sid(self) -> str:
         """
         :returns: The unique string to identify the A2P brand.
-        :rtype: str
         """
         return self._properties["brand_registration_sid"]
 
     @property
-    def messaging_service_sid(self):
+    def messaging_service_sid(self) -> str:
         """
         :returns: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
-        :rtype: str
         """
         return self._properties["messaging_service_sid"]
 
     @property
-    def description(self):
+    def description(self) -> str:
         """
         :returns: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
-        :rtype: str
         """
         return self._properties["description"]
 
     @property
-    def message_samples(self):
+    def message_samples(self) -> List[str]:
         """
         :returns: Message samples, at least 1 and up to 5 sample messages (at least 2 for starter/sole proprietor), >=20 chars, <=1024 chars each.
-        :rtype: List[str]
         """
         return self._properties["message_samples"]
 
     @property
-    def us_app_to_person_usecase(self):
+    def us_app_to_person_usecase(self) -> str:
         """
         :returns: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, STARTER...]. STARTER campaign use cases can only be created by STARTER Brands, and there can only be one STARTER campaign created per STARTER Brand.
-        :rtype: str
         """
         return self._properties["us_app_to_person_usecase"]
 
     @property
-    def has_embedded_links(self):
+    def has_embedded_links(self) -> bool:
         """
         :returns: Indicate that this SMS campaign will send messages that contain links.
-        :rtype: bool
         """
         return self._properties["has_embedded_links"]
 
     @property
-    def has_embedded_phone(self):
+    def has_embedded_phone(self) -> bool:
         """
         :returns: Indicates that this SMS campaign will send messages that contain phone numbers.
-        :rtype: bool
         """
         return self._properties["has_embedded_phone"]
 
     @property
-    def campaign_status(self):
+    def campaign_status(self) -> str:
         """
         :returns: Campaign status. Examples: IN_PROGRESS, VERIFIED, FAILED.
-        :rtype: str
         """
         return self._properties["campaign_status"]
 
     @property
-    def campaign_id(self):
+    def campaign_id(self) -> str:
         """
         :returns: The Campaign Registry (TCR) Campaign ID.
-        :rtype: str
         """
         return self._properties["campaign_id"]
 
     @property
-    def is_externally_registered(self):
+    def is_externally_registered(self) -> bool:
         """
         :returns: Indicates whether the campaign was registered externally or not.
-        :rtype: bool
         """
         return self._properties["is_externally_registered"]
 
     @property
-    def rate_limits(self):
+    def rate_limits(self) -> dict:
         """
         :returns: Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
-        :rtype: dict
         """
         return self._properties["rate_limits"]
 
     @property
-    def message_flow(self):
+    def message_flow(self) -> str:
         """
         :returns: Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
-        :rtype: str
         """
         return self._properties["message_flow"]
 
     @property
-    def opt_in_message(self):
+    def opt_in_message(self) -> str:
         """
         :returns: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
-        :rtype: str
         """
         return self._properties["opt_in_message"]
 
     @property
-    def opt_out_message(self):
+    def opt_out_message(self) -> str:
         """
         :returns: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
-        :rtype: str
         """
         return self._properties["opt_out_message"]
 
     @property
-    def help_message(self):
+    def help_message(self) -> str:
         """
         :returns: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
-        :rtype: str
         """
         return self._properties["help_message"]
 
     @property
-    def opt_in_keywords(self):
+    def opt_in_keywords(self) -> List[str]:
         """
         :returns: If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
-        :rtype: List[str]
         """
         return self._properties["opt_in_keywords"]
 
     @property
-    def opt_out_keywords(self):
+    def opt_out_keywords(self) -> List[str]:
         """
         :returns: End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
-        :rtype: List[str]
         """
         return self._properties["opt_out_keywords"]
 
     @property
-    def help_keywords(self):
+    def help_keywords(self) -> List[str]:
         """
         :returns: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
-        :rtype: List[str]
         """
         return self._properties["help_keywords"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the US App to Person resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def mock(self):
+    def mock(self) -> bool:
         """
         :returns: A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
-        :rtype: bool
         """
         return self._properties["mock"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the UsAppToPersonInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UsAppToPersonInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "UsAppToPersonInstance":
         """
         Fetch the UsAppToPersonInstance
 
 
         :returns: The fetched UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "UsAppToPersonInstance":
         """
         Asynchronous coroutine to fetch the UsAppToPersonInstance
 
 
         :returns: The fetched UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.UsAppToPersonInstance {}>".format(context)
@@ -332,12 +300,9 @@ class UsAppToPersonContext(InstanceContext):
         """
         Initialize the UsAppToPersonContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
         :param sid: The SID of the US A2P Compliance resource to fetch `QE2c6890da8086d771620e9b13fadeba0b`.
-
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
         """
         super().__init__(version)
 
@@ -350,39 +315,36 @@ class UsAppToPersonContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the UsAppToPersonInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UsAppToPersonInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> UsAppToPersonInstance:
         """
         Fetch the UsAppToPersonInstance
 
 
         :returns: The fetched UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
 
         payload = self._version.fetch(
@@ -397,13 +359,12 @@ class UsAppToPersonContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> UsAppToPersonInstance:
         """
         Asynchronous coroutine to fetch the UsAppToPersonInstance
 
 
         :returns: The fetched UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
 
         payload = await self._version.fetch_async(
@@ -418,26 +379,22 @@ class UsAppToPersonContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.UsAppToPersonContext {}>".format(context)
 
 
 class UsAppToPersonPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> UsAppToPersonInstance:
         """
         Build an instance of UsAppToPersonInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
         return UsAppToPersonInstance(
             self._version,
@@ -459,11 +416,9 @@ class UsAppToPersonList(ListResource):
         """
         Initialize the UsAppToPersonList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
 
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonList
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonList
         """
         super().__init__(version)
 
@@ -490,7 +445,7 @@ class UsAppToPersonList(ListResource):
         opt_in_keywords=values.unset,
         opt_out_keywords=values.unset,
         help_keywords=values.unset,
-    ):
+    ) -> UsAppToPersonInstance:
         """
         Create the UsAppToPersonInstance
 
@@ -509,7 +464,6 @@ class UsAppToPersonList(ListResource):
         :param List[str] help_keywords: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 
         :returns: The created UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
         data = values.of(
             {
@@ -556,7 +510,7 @@ class UsAppToPersonList(ListResource):
         opt_in_keywords=values.unset,
         opt_out_keywords=values.unset,
         help_keywords=values.unset,
-    ):
+    ) -> UsAppToPersonInstance:
         """
         Asynchronously create the UsAppToPersonInstance
 
@@ -575,7 +529,6 @@ class UsAppToPersonList(ListResource):
         :param List[str] help_keywords: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 
         :returns: The created UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
         data = values.of(
             {
@@ -607,7 +560,7 @@ class UsAppToPersonList(ListResource):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[UsAppToPersonInstance]:
         """
         Streams UsAppToPersonInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -622,14 +575,15 @@ class UsAppToPersonList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[UsAppToPersonInstance]:
         """
         Asynchronously streams UsAppToPersonInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -644,14 +598,13 @@ class UsAppToPersonList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[UsAppToPersonInstance]:
         """
         Lists UsAppToPersonInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -665,7 +618,6 @@ class UsAppToPersonList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance]
         """
         return list(
             self.stream(
@@ -674,7 +626,9 @@ class UsAppToPersonList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[UsAppToPersonInstance]:
         """
         Asynchronously lists UsAppToPersonInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -688,7 +642,6 @@ class UsAppToPersonList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance]
         """
         return list(
             await self.stream_async(
@@ -699,7 +652,7 @@ class UsAppToPersonList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> UsAppToPersonPage:
         """
         Retrieve a single page of UsAppToPersonInstance records from the API.
         Request is executed immediately
@@ -709,7 +662,6 @@ class UsAppToPersonList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonPage
         """
         data = values.of(
             {
@@ -724,7 +676,7 @@ class UsAppToPersonList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> UsAppToPersonPage:
         """
         Asynchronously retrieve a single page of UsAppToPersonInstance records from the API.
         Request is executed immediately
@@ -734,7 +686,6 @@ class UsAppToPersonList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonPage
         """
         data = values.of(
             {
@@ -749,7 +700,7 @@ class UsAppToPersonList(ListResource):
         )
         return UsAppToPersonPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> UsAppToPersonPage:
         """
         Retrieve a specific page of UsAppToPersonInstance records from the API.
         Request is executed immediately
@@ -757,12 +708,11 @@ class UsAppToPersonList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UsAppToPersonPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> UsAppToPersonPage:
         """
         Asynchronously retrieve a specific page of UsAppToPersonInstance records from the API.
         Request is executed immediately
@@ -770,19 +720,15 @@ class UsAppToPersonList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return UsAppToPersonPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> UsAppToPersonContext:
         """
         Constructs a UsAppToPersonContext
 
         :param sid: The SID of the US A2P Compliance resource to fetch `QE2c6890da8086d771620e9b13fadeba0b`.
-
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
         """
         return UsAppToPersonContext(
             self._version,
@@ -790,14 +736,11 @@ class UsAppToPersonList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> UsAppToPersonContext:
         """
         Constructs a UsAppToPersonContext
 
         :param sid: The SID of the US A2P Compliance resource to fetch `QE2c6890da8086d771620e9b13fadeba0b`.
-
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
         """
         return UsAppToPersonContext(
             self._version,
@@ -805,11 +748,10 @@ class UsAppToPersonList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.UsAppToPersonList>"

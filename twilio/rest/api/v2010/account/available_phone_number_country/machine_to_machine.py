@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +26,6 @@ class MachineToMachineInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, country_code: str):
         """
         Initialize the MachineToMachineInstance
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
         """
         super().__init__(version)
 
@@ -53,129 +51,112 @@ class MachineToMachineInstance(InstanceResource):
         }
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A formatted version of the phone number.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def phone_number(self):
+    def phone_number(self) -> str:
         """
         :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        :rtype: str
         """
         return self._properties["phone_number"]
 
     @property
-    def lata(self):
+    def lata(self) -> str:
         """
         :returns: The [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) of this phone number. Available for only phone numbers from the US and Canada.
-        :rtype: str
         """
         return self._properties["lata"]
 
     @property
-    def locality(self):
+    def locality(self) -> str:
         """
         :returns: The locality or city of this phone number's location.
-        :rtype: str
         """
         return self._properties["locality"]
 
     @property
-    def rate_center(self):
+    def rate_center(self) -> str:
         """
         :returns: The [rate center](https://en.wikipedia.org/wiki/Telephone_exchange) of this phone number. Available for only phone numbers from the US and Canada.
-        :rtype: str
         """
         return self._properties["rate_center"]
 
     @property
-    def latitude(self):
+    def latitude(self) -> float:
         """
         :returns: The latitude of this phone number's location. Available for only phone numbers from the US and Canada.
-        :rtype: float
         """
         return self._properties["latitude"]
 
     @property
-    def longitude(self):
+    def longitude(self) -> float:
         """
         :returns: The longitude of this phone number's location. Available for only phone numbers from the US and Canada.
-        :rtype: float
         """
         return self._properties["longitude"]
 
     @property
-    def region(self):
+    def region(self) -> str:
         """
         :returns: The two-letter state or province abbreviation of this phone number's location. Available for only phone numbers from the US and Canada.
-        :rtype: str
         """
         return self._properties["region"]
 
     @property
-    def postal_code(self):
+    def postal_code(self) -> str:
         """
         :returns: The postal or ZIP code of this phone number's location. Available for only phone numbers from the US and Canada.
-        :rtype: str
         """
         return self._properties["postal_code"]
 
     @property
-    def iso_country(self):
+    def iso_country(self) -> str:
         """
         :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of this phone number.
-        :rtype: str
         """
         return self._properties["iso_country"]
 
     @property
-    def address_requirements(self):
+    def address_requirements(self) -> str:
         """
         :returns: The type of [Address](https://www.twilio.com/docs/usage/api/address) resource the phone number requires. Can be: `none`, `any`, `local`, or `foreign`. `none` means no address is required. `any` means an address is required, but it can be anywhere in the world. `local` means an address in the phone number's country is required. `foreign` means an address outside of the phone number's country is required.
-        :rtype: str
         """
         return self._properties["address_requirements"]
 
     @property
-    def beta(self):
+    def beta(self) -> bool:
         """
         :returns: Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
-        :rtype: bool
         """
         return self._properties["beta"]
 
     @property
-    def capabilities(self):
+    def capabilities(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["capabilities"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.MachineToMachineInstance {}>".format(context)
 
 
 class MachineToMachinePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> MachineToMachineInstance:
         """
         Build an instance of MachineToMachineInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
         """
         return MachineToMachineInstance(
             self._version,
@@ -198,12 +179,10 @@ class MachineToMachineList(ListResource):
         """
         Initialize the MachineToMachineList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
         :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
 
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineList
         """
         super().__init__(version)
 
@@ -238,7 +217,7 @@ class MachineToMachineList(ListResource):
         fax_enabled=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[MachineToMachineInstance]:
         """
         Streams MachineToMachineInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -271,7 +250,6 @@ class MachineToMachineList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -320,7 +298,7 @@ class MachineToMachineList(ListResource):
         fax_enabled=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[MachineToMachineInstance]:
         """
         Asynchronously streams MachineToMachineInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -353,7 +331,6 @@ class MachineToMachineList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -402,7 +379,7 @@ class MachineToMachineList(ListResource):
         fax_enabled=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[MachineToMachineInstance]:
         """
         Lists MachineToMachineInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -434,7 +411,6 @@ class MachineToMachineList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance]
         """
         return list(
             self.stream(
@@ -483,7 +459,7 @@ class MachineToMachineList(ListResource):
         fax_enabled=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[MachineToMachineInstance]:
         """
         Asynchronously lists MachineToMachineInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -515,7 +491,6 @@ class MachineToMachineList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance]
         """
         return list(
             await self.stream_async(
@@ -565,7 +540,7 @@ class MachineToMachineList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> MachineToMachinePage:
         """
         Retrieve a single page of MachineToMachineInstance records from the API.
         Request is executed immediately
@@ -593,7 +568,6 @@ class MachineToMachineList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachinePage
         """
         data = values.of(
             {
@@ -647,7 +621,7 @@ class MachineToMachineList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> MachineToMachinePage:
         """
         Asynchronously retrieve a single page of MachineToMachineInstance records from the API.
         Request is executed immediately
@@ -675,7 +649,6 @@ class MachineToMachineList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachinePage
         """
         data = values.of(
             {
@@ -708,7 +681,7 @@ class MachineToMachineList(ListResource):
         )
         return MachineToMachinePage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> MachineToMachinePage:
         """
         Retrieve a specific page of MachineToMachineInstance records from the API.
         Request is executed immediately
@@ -716,12 +689,11 @@ class MachineToMachineList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachinePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MachineToMachinePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> MachineToMachinePage:
         """
         Asynchronously retrieve a specific page of MachineToMachineInstance records from the API.
         Request is executed immediately
@@ -729,16 +701,14 @@ class MachineToMachineList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachinePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return MachineToMachinePage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.MachineToMachineList>"

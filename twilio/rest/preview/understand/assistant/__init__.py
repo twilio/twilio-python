@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,9 +39,6 @@ class AssistantInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the AssistantInstance
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         super().__init__(version)
 
@@ -65,13 +63,12 @@ class AssistantInstance(InstanceResource):
         self._context: Optional[AssistantContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "AssistantContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: AssistantContext for this AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
         """
         if self._context is None:
             self._context = AssistantContext(
@@ -81,138 +78,122 @@ class AssistantInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the Account that created this Assistant.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def latest_model_build_sid(self):
+    def latest_model_build_sid(self) -> str:
         """
         :returns: The unique ID (Sid) of the latest model build. Null if no model has been built.
-        :rtype: str
         """
         return self._properties["latest_model_build_sid"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns:
-        :rtype: dict
         """
         return self._properties["links"]
 
     @property
-    def log_queries(self):
+    def log_queries(self) -> bool:
         """
         :returns: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
-        :rtype: bool
         """
         return self._properties["log_queries"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def unique_name(self):
+    def unique_name(self) -> str:
         """
         :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
-        :rtype: str
         """
         return self._properties["unique_name"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def callback_url(self):
+    def callback_url(self) -> str:
         """
         :returns: A user-provided URL to send event callbacks to.
-        :rtype: str
         """
         return self._properties["callback_url"]
 
     @property
-    def callback_events(self):
+    def callback_events(self) -> str:
         """
         :returns: Space-separated list of callback events that will trigger callbacks.
-        :rtype: str
         """
         return self._properties["callback_events"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AssistantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AssistantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "AssistantInstance":
         """
         Fetch the AssistantInstance
 
 
         :returns: The fetched AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "AssistantInstance":
         """
         Asynchronous coroutine to fetch the AssistantInstance
 
 
         :returns: The fetched AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         return await self._proxy.fetch_async()
 
@@ -226,7 +207,7 @@ class AssistantInstance(InstanceResource):
         fallback_actions=values.unset,
         initiation_actions=values.unset,
         style_sheet=values.unset,
-    ):
+    ) -> "AssistantInstance":
         """
         Update the AssistantInstance
 
@@ -240,7 +221,6 @@ class AssistantInstance(InstanceResource):
         :param object style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The updated AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -263,7 +243,7 @@ class AssistantInstance(InstanceResource):
         fallback_actions=values.unset,
         initiation_actions=values.unset,
         style_sheet=values.unset,
-    ):
+    ) -> "AssistantInstance":
         """
         Asynchronous coroutine to update the AssistantInstance
 
@@ -277,7 +257,6 @@ class AssistantInstance(InstanceResource):
         :param object style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The updated AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -291,91 +270,66 @@ class AssistantInstance(InstanceResource):
         )
 
     @property
-    def assistant_fallback_actions(self):
+    def assistant_fallback_actions(self) -> AssistantFallbackActionsList:
         """
         Access the assistant_fallback_actions
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantFallbackActionsList
-        :rtype: twilio.rest.preview.understand.assistant.AssistantFallbackActionsList
         """
         return self._proxy.assistant_fallback_actions
 
     @property
-    def assistant_initiation_actions(self):
+    def assistant_initiation_actions(self) -> AssistantInitiationActionsList:
         """
         Access the assistant_initiation_actions
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantInitiationActionsList
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInitiationActionsList
         """
         return self._proxy.assistant_initiation_actions
 
     @property
-    def dialogues(self):
+    def dialogues(self) -> DialogueList:
         """
         Access the dialogues
-
-        :returns: twilio.rest.preview.understand.assistant.DialogueList
-        :rtype: twilio.rest.preview.understand.assistant.DialogueList
         """
         return self._proxy.dialogues
 
     @property
-    def field_types(self):
+    def field_types(self) -> FieldTypeList:
         """
         Access the field_types
-
-        :returns: twilio.rest.preview.understand.assistant.FieldTypeList
-        :rtype: twilio.rest.preview.understand.assistant.FieldTypeList
         """
         return self._proxy.field_types
 
     @property
-    def model_builds(self):
+    def model_builds(self) -> ModelBuildList:
         """
         Access the model_builds
-
-        :returns: twilio.rest.preview.understand.assistant.ModelBuildList
-        :rtype: twilio.rest.preview.understand.assistant.ModelBuildList
         """
         return self._proxy.model_builds
 
     @property
-    def queries(self):
+    def queries(self) -> QueryList:
         """
         Access the queries
-
-        :returns: twilio.rest.preview.understand.assistant.QueryList
-        :rtype: twilio.rest.preview.understand.assistant.QueryList
         """
         return self._proxy.queries
 
     @property
-    def style_sheet(self):
+    def style_sheet(self) -> StyleSheetList:
         """
         Access the style_sheet
-
-        :returns: twilio.rest.preview.understand.assistant.StyleSheetList
-        :rtype: twilio.rest.preview.understand.assistant.StyleSheetList
         """
         return self._proxy.style_sheet
 
     @property
-    def tasks(self):
+    def tasks(self) -> TaskList:
         """
         Access the tasks
-
-        :returns: twilio.rest.preview.understand.assistant.TaskList
-        :rtype: twilio.rest.preview.understand.assistant.TaskList
         """
         return self._proxy.tasks
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.AssistantInstance {}>".format(context)
@@ -386,11 +340,8 @@ class AssistantContext(InstanceContext):
         """
         Initialize the AssistantContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantContext
-        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
         """
         super().__init__(version)
 
@@ -411,39 +362,36 @@ class AssistantContext(InstanceContext):
         self._style_sheet: Optional[StyleSheetList] = None
         self._tasks: Optional[TaskList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the AssistantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AssistantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> AssistantInstance:
         """
         Fetch the AssistantInstance
 
 
         :returns: The fetched AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
 
         payload = self._version.fetch(
@@ -457,13 +405,12 @@ class AssistantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> AssistantInstance:
         """
         Asynchronous coroutine to fetch the AssistantInstance
 
 
         :returns: The fetched AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
 
         payload = await self._version.fetch_async(
@@ -487,7 +434,7 @@ class AssistantContext(InstanceContext):
         fallback_actions=values.unset,
         initiation_actions=values.unset,
         style_sheet=values.unset,
-    ):
+    ) -> AssistantInstance:
         """
         Update the AssistantInstance
 
@@ -501,7 +448,6 @@ class AssistantContext(InstanceContext):
         :param object style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The updated AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         data = values.of(
             {
@@ -534,7 +480,7 @@ class AssistantContext(InstanceContext):
         fallback_actions=values.unset,
         initiation_actions=values.unset,
         style_sheet=values.unset,
-    ):
+    ) -> AssistantInstance:
         """
         Asynchronous coroutine to update the AssistantInstance
 
@@ -548,7 +494,6 @@ class AssistantContext(InstanceContext):
         :param object style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The updated AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         data = values.of(
             {
@@ -572,12 +517,9 @@ class AssistantContext(InstanceContext):
         return AssistantInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def assistant_fallback_actions(self):
+    def assistant_fallback_actions(self) -> AssistantFallbackActionsList:
         """
         Access the assistant_fallback_actions
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantFallbackActionsList
-        :rtype: twilio.rest.preview.understand.assistant.AssistantFallbackActionsList
         """
         if self._assistant_fallback_actions is None:
             self._assistant_fallback_actions = AssistantFallbackActionsList(
@@ -587,12 +529,9 @@ class AssistantContext(InstanceContext):
         return self._assistant_fallback_actions
 
     @property
-    def assistant_initiation_actions(self):
+    def assistant_initiation_actions(self) -> AssistantInitiationActionsList:
         """
         Access the assistant_initiation_actions
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantInitiationActionsList
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInitiationActionsList
         """
         if self._assistant_initiation_actions is None:
             self._assistant_initiation_actions = AssistantInitiationActionsList(
@@ -602,12 +541,9 @@ class AssistantContext(InstanceContext):
         return self._assistant_initiation_actions
 
     @property
-    def dialogues(self):
+    def dialogues(self) -> DialogueList:
         """
         Access the dialogues
-
-        :returns: twilio.rest.preview.understand.assistant.DialogueList
-        :rtype: twilio.rest.preview.understand.assistant.DialogueList
         """
         if self._dialogues is None:
             self._dialogues = DialogueList(
@@ -617,12 +553,9 @@ class AssistantContext(InstanceContext):
         return self._dialogues
 
     @property
-    def field_types(self):
+    def field_types(self) -> FieldTypeList:
         """
         Access the field_types
-
-        :returns: twilio.rest.preview.understand.assistant.FieldTypeList
-        :rtype: twilio.rest.preview.understand.assistant.FieldTypeList
         """
         if self._field_types is None:
             self._field_types = FieldTypeList(
@@ -632,12 +565,9 @@ class AssistantContext(InstanceContext):
         return self._field_types
 
     @property
-    def model_builds(self):
+    def model_builds(self) -> ModelBuildList:
         """
         Access the model_builds
-
-        :returns: twilio.rest.preview.understand.assistant.ModelBuildList
-        :rtype: twilio.rest.preview.understand.assistant.ModelBuildList
         """
         if self._model_builds is None:
             self._model_builds = ModelBuildList(
@@ -647,12 +577,9 @@ class AssistantContext(InstanceContext):
         return self._model_builds
 
     @property
-    def queries(self):
+    def queries(self) -> QueryList:
         """
         Access the queries
-
-        :returns: twilio.rest.preview.understand.assistant.QueryList
-        :rtype: twilio.rest.preview.understand.assistant.QueryList
         """
         if self._queries is None:
             self._queries = QueryList(
@@ -662,12 +589,9 @@ class AssistantContext(InstanceContext):
         return self._queries
 
     @property
-    def style_sheet(self):
+    def style_sheet(self) -> StyleSheetList:
         """
         Access the style_sheet
-
-        :returns: twilio.rest.preview.understand.assistant.StyleSheetList
-        :rtype: twilio.rest.preview.understand.assistant.StyleSheetList
         """
         if self._style_sheet is None:
             self._style_sheet = StyleSheetList(
@@ -677,12 +601,9 @@ class AssistantContext(InstanceContext):
         return self._style_sheet
 
     @property
-    def tasks(self):
+    def tasks(self) -> TaskList:
         """
         Access the tasks
-
-        :returns: twilio.rest.preview.understand.assistant.TaskList
-        :rtype: twilio.rest.preview.understand.assistant.TaskList
         """
         if self._tasks is None:
             self._tasks = TaskList(
@@ -691,26 +612,22 @@ class AssistantContext(InstanceContext):
             )
         return self._tasks
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.AssistantContext {}>".format(context)
 
 
 class AssistantPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> AssistantInstance:
         """
         Build an instance of AssistantInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         return AssistantInstance(self._version, payload)
 
@@ -728,10 +645,8 @@ class AssistantList(ListResource):
         """
         Initialize the AssistantList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.preview.understand.assistant.AssistantList
-        :rtype: twilio.rest.preview.understand.assistant.AssistantList
         """
         super().__init__(version)
 
@@ -747,7 +662,7 @@ class AssistantList(ListResource):
         fallback_actions=values.unset,
         initiation_actions=values.unset,
         style_sheet=values.unset,
-    ):
+    ) -> AssistantInstance:
         """
         Create the AssistantInstance
 
@@ -761,7 +676,6 @@ class AssistantList(ListResource):
         :param object style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The created AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         data = values.of(
             {
@@ -794,7 +708,7 @@ class AssistantList(ListResource):
         fallback_actions=values.unset,
         initiation_actions=values.unset,
         style_sheet=values.unset,
-    ):
+    ) -> AssistantInstance:
         """
         Asynchronously create the AssistantInstance
 
@@ -808,7 +722,6 @@ class AssistantList(ListResource):
         :param object style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The created AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         data = values.of(
             {
@@ -831,7 +744,7 @@ class AssistantList(ListResource):
 
         return AssistantInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[AssistantInstance]:
         """
         Streams AssistantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -846,14 +759,13 @@ class AssistantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[AssistantInstance]:
         """
         Asynchronously streams AssistantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -868,14 +780,13 @@ class AssistantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[AssistantInstance]:
         """
         Lists AssistantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -889,7 +800,6 @@ class AssistantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
         """
         return list(
             self.stream(
@@ -898,7 +808,7 @@ class AssistantList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[AssistantInstance]:
         """
         Asynchronously lists AssistantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -912,7 +822,6 @@ class AssistantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
         """
         return list(
             await self.stream_async(
@@ -923,7 +832,7 @@ class AssistantList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AssistantPage:
         """
         Retrieve a single page of AssistantInstance records from the API.
         Request is executed immediately
@@ -933,7 +842,6 @@ class AssistantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
         data = values.of(
             {
@@ -948,7 +856,7 @@ class AssistantList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> AssistantPage:
         """
         Asynchronously retrieve a single page of AssistantInstance records from the API.
         Request is executed immediately
@@ -958,7 +866,6 @@ class AssistantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
         data = values.of(
             {
@@ -973,7 +880,7 @@ class AssistantList(ListResource):
         )
         return AssistantPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> AssistantPage:
         """
         Retrieve a specific page of AssistantInstance records from the API.
         Request is executed immediately
@@ -981,12 +888,11 @@ class AssistantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AssistantPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> AssistantPage:
         """
         Asynchronously retrieve a specific page of AssistantInstance records from the API.
         Request is executed immediately
@@ -994,38 +900,30 @@ class AssistantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssistantPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> AssistantContext:
         """
         Constructs a AssistantContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantContext
-        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
         """
         return AssistantContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> AssistantContext:
         """
         Constructs a AssistantContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantContext
-        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
         """
         return AssistantContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Understand.AssistantList>"

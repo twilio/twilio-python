@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +34,6 @@ class CredentialListMappingInstance(InstanceResource):
     ):
         """
         Initialize the CredentialListMappingInstance
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         super().__init__(version)
 
@@ -57,13 +55,12 @@ class CredentialListMappingInstance(InstanceResource):
         self._context: Optional[CredentialListMappingContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "CredentialListMappingContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: CredentialListMappingContext for this CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         """
         if self._context is None:
             self._context = CredentialListMappingContext(
@@ -75,107 +72,95 @@ class CredentialListMappingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique id of the Account that is responsible for this resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def domain_sid(self):
+    def domain_sid(self) -> str:
         """
         :returns: The unique string that is created to identify the SipDomain resource.
-        :rtype: str
         """
         return self._properties["domain_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A human readable descriptive text for this resource, up to 64 characters long.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI for this resource, relative to `https://api.twilio.com`
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CredentialListMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CredentialListMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "CredentialListMappingInstance":
         """
         Fetch the CredentialListMappingInstance
 
 
         :returns: The fetched CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "CredentialListMappingInstance":
         """
         Asynchronous coroutine to fetch the CredentialListMappingInstance
 
 
         :returns: The fetched CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.CredentialListMappingInstance {}>".format(context)
@@ -186,13 +171,10 @@ class CredentialListMappingContext(InstanceContext):
         """
         Initialize the CredentialListMappingContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
         :param domain_sid: A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch.
         :param sid: A 34 character string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         """
         super().__init__(version)
 
@@ -206,39 +188,36 @@ class CredentialListMappingContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the CredentialListMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CredentialListMappingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> CredentialListMappingInstance:
         """
         Fetch the CredentialListMappingInstance
 
 
         :returns: The fetched CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
 
         payload = self._version.fetch(
@@ -254,13 +233,12 @@ class CredentialListMappingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> CredentialListMappingInstance:
         """
         Asynchronous coroutine to fetch the CredentialListMappingInstance
 
 
         :returns: The fetched CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
 
         payload = await self._version.fetch_async(
@@ -276,26 +254,22 @@ class CredentialListMappingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.CredentialListMappingContext {}>".format(context)
 
 
 class CredentialListMappingPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> CredentialListMappingInstance:
         """
         Build an instance of CredentialListMappingInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         return CredentialListMappingInstance(
             self._version,
@@ -318,12 +292,10 @@ class CredentialListMappingList(ListResource):
         """
         Initialize the CredentialListMappingList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
         :param domain_sid: A 34 character string that uniquely identifies the SIP Domain that includes the resource to read.
 
-        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
         """
         super().__init__(version)
 
@@ -336,14 +308,13 @@ class CredentialListMappingList(ListResource):
             **self._solution
         )
 
-    def create(self, credential_list_sid):
+    def create(self, credential_list_sid) -> CredentialListMappingInstance:
         """
         Create the CredentialListMappingInstance
 
         :param str credential_list_sid: A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
 
         :returns: The created CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         data = values.of(
             {
@@ -364,14 +335,13 @@ class CredentialListMappingList(ListResource):
             domain_sid=self._solution["domain_sid"],
         )
 
-    async def create_async(self, credential_list_sid):
+    async def create_async(self, credential_list_sid) -> CredentialListMappingInstance:
         """
         Asynchronously create the CredentialListMappingInstance
 
         :param str credential_list_sid: A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
 
         :returns: The created CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         data = values.of(
             {
@@ -392,7 +362,7 @@ class CredentialListMappingList(ListResource):
             domain_sid=self._solution["domain_sid"],
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[CredentialListMappingInstance]:
         """
         Streams CredentialListMappingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -407,14 +377,15 @@ class CredentialListMappingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[CredentialListMappingInstance]:
         """
         Asynchronously streams CredentialListMappingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -429,14 +400,13 @@ class CredentialListMappingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[CredentialListMappingInstance]:
         """
         Lists CredentialListMappingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -450,7 +420,6 @@ class CredentialListMappingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance]
         """
         return list(
             self.stream(
@@ -459,7 +428,9 @@ class CredentialListMappingList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[CredentialListMappingInstance]:
         """
         Asynchronously lists CredentialListMappingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -473,7 +444,6 @@ class CredentialListMappingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance]
         """
         return list(
             await self.stream_async(
@@ -484,7 +454,7 @@ class CredentialListMappingList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> CredentialListMappingPage:
         """
         Retrieve a single page of CredentialListMappingInstance records from the API.
         Request is executed immediately
@@ -494,7 +464,6 @@ class CredentialListMappingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
         """
         data = values.of(
             {
@@ -509,7 +478,7 @@ class CredentialListMappingList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> CredentialListMappingPage:
         """
         Asynchronously retrieve a single page of CredentialListMappingInstance records from the API.
         Request is executed immediately
@@ -519,7 +488,6 @@ class CredentialListMappingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
         """
         data = values.of(
             {
@@ -534,7 +502,7 @@ class CredentialListMappingList(ListResource):
         )
         return CredentialListMappingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> CredentialListMappingPage:
         """
         Retrieve a specific page of CredentialListMappingInstance records from the API.
         Request is executed immediately
@@ -542,12 +510,11 @@ class CredentialListMappingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CredentialListMappingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> CredentialListMappingPage:
         """
         Asynchronously retrieve a specific page of CredentialListMappingInstance records from the API.
         Request is executed immediately
@@ -555,19 +522,15 @@ class CredentialListMappingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CredentialListMappingPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> CredentialListMappingContext:
         """
         Constructs a CredentialListMappingContext
 
         :param sid: A 34 character string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         """
         return CredentialListMappingContext(
             self._version,
@@ -576,14 +539,11 @@ class CredentialListMappingList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> CredentialListMappingContext:
         """
         Constructs a CredentialListMappingContext
 
         :param sid: A 34 character string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         """
         return CredentialListMappingContext(
             self._version,
@@ -592,11 +552,10 @@ class CredentialListMappingList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.CredentialListMappingList>"

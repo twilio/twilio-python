@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +26,6 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
     def __init__(self, version, payload, category_id: Optional[str] = None):
         """
         Initialize the InsightsQuestionnairesCategoryInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
         """
         super().__init__(version)
 
@@ -45,13 +42,12 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         self._context: Optional[InsightsQuestionnairesCategoryContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "InsightsQuestionnairesCategoryContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: InsightsQuestionnairesCategoryContext for this InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
         """
         if self._context is None:
             self._context = InsightsQuestionnairesCategoryContext(
@@ -61,64 +57,60 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def category_id(self):
+    def category_id(self) -> str:
         """
         :returns: The unique ID for the category
-        :rtype: str
         """
         return self._properties["category_id"]
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         :returns: The name of this category.
-        :rtype: str
         """
         return self._properties["name"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self, token=values.unset):
+    def delete(self, token=values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesCategoryInstance
 
         :param str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete(
             token=token,
         )
 
-    async def delete_async(self, token=values.unset):
+    async def delete_async(self, token=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
 
         :param str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async(
             token=token,
         )
 
-    def update(self, name, token=values.unset):
+    def update(
+        self, name, token=values.unset
+    ) -> "InsightsQuestionnairesCategoryInstance":
         """
         Update the InsightsQuestionnairesCategoryInstance
 
@@ -126,14 +118,15 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         :param str token: The Token HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
         """
         return self._proxy.update(
             name=name,
             token=token,
         )
 
-    async def update_async(self, name, token=values.unset):
+    async def update_async(
+        self, name, token=values.unset
+    ) -> "InsightsQuestionnairesCategoryInstance":
         """
         Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
 
@@ -141,19 +134,17 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         :param str token: The Token HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
         """
         return await self._proxy.update_async(
             name=name,
             token=token,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryInstance {}>".format(
@@ -166,11 +157,8 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         """
         Initialize the InsightsQuestionnairesCategoryContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param category_id: The ID of the category to be update
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
         """
         super().__init__(version)
 
@@ -180,14 +168,13 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         }
         self._uri = "/Insights/QM/Categories/{category_id}".format(**self._solution)
 
-    def delete(self, token=values.unset):
+    def delete(self, token=values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesCategoryInstance
 
         :param str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -197,14 +184,13 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, token=values.unset):
+    async def delete_async(self, token=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
 
         :param str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -216,7 +202,9 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
             method="DELETE", uri=self._uri, headers=headers
         )
 
-    def update(self, name, token=values.unset):
+    def update(
+        self, name, token=values.unset
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Update the InsightsQuestionnairesCategoryInstance
 
@@ -224,7 +212,6 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         :param str token: The Token HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
         """
         data = values.of(
             {
@@ -245,7 +232,9 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
             self._version, payload, category_id=self._solution["category_id"]
         )
 
-    async def update_async(self, name, token=values.unset):
+    async def update_async(
+        self, name, token=values.unset
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
 
@@ -253,7 +242,6 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         :param str token: The Token HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
         """
         data = values.of(
             {
@@ -274,12 +262,11 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
             self._version, payload, category_id=self._solution["category_id"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryContext {}>".format(
@@ -288,14 +275,11 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
 
 
 class InsightsQuestionnairesCategoryPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> InsightsQuestionnairesCategoryInstance:
         """
         Build an instance of InsightsQuestionnairesCategoryInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
         """
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
 
@@ -313,16 +297,16 @@ class InsightsQuestionnairesCategoryList(ListResource):
         """
         Initialize the InsightsQuestionnairesCategoryList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryList
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryList
         """
         super().__init__(version)
 
         self._uri = "/Insights/QM/Categories"
 
-    def create(self, name, token=values.unset):
+    def create(
+        self, name, token=values.unset
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Create the InsightsQuestionnairesCategoryInstance
 
@@ -330,7 +314,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :param str token: The Token HTTP request header
 
         :returns: The created InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
         """
         data = values.of(
             {
@@ -348,7 +331,9 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
 
-    async def create_async(self, name, token=values.unset):
+    async def create_async(
+        self, name, token=values.unset
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Asynchronously create the InsightsQuestionnairesCategoryInstance
 
@@ -356,7 +341,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :param str token: The Token HTTP request header
 
         :returns: The created InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
         """
         data = values.of(
             {
@@ -374,7 +358,9 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
 
-    def stream(self, token=values.unset, limit=None, page_size=None):
+    def stream(
+        self, token=values.unset, limit=None, page_size=None
+    ) -> List[InsightsQuestionnairesCategoryInstance]:
         """
         Streams InsightsQuestionnairesCategoryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -390,14 +376,15 @@ class InsightsQuestionnairesCategoryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(token=token, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, token=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self, token=values.unset, limit=None, page_size=None
+    ) -> List[InsightsQuestionnairesCategoryInstance]:
         """
         Asynchronously streams InsightsQuestionnairesCategoryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -413,14 +400,15 @@ class InsightsQuestionnairesCategoryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(token=token, page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, token=values.unset, limit=None, page_size=None):
+    def list(
+        self, token=values.unset, limit=None, page_size=None
+    ) -> List[InsightsQuestionnairesCategoryInstance]:
         """
         Lists InsightsQuestionnairesCategoryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -435,7 +423,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance]
         """
         return list(
             self.stream(
@@ -445,7 +432,9 @@ class InsightsQuestionnairesCategoryList(ListResource):
             )
         )
 
-    async def list_async(self, token=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, token=values.unset, limit=None, page_size=None
+    ) -> List[InsightsQuestionnairesCategoryInstance]:
         """
         Asynchronously lists InsightsQuestionnairesCategoryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -460,7 +449,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance]
         """
         return list(
             await self.stream_async(
@@ -476,7 +464,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsQuestionnairesCategoryPage:
         """
         Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
@@ -487,7 +475,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
         """
         data = values.of(
             {
@@ -507,7 +494,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsQuestionnairesCategoryPage:
         """
         Asynchronously retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
@@ -518,7 +505,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
         """
         data = values.of(
             {
@@ -534,7 +520,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         )
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> InsightsQuestionnairesCategoryPage:
         """
         Retrieve a specific page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
@@ -542,12 +528,11 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> InsightsQuestionnairesCategoryPage:
         """
         Asynchronously retrieve a specific page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
@@ -555,42 +540,34 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
-    def get(self, category_id):
+    def get(self, category_id) -> InsightsQuestionnairesCategoryContext:
         """
         Constructs a InsightsQuestionnairesCategoryContext
 
         :param category_id: The ID of the category to be update
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
         """
         return InsightsQuestionnairesCategoryContext(
             self._version, category_id=category_id
         )
 
-    def __call__(self, category_id):
+    def __call__(self, category_id) -> InsightsQuestionnairesCategoryContext:
         """
         Constructs a InsightsQuestionnairesCategoryContext
 
         :param category_id: The ID of the category to be update
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
         """
         return InsightsQuestionnairesCategoryContext(
             self._version, category_id=category_id
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryList>"

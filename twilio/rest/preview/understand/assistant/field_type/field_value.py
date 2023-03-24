@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,9 +34,6 @@ class FieldValueInstance(InstanceResource):
     ):
         """
         Initialize the FieldValueInstance
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
         super().__init__(version)
 
@@ -60,13 +58,12 @@ class FieldValueInstance(InstanceResource):
         self._context: Optional[FieldValueContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "FieldValueContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: FieldValueContext for this FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
         """
         if self._context is None:
             self._context = FieldValueContext(
@@ -78,131 +75,116 @@ class FieldValueInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the Account that created this Field Value.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def field_type_sid(self):
+    def field_type_sid(self) -> str:
         """
         :returns: The unique ID of the Field Type associated with this Field Value.
-        :rtype: str
         """
         return self._properties["field_type_sid"]
 
     @property
-    def language(self):
+    def language(self) -> str:
         """
         :returns: An ISO language-country string of the value.
-        :rtype: str
         """
         return self._properties["language"]
 
     @property
-    def assistant_sid(self):
+    def assistant_sid(self) -> str:
         """
         :returns: The unique ID of the Assistant.
-        :rtype: str
         """
         return self._properties["assistant_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def value(self):
+    def value(self) -> str:
         """
         :returns: The Field Value itself.
-        :rtype: str
         """
         return self._properties["value"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def synonym_of(self):
+    def synonym_of(self) -> str:
         """
         :returns: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
-        :rtype: str
         """
         return self._properties["synonym_of"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the FieldValueInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FieldValueInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "FieldValueInstance":
         """
         Fetch the FieldValueInstance
 
 
         :returns: The fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "FieldValueInstance":
         """
         Asynchronous coroutine to fetch the FieldValueInstance
 
 
         :returns: The fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.FieldValueInstance {}>".format(context)
@@ -215,13 +197,10 @@ class FieldValueContext(InstanceContext):
         """
         Initialize the FieldValueContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid:
         :param field_type_sid:
         :param sid:
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
         """
         super().__init__(version)
 
@@ -235,39 +214,36 @@ class FieldValueContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the FieldValueInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FieldValueInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> FieldValueInstance:
         """
         Fetch the FieldValueInstance
 
 
         :returns: The fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
 
         payload = self._version.fetch(
@@ -283,13 +259,12 @@ class FieldValueContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> FieldValueInstance:
         """
         Asynchronous coroutine to fetch the FieldValueInstance
 
 
         :returns: The fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
 
         payload = await self._version.fetch_async(
@@ -305,26 +280,22 @@ class FieldValueContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.FieldValueContext {}>".format(context)
 
 
 class FieldValuePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> FieldValueInstance:
         """
         Build an instance of FieldValueInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
         return FieldValueInstance(
             self._version,
@@ -347,12 +318,10 @@ class FieldValueList(ListResource):
         """
         Initialize the FieldValueList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param assistant_sid:
         :param field_type_sid:
 
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueList
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueList
         """
         super().__init__(version)
 
@@ -365,7 +334,7 @@ class FieldValueList(ListResource):
             **self._solution
         )
 
-    def create(self, language, value, synonym_of=values.unset):
+    def create(self, language, value, synonym_of=values.unset) -> FieldValueInstance:
         """
         Create the FieldValueInstance
 
@@ -374,7 +343,6 @@ class FieldValueList(ListResource):
         :param str synonym_of: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
 
         :returns: The created FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
         data = values.of(
             {
@@ -397,7 +365,9 @@ class FieldValueList(ListResource):
             field_type_sid=self._solution["field_type_sid"],
         )
 
-    async def create_async(self, language, value, synonym_of=values.unset):
+    async def create_async(
+        self, language, value, synonym_of=values.unset
+    ) -> FieldValueInstance:
         """
         Asynchronously create the FieldValueInstance
 
@@ -406,7 +376,6 @@ class FieldValueList(ListResource):
         :param str synonym_of: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
 
         :returns: The created FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
         data = values.of(
             {
@@ -429,7 +398,9 @@ class FieldValueList(ListResource):
             field_type_sid=self._solution["field_type_sid"],
         )
 
-    def stream(self, language=values.unset, limit=None, page_size=None):
+    def stream(
+        self, language=values.unset, limit=None, page_size=None
+    ) -> List[FieldValueInstance]:
         """
         Streams FieldValueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -445,14 +416,15 @@ class FieldValueList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(language=language, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, language=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self, language=values.unset, limit=None, page_size=None
+    ) -> List[FieldValueInstance]:
         """
         Asynchronously streams FieldValueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -468,14 +440,15 @@ class FieldValueList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(language=language, page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, language=values.unset, limit=None, page_size=None):
+    def list(
+        self, language=values.unset, limit=None, page_size=None
+    ) -> List[FieldValueInstance]:
         """
         Lists FieldValueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -490,7 +463,6 @@ class FieldValueList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance]
         """
         return list(
             self.stream(
@@ -500,7 +472,9 @@ class FieldValueList(ListResource):
             )
         )
 
-    async def list_async(self, language=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, language=values.unset, limit=None, page_size=None
+    ) -> List[FieldValueInstance]:
         """
         Asynchronously lists FieldValueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -515,7 +489,6 @@ class FieldValueList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance]
         """
         return list(
             await self.stream_async(
@@ -531,7 +504,7 @@ class FieldValueList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> FieldValuePage:
         """
         Retrieve a single page of FieldValueInstance records from the API.
         Request is executed immediately
@@ -542,7 +515,6 @@ class FieldValueList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
         """
         data = values.of(
             {
@@ -562,7 +534,7 @@ class FieldValueList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> FieldValuePage:
         """
         Asynchronously retrieve a single page of FieldValueInstance records from the API.
         Request is executed immediately
@@ -573,7 +545,6 @@ class FieldValueList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
         """
         data = values.of(
             {
@@ -589,7 +560,7 @@ class FieldValueList(ListResource):
         )
         return FieldValuePage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> FieldValuePage:
         """
         Retrieve a specific page of FieldValueInstance records from the API.
         Request is executed immediately
@@ -597,12 +568,11 @@ class FieldValueList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FieldValuePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> FieldValuePage:
         """
         Asynchronously retrieve a specific page of FieldValueInstance records from the API.
         Request is executed immediately
@@ -610,19 +580,15 @@ class FieldValueList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FieldValuePage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> FieldValueContext:
         """
         Constructs a FieldValueContext
 
         :param sid:
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
         """
         return FieldValueContext(
             self._version,
@@ -631,14 +597,11 @@ class FieldValueList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> FieldValueContext:
         """
         Constructs a FieldValueContext
 
         :param sid:
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
         """
         return FieldValueContext(
             self._version,
@@ -647,11 +610,10 @@ class FieldValueList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Understand.FieldValueList>"

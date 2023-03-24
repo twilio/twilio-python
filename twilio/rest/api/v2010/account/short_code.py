@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class ShortCodeInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the ShortCodeInstance
-
-        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         super().__init__(version)
 
@@ -54,13 +52,12 @@ class ShortCodeInstance(InstanceResource):
         self._context: Optional[ShortCodeContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ShortCodeContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ShortCodeContext for this ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         if self._context is None:
             self._context = ShortCodeContext(
@@ -71,118 +68,104 @@ class ShortCodeInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this ShortCode resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def api_version(self):
+    def api_version(self) -> str:
         """
         :returns: The API version used to start a new TwiML session when an SMS message is sent to this short code.
-        :rtype: str
         """
         return self._properties["api_version"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: A string that you assigned to describe this resource. By default, the `FriendlyName` is the short code.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def short_code(self):
+    def short_code(self) -> str:
         """
         :returns: The short code. e.g., 894546.
-        :rtype: str
         """
         return self._properties["short_code"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify this ShortCode resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def sms_fallback_method(self):
+    def sms_fallback_method(self) -> str:
         """
         :returns: The HTTP method we use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["sms_fallback_method"]
 
     @property
-    def sms_fallback_url(self):
+    def sms_fallback_url(self) -> str:
         """
         :returns: The URL that we call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :rtype: str
         """
         return self._properties["sms_fallback_url"]
 
     @property
-    def sms_method(self):
+    def sms_method(self) -> str:
         """
         :returns: The HTTP method we use to call the `sms_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["sms_method"]
 
     @property
-    def sms_url(self):
+    def sms_url(self) -> str:
         """
         :returns: The URL we call when receiving an incoming SMS message to this short code.
-        :rtype: str
         """
         return self._properties["sms_url"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of this resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def fetch(self):
+    def fetch(self) -> "ShortCodeInstance":
         """
         Fetch the ShortCodeInstance
 
 
         :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ShortCodeInstance":
         """
         Asynchronous coroutine to fetch the ShortCodeInstance
 
 
         :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return await self._proxy.fetch_async()
 
@@ -194,7 +177,7 @@ class ShortCodeInstance(InstanceResource):
         sms_method=values.unset,
         sms_fallback_url=values.unset,
         sms_fallback_method=values.unset,
-    ):
+    ) -> "ShortCodeInstance":
         """
         Update the ShortCodeInstance
 
@@ -206,7 +189,6 @@ class ShortCodeInstance(InstanceResource):
         :param str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 
         :returns: The updated ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -225,7 +207,7 @@ class ShortCodeInstance(InstanceResource):
         sms_method=values.unset,
         sms_fallback_url=values.unset,
         sms_fallback_method=values.unset,
-    ):
+    ) -> "ShortCodeInstance":
         """
         Asynchronous coroutine to update the ShortCodeInstance
 
@@ -237,7 +219,6 @@ class ShortCodeInstance(InstanceResource):
         :param str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 
         :returns: The updated ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -248,12 +229,11 @@ class ShortCodeInstance(InstanceResource):
             sms_fallback_method=sms_fallback_method,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.ShortCodeInstance {}>".format(context)
@@ -264,12 +244,9 @@ class ShortCodeContext(InstanceContext):
         """
         Initialize the ShortCodeContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
         :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
-
-        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         super().__init__(version)
 
@@ -282,13 +259,12 @@ class ShortCodeContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> ShortCodeInstance:
         """
         Fetch the ShortCodeInstance
 
 
         :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
 
         payload = self._version.fetch(
@@ -303,13 +279,12 @@ class ShortCodeContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ShortCodeInstance:
         """
         Asynchronous coroutine to fetch the ShortCodeInstance
 
 
         :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
 
         payload = await self._version.fetch_async(
@@ -332,7 +307,7 @@ class ShortCodeContext(InstanceContext):
         sms_method=values.unset,
         sms_fallback_url=values.unset,
         sms_fallback_method=values.unset,
-    ):
+    ) -> ShortCodeInstance:
         """
         Update the ShortCodeInstance
 
@@ -344,7 +319,6 @@ class ShortCodeContext(InstanceContext):
         :param str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 
         :returns: The updated ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         data = values.of(
             {
@@ -378,7 +352,7 @@ class ShortCodeContext(InstanceContext):
         sms_method=values.unset,
         sms_fallback_url=values.unset,
         sms_fallback_method=values.unset,
-    ):
+    ) -> ShortCodeInstance:
         """
         Asynchronous coroutine to update the ShortCodeInstance
 
@@ -390,7 +364,6 @@ class ShortCodeContext(InstanceContext):
         :param str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 
         :returns: The updated ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         data = values.of(
             {
@@ -416,26 +389,22 @@ class ShortCodeContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.ShortCodeContext {}>".format(context)
 
 
 class ShortCodePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ShortCodeInstance:
         """
         Build an instance of ShortCodeInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return ShortCodeInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -455,11 +424,9 @@ class ShortCodeList(ListResource):
         """
         Initialize the ShortCodeList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read.
 
-        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeList
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeList
         """
         super().__init__(version)
 
@@ -477,7 +444,7 @@ class ShortCodeList(ListResource):
         short_code=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ShortCodeInstance]:
         """
         Streams ShortCodeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -494,7 +461,6 @@ class ShortCodeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.short_code.ShortCodeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -511,7 +477,7 @@ class ShortCodeList(ListResource):
         short_code=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ShortCodeInstance]:
         """
         Asynchronously streams ShortCodeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -528,7 +494,6 @@ class ShortCodeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.short_code.ShortCodeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -545,7 +510,7 @@ class ShortCodeList(ListResource):
         short_code=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ShortCodeInstance]:
         """
         Lists ShortCodeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -561,7 +526,6 @@ class ShortCodeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.short_code.ShortCodeInstance]
         """
         return list(
             self.stream(
@@ -578,7 +542,7 @@ class ShortCodeList(ListResource):
         short_code=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ShortCodeInstance]:
         """
         Asynchronously lists ShortCodeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -594,7 +558,6 @@ class ShortCodeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.short_code.ShortCodeInstance]
         """
         return list(
             await self.stream_async(
@@ -612,7 +575,7 @@ class ShortCodeList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ShortCodePage:
         """
         Retrieve a single page of ShortCodeInstance records from the API.
         Request is executed immediately
@@ -624,7 +587,6 @@ class ShortCodeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
         data = values.of(
             {
@@ -646,7 +608,7 @@ class ShortCodeList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ShortCodePage:
         """
         Asynchronously retrieve a single page of ShortCodeInstance records from the API.
         Request is executed immediately
@@ -658,7 +620,6 @@ class ShortCodeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
         data = values.of(
             {
@@ -675,7 +636,7 @@ class ShortCodeList(ListResource):
         )
         return ShortCodePage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ShortCodePage:
         """
         Retrieve a specific page of ShortCodeInstance records from the API.
         Request is executed immediately
@@ -683,12 +644,11 @@ class ShortCodeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ShortCodePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ShortCodePage:
         """
         Asynchronously retrieve a specific page of ShortCodeInstance records from the API.
         Request is executed immediately
@@ -696,42 +656,34 @@ class ShortCodeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ShortCodePage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> ShortCodeContext:
         """
         Constructs a ShortCodeContext
 
         :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
-
-        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         return ShortCodeContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ShortCodeContext:
         """
         Constructs a ShortCodeContext
 
         :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
-
-        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         return ShortCodeContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.ShortCodeList>"

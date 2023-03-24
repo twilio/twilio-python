@@ -32,12 +32,10 @@ class AuthTypesList(ListResource):
         """
         Initialize the AuthTypesList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
         :param domain_sid: The SID of the SIP domain that contains the resource to fetch.
 
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypesList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypesList
         """
         super().__init__(version)
 
@@ -54,12 +52,9 @@ class AuthTypesList(ListResource):
         self._registrations: Optional[AuthTypeRegistrationsList] = None
 
     @property
-    def calls(self):
+    def calls(self) -> AuthTypeCallsList:
         """
         Access the calls
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypeCallsList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypeCallsList
         """
         if self._calls is None:
             self._calls = AuthTypeCallsList(
@@ -70,12 +65,9 @@ class AuthTypesList(ListResource):
         return self._calls
 
     @property
-    def registrations(self):
+    def registrations(self) -> AuthTypeRegistrationsList:
         """
         Access the registrations
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypeRegistrationsList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypeRegistrationsList
         """
         if self._registrations is None:
             self._registrations = AuthTypeRegistrationsList(
@@ -85,11 +77,10 @@ class AuthTypesList(ListResource):
             )
         return self._registrations
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.AuthTypesList>"

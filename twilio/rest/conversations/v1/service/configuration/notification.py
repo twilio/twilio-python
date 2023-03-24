@@ -25,9 +25,6 @@ class NotificationInstance(InstanceResource):
     def __init__(self, version, payload, chat_service_sid: str):
         """
         Initialize the NotificationInstance
-
-        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         super().__init__(version)
 
@@ -47,13 +44,12 @@ class NotificationInstance(InstanceResource):
         self._context: Optional[NotificationContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "NotificationContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: NotificationContext for this NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
         if self._context is None:
             self._context = NotificationContext(
@@ -63,78 +59,69 @@ class NotificationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def chat_service_sid(self):
+    def chat_service_sid(self) -> str:
         """
         :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
-        :rtype: str
         """
         return self._properties["chat_service_sid"]
 
     @property
-    def new_message(self):
+    def new_message(self) -> dict:
         """
         :returns: The Push Notification configuration for New Messages.
-        :rtype: dict
         """
         return self._properties["new_message"]
 
     @property
-    def added_to_conversation(self):
+    def added_to_conversation(self) -> dict:
         """
         :returns: The Push Notification configuration for being added to a Conversation.
-        :rtype: dict
         """
         return self._properties["added_to_conversation"]
 
     @property
-    def removed_from_conversation(self):
+    def removed_from_conversation(self) -> dict:
         """
         :returns: The Push Notification configuration for being removed from a Conversation.
-        :rtype: dict
         """
         return self._properties["removed_from_conversation"]
 
     @property
-    def log_enabled(self):
+    def log_enabled(self) -> bool:
         """
         :returns: Weather the notification logging is enabled.
-        :rtype: bool
         """
         return self._properties["log_enabled"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: An absolute API resource URL for this configuration.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "NotificationInstance":
         """
         Fetch the NotificationInstance
 
 
         :returns: The fetched NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "NotificationInstance":
         """
         Asynchronous coroutine to fetch the NotificationInstance
 
 
         :returns: The fetched NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         return await self._proxy.fetch_async()
 
@@ -153,7 +140,7 @@ class NotificationInstance(InstanceResource):
         removed_from_conversation_sound=values.unset,
         new_message_with_media_enabled=values.unset,
         new_message_with_media_template=values.unset,
-    ):
+    ) -> "NotificationInstance":
         """
         Update the NotificationInstance
 
@@ -172,7 +159,6 @@ class NotificationInstance(InstanceResource):
         :param str new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
 
         :returns: The updated NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         return self._proxy.update(
             log_enabled=log_enabled,
@@ -205,7 +191,7 @@ class NotificationInstance(InstanceResource):
         removed_from_conversation_sound=values.unset,
         new_message_with_media_enabled=values.unset,
         new_message_with_media_template=values.unset,
-    ):
+    ) -> "NotificationInstance":
         """
         Asynchronous coroutine to update the NotificationInstance
 
@@ -224,7 +210,6 @@ class NotificationInstance(InstanceResource):
         :param str new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
 
         :returns: The updated NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         return await self._proxy.update_async(
             log_enabled=log_enabled,
@@ -242,12 +227,11 @@ class NotificationInstance(InstanceResource):
             new_message_with_media_template=new_message_with_media_template,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.NotificationInstance {}>".format(context)
@@ -258,11 +242,8 @@ class NotificationContext(InstanceContext):
         """
         Initialize the NotificationContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
-
-        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
         super().__init__(version)
 
@@ -274,13 +255,12 @@ class NotificationContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self):
+    def fetch(self) -> NotificationInstance:
         """
         Fetch the NotificationInstance
 
 
         :returns: The fetched NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
 
         payload = self._version.fetch(
@@ -294,13 +274,12 @@ class NotificationContext(InstanceContext):
             chat_service_sid=self._solution["chat_service_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> NotificationInstance:
         """
         Asynchronous coroutine to fetch the NotificationInstance
 
 
         :returns: The fetched NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
 
         payload = await self._version.fetch_async(
@@ -329,7 +308,7 @@ class NotificationContext(InstanceContext):
         removed_from_conversation_sound=values.unset,
         new_message_with_media_enabled=values.unset,
         new_message_with_media_template=values.unset,
-    ):
+    ) -> NotificationInstance:
         """
         Update the NotificationInstance
 
@@ -348,7 +327,6 @@ class NotificationContext(InstanceContext):
         :param str new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
 
         :returns: The updated NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         data = values.of(
             {
@@ -393,7 +371,7 @@ class NotificationContext(InstanceContext):
         removed_from_conversation_sound=values.unset,
         new_message_with_media_enabled=values.unset,
         new_message_with_media_template=values.unset,
-    ):
+    ) -> NotificationInstance:
         """
         Asynchronous coroutine to update the NotificationInstance
 
@@ -412,7 +390,6 @@ class NotificationContext(InstanceContext):
         :param str new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
 
         :returns: The updated NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         data = values.of(
             {
@@ -442,12 +419,11 @@ class NotificationContext(InstanceContext):
             self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.NotificationContext {}>".format(context)
@@ -458,11 +434,9 @@ class NotificationList(ListResource):
         """
         Initialize the NotificationList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
 
-        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
         """
         super().__init__(version)
 
@@ -471,35 +445,28 @@ class NotificationList(ListResource):
             "chat_service_sid": chat_service_sid,
         }
 
-    def get(self):
+    def get(self) -> NotificationContext:
         """
         Constructs a NotificationContext
 
-
-        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
         return NotificationContext(
             self._version, chat_service_sid=self._solution["chat_service_sid"]
         )
 
-    def __call__(self):
+    def __call__(self) -> NotificationContext:
         """
         Constructs a NotificationContext
 
-
-        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
         return NotificationContext(
             self._version, chat_service_sid=self._solution["chat_service_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.NotificationList>"

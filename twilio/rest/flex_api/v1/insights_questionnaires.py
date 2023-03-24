@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +26,6 @@ class InsightsQuestionnairesInstance(InstanceResource):
     def __init__(self, version, payload, id: Optional[str] = None):
         """
         Initialize the InsightsQuestionnairesInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         super().__init__(version)
 
@@ -48,13 +45,12 @@ class InsightsQuestionnairesInstance(InstanceResource):
         self._context: Optional[InsightsQuestionnairesContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "InsightsQuestionnairesContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: InsightsQuestionnairesContext for this InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
         """
         if self._context is None:
             self._context = InsightsQuestionnairesContext(
@@ -64,108 +60,97 @@ class InsightsQuestionnairesInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def id(self):
+    def id(self) -> str:
         """
         :returns: The unique id of this questionnaire
-        :rtype: str
         """
         return self._properties["id"]
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         :returns: The name of this category.
-        :rtype: str
         """
         return self._properties["name"]
 
     @property
-    def description(self):
+    def description(self) -> str:
         """
         :returns: The description of this questionnaire
-        :rtype: str
         """
         return self._properties["description"]
 
     @property
-    def active(self):
+    def active(self) -> bool:
         """
         :returns: The flag to enable or disable questionnaire
-        :rtype: bool
         """
         return self._properties["active"]
 
     @property
-    def questions(self):
+    def questions(self) -> List[object]:
         """
         :returns: The list of questions with category for a questionnaire
-        :rtype: List[object]
         """
         return self._properties["questions"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self, token=values.unset):
+    def delete(self, token=values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesInstance
 
         :param str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete(
             token=token,
         )
 
-    async def delete_async(self, token=values.unset):
+    async def delete_async(self, token=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesInstance
 
         :param str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async(
             token=token,
         )
 
-    def fetch(self, token=values.unset):
+    def fetch(self, token=values.unset) -> "InsightsQuestionnairesInstance":
         """
         Fetch the InsightsQuestionnairesInstance
 
         :param str token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         return self._proxy.fetch(
             token=token,
         )
 
-    async def fetch_async(self, token=values.unset):
+    async def fetch_async(self, token=values.unset) -> "InsightsQuestionnairesInstance":
         """
         Asynchronous coroutine to fetch the InsightsQuestionnairesInstance
 
         :param str token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         return await self._proxy.fetch_async(
             token=token,
@@ -178,7 +163,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         name=values.unset,
         description=values.unset,
         question_ids=values.unset,
-    ):
+    ) -> "InsightsQuestionnairesInstance":
         """
         Update the InsightsQuestionnairesInstance
 
@@ -189,7 +174,6 @@ class InsightsQuestionnairesInstance(InstanceResource):
         :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         return self._proxy.update(
             active=active,
@@ -206,7 +190,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         name=values.unset,
         description=values.unset,
         question_ids=values.unset,
-    ):
+    ) -> "InsightsQuestionnairesInstance":
         """
         Asynchronous coroutine to update the InsightsQuestionnairesInstance
 
@@ -217,7 +201,6 @@ class InsightsQuestionnairesInstance(InstanceResource):
         :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         return await self._proxy.update_async(
             active=active,
@@ -227,12 +210,11 @@ class InsightsQuestionnairesInstance(InstanceResource):
             question_ids=question_ids,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesInstance {}>".format(context)
@@ -243,11 +225,8 @@ class InsightsQuestionnairesContext(InstanceContext):
         """
         Initialize the InsightsQuestionnairesContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param id: The unique ID of the questionnaire
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
         """
         super().__init__(version)
 
@@ -257,14 +236,13 @@ class InsightsQuestionnairesContext(InstanceContext):
         }
         self._uri = "/Insights/QM/Questionnaires/{id}".format(**self._solution)
 
-    def delete(self, token=values.unset):
+    def delete(self, token=values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesInstance
 
         :param str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -274,14 +252,13 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, token=values.unset):
+    async def delete_async(self, token=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesInstance
 
         :param str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -293,14 +270,13 @@ class InsightsQuestionnairesContext(InstanceContext):
             method="DELETE", uri=self._uri, headers=headers
         )
 
-    def fetch(self, token=values.unset):
+    def fetch(self, token=values.unset) -> InsightsQuestionnairesInstance:
         """
         Fetch the InsightsQuestionnairesInstance
 
         :param str token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
 
         data = values.of(
@@ -317,14 +293,13 @@ class InsightsQuestionnairesContext(InstanceContext):
             id=self._solution["id"],
         )
 
-    async def fetch_async(self, token=values.unset):
+    async def fetch_async(self, token=values.unset) -> InsightsQuestionnairesInstance:
         """
         Asynchronous coroutine to fetch the InsightsQuestionnairesInstance
 
         :param str token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
 
         data = values.of(
@@ -350,7 +325,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         name=values.unset,
         description=values.unset,
         question_ids=values.unset,
-    ):
+    ) -> InsightsQuestionnairesInstance:
         """
         Update the InsightsQuestionnairesInstance
 
@@ -361,7 +336,6 @@ class InsightsQuestionnairesContext(InstanceContext):
         :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         data = values.of(
             {
@@ -392,7 +366,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         name=values.unset,
         description=values.unset,
         question_ids=values.unset,
-    ):
+    ) -> InsightsQuestionnairesInstance:
         """
         Asynchronous coroutine to update the InsightsQuestionnairesInstance
 
@@ -403,7 +377,6 @@ class InsightsQuestionnairesContext(InstanceContext):
         :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         data = values.of(
             {
@@ -427,26 +400,22 @@ class InsightsQuestionnairesContext(InstanceContext):
             self._version, payload, id=self._solution["id"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesContext {}>".format(context)
 
 
 class InsightsQuestionnairesPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> InsightsQuestionnairesInstance:
         """
         Build an instance of InsightsQuestionnairesInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         return InsightsQuestionnairesInstance(self._version, payload)
 
@@ -464,10 +433,8 @@ class InsightsQuestionnairesList(ListResource):
         """
         Initialize the InsightsQuestionnairesList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesList
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesList
         """
         super().__init__(version)
 
@@ -480,7 +447,7 @@ class InsightsQuestionnairesList(ListResource):
         description=values.unset,
         active=values.unset,
         question_ids=values.unset,
-    ):
+    ) -> InsightsQuestionnairesInstance:
         """
         Create the InsightsQuestionnairesInstance
 
@@ -491,7 +458,6 @@ class InsightsQuestionnairesList(ListResource):
         :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The created InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         data = values.of(
             {
@@ -519,7 +485,7 @@ class InsightsQuestionnairesList(ListResource):
         description=values.unset,
         active=values.unset,
         question_ids=values.unset,
-    ):
+    ) -> InsightsQuestionnairesInstance:
         """
         Asynchronously create the InsightsQuestionnairesInstance
 
@@ -530,7 +496,6 @@ class InsightsQuestionnairesList(ListResource):
         :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The created InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         data = values.of(
             {
@@ -557,7 +522,7 @@ class InsightsQuestionnairesList(ListResource):
         include_inactive=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsQuestionnairesInstance]:
         """
         Streams InsightsQuestionnairesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -574,7 +539,6 @@ class InsightsQuestionnairesList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -591,7 +555,7 @@ class InsightsQuestionnairesList(ListResource):
         include_inactive=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsQuestionnairesInstance]:
         """
         Asynchronously streams InsightsQuestionnairesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -608,7 +572,6 @@ class InsightsQuestionnairesList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -625,7 +588,7 @@ class InsightsQuestionnairesList(ListResource):
         include_inactive=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsQuestionnairesInstance]:
         """
         Lists InsightsQuestionnairesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -641,7 +604,6 @@ class InsightsQuestionnairesList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance]
         """
         return list(
             self.stream(
@@ -658,7 +620,7 @@ class InsightsQuestionnairesList(ListResource):
         include_inactive=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsQuestionnairesInstance]:
         """
         Asynchronously lists InsightsQuestionnairesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -674,7 +636,6 @@ class InsightsQuestionnairesList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance]
         """
         return list(
             await self.stream_async(
@@ -692,7 +653,7 @@ class InsightsQuestionnairesList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsQuestionnairesPage:
         """
         Retrieve a single page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
@@ -704,7 +665,6 @@ class InsightsQuestionnairesList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesPage
         """
         data = values.of(
             {
@@ -726,7 +686,7 @@ class InsightsQuestionnairesList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsQuestionnairesPage:
         """
         Asynchronously retrieve a single page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
@@ -738,7 +698,6 @@ class InsightsQuestionnairesList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesPage
         """
         data = values.of(
             {
@@ -755,7 +714,7 @@ class InsightsQuestionnairesList(ListResource):
         )
         return InsightsQuestionnairesPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> InsightsQuestionnairesPage:
         """
         Retrieve a specific page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
@@ -763,12 +722,11 @@ class InsightsQuestionnairesList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsQuestionnairesPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> InsightsQuestionnairesPage:
         """
         Asynchronously retrieve a specific page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
@@ -776,38 +734,30 @@ class InsightsQuestionnairesList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsQuestionnairesPage(self._version, response)
 
-    def get(self, id):
+    def get(self, id) -> InsightsQuestionnairesContext:
         """
         Constructs a InsightsQuestionnairesContext
 
         :param id: The unique ID of the questionnaire
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
         """
         return InsightsQuestionnairesContext(self._version, id=id)
 
-    def __call__(self, id):
+    def __call__(self, id) -> InsightsQuestionnairesContext:
         """
         Constructs a InsightsQuestionnairesContext
 
         :param id: The unique ID of the questionnaire
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
         """
         return InsightsQuestionnairesContext(self._version, id=id)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesList>"

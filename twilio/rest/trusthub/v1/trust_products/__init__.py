@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -42,9 +43,6 @@ class TrustProductsInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the TrustProductsInstance
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         super().__init__(version)
 
@@ -69,13 +67,12 @@ class TrustProductsInstance(InstanceResource):
         self._context: Optional[TrustProductsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "TrustProductsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: TrustProductsContext for this TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
         """
         if self._context is None:
             self._context = TrustProductsContext(
@@ -85,138 +82,122 @@ class TrustProductsInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Customer-Profile resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Customer-Profile resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def policy_sid(self):
+    def policy_sid(self) -> str:
         """
         :returns: The unique string of a policy that is associated to the Customer-Profile resource.
-        :rtype: str
         """
         return self._properties["policy_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def status(self):
+    def status(self) -> "TrustProductsInstance.Status":
         """
         :returns:
-        :rtype: TrustProductsInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def valid_until(self):
+    def valid_until(self) -> datetime:
         """
         :returns: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
-        :rtype: datetime
         """
         return self._properties["valid_until"]
 
     @property
-    def email(self):
+    def email(self) -> str:
         """
         :returns: The email address that will receive updates when the Customer-Profile resource changes status.
-        :rtype: str
         """
         return self._properties["email"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL we call to inform your application of status changes.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Customer-Profile resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of the Assigned Items of the Customer-Profile resource.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the TrustProductsInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TrustProductsInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "TrustProductsInstance":
         """
         Fetch the TrustProductsInstance
 
 
         :returns: The fetched TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "TrustProductsInstance":
         """
         Asynchronous coroutine to fetch the TrustProductsInstance
 
 
         :returns: The fetched TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         return await self._proxy.fetch_async()
 
@@ -226,17 +207,16 @@ class TrustProductsInstance(InstanceResource):
         status_callback=values.unset,
         friendly_name=values.unset,
         email=values.unset,
-    ):
+    ) -> "TrustProductsInstance":
         """
         Update the TrustProductsInstance
 
-        :param TrustProductsInstance.Status status:
+        :param "TrustProductsInstance.Status" status:
         :param str status_callback: The URL we call to inform your application of status changes.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         return self._proxy.update(
             status=status,
@@ -251,17 +231,16 @@ class TrustProductsInstance(InstanceResource):
         status_callback=values.unset,
         friendly_name=values.unset,
         email=values.unset,
-    ):
+    ) -> "TrustProductsInstance":
         """
         Asynchronous coroutine to update the TrustProductsInstance
 
-        :param TrustProductsInstance.Status status:
+        :param "TrustProductsInstance.Status" status:
         :param str status_callback: The URL we call to inform your application of status changes.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         return await self._proxy.update_async(
             status=status,
@@ -271,41 +250,33 @@ class TrustProductsInstance(InstanceResource):
         )
 
     @property
-    def trust_products_channel_endpoint_assignment(self):
+    def trust_products_channel_endpoint_assignment(
+        self,
+    ) -> TrustProductsChannelEndpointAssignmentList:
         """
         Access the trust_products_channel_endpoint_assignment
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsChannelEndpointAssignmentList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsChannelEndpointAssignmentList
         """
         return self._proxy.trust_products_channel_endpoint_assignment
 
     @property
-    def trust_products_entity_assignments(self):
+    def trust_products_entity_assignments(self) -> TrustProductsEntityAssignmentsList:
         """
         Access the trust_products_entity_assignments
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsEntityAssignmentsList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEntityAssignmentsList
         """
         return self._proxy.trust_products_entity_assignments
 
     @property
-    def trust_products_evaluations(self):
+    def trust_products_evaluations(self) -> TrustProductsEvaluationsList:
         """
         Access the trust_products_evaluations
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsEvaluationsList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEvaluationsList
         """
         return self._proxy.trust_products_evaluations
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.TrustProductsInstance {}>".format(context)
@@ -316,11 +287,8 @@ class TrustProductsContext(InstanceContext):
         """
         Initialize the TrustProductsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
         """
         super().__init__(version)
 
@@ -338,39 +306,36 @@ class TrustProductsContext(InstanceContext):
         ] = None
         self._trust_products_evaluations: Optional[TrustProductsEvaluationsList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the TrustProductsInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TrustProductsInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> TrustProductsInstance:
         """
         Fetch the TrustProductsInstance
 
 
         :returns: The fetched TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
 
         payload = self._version.fetch(
@@ -384,13 +349,12 @@ class TrustProductsContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> TrustProductsInstance:
         """
         Asynchronous coroutine to fetch the TrustProductsInstance
 
 
         :returns: The fetched TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
 
         payload = await self._version.fetch_async(
@@ -410,17 +374,16 @@ class TrustProductsContext(InstanceContext):
         status_callback=values.unset,
         friendly_name=values.unset,
         email=values.unset,
-    ):
+    ) -> TrustProductsInstance:
         """
         Update the TrustProductsInstance
 
-        :param TrustProductsInstance.Status status:
+        :param "TrustProductsInstance.Status" status:
         :param str status_callback: The URL we call to inform your application of status changes.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         data = values.of(
             {
@@ -445,17 +408,16 @@ class TrustProductsContext(InstanceContext):
         status_callback=values.unset,
         friendly_name=values.unset,
         email=values.unset,
-    ):
+    ) -> TrustProductsInstance:
         """
         Asynchronous coroutine to update the TrustProductsInstance
 
-        :param TrustProductsInstance.Status status:
+        :param "TrustProductsInstance.Status" status:
         :param str status_callback: The URL we call to inform your application of status changes.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         data = values.of(
             {
@@ -475,12 +437,11 @@ class TrustProductsContext(InstanceContext):
         return TrustProductsInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def trust_products_channel_endpoint_assignment(self):
+    def trust_products_channel_endpoint_assignment(
+        self,
+    ) -> TrustProductsChannelEndpointAssignmentList:
         """
         Access the trust_products_channel_endpoint_assignment
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsChannelEndpointAssignmentList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsChannelEndpointAssignmentList
         """
         if self._trust_products_channel_endpoint_assignment is None:
             self._trust_products_channel_endpoint_assignment = (
@@ -492,12 +453,9 @@ class TrustProductsContext(InstanceContext):
         return self._trust_products_channel_endpoint_assignment
 
     @property
-    def trust_products_entity_assignments(self):
+    def trust_products_entity_assignments(self) -> TrustProductsEntityAssignmentsList:
         """
         Access the trust_products_entity_assignments
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsEntityAssignmentsList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEntityAssignmentsList
         """
         if self._trust_products_entity_assignments is None:
             self._trust_products_entity_assignments = (
@@ -509,12 +467,9 @@ class TrustProductsContext(InstanceContext):
         return self._trust_products_entity_assignments
 
     @property
-    def trust_products_evaluations(self):
+    def trust_products_evaluations(self) -> TrustProductsEvaluationsList:
         """
         Access the trust_products_evaluations
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsEvaluationsList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEvaluationsList
         """
         if self._trust_products_evaluations is None:
             self._trust_products_evaluations = TrustProductsEvaluationsList(
@@ -523,26 +478,22 @@ class TrustProductsContext(InstanceContext):
             )
         return self._trust_products_evaluations
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.TrustProductsContext {}>".format(context)
 
 
 class TrustProductsPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> TrustProductsInstance:
         """
         Build an instance of TrustProductsInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         return TrustProductsInstance(self._version, payload)
 
@@ -560,16 +511,16 @@ class TrustProductsList(ListResource):
         """
         Initialize the TrustProductsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsList
         """
         super().__init__(version)
 
         self._uri = "/TrustProducts"
 
-    def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
+    def create(
+        self, friendly_name, email, policy_sid, status_callback=values.unset
+    ) -> TrustProductsInstance:
         """
         Create the TrustProductsInstance
 
@@ -579,7 +530,6 @@ class TrustProductsList(ListResource):
         :param str status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         data = values.of(
             {
@@ -600,7 +550,7 @@ class TrustProductsList(ListResource):
 
     async def create_async(
         self, friendly_name, email, policy_sid, status_callback=values.unset
-    ):
+    ) -> TrustProductsInstance:
         """
         Asynchronously create the TrustProductsInstance
 
@@ -610,7 +560,6 @@ class TrustProductsList(ListResource):
         :param str status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
         """
         data = values.of(
             {
@@ -636,14 +585,14 @@ class TrustProductsList(ListResource):
         policy_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TrustProductsInstance]:
         """
         Streams TrustProductsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param TrustProductsInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -654,7 +603,6 @@ class TrustProductsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products.TrustProductsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -673,14 +621,14 @@ class TrustProductsList(ListResource):
         policy_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TrustProductsInstance]:
         """
         Asynchronously streams TrustProductsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param TrustProductsInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -691,7 +639,6 @@ class TrustProductsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products.TrustProductsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -710,13 +657,13 @@ class TrustProductsList(ListResource):
         policy_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TrustProductsInstance]:
         """
         Lists TrustProductsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param TrustProductsInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -727,7 +674,6 @@ class TrustProductsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products.TrustProductsInstance]
         """
         return list(
             self.stream(
@@ -746,13 +692,13 @@ class TrustProductsList(ListResource):
         policy_sid=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[TrustProductsInstance]:
         """
         Asynchronously lists TrustProductsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param TrustProductsInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -763,7 +709,6 @@ class TrustProductsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products.TrustProductsInstance]
         """
         return list(
             await self.stream_async(
@@ -783,12 +728,12 @@ class TrustProductsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TrustProductsPage:
         """
         Retrieve a single page of TrustProductsInstance records from the API.
         Request is executed immediately
 
-        :param TrustProductsInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param str page_token: PageToken provided by the API
@@ -796,7 +741,6 @@ class TrustProductsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsPage
         """
         data = values.of(
             {
@@ -820,12 +764,12 @@ class TrustProductsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> TrustProductsPage:
         """
         Asynchronously retrieve a single page of TrustProductsInstance records from the API.
         Request is executed immediately
 
-        :param TrustProductsInstance.Status status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param str page_token: PageToken provided by the API
@@ -833,7 +777,6 @@ class TrustProductsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsPage
         """
         data = values.of(
             {
@@ -851,7 +794,7 @@ class TrustProductsList(ListResource):
         )
         return TrustProductsPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> TrustProductsPage:
         """
         Retrieve a specific page of TrustProductsInstance records from the API.
         Request is executed immediately
@@ -859,12 +802,11 @@ class TrustProductsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TrustProductsPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> TrustProductsPage:
         """
         Asynchronously retrieve a specific page of TrustProductsInstance records from the API.
         Request is executed immediately
@@ -872,38 +814,30 @@ class TrustProductsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TrustProductsPage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> TrustProductsContext:
         """
         Constructs a TrustProductsContext
 
         :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
         """
         return TrustProductsContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> TrustProductsContext:
         """
         Constructs a TrustProductsContext
 
         :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
         """
         return TrustProductsContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub.V1.TrustProductsList>"

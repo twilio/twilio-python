@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -34,9 +35,6 @@ class ParticipantInstance(InstanceResource):
     def __init__(self, version, payload, room_sid: str, sid: Optional[str] = None):
         """
         Initialize the ParticipantInstance
-
-        :returns: twilio.rest.video.v1.room.participant.ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
         super().__init__(version)
 
@@ -62,13 +60,12 @@ class ParticipantInstance(InstanceResource):
         self._context: Optional[ParticipantContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ParticipantContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ParticipantContext for this ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantContext
         """
         if self._context is None:
             self._context = ParticipantContext(
@@ -79,193 +76,164 @@ class ParticipantInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the RoomParticipant resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def room_sid(self):
+    def room_sid(self) -> str:
         """
         :returns: The SID of the participant's room.
-        :rtype: str
         """
         return self._properties["room_sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomParticipant resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def status(self):
+    def status(self) -> "ParticipantInstance.Status":
         """
         :returns:
-        :rtype: ParticipantInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns: The application-defined string that uniquely identifies the resource's User within a Room. If a client joins with an existing Identity, the existing client is disconnected. See [access tokens](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens) and [limits](https://www.twilio.com/docs/video/programmable-video-limits) for more info.
-        :rtype: str
         """
         return self._properties["identity"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def start_time(self):
+    def start_time(self) -> datetime:
         """
         :returns: The time of participant connected to the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :rtype: datetime
         """
         return self._properties["start_time"]
 
     @property
-    def end_time(self):
+    def end_time(self) -> datetime:
         """
         :returns: The time when the participant disconnected from the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :rtype: datetime
         """
         return self._properties["end_time"]
 
     @property
-    def duration(self):
+    def duration(self) -> int:
         """
         :returns: The duration in seconds that the participant was `connected`. Populated only after the participant is `disconnected`.
-        :rtype: int
         """
         return self._properties["duration"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def fetch(self):
+    def fetch(self) -> "ParticipantInstance":
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ParticipantInstance":
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status=values.unset):
+    def update(self, status=values.unset) -> "ParticipantInstance":
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.Status status:
+        :param "ParticipantInstance.Status" status:
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
         return self._proxy.update(
             status=status,
         )
 
-    async def update_async(self, status=values.unset):
+    async def update_async(self, status=values.unset) -> "ParticipantInstance":
         """
         Asynchronous coroutine to update the ParticipantInstance
 
-        :param ParticipantInstance.Status status:
+        :param "ParticipantInstance.Status" status:
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
         return await self._proxy.update_async(
             status=status,
         )
 
     @property
-    def anonymize(self):
+    def anonymize(self) -> AnonymizeList:
         """
         Access the anonymize
-
-        :returns: twilio.rest.video.v1.room.participant.AnonymizeList
-        :rtype: twilio.rest.video.v1.room.participant.AnonymizeList
         """
         return self._proxy.anonymize
 
     @property
-    def published_tracks(self):
+    def published_tracks(self) -> PublishedTrackList:
         """
         Access the published_tracks
-
-        :returns: twilio.rest.video.v1.room.participant.PublishedTrackList
-        :rtype: twilio.rest.video.v1.room.participant.PublishedTrackList
         """
         return self._proxy.published_tracks
 
     @property
-    def subscribe_rules(self):
+    def subscribe_rules(self) -> SubscribeRulesList:
         """
         Access the subscribe_rules
-
-        :returns: twilio.rest.video.v1.room.participant.SubscribeRulesList
-        :rtype: twilio.rest.video.v1.room.participant.SubscribeRulesList
         """
         return self._proxy.subscribe_rules
 
     @property
-    def subscribed_tracks(self):
+    def subscribed_tracks(self) -> SubscribedTrackList:
         """
         Access the subscribed_tracks
-
-        :returns: twilio.rest.video.v1.room.participant.SubscribedTrackList
-        :rtype: twilio.rest.video.v1.room.participant.SubscribedTrackList
         """
         return self._proxy.subscribed_tracks
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.ParticipantInstance {}>".format(context)
@@ -276,12 +244,9 @@ class ParticipantContext(InstanceContext):
         """
         Initialize the ParticipantContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the room with the participant to update.
         :param sid: The SID of the RoomParticipant resource to update.
-
-        :returns: twilio.rest.video.v1.room.participant.ParticipantContext
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantContext
         """
         super().__init__(version)
 
@@ -297,13 +262,12 @@ class ParticipantContext(InstanceContext):
         self._subscribe_rules: Optional[SubscribeRulesList] = None
         self._subscribed_tracks: Optional[SubscribedTrackList] = None
 
-    def fetch(self):
+    def fetch(self) -> ParticipantInstance:
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
 
         payload = self._version.fetch(
@@ -318,13 +282,12 @@ class ParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ParticipantInstance:
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
 
         payload = await self._version.fetch_async(
@@ -339,14 +302,13 @@ class ParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status=values.unset):
+    def update(self, status=values.unset) -> ParticipantInstance:
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.Status status:
+        :param "ParticipantInstance.Status" status:
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -367,14 +329,13 @@ class ParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status=values.unset):
+    async def update_async(self, status=values.unset) -> ParticipantInstance:
         """
         Asynchronous coroutine to update the ParticipantInstance
 
-        :param ParticipantInstance.Status status:
+        :param "ParticipantInstance.Status" status:
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -396,12 +357,9 @@ class ParticipantContext(InstanceContext):
         )
 
     @property
-    def anonymize(self):
+    def anonymize(self) -> AnonymizeList:
         """
         Access the anonymize
-
-        :returns: twilio.rest.video.v1.room.participant.AnonymizeList
-        :rtype: twilio.rest.video.v1.room.participant.AnonymizeList
         """
         if self._anonymize is None:
             self._anonymize = AnonymizeList(
@@ -412,12 +370,9 @@ class ParticipantContext(InstanceContext):
         return self._anonymize
 
     @property
-    def published_tracks(self):
+    def published_tracks(self) -> PublishedTrackList:
         """
         Access the published_tracks
-
-        :returns: twilio.rest.video.v1.room.participant.PublishedTrackList
-        :rtype: twilio.rest.video.v1.room.participant.PublishedTrackList
         """
         if self._published_tracks is None:
             self._published_tracks = PublishedTrackList(
@@ -428,12 +383,9 @@ class ParticipantContext(InstanceContext):
         return self._published_tracks
 
     @property
-    def subscribe_rules(self):
+    def subscribe_rules(self) -> SubscribeRulesList:
         """
         Access the subscribe_rules
-
-        :returns: twilio.rest.video.v1.room.participant.SubscribeRulesList
-        :rtype: twilio.rest.video.v1.room.participant.SubscribeRulesList
         """
         if self._subscribe_rules is None:
             self._subscribe_rules = SubscribeRulesList(
@@ -444,12 +396,9 @@ class ParticipantContext(InstanceContext):
         return self._subscribe_rules
 
     @property
-    def subscribed_tracks(self):
+    def subscribed_tracks(self) -> SubscribedTrackList:
         """
         Access the subscribed_tracks
-
-        :returns: twilio.rest.video.v1.room.participant.SubscribedTrackList
-        :rtype: twilio.rest.video.v1.room.participant.SubscribedTrackList
         """
         if self._subscribed_tracks is None:
             self._subscribed_tracks = SubscribedTrackList(
@@ -459,26 +408,22 @@ class ParticipantContext(InstanceContext):
             )
         return self._subscribed_tracks
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.ParticipantContext {}>".format(context)
 
 
 class ParticipantPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.participant.ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
         return ParticipantInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
@@ -498,11 +443,9 @@ class ParticipantList(ListResource):
         """
         Initialize the ParticipantList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param room_sid: The SID of the room with the Participant resources to read.
 
-        :returns: twilio.rest.video.v1.room.participant.ParticipantList
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantList
         """
         super().__init__(version)
 
@@ -520,14 +463,14 @@ class ParticipantList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ParticipantInstance]:
         """
         Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -539,7 +482,6 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -560,14 +502,14 @@ class ParticipantList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ParticipantInstance]:
         """
         Asynchronously streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -579,7 +521,6 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -600,13 +541,13 @@ class ParticipantList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ParticipantInstance]:
         """
         Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -618,7 +559,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.ParticipantInstance]
         """
         return list(
             self.stream(
@@ -639,13 +579,13 @@ class ParticipantList(ListResource):
         date_created_before=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ParticipantInstance]:
         """
         Asynchronously lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -657,7 +597,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.ParticipantInstance]
         """
         return list(
             await self.stream_async(
@@ -679,12 +618,12 @@ class ParticipantList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ParticipantPage:
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -693,7 +632,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -719,12 +657,12 @@ class ParticipantList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ParticipantPage:
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -733,7 +671,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -752,7 +689,7 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ParticipantPage:
         """
         Retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -760,12 +697,11 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ParticipantPage:
         """
         Asynchronously retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -773,42 +709,34 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param sid: The SID of the RoomParticipant resource to update.
-
-        :returns: twilio.rest.video.v1.room.participant.ParticipantContext
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version, room_sid=self._solution["room_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param sid: The SID of the RoomParticipant resource to update.
-
-        :returns: twilio.rest.video.v1.room.participant.ParticipantContext
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version, room_sid=self._solution["room_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1.ParticipantList>"

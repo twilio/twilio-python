@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +26,6 @@ class InsightsSegmentsInstance(InstanceResource):
     def __init__(self, version, payload, segment_id: Optional[str] = None):
         """
         Initialize the InsightsSegmentsInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
         """
         super().__init__(version)
 
@@ -63,13 +60,12 @@ class InsightsSegmentsInstance(InstanceResource):
         self._context: Optional[InsightsSegmentsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "InsightsSegmentsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: InsightsSegmentsContext for this InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
         """
         if self._context is None:
             self._context = InsightsSegmentsContext(
@@ -79,213 +75,188 @@ class InsightsSegmentsInstance(InstanceResource):
         return self._context
 
     @property
-    def segment_id(self):
+    def segment_id(self) -> str:
         """
         :returns: To unique id of the segment
-        :rtype: str
         """
         return self._properties["segment_id"]
 
     @property
-    def external_id(self):
+    def external_id(self) -> str:
         """
         :returns: The unique id for the conversation.
-        :rtype: str
         """
         return self._properties["external_id"]
 
     @property
-    def queue(self):
+    def queue(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["queue"]
 
     @property
-    def external_contact(self):
+    def external_contact(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["external_contact"]
 
     @property
-    def external_segment_link_id(self):
+    def external_segment_link_id(self) -> str:
         """
         :returns: The uuid for the external_segment_link.
-        :rtype: str
         """
         return self._properties["external_segment_link_id"]
 
     @property
-    def date(self):
+    def date(self) -> str:
         """
         :returns: The date of the conversation.
-        :rtype: str
         """
         return self._properties["date"]
 
     @property
-    def account_id(self):
+    def account_id(self) -> str:
         """
         :returns: The unique id for the account.
-        :rtype: str
         """
         return self._properties["account_id"]
 
     @property
-    def external_segment_link(self):
+    def external_segment_link(self) -> str:
         """
         :returns: The hyperlink to recording of the task event.
-        :rtype: str
         """
         return self._properties["external_segment_link"]
 
     @property
-    def agent_id(self):
+    def agent_id(self) -> str:
         """
         :returns: The unique id for the agent.
-        :rtype: str
         """
         return self._properties["agent_id"]
 
     @property
-    def agent_phone(self):
+    def agent_phone(self) -> str:
         """
         :returns: The phone number of the agent.
-        :rtype: str
         """
         return self._properties["agent_phone"]
 
     @property
-    def agent_name(self):
+    def agent_name(self) -> str:
         """
         :returns: The name of the agent.
-        :rtype: str
         """
         return self._properties["agent_name"]
 
     @property
-    def agent_team_name(self):
+    def agent_team_name(self) -> str:
         """
         :returns: The team name to which agent belongs.
-        :rtype: str
         """
         return self._properties["agent_team_name"]
 
     @property
-    def agent_team_name_in_hierarchy(self):
+    def agent_team_name_in_hierarchy(self) -> str:
         """
         :returns: he team name to which agent belongs.
-        :rtype: str
         """
         return self._properties["agent_team_name_in_hierarchy"]
 
     @property
-    def agent_link(self):
+    def agent_link(self) -> str:
         """
         :returns: The link to the agent conversation.
-        :rtype: str
         """
         return self._properties["agent_link"]
 
     @property
-    def customer_phone(self):
+    def customer_phone(self) -> str:
         """
         :returns: The phone number of the customer.
-        :rtype: str
         """
         return self._properties["customer_phone"]
 
     @property
-    def customer_name(self):
+    def customer_name(self) -> str:
         """
         :returns: The name of the customer.
-        :rtype: str
         """
         return self._properties["customer_name"]
 
     @property
-    def customer_link(self):
+    def customer_link(self) -> str:
         """
         :returns: The link to the customer conversation.
-        :rtype: str
         """
         return self._properties["customer_link"]
 
     @property
-    def segment_recording_offset(self):
+    def segment_recording_offset(self) -> str:
         """
         :returns: The offset value for the recording.
-        :rtype: str
         """
         return self._properties["segment_recording_offset"]
 
     @property
-    def media(self):
+    def media(self) -> dict:
         """
         :returns: The media identifiers of the conversation.
-        :rtype: dict
         """
         return self._properties["media"]
 
     @property
-    def assessment_type(self):
+    def assessment_type(self) -> dict:
         """
         :returns: The type of the assessment.
-        :rtype: dict
         """
         return self._properties["assessment_type"]
 
     @property
-    def assessment_percentage(self):
+    def assessment_percentage(self) -> dict:
         """
         :returns: The percentage scored on the Assessments.
-        :rtype: dict
         """
         return self._properties["assessment_percentage"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self, token=values.unset):
+    def fetch(self, token=values.unset) -> "InsightsSegmentsInstance":
         """
         Fetch the InsightsSegmentsInstance
 
         :param str token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
         """
         return self._proxy.fetch(
             token=token,
         )
 
-    async def fetch_async(self, token=values.unset):
+    async def fetch_async(self, token=values.unset) -> "InsightsSegmentsInstance":
         """
         Asynchronous coroutine to fetch the InsightsSegmentsInstance
 
         :param str token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
         """
         return await self._proxy.fetch_async(
             token=token,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsSegmentsInstance {}>".format(context)
@@ -296,11 +267,8 @@ class InsightsSegmentsContext(InstanceContext):
         """
         Initialize the InsightsSegmentsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param segment_id: To unique id of the segment
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
         """
         super().__init__(version)
 
@@ -310,14 +278,13 @@ class InsightsSegmentsContext(InstanceContext):
         }
         self._uri = "/Insights/Segments/{segment_id}".format(**self._solution)
 
-    def fetch(self, token=values.unset):
+    def fetch(self, token=values.unset) -> InsightsSegmentsInstance:
         """
         Fetch the InsightsSegmentsInstance
 
         :param str token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
         """
 
         data = values.of(
@@ -334,14 +301,13 @@ class InsightsSegmentsContext(InstanceContext):
             segment_id=self._solution["segment_id"],
         )
 
-    async def fetch_async(self, token=values.unset):
+    async def fetch_async(self, token=values.unset) -> InsightsSegmentsInstance:
         """
         Asynchronous coroutine to fetch the InsightsSegmentsInstance
 
         :param str token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
         """
 
         data = values.of(
@@ -360,26 +326,22 @@ class InsightsSegmentsContext(InstanceContext):
             segment_id=self._solution["segment_id"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsSegmentsContext {}>".format(context)
 
 
 class InsightsSegmentsPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> InsightsSegmentsInstance:
         """
         Build an instance of InsightsSegmentsInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
         """
         return InsightsSegmentsInstance(self._version, payload)
 
@@ -397,10 +359,8 @@ class InsightsSegmentsList(ListResource):
         """
         Initialize the InsightsSegmentsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsList
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsList
         """
         super().__init__(version)
 
@@ -412,7 +372,7 @@ class InsightsSegmentsList(ListResource):
         reservation_id=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsSegmentsInstance]:
         """
         Streams InsightsSegmentsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -429,7 +389,6 @@ class InsightsSegmentsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -444,7 +403,7 @@ class InsightsSegmentsList(ListResource):
         reservation_id=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsSegmentsInstance]:
         """
         Asynchronously streams InsightsSegmentsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -461,7 +420,6 @@ class InsightsSegmentsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -476,7 +434,7 @@ class InsightsSegmentsList(ListResource):
         reservation_id=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsSegmentsInstance]:
         """
         Lists InsightsSegmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -492,7 +450,6 @@ class InsightsSegmentsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance]
         """
         return list(
             self.stream(
@@ -509,7 +466,7 @@ class InsightsSegmentsList(ListResource):
         reservation_id=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[InsightsSegmentsInstance]:
         """
         Asynchronously lists InsightsSegmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -525,7 +482,6 @@ class InsightsSegmentsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance]
         """
         return list(
             await self.stream_async(
@@ -543,7 +499,7 @@ class InsightsSegmentsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsSegmentsPage:
         """
         Retrieve a single page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
@@ -555,7 +511,6 @@ class InsightsSegmentsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
         """
         data = values.of(
             {
@@ -577,7 +532,7 @@ class InsightsSegmentsList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> InsightsSegmentsPage:
         """
         Asynchronously retrieve a single page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
@@ -589,7 +544,6 @@ class InsightsSegmentsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
         """
         data = values.of(
             {
@@ -606,7 +560,7 @@ class InsightsSegmentsList(ListResource):
         )
         return InsightsSegmentsPage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> InsightsSegmentsPage:
         """
         Retrieve a specific page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
@@ -614,12 +568,11 @@ class InsightsSegmentsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsSegmentsPage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> InsightsSegmentsPage:
         """
         Asynchronously retrieve a specific page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
@@ -627,38 +580,30 @@ class InsightsSegmentsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsSegmentsPage(self._version, response)
 
-    def get(self, segment_id):
+    def get(self, segment_id) -> InsightsSegmentsContext:
         """
         Constructs a InsightsSegmentsContext
 
         :param segment_id: To unique id of the segment
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
         """
         return InsightsSegmentsContext(self._version, segment_id=segment_id)
 
-    def __call__(self, segment_id):
+    def __call__(self, segment_id) -> InsightsSegmentsContext:
         """
         Constructs a InsightsSegmentsContext
 
         :param segment_id: To unique id of the segment
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
         """
         return InsightsSegmentsContext(self._version, segment_id=segment_id)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsSegmentsList>"

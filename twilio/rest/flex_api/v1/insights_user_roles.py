@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +25,6 @@ class InsightsUserRolesInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the InsightsUserRolesInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
         """
         super().__init__(version)
 
@@ -40,13 +37,12 @@ class InsightsUserRolesInstance(InstanceResource):
         self._context: Optional[InsightsUserRolesContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "InsightsUserRolesContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: InsightsUserRolesContext for this InsightsUserRolesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
         """
         if self._context is None:
             self._context = InsightsUserRolesContext(
@@ -55,53 +51,50 @@ class InsightsUserRolesInstance(InstanceResource):
         return self._context
 
     @property
-    def roles(self):
+    def roles(self) -> List[str]:
         """
         :returns: Flex Insights roles for the user
-        :rtype: List[str]
         """
         return self._properties["roles"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self, authorization=values.unset):
+    def fetch(self, authorization=values.unset) -> "InsightsUserRolesInstance":
         """
         Fetch the InsightsUserRolesInstance
 
         :param str authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
         """
         return self._proxy.fetch(
             authorization=authorization,
         )
 
-    async def fetch_async(self, authorization=values.unset):
+    async def fetch_async(
+        self, authorization=values.unset
+    ) -> "InsightsUserRolesInstance":
         """
         Asynchronous coroutine to fetch the InsightsUserRolesInstance
 
         :param str authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
         """
         return await self._proxy.fetch_async(
             authorization=authorization,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsUserRolesInstance {}>".format(context)
@@ -112,23 +105,19 @@ class InsightsUserRolesContext(InstanceContext):
         """
         Initialize the InsightsUserRolesContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
         self._uri = "/Insights/UserRoles"
 
-    def fetch(self, authorization=values.unset):
+    def fetch(self, authorization=values.unset) -> InsightsUserRolesInstance:
         """
         Fetch the InsightsUserRolesInstance
 
         :param str authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
         """
 
         data = values.of(
@@ -144,14 +133,15 @@ class InsightsUserRolesContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self, authorization=values.unset):
+    async def fetch_async(
+        self, authorization=values.unset
+    ) -> InsightsUserRolesInstance:
         """
         Asynchronous coroutine to fetch the InsightsUserRolesInstance
 
         :param str authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
         """
 
         data = values.of(
@@ -169,12 +159,11 @@ class InsightsUserRolesContext(InstanceContext):
             payload,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.FlexApi.V1.InsightsUserRolesContext>"
@@ -185,38 +174,29 @@ class InsightsUserRolesList(ListResource):
         """
         Initialize the InsightsUserRolesList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
         """
         super().__init__(version)
 
-    def get(self):
+    def get(self) -> InsightsUserRolesContext:
         """
         Constructs a InsightsUserRolesContext
 
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
         """
         return InsightsUserRolesContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> InsightsUserRolesContext:
         """
         Constructs a InsightsUserRolesContext
 
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
         """
         return InsightsUserRolesContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsUserRolesList>"

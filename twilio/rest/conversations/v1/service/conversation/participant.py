@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -37,9 +38,6 @@ class ParticipantInstance(InstanceResource):
     ):
         """
         Initialize the ParticipantInstance
-
-        :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         super().__init__(version)
 
@@ -69,13 +67,12 @@ class ParticipantInstance(InstanceResource):
         self._context: Optional[ParticipantContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ParticipantContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ParticipantContext for this ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantContext
         """
         if self._context is None:
             self._context = ParticipantContext(
@@ -87,152 +84,135 @@ class ParticipantInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this participant.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def chat_service_sid(self):
+    def chat_service_sid(self) -> str:
         """
         :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-        :rtype: str
         """
         return self._properties["chat_service_sid"]
 
     @property
-    def conversation_sid(self):
+    def conversation_sid(self) -> str:
         """
         :returns: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-        :rtype: str
         """
         return self._properties["conversation_sid"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-        :rtype: str
         """
         return self._properties["identity"]
 
     @property
-    def attributes(self):
+    def attributes(self) -> str:
         """
         :returns: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
-        :rtype: str
         """
         return self._properties["attributes"]
 
     @property
-    def messaging_binding(self):
+    def messaging_binding(self) -> dict:
         """
         :returns: Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
-        :rtype: dict
         """
         return self._properties["messaging_binding"]
 
     @property
-    def role_sid(self):
+    def role_sid(self) -> str:
         """
         :returns: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
-        :rtype: str
         """
         return self._properties["role_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date that this resource was created.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date that this resource was last updated.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: An absolute API resource URL for this participant.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def last_read_message_index(self):
+    def last_read_message_index(self) -> int:
         """
         :returns: Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-        :rtype: int
         """
         return self._properties["last_read_message_index"]
 
     @property
-    def last_read_timestamp(self):
+    def last_read_timestamp(self) -> str:
         """
         :returns: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-        :rtype: str
         """
         return self._properties["last_read_timestamp"]
 
-    def delete(self, x_twilio_webhook_enabled=values.unset):
+    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """
         Deletes the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "ParticipantInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete(
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "ParticipantInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async(
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    def fetch(self):
+    def fetch(self) -> "ParticipantInstance":
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ParticipantInstance":
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         return await self._proxy.fetch_async()
 
@@ -248,11 +228,11 @@ class ParticipantInstance(InstanceResource):
         messaging_binding_projected_address=values.unset,
         last_read_message_index=values.unset,
         last_read_timestamp=values.unset,
-    ):
+    ) -> "ParticipantInstance":
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "ParticipantInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
@@ -264,7 +244,6 @@ class ParticipantInstance(InstanceResource):
         :param str last_read_timestamp: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         return self._proxy.update(
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
@@ -291,11 +270,11 @@ class ParticipantInstance(InstanceResource):
         messaging_binding_projected_address=values.unset,
         last_read_message_index=values.unset,
         last_read_timestamp=values.unset,
-    ):
+    ) -> "ParticipantInstance":
         """
         Asynchronous coroutine to update the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "ParticipantInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
@@ -307,7 +286,6 @@ class ParticipantInstance(InstanceResource):
         :param str last_read_timestamp: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         return await self._proxy.update_async(
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
@@ -322,12 +300,11 @@ class ParticipantInstance(InstanceResource):
             last_read_timestamp=last_read_timestamp,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.ParticipantInstance {}>".format(context)
@@ -340,13 +317,10 @@ class ParticipantContext(InstanceContext):
         """
         Initialize the ParticipantContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
         :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantContext
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantContext
         """
         super().__init__(version)
 
@@ -360,14 +334,13 @@ class ParticipantContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self, x_twilio_webhook_enabled=values.unset):
+    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """
         Deletes the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param &quot;ParticipantInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -377,14 +350,13 @@ class ParticipantContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param &quot;ParticipantInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         headers = values.of(
             {
@@ -396,13 +368,12 @@ class ParticipantContext(InstanceContext):
             method="DELETE", uri=self._uri, headers=headers
         )
 
-    def fetch(self):
+    def fetch(self) -> ParticipantInstance:
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
 
         payload = self._version.fetch(
@@ -418,13 +389,12 @@ class ParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ParticipantInstance:
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
 
         payload = await self._version.fetch_async(
@@ -452,11 +422,11 @@ class ParticipantContext(InstanceContext):
         messaging_binding_projected_address=values.unset,
         last_read_message_index=values.unset,
         last_read_timestamp=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "ParticipantInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
@@ -468,7 +438,6 @@ class ParticipantContext(InstanceContext):
         :param str last_read_timestamp: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -513,11 +482,11 @@ class ParticipantContext(InstanceContext):
         messaging_binding_projected_address=values.unset,
         last_read_message_index=values.unset,
         last_read_timestamp=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Asynchronous coroutine to update the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param "ParticipantInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
@@ -529,7 +498,6 @@ class ParticipantContext(InstanceContext):
         :param str last_read_timestamp: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -562,26 +530,22 @@ class ParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.ParticipantContext {}>".format(context)
 
 
 class ParticipantPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         return ParticipantInstance(
             self._version,
@@ -604,12 +568,10 @@ class ParticipantList(ListResource):
         """
         Initialize the ParticipantList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
         :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants.
 
-        :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantList
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantList
         """
         super().__init__(version)
 
@@ -633,11 +595,11 @@ class ParticipantList(ListResource):
         attributes=values.unset,
         messaging_binding_projected_address=values.unset,
         role_sid=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Create the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param &quot;ParticipantInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
         :param str messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
         :param str messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
@@ -648,7 +610,6 @@ class ParticipantList(ListResource):
         :param str role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 
         :returns: The created ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -689,11 +650,11 @@ class ParticipantList(ListResource):
         attributes=values.unset,
         messaging_binding_projected_address=values.unset,
         role_sid=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Asynchronously create the ParticipantInstance
 
-        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param &quot;ParticipantInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
         :param str messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
         :param str messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
@@ -704,7 +665,6 @@ class ParticipantList(ListResource):
         :param str role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 
         :returns: The created ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -734,7 +694,7 @@ class ParticipantList(ListResource):
             conversation_sid=self._solution["conversation_sid"],
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[ParticipantInstance]:
         """
         Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -749,14 +709,15 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[ParticipantInstance]:
         """
         Asynchronously streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -771,14 +732,13 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[ParticipantInstance]:
         """
         Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -792,7 +752,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance]
         """
         return list(
             self.stream(
@@ -801,7 +760,7 @@ class ParticipantList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[ParticipantInstance]:
         """
         Asynchronously lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -815,7 +774,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance]
         """
         return list(
             await self.stream_async(
@@ -826,7 +784,7 @@ class ParticipantList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ParticipantPage:
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -836,7 +794,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -851,7 +808,7 @@ class ParticipantList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> ParticipantPage:
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -861,7 +818,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -876,7 +832,7 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ParticipantPage:
         """
         Retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -884,12 +840,11 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ParticipantPage:
         """
         Asynchronously retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -897,19 +852,15 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantContext
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -918,14 +869,11 @@ class ParticipantList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantContext
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -934,11 +882,10 @@ class ParticipantList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.ParticipantList>"

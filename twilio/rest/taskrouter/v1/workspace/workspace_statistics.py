@@ -25,9 +25,6 @@ class WorkspaceStatisticsInstance(InstanceResource):
     def __init__(self, version, payload, workspace_sid: str):
         """
         Initialize the WorkspaceStatisticsInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
         super().__init__(version)
 
@@ -45,13 +42,12 @@ class WorkspaceStatisticsInstance(InstanceResource):
         self._context: Optional[WorkspaceStatisticsContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "WorkspaceStatisticsContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: WorkspaceStatisticsContext for this WorkspaceStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
         if self._context is None:
             self._context = WorkspaceStatisticsContext(
@@ -61,42 +57,37 @@ class WorkspaceStatisticsInstance(InstanceResource):
         return self._context
 
     @property
-    def realtime(self):
+    def realtime(self) -> dict:
         """
         :returns: An object that contains the real-time statistics for the Workspace.
-        :rtype: dict
         """
         return self._properties["realtime"]
 
     @property
-    def cumulative(self):
+    def cumulative(self) -> dict:
         """
         :returns: An object that contains the cumulative statistics for the Workspace.
-        :rtype: dict
         """
         return self._properties["cumulative"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def workspace_sid(self):
+    def workspace_sid(self) -> str:
         """
         :returns: The SID of the Workspace.
-        :rtype: str
         """
         return self._properties["workspace_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Workspace statistics resource.
-        :rtype: str
         """
         return self._properties["url"]
 
@@ -107,7 +98,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
         end_date=values.unset,
         task_channel=values.unset,
         split_by_wait_time=values.unset,
-    ):
+    ) -> "WorkspaceStatisticsInstance":
         """
         Fetch the WorkspaceStatisticsInstance
 
@@ -118,7 +109,6 @@ class WorkspaceStatisticsInstance(InstanceResource):
         :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
 
         :returns: The fetched WorkspaceStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
         return self._proxy.fetch(
             minutes=minutes,
@@ -135,7 +125,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
         end_date=values.unset,
         task_channel=values.unset,
         split_by_wait_time=values.unset,
-    ):
+    ) -> "WorkspaceStatisticsInstance":
         """
         Asynchronous coroutine to fetch the WorkspaceStatisticsInstance
 
@@ -146,7 +136,6 @@ class WorkspaceStatisticsInstance(InstanceResource):
         :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
 
         :returns: The fetched WorkspaceStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
         return await self._proxy.fetch_async(
             minutes=minutes,
@@ -156,12 +145,11 @@ class WorkspaceStatisticsInstance(InstanceResource):
             split_by_wait_time=split_by_wait_time,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkspaceStatisticsInstance {}>".format(context)
@@ -172,11 +160,8 @@ class WorkspaceStatisticsContext(InstanceContext):
         """
         Initialize the WorkspaceStatisticsContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
         super().__init__(version)
 
@@ -193,7 +178,7 @@ class WorkspaceStatisticsContext(InstanceContext):
         end_date=values.unset,
         task_channel=values.unset,
         split_by_wait_time=values.unset,
-    ):
+    ) -> WorkspaceStatisticsInstance:
         """
         Fetch the WorkspaceStatisticsInstance
 
@@ -204,7 +189,6 @@ class WorkspaceStatisticsContext(InstanceContext):
         :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
 
         :returns: The fetched WorkspaceStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
 
         data = values.of(
@@ -232,7 +216,7 @@ class WorkspaceStatisticsContext(InstanceContext):
         end_date=values.unset,
         task_channel=values.unset,
         split_by_wait_time=values.unset,
-    ):
+    ) -> WorkspaceStatisticsInstance:
         """
         Asynchronous coroutine to fetch the WorkspaceStatisticsInstance
 
@@ -243,7 +227,6 @@ class WorkspaceStatisticsContext(InstanceContext):
         :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
 
         :returns: The fetched WorkspaceStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
 
         data = values.of(
@@ -266,12 +249,11 @@ class WorkspaceStatisticsContext(InstanceContext):
             workspace_sid=self._solution["workspace_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkspaceStatisticsContext {}>".format(context)
@@ -282,11 +264,9 @@ class WorkspaceStatisticsList(ListResource):
         """
         Initialize the WorkspaceStatisticsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace to fetch.
 
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
         """
         super().__init__(version)
 
@@ -295,35 +275,28 @@ class WorkspaceStatisticsList(ListResource):
             "workspace_sid": workspace_sid,
         }
 
-    def get(self):
+    def get(self) -> WorkspaceStatisticsContext:
         """
         Constructs a WorkspaceStatisticsContext
 
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
         return WorkspaceStatisticsContext(
             self._version, workspace_sid=self._solution["workspace_sid"]
         )
 
-    def __call__(self):
+    def __call__(self) -> WorkspaceStatisticsContext:
         """
         Constructs a WorkspaceStatisticsContext
 
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
         return WorkspaceStatisticsContext(
             self._version, workspace_sid=self._solution["workspace_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.WorkspaceStatisticsList>"

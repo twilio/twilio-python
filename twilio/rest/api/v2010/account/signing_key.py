@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class SigningKeyInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the SigningKeyInstance
-
-        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         super().__init__(version)
 
@@ -46,13 +44,12 @@ class SigningKeyInstance(InstanceResource):
         self._context: Optional[SigningKeyContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SigningKeyContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SigningKeyContext for this SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
         if self._context is None:
             self._context = SigningKeyContext(
@@ -63,109 +60,98 @@ class SigningKeyInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SigningKeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SigningKeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "SigningKeyInstance":
         """
         Fetch the SigningKeyInstance
 
 
         :returns: The fetched SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SigningKeyInstance":
         """
         Asynchronous coroutine to fetch the SigningKeyInstance
 
 
         :returns: The fetched SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name=values.unset) -> "SigningKeyInstance":
         """
         Update the SigningKeyInstance
 
         :param str friendly_name:
 
         :returns: The updated SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, friendly_name=values.unset):
+    async def update_async(self, friendly_name=values.unset) -> "SigningKeyInstance":
         """
         Asynchronous coroutine to update the SigningKeyInstance
 
         :param str friendly_name:
 
         :returns: The updated SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.SigningKeyInstance {}>".format(context)
@@ -176,12 +162,9 @@ class SigningKeyContext(InstanceContext):
         """
         Initialize the SigningKeyContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid:
         :param sid:
-
-        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
         super().__init__(version)
 
@@ -194,39 +177,36 @@ class SigningKeyContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the SigningKeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SigningKeyInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> SigningKeyInstance:
         """
         Fetch the SigningKeyInstance
 
 
         :returns: The fetched SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
 
         payload = self._version.fetch(
@@ -241,13 +221,12 @@ class SigningKeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SigningKeyInstance:
         """
         Asynchronous coroutine to fetch the SigningKeyInstance
 
 
         :returns: The fetched SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
 
         payload = await self._version.fetch_async(
@@ -262,14 +241,13 @@ class SigningKeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name=values.unset) -> SigningKeyInstance:
         """
         Update the SigningKeyInstance
 
         :param str friendly_name:
 
         :returns: The updated SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         data = values.of(
             {
@@ -290,14 +268,13 @@ class SigningKeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name=values.unset):
+    async def update_async(self, friendly_name=values.unset) -> SigningKeyInstance:
         """
         Asynchronous coroutine to update the SigningKeyInstance
 
         :param str friendly_name:
 
         :returns: The updated SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         data = values.of(
             {
@@ -318,26 +295,22 @@ class SigningKeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.SigningKeyContext {}>".format(context)
 
 
 class SigningKeyPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> SigningKeyInstance:
         """
         Build an instance of SigningKeyInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return SigningKeyInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -357,11 +330,9 @@ class SigningKeyList(ListResource):
         """
         Initialize the SigningKeyList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid:
 
-        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyList
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyList
         """
         super().__init__(version)
 
@@ -371,7 +342,7 @@ class SigningKeyList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/SigningKeys.json".format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[SigningKeyInstance]:
         """
         Streams SigningKeyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -386,14 +357,15 @@ class SigningKeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.signing_key.SigningKeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[SigningKeyInstance]:
         """
         Asynchronously streams SigningKeyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -408,14 +380,13 @@ class SigningKeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.signing_key.SigningKeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[SigningKeyInstance]:
         """
         Lists SigningKeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -429,7 +400,6 @@ class SigningKeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.signing_key.SigningKeyInstance]
         """
         return list(
             self.stream(
@@ -438,7 +408,7 @@ class SigningKeyList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[SigningKeyInstance]:
         """
         Asynchronously lists SigningKeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -452,7 +422,6 @@ class SigningKeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.signing_key.SigningKeyInstance]
         """
         return list(
             await self.stream_async(
@@ -463,7 +432,7 @@ class SigningKeyList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SigningKeyPage:
         """
         Retrieve a single page of SigningKeyInstance records from the API.
         Request is executed immediately
@@ -473,7 +442,6 @@ class SigningKeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
         data = values.of(
             {
@@ -488,7 +456,7 @@ class SigningKeyList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> SigningKeyPage:
         """
         Asynchronously retrieve a single page of SigningKeyInstance records from the API.
         Request is executed immediately
@@ -498,7 +466,6 @@ class SigningKeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
         data = values.of(
             {
@@ -513,7 +480,7 @@ class SigningKeyList(ListResource):
         )
         return SigningKeyPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> SigningKeyPage:
         """
         Retrieve a specific page of SigningKeyInstance records from the API.
         Request is executed immediately
@@ -521,12 +488,11 @@ class SigningKeyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SigningKeyPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> SigningKeyPage:
         """
         Asynchronously retrieve a specific page of SigningKeyInstance records from the API.
         Request is executed immediately
@@ -534,42 +500,34 @@ class SigningKeyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SigningKeyPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> SigningKeyContext:
         """
         Constructs a SigningKeyContext
 
         :param sid:
-
-        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
         return SigningKeyContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> SigningKeyContext:
         """
         Constructs a SigningKeyContext
 
         :param sid:
-
-        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
         return SigningKeyContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.SigningKeyList>"

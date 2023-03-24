@@ -25,9 +25,6 @@ class InsightsSessionInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the InsightsSessionInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
         super().__init__(version)
 
@@ -43,13 +40,12 @@ class InsightsSessionInstance(InstanceResource):
         self._context: Optional[InsightsSessionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "InsightsSessionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: InsightsSessionContext for this InsightsSessionInstance
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
         """
         if self._context is None:
             self._context = InsightsSessionContext(
@@ -58,77 +54,71 @@ class InsightsSessionInstance(InstanceResource):
         return self._context
 
     @property
-    def workspace_id(self):
+    def workspace_id(self) -> str:
         """
         :returns: Unique ID to identify the user's workspace
-        :rtype: str
         """
         return self._properties["workspace_id"]
 
     @property
-    def session_expiry(self):
+    def session_expiry(self) -> str:
         """
         :returns: The session expiry date and time, given in ISO 8601 format.
-        :rtype: str
         """
         return self._properties["session_expiry"]
 
     @property
-    def session_id(self):
+    def session_id(self) -> str:
         """
         :returns: The unique ID for the session
-        :rtype: str
         """
         return self._properties["session_id"]
 
     @property
-    def base_url(self):
+    def base_url(self) -> str:
         """
         :returns: The base URL to fetch reports and dashboards
-        :rtype: str
         """
         return self._properties["base_url"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The URL of this resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def create(self, authorization=values.unset):
+    def create(self, authorization=values.unset) -> "InsightsSessionInstance":
         """
         Create the InsightsSessionInstance
 
         :param str authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
         return self._proxy.create(
             authorization=authorization,
         )
 
-    async def create_async(self, authorization=values.unset):
+    async def create_async(
+        self, authorization=values.unset
+    ) -> "InsightsSessionInstance":
         """
         Asynchronous coroutine to create the InsightsSessionInstance
 
         :param str authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
         return await self._proxy.create_async(
             authorization=authorization,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsSessionInstance {}>".format(context)
@@ -139,23 +129,19 @@ class InsightsSessionContext(InstanceContext):
         """
         Initialize the InsightsSessionContext
 
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        :param version: Version that contains the resource
         """
         super().__init__(version)
 
         self._uri = "/Insights/Session"
 
-    def create(self, authorization=values.unset):
+    def create(self, authorization=values.unset) -> InsightsSessionInstance:
         """
         Create the InsightsSessionInstance
 
         :param str authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
         data = values.of(
             {
@@ -167,14 +153,13 @@ class InsightsSessionContext(InstanceContext):
 
         return InsightsSessionInstance(self._version, payload)
 
-    async def create_async(self, authorization=values.unset):
+    async def create_async(self, authorization=values.unset) -> InsightsSessionInstance:
         """
         Asynchronous coroutine to create the InsightsSessionInstance
 
         :param str authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
         data = values.of(
             {
@@ -188,12 +173,11 @@ class InsightsSessionContext(InstanceContext):
 
         return InsightsSessionInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
 
         return "<Twilio.FlexApi.V1.InsightsSessionContext>"
@@ -204,38 +188,29 @@ class InsightsSessionList(ListResource):
         """
         Initialize the InsightsSessionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
         """
         super().__init__(version)
 
-    def get(self):
+    def get(self) -> InsightsSessionContext:
         """
         Constructs a InsightsSessionContext
 
-
-        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
         """
         return InsightsSessionContext(self._version)
 
-    def __call__(self):
+    def __call__(self) -> InsightsSessionContext:
         """
         Constructs a InsightsSessionContext
 
-
-        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
         """
         return InsightsSessionContext(self._version)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsSessionList>"

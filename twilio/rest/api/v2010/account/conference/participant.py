@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -41,9 +42,6 @@ class ParticipantInstance(InstanceResource):
     ):
         """
         Initialize the ParticipantInstance
-
-        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         super().__init__(version)
 
@@ -72,13 +70,12 @@ class ParticipantInstance(InstanceResource):
         self._context: Optional[ParticipantContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ParticipantContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ParticipantContext for this ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         """
         if self._context is None:
             self._context = ParticipantContext(
@@ -90,154 +87,136 @@ class ParticipantInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def call_sid(self):
+    def call_sid(self) -> str:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Participant resource is associated with.
-        :rtype: str
         """
         return self._properties["call_sid"]
 
     @property
-    def label(self):
+    def label(self) -> str:
         """
         :returns: The user-specified label of this participant, if one was given when the participant was created. This may be used to fetch, update or delete the participant.
-        :rtype: str
         """
         return self._properties["label"]
 
     @property
-    def call_sid_to_coach(self):
+    def call_sid_to_coach(self) -> str:
         """
         :returns: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-        :rtype: str
         """
         return self._properties["call_sid_to_coach"]
 
     @property
-    def coaching(self):
+    def coaching(self) -> bool:
         """
         :returns: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :rtype: bool
         """
         return self._properties["coaching"]
 
     @property
-    def conference_sid(self):
+    def conference_sid(self) -> str:
         """
         :returns: The SID of the conference the participant is in.
-        :rtype: str
         """
         return self._properties["conference_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def end_conference_on_exit(self):
+    def end_conference_on_exit(self) -> bool:
         """
         :returns: Whether the conference ends when the participant leaves. Can be: `true` or `false` and the default is `false`. If `true`, the conference ends and all other participants drop out when the participant leaves.
-        :rtype: bool
         """
         return self._properties["end_conference_on_exit"]
 
     @property
-    def muted(self):
+    def muted(self) -> bool:
         """
         :returns: Whether the participant is muted. Can be `true` or `false`.
-        :rtype: bool
         """
         return self._properties["muted"]
 
     @property
-    def hold(self):
+    def hold(self) -> bool:
         """
         :returns: Whether the participant is on hold. Can be `true` or `false`.
-        :rtype: bool
         """
         return self._properties["hold"]
 
     @property
-    def start_conference_on_enter(self):
+    def start_conference_on_enter(self) -> bool:
         """
         :returns: Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-        :rtype: bool
         """
         return self._properties["start_conference_on_enter"]
 
     @property
-    def status(self):
+    def status(self) -> "ParticipantInstance.Status":
         """
         :returns:
-        :rtype: ParticipantInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ParticipantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ParticipantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ParticipantInstance":
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ParticipantInstance":
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return await self._proxy.fetch_async()
 
@@ -255,7 +234,7 @@ class ParticipantInstance(InstanceResource):
         end_conference_on_exit=values.unset,
         coaching=values.unset,
         call_sid_to_coach=values.unset,
-    ):
+    ) -> "ParticipantInstance":
         """
         Update the ParticipantInstance
 
@@ -273,7 +252,6 @@ class ParticipantInstance(InstanceResource):
         :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return self._proxy.update(
             muted=muted,
@@ -304,7 +282,7 @@ class ParticipantInstance(InstanceResource):
         end_conference_on_exit=values.unset,
         coaching=values.unset,
         call_sid_to_coach=values.unset,
-    ):
+    ) -> "ParticipantInstance":
         """
         Asynchronous coroutine to update the ParticipantInstance
 
@@ -322,7 +300,6 @@ class ParticipantInstance(InstanceResource):
         :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return await self._proxy.update_async(
             muted=muted,
@@ -339,12 +316,11 @@ class ParticipantInstance(InstanceResource):
             call_sid_to_coach=call_sid_to_coach,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.ParticipantInstance {}>".format(context)
@@ -357,13 +333,10 @@ class ParticipantContext(InstanceContext):
         """
         Initialize the ParticipantContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.
         :param conference_sid: The SID of the conference with the participant to update.
         :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-
-        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         """
         super().__init__(version)
 
@@ -377,39 +350,36 @@ class ParticipantContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ParticipantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ParticipantInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ParticipantInstance:
         """
         Fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
 
         payload = self._version.fetch(
@@ -425,13 +395,12 @@ class ParticipantContext(InstanceContext):
             call_sid=self._solution["call_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ParticipantInstance:
         """
         Asynchronous coroutine to fetch the ParticipantInstance
 
 
         :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
 
         payload = await self._version.fetch_async(
@@ -461,7 +430,7 @@ class ParticipantContext(InstanceContext):
         end_conference_on_exit=values.unset,
         coaching=values.unset,
         call_sid_to_coach=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Update the ParticipantInstance
 
@@ -479,7 +448,6 @@ class ParticipantContext(InstanceContext):
         :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -526,7 +494,7 @@ class ParticipantContext(InstanceContext):
         end_conference_on_exit=values.unset,
         coaching=values.unset,
         call_sid_to_coach=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Asynchronous coroutine to update the ParticipantInstance
 
@@ -544,7 +512,6 @@ class ParticipantContext(InstanceContext):
         :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
 
         :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -577,26 +544,22 @@ class ParticipantContext(InstanceContext):
             call_sid=self._solution["call_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.ParticipantContext {}>".format(context)
 
 
 class ParticipantPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return ParticipantInstance(
             self._version,
@@ -619,12 +582,10 @@ class ParticipantList(ListResource):
         """
         Initialize the ParticipantList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to read.
         :param conference_sid: The SID of the conference with the participants to read.
 
-        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantList
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantList
         """
         super().__init__(version)
 
@@ -685,7 +646,7 @@ class ParticipantList(ListResource):
         machine_detection_silence_timeout=values.unset,
         amd_status_callback=values.unset,
         amd_status_callback_method=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Create the ParticipantInstance
 
@@ -737,7 +698,6 @@ class ParticipantList(ListResource):
         :param str amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 
         :returns: The created ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -859,7 +819,7 @@ class ParticipantList(ListResource):
         machine_detection_silence_timeout=values.unset,
         amd_status_callback=values.unset,
         amd_status_callback_method=values.unset,
-    ):
+    ) -> ParticipantInstance:
         """
         Asynchronously create the ParticipantInstance
 
@@ -911,7 +871,6 @@ class ParticipantList(ListResource):
         :param str amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 
         :returns: The created ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         data = values.of(
             {
@@ -992,7 +951,7 @@ class ParticipantList(ListResource):
         coaching=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ParticipantInstance]:
         """
         Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -1010,7 +969,6 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.conference.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -1026,7 +984,7 @@ class ParticipantList(ListResource):
         coaching=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ParticipantInstance]:
         """
         Asynchronously streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -1044,7 +1002,6 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.conference.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -1060,7 +1017,7 @@ class ParticipantList(ListResource):
         coaching=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ParticipantInstance]:
         """
         Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -1077,7 +1034,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.conference.participant.ParticipantInstance]
         """
         return list(
             self.stream(
@@ -1096,7 +1052,7 @@ class ParticipantList(ListResource):
         coaching=values.unset,
         limit=None,
         page_size=None,
-    ):
+    ) -> List[ParticipantInstance]:
         """
         Asynchronously lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -1113,7 +1069,6 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.conference.participant.ParticipantInstance]
         """
         return list(
             await self.stream_async(
@@ -1133,7 +1088,7 @@ class ParticipantList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ParticipantPage:
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -1146,7 +1101,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -1170,7 +1124,7 @@ class ParticipantList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ParticipantPage:
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -1183,7 +1137,6 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantPage
         """
         data = values.of(
             {
@@ -1201,7 +1154,7 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ParticipantPage:
         """
         Retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -1209,12 +1162,11 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ParticipantPage:
         """
         Asynchronously retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -1222,19 +1174,15 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    def get(self, call_sid):
+    def get(self, call_sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-
-        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -1243,14 +1191,11 @@ class ParticipantList(ListResource):
             call_sid=call_sid,
         )
 
-    def __call__(self, call_sid):
+    def __call__(self, call_sid) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
         :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-
-        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -1259,11 +1204,10 @@ class ParticipantList(ListResource):
             call_sid=call_sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.ParticipantList>"

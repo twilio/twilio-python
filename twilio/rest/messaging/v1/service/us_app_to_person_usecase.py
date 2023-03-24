@@ -13,6 +13,8 @@ r"""
 """
 
 
+from typing import List
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -22,9 +24,6 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
     def __init__(self, version, payload, messaging_service_sid: str):
         """
         Initialize the UsAppToPersonUsecaseInstance
-
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
         """
         super().__init__(version)
 
@@ -37,19 +36,17 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
         }
 
     @property
-    def us_app_to_person_usecases(self):
+    def us_app_to_person_usecases(self) -> List[object]:
         """
         :returns: Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
-        :rtype: List[object]
         """
         return self._properties["us_app_to_person_usecases"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.UsAppToPersonUsecaseInstance {}>".format(context)
@@ -60,11 +57,9 @@ class UsAppToPersonUsecaseList(ListResource):
         """
         Initialize the UsAppToPersonUsecaseList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
 
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseList
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseList
         """
         super().__init__(version)
 
@@ -78,12 +73,11 @@ class UsAppToPersonUsecaseList(ListResource):
             )
         )
 
-    def fetch(self):
+    def fetch(self) -> UsAppToPersonUsecaseInstance:
         """
         Asynchronously fetch the UsAppToPersonUsecaseInstance
 
         :returns: The fetched UsAppToPersonUsecaseInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
         """
         payload = self._version.fetch(method="GET", uri=self._uri)
 
@@ -93,12 +87,11 @@ class UsAppToPersonUsecaseList(ListResource):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> UsAppToPersonUsecaseInstance:
         """
         Asynchronously fetch the UsAppToPersonUsecaseInstance
 
         :returns: The fetched UsAppToPersonUsecaseInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
         """
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
@@ -108,11 +101,10 @@ class UsAppToPersonUsecaseList(ListResource):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.UsAppToPersonUsecaseList>"

@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,9 +31,6 @@ class FlowRevisionInstance(InstanceResource):
     def __init__(self, version, payload, sid: str, revision: Optional[str] = None):
         """
         Initialize the FlowRevisionInstance
-
-        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
         super().__init__(version)
 
@@ -58,13 +56,12 @@ class FlowRevisionInstance(InstanceResource):
         self._context: Optional[FlowRevisionContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "FlowRevisionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: FlowRevisionContext for this FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
         """
         if self._context is None:
             self._context = FlowRevisionContext(
@@ -75,127 +72,112 @@ class FlowRevisionInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Flow resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the Flow.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def definition(self):
+    def definition(self) -> dict:
         """
         :returns: JSON representation of flow definition.
-        :rtype: dict
         """
         return self._properties["definition"]
 
     @property
-    def status(self):
+    def status(self) -> "FlowRevisionInstance.Status":
         """
         :returns:
-        :rtype: FlowRevisionInstance.Status
         """
         return self._properties["status"]
 
     @property
-    def revision(self):
+    def revision(self) -> int:
         """
         :returns: The latest revision number of the Flow's definition.
-        :rtype: int
         """
         return self._properties["revision"]
 
     @property
-    def commit_message(self):
+    def commit_message(self) -> str:
         """
         :returns: Description of change made in the revision.
-        :rtype: str
         """
         return self._properties["commit_message"]
 
     @property
-    def valid(self):
+    def valid(self) -> bool:
         """
         :returns: Boolean if the flow definition is valid.
-        :rtype: bool
         """
         return self._properties["valid"]
 
     @property
-    def errors(self):
+    def errors(self) -> List[object]:
         """
         :returns: List of error in the flow definition.
-        :rtype: List[object]
         """
         return self._properties["errors"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self):
+    def fetch(self) -> "FlowRevisionInstance":
         """
         Fetch the FlowRevisionInstance
 
 
         :returns: The fetched FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "FlowRevisionInstance":
         """
         Asynchronous coroutine to fetch the FlowRevisionInstance
 
 
         :returns: The fetched FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V2.FlowRevisionInstance {}>".format(context)
@@ -206,12 +188,9 @@ class FlowRevisionContext(InstanceContext):
         """
         Initialize the FlowRevisionContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Flow resource to fetch.
         :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
-
-        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
         """
         super().__init__(version)
 
@@ -222,13 +201,12 @@ class FlowRevisionContext(InstanceContext):
         }
         self._uri = "/Flows/{sid}/Revisions/{revision}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> FlowRevisionInstance:
         """
         Fetch the FlowRevisionInstance
 
 
         :returns: The fetched FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
 
         payload = self._version.fetch(
@@ -243,13 +221,12 @@ class FlowRevisionContext(InstanceContext):
             revision=self._solution["revision"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> FlowRevisionInstance:
         """
         Asynchronous coroutine to fetch the FlowRevisionInstance
 
 
         :returns: The fetched FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
 
         payload = await self._version.fetch_async(
@@ -264,26 +241,22 @@ class FlowRevisionContext(InstanceContext):
             revision=self._solution["revision"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V2.FlowRevisionContext {}>".format(context)
 
 
 class FlowRevisionPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> FlowRevisionInstance:
         """
         Build an instance of FlowRevisionInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
         return FlowRevisionInstance(self._version, payload, sid=self._solution["sid"])
 
@@ -301,11 +274,9 @@ class FlowRevisionList(ListResource):
         """
         Initialize the FlowRevisionList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Flow resource to fetch.
 
-        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionList
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionList
         """
         super().__init__(version)
 
@@ -315,7 +286,7 @@ class FlowRevisionList(ListResource):
         }
         self._uri = "/Flows/{sid}/Revisions".format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[FlowRevisionInstance]:
         """
         Streams FlowRevisionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -330,14 +301,15 @@ class FlowRevisionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[FlowRevisionInstance]:
         """
         Asynchronously streams FlowRevisionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -352,14 +324,13 @@ class FlowRevisionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[FlowRevisionInstance]:
         """
         Lists FlowRevisionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -373,7 +344,6 @@ class FlowRevisionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance]
         """
         return list(
             self.stream(
@@ -382,7 +352,9 @@ class FlowRevisionList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[FlowRevisionInstance]:
         """
         Asynchronously lists FlowRevisionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -396,7 +368,6 @@ class FlowRevisionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance]
         """
         return list(
             await self.stream_async(
@@ -407,7 +378,7 @@ class FlowRevisionList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> FlowRevisionPage:
         """
         Retrieve a single page of FlowRevisionInstance records from the API.
         Request is executed immediately
@@ -417,7 +388,6 @@ class FlowRevisionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         data = values.of(
             {
@@ -432,7 +402,7 @@ class FlowRevisionList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> FlowRevisionPage:
         """
         Asynchronously retrieve a single page of FlowRevisionInstance records from the API.
         Request is executed immediately
@@ -442,7 +412,6 @@ class FlowRevisionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         data = values.of(
             {
@@ -457,7 +426,7 @@ class FlowRevisionList(ListResource):
         )
         return FlowRevisionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> FlowRevisionPage:
         """
         Retrieve a specific page of FlowRevisionInstance records from the API.
         Request is executed immediately
@@ -465,12 +434,11 @@ class FlowRevisionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FlowRevisionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> FlowRevisionPage:
         """
         Asynchronously retrieve a specific page of FlowRevisionInstance records from the API.
         Request is executed immediately
@@ -478,42 +446,34 @@ class FlowRevisionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FlowRevisionPage(self._version, response, self._solution)
 
-    def get(self, revision):
+    def get(self, revision) -> FlowRevisionContext:
         """
         Constructs a FlowRevisionContext
 
         :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
-
-        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
         """
         return FlowRevisionContext(
             self._version, sid=self._solution["sid"], revision=revision
         )
 
-    def __call__(self, revision):
+    def __call__(self, revision) -> FlowRevisionContext:
         """
         Constructs a FlowRevisionContext
 
         :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
-
-        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
         """
         return FlowRevisionContext(
             self._version, sid=self._solution["sid"], revision=revision
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V2.FlowRevisionList>"

@@ -31,9 +31,6 @@ class LinkshorteningMessagingServiceInstance(InstanceResource):
     ):
         """
         Initialize the LinkshorteningMessagingServiceInstance
-
-        :returns: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceInstance
         """
         super().__init__(version)
 
@@ -51,13 +48,12 @@ class LinkshorteningMessagingServiceInstance(InstanceResource):
         self._context: Optional[LinkshorteningMessagingServiceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "LinkshorteningMessagingServiceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: LinkshorteningMessagingServiceContext for this LinkshorteningMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceContext
         """
         if self._context is None:
             self._context = LinkshorteningMessagingServiceContext(
@@ -68,75 +64,67 @@ class LinkshorteningMessagingServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def domain_sid(self):
+    def domain_sid(self) -> str:
         """
         :returns: The unique string identifies the domain resource
-        :rtype: str
         """
         return self._properties["domain_sid"]
 
     @property
-    def messaging_service_sid(self):
+    def messaging_service_sid(self) -> str:
         """
         :returns: The unique string that identifies the messaging service
-        :rtype: str
         """
         return self._properties["messaging_service_sid"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def create(self):
+    def create(self) -> "LinkshorteningMessagingServiceInstance":
         """
         Create the LinkshorteningMessagingServiceInstance
 
 
         :returns: The created LinkshorteningMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceInstance
         """
         return self._proxy.create()
 
-    async def create_async(self):
+    async def create_async(self) -> "LinkshorteningMessagingServiceInstance":
         """
         Asynchronous coroutine to create the LinkshorteningMessagingServiceInstance
 
 
         :returns: The created LinkshorteningMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceInstance
         """
         return await self._proxy.create_async()
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the LinkshorteningMessagingServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the LinkshorteningMessagingServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.LinkshorteningMessagingServiceInstance {}>".format(
@@ -149,12 +137,9 @@ class LinkshorteningMessagingServiceContext(InstanceContext):
         """
         Initialize the LinkshorteningMessagingServiceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param domain_sid: The domain SID to dissociate from a messaging service. With URL shortening enabled, links in messages sent with the associated messaging service will be shortened to the provided domain
         :param messaging_service_sid: A messaging service SID to dissociate from a domain. With URL shortening enabled, links in messages sent with the provided messaging service will be shortened to the associated domain
-
-        :returns: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceContext
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceContext
         """
         super().__init__(version)
 
@@ -167,13 +152,12 @@ class LinkshorteningMessagingServiceContext(InstanceContext):
             **self._solution
         )
 
-    def create(self):
+    def create(self) -> LinkshorteningMessagingServiceInstance:
         """
         Create the LinkshorteningMessagingServiceInstance
 
 
         :returns: The created LinkshorteningMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceInstance
         """
         data = values.of({})
 
@@ -186,13 +170,12 @@ class LinkshorteningMessagingServiceContext(InstanceContext):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    async def create_async(self):
+    async def create_async(self) -> LinkshorteningMessagingServiceInstance:
         """
         Asynchronous coroutine to create the LinkshorteningMessagingServiceInstance
 
 
         :returns: The created LinkshorteningMessagingServiceInstance
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceInstance
         """
         data = values.of({})
 
@@ -207,38 +190,35 @@ class LinkshorteningMessagingServiceContext(InstanceContext):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the LinkshorteningMessagingServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the LinkshorteningMessagingServiceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.LinkshorteningMessagingServiceContext {}>".format(
@@ -251,22 +231,19 @@ class LinkshorteningMessagingServiceList(ListResource):
         """
         Initialize the LinkshorteningMessagingServiceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceList
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceList
         """
         super().__init__(version)
 
-    def get(self, domain_sid, messaging_service_sid):
+    def get(
+        self, domain_sid, messaging_service_sid
+    ) -> LinkshorteningMessagingServiceContext:
         """
         Constructs a LinkshorteningMessagingServiceContext
 
         :param domain_sid: The domain SID to dissociate from a messaging service. With URL shortening enabled, links in messages sent with the associated messaging service will be shortened to the provided domain
         :param messaging_service_sid: A messaging service SID to dissociate from a domain. With URL shortening enabled, links in messages sent with the provided messaging service will be shortened to the associated domain
-
-        :returns: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceContext
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceContext
         """
         return LinkshorteningMessagingServiceContext(
             self._version,
@@ -274,15 +251,14 @@ class LinkshorteningMessagingServiceList(ListResource):
             messaging_service_sid=messaging_service_sid,
         )
 
-    def __call__(self, domain_sid, messaging_service_sid):
+    def __call__(
+        self, domain_sid, messaging_service_sid
+    ) -> LinkshorteningMessagingServiceContext:
         """
         Constructs a LinkshorteningMessagingServiceContext
 
         :param domain_sid: The domain SID to dissociate from a messaging service. With URL shortening enabled, links in messages sent with the associated messaging service will be shortened to the provided domain
         :param messaging_service_sid: A messaging service SID to dissociate from a domain. With URL shortening enabled, links in messages sent with the provided messaging service will be shortened to the associated domain
-
-        :returns: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceContext
-        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceContext
         """
         return LinkshorteningMessagingServiceContext(
             self._version,
@@ -290,11 +266,10 @@ class LinkshorteningMessagingServiceList(ListResource):
             messaging_service_sid=messaging_service_sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.LinkshorteningMessagingServiceList>"

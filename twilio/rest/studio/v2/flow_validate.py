@@ -24,9 +24,6 @@ class FlowValidateInstance(InstanceResource):
     def __init__(self, version, payload):
         """
         Initialize the FlowValidateInstance
-
-        :returns: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
-        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
         """
         super().__init__(version)
 
@@ -37,19 +34,17 @@ class FlowValidateInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def valid(self):
+    def valid(self) -> bool:
         """
         :returns: Boolean if the flow definition is valid.
-        :rtype: bool
         """
         return self._properties["valid"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V2.FlowValidateInstance {}>".format(context)
@@ -60,26 +55,25 @@ class FlowValidateList(ListResource):
         """
         Initialize the FlowValidateList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.studio.v2.flow_validate.FlowValidateList
-        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateList
         """
         super().__init__(version)
 
         self._uri = "/Flows/Validate"
 
-    def update(self, friendly_name, status, definition, commit_message=values.unset):
+    def update(
+        self, friendly_name, status, definition, commit_message=values.unset
+    ) -> FlowValidateInstance:
         """
         Update the FlowValidateInstance
 
         :param str friendly_name: The string that you assigned to describe the Flow.
-        :param FlowValidateInstance.Status status:
+        :param &quot;FlowValidateInstance.Status&quot; status:
         :param object definition: JSON representation of flow definition.
         :param str commit_message: Description of change made in the revision.
 
         :returns: The created FlowValidateInstance
-        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
         """
         data = values.of(
             {
@@ -100,17 +94,16 @@ class FlowValidateList(ListResource):
 
     async def update_async(
         self, friendly_name, status, definition, commit_message=values.unset
-    ):
+    ) -> FlowValidateInstance:
         """
         Asynchronously update the FlowValidateInstance
 
         :param str friendly_name: The string that you assigned to describe the Flow.
-        :param FlowValidateInstance.Status status:
+        :param &quot;FlowValidateInstance.Status&quot; status:
         :param object definition: JSON representation of flow definition.
         :param str commit_message: Description of change made in the revision.
 
         :returns: The created FlowValidateInstance
-        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
         """
         data = values.of(
             {
@@ -129,11 +122,10 @@ class FlowValidateList(ListResource):
 
         return FlowValidateInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V2.FlowValidateList>"

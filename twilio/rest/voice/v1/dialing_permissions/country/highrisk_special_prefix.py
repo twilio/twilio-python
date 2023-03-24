@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import List
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +26,6 @@ class HighriskSpecialPrefixInstance(InstanceResource):
     def __init__(self, version, payload, iso_code: str):
         """
         Initialize the HighriskSpecialPrefixInstance
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
         """
         super().__init__(version)
 
@@ -40,33 +38,28 @@ class HighriskSpecialPrefixInstance(InstanceResource):
         }
 
     @property
-    def prefix(self):
+    def prefix(self) -> str:
         """
         :returns: A prefix is a contiguous number range for a block of E.164 numbers that includes the E.164 assigned country code. For example, a North American Numbering Plan prefix like `+1510720` written like `+1(510) 720` matches all numbers inclusive from `+1(510) 720-0000` to `+1(510) 720-9999`.
-        :rtype: str
         """
         return self._properties["prefix"]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Voice.V1.HighriskSpecialPrefixInstance {}>".format(context)
 
 
 class HighriskSpecialPrefixPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> HighriskSpecialPrefixInstance:
         """
         Build an instance of HighriskSpecialPrefixInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
         """
         return HighriskSpecialPrefixInstance(
             self._version, payload, iso_code=self._solution["iso_code"]
@@ -86,11 +79,9 @@ class HighriskSpecialPrefixList(ListResource):
         """
         Initialize the HighriskSpecialPrefixList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param iso_code: The [ISO 3166-1 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) to identify the country permissions from which high-risk special service number prefixes are fetched
 
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixList
         """
         super().__init__(version)
 
@@ -104,7 +95,7 @@ class HighriskSpecialPrefixList(ListResource):
             )
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[HighriskSpecialPrefixInstance]:
         """
         Streams HighriskSpecialPrefixInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -119,14 +110,15 @@ class HighriskSpecialPrefixList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(
+        self, limit=None, page_size=None
+    ) -> List[HighriskSpecialPrefixInstance]:
         """
         Asynchronously streams HighriskSpecialPrefixInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -141,14 +133,13 @@ class HighriskSpecialPrefixList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[HighriskSpecialPrefixInstance]:
         """
         Lists HighriskSpecialPrefixInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -162,7 +153,6 @@ class HighriskSpecialPrefixList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance]
         """
         return list(
             self.stream(
@@ -171,7 +161,9 @@ class HighriskSpecialPrefixList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(
+        self, limit=None, page_size=None
+    ) -> List[HighriskSpecialPrefixInstance]:
         """
         Asynchronously lists HighriskSpecialPrefixInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -185,7 +177,6 @@ class HighriskSpecialPrefixList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance]
         """
         return list(
             await self.stream_async(
@@ -196,7 +187,7 @@ class HighriskSpecialPrefixList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> HighriskSpecialPrefixPage:
         """
         Retrieve a single page of HighriskSpecialPrefixInstance records from the API.
         Request is executed immediately
@@ -206,7 +197,6 @@ class HighriskSpecialPrefixList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
         """
         data = values.of(
             {
@@ -221,7 +211,7 @@ class HighriskSpecialPrefixList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> HighriskSpecialPrefixPage:
         """
         Asynchronously retrieve a single page of HighriskSpecialPrefixInstance records from the API.
         Request is executed immediately
@@ -231,7 +221,6 @@ class HighriskSpecialPrefixList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
         """
         data = values.of(
             {
@@ -246,7 +235,7 @@ class HighriskSpecialPrefixList(ListResource):
         )
         return HighriskSpecialPrefixPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> HighriskSpecialPrefixPage:
         """
         Retrieve a specific page of HighriskSpecialPrefixInstance records from the API.
         Request is executed immediately
@@ -254,12 +243,11 @@ class HighriskSpecialPrefixList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return HighriskSpecialPrefixPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> HighriskSpecialPrefixPage:
         """
         Asynchronously retrieve a specific page of HighriskSpecialPrefixInstance records from the API.
         Request is executed immediately
@@ -267,16 +255,14 @@ class HighriskSpecialPrefixList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return HighriskSpecialPrefixPage(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Voice.V1.HighriskSpecialPrefixList>"

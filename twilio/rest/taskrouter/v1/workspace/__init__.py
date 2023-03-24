@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -46,9 +47,6 @@ class WorkspaceInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the WorkspaceInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         super().__init__(version)
 
@@ -76,13 +74,12 @@ class WorkspaceInstance(InstanceResource):
         self._context: Optional[WorkspaceContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "WorkspaceContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: WorkspaceContext for this WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
         if self._context is None:
             self._context = WorkspaceContext(
@@ -92,162 +89,143 @@ class WorkspaceInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def default_activity_name(self):
+    def default_activity_name(self) -> str:
         """
         :returns: The name of the default activity.
-        :rtype: str
         """
         return self._properties["default_activity_name"]
 
     @property
-    def default_activity_sid(self):
+    def default_activity_sid(self) -> str:
         """
         :returns: The SID of the Activity that will be used when new Workers are created in the Workspace.
-        :rtype: str
         """
         return self._properties["default_activity_sid"]
 
     @property
-    def event_callback_url(self):
+    def event_callback_url(self) -> str:
         """
         :returns: The URL we call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :rtype: str
         """
         return self._properties["event_callback_url"]
 
     @property
-    def events_filter(self):
+    def events_filter(self) -> str:
         """
         :returns: The list of Workspace events for which to call `event_callback_url`. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :rtype: str
         """
         return self._properties["events_filter"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the Workspace resource. For example `Customer Support` or `2014 Election Campaign`.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def multi_task_enabled(self):
+    def multi_task_enabled(self) -> bool:
         """
         :returns: Whether multi-tasking is enabled. The default is `true`, which enables multi-tasking. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking each Worker would only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :rtype: bool
         """
         return self._properties["multi_task_enabled"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that we created to identify the Workspace resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def timeout_activity_name(self):
+    def timeout_activity_name(self) -> str:
         """
         :returns: The name of the timeout activity.
-        :rtype: str
         """
         return self._properties["timeout_activity_name"]
 
     @property
-    def timeout_activity_sid(self):
+    def timeout_activity_sid(self) -> str:
         """
         :returns: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :rtype: str
         """
         return self._properties["timeout_activity_sid"]
 
     @property
-    def prioritize_queue_order(self):
+    def prioritize_queue_order(self) -> "WorkspaceInstance.QueueOrder":
         """
         :returns:
-        :rtype: WorkspaceInstance.QueueOrder
         """
         return self._properties["prioritize_queue_order"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the Workspace resource.
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def links(self):
+    def links(self) -> dict:
         """
         :returns: The URLs of related resources.
-        :rtype: dict
         """
         return self._properties["links"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the WorkspaceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the WorkspaceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "WorkspaceInstance":
         """
         Fetch the WorkspaceInstance
 
 
         :returns: The fetched WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "WorkspaceInstance":
         """
         Asynchronous coroutine to fetch the WorkspaceInstance
 
 
         :returns: The fetched WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return await self._proxy.fetch_async()
 
@@ -260,7 +238,7 @@ class WorkspaceInstance(InstanceResource):
         multi_task_enabled=values.unset,
         timeout_activity_sid=values.unset,
         prioritize_queue_order=values.unset,
-    ):
+    ) -> "WorkspaceInstance":
         """
         Update the WorkspaceInstance
 
@@ -270,10 +248,9 @@ class WorkspaceInstance(InstanceResource):
         :param str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
         :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
+        :param "WorkspaceInstance.QueueOrder" prioritize_queue_order:
 
         :returns: The updated WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return self._proxy.update(
             default_activity_sid=default_activity_sid,
@@ -294,7 +271,7 @@ class WorkspaceInstance(InstanceResource):
         multi_task_enabled=values.unset,
         timeout_activity_sid=values.unset,
         prioritize_queue_order=values.unset,
-    ):
+    ) -> "WorkspaceInstance":
         """
         Asynchronous coroutine to update the WorkspaceInstance
 
@@ -304,10 +281,9 @@ class WorkspaceInstance(InstanceResource):
         :param str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
         :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
+        :param "WorkspaceInstance.QueueOrder" prioritize_queue_order:
 
         :returns: The updated WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return await self._proxy.update_async(
             default_activity_sid=default_activity_sid,
@@ -320,111 +296,80 @@ class WorkspaceInstance(InstanceResource):
         )
 
     @property
-    def activities(self):
+    def activities(self) -> ActivityList:
         """
         Access the activities
-
-        :returns: twilio.rest.taskrouter.v1.workspace.ActivityList
-        :rtype: twilio.rest.taskrouter.v1.workspace.ActivityList
         """
         return self._proxy.activities
 
     @property
-    def events(self):
+    def events(self) -> EventList:
         """
         Access the events
-
-        :returns: twilio.rest.taskrouter.v1.workspace.EventList
-        :rtype: twilio.rest.taskrouter.v1.workspace.EventList
         """
         return self._proxy.events
 
     @property
-    def tasks(self):
+    def tasks(self) -> TaskList:
         """
         Access the tasks
-
-        :returns: twilio.rest.taskrouter.v1.workspace.TaskList
-        :rtype: twilio.rest.taskrouter.v1.workspace.TaskList
         """
         return self._proxy.tasks
 
     @property
-    def task_channels(self):
+    def task_channels(self) -> TaskChannelList:
         """
         Access the task_channels
-
-        :returns: twilio.rest.taskrouter.v1.workspace.TaskChannelList
-        :rtype: twilio.rest.taskrouter.v1.workspace.TaskChannelList
         """
         return self._proxy.task_channels
 
     @property
-    def task_queues(self):
+    def task_queues(self) -> TaskQueueList:
         """
         Access the task_queues
-
-        :returns: twilio.rest.taskrouter.v1.workspace.TaskQueueList
-        :rtype: twilio.rest.taskrouter.v1.workspace.TaskQueueList
         """
         return self._proxy.task_queues
 
     @property
-    def workers(self):
+    def workers(self) -> WorkerList:
         """
         Access the workers
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkerList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkerList
         """
         return self._proxy.workers
 
     @property
-    def workflows(self):
+    def workflows(self) -> WorkflowList:
         """
         Access the workflows
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkflowList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkflowList
         """
         return self._proxy.workflows
 
     @property
-    def cumulative_statistics(self):
+    def cumulative_statistics(self) -> WorkspaceCumulativeStatisticsList:
         """
         Access the cumulative_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceCumulativeStatisticsList
         """
         return self._proxy.cumulative_statistics
 
     @property
-    def real_time_statistics(self):
+    def real_time_statistics(self) -> WorkspaceRealTimeStatisticsList:
         """
         Access the real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceRealTimeStatisticsList
         """
         return self._proxy.real_time_statistics
 
     @property
-    def statistics(self):
+    def statistics(self) -> WorkspaceStatisticsList:
         """
         Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceStatisticsList
         """
         return self._proxy.statistics
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkspaceInstance {}>".format(context)
@@ -435,11 +380,8 @@ class WorkspaceContext(InstanceContext):
         """
         Initialize the WorkspaceContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sid: The SID of the Workspace resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
         super().__init__(version)
 
@@ -460,39 +402,36 @@ class WorkspaceContext(InstanceContext):
         self._real_time_statistics: Optional[WorkspaceRealTimeStatisticsList] = None
         self._statistics: Optional[WorkspaceStatisticsList] = None
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the WorkspaceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the WorkspaceInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> WorkspaceInstance:
         """
         Fetch the WorkspaceInstance
 
 
         :returns: The fetched WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
 
         payload = self._version.fetch(
@@ -506,13 +445,12 @@ class WorkspaceContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> WorkspaceInstance:
         """
         Asynchronous coroutine to fetch the WorkspaceInstance
 
 
         :returns: The fetched WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
 
         payload = await self._version.fetch_async(
@@ -535,7 +473,7 @@ class WorkspaceContext(InstanceContext):
         multi_task_enabled=values.unset,
         timeout_activity_sid=values.unset,
         prioritize_queue_order=values.unset,
-    ):
+    ) -> WorkspaceInstance:
         """
         Update the WorkspaceInstance
 
@@ -545,10 +483,9 @@ class WorkspaceContext(InstanceContext):
         :param str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
         :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
+        :param "WorkspaceInstance.QueueOrder" prioritize_queue_order:
 
         :returns: The updated WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         data = values.of(
             {
@@ -579,7 +516,7 @@ class WorkspaceContext(InstanceContext):
         multi_task_enabled=values.unset,
         timeout_activity_sid=values.unset,
         prioritize_queue_order=values.unset,
-    ):
+    ) -> WorkspaceInstance:
         """
         Asynchronous coroutine to update the WorkspaceInstance
 
@@ -589,10 +526,9 @@ class WorkspaceContext(InstanceContext):
         :param str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
         :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
+        :param "WorkspaceInstance.QueueOrder" prioritize_queue_order:
 
         :returns: The updated WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         data = values.of(
             {
@@ -615,12 +551,9 @@ class WorkspaceContext(InstanceContext):
         return WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
-    def activities(self):
+    def activities(self) -> ActivityList:
         """
         Access the activities
-
-        :returns: twilio.rest.taskrouter.v1.workspace.ActivityList
-        :rtype: twilio.rest.taskrouter.v1.workspace.ActivityList
         """
         if self._activities is None:
             self._activities = ActivityList(
@@ -630,12 +563,9 @@ class WorkspaceContext(InstanceContext):
         return self._activities
 
     @property
-    def events(self):
+    def events(self) -> EventList:
         """
         Access the events
-
-        :returns: twilio.rest.taskrouter.v1.workspace.EventList
-        :rtype: twilio.rest.taskrouter.v1.workspace.EventList
         """
         if self._events is None:
             self._events = EventList(
@@ -645,12 +575,9 @@ class WorkspaceContext(InstanceContext):
         return self._events
 
     @property
-    def tasks(self):
+    def tasks(self) -> TaskList:
         """
         Access the tasks
-
-        :returns: twilio.rest.taskrouter.v1.workspace.TaskList
-        :rtype: twilio.rest.taskrouter.v1.workspace.TaskList
         """
         if self._tasks is None:
             self._tasks = TaskList(
@@ -660,12 +587,9 @@ class WorkspaceContext(InstanceContext):
         return self._tasks
 
     @property
-    def task_channels(self):
+    def task_channels(self) -> TaskChannelList:
         """
         Access the task_channels
-
-        :returns: twilio.rest.taskrouter.v1.workspace.TaskChannelList
-        :rtype: twilio.rest.taskrouter.v1.workspace.TaskChannelList
         """
         if self._task_channels is None:
             self._task_channels = TaskChannelList(
@@ -675,12 +599,9 @@ class WorkspaceContext(InstanceContext):
         return self._task_channels
 
     @property
-    def task_queues(self):
+    def task_queues(self) -> TaskQueueList:
         """
         Access the task_queues
-
-        :returns: twilio.rest.taskrouter.v1.workspace.TaskQueueList
-        :rtype: twilio.rest.taskrouter.v1.workspace.TaskQueueList
         """
         if self._task_queues is None:
             self._task_queues = TaskQueueList(
@@ -690,12 +611,9 @@ class WorkspaceContext(InstanceContext):
         return self._task_queues
 
     @property
-    def workers(self):
+    def workers(self) -> WorkerList:
         """
         Access the workers
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkerList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkerList
         """
         if self._workers is None:
             self._workers = WorkerList(
@@ -705,12 +623,9 @@ class WorkspaceContext(InstanceContext):
         return self._workers
 
     @property
-    def workflows(self):
+    def workflows(self) -> WorkflowList:
         """
         Access the workflows
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkflowList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkflowList
         """
         if self._workflows is None:
             self._workflows = WorkflowList(
@@ -720,12 +635,9 @@ class WorkspaceContext(InstanceContext):
         return self._workflows
 
     @property
-    def cumulative_statistics(self):
+    def cumulative_statistics(self) -> WorkspaceCumulativeStatisticsList:
         """
         Access the cumulative_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceCumulativeStatisticsList
         """
         if self._cumulative_statistics is None:
             self._cumulative_statistics = WorkspaceCumulativeStatisticsList(
@@ -735,12 +647,9 @@ class WorkspaceContext(InstanceContext):
         return self._cumulative_statistics
 
     @property
-    def real_time_statistics(self):
+    def real_time_statistics(self) -> WorkspaceRealTimeStatisticsList:
         """
         Access the real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceRealTimeStatisticsList
         """
         if self._real_time_statistics is None:
             self._real_time_statistics = WorkspaceRealTimeStatisticsList(
@@ -750,12 +659,9 @@ class WorkspaceContext(InstanceContext):
         return self._real_time_statistics
 
     @property
-    def statistics(self):
+    def statistics(self) -> WorkspaceStatisticsList:
         """
         Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceStatisticsList
         """
         if self._statistics is None:
             self._statistics = WorkspaceStatisticsList(
@@ -764,26 +670,22 @@ class WorkspaceContext(InstanceContext):
             )
         return self._statistics
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkspaceContext {}>".format(context)
 
 
 class WorkspacePage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> WorkspaceInstance:
         """
         Build an instance of WorkspaceInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return WorkspaceInstance(self._version, payload)
 
@@ -801,10 +703,8 @@ class WorkspaceList(ListResource):
         """
         Initialize the WorkspaceList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceList
         """
         super().__init__(version)
 
@@ -818,7 +718,7 @@ class WorkspaceList(ListResource):
         multi_task_enabled=values.unset,
         template=values.unset,
         prioritize_queue_order=values.unset,
-    ):
+    ) -> WorkspaceInstance:
         """
         Create the WorkspaceInstance
 
@@ -827,10 +727,9 @@ class WorkspaceList(ListResource):
         :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
         :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param str template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
+        :param &quot;WorkspaceInstance.QueueOrder&quot; prioritize_queue_order:
 
         :returns: The created WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         data = values.of(
             {
@@ -859,7 +758,7 @@ class WorkspaceList(ListResource):
         multi_task_enabled=values.unset,
         template=values.unset,
         prioritize_queue_order=values.unset,
-    ):
+    ) -> WorkspaceInstance:
         """
         Asynchronously create the WorkspaceInstance
 
@@ -868,10 +767,9 @@ class WorkspaceList(ListResource):
         :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
         :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
         :param str template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
+        :param &quot;WorkspaceInstance.QueueOrder&quot; prioritize_queue_order:
 
         :returns: The created WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         data = values.of(
             {
@@ -892,7 +790,9 @@ class WorkspaceList(ListResource):
 
         return WorkspaceInstance(self._version, payload)
 
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
+    def stream(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[WorkspaceInstance]:
         """
         Streams WorkspaceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -908,7 +808,6 @@ class WorkspaceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
@@ -917,7 +816,7 @@ class WorkspaceList(ListResource):
 
     async def stream_async(
         self, friendly_name=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[WorkspaceInstance]:
         """
         Asynchronously streams WorkspaceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -933,7 +832,6 @@ class WorkspaceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -942,7 +840,9 @@ class WorkspaceList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, friendly_name=values.unset, limit=None, page_size=None):
+    def list(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[WorkspaceInstance]:
         """
         Lists WorkspaceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -957,7 +857,6 @@ class WorkspaceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
         """
         return list(
             self.stream(
@@ -967,7 +866,9 @@ class WorkspaceList(ListResource):
             )
         )
 
-    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[WorkspaceInstance]:
         """
         Asynchronously lists WorkspaceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -982,7 +883,6 @@ class WorkspaceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
         """
         return list(
             await self.stream_async(
@@ -998,7 +898,7 @@ class WorkspaceList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> WorkspacePage:
         """
         Retrieve a single page of WorkspaceInstance records from the API.
         Request is executed immediately
@@ -1009,7 +909,6 @@ class WorkspaceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
         """
         data = values.of(
             {
@@ -1029,7 +928,7 @@ class WorkspaceList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> WorkspacePage:
         """
         Asynchronously retrieve a single page of WorkspaceInstance records from the API.
         Request is executed immediately
@@ -1040,7 +939,6 @@ class WorkspaceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
         """
         data = values.of(
             {
@@ -1056,7 +954,7 @@ class WorkspaceList(ListResource):
         )
         return WorkspacePage(self._version, response)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> WorkspacePage:
         """
         Retrieve a specific page of WorkspaceInstance records from the API.
         Request is executed immediately
@@ -1064,12 +962,11 @@ class WorkspaceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return WorkspacePage(self._version, response)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> WorkspacePage:
         """
         Asynchronously retrieve a specific page of WorkspaceInstance records from the API.
         Request is executed immediately
@@ -1077,38 +974,30 @@ class WorkspaceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return WorkspacePage(self._version, response)
 
-    def get(self, sid):
+    def get(self, sid) -> WorkspaceContext:
         """
         Constructs a WorkspaceContext
 
         :param sid: The SID of the Workspace resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
         return WorkspaceContext(self._version, sid=sid)
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> WorkspaceContext:
         """
         Constructs a WorkspaceContext
 
         :param sid: The SID of the Workspace resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
         return WorkspaceContext(self._version, sid=sid)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.WorkspaceList>"

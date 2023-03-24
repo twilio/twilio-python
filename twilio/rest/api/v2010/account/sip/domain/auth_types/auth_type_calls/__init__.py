@@ -32,12 +32,10 @@ class AuthTypeCallsList(ListResource):
         """
         Initialize the AuthTypeCallsList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
         :param domain_sid: The SID of the SIP domain that contains the resource to fetch.
 
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthTypeCallsList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthTypeCallsList
         """
         super().__init__(version)
 
@@ -60,12 +58,9 @@ class AuthTypeCallsList(ListResource):
         ] = None
 
     @property
-    def credential_list_mappings(self):
+    def credential_list_mappings(self) -> AuthCallsCredentialListMappingList:
         """
         Access the credential_list_mappings
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthCallsCredentialListMappingList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthCallsCredentialListMappingList
         """
         if self._credential_list_mappings is None:
             self._credential_list_mappings = AuthCallsCredentialListMappingList(
@@ -76,12 +71,11 @@ class AuthTypeCallsList(ListResource):
         return self._credential_list_mappings
 
     @property
-    def ip_access_control_list_mappings(self):
+    def ip_access_control_list_mappings(
+        self,
+    ) -> AuthCallsIpAccessControlListMappingList:
         """
         Access the ip_access_control_list_mappings
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthCallsIpAccessControlListMappingList
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthCallsIpAccessControlListMappingList
         """
         if self._ip_access_control_list_mappings is None:
             self._ip_access_control_list_mappings = (
@@ -93,11 +87,10 @@ class AuthTypeCallsList(ListResource):
             )
         return self._ip_access_control_list_mappings
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.AuthTypeCallsList>"

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +26,6 @@ class DayInstance(InstanceResource):
     def __init__(self, version, payload, resource_type: str, day: Optional[str] = None):
         """
         Initialize the DayInstance
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
         """
         super().__init__(version)
 
@@ -48,13 +45,12 @@ class DayInstance(InstanceResource):
         self._context: Optional[DayContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "DayContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: DayContext for this DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
         """
         if self._context is None:
             self._context = DayContext(
@@ -65,79 +61,70 @@ class DayInstance(InstanceResource):
         return self._context
 
     @property
-    def redirect_to(self):
+    def redirect_to(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["redirect_to"]
 
     @property
-    def day(self):
+    def day(self) -> str:
         """
         :returns: The ISO 8601 format date of the resources in the file, for a UTC day
-        :rtype: str
         """
         return self._properties["day"]
 
     @property
-    def size(self):
+    def size(self) -> int:
         """
         :returns: The size of the day's data file in bytes
-        :rtype: int
         """
         return self._properties["size"]
 
     @property
-    def create_date(self):
+    def create_date(self) -> str:
         """
         :returns: The ISO 8601 format date when resources is created
-        :rtype: str
         """
         return self._properties["create_date"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The friendly name specified when creating the job
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def resource_type(self):
+    def resource_type(self) -> str:
         """
         :returns: The type of communication – Messages, Calls, Conferences, and Participants
-        :rtype: str
         """
         return self._properties["resource_type"]
 
-    def fetch(self):
+    def fetch(self) -> "DayInstance":
         """
         Fetch the DayInstance
 
 
         :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "DayInstance":
         """
         Asynchronous coroutine to fetch the DayInstance
 
 
         :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Bulkexports.V1.DayInstance {}>".format(context)
@@ -148,12 +135,9 @@ class DayContext(InstanceContext):
         """
         Initialize the DayContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
         :param day: The ISO 8601 format date of the resources in the file, for a UTC day
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayContext
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
         """
         super().__init__(version)
 
@@ -164,13 +148,12 @@ class DayContext(InstanceContext):
         }
         self._uri = "/Exports/{resource_type}/Days/{day}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> DayInstance:
         """
         Fetch the DayInstance
 
 
         :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
         """
 
         payload = self._version.fetch(
@@ -185,13 +168,12 @@ class DayContext(InstanceContext):
             day=self._solution["day"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> DayInstance:
         """
         Asynchronous coroutine to fetch the DayInstance
 
 
         :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
         """
 
         payload = await self._version.fetch_async(
@@ -206,26 +188,22 @@ class DayContext(InstanceContext):
             day=self._solution["day"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Bulkexports.V1.DayContext {}>".format(context)
 
 
 class DayPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> DayInstance:
         """
         Build an instance of DayInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
         """
         return DayInstance(
             self._version, payload, resource_type=self._solution["resource_type"]
@@ -245,11 +223,9 @@ class DayList(ListResource):
         """
         Initialize the DayList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
 
-        :returns: twilio.rest.bulkexports.v1.export.day.DayList
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayList
         """
         super().__init__(version)
 
@@ -259,7 +235,7 @@ class DayList(ListResource):
         }
         self._uri = "/Exports/{resource_type}/Days".format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None) -> List[DayInstance]:
         """
         Streams DayInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -274,14 +250,13 @@ class DayList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.bulkexports.v1.export.day.DayInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None):
+    async def stream_async(self, limit=None, page_size=None) -> List[DayInstance]:
         """
         Asynchronously streams DayInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -296,14 +271,13 @@ class DayList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.bulkexports.v1.export.day.DayInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None) -> List[DayInstance]:
         """
         Lists DayInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -317,7 +291,6 @@ class DayList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.bulkexports.v1.export.day.DayInstance]
         """
         return list(
             self.stream(
@@ -326,7 +299,7 @@ class DayList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None):
+    async def list_async(self, limit=None, page_size=None) -> List[DayInstance]:
         """
         Asynchronously lists DayInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -340,7 +313,6 @@ class DayList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.bulkexports.v1.export.day.DayInstance]
         """
         return list(
             await self.stream_async(
@@ -351,7 +323,7 @@ class DayList(ListResource):
 
     def page(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DayPage:
         """
         Retrieve a single page of DayInstance records from the API.
         Request is executed immediately
@@ -361,7 +333,6 @@ class DayList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayPage
         """
         data = values.of(
             {
@@ -376,7 +347,7 @@ class DayList(ListResource):
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
+    ) -> DayPage:
         """
         Asynchronously retrieve a single page of DayInstance records from the API.
         Request is executed immediately
@@ -386,7 +357,6 @@ class DayList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayPage
         """
         data = values.of(
             {
@@ -401,7 +371,7 @@ class DayList(ListResource):
         )
         return DayPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> DayPage:
         """
         Retrieve a specific page of DayInstance records from the API.
         Request is executed immediately
@@ -409,12 +379,11 @@ class DayList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DayPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> DayPage:
         """
         Asynchronously retrieve a specific page of DayInstance records from the API.
         Request is executed immediately
@@ -422,42 +391,34 @@ class DayList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DayPage(self._version, response, self._solution)
 
-    def get(self, day):
+    def get(self, day) -> DayContext:
         """
         Constructs a DayContext
 
         :param day: The ISO 8601 format date of the resources in the file, for a UTC day
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayContext
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
         """
         return DayContext(
             self._version, resource_type=self._solution["resource_type"], day=day
         )
 
-    def __call__(self, day):
+    def __call__(self, day) -> DayContext:
         """
         Constructs a DayContext
 
         :param day: The ISO 8601 format date of the resources in the file, for a UTC day
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayContext
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
         """
         return DayContext(
             self._version, resource_type=self._solution["resource_type"], day=day
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Bulkexports.V1.DayList>"

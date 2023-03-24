@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,9 +39,6 @@ class UserBindingInstance(InstanceResource):
     ):
         """
         Initialize the UserBindingInstance
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
         super().__init__(version)
 
@@ -67,13 +65,12 @@ class UserBindingInstance(InstanceResource):
         self._context: Optional[UserBindingContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "UserBindingContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: UserBindingContext for this UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
         """
         if self._context is None:
             self._context = UserBindingContext(
@@ -85,147 +82,130 @@ class UserBindingInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def service_sid(self):
+    def service_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["service_sid"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def endpoint(self):
+    def endpoint(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["endpoint"]
 
     @property
-    def identity(self):
+    def identity(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["identity"]
 
     @property
-    def user_sid(self):
+    def user_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["user_sid"]
 
     @property
-    def credential_sid(self):
+    def credential_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["credential_sid"]
 
     @property
-    def binding_type(self):
+    def binding_type(self) -> "UserBindingInstance.BindingType":
         """
         :returns:
-        :rtype: UserBindingInstance.BindingType
         """
         return self._properties["binding_type"]
 
     @property
-    def message_types(self):
+    def message_types(self) -> List[str]:
         """
         :returns:
-        :rtype: List[str]
         """
         return self._properties["message_types"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the UserBindingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserBindingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "UserBindingInstance":
         """
         Fetch the UserBindingInstance
 
 
         :returns: The fetched UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "UserBindingInstance":
         """
         Asynchronous coroutine to fetch the UserBindingInstance
 
 
         :returns: The fetched UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
         return await self._proxy.fetch_async()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.IpMessaging.V2.UserBindingInstance {}>".format(context)
@@ -236,13 +216,10 @@ class UserBindingContext(InstanceContext):
         """
         Initialize the UserBindingContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid:
         :param user_sid:
         :param sid:
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
         """
         super().__init__(version)
 
@@ -256,39 +233,36 @@ class UserBindingContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the UserBindingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserBindingInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> UserBindingInstance:
         """
         Fetch the UserBindingInstance
 
 
         :returns: The fetched UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
 
         payload = self._version.fetch(
@@ -304,13 +278,12 @@ class UserBindingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> UserBindingInstance:
         """
         Asynchronous coroutine to fetch the UserBindingInstance
 
 
         :returns: The fetched UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
 
         payload = await self._version.fetch_async(
@@ -326,26 +299,22 @@ class UserBindingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.IpMessaging.V2.UserBindingContext {}>".format(context)
 
 
 class UserBindingPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> UserBindingInstance:
         """
         Build an instance of UserBindingInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
         return UserBindingInstance(
             self._version,
@@ -368,12 +337,10 @@ class UserBindingList(ListResource):
         """
         Initialize the UserBindingList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param service_sid:
         :param user_sid:
 
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingList
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingList
         """
         super().__init__(version)
 
@@ -386,14 +353,16 @@ class UserBindingList(ListResource):
             **self._solution
         )
 
-    def stream(self, binding_type=values.unset, limit=None, page_size=None):
+    def stream(
+        self, binding_type=values.unset, limit=None, page_size=None
+    ) -> List[UserBindingInstance]:
         """
         Streams UserBindingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param List[UserBindingInstance.BindingType] binding_type:
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -402,21 +371,22 @@ class UserBindingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(binding_type=binding_type, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, binding_type=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self, binding_type=values.unset, limit=None, page_size=None
+    ) -> List[UserBindingInstance]:
         """
         Asynchronously streams UserBindingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param List[UserBindingInstance.BindingType] binding_type:
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -425,7 +395,6 @@ class UserBindingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -434,13 +403,15 @@ class UserBindingList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, binding_type=values.unset, limit=None, page_size=None):
+    def list(
+        self, binding_type=values.unset, limit=None, page_size=None
+    ) -> List[UserBindingInstance]:
         """
         Lists UserBindingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param List[UserBindingInstance.BindingType] binding_type:
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -449,7 +420,6 @@ class UserBindingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance]
         """
         return list(
             self.stream(
@@ -459,13 +429,15 @@ class UserBindingList(ListResource):
             )
         )
 
-    async def list_async(self, binding_type=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, binding_type=values.unset, limit=None, page_size=None
+    ) -> List[UserBindingInstance]:
         """
         Asynchronously lists UserBindingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param List[UserBindingInstance.BindingType] binding_type:
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -474,7 +446,6 @@ class UserBindingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance]
         """
         return list(
             await self.stream_async(
@@ -490,18 +461,17 @@ class UserBindingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> UserBindingPage:
         """
         Retrieve a single page of UserBindingInstance records from the API.
         Request is executed immediately
 
-        :param List[UserBindingInstance.BindingType] binding_type:
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         data = values.of(
             {
@@ -521,18 +491,17 @@ class UserBindingList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> UserBindingPage:
         """
         Asynchronously retrieve a single page of UserBindingInstance records from the API.
         Request is executed immediately
 
-        :param List[UserBindingInstance.BindingType] binding_type:
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         data = values.of(
             {
@@ -548,7 +517,7 @@ class UserBindingList(ListResource):
         )
         return UserBindingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> UserBindingPage:
         """
         Retrieve a specific page of UserBindingInstance records from the API.
         Request is executed immediately
@@ -556,12 +525,11 @@ class UserBindingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UserBindingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> UserBindingPage:
         """
         Asynchronously retrieve a specific page of UserBindingInstance records from the API.
         Request is executed immediately
@@ -569,19 +537,15 @@ class UserBindingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return UserBindingPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> UserBindingContext:
         """
         Constructs a UserBindingContext
 
         :param sid:
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
         """
         return UserBindingContext(
             self._version,
@@ -590,14 +554,11 @@ class UserBindingList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> UserBindingContext:
         """
         Constructs a UserBindingContext
 
         :param sid:
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
         """
         return UserBindingContext(
             self._version,
@@ -606,11 +567,10 @@ class UserBindingList(ListResource):
             sid=sid,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.IpMessaging.V2.UserBindingList>"

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -25,9 +26,6 @@ class SipDomainInstance(InstanceResource):
     def __init__(self, version, payload, sip_domain: Optional[str] = None):
         """
         Initialize the SipDomainInstance
-
-        :returns: twilio.rest.routes.v2.sip_domain.SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
         super().__init__(version)
 
@@ -48,13 +46,12 @@ class SipDomainInstance(InstanceResource):
         self._context: Optional[SipDomainContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "SipDomainContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: SipDomainContext for this SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
         """
         if self._context is None:
             self._context = SipDomainContext(
@@ -64,90 +61,82 @@ class SipDomainInstance(InstanceResource):
         return self._context
 
     @property
-    def sip_domain(self):
+    def sip_domain(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sip_domain"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["url"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def voice_region(self):
+    def voice_region(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["voice_region"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns:
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
-    def fetch(self):
+    def fetch(self) -> "SipDomainInstance":
         """
         Fetch the SipDomainInstance
 
 
         :returns: The fetched SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "SipDomainInstance":
         """
         Asynchronous coroutine to fetch the SipDomainInstance
 
 
         :returns: The fetched SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
         return await self._proxy.fetch_async()
 
-    def update(self, voice_region=values.unset, friendly_name=values.unset):
+    def update(
+        self, voice_region=values.unset, friendly_name=values.unset
+    ) -> "SipDomainInstance":
         """
         Update the SipDomainInstance
 
@@ -155,14 +144,15 @@ class SipDomainInstance(InstanceResource):
         :param str friendly_name:
 
         :returns: The updated SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
         return self._proxy.update(
             voice_region=voice_region,
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, voice_region=values.unset, friendly_name=values.unset):
+    async def update_async(
+        self, voice_region=values.unset, friendly_name=values.unset
+    ) -> "SipDomainInstance":
         """
         Asynchronous coroutine to update the SipDomainInstance
 
@@ -170,19 +160,17 @@ class SipDomainInstance(InstanceResource):
         :param str friendly_name:
 
         :returns: The updated SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
         return await self._proxy.update_async(
             voice_region=voice_region,
             friendly_name=friendly_name,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Routes.V2.SipDomainInstance {}>".format(context)
@@ -193,11 +181,8 @@ class SipDomainContext(InstanceContext):
         """
         Initialize the SipDomainContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param sip_domain:
-
-        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
         """
         super().__init__(version)
 
@@ -207,13 +192,12 @@ class SipDomainContext(InstanceContext):
         }
         self._uri = "/SipDomains/{sip_domain}".format(**self._solution)
 
-    def fetch(self):
+    def fetch(self) -> SipDomainInstance:
         """
         Fetch the SipDomainInstance
 
 
         :returns: The fetched SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
 
         payload = self._version.fetch(
@@ -227,13 +211,12 @@ class SipDomainContext(InstanceContext):
             sip_domain=self._solution["sip_domain"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> SipDomainInstance:
         """
         Asynchronous coroutine to fetch the SipDomainInstance
 
 
         :returns: The fetched SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
 
         payload = await self._version.fetch_async(
@@ -247,7 +230,9 @@ class SipDomainContext(InstanceContext):
             sip_domain=self._solution["sip_domain"],
         )
 
-    def update(self, voice_region=values.unset, friendly_name=values.unset):
+    def update(
+        self, voice_region=values.unset, friendly_name=values.unset
+    ) -> SipDomainInstance:
         """
         Update the SipDomainInstance
 
@@ -255,7 +240,6 @@ class SipDomainContext(InstanceContext):
         :param str friendly_name:
 
         :returns: The updated SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
         data = values.of(
             {
@@ -274,7 +258,9 @@ class SipDomainContext(InstanceContext):
             self._version, payload, sip_domain=self._solution["sip_domain"]
         )
 
-    async def update_async(self, voice_region=values.unset, friendly_name=values.unset):
+    async def update_async(
+        self, voice_region=values.unset, friendly_name=values.unset
+    ) -> SipDomainInstance:
         """
         Asynchronous coroutine to update the SipDomainInstance
 
@@ -282,7 +268,6 @@ class SipDomainContext(InstanceContext):
         :param str friendly_name:
 
         :returns: The updated SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
         data = values.of(
             {
@@ -301,12 +286,11 @@ class SipDomainContext(InstanceContext):
             self._version, payload, sip_domain=self._solution["sip_domain"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Routes.V2.SipDomainContext {}>".format(context)
@@ -317,40 +301,31 @@ class SipDomainList(ListResource):
         """
         Initialize the SipDomainList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.routes.v2.sip_domain.SipDomainList
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainList
         """
         super().__init__(version)
 
-    def get(self, sip_domain):
+    def get(self, sip_domain) -> SipDomainContext:
         """
         Constructs a SipDomainContext
 
         :param sip_domain:
-
-        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
         """
         return SipDomainContext(self._version, sip_domain=sip_domain)
 
-    def __call__(self, sip_domain):
+    def __call__(self, sip_domain) -> SipDomainContext:
         """
         Constructs a SipDomainContext
 
         :param sip_domain:
-
-        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
         """
         return SipDomainContext(self._version, sip_domain=sip_domain)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Routes.V2.SipDomainList>"

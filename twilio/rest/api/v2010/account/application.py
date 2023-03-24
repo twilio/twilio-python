@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,9 +27,6 @@ class ApplicationInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the ApplicationInstance
-
-        :returns: twilio.rest.api.v2010.account.application.ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         super().__init__(version)
 
@@ -65,13 +63,12 @@ class ApplicationInstance(InstanceResource):
         self._context: Optional[ApplicationContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "ApplicationContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: ApplicationContext for this ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         if self._context is None:
             self._context = ApplicationContext(
@@ -82,210 +79,185 @@ class ApplicationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def account_sid(self) -> str:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource.
-        :rtype: str
         """
         return self._properties["account_sid"]
 
     @property
-    def api_version(self):
+    def api_version(self) -> str:
         """
         :returns: The API version used to start a new TwiML session.
-        :rtype: str
         """
         return self._properties["api_version"]
 
     @property
-    def date_created(self):
+    def date_created(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_created"]
 
     @property
-    def date_updated(self):
+    def date_updated(self) -> datetime:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
         """
         return self._properties["date_updated"]
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         """
         :returns: The string that you assigned to describe the resource.
-        :rtype: str
         """
         return self._properties["friendly_name"]
 
     @property
-    def message_status_callback(self):
+    def message_status_callback(self) -> str:
         """
         :returns: The URL we call using a POST method to send message status information to your application.
-        :rtype: str
         """
         return self._properties["message_status_callback"]
 
     @property
-    def sid(self):
+    def sid(self) -> str:
         """
         :returns: The unique string that that we created to identify the Application resource.
-        :rtype: str
         """
         return self._properties["sid"]
 
     @property
-    def sms_fallback_method(self):
+    def sms_fallback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["sms_fallback_method"]
 
     @property
-    def sms_fallback_url(self):
+    def sms_fallback_url(self) -> str:
         """
         :returns: The URL that we call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :rtype: str
         """
         return self._properties["sms_fallback_url"]
 
     @property
-    def sms_method(self):
+    def sms_method(self) -> str:
         """
         :returns: The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["sms_method"]
 
     @property
-    def sms_status_callback(self):
+    def sms_status_callback(self) -> str:
         """
         :returns: The URL we call using a POST method to send status information to your application about SMS messages that refer to the application.
-        :rtype: str
         """
         return self._properties["sms_status_callback"]
 
     @property
-    def sms_url(self):
+    def sms_url(self) -> str:
         """
         :returns: The URL we call when the phone number receives an incoming SMS message.
-        :rtype: str
         """
         return self._properties["sms_url"]
 
     @property
-    def status_callback(self):
+    def status_callback(self) -> str:
         """
         :returns: The URL we call using the `status_callback_method` to send status information to your application.
-        :rtype: str
         """
         return self._properties["status_callback"]
 
     @property
-    def status_callback_method(self):
+    def status_callback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["status_callback_method"]
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
         """
         return self._properties["uri"]
 
     @property
-    def voice_caller_id_lookup(self):
+    def voice_caller_id_lookup(self) -> bool:
         """
         :returns: Whether we look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-        :rtype: bool
         """
         return self._properties["voice_caller_id_lookup"]
 
     @property
-    def voice_fallback_method(self):
+    def voice_fallback_method(self) -> str:
         """
         :returns: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["voice_fallback_method"]
 
     @property
-    def voice_fallback_url(self):
+    def voice_fallback_url(self) -> str:
         """
         :returns: The URL that we call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :rtype: str
         """
         return self._properties["voice_fallback_url"]
 
     @property
-    def voice_method(self):
+    def voice_method(self) -> str:
         """
         :returns: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
-        :rtype: str
         """
         return self._properties["voice_method"]
 
     @property
-    def voice_url(self):
+    def voice_url(self) -> str:
         """
         :returns: The URL we call when the phone number assigned to this application receives a call.
-        :rtype: str
         """
         return self._properties["voice_url"]
 
     @property
-    def public_application_connect_enabled(self):
+    def public_application_connect_enabled(self) -> bool:
         """
         :returns: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
-        :rtype: bool
         """
         return self._properties["public_application_connect_enabled"]
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ApplicationInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._proxy.delete()
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ApplicationInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._proxy.delete_async()
 
-    def fetch(self):
+    def fetch(self) -> "ApplicationInstance":
         """
         Fetch the ApplicationInstance
 
 
         :returns: The fetched ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> "ApplicationInstance":
         """
         Asynchronous coroutine to fetch the ApplicationInstance
 
 
         :returns: The fetched ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return await self._proxy.fetch_async()
 
@@ -307,7 +279,7 @@ class ApplicationInstance(InstanceResource):
         sms_status_callback=values.unset,
         message_status_callback=values.unset,
         public_application_connect_enabled=values.unset,
-    ):
+    ) -> "ApplicationInstance":
         """
         Update the ApplicationInstance
 
@@ -329,7 +301,6 @@ class ApplicationInstance(InstanceResource):
         :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The updated ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -368,7 +339,7 @@ class ApplicationInstance(InstanceResource):
         sms_status_callback=values.unset,
         message_status_callback=values.unset,
         public_application_connect_enabled=values.unset,
-    ):
+    ) -> "ApplicationInstance":
         """
         Asynchronous coroutine to update the ApplicationInstance
 
@@ -390,7 +361,6 @@ class ApplicationInstance(InstanceResource):
         :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The updated ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return await self._proxy.update_async(
             friendly_name=friendly_name,
@@ -411,12 +381,11 @@ class ApplicationInstance(InstanceResource):
             public_application_connect_enabled=public_application_connect_enabled,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.ApplicationInstance {}>".format(context)
@@ -427,12 +396,9 @@ class ApplicationContext(InstanceContext):
         """
         Initialize the ApplicationContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to update.
         :param sid: The Twilio-provided string that uniquely identifies the Application resource to update.
-
-        :returns: twilio.rest.api.v2010.account.application.ApplicationContext
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         super().__init__(version)
 
@@ -445,39 +411,36 @@ class ApplicationContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self):
+    def delete(self) -> bool:
         """
         Deletes the ApplicationInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return self._version.delete(
             method="DELETE",
             uri=self._uri,
         )
 
-    async def delete_async(self):
+    async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ApplicationInstance
 
 
         :returns: True if delete succeeds, False otherwise
-        :rtype: bool
         """
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
         )
 
-    def fetch(self):
+    def fetch(self) -> ApplicationInstance:
         """
         Fetch the ApplicationInstance
 
 
         :returns: The fetched ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
 
         payload = self._version.fetch(
@@ -492,13 +455,12 @@ class ApplicationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self):
+    async def fetch_async(self) -> ApplicationInstance:
         """
         Asynchronous coroutine to fetch the ApplicationInstance
 
 
         :returns: The fetched ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
 
         payload = await self._version.fetch_async(
@@ -531,7 +493,7 @@ class ApplicationContext(InstanceContext):
         sms_status_callback=values.unset,
         message_status_callback=values.unset,
         public_application_connect_enabled=values.unset,
-    ):
+    ) -> ApplicationInstance:
         """
         Update the ApplicationInstance
 
@@ -553,7 +515,6 @@ class ApplicationContext(InstanceContext):
         :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The updated ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of(
             {
@@ -607,7 +568,7 @@ class ApplicationContext(InstanceContext):
         sms_status_callback=values.unset,
         message_status_callback=values.unset,
         public_application_connect_enabled=values.unset,
-    ):
+    ) -> ApplicationInstance:
         """
         Asynchronous coroutine to update the ApplicationInstance
 
@@ -629,7 +590,6 @@ class ApplicationContext(InstanceContext):
         :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The updated ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of(
             {
@@ -665,26 +625,22 @@ class ApplicationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.ApplicationContext {}>".format(context)
 
 
 class ApplicationPage(Page):
-    def get_instance(self, payload):
+    def get_instance(self, payload) -> ApplicationInstance:
         """
         Build an instance of ApplicationInstance
 
         :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.application.ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return ApplicationInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -704,11 +660,9 @@ class ApplicationList(ListResource):
         """
         Initialize the ApplicationList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to read.
 
-        :returns: twilio.rest.api.v2010.account.application.ApplicationList
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationList
         """
         super().__init__(version)
 
@@ -736,7 +690,7 @@ class ApplicationList(ListResource):
         message_status_callback=values.unset,
         friendly_name=values.unset,
         public_application_connect_enabled=values.unset,
-    ):
+    ) -> ApplicationInstance:
         """
         Create the ApplicationInstance
 
@@ -758,7 +712,6 @@ class ApplicationList(ListResource):
         :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The created ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of(
             {
@@ -809,7 +762,7 @@ class ApplicationList(ListResource):
         message_status_callback=values.unset,
         friendly_name=values.unset,
         public_application_connect_enabled=values.unset,
-    ):
+    ) -> ApplicationInstance:
         """
         Asynchronously create the ApplicationInstance
 
@@ -831,7 +784,6 @@ class ApplicationList(ListResource):
         :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The created ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of(
             {
@@ -864,7 +816,9 @@ class ApplicationList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
+    def stream(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[ApplicationInstance]:
         """
         Streams ApplicationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -880,7 +834,6 @@ class ApplicationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.application.ApplicationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
@@ -889,7 +842,7 @@ class ApplicationList(ListResource):
 
     async def stream_async(
         self, friendly_name=values.unset, limit=None, page_size=None
-    ):
+    ) -> List[ApplicationInstance]:
         """
         Asynchronously streams ApplicationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -905,7 +858,6 @@ class ApplicationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.application.ApplicationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
@@ -914,7 +866,9 @@ class ApplicationList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, friendly_name=values.unset, limit=None, page_size=None):
+    def list(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[ApplicationInstance]:
         """
         Lists ApplicationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -929,7 +883,6 @@ class ApplicationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.application.ApplicationInstance]
         """
         return list(
             self.stream(
@@ -939,7 +892,9 @@ class ApplicationList(ListResource):
             )
         )
 
-    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ) -> List[ApplicationInstance]:
         """
         Asynchronously lists ApplicationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -954,7 +909,6 @@ class ApplicationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.application.ApplicationInstance]
         """
         return list(
             await self.stream_async(
@@ -970,7 +924,7 @@ class ApplicationList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ApplicationPage:
         """
         Retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
@@ -981,7 +935,6 @@ class ApplicationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
         data = values.of(
             {
@@ -1001,7 +954,7 @@ class ApplicationList(ListResource):
         page_token=values.unset,
         page_number=values.unset,
         page_size=values.unset,
-    ):
+    ) -> ApplicationPage:
         """
         Asynchronously retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
@@ -1012,7 +965,6 @@ class ApplicationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
         data = values.of(
             {
@@ -1028,7 +980,7 @@ class ApplicationList(ListResource):
         )
         return ApplicationPage(self._version, response, self._solution)
 
-    def get_page(self, target_url):
+    def get_page(self, target_url) -> ApplicationPage:
         """
         Retrieve a specific page of ApplicationInstance records from the API.
         Request is executed immediately
@@ -1036,12 +988,11 @@ class ApplicationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ApplicationPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url):
+    async def get_page_async(self, target_url) -> ApplicationPage:
         """
         Asynchronously retrieve a specific page of ApplicationInstance records from the API.
         Request is executed immediately
@@ -1049,42 +1000,34 @@ class ApplicationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ApplicationPage(self._version, response, self._solution)
 
-    def get(self, sid):
+    def get(self, sid) -> ApplicationContext:
         """
         Constructs a ApplicationContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Application resource to update.
-
-        :returns: twilio.rest.api.v2010.account.application.ApplicationContext
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         return ApplicationContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid):
+    def __call__(self, sid) -> ApplicationContext:
         """
         Constructs a ApplicationContext
 
         :param sid: The Twilio-provided string that uniquely identifies the Application resource to update.
-
-        :returns: twilio.rest.api.v2010.account.application.ApplicationContext
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         return ApplicationContext(
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.ApplicationList>"

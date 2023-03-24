@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,9 +25,6 @@ class NumberInstance(InstanceResource):
     def __init__(self, version, payload, destination_number: Optional[str] = None):
         """
         Initialize the NumberInstance
-
-        :returns: twilio.rest.pricing.v2.number.NumberInstance
-        :rtype: twilio.rest.pricing.v2.number.NumberInstance
         """
         super().__init__(version)
 
@@ -49,13 +46,12 @@ class NumberInstance(InstanceResource):
         self._context: Optional[NumberContext] = None
 
     @property
-    def _proxy(self):
+    def _proxy(self) -> "NumberContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
         :returns: NumberContext for this NumberInstance
-        :rtype: twilio.rest.pricing.v2.number.NumberContext
         """
         if self._context is None:
             self._context = NumberContext(
@@ -65,101 +61,90 @@ class NumberInstance(InstanceResource):
         return self._context
 
     @property
-    def destination_number(self):
+    def destination_number(self) -> str:
         """
         :returns: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        :rtype: str
         """
         return self._properties["destination_number"]
 
     @property
-    def origination_number(self):
+    def origination_number(self) -> str:
         """
         :returns: The origination phone number in [[E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        :rtype: str
         """
         return self._properties["origination_number"]
 
     @property
-    def country(self):
+    def country(self) -> str:
         """
         :returns: The name of the country.
-        :rtype: str
         """
         return self._properties["country"]
 
     @property
-    def iso_country(self):
+    def iso_country(self) -> str:
         """
         :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-        :rtype: str
         """
         return self._properties["iso_country"]
 
     @property
-    def terminating_prefix_prices(self):
+    def terminating_prefix_prices(self) -> List[str]:
         """
         :returns:
-        :rtype: List[str]
         """
         return self._properties["terminating_prefix_prices"]
 
     @property
-    def originating_call_price(self):
+    def originating_call_price(self) -> str:
         """
         :returns:
-        :rtype: str
         """
         return self._properties["originating_call_price"]
 
     @property
-    def price_unit(self):
+    def price_unit(self) -> str:
         """
         :returns: The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        :rtype: str
         """
         return self._properties["price_unit"]
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         :returns: The absolute URL of the resource.
-        :rtype: str
         """
         return self._properties["url"]
 
-    def fetch(self, origination_number=values.unset):
+    def fetch(self, origination_number=values.unset) -> "NumberInstance":
         """
         Fetch the NumberInstance
 
         :param str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
-        :rtype: twilio.rest.pricing.v2.number.NumberInstance
         """
         return self._proxy.fetch(
             origination_number=origination_number,
         )
 
-    async def fetch_async(self, origination_number=values.unset):
+    async def fetch_async(self, origination_number=values.unset) -> "NumberInstance":
         """
         Asynchronous coroutine to fetch the NumberInstance
 
         :param str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
-        :rtype: twilio.rest.pricing.v2.number.NumberInstance
         """
         return await self._proxy.fetch_async(
             origination_number=origination_number,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Pricing.V2.NumberInstance {}>".format(context)
@@ -170,11 +155,8 @@ class NumberContext(InstanceContext):
         """
         Initialize the NumberContext
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
         :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
-
-        :returns: twilio.rest.pricing.v2.number.NumberContext
-        :rtype: twilio.rest.pricing.v2.number.NumberContext
         """
         super().__init__(version)
 
@@ -184,14 +166,13 @@ class NumberContext(InstanceContext):
         }
         self._uri = "/Trunking/Numbers/{destination_number}".format(**self._solution)
 
-    def fetch(self, origination_number=values.unset):
+    def fetch(self, origination_number=values.unset) -> NumberInstance:
         """
         Fetch the NumberInstance
 
         :param str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
-        :rtype: twilio.rest.pricing.v2.number.NumberInstance
         """
 
         data = values.of(
@@ -208,14 +189,13 @@ class NumberContext(InstanceContext):
             destination_number=self._solution["destination_number"],
         )
 
-    async def fetch_async(self, origination_number=values.unset):
+    async def fetch_async(self, origination_number=values.unset) -> NumberInstance:
         """
         Asynchronous coroutine to fetch the NumberInstance
 
         :param str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
-        :rtype: twilio.rest.pricing.v2.number.NumberInstance
         """
 
         data = values.of(
@@ -234,12 +214,11 @@ class NumberContext(InstanceContext):
             destination_number=self._solution["destination_number"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Pricing.V2.NumberContext {}>".format(context)
@@ -250,40 +229,31 @@ class NumberList(ListResource):
         """
         Initialize the NumberList
 
-        :param Version version: Version that contains the resource
+        :param version: Version that contains the resource
 
-        :returns: twilio.rest.pricing.v2.number.NumberList
-        :rtype: twilio.rest.pricing.v2.number.NumberList
         """
         super().__init__(version)
 
-    def get(self, destination_number):
+    def get(self, destination_number) -> NumberContext:
         """
         Constructs a NumberContext
 
         :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
-
-        :returns: twilio.rest.pricing.v2.number.NumberContext
-        :rtype: twilio.rest.pricing.v2.number.NumberContext
         """
         return NumberContext(self._version, destination_number=destination_number)
 
-    def __call__(self, destination_number):
+    def __call__(self, destination_number) -> NumberContext:
         """
         Constructs a NumberContext
 
         :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
-
-        :returns: twilio.rest.pricing.v2.number.NumberContext
-        :rtype: twilio.rest.pricing.v2.number.NumberContext
         """
         return NumberContext(self._version, destination_number=destination_number)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Pricing.V2.NumberList>"
