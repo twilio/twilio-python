@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -168,14 +168,14 @@ class ServiceInstance(InstanceResource):
         return self._properties["consumption_report_interval"]
 
     @property
-    def limits(self) -> dict:
+    def limits(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["limits"]
 
     @property
-    def webhooks(self) -> dict:
+    def webhooks(self) -> Dict[str, object]:
         """
         :returns:
         """
@@ -210,7 +210,7 @@ class ServiceInstance(InstanceResource):
         return self._properties["webhook_filters"]
 
     @property
-    def notifications(self) -> dict:
+    def notifications(self) -> Dict[str, object]:
         """
         :returns:
         """
@@ -224,7 +224,7 @@ class ServiceInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns:
         """

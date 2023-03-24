@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -249,7 +249,7 @@ class ConferenceInstance(InstanceResource):
         return self._properties["recording_enabled"]
 
     @property
-    def detected_issues(self) -> dict:
+    def detected_issues(self) -> Dict[str, object]:
         """
         :returns: Potential issues detected by Twilio during the conference.
         """
@@ -263,7 +263,7 @@ class ConferenceInstance(InstanceResource):
         return self._properties["tags"]
 
     @property
-    def tag_info(self) -> dict:
+    def tag_info(self) -> Dict[str, object]:
         """
         :returns: Object. Contains details about conference tags including severity.
         """
@@ -284,7 +284,7 @@ class ConferenceInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: Contains a dictionary of URL links to nested resources of this Conference.
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -191,21 +191,21 @@ class ChallengeInstance(InstanceResource):
         return self._properties["responded_reason"]
 
     @property
-    def details(self) -> dict:
+    def details(self) -> Dict[str, object]:
         """
         :returns: Details provided to give context about the Challenge. Intended to be shown to the end user.
         """
         return self._properties["details"]
 
     @property
-    def hidden_details(self) -> dict:
+    def hidden_details(self) -> Dict[str, object]:
         """
         :returns: Details provided to give context about the Challenge. Intended to be hidden from the end user. It must be a stringified JSON with only strings values eg. `{\"ip\": \"172.168.1.234\"}`
         """
         return self._properties["hidden_details"]
 
     @property
-    def metadata(self) -> dict:
+    def metadata(self) -> Dict[str, object]:
         """
         :returns: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length.
         """
@@ -226,7 +226,7 @@ class ChallengeInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: Contains a dictionary of URL links to nested resources of this Challenge.
         """

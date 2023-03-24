@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Dict, List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -104,7 +104,7 @@ class UserChannelInstance(InstanceResource):
         return self._properties["unread_messages_count"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns:
         """

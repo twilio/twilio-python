@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -187,7 +187,7 @@ class MessageInstance(InstanceResource):
         return self._properties["type"]
 
     @property
-    def media(self) -> dict:
+    def media(self) -> Dict[str, object]:
         """
         :returns:
         """

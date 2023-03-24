@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -79,7 +79,7 @@ class DialogueInstance(InstanceResource):
         return self._properties["sid"]
 
     @property
-    def data(self) -> dict:
+    def data(self) -> Dict[str, object]:
         """
         :returns: The JSON string that describes the dialogue session object.
         """

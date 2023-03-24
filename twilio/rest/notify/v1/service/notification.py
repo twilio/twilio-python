@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List
+from typing import Dict, List
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -152,49 +152,49 @@ class NotificationInstance(InstanceResource):
         return self._properties["action"]
 
     @property
-    def data(self) -> dict:
+    def data(self) -> Dict[str, object]:
         """
         :returns: The custom key-value pairs of the notification's payload. For FCM and GCM, this value translates to `data` in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of `data` are inserted into the APNS payload as custom properties outside of the `aps` dictionary. In all channels, we reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
         """
         return self._properties["data"]
 
     @property
-    def apn(self) -> dict:
+    def apn(self) -> Dict[str, object]:
         """
         :returns: The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS `Payload` item, therefore the `aps` key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed.
         """
         return self._properties["apn"]
 
     @property
-    def gcm(self) -> dict:
+    def gcm(self) -> Dict[str, object]:
         """
         :returns: The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed.
         """
         return self._properties["gcm"]
 
     @property
-    def fcm(self) -> dict:
+    def fcm(self) -> Dict[str, object]:
         """
         :returns: The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
         """
         return self._properties["fcm"]
 
     @property
-    def sms(self) -> dict:
+    def sms(self) -> Dict[str, object]:
         """
         :returns: The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/api/message-resource) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array.
         """
         return self._properties["sms"]
 
     @property
-    def facebook_messenger(self) -> dict:
+    def facebook_messenger(self) -> Dict[str, object]:
         """
         :returns: Deprecated.
         """
         return self._properties["facebook_messenger"]
 
     @property
-    def alexa(self) -> dict:
+    def alexa(self) -> Dict[str, object]:
         """
         :returns: Deprecated.
         """

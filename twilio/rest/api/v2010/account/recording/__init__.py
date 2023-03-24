@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -207,14 +207,14 @@ class RecordingInstance(InstanceResource):
         return self._properties["uri"]
 
     @property
-    def encryption_details(self) -> dict:
+    def encryption_details(self) -> Dict[str, object]:
         """
         :returns: How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
         """
         return self._properties["encryption_details"]
 
     @property
-    def subresource_uris(self) -> dict:
+    def subresource_uris(self) -> Dict[str, object]:
         """
         :returns: A list of related resources identified by their relative URIs.
         """

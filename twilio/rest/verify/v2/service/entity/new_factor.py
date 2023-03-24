@@ -14,6 +14,7 @@ r"""
 
 
 from datetime import datetime
+from typing import Dict
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -94,7 +95,7 @@ class NewFactorInstance(InstanceResource):
         return self._properties["identity"]
 
     @property
-    def binding(self) -> dict:
+    def binding(self) -> Dict[str, object]:
         """
         :returns: Contains the `factor_type` specific secret and metadata. For push, this is `binding.public_key` and `binding.alg`. For totp, this is `binding.secret` and `binding.uri`. The `binding.uri` property is generated following the [google authenticator key URI format](https://github.com/google/google-authenticator/wiki/Key-Uri-Format), and `Factor.friendly_name` is used for the “accountname” value and `Service.friendly_name` or `Service.totp.issuer` is used for the `issuer` value.   The Binding property is ONLY returned upon Factor creation.
         """
@@ -136,14 +137,14 @@ class NewFactorInstance(InstanceResource):
         return self._properties["factor_type"]
 
     @property
-    def config(self) -> dict:
+    def config(self) -> Dict[str, object]:
         """
         :returns: An object that contains configurations specific to a `factor_type`.
         """
         return self._properties["config"]
 
     @property
-    def metadata(self) -> dict:
+    def metadata(self) -> Dict[str, object]:
         """
         :returns: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length.
         """

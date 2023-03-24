@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -163,21 +163,21 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
         return self._properties["reservations_rescinded"]
 
     @property
-    def split_by_wait_time(self) -> dict:
+    def split_by_wait_time(self) -> Dict[str, object]:
         """
         :returns: A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds.
         """
         return self._properties["split_by_wait_time"]
 
     @property
-    def wait_duration_until_accepted(self) -> dict:
+    def wait_duration_until_accepted(self) -> Dict[str, object]:
         """
         :returns: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were accepted.
         """
         return self._properties["wait_duration_until_accepted"]
 
     @property
-    def wait_duration_until_canceled(self) -> dict:
+    def wait_duration_until_canceled(self) -> Dict[str, object]:
         """
         :returns: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were canceled.
         """

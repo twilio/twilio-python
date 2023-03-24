@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -104,7 +104,7 @@ class SinkInstance(InstanceResource):
         return self._properties["sid"]
 
     @property
-    def sink_configuration(self) -> dict:
+    def sink_configuration(self) -> Dict[str, object]:
         """
         :returns: The information required for Twilio to connect to the provided Sink encoded as JSON.
         """
@@ -132,7 +132,7 @@ class SinkInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: Contains a dictionary of URL links to nested resources of this Sink.
         """

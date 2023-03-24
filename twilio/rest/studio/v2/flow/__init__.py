@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -97,7 +97,7 @@ class FlowInstance(InstanceResource):
         return self._properties["friendly_name"]
 
     @property
-    def definition(self) -> dict:
+    def definition(self) -> Dict[str, object]:
         """
         :returns: JSON representation of flow definition.
         """
@@ -174,7 +174,7 @@ class FlowInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The URLs of the Flow's nested resources.
         """

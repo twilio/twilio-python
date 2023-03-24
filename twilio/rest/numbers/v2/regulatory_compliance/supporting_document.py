@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -122,7 +122,7 @@ class SupportingDocumentInstance(InstanceResource):
         return self._properties["type"]
 
     @property
-    def attributes(self) -> dict:
+    def attributes(self) -> Dict[str, object]:
         """
         :returns: The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types.
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -73,21 +73,21 @@ class NotificationInstance(InstanceResource):
         return self._properties["chat_service_sid"]
 
     @property
-    def new_message(self) -> dict:
+    def new_message(self) -> Dict[str, object]:
         """
         :returns: The Push Notification configuration for New Messages.
         """
         return self._properties["new_message"]
 
     @property
-    def added_to_conversation(self) -> dict:
+    def added_to_conversation(self) -> Dict[str, object]:
         """
         :returns: The Push Notification configuration for being added to a Conversation.
         """
         return self._properties["added_to_conversation"]
 
     @property
-    def removed_from_conversation(self) -> dict:
+    def removed_from_conversation(self) -> Dict[str, object]:
         """
         :returns: The Push Notification configuration for being removed from a Conversation.
         """

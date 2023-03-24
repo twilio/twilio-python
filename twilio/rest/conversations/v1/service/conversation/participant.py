@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -126,7 +126,7 @@ class ParticipantInstance(InstanceResource):
         return self._properties["attributes"]
 
     @property
-    def messaging_binding(self) -> dict:
+    def messaging_binding(self) -> Dict[str, object]:
         """
         :returns: Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
         """

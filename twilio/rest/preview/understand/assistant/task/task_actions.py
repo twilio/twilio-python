@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -87,7 +87,7 @@ class TaskActionsInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def data(self) -> dict:
+    def data(self) -> Dict[str, object]:
         """
         :returns:
         """

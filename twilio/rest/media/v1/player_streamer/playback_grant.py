@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -86,7 +86,7 @@ class PlaybackGrantInstance(InstanceResource):
         return self._properties["date_created"]
 
     @property
-    def grant(self) -> dict:
+    def grant(self) -> Dict[str, object]:
         """
         :returns: The grant that authorizes the player sdk to connect to the livestream
         """

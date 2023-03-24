@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -156,14 +156,14 @@ class FactorInstance(InstanceResource):
         return self._properties["factor_type"]
 
     @property
-    def config(self) -> dict:
+    def config(self) -> Dict[str, object]:
         """
         :returns: An object that contains configurations specific to a `factor_type`.
         """
         return self._properties["config"]
 
     @property
-    def metadata(self) -> dict:
+    def metadata(self) -> Dict[str, object]:
         """
         :returns: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\"os\": \"Android\"}`. Can be up to 1024 characters in length.
         """

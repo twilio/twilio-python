@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -151,7 +151,7 @@ class CompositionInstance(InstanceResource):
         return self._properties["audio_sources_excluded"]
 
     @property
-    def video_layout(self) -> dict:
+    def video_layout(self) -> Dict[str, object]:
         """
         :returns: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         """
@@ -228,7 +228,7 @@ class CompositionInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The URL of the media file associated with the composition.
         """

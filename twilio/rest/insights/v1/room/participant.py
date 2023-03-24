@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -198,7 +198,7 @@ class ParticipantInstance(InstanceResource):
         return self._properties["media_region"]
 
     @property
-    def properties(self) -> dict:
+    def properties(self) -> Dict[str, object]:
         """
         :returns: Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#properties) for more information.
         """
@@ -212,7 +212,7 @@ class ParticipantInstance(InstanceResource):
         return self._properties["edge_location"]
 
     @property
-    def publisher_info(self) -> dict:
+    def publisher_info(self) -> Dict[str, object]:
         """
         :returns: Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#publisher_info) for more information.
         """

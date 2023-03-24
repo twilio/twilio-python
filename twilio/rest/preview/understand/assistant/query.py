@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -90,7 +90,7 @@ class QueryInstance(InstanceResource):
         return self._properties["date_updated"]
 
     @property
-    def results(self) -> dict:
+    def results(self) -> Dict[str, object]:
         """
         :returns: The natural language analysis results which include the Task recognized, the confidence score and a list of identified Fields.
         """

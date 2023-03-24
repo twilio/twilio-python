@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List
+from typing import Dict, List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -119,7 +119,7 @@ class DataSessionInstance(InstanceResource):
         return self._properties["cell_id"]
 
     @property
-    def cell_location_estimate(self) -> dict:
+    def cell_location_estimate(self) -> Dict[str, object]:
         """
         :returns: An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/wireless/api/datasession-resource#cell-location-estimate-object).
         """

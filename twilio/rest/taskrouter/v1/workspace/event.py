@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -108,7 +108,7 @@ class EventInstance(InstanceResource):
         return self._properties["description"]
 
     @property
-    def event_data(self) -> dict:
+    def event_data(self) -> Dict[str, object]:
         """
         :returns: Data about the event. For more information, see [Event types](https://www.twilio.com/docs/taskrouter/api/event#event-types).
         """

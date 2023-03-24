@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -91,7 +91,7 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
         return self._properties["description"]
 
     @property
-    def category(self) -> dict:
+    def category(self) -> Dict[str, object]:
         """
         :returns: The Category for the question.
         """
@@ -119,7 +119,7 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
         return self._properties["usage"]
 
     @property
-    def answer_set(self) -> dict:
+    def answer_set(self) -> Dict[str, object]:
         """
         :returns: Set of answers for the question
         """

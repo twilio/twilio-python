@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -50,7 +50,7 @@ class OauthInstance(InstanceResource):
         return self._context
 
     @property
-    def keys(self) -> dict:
+    def keys(self) -> Dict[str, object]:
         """
         :returns: A collection of certificates where are signed Twilio-issued tokens.
         """

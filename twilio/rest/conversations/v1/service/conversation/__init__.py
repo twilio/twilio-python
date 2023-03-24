@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -156,7 +156,7 @@ class ConversationInstance(InstanceResource):
         return self._properties["date_updated"]
 
     @property
-    def timers(self) -> dict:
+    def timers(self) -> Dict[str, object]:
         """
         :returns: Timer date values representing state update for this conversation.
         """
@@ -170,14 +170,14 @@ class ConversationInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation.
         """
         return self._properties["links"]
 
     @property
-    def bindings(self) -> dict:
+    def bindings(self) -> Dict[str, object]:
         """
         :returns:
         """

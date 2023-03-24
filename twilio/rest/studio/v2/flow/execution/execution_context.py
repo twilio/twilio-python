@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -65,7 +65,7 @@ class ExecutionContextInstance(InstanceResource):
         return self._properties["account_sid"]
 
     @property
-    def context(self) -> dict:
+    def context(self) -> Dict[str, object]:
         """
         :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -82,35 +82,35 @@ class UsageInstance(InstanceResource):
         return self._properties["account_sid"]
 
     @property
-    def period(self) -> dict:
+    def period(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["period"]
 
     @property
-    def commands_usage(self) -> dict:
+    def commands_usage(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["commands_usage"]
 
     @property
-    def commands_costs(self) -> dict:
+    def commands_costs(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["commands_costs"]
 
     @property
-    def data_usage(self) -> dict:
+    def data_usage(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["data_usage"]
 
     @property
-    def data_costs(self) -> dict:
+    def data_costs(self) -> Dict[str, object]:
         """
         :returns:
         """

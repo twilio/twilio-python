@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List
+from typing import Dict, List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -98,7 +98,7 @@ class ParticipantConversationInstance(InstanceResource):
         return self._properties["participant_identity"]
 
     @property
-    def participant_messaging_binding(self) -> dict:
+    def participant_messaging_binding(self) -> Dict[str, object]:
         """
         :returns: Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
         """
@@ -161,14 +161,14 @@ class ParticipantConversationInstance(InstanceResource):
         return self._properties["conversation_state"]
 
     @property
-    def conversation_timers(self) -> dict:
+    def conversation_timers(self) -> Dict[str, object]:
         """
         :returns: Timer date values representing state update for this conversation.
         """
         return self._properties["conversation_timers"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: Contains absolute URLs to access the [participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) and [conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) of this conversation.
         """

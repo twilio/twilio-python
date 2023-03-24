@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -65,14 +65,14 @@ class FormInstance(InstanceResource):
         return self._properties["form_type"]
 
     @property
-    def forms(self) -> dict:
+    def forms(self) -> Dict[str, object]:
         """
         :returns: Object that contains the available forms for this type. This available forms are given in the standard [JSON Schema](https://json-schema.org/) format
         """
         return self._properties["forms"]
 
     @property
-    def form_meta(self) -> dict:
+    def form_meta(self) -> Dict[str, object]:
         """
         :returns: Additional information for the available forms for this type. E.g. The separator string used for `binding` in a Factor push.
         """

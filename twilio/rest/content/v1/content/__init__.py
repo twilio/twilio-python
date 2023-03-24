@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -107,14 +107,14 @@ class ContentInstance(InstanceResource):
         return self._properties["language"]
 
     @property
-    def variables(self) -> dict:
+    def variables(self) -> Dict[str, object]:
         """
         :returns: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
         """
         return self._properties["variables"]
 
     @property
-    def types(self) -> dict:
+    def types(self) -> Dict[str, object]:
         """
         :returns: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
         """
@@ -128,7 +128,7 @@ class ContentInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: A list of links related to the Content resource, such as approval_fetch and approval_create
         """

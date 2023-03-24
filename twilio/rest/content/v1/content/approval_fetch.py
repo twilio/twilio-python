@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -69,7 +69,7 @@ class ApprovalFetchInstance(InstanceResource):
         return self._properties["account_sid"]
 
     @property
-    def whatsapp(self) -> dict:
+    def whatsapp(self) -> Dict[str, object]:
         """
         :returns: Contains the whatsapp approval information for the Content resource, with fields such as approval status, rejection reason, and category, amongst others.
         """

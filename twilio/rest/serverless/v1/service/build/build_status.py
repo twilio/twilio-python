@@ -46,7 +46,7 @@ class BuildStatusInstance(InstanceResource):
         self._context: Optional[BuildStatusContext] = None
 
     @property
-    def _proxy(self) -> 'BuildStatusContext':
+    def _proxy(self) -> "BuildStatusContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -175,7 +175,7 @@ class ServiceInstance(InstanceResource):
         return self._properties["consumption_report_interval"]
 
     @property
-    def limits(self) -> dict:
+    def limits(self) -> Dict[str, object]:
         """
         :returns: An object that describes the limits of the service instance. The `limits` object contains  `channel_members` to describe the members/channel limit and `user_channels` to describe the channels/user limit. `channel_members` can be 1,000 or less, with a default of 250. `user_channels` can be 1,000 or less, with a default value of 100.
         """
@@ -224,14 +224,14 @@ class ServiceInstance(InstanceResource):
         return self._properties["post_webhook_retry_count"]
 
     @property
-    def notifications(self) -> dict:
+    def notifications(self) -> Dict[str, object]:
         """
         :returns: The notification configuration for the Service instance. See [Push Notification Configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
         """
         return self._properties["notifications"]
 
     @property
-    def media(self) -> dict:
+    def media(self) -> Dict[str, object]:
         """
         :returns: An object that describes the properties of media that the service supports. The object contains the `size_limit_mb` property, which describes the size of the largest media file in MB; and the `compatibility_message` property, which contains the message text to send when a media message does not have any text.
         """
@@ -245,7 +245,7 @@ class ServiceInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The absolute URLs of the Service's [Channels](https://www.twilio.com/docs/chat/channels), [Roles](https://www.twilio.com/docs/chat/rest/role-resource), [Bindings](https://www.twilio.com/docs/chat/rest/binding-resource), and [Users](https://www.twilio.com/docs/chat/rest/user-resource).
         """

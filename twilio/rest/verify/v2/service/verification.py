@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -126,7 +126,7 @@ class VerificationInstance(InstanceResource):
         return self._properties["valid"]
 
     @property
-    def lookup(self) -> dict:
+    def lookup(self) -> Dict[str, object]:
         """
         :returns: Information about the phone number being verified.
         """
@@ -168,7 +168,7 @@ class VerificationInstance(InstanceResource):
         return self._properties["date_updated"]
 
     @property
-    def sna(self) -> dict:
+    def sna(self) -> Dict[str, object]:
         """
         :returns: The set of fields used for a silent network auth (`sna`) verification. Contains a single field with the URL to be invoked to verify the phone number.
         """

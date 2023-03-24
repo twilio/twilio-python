@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -129,7 +129,7 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["date_updated"]
 
     @property
-    def attributes(self) -> dict:
+    def attributes(self) -> Dict[str, object]:
         """
         :returns: An object that contains application-specific data.
         """
@@ -178,14 +178,14 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["taskrouter_skills"]
 
     @property
-    def taskrouter_worker_channels(self) -> dict:
+    def taskrouter_worker_channels(self) -> Dict[str, object]:
         """
         :returns: The TaskRouter default channel capacities and availability for workers.
         """
         return self._properties["taskrouter_worker_channels"]
 
     @property
-    def taskrouter_worker_attributes(self) -> dict:
+    def taskrouter_worker_attributes(self) -> Dict[str, object]:
         """
         :returns: The TaskRouter Worker attributes.
         """
@@ -234,14 +234,14 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["ui_language"]
 
     @property
-    def ui_attributes(self) -> dict:
+    def ui_attributes(self) -> Dict[str, object]:
         """
         :returns: The object that describes Flex UI characteristics and settings.
         """
         return self._properties["ui_attributes"]
 
     @property
-    def ui_dependencies(self) -> dict:
+    def ui_dependencies(self) -> Dict[str, object]:
         """
         :returns: The object that defines the NPM packages and versions to be used in Hosted Flex.
         """
@@ -304,14 +304,14 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["crm_fallback_url"]
 
     @property
-    def crm_attributes(self) -> dict:
+    def crm_attributes(self) -> Dict[str, object]:
         """
         :returns: An object that contains the CRM attributes.
         """
         return self._properties["crm_attributes"]
 
     @property
-    def public_attributes(self) -> dict:
+    def public_attributes(self) -> Dict[str, object]:
         """
         :returns: The list of public attributes, which are visible to unauthenticated clients.
         """
@@ -325,7 +325,7 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["plugin_service_enabled"]
 
     @property
-    def plugin_service_attributes(self) -> dict:
+    def plugin_service_attributes(self) -> Dict[str, object]:
         """
         :returns: The plugin service attributes.
         """
@@ -339,7 +339,7 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["integrations"]
 
     @property
-    def outbound_call_flows(self) -> dict:
+    def outbound_call_flows(self) -> Dict[str, object]:
         """
         :returns: The list of outbound call flows.
         """
@@ -353,21 +353,21 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["serverless_service_sids"]
 
     @property
-    def queue_stats_configuration(self) -> dict:
+    def queue_stats_configuration(self) -> Dict[str, object]:
         """
         :returns: Configurable parameters for Queues Statistics.
         """
         return self._properties["queue_stats_configuration"]
 
     @property
-    def notifications(self) -> dict:
+    def notifications(self) -> Dict[str, object]:
         """
         :returns: Configurable parameters for Notifications.
         """
         return self._properties["notifications"]
 
     @property
-    def markdown(self) -> dict:
+    def markdown(self) -> Dict[str, object]:
         """
         :returns: Configurable parameters for Markdown.
         """
@@ -381,7 +381,7 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def flex_insights_hr(self) -> dict:
+    def flex_insights_hr(self) -> Dict[str, object]:
         """
         :returns: Object with enabled/disabled flag with list of workspaces.
         """
@@ -409,14 +409,14 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["channel_configs"]
 
     @property
-    def debugger_integration(self) -> dict:
+    def debugger_integration(self) -> Dict[str, object]:
         """
         :returns: Configurable parameters for Debugger Integration.
         """
         return self._properties["debugger_integration"]
 
     @property
-    def flex_ui_status_report(self) -> dict:
+    def flex_ui_status_report(self) -> Dict[str, object]:
         """
         :returns: Configurable parameters for Flex UI Status report.
         """
