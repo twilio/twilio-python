@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -42,84 +42,57 @@ class MetricInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "timestamp": payload.get("timestamp"),
-            "call_sid": payload.get("call_sid"),
-            "account_sid": payload.get("account_sid"),
-            "edge": payload.get("edge"),
-            "direction": payload.get("direction"),
-            "carrier_edge": payload.get("carrier_edge"),
-            "sip_edge": payload.get("sip_edge"),
-            "sdk_edge": payload.get("sdk_edge"),
-            "client_edge": payload.get("client_edge"),
-        }
+        self._timestamp: Optional[str] = payload.get("timestamp")
+        self._call_sid: Optional[str] = payload.get("call_sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._edge: Optional["MetricInstance.TwilioEdge"] = payload.get("edge")
+        self._direction: Optional["MetricInstance.StreamDirection"] = payload.get(
+            "direction"
+        )
+        self._carrier_edge: Optional[Dict[str, object]] = payload.get("carrier_edge")
+        self._sip_edge: Optional[Dict[str, object]] = payload.get("sip_edge")
+        self._sdk_edge: Optional[Dict[str, object]] = payload.get("sdk_edge")
+        self._client_edge: Optional[Dict[str, object]] = payload.get("client_edge")
 
         self._solution = {
             "call_sid": call_sid,
         }
 
     @property
-    def timestamp(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["timestamp"]
+    def timestamp(self) -> Optional[str]:
+        return self._timestamp
 
     @property
-    def call_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["call_sid"]
+    def call_sid(self) -> Optional[str]:
+        return self._call_sid
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def edge(self) -> "MetricInstance.TwilioEdge":
-        """
-        :returns:
-        """
-        return self._properties["edge"]
+    def edge(self) -> Optional["MetricInstance.TwilioEdge"]:
+        return self._edge
 
     @property
-    def direction(self) -> "MetricInstance.StreamDirection":
-        """
-        :returns:
-        """
-        return self._properties["direction"]
+    def direction(self) -> Optional["MetricInstance.StreamDirection"]:
+        return self._direction
 
     @property
-    def carrier_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["carrier_edge"]
+    def carrier_edge(self) -> Optional[Dict[str, object]]:
+        return self._carrier_edge
 
     @property
-    def sip_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["sip_edge"]
+    def sip_edge(self) -> Optional[Dict[str, object]]:
+        return self._sip_edge
 
     @property
-    def sdk_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["sdk_edge"]
+    def sdk_edge(self) -> Optional[Dict[str, object]]:
+        return self._sdk_edge
 
     @property
-    def client_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["client_edge"]
+    def client_edge(self) -> Optional[Dict[str, object]]:
+        return self._client_edge
 
     def __repr__(self) -> str:
         """

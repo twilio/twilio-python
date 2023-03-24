@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict
+from typing import Dict, Optional
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -27,34 +27,26 @@ class InsightsSettingsCommentInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "comments": payload.get("comments"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._comments: Optional[Dict[str, object]] = payload.get("comments")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def comments(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["comments"]
+    def comments(self) -> Optional[Dict[str, object]]:
+        return self._comments
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def __repr__(self) -> str:
         """

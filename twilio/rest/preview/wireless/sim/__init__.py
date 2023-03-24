@@ -31,33 +31,41 @@ class SimInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "account_sid": payload.get("account_sid"),
-            "rate_plan_sid": payload.get("rate_plan_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "iccid": payload.get("iccid"),
-            "e_id": payload.get("e_id"),
-            "status": payload.get("status"),
-            "commands_callback_url": payload.get("commands_callback_url"),
-            "commands_callback_method": payload.get("commands_callback_method"),
-            "sms_fallback_method": payload.get("sms_fallback_method"),
-            "sms_fallback_url": payload.get("sms_fallback_url"),
-            "sms_method": payload.get("sms_method"),
-            "sms_url": payload.get("sms_url"),
-            "voice_fallback_method": payload.get("voice_fallback_method"),
-            "voice_fallback_url": payload.get("voice_fallback_url"),
-            "voice_method": payload.get("voice_method"),
-            "voice_url": payload.get("voice_url"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._rate_plan_sid: Optional[str] = payload.get("rate_plan_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._iccid: Optional[str] = payload.get("iccid")
+        self._e_id: Optional[str] = payload.get("e_id")
+        self._status: Optional[str] = payload.get("status")
+        self._commands_callback_url: Optional[str] = payload.get(
+            "commands_callback_url"
+        )
+        self._commands_callback_method: Optional[str] = payload.get(
+            "commands_callback_method"
+        )
+        self._sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
+        self._sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
+        self._sms_method: Optional[str] = payload.get("sms_method")
+        self._sms_url: Optional[str] = payload.get("sms_url")
+        self._voice_fallback_method: Optional[str] = payload.get(
+            "voice_fallback_method"
+        )
+        self._voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
+        self._voice_method: Optional[str] = payload.get("voice_method")
+        self._voice_url: Optional[str] = payload.get("voice_url")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[SimContext] = None
 
@@ -77,158 +85,92 @@ class SimInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def unique_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["unique_name"]
+    def unique_name(self) -> Optional[str]:
+        return self._unique_name
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def rate_plan_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["rate_plan_sid"]
+    def rate_plan_sid(self) -> Optional[str]:
+        return self._rate_plan_sid
 
     @property
-    def friendly_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["friendly_name"]
+    def friendly_name(self) -> Optional[str]:
+        return self._friendly_name
 
     @property
-    def iccid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["iccid"]
+    def iccid(self) -> Optional[str]:
+        return self._iccid
 
     @property
-    def e_id(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["e_id"]
+    def e_id(self) -> Optional[str]:
+        return self._e_id
 
     @property
-    def status(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional[str]:
+        return self._status
 
     @property
-    def commands_callback_url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["commands_callback_url"]
+    def commands_callback_url(self) -> Optional[str]:
+        return self._commands_callback_url
 
     @property
-    def commands_callback_method(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["commands_callback_method"]
+    def commands_callback_method(self) -> Optional[str]:
+        return self._commands_callback_method
 
     @property
-    def sms_fallback_method(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sms_fallback_method"]
+    def sms_fallback_method(self) -> Optional[str]:
+        return self._sms_fallback_method
 
     @property
-    def sms_fallback_url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sms_fallback_url"]
+    def sms_fallback_url(self) -> Optional[str]:
+        return self._sms_fallback_url
 
     @property
-    def sms_method(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sms_method"]
+    def sms_method(self) -> Optional[str]:
+        return self._sms_method
 
     @property
-    def sms_url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sms_url"]
+    def sms_url(self) -> Optional[str]:
+        return self._sms_url
 
     @property
-    def voice_fallback_method(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["voice_fallback_method"]
+    def voice_fallback_method(self) -> Optional[str]:
+        return self._voice_fallback_method
 
     @property
-    def voice_fallback_url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["voice_fallback_url"]
+    def voice_fallback_url(self) -> Optional[str]:
+        return self._voice_fallback_url
 
     @property
-    def voice_method(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["voice_method"]
+    def voice_method(self) -> Optional[str]:
+        return self._voice_method
 
     @property
-    def voice_url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["voice_url"]
+    def voice_url(self) -> Optional[str]:
+        return self._voice_url
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def fetch(self) -> "SimInstance":
         """

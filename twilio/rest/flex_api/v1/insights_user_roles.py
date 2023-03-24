@@ -28,10 +28,8 @@ class InsightsUserRolesInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "roles": payload.get("roles"),
-            "url": payload.get("url"),
-        }
+        self._roles: Optional[List[str]] = payload.get("roles")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[InsightsUserRolesContext] = None
@@ -51,18 +49,15 @@ class InsightsUserRolesInstance(InstanceResource):
         return self._context
 
     @property
-    def roles(self) -> List[str]:
+    def roles(self) -> Optional[List[str]]:
         """
         :returns: Flex Insights roles for the user
         """
-        return self._properties["roles"]
+        return self._roles
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self, authorization=values.unset) -> "InsightsUserRolesInstance":
         """

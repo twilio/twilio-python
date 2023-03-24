@@ -33,26 +33,32 @@ class FleetInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "data_enabled": payload.get("data_enabled"),
-            "data_limit": deserialize.integer(payload.get("data_limit")),
-            "data_metering": payload.get("data_metering"),
-            "sms_commands_enabled": payload.get("sms_commands_enabled"),
-            "sms_commands_url": payload.get("sms_commands_url"),
-            "sms_commands_method": payload.get("sms_commands_method"),
-            "network_access_profile_sid": payload.get("network_access_profile_sid"),
-            "ip_commands_url": payload.get("ip_commands_url"),
-            "ip_commands_method": payload.get("ip_commands_method"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._data_enabled: Optional[bool] = payload.get("data_enabled")
+        self._data_limit: Optional[int] = deserialize.integer(payload.get("data_limit"))
+        self._data_metering: Optional["FleetInstance.DataMetering"] = payload.get(
+            "data_metering"
+        )
+        self._sms_commands_enabled: Optional[bool] = payload.get("sms_commands_enabled")
+        self._sms_commands_url: Optional[str] = payload.get("sms_commands_url")
+        self._sms_commands_method: Optional[str] = payload.get("sms_commands_method")
+        self._network_access_profile_sid: Optional[str] = payload.get(
+            "network_access_profile_sid"
+        )
+        self._ip_commands_url: Optional[str] = payload.get("ip_commands_url")
+        self._ip_commands_method: Optional[str] = payload.get("ip_commands_method")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[FleetContext] = None
 
@@ -72,109 +78,106 @@ class FleetInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Fleet resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Fleet resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Fleet resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def data_enabled(self) -> bool:
+    def data_enabled(self) -> Optional[bool]:
         """
         :returns: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
         """
-        return self._properties["data_enabled"]
+        return self._data_enabled
 
     @property
-    def data_limit(self) -> int:
+    def data_limit(self) -> Optional[int]:
         """
         :returns: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
         """
-        return self._properties["data_limit"]
+        return self._data_limit
 
     @property
-    def data_metering(self) -> "FleetInstance.DataMetering":
-        """
-        :returns:
-        """
-        return self._properties["data_metering"]
+    def data_metering(self) -> Optional["FleetInstance.DataMetering"]:
+        return self._data_metering
 
     @property
-    def sms_commands_enabled(self) -> bool:
+    def sms_commands_enabled(self) -> Optional[bool]:
         """
         :returns: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
         """
-        return self._properties["sms_commands_enabled"]
+        return self._sms_commands_enabled
 
     @property
-    def sms_commands_url(self) -> str:
+    def sms_commands_url(self) -> Optional[str]:
         """
         :returns: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
         """
-        return self._properties["sms_commands_url"]
+        return self._sms_commands_url
 
     @property
-    def sms_commands_method(self) -> str:
+    def sms_commands_method(self) -> Optional[str]:
         """
         :returns: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
         """
-        return self._properties["sms_commands_method"]
+        return self._sms_commands_method
 
     @property
-    def network_access_profile_sid(self) -> str:
+    def network_access_profile_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
         """
-        return self._properties["network_access_profile_sid"]
+        return self._network_access_profile_sid
 
     @property
-    def ip_commands_url(self) -> str:
+    def ip_commands_url(self) -> Optional[str]:
         """
         :returns: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
         """
-        return self._properties["ip_commands_url"]
+        return self._ip_commands_url
 
     @property
-    def ip_commands_method(self) -> str:
+    def ip_commands_method(self) -> Optional[str]:
         """
         :returns: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
         """
-        return self._properties["ip_commands_method"]
+        return self._ip_commands_method
 
     def fetch(self) -> "FleetInstance":
         """

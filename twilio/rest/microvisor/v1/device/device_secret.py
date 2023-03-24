@@ -30,16 +30,16 @@ class DeviceSecretInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "device_sid": payload.get("device_sid"),
-            "key": payload.get("key"),
-            "date_rotated": deserialize.iso8601_datetime(payload.get("date_rotated")),
-            "url": payload.get("url"),
-        }
+        self._device_sid: Optional[str] = payload.get("device_sid")
+        self._key: Optional[str] = payload.get("key")
+        self._date_rotated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_rotated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "device_sid": device_sid,
-            "key": key or self._properties["key"],
+            "key": key or self._key,
         }
         self._context: Optional[DeviceSecretContext] = None
 
@@ -60,32 +60,29 @@ class DeviceSecretInstance(InstanceResource):
         return self._context
 
     @property
-    def device_sid(self) -> str:
+    def device_sid(self) -> Optional[str]:
         """
         :returns: A 34-character string that uniquely identifies the parent Device.
         """
-        return self._properties["device_sid"]
+        return self._device_sid
 
     @property
-    def key(self) -> str:
+    def key(self) -> Optional[str]:
         """
         :returns: The secret key; up to 100 characters.
         """
-        return self._properties["key"]
+        return self._key
 
     @property
-    def date_rotated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_rotated"]
+    def date_rotated(self) -> Optional[datetime]:
+        return self._date_rotated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Secret.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

@@ -30,32 +30,34 @@ class AlertInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "alert_text": payload.get("alert_text"),
-            "api_version": payload.get("api_version"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_generated": deserialize.iso8601_datetime(
-                payload.get("date_generated")
-            ),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "error_code": payload.get("error_code"),
-            "log_level": payload.get("log_level"),
-            "more_info": payload.get("more_info"),
-            "request_method": payload.get("request_method"),
-            "request_url": payload.get("request_url"),
-            "request_variables": payload.get("request_variables"),
-            "resource_sid": payload.get("resource_sid"),
-            "response_body": payload.get("response_body"),
-            "response_headers": payload.get("response_headers"),
-            "sid": payload.get("sid"),
-            "url": payload.get("url"),
-            "request_headers": payload.get("request_headers"),
-            "service_sid": payload.get("service_sid"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._alert_text: Optional[str] = payload.get("alert_text")
+        self._api_version: Optional[str] = payload.get("api_version")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_generated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_generated")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._error_code: Optional[str] = payload.get("error_code")
+        self._log_level: Optional[str] = payload.get("log_level")
+        self._more_info: Optional[str] = payload.get("more_info")
+        self._request_method: Optional[str] = payload.get("request_method")
+        self._request_url: Optional[str] = payload.get("request_url")
+        self._request_variables: Optional[str] = payload.get("request_variables")
+        self._resource_sid: Optional[str] = payload.get("resource_sid")
+        self._response_body: Optional[str] = payload.get("response_body")
+        self._response_headers: Optional[str] = payload.get("response_headers")
+        self._sid: Optional[str] = payload.get("sid")
+        self._url: Optional[str] = payload.get("url")
+        self._request_headers: Optional[str] = payload.get("request_headers")
+        self._service_sid: Optional[str] = payload.get("service_sid")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AlertContext] = None
 
@@ -75,137 +77,137 @@ class AlertInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Alert resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def alert_text(self) -> str:
+    def alert_text(self) -> Optional[str]:
         """
         :returns: The text of the alert.
         """
-        return self._properties["alert_text"]
+        return self._alert_text
 
     @property
-    def api_version(self) -> str:
+    def api_version(self) -> Optional[str]:
         """
         :returns: The API version used when the alert was generated.  Can be empty for events that don't have a specific API version.
         """
-        return self._properties["api_version"]
+        return self._api_version
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_generated(self) -> datetime:
+    def date_generated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the alert was generated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.  Due to buffering, this can be different than `date_created`.
         """
-        return self._properties["date_generated"]
+        return self._date_generated
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def error_code(self) -> str:
+    def error_code(self) -> Optional[str]:
         """
         :returns: The error code for the condition that generated the alert. See the [Error Dictionary](https://www.twilio.com/docs/api/errors) for possible causes and solutions to the error.
         """
-        return self._properties["error_code"]
+        return self._error_code
 
     @property
-    def log_level(self) -> str:
+    def log_level(self) -> Optional[str]:
         """
         :returns: The log level.  Can be: `error`, `warning`, `notice`, or `debug`.
         """
-        return self._properties["log_level"]
+        return self._log_level
 
     @property
-    def more_info(self) -> str:
+    def more_info(self) -> Optional[str]:
         """
         :returns: The URL of the page in our [Error Dictionary](https://www.twilio.com/docs/api/errors) with more information about the error condition.
         """
-        return self._properties["more_info"]
+        return self._more_info
 
     @property
-    def request_method(self) -> str:
+    def request_method(self) -> Optional[str]:
         """
         :returns: The method used by the request that generated the alert. If the alert was generated by a request we made to your server, this is the method we used. If the alert was generated by a request from your application to our API, this is the method your application used.
         """
-        return self._properties["request_method"]
+        return self._request_method
 
     @property
-    def request_url(self) -> str:
+    def request_url(self) -> Optional[str]:
         """
         :returns: The URL of the request that generated the alert. If the alert was generated by a request we made to your server, this is the URL on your server that generated the alert. If the alert was generated by a request from your application to our API, this is the URL of the resource requested.
         """
-        return self._properties["request_url"]
+        return self._request_url
 
     @property
-    def request_variables(self) -> str:
+    def request_variables(self) -> Optional[str]:
         """
         :returns: The variables passed in the request that generated the alert. This value is only returned when a single Alert resource is fetched.
         """
-        return self._properties["request_variables"]
+        return self._request_variables
 
     @property
-    def resource_sid(self) -> str:
+    def resource_sid(self) -> Optional[str]:
         """
         :returns: The SID of the resource for which the alert was generated.  For instance, if your server failed to respond to an HTTP request during the flow of a particular call, this value would be the SID of the server.  This value is empty if the alert was not generated for a particular resource.
         """
-        return self._properties["resource_sid"]
+        return self._resource_sid
 
     @property
-    def response_body(self) -> str:
+    def response_body(self) -> Optional[str]:
         """
         :returns: The response body of the request that generated the alert. This value is only returned when a single Alert resource is fetched.
         """
-        return self._properties["response_body"]
+        return self._response_body
 
     @property
-    def response_headers(self) -> str:
+    def response_headers(self) -> Optional[str]:
         """
         :returns: The response headers of the request that generated the alert. This value is only returned when a single Alert resource is fetched.
         """
-        return self._properties["response_headers"]
+        return self._response_headers
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Alert resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Alert resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def request_headers(self) -> str:
+    def request_headers(self) -> Optional[str]:
         """
         :returns: The request headers of the request that generated the alert. This value is only returned when a single Alert resource is fetched.
         """
-        return self._properties["request_headers"]
+        return self._request_headers
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the service or resource that generated the alert. Can be `null`.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     def fetch(self) -> "AlertInstance":
         """

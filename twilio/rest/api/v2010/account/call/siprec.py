@@ -40,20 +40,20 @@ class SiprecInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "call_sid": payload.get("call_sid"),
-            "name": payload.get("name"),
-            "status": payload.get("status"),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "uri": payload.get("uri"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._call_sid: Optional[str] = payload.get("call_sid")
+        self._name: Optional[str] = payload.get("name")
+        self._status: Optional["SiprecInstance.Status"] = payload.get("status")
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[SiprecContext] = None
 
@@ -75,53 +75,50 @@ class SiprecInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The SID of the Siprec resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def call_sid(self) -> str:
+    def call_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
         """
-        return self._properties["call_sid"]
+        return self._call_sid
 
     @property
-    def name(self) -> str:
+    def name(self) -> Optional[str]:
         """
         :returns: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
         """
-        return self._properties["name"]
+        return self._name
 
     @property
-    def status(self) -> "SiprecInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["SiprecInstance.Status"]:
+        return self._status
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     def update(self, status) -> "SiprecInstance":
         """

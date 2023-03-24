@@ -54,38 +54,46 @@ class CallInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "parent_call_sid": payload.get("parent_call_sid"),
-            "account_sid": payload.get("account_sid"),
-            "to": payload.get("to"),
-            "to_formatted": payload.get("to_formatted"),
-            "_from": payload.get("from"),
-            "from_formatted": payload.get("from_formatted"),
-            "phone_number_sid": payload.get("phone_number_sid"),
-            "status": payload.get("status"),
-            "start_time": deserialize.rfc2822_datetime(payload.get("start_time")),
-            "end_time": deserialize.rfc2822_datetime(payload.get("end_time")),
-            "duration": payload.get("duration"),
-            "price": payload.get("price"),
-            "price_unit": payload.get("price_unit"),
-            "direction": payload.get("direction"),
-            "answered_by": payload.get("answered_by"),
-            "api_version": payload.get("api_version"),
-            "forwarded_from": payload.get("forwarded_from"),
-            "group_sid": payload.get("group_sid"),
-            "caller_name": payload.get("caller_name"),
-            "queue_time": payload.get("queue_time"),
-            "trunk_sid": payload.get("trunk_sid"),
-            "uri": payload.get("uri"),
-            "subresource_uris": payload.get("subresource_uris"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._parent_call_sid: Optional[str] = payload.get("parent_call_sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._to: Optional[str] = payload.get("to")
+        self._to_formatted: Optional[str] = payload.get("to_formatted")
+        self.__from: Optional[str] = payload.get("from")
+        self._from_formatted: Optional[str] = payload.get("from_formatted")
+        self._phone_number_sid: Optional[str] = payload.get("phone_number_sid")
+        self._status: Optional["CallInstance.Status"] = payload.get("status")
+        self._start_time: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("start_time")
+        )
+        self._end_time: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("end_time")
+        )
+        self._duration: Optional[str] = payload.get("duration")
+        self._price: Optional[str] = payload.get("price")
+        self._price_unit: Optional[str] = payload.get("price_unit")
+        self._direction: Optional[str] = payload.get("direction")
+        self._answered_by: Optional[str] = payload.get("answered_by")
+        self._api_version: Optional[str] = payload.get("api_version")
+        self._forwarded_from: Optional[str] = payload.get("forwarded_from")
+        self._group_sid: Optional[str] = payload.get("group_sid")
+        self._caller_name: Optional[str] = payload.get("caller_name")
+        self._queue_time: Optional[str] = payload.get("queue_time")
+        self._trunk_sid: Optional[str] = payload.get("trunk_sid")
+        self._uri: Optional[str] = payload.get("uri")
+        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[CallContext] = None
 
@@ -106,186 +114,183 @@ class CallInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify this Call resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def parent_call_sid(self) -> str:
+    def parent_call_sid(self) -> Optional[str]:
         """
         :returns: The SID that identifies the call that created this leg.
         """
-        return self._properties["parent_call_sid"]
+        return self._parent_call_sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Call resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def to(self) -> str:
+    def to(self) -> Optional[str]:
         """
         :returns: The phone number, SIP address, Client identifier or SIM SID that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`. SIM SIDs are formatted as `sim:sid`.
         """
-        return self._properties["to"]
+        return self._to
 
     @property
-    def to_formatted(self) -> str:
+    def to_formatted(self) -> Optional[str]:
         """
         :returns: The phone number, SIP address or Client identifier that received this call. Formatted for display. Non-North American phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +442071838750).
         """
-        return self._properties["to_formatted"]
+        return self._to_formatted
 
     @property
-    def _from(self) -> str:
+    def _from(self) -> Optional[str]:
         """
         :returns: The phone number, SIP address, Client identifier or SIM SID that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`. SIM SIDs are formatted as `sim:sid`.
         """
-        return self._properties["_from"]
+        return self.__from
 
     @property
-    def from_formatted(self) -> str:
+    def from_formatted(self) -> Optional[str]:
         """
         :returns: The calling phone number, SIP address, or Client identifier formatted for display. Non-North American phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +442071838750).
         """
-        return self._properties["from_formatted"]
+        return self._from_formatted
 
     @property
-    def phone_number_sid(self) -> str:
+    def phone_number_sid(self) -> Optional[str]:
         """
         :returns: If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
         """
-        return self._properties["phone_number_sid"]
+        return self._phone_number_sid
 
     @property
-    def status(self) -> "CallInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["CallInstance.Status"]:
+        return self._status
 
     @property
-    def start_time(self) -> datetime:
+    def start_time(self) -> Optional[datetime]:
         """
         :returns: The start time of the call, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call has not yet been dialed.
         """
-        return self._properties["start_time"]
+        return self._start_time
 
     @property
-    def end_time(self) -> datetime:
+    def end_time(self) -> Optional[datetime]:
         """
         :returns: The time the call ended, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call did not complete successfully.
         """
-        return self._properties["end_time"]
+        return self._end_time
 
     @property
-    def duration(self) -> str:
+    def duration(self) -> Optional[str]:
         """
         :returns: The length of the call in seconds. This value is empty for busy, failed, unanswered, or ongoing calls.
         """
-        return self._properties["duration"]
+        return self._duration
 
     @property
-    def price(self) -> str:
+    def price(self) -> Optional[str]:
         """
         :returns: The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
         """
-        return self._properties["price"]
+        return self._price
 
     @property
-    def price_unit(self) -> str:
+    def price_unit(self) -> Optional[str]:
         """
         :returns: The currency in which `Price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g., `USD`, `EUR`, `JPY`). Always capitalized for calls.
         """
-        return self._properties["price_unit"]
+        return self._price_unit
 
     @property
-    def direction(self) -> str:
+    def direction(self) -> Optional[str]:
         """
         :returns: A string describing the direction of the call. Can be: `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `<Dial>` verb. Using [Elastic SIP Trunking](https://www.twilio.com/docs/sip-trunking), the values can be [`trunking-terminating`](https://www.twilio.com/docs/sip-trunking#termination) for outgoing calls from your communications infrastructure to the PSTN or [`trunking-originating`](https://www.twilio.com/docs/sip-trunking#origination) for incoming calls to your communications infrastructure from the PSTN.
         """
-        return self._properties["direction"]
+        return self._direction
 
     @property
-    def answered_by(self) -> str:
+    def answered_by(self) -> Optional[str]:
         """
         :returns: Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
         """
-        return self._properties["answered_by"]
+        return self._answered_by
 
     @property
-    def api_version(self) -> str:
+    def api_version(self) -> Optional[str]:
         """
         :returns: The API version used to create the call.
         """
-        return self._properties["api_version"]
+        return self._api_version
 
     @property
-    def forwarded_from(self) -> str:
+    def forwarded_from(self) -> Optional[str]:
         """
         :returns: The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty.
         """
-        return self._properties["forwarded_from"]
+        return self._forwarded_from
 
     @property
-    def group_sid(self) -> str:
+    def group_sid(self) -> Optional[str]:
         """
         :returns: The Group SID associated with this call. If no Group is associated with the call, the field is empty.
         """
-        return self._properties["group_sid"]
+        return self._group_sid
 
     @property
-    def caller_name(self) -> str:
+    def caller_name(self) -> Optional[str]:
         """
         :returns: The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty.
         """
-        return self._properties["caller_name"]
+        return self._caller_name
 
     @property
-    def queue_time(self) -> str:
+    def queue_time(self) -> Optional[str]:
         """
         :returns: The wait time in milliseconds before the call is placed.
         """
-        return self._properties["queue_time"]
+        return self._queue_time
 
     @property
-    def trunk_sid(self) -> str:
+    def trunk_sid(self) -> Optional[str]:
         """
         :returns: The unique identifier of the trunk resource that was used for this call. The field is empty if the call was not made using a SIP trunk or if the call is not terminated.
         """
-        return self._properties["trunk_sid"]
+        return self._trunk_sid
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of this resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def subresource_uris(self) -> Dict[str, object]:
+    def subresource_uris(self) -> Optional[Dict[str, object]]:
         """
         :returns: A list of subresources available to this call, identified by their URIs relative to `https://api.twilio.com`.
         """
-        return self._properties["subresource_uris"]
+        return self._subresource_uris
 
     def delete(self) -> bool:
         """

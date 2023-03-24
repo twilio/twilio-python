@@ -28,14 +28,16 @@ class TaskStatisticsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "task_sid": payload.get("task_sid"),
-            "samples_count": deserialize.integer(payload.get("samples_count")),
-            "fields_count": deserialize.integer(payload.get("fields_count")),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self._task_sid: Optional[str] = payload.get("task_sid")
+        self._samples_count: Optional[int] = deserialize.integer(
+            payload.get("samples_count")
+        )
+        self._fields_count: Optional[int] = deserialize.integer(
+            payload.get("fields_count")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "assistant_sid": assistant_sid,
@@ -60,46 +62,46 @@ class TaskStatisticsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskStatistics resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def assistant_sid(self) -> str:
+    def assistant_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
         """
-        return self._properties["assistant_sid"]
+        return self._assistant_sid
 
     @property
-    def task_sid(self) -> str:
+    def task_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) for which the statistics were collected.
         """
-        return self._properties["task_sid"]
+        return self._task_sid
 
     @property
-    def samples_count(self) -> int:
+    def samples_count(self) -> Optional[int]:
         """
         :returns: The total number of [Samples](https://www.twilio.com/docs/autopilot/api/task-sample) associated with the Task.
         """
-        return self._properties["samples_count"]
+        return self._samples_count
 
     @property
-    def fields_count(self) -> int:
+    def fields_count(self) -> Optional[int]:
         """
         :returns: The total number of [Fields](https://www.twilio.com/docs/autopilot/api/task-field) associated with the Task.
         """
-        return self._properties["fields_count"]
+        return self._fields_count
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the TaskStatistics resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "TaskStatisticsInstance":
         """

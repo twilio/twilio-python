@@ -39,14 +39,18 @@ class FeedbackInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "issues": payload.get("issues"),
-            "quality_score": deserialize.integer(payload.get("quality_score")),
-            "sid": payload.get("sid"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._issues: Optional[List["FeedbackInstance.Issues"]] = payload.get("issues")
+        self._quality_score: Optional[int] = deserialize.integer(
+            payload.get("quality_score")
+        )
+        self._sid: Optional[str] = payload.get("sid")
 
         self._solution = {
             "account_sid": account_sid,
@@ -71,46 +75,46 @@ class FeedbackInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was created, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was last updated, given in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def issues(self) -> List["FeedbackInstance.Issues"]:
+    def issues(self) -> Optional[List["FeedbackInstance.Issues"]]:
         """
         :returns: A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
         """
-        return self._properties["issues"]
+        return self._issues
 
     @property
-    def quality_score(self) -> int:
+    def quality_score(self) -> Optional[int]:
         """
         :returns: `1` to `5` quality score where `1` represents imperfect experience and `5` represents a perfect call.
         """
-        return self._properties["quality_score"]
+        return self._quality_score
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     def fetch(self) -> "FeedbackInstance":
         """

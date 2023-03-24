@@ -40,22 +40,28 @@ class VerificationAttemptInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "verification_sid": payload.get("verification_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "conversion_status": payload.get("conversion_status"),
-            "channel": payload.get("channel"),
-            "price": payload.get("price"),
-            "channel_data": payload.get("channel_data"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._verification_sid: Optional[str] = payload.get("verification_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._conversion_status: Optional[
+            "VerificationAttemptInstance.ConversionStatus"
+        ] = payload.get("conversion_status")
+        self._channel: Optional["VerificationAttemptInstance.Channels"] = payload.get(
+            "channel"
+        )
+        self._price: Optional[Dict[str, object]] = payload.get("price")
+        self._channel_data: Optional[Dict[str, object]] = payload.get("channel_data")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[VerificationAttemptContext] = None
 
@@ -75,81 +81,74 @@ class VerificationAttemptInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The SID that uniquely identifies the verification attempt resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) used to generate the attempt.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def verification_sid(self) -> str:
+    def verification_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Verification](https://www.twilio.com/docs/verify/api/verification) that generated the attempt.
         """
-        return self._properties["verification_sid"]
+        return self._verification_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this Attempt was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this Attempt was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def conversion_status(self) -> "VerificationAttemptInstance.ConversionStatus":
-        """
-        :returns:
-        """
-        return self._properties["conversion_status"]
+    def conversion_status(
+        self,
+    ) -> Optional["VerificationAttemptInstance.ConversionStatus"]:
+        return self._conversion_status
 
     @property
-    def channel(self) -> "VerificationAttemptInstance.Channels":
-        """
-        :returns:
-        """
-        return self._properties["channel"]
+    def channel(self) -> Optional["VerificationAttemptInstance.Channels"]:
+        return self._channel
 
     @property
-    def price(self) -> Dict[str, object]:
+    def price(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
         """
-        return self._properties["price"]
+        return self._price
 
     @property
-    def channel_data(self) -> Dict[str, object]:
+    def channel_data(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object containing the channel specific information for an attempt.
         """
-        return self._properties["channel_data"]
+        return self._channel_data
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self) -> "VerificationAttemptInstance":
         """

@@ -27,10 +27,8 @@ class OauthInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "keys": payload.get("keys"),
-            "url": payload.get("url"),
-        }
+        self._keys: Optional[Dict[str, object]] = payload.get("keys")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[OauthContext] = None
@@ -50,18 +48,15 @@ class OauthInstance(InstanceResource):
         return self._context
 
     @property
-    def keys(self) -> Dict[str, object]:
+    def keys(self) -> Optional[Dict[str, object]]:
         """
         :returns: A collection of certificates where are signed Twilio-issued tokens.
         """
-        return self._properties["keys"]
+        return self._keys
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self) -> "OauthInstance":
         """

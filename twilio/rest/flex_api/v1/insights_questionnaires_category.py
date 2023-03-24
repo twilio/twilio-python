@@ -29,15 +29,13 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "category_id": payload.get("category_id"),
-            "name": payload.get("name"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._category_id: Optional[str] = payload.get("category_id")
+        self._name: Optional[str] = payload.get("name")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "category_id": category_id or self._properties["category_id"],
+            "category_id": category_id or self._category_id,
         }
         self._context: Optional[InsightsQuestionnairesCategoryContext] = None
 
@@ -57,32 +55,29 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def category_id(self) -> str:
+    def category_id(self) -> Optional[str]:
         """
         :returns: The unique ID for the category
         """
-        return self._properties["category_id"]
+        return self._category_id
 
     @property
-    def name(self) -> str:
+    def name(self) -> Optional[str]:
         """
         :returns: The name of this category.
         """
-        return self._properties["name"]
+        return self._name
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def delete(self, token=values.unset) -> bool:
         """

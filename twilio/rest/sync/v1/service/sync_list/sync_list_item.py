@@ -45,24 +45,28 @@ class SyncListItemInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "index": deserialize.integer(payload.get("index")),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "list_sid": payload.get("list_sid"),
-            "url": payload.get("url"),
-            "revision": payload.get("revision"),
-            "data": payload.get("data"),
-            "date_expires": deserialize.iso8601_datetime(payload.get("date_expires")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-        }
+        self._index: Optional[int] = deserialize.integer(payload.get("index"))
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._list_sid: Optional[str] = payload.get("list_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._revision: Optional[str] = payload.get("revision")
+        self._data: Optional[Dict[str, object]] = payload.get("data")
+        self._date_expires: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_expires")
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._created_by: Optional[str] = payload.get("created_by")
 
         self._solution = {
             "service_sid": service_sid,
             "list_sid": list_sid,
-            "index": index or self._properties["index"],
+            "index": index or self._index,
         }
         self._context: Optional[SyncListItemContext] = None
 
@@ -84,81 +88,81 @@ class SyncListItemInstance(InstanceResource):
         return self._context
 
     @property
-    def index(self) -> int:
+    def index(self) -> Optional[int]:
         """
         :returns: The automatically generated index of the List Item. The `index` values of the List Items in a Sync List can have gaps in their sequence.
         """
-        return self._properties["index"]
+        return self._index
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the List Item resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def list_sid(self) -> str:
+    def list_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Sync List that contains the List Item.
         """
-        return self._properties["list_sid"]
+        return self._list_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the List Item resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def revision(self) -> str:
+    def revision(self) -> Optional[str]:
         """
         :returns: The current revision of the item, represented as a string.
         """
-        return self._properties["revision"]
+        return self._revision
 
     @property
-    def data(self) -> Dict[str, object]:
+    def data(self) -> Optional[Dict[str, object]]:
         """
         :returns: An arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
         """
-        return self._properties["data"]
+        return self._data
 
     @property
-    def date_expires(self) -> datetime:
+    def date_expires(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the List Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the List Item does not expire, this value is `null`. The List Item resource might not be deleted immediately after it expires.
         """
-        return self._properties["date_expires"]
+        return self._date_expires
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def created_by(self) -> str:
+    def created_by(self) -> Optional[str]:
         """
         :returns: The identity of the List Item's creator. If the item is created from the client SDK, the value matches the Access Token's `identity` field. If the item was created from the REST API, the value is `system`.
         """
-        return self._properties["created_by"]
+        return self._created_by
 
     def delete(self, if_match=values.unset) -> bool:
         """

@@ -33,28 +33,30 @@ class AddressInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "city": payload.get("city"),
-            "customer_name": payload.get("customer_name"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "iso_country": payload.get("iso_country"),
-            "postal_code": payload.get("postal_code"),
-            "region": payload.get("region"),
-            "sid": payload.get("sid"),
-            "street": payload.get("street"),
-            "uri": payload.get("uri"),
-            "emergency_enabled": payload.get("emergency_enabled"),
-            "validated": payload.get("validated"),
-            "verified": payload.get("verified"),
-            "street_secondary": payload.get("street_secondary"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._city: Optional[str] = payload.get("city")
+        self._customer_name: Optional[str] = payload.get("customer_name")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._postal_code: Optional[str] = payload.get("postal_code")
+        self._region: Optional[str] = payload.get("region")
+        self._sid: Optional[str] = payload.get("sid")
+        self._street: Optional[str] = payload.get("street")
+        self._uri: Optional[str] = payload.get("uri")
+        self._emergency_enabled: Optional[bool] = payload.get("emergency_enabled")
+        self._validated: Optional[bool] = payload.get("validated")
+        self._verified: Optional[bool] = payload.get("verified")
+        self._street_secondary: Optional[str] = payload.get("street_secondary")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AddressContext] = None
 
@@ -75,116 +77,116 @@ class AddressInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def city(self) -> str:
+    def city(self) -> Optional[str]:
         """
         :returns: The city in which the address is located.
         """
-        return self._properties["city"]
+        return self._city
 
     @property
-    def customer_name(self) -> str:
+    def customer_name(self) -> Optional[str]:
         """
         :returns: The name associated with the address.This property has a maximum length of 16 4-byte characters, or 21 3-byte characters.
         """
-        return self._properties["customer_name"]
+        return self._customer_name
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The ISO country code of the address.
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def postal_code(self) -> str:
+    def postal_code(self) -> Optional[str]:
         """
         :returns: The postal code of the address.
         """
-        return self._properties["postal_code"]
+        return self._postal_code
 
     @property
-    def region(self) -> str:
+    def region(self) -> Optional[str]:
         """
         :returns: The state or region of the address.
         """
-        return self._properties["region"]
+        return self._region
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the Address resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def street(self) -> str:
+    def street(self) -> Optional[str]:
         """
         :returns: The number and street address of the address.
         """
-        return self._properties["street"]
+        return self._street
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def emergency_enabled(self) -> bool:
+    def emergency_enabled(self) -> Optional[bool]:
         """
         :returns: Whether emergency calling has been enabled on this number.
         """
-        return self._properties["emergency_enabled"]
+        return self._emergency_enabled
 
     @property
-    def validated(self) -> bool:
+    def validated(self) -> Optional[bool]:
         """
         :returns: Whether the address has been validated to comply with local regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been validated. `false` indicate the country doesn't require validation or the Address is not valid.
         """
-        return self._properties["validated"]
+        return self._validated
 
     @property
-    def verified(self) -> bool:
+    def verified(self) -> Optional[bool]:
         """
         :returns: Whether the address has been verified to comply with regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been verified. `false` indicate the country doesn't require verified or the Address is not valid.
         """
-        return self._properties["verified"]
+        return self._verified
 
     @property
-    def street_secondary(self) -> str:
+    def street_secondary(self) -> Optional[str]:
         """
         :returns: The additional number and street address of the address.
         """
-        return self._properties["street_secondary"]
+        return self._street_secondary
 
     def delete(self) -> bool:
         """

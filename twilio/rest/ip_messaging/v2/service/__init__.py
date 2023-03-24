@@ -34,44 +34,50 @@ class ServiceInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "default_service_role_sid": payload.get("default_service_role_sid"),
-            "default_channel_role_sid": payload.get("default_channel_role_sid"),
-            "default_channel_creator_role_sid": payload.get(
-                "default_channel_creator_role_sid"
-            ),
-            "read_status_enabled": payload.get("read_status_enabled"),
-            "reachability_enabled": payload.get("reachability_enabled"),
-            "typing_indicator_timeout": deserialize.integer(
-                payload.get("typing_indicator_timeout")
-            ),
-            "consumption_report_interval": deserialize.integer(
-                payload.get("consumption_report_interval")
-            ),
-            "limits": payload.get("limits"),
-            "pre_webhook_url": payload.get("pre_webhook_url"),
-            "post_webhook_url": payload.get("post_webhook_url"),
-            "webhook_method": payload.get("webhook_method"),
-            "webhook_filters": payload.get("webhook_filters"),
-            "pre_webhook_retry_count": deserialize.integer(
-                payload.get("pre_webhook_retry_count")
-            ),
-            "post_webhook_retry_count": deserialize.integer(
-                payload.get("post_webhook_retry_count")
-            ),
-            "notifications": payload.get("notifications"),
-            "media": payload.get("media"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._default_service_role_sid: Optional[str] = payload.get(
+            "default_service_role_sid"
+        )
+        self._default_channel_role_sid: Optional[str] = payload.get(
+            "default_channel_role_sid"
+        )
+        self._default_channel_creator_role_sid: Optional[str] = payload.get(
+            "default_channel_creator_role_sid"
+        )
+        self._read_status_enabled: Optional[bool] = payload.get("read_status_enabled")
+        self._reachability_enabled: Optional[bool] = payload.get("reachability_enabled")
+        self._typing_indicator_timeout: Optional[int] = deserialize.integer(
+            payload.get("typing_indicator_timeout")
+        )
+        self._consumption_report_interval: Optional[int] = deserialize.integer(
+            payload.get("consumption_report_interval")
+        )
+        self._limits: Optional[Dict[str, object]] = payload.get("limits")
+        self._pre_webhook_url: Optional[str] = payload.get("pre_webhook_url")
+        self._post_webhook_url: Optional[str] = payload.get("post_webhook_url")
+        self._webhook_method: Optional[str] = payload.get("webhook_method")
+        self._webhook_filters: Optional[List[str]] = payload.get("webhook_filters")
+        self._pre_webhook_retry_count: Optional[int] = deserialize.integer(
+            payload.get("pre_webhook_retry_count")
+        )
+        self._post_webhook_retry_count: Optional[int] = deserialize.integer(
+            payload.get("post_webhook_retry_count")
+        )
+        self._notifications: Optional[Dict[str, object]] = payload.get("notifications")
+        self._media: Optional[Dict[str, object]] = payload.get("media")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -91,165 +97,96 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["friendly_name"]
+    def friendly_name(self) -> Optional[str]:
+        return self._friendly_name
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def default_service_role_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["default_service_role_sid"]
+    def default_service_role_sid(self) -> Optional[str]:
+        return self._default_service_role_sid
 
     @property
-    def default_channel_role_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["default_channel_role_sid"]
+    def default_channel_role_sid(self) -> Optional[str]:
+        return self._default_channel_role_sid
 
     @property
-    def default_channel_creator_role_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["default_channel_creator_role_sid"]
+    def default_channel_creator_role_sid(self) -> Optional[str]:
+        return self._default_channel_creator_role_sid
 
     @property
-    def read_status_enabled(self) -> bool:
-        """
-        :returns:
-        """
-        return self._properties["read_status_enabled"]
+    def read_status_enabled(self) -> Optional[bool]:
+        return self._read_status_enabled
 
     @property
-    def reachability_enabled(self) -> bool:
-        """
-        :returns:
-        """
-        return self._properties["reachability_enabled"]
+    def reachability_enabled(self) -> Optional[bool]:
+        return self._reachability_enabled
 
     @property
-    def typing_indicator_timeout(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["typing_indicator_timeout"]
+    def typing_indicator_timeout(self) -> Optional[int]:
+        return self._typing_indicator_timeout
 
     @property
-    def consumption_report_interval(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["consumption_report_interval"]
+    def consumption_report_interval(self) -> Optional[int]:
+        return self._consumption_report_interval
 
     @property
-    def limits(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["limits"]
+    def limits(self) -> Optional[Dict[str, object]]:
+        return self._limits
 
     @property
-    def pre_webhook_url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["pre_webhook_url"]
+    def pre_webhook_url(self) -> Optional[str]:
+        return self._pre_webhook_url
 
     @property
-    def post_webhook_url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["post_webhook_url"]
+    def post_webhook_url(self) -> Optional[str]:
+        return self._post_webhook_url
 
     @property
-    def webhook_method(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["webhook_method"]
+    def webhook_method(self) -> Optional[str]:
+        return self._webhook_method
 
     @property
-    def webhook_filters(self) -> List[str]:
-        """
-        :returns:
-        """
-        return self._properties["webhook_filters"]
+    def webhook_filters(self) -> Optional[List[str]]:
+        return self._webhook_filters
 
     @property
-    def pre_webhook_retry_count(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["pre_webhook_retry_count"]
+    def pre_webhook_retry_count(self) -> Optional[int]:
+        return self._pre_webhook_retry_count
 
     @property
-    def post_webhook_retry_count(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["post_webhook_retry_count"]
+    def post_webhook_retry_count(self) -> Optional[int]:
+        return self._post_webhook_retry_count
 
     @property
-    def notifications(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["notifications"]
+    def notifications(self) -> Optional[Dict[str, object]]:
+        return self._notifications
 
     @property
-    def media(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["media"]
+    def media(self) -> Optional[Dict[str, object]]:
+        return self._media
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def delete(self) -> bool:
         """

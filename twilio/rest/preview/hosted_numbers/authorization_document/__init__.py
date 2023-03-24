@@ -40,20 +40,24 @@ class AuthorizationDocumentInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "address_sid": payload.get("address_sid"),
-            "status": payload.get("status"),
-            "email": payload.get("email"),
-            "cc_emails": payload.get("cc_emails"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._address_sid: Optional[str] = payload.get("address_sid")
+        self._status: Optional["AuthorizationDocumentInstance.Status"] = payload.get(
+            "status"
+        )
+        self._email: Optional[str] = payload.get("email")
+        self._cc_emails: Optional[List[str]] = payload.get("cc_emails")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AuthorizationDocumentContext] = None
 
@@ -73,67 +77,58 @@ class AuthorizationDocumentInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this AuthorizationDocument.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def address_sid(self) -> str:
+    def address_sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         """
-        return self._properties["address_sid"]
+        return self._address_sid
 
     @property
-    def status(self) -> "AuthorizationDocumentInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["AuthorizationDocumentInstance.Status"]:
+        return self._status
 
     @property
-    def email(self) -> str:
+    def email(self) -> Optional[str]:
         """
         :returns: Email that this AuthorizationDocument will be sent to for signing.
         """
-        return self._properties["email"]
+        return self._email
 
     @property
-    def cc_emails(self) -> List[str]:
+    def cc_emails(self) -> Optional[List[str]]:
         """
         :returns: Email recipients who will be informed when an Authorization Document has been sent and signed.
         """
-        return self._properties["cc_emails"]
+        return self._cc_emails
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def fetch(self) -> "AuthorizationDocumentInstance":
         """

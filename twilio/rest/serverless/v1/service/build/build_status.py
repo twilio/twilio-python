@@ -34,13 +34,12 @@ class BuildStatusInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'account_sid': payload.get('account_sid'),
-            'service_sid': payload.get('service_sid'),
-            'status': payload.get('status'),
-            'url': payload.get('url'),
-        }
+        
+        self._sid: Optional[str] = payload.get('sid')
+        self._account_sid: Optional[str] = payload.get('account_sid')
+        self._service_sid: Optional[str] = payload.get('service_sid')
+        self._status: Optional["BuildStatusInstance.Status"] = payload.get('status')
+        self._url: Optional[str] = payload.get('url')
 
         self._solution = { 'service_sid': service_sid, 'sid': sid,  }
         self._context: Optional[BuildStatusContext] = None
@@ -58,39 +57,37 @@ class BuildStatusInstance(InstanceResource):
         return self._context
     
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Build resource.
         """
-        return self._properties['sid']
+        return self._sid
     
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
         """
-        return self._properties['account_sid']
+        return self._account_sid
     
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Service that the Build resource is associated with.
         """
-        return self._properties['service_sid']
+        return self._service_sid
     
     @property
-    def status(self) -> "BuildStatusInstance.Status":
-        """
-        :returns: 
-        """
-        return self._properties['status']
+    def status(self) -> Optional["BuildStatusInstance.Status"]:
+        
+        return self._status
     
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Build Status resource.
         """
-        return self._properties['url']
+        return self._url
     
     
     def fetch(self) -> "BuildStatusInstance":

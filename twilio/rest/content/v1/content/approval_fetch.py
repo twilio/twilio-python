@@ -27,12 +27,10 @@ class ApprovalFetchInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "whatsapp": payload.get("whatsapp"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._whatsapp: Optional[Dict[str, object]] = payload.get("whatsapp")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "sid": sid,
@@ -55,32 +53,32 @@ class ApprovalFetchInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the Content resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def whatsapp(self) -> Dict[str, object]:
+    def whatsapp(self) -> Optional[Dict[str, object]]:
         """
         :returns: Contains the whatsapp approval information for the Content resource, with fields such as approval status, rejection reason, and category, amongst others.
         """
-        return self._properties["whatsapp"]
+        return self._whatsapp
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of the resource, relative to `https://content.twilio.com`.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "ApprovalFetchInstance":
         """

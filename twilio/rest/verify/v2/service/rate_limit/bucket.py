@@ -37,22 +37,24 @@ class BucketInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "rate_limit_sid": payload.get("rate_limit_sid"),
-            "service_sid": payload.get("service_sid"),
-            "account_sid": payload.get("account_sid"),
-            "max": deserialize.integer(payload.get("max")),
-            "interval": deserialize.integer(payload.get("interval")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._rate_limit_sid: Optional[str] = payload.get("rate_limit_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._max: Optional[int] = deserialize.integer(payload.get("max"))
+        self._interval: Optional[int] = deserialize.integer(payload.get("interval"))
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "rate_limit_sid": rate_limit_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[BucketContext] = None
 
@@ -74,67 +76,67 @@ class BucketInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this Bucket.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def rate_limit_sid(self) -> str:
+    def rate_limit_sid(self) -> Optional[str]:
         """
         :returns: The Twilio-provided string that uniquely identifies the Rate Limit resource.
         """
-        return self._properties["rate_limit_sid"]
+        return self._rate_limit_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Rate Limit resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def max(self) -> int:
+    def max(self) -> Optional[int]:
         """
         :returns: Maximum number of requests permitted in during the interval.
         """
-        return self._properties["max"]
+        return self._max
 
     @property
-    def interval(self) -> int:
+    def interval(self) -> Optional[int]:
         """
         :returns: Number of seconds that the rate limit will be enforced over.
         """
-        return self._properties["interval"]
+        return self._interval
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

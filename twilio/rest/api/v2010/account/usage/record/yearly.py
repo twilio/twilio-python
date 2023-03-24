@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import date
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -349,132 +349,133 @@ class YearlyInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "api_version": payload.get("api_version"),
-            "as_of": payload.get("as_of"),
-            "category": payload.get("category"),
-            "count": payload.get("count"),
-            "count_unit": payload.get("count_unit"),
-            "description": payload.get("description"),
-            "end_date": deserialize.iso8601_date(payload.get("end_date")),
-            "price": deserialize.decimal(payload.get("price")),
-            "price_unit": payload.get("price_unit"),
-            "start_date": deserialize.iso8601_date(payload.get("start_date")),
-            "subresource_uris": payload.get("subresource_uris"),
-            "uri": payload.get("uri"),
-            "usage": payload.get("usage"),
-            "usage_unit": payload.get("usage_unit"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._api_version: Optional[str] = payload.get("api_version")
+        self._as_of: Optional[str] = payload.get("as_of")
+        self._category: Optional["YearlyInstance.Category"] = payload.get("category")
+        self._count: Optional[str] = payload.get("count")
+        self._count_unit: Optional[str] = payload.get("count_unit")
+        self._description: Optional[str] = payload.get("description")
+        self._end_date: Optional[date] = deserialize.iso8601_date(
+            payload.get("end_date")
+        )
+        self._price: Optional[float] = deserialize.decimal(payload.get("price"))
+        self._price_unit: Optional[str] = payload.get("price_unit")
+        self._start_date: Optional[date] = deserialize.iso8601_date(
+            payload.get("start_date")
+        )
+        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
+        self._uri: Optional[str] = payload.get("uri")
+        self._usage: Optional[str] = payload.get("usage")
+        self._usage_unit: Optional[str] = payload.get("usage_unit")
 
         self._solution = {
             "account_sid": account_sid,
         }
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def api_version(self) -> str:
+    def api_version(self) -> Optional[str]:
         """
         :returns: The API version used to create the resource.
         """
-        return self._properties["api_version"]
+        return self._api_version
 
     @property
-    def as_of(self) -> str:
+    def as_of(self) -> Optional[str]:
         """
         :returns: Usage records up to date as of this timestamp, formatted as YYYY-MM-DDTHH:MM:SS+00:00. All timestamps are in GMT
         """
-        return self._properties["as_of"]
+        return self._as_of
 
     @property
-    def category(self) -> "YearlyInstance.Category":
-        """
-        :returns:
-        """
-        return self._properties["category"]
+    def category(self) -> Optional["YearlyInstance.Category"]:
+        return self._category
 
     @property
-    def count(self) -> str:
+    def count(self) -> Optional[str]:
         """
         :returns: The number of usage events, such as the number of calls.
         """
-        return self._properties["count"]
+        return self._count
 
     @property
-    def count_unit(self) -> str:
+    def count_unit(self) -> Optional[str]:
         """
         :returns: The units in which `count` is measured, such as `calls` for calls or `messages` for SMS.
         """
-        return self._properties["count_unit"]
+        return self._count_unit
 
     @property
-    def description(self) -> str:
+    def description(self) -> Optional[str]:
         """
         :returns: A plain-language description of the usage category.
         """
-        return self._properties["description"]
+        return self._description
 
     @property
-    def end_date(self) -> date:
+    def end_date(self) -> Optional[date]:
         """
         :returns: The last date for which usage is included in the UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
         """
-        return self._properties["end_date"]
+        return self._end_date
 
     @property
-    def price(self) -> float:
+    def price(self) -> Optional[float]:
         """
         :returns: The total price of the usage in the currency specified in `price_unit` and associated with the account.
         """
-        return self._properties["price"]
+        return self._price
 
     @property
-    def price_unit(self) -> str:
+    def price_unit(self) -> Optional[str]:
         """
         :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format, such as `usd`, `eur`, and `jpy`.
         """
-        return self._properties["price_unit"]
+        return self._price_unit
 
     @property
-    def start_date(self) -> date:
+    def start_date(self) -> Optional[date]:
         """
         :returns: The first date for which usage is included in this UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
         """
-        return self._properties["start_date"]
+        return self._start_date
 
     @property
-    def subresource_uris(self) -> Dict[str, object]:
+    def subresource_uris(self) -> Optional[Dict[str, object]]:
         """
         :returns: A list of related resources identified by their URIs. For more information, see [List Subresources](https://www.twilio.com/docs/usage/api/usage-record#list-subresources).
         """
-        return self._properties["subresource_uris"]
+        return self._subresource_uris
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def usage(self) -> str:
+    def usage(self) -> Optional[str]:
         """
         :returns: The amount used to bill usage and measured in units described in `usage_unit`.
         """
-        return self._properties["usage"]
+        return self._usage
 
     @property
-    def usage_unit(self) -> str:
+    def usage_unit(self) -> Optional[str]:
         """
         :returns: The units in which `usage` is measured, such as `minutes` for calls or `messages` for SMS.
         """
-        return self._properties["usage_unit"]
+        return self._usage_unit
 
     def __repr__(self) -> str:
         """

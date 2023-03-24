@@ -29,18 +29,16 @@ class InsightsQuestionnairesInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "id": payload.get("id"),
-            "name": payload.get("name"),
-            "description": payload.get("description"),
-            "active": payload.get("active"),
-            "questions": payload.get("questions"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._id: Optional[str] = payload.get("id")
+        self._name: Optional[str] = payload.get("name")
+        self._description: Optional[str] = payload.get("description")
+        self._active: Optional[bool] = payload.get("active")
+        self._questions: Optional[List[object]] = payload.get("questions")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "id": id or self._properties["id"],
+            "id": id or self._id,
         }
         self._context: Optional[InsightsQuestionnairesContext] = None
 
@@ -60,53 +58,50 @@ class InsightsQuestionnairesInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def id(self) -> str:
+    def id(self) -> Optional[str]:
         """
         :returns: The unique id of this questionnaire
         """
-        return self._properties["id"]
+        return self._id
 
     @property
-    def name(self) -> str:
+    def name(self) -> Optional[str]:
         """
         :returns: The name of this category.
         """
-        return self._properties["name"]
+        return self._name
 
     @property
-    def description(self) -> str:
+    def description(self) -> Optional[str]:
         """
         :returns: The description of this questionnaire
         """
-        return self._properties["description"]
+        return self._description
 
     @property
-    def active(self) -> bool:
+    def active(self) -> Optional[bool]:
         """
         :returns: The flag to enable or disable questionnaire
         """
-        return self._properties["active"]
+        return self._active
 
     @property
-    def questions(self) -> List[object]:
+    def questions(self) -> Optional[List[object]]:
         """
         :returns: The list of questions with category for a questionnaire
         """
-        return self._properties["questions"]
+        return self._questions
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def delete(self, token=values.unset) -> bool:
         """

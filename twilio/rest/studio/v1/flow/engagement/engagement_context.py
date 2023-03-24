@@ -27,13 +27,11 @@ class EngagementContextInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "context": payload.get("context"),
-            "engagement_sid": payload.get("engagement_sid"),
-            "flow_sid": payload.get("flow_sid"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._context: Optional[Dict[str, object]] = payload.get("context")
+        self._engagement_sid: Optional[str] = payload.get("engagement_sid")
+        self._flow_sid: Optional[str] = payload.get("flow_sid")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "flow_sid": flow_sid,
@@ -58,39 +56,39 @@ class EngagementContextInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def context(self) -> Dict[str, object]:
+    def context(self) -> Optional[Dict[str, object]]:
         """
         :returns: As your flow executes, we save the state in what's called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.
         """
-        return self._properties["context"]
+        return self._context
 
     @property
-    def engagement_sid(self) -> str:
+    def engagement_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Engagement.
         """
-        return self._properties["engagement_sid"]
+        return self._engagement_sid
 
     @property
-    def flow_sid(self) -> str:
+    def flow_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Flow.
         """
-        return self._properties["flow_sid"]
+        return self._flow_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "EngagementContextInstance":
         """

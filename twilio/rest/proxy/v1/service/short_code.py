@@ -30,22 +30,24 @@ class ShortCodeInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "short_code": payload.get("short_code"),
-            "iso_country": payload.get("iso_country"),
-            "capabilities": payload.get("capabilities"),
-            "url": payload.get("url"),
-            "is_reserved": payload.get("is_reserved"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._short_code: Optional[str] = payload.get("short_code")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._capabilities: Optional[str] = payload.get("capabilities")
+        self._url: Optional[str] = payload.get("url")
+        self._is_reserved: Optional[bool] = payload.get("is_reserved")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ShortCodeContext] = None
 
@@ -66,74 +68,71 @@ class ShortCodeInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the ShortCode resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the ShortCode resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def short_code(self) -> str:
+    def short_code(self) -> Optional[str]:
         """
         :returns: The short code's number.
         """
-        return self._properties["short_code"]
+        return self._short_code
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The ISO Country Code for the short code.
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def capabilities(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["capabilities"]
+    def capabilities(self) -> Optional[str]:
+        return self._capabilities
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the ShortCode resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def is_reserved(self) -> bool:
+    def is_reserved(self) -> Optional[bool]:
         """
         :returns: Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
         """
-        return self._properties["is_reserved"]
+        return self._is_reserved
 
     def delete(self) -> bool:
         """

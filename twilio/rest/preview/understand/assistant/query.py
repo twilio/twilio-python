@@ -30,25 +30,27 @@ class QueryInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "results": payload.get("results"),
-            "language": payload.get("language"),
-            "model_build_sid": payload.get("model_build_sid"),
-            "query": payload.get("query"),
-            "sample_sid": payload.get("sample_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "sid": payload.get("sid"),
-            "status": payload.get("status"),
-            "url": payload.get("url"),
-            "source_channel": payload.get("source_channel"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._results: Optional[Dict[str, object]] = payload.get("results")
+        self._language: Optional[str] = payload.get("language")
+        self._model_build_sid: Optional[str] = payload.get("model_build_sid")
+        self._query: Optional[str] = payload.get("query")
+        self._sample_sid: Optional[str] = payload.get("sample_sid")
+        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._status: Optional[str] = payload.get("status")
+        self._url: Optional[str] = payload.get("url")
+        self._source_channel: Optional[str] = payload.get("source_channel")
 
         self._solution = {
             "assistant_sid": assistant_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[QueryContext] = None
 
@@ -69,95 +71,92 @@ class QueryInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the Account that created this Query.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was created
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was last updated
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def results(self) -> Dict[str, object]:
+    def results(self) -> Optional[Dict[str, object]]:
         """
         :returns: The natural language analysis results which include the Task recognized, the confidence score and a list of identified Fields.
         """
-        return self._properties["results"]
+        return self._results
 
     @property
-    def language(self) -> str:
+    def language(self) -> Optional[str]:
         """
         :returns: An ISO language-country string of the sample.
         """
-        return self._properties["language"]
+        return self._language
 
     @property
-    def model_build_sid(self) -> str:
+    def model_build_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the Model Build queried.
         """
-        return self._properties["model_build_sid"]
+        return self._model_build_sid
 
     @property
-    def query(self) -> str:
+    def query(self) -> Optional[str]:
         """
         :returns: The end-user's natural language input.
         """
-        return self._properties["query"]
+        return self._query
 
     @property
-    def sample_sid(self) -> str:
+    def sample_sid(self) -> Optional[str]:
         """
         :returns: An optional reference to the Sample created from this query.
         """
-        return self._properties["sample_sid"]
+        return self._sample_sid
 
     @property
-    def assistant_sid(self) -> str:
+    def assistant_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the parent Assistant.
         """
-        return self._properties["assistant_sid"]
+        return self._assistant_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def status(self) -> str:
+    def status(self) -> Optional[str]:
         """
         :returns: A string that described the query status. The values can be: pending_review, reviewed, discarded
         """
-        return self._properties["status"]
+        return self._status
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def source_channel(self) -> str:
+    def source_channel(self) -> Optional[str]:
         """
         :returns: The communication channel where this end-user input came from
         """
-        return self._properties["source_channel"]
+        return self._source_channel
 
     def delete(self) -> bool:
         """

@@ -28,15 +28,17 @@ class NotificationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "new_message": payload.get("new_message"),
-            "added_to_conversation": payload.get("added_to_conversation"),
-            "removed_from_conversation": payload.get("removed_from_conversation"),
-            "log_enabled": payload.get("log_enabled"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self._new_message: Optional[Dict[str, object]] = payload.get("new_message")
+        self._added_to_conversation: Optional[Dict[str, object]] = payload.get(
+            "added_to_conversation"
+        )
+        self._removed_from_conversation: Optional[Dict[str, object]] = payload.get(
+            "removed_from_conversation"
+        )
+        self._log_enabled: Optional[bool] = payload.get("log_enabled")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "chat_service_sid": chat_service_sid,
@@ -59,53 +61,53 @@ class NotificationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def chat_service_sid(self) -> str:
+    def chat_service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
         """
-        return self._properties["chat_service_sid"]
+        return self._chat_service_sid
 
     @property
-    def new_message(self) -> Dict[str, object]:
+    def new_message(self) -> Optional[Dict[str, object]]:
         """
         :returns: The Push Notification configuration for New Messages.
         """
-        return self._properties["new_message"]
+        return self._new_message
 
     @property
-    def added_to_conversation(self) -> Dict[str, object]:
+    def added_to_conversation(self) -> Optional[Dict[str, object]]:
         """
         :returns: The Push Notification configuration for being added to a Conversation.
         """
-        return self._properties["added_to_conversation"]
+        return self._added_to_conversation
 
     @property
-    def removed_from_conversation(self) -> Dict[str, object]:
+    def removed_from_conversation(self) -> Optional[Dict[str, object]]:
         """
         :returns: The Push Notification configuration for being removed from a Conversation.
         """
-        return self._properties["removed_from_conversation"]
+        return self._removed_from_conversation
 
     @property
-    def log_enabled(self) -> bool:
+    def log_enabled(self) -> Optional[bool]:
         """
         :returns: Weather the notification logging is enabled.
         """
-        return self._properties["log_enabled"]
+        return self._log_enabled
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: An absolute API resource URL for this configuration.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "NotificationInstance":
         """

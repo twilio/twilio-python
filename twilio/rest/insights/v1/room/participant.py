@@ -64,29 +64,39 @@ class ParticipantInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "participant_sid": payload.get("participant_sid"),
-            "participant_identity": payload.get("participant_identity"),
-            "join_time": deserialize.iso8601_datetime(payload.get("join_time")),
-            "leave_time": deserialize.iso8601_datetime(payload.get("leave_time")),
-            "duration_sec": payload.get("duration_sec"),
-            "account_sid": payload.get("account_sid"),
-            "room_sid": payload.get("room_sid"),
-            "status": payload.get("status"),
-            "codecs": payload.get("codecs"),
-            "end_reason": payload.get("end_reason"),
-            "error_code": deserialize.integer(payload.get("error_code")),
-            "error_code_url": payload.get("error_code_url"),
-            "media_region": payload.get("media_region"),
-            "properties": payload.get("properties"),
-            "edge_location": payload.get("edge_location"),
-            "publisher_info": payload.get("publisher_info"),
-            "url": payload.get("url"),
-        }
+        self._participant_sid: Optional[str] = payload.get("participant_sid")
+        self._participant_identity: Optional[str] = payload.get("participant_identity")
+        self._join_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("join_time")
+        )
+        self._leave_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("leave_time")
+        )
+        self._duration_sec: Optional[int] = payload.get("duration_sec")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._room_sid: Optional[str] = payload.get("room_sid")
+        self._status: Optional["ParticipantInstance.RoomStatus"] = payload.get("status")
+        self._codecs: Optional[List["ParticipantInstance.Codec"]] = payload.get(
+            "codecs"
+        )
+        self._end_reason: Optional[str] = payload.get("end_reason")
+        self._error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
+        self._error_code_url: Optional[str] = payload.get("error_code_url")
+        self._media_region: Optional["ParticipantInstance.TwilioRealm"] = payload.get(
+            "media_region"
+        )
+        self._properties: Optional[Dict[str, object]] = payload.get("properties")
+        self._edge_location: Optional["ParticipantInstance.EdgeLocation"] = payload.get(
+            "edge_location"
+        )
+        self._publisher_info: Optional[Dict[str, object]] = payload.get(
+            "publisher_info"
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "room_sid": room_sid,
-            "participant_sid": participant_sid or self._properties["participant_sid"],
+            "participant_sid": participant_sid or self._participant_sid,
         }
         self._context: Optional[ParticipantContext] = None
 
@@ -107,123 +117,114 @@ class ParticipantInstance(InstanceResource):
         return self._context
 
     @property
-    def participant_sid(self) -> str:
+    def participant_sid(self) -> Optional[str]:
         """
         :returns: Unique identifier for the participant.
         """
-        return self._properties["participant_sid"]
+        return self._participant_sid
 
     @property
-    def participant_identity(self) -> str:
+    def participant_identity(self) -> Optional[str]:
         """
         :returns: The application-defined string that uniquely identifies the participant within a Room.
         """
-        return self._properties["participant_identity"]
+        return self._participant_identity
 
     @property
-    def join_time(self) -> datetime:
+    def join_time(self) -> Optional[datetime]:
         """
         :returns: When the participant joined the room.
         """
-        return self._properties["join_time"]
+        return self._join_time
 
     @property
-    def leave_time(self) -> datetime:
+    def leave_time(self) -> Optional[datetime]:
         """
         :returns: When the participant left the room.
         """
-        return self._properties["leave_time"]
+        return self._leave_time
 
     @property
-    def duration_sec(self) -> int:
+    def duration_sec(self) -> Optional[int]:
         """
         :returns: Amount of time in seconds the participant was in the room.
         """
-        return self._properties["duration_sec"]
+        return self._duration_sec
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: Account SID associated with the room.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def room_sid(self) -> str:
+    def room_sid(self) -> Optional[str]:
         """
         :returns: Unique identifier for the room.
         """
-        return self._properties["room_sid"]
+        return self._room_sid
 
     @property
-    def status(self) -> "ParticipantInstance.RoomStatus":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["ParticipantInstance.RoomStatus"]:
+        return self._status
 
     @property
-    def codecs(self) -> List["ParticipantInstance.Codec"]:
+    def codecs(self) -> Optional[List["ParticipantInstance.Codec"]]:
         """
         :returns: Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
         """
-        return self._properties["codecs"]
+        return self._codecs
 
     @property
-    def end_reason(self) -> str:
+    def end_reason(self) -> Optional[str]:
         """
         :returns: Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#end_reason).
         """
-        return self._properties["end_reason"]
+        return self._end_reason
 
     @property
-    def error_code(self) -> int:
+    def error_code(self) -> Optional[int]:
         """
         :returns: Errors encountered by the participant.
         """
-        return self._properties["error_code"]
+        return self._error_code
 
     @property
-    def error_code_url(self) -> str:
+    def error_code_url(self) -> Optional[str]:
         """
         :returns: Twilio error code dictionary link.
         """
-        return self._properties["error_code_url"]
+        return self._error_code_url
 
     @property
-    def media_region(self) -> "ParticipantInstance.TwilioRealm":
-        """
-        :returns:
-        """
-        return self._properties["media_region"]
+    def media_region(self) -> Optional["ParticipantInstance.TwilioRealm"]:
+        return self._media_region
 
     @property
-    def properties(self) -> Dict[str, object]:
+    def properties(self) -> Optional[Dict[str, object]]:
         """
         :returns: Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#properties) for more information.
         """
-        return self._properties["properties"]
+        return self._properties
 
     @property
-    def edge_location(self) -> "ParticipantInstance.EdgeLocation":
-        """
-        :returns:
-        """
-        return self._properties["edge_location"]
+    def edge_location(self) -> Optional["ParticipantInstance.EdgeLocation"]:
+        return self._edge_location
 
     @property
-    def publisher_info(self) -> Dict[str, object]:
+    def publisher_info(self) -> Optional[Dict[str, object]]:
         """
         :returns: Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#publisher_info) for more information.
         """
-        return self._properties["publisher_info"]
+        return self._publisher_info
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: URL of the participant resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "ParticipantInstance":
         """

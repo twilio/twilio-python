@@ -48,29 +48,31 @@ class MessageInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "conversation_sid": payload.get("conversation_sid"),
-            "sid": payload.get("sid"),
-            "index": deserialize.integer(payload.get("index")),
-            "author": payload.get("author"),
-            "body": payload.get("body"),
-            "media": payload.get("media"),
-            "attributes": payload.get("attributes"),
-            "participant_sid": payload.get("participant_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "delivery": payload.get("delivery"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "content_sid": payload.get("content_sid"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self._conversation_sid: Optional[str] = payload.get("conversation_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._index: Optional[int] = deserialize.integer(payload.get("index"))
+        self._author: Optional[str] = payload.get("author")
+        self._body: Optional[str] = payload.get("body")
+        self._media: Optional[List[object]] = payload.get("media")
+        self._attributes: Optional[str] = payload.get("attributes")
+        self._participant_sid: Optional[str] = payload.get("participant_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._delivery: Optional[Dict[str, object]] = payload.get("delivery")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self._content_sid: Optional[str] = payload.get("content_sid")
 
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "conversation_sid": conversation_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[MessageContext] = None
 
@@ -92,116 +94,116 @@ class MessageInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this message.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def chat_service_sid(self) -> str:
+    def chat_service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
         """
-        return self._properties["chat_service_sid"]
+        return self._chat_service_sid
 
     @property
-    def conversation_sid(self) -> str:
+    def conversation_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
         """
-        return self._properties["conversation_sid"]
+        return self._conversation_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def index(self) -> int:
+    def index(self) -> Optional[int]:
         """
         :returns: The index of the message within the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource).
         """
-        return self._properties["index"]
+        return self._index
 
     @property
-    def author(self) -> str:
+    def author(self) -> Optional[str]:
         """
         :returns: The channel specific identifier of the message's author. Defaults to `system`.
         """
-        return self._properties["author"]
+        return self._author
 
     @property
-    def body(self) -> str:
+    def body(self) -> Optional[str]:
         """
         :returns: The content of the message, can be up to 1,600 characters long.
         """
-        return self._properties["body"]
+        return self._body
 
     @property
-    def media(self) -> List[object]:
+    def media(self) -> Optional[List[object]]:
         """
         :returns: An array of objects that describe the Message's media, if the message contains media. Each object contains these fields: `content_type` with the MIME type of the media, `filename` with the name of the media, `sid` with the SID of the Media resource, and `size` with the media object's file size in bytes. If the Message has no media, this value is `null`.
         """
-        return self._properties["media"]
+        return self._media
 
     @property
-    def attributes(self) -> str:
+    def attributes(self) -> Optional[str]:
         """
         :returns: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
         """
-        return self._properties["attributes"]
+        return self._attributes
 
     @property
-    def participant_sid(self) -> str:
+    def participant_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of messages's author participant. Null in case of `system` sent message.
         """
-        return self._properties["participant_sid"]
+        return self._participant_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was created.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was last updated. `null` if the message has not been edited.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def delivery(self) -> Dict[str, object]:
+    def delivery(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object that contains the summary of delivery statuses for the message to non-chat participants.
         """
-        return self._properties["delivery"]
+        return self._delivery
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: An absolute API resource URL for this message.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: Contains an absolute API resource URL to access the delivery & read receipts of this message.
         """
-        return self._properties["links"]
+        return self._links
 
     @property
-    def content_sid(self) -> str:
+    def content_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template.
         """
-        return self._properties["content_sid"]
+        return self._content_sid
 
     def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """

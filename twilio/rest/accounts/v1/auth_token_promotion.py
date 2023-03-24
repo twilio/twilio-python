@@ -29,13 +29,15 @@ class AuthTokenPromotionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "auth_token": payload.get("auth_token"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._auth_token: Optional[str] = payload.get("auth_token")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[AuthTokenPromotionContext] = None
@@ -55,39 +57,39 @@ class AuthTokenPromotionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def auth_token(self) -> str:
+    def auth_token(self) -> Optional[str]:
         """
         :returns: The promoted Auth Token that must be used to authenticate future API requests.
         """
-        return self._properties["auth_token"]
+        return self._auth_token
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in UTC when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URI for this resource, relative to `https://accounts.twilio.com`
         """
-        return self._properties["url"]
+        return self._url
 
     def update(self) -> "AuthTokenPromotionInstance":
         """

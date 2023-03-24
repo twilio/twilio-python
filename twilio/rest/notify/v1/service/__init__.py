@@ -32,39 +32,49 @@ class ServiceInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "apn_credential_sid": payload.get("apn_credential_sid"),
-            "gcm_credential_sid": payload.get("gcm_credential_sid"),
-            "fcm_credential_sid": payload.get("fcm_credential_sid"),
-            "messaging_service_sid": payload.get("messaging_service_sid"),
-            "facebook_messenger_page_id": payload.get("facebook_messenger_page_id"),
-            "default_apn_notification_protocol_version": payload.get(
-                "default_apn_notification_protocol_version"
-            ),
-            "default_gcm_notification_protocol_version": payload.get(
-                "default_gcm_notification_protocol_version"
-            ),
-            "default_fcm_notification_protocol_version": payload.get(
-                "default_fcm_notification_protocol_version"
-            ),
-            "log_enabled": payload.get("log_enabled"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "alexa_skill_id": payload.get("alexa_skill_id"),
-            "default_alexa_notification_protocol_version": payload.get(
-                "default_alexa_notification_protocol_version"
-            ),
-            "delivery_callback_url": payload.get("delivery_callback_url"),
-            "delivery_callback_enabled": payload.get("delivery_callback_enabled"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._apn_credential_sid: Optional[str] = payload.get("apn_credential_sid")
+        self._gcm_credential_sid: Optional[str] = payload.get("gcm_credential_sid")
+        self._fcm_credential_sid: Optional[str] = payload.get("fcm_credential_sid")
+        self._messaging_service_sid: Optional[str] = payload.get(
+            "messaging_service_sid"
+        )
+        self._facebook_messenger_page_id: Optional[str] = payload.get(
+            "facebook_messenger_page_id"
+        )
+        self._default_apn_notification_protocol_version: Optional[str] = payload.get(
+            "default_apn_notification_protocol_version"
+        )
+        self._default_gcm_notification_protocol_version: Optional[str] = payload.get(
+            "default_gcm_notification_protocol_version"
+        )
+        self._default_fcm_notification_protocol_version: Optional[str] = payload.get(
+            "default_fcm_notification_protocol_version"
+        )
+        self._log_enabled: Optional[bool] = payload.get("log_enabled")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self._alexa_skill_id: Optional[str] = payload.get("alexa_skill_id")
+        self._default_alexa_notification_protocol_version: Optional[str] = payload.get(
+            "default_alexa_notification_protocol_version"
+        )
+        self._delivery_callback_url: Optional[str] = payload.get(
+            "delivery_callback_url"
+        )
+        self._delivery_callback_enabled: Optional[bool] = payload.get(
+            "delivery_callback_enabled"
+        )
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -84,144 +94,144 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Service resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def apn_credential_sid(self) -> str:
+    def apn_credential_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         """
-        return self._properties["apn_credential_sid"]
+        return self._apn_credential_sid
 
     @property
-    def gcm_credential_sid(self) -> str:
+    def gcm_credential_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
         """
-        return self._properties["gcm_credential_sid"]
+        return self._gcm_credential_sid
 
     @property
-    def fcm_credential_sid(self) -> str:
+    def fcm_credential_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
         """
-        return self._properties["fcm_credential_sid"]
+        return self._fcm_credential_sid
 
     @property
-    def messaging_service_sid(self) -> str:
+    def messaging_service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
         """
-        return self._properties["messaging_service_sid"]
+        return self._messaging_service_sid
 
     @property
-    def facebook_messenger_page_id(self) -> str:
+    def facebook_messenger_page_id(self) -> Optional[str]:
         """
         :returns: Deprecated.
         """
-        return self._properties["facebook_messenger_page_id"]
+        return self._facebook_messenger_page_id
 
     @property
-    def default_apn_notification_protocol_version(self) -> str:
+    def default_apn_notification_protocol_version(self) -> Optional[str]:
         """
         :returns: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
         """
-        return self._properties["default_apn_notification_protocol_version"]
+        return self._default_apn_notification_protocol_version
 
     @property
-    def default_gcm_notification_protocol_version(self) -> str:
+    def default_gcm_notification_protocol_version(self) -> Optional[str]:
         """
         :returns: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
         """
-        return self._properties["default_gcm_notification_protocol_version"]
+        return self._default_gcm_notification_protocol_version
 
     @property
-    def default_fcm_notification_protocol_version(self) -> str:
+    def default_fcm_notification_protocol_version(self) -> Optional[str]:
         """
         :returns: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
         """
-        return self._properties["default_fcm_notification_protocol_version"]
+        return self._default_fcm_notification_protocol_version
 
     @property
-    def log_enabled(self) -> bool:
+    def log_enabled(self) -> Optional[bool]:
         """
         :returns: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
         """
-        return self._properties["log_enabled"]
+        return self._log_enabled
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Service resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of the Binding, Notification, Segment, and User resources related to the service.
         """
-        return self._properties["links"]
+        return self._links
 
     @property
-    def alexa_skill_id(self) -> str:
+    def alexa_skill_id(self) -> Optional[str]:
         """
         :returns: Deprecated.
         """
-        return self._properties["alexa_skill_id"]
+        return self._alexa_skill_id
 
     @property
-    def default_alexa_notification_protocol_version(self) -> str:
+    def default_alexa_notification_protocol_version(self) -> Optional[str]:
         """
         :returns: Deprecated.
         """
-        return self._properties["default_alexa_notification_protocol_version"]
+        return self._default_alexa_notification_protocol_version
 
     @property
-    def delivery_callback_url(self) -> str:
+    def delivery_callback_url(self) -> Optional[str]:
         """
         :returns: URL to send delivery status callback.
         """
-        return self._properties["delivery_callback_url"]
+        return self._delivery_callback_url
 
     @property
-    def delivery_callback_enabled(self) -> bool:
+    def delivery_callback_enabled(self) -> Optional[bool]:
         """
         :returns: Callback configuration that enables delivery callbacks, default false
         """
-        return self._properties["delivery_callback_enabled"]
+        return self._delivery_callback_enabled
 
     def delete(self) -> bool:
         """

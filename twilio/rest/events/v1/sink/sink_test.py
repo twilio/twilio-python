@@ -13,6 +13,8 @@ r"""
 """
 
 
+from typing import Optional
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -25,20 +27,18 @@ class SinkTestInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "result": payload.get("result"),
-        }
+        self._result: Optional[str] = payload.get("result")
 
         self._solution = {
             "sid": sid,
         }
 
     @property
-    def result(self) -> str:
+    def result(self) -> Optional[str]:
         """
         :returns: Feedback indicating whether the test event was generated.
         """
-        return self._properties["result"]
+        return self._result
 
     def __repr__(self) -> str:
         """

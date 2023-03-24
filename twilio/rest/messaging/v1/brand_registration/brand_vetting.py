@@ -35,23 +35,26 @@ class BrandVettingInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "brand_sid": payload.get("brand_sid"),
-            "brand_vetting_sid": payload.get("brand_vetting_sid"),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "vetting_id": payload.get("vetting_id"),
-            "vetting_class": payload.get("vetting_class"),
-            "vetting_status": payload.get("vetting_status"),
-            "vetting_provider": payload.get("vetting_provider"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._brand_sid: Optional[str] = payload.get("brand_sid")
+        self._brand_vetting_sid: Optional[str] = payload.get("brand_vetting_sid")
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._vetting_id: Optional[str] = payload.get("vetting_id")
+        self._vetting_class: Optional[str] = payload.get("vetting_class")
+        self._vetting_status: Optional[str] = payload.get("vetting_status")
+        self._vetting_provider: Optional[
+            "BrandVettingInstance.VettingProvider"
+        ] = payload.get("vetting_provider")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "brand_sid": brand_sid,
-            "brand_vetting_sid": brand_vetting_sid
-            or self._properties["brand_vetting_sid"],
+            "brand_vetting_sid": brand_vetting_sid or self._brand_vetting_sid,
         }
         self._context: Optional[BrandVettingContext] = None
 
@@ -72,74 +75,71 @@ class BrandVettingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the vetting record.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def brand_sid(self) -> str:
+    def brand_sid(self) -> Optional[str]:
         """
         :returns: The unique string to identify Brand Registration.
         """
-        return self._properties["brand_sid"]
+        return self._brand_sid
 
     @property
-    def brand_vetting_sid(self) -> str:
+    def brand_vetting_sid(self) -> Optional[str]:
         """
         :returns: The Twilio SID of the third-party vetting record.
         """
-        return self._properties["brand_vetting_sid"]
+        return self._brand_vetting_sid
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def vetting_id(self) -> str:
+    def vetting_id(self) -> Optional[str]:
         """
         :returns: The unique identifier of the vetting from the third-party provider.
         """
-        return self._properties["vetting_id"]
+        return self._vetting_id
 
     @property
-    def vetting_class(self) -> str:
+    def vetting_class(self) -> Optional[str]:
         """
         :returns: The type of vetting that has been conducted. One of “STANDARD” (Aegis) or “POLITICAL” (Campaign Verify).
         """
-        return self._properties["vetting_class"]
+        return self._vetting_class
 
     @property
-    def vetting_status(self) -> str:
+    def vetting_status(self) -> Optional[str]:
         """
         :returns: The status of the import vetting attempt. One of “PENDING,” “SUCCESS,” or “FAILED”.
         """
-        return self._properties["vetting_status"]
+        return self._vetting_status
 
     @property
-    def vetting_provider(self) -> "BrandVettingInstance.VettingProvider":
-        """
-        :returns:
-        """
-        return self._properties["vetting_provider"]
+    def vetting_provider(self) -> Optional["BrandVettingInstance.VettingProvider"]:
+        return self._vetting_provider
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Brand Vetting resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "BrandVettingInstance":
         """

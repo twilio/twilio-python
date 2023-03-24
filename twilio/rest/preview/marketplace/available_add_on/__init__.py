@@ -32,18 +32,18 @@ class AvailableAddOnInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "description": payload.get("description"),
-            "pricing_type": payload.get("pricing_type"),
-            "configuration_schema": payload.get("configuration_schema"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._description: Optional[str] = payload.get("description")
+        self._pricing_type: Optional[str] = payload.get("pricing_type")
+        self._configuration_schema: Optional[Dict[str, object]] = payload.get(
+            "configuration_schema"
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AvailableAddOnContext] = None
 
@@ -63,53 +63,53 @@ class AvailableAddOnInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the AvailableAddOn resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def description(self) -> str:
+    def description(self) -> Optional[str]:
         """
         :returns: A short description of the Add-on's functionality.
         """
-        return self._properties["description"]
+        return self._description
 
     @property
-    def pricing_type(self) -> str:
+    def pricing_type(self) -> Optional[str]:
         """
         :returns: How customers are charged for using this Add-on.
         """
-        return self._properties["pricing_type"]
+        return self._pricing_type
 
     @property
-    def configuration_schema(self) -> Dict[str, object]:
+    def configuration_schema(self) -> Optional[Dict[str, object]]:
         """
         :returns: The JSON object with the configuration that must be provided when installing a given Add-on.
         """
-        return self._properties["configuration_schema"]
+        return self._configuration_schema
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of related resources.
         """
-        return self._properties["links"]
+        return self._links
 
     def fetch(self) -> "AvailableAddOnInstance":
         """

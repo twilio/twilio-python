@@ -40,24 +40,28 @@ class AssignedAddOnInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "resource_sid": payload.get("resource_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "description": payload.get("description"),
-            "configuration": payload.get("configuration"),
-            "unique_name": payload.get("unique_name"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "uri": payload.get("uri"),
-            "subresource_uris": payload.get("subresource_uris"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._resource_sid: Optional[str] = payload.get("resource_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._description: Optional[str] = payload.get("description")
+        self._configuration: Optional[Dict[str, object]] = payload.get("configuration")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._uri: Optional[str] = payload.get("uri")
+        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
 
         self._solution = {
             "account_sid": account_sid,
             "resource_sid": resource_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AssignedAddOnContext] = None
 
@@ -79,81 +83,81 @@ class AssignedAddOnInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def resource_sid(self) -> str:
+    def resource_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Phone Number to which the Add-on is assigned.
         """
-        return self._properties["resource_sid"]
+        return self._resource_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def description(self) -> str:
+    def description(self) -> Optional[str]:
         """
         :returns: A short description of the functionality that the Add-on provides.
         """
-        return self._properties["description"]
+        return self._description
 
     @property
-    def configuration(self) -> Dict[str, object]:
+    def configuration(self) -> Optional[Dict[str, object]]:
         """
         :returns: A JSON string that represents the current configuration of this Add-on installation.
         """
-        return self._properties["configuration"]
+        return self._configuration
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def subresource_uris(self) -> Dict[str, object]:
+    def subresource_uris(self) -> Optional[Dict[str, object]]:
         """
         :returns: A list of related resources identified by their relative URIs.
         """
-        return self._properties["subresource_uris"]
+        return self._subresource_uris
 
     def delete(self) -> bool:
         """

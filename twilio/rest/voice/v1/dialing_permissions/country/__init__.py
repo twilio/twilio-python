@@ -32,24 +32,24 @@ class CountryInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "iso_code": payload.get("iso_code"),
-            "name": payload.get("name"),
-            "continent": payload.get("continent"),
-            "country_codes": payload.get("country_codes"),
-            "low_risk_numbers_enabled": payload.get("low_risk_numbers_enabled"),
-            "high_risk_special_numbers_enabled": payload.get(
-                "high_risk_special_numbers_enabled"
-            ),
-            "high_risk_tollfraud_numbers_enabled": payload.get(
-                "high_risk_tollfraud_numbers_enabled"
-            ),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._iso_code: Optional[str] = payload.get("iso_code")
+        self._name: Optional[str] = payload.get("name")
+        self._continent: Optional[str] = payload.get("continent")
+        self._country_codes: Optional[List[str]] = payload.get("country_codes")
+        self._low_risk_numbers_enabled: Optional[bool] = payload.get(
+            "low_risk_numbers_enabled"
+        )
+        self._high_risk_special_numbers_enabled: Optional[bool] = payload.get(
+            "high_risk_special_numbers_enabled"
+        )
+        self._high_risk_tollfraud_numbers_enabled: Optional[bool] = payload.get(
+            "high_risk_tollfraud_numbers_enabled"
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "iso_code": iso_code or self._properties["iso_code"],
+            "iso_code": iso_code or self._iso_code,
         }
         self._context: Optional[CountryContext] = None
 
@@ -69,67 +69,67 @@ class CountryInstance(InstanceResource):
         return self._context
 
     @property
-    def iso_code(self) -> str:
+    def iso_code(self) -> Optional[str]:
         """
         :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
         """
-        return self._properties["iso_code"]
+        return self._iso_code
 
     @property
-    def name(self) -> str:
+    def name(self) -> Optional[str]:
         """
         :returns: The name of the country.
         """
-        return self._properties["name"]
+        return self._name
 
     @property
-    def continent(self) -> str:
+    def continent(self) -> Optional[str]:
         """
         :returns: The name of the continent in which the country is located.
         """
-        return self._properties["continent"]
+        return self._continent
 
     @property
-    def country_codes(self) -> List[str]:
+    def country_codes(self) -> Optional[List[str]]:
         """
         :returns: The E.164 assigned [country codes(s)](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
         """
-        return self._properties["country_codes"]
+        return self._country_codes
 
     @property
-    def low_risk_numbers_enabled(self) -> bool:
+    def low_risk_numbers_enabled(self) -> Optional[bool]:
         """
         :returns: Whether dialing to low-risk numbers is enabled.
         """
-        return self._properties["low_risk_numbers_enabled"]
+        return self._low_risk_numbers_enabled
 
     @property
-    def high_risk_special_numbers_enabled(self) -> bool:
+    def high_risk_special_numbers_enabled(self) -> Optional[bool]:
         """
         :returns: Whether dialing to high-risk special services numbers is enabled. These prefixes include number ranges allocated by the country and include premium numbers, special services, shared cost, and others
         """
-        return self._properties["high_risk_special_numbers_enabled"]
+        return self._high_risk_special_numbers_enabled
 
     @property
-    def high_risk_tollfraud_numbers_enabled(self) -> bool:
+    def high_risk_tollfraud_numbers_enabled(self) -> Optional[bool]:
         """
         :returns: Whether dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers is enabled. These prefixes include narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks, also known as [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud). These prefixes are collected from anti-fraud databases and verified by analyzing calls on our network. These prefixes are not available for download and are updated frequently
         """
-        return self._properties["high_risk_tollfraud_numbers_enabled"]
+        return self._high_risk_tollfraud_numbers_enabled
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: A list of URLs related to this resource.
         """
-        return self._properties["links"]
+        return self._links
 
     def fetch(self) -> "CountryInstance":
         """

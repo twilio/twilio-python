@@ -67,21 +67,25 @@ class AccountInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "auth_token": payload.get("auth_token"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "owner_account_sid": payload.get("owner_account_sid"),
-            "sid": payload.get("sid"),
-            "status": payload.get("status"),
-            "subresource_uris": payload.get("subresource_uris"),
-            "type": payload.get("type"),
-            "uri": payload.get("uri"),
-        }
+        self._auth_token: Optional[str] = payload.get("auth_token")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._owner_account_sid: Optional[str] = payload.get("owner_account_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._status: Optional["AccountInstance.Status"] = payload.get("status")
+        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
+        self._type: Optional["AccountInstance.Type"] = payload.get("type")
+        self._uri: Optional[str] = payload.get("uri")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AccountContext] = None
 
@@ -101,74 +105,68 @@ class AccountInstance(InstanceResource):
         return self._context
 
     @property
-    def auth_token(self) -> str:
+    def auth_token(self) -> Optional[str]:
         """
         :returns: The authorization token for this account. This token should be kept a secret, so no sharing.
         """
-        return self._properties["auth_token"]
+        return self._auth_token
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this account was created, in GMT in RFC 2822 format
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this account was last updated, in GMT in RFC 2822 format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def owner_account_sid(self) -> str:
+    def owner_account_sid(self) -> Optional[str]:
         """
         :returns: The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
         """
-        return self._properties["owner_account_sid"]
+        return self._owner_account_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def status(self) -> "AccountInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["AccountInstance.Status"]:
+        return self._status
 
     @property
-    def subresource_uris(self) -> Dict[str, object]:
+    def subresource_uris(self) -> Optional[Dict[str, object]]:
         """
         :returns: A Map of various subresources available for the given Account Instance
         """
-        return self._properties["subresource_uris"]
+        return self._subresource_uris
 
     @property
-    def type(self) -> "AccountInstance.Type":
-        """
-        :returns:
-        """
-        return self._properties["type"]
+    def type(self) -> Optional["AccountInstance.Type"]:
+        return self._type
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI for this resource, relative to `https://api.twilio.com`
         """
-        return self._properties["uri"]
+        return self._uri
 
     def fetch(self) -> "AccountInstance":
         """

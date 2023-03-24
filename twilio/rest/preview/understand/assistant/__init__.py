@@ -42,23 +42,27 @@ class AssistantInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "latest_model_build_sid": payload.get("latest_model_build_sid"),
-            "links": payload.get("links"),
-            "log_queries": payload.get("log_queries"),
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "url": payload.get("url"),
-            "callback_url": payload.get("callback_url"),
-            "callback_events": payload.get("callback_events"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._latest_model_build_sid: Optional[str] = payload.get(
+            "latest_model_build_sid"
+        )
+        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self._log_queries: Optional[bool] = payload.get("log_queries")
+        self._sid: Optional[str] = payload.get("sid")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._url: Optional[str] = payload.get("url")
+        self._callback_url: Optional[str] = payload.get("callback_url")
+        self._callback_events: Optional[str] = payload.get("callback_events")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AssistantContext] = None
 
@@ -78,88 +82,82 @@ class AssistantInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the Account that created this Assistant.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was created
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was last updated
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def latest_model_build_sid(self) -> str:
+    def latest_model_build_sid(self) -> Optional[str]:
         """
         :returns: The unique ID (Sid) of the latest model build. Null if no model has been built.
         """
-        return self._properties["latest_model_build_sid"]
+        return self._latest_model_build_sid
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     @property
-    def log_queries(self) -> bool:
+    def log_queries(self) -> Optional[bool]:
         """
         :returns: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
         """
-        return self._properties["log_queries"]
+        return self._log_queries
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def callback_url(self) -> str:
+    def callback_url(self) -> Optional[str]:
         """
         :returns: A user-provided URL to send event callbacks to.
         """
-        return self._properties["callback_url"]
+        return self._callback_url
 
     @property
-    def callback_events(self) -> str:
+    def callback_events(self) -> Optional[str]:
         """
         :returns: Space-separated list of callback events that will trigger callbacks.
         """
-        return self._properties["callback_events"]
+        return self._callback_events
 
     def delete(self) -> bool:
         """

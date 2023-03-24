@@ -27,13 +27,11 @@ class ExecutionContextInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "context": payload.get("context"),
-            "flow_sid": payload.get("flow_sid"),
-            "execution_sid": payload.get("execution_sid"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._context: Optional[Dict[str, object]] = payload.get("context")
+        self._flow_sid: Optional[str] = payload.get("flow_sid")
+        self._execution_sid: Optional[str] = payload.get("execution_sid")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "flow_sid": flow_sid,
@@ -58,39 +56,39 @@ class ExecutionContextInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionContext resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def context(self) -> Dict[str, object]:
+    def context(self) -> Optional[Dict[str, object]]:
         """
         :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
         """
-        return self._properties["context"]
+        return self._context
 
     @property
-    def flow_sid(self) -> str:
+    def flow_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Flow.
         """
-        return self._properties["flow_sid"]
+        return self._flow_sid
 
     @property
-    def execution_sid(self) -> str:
+    def execution_sid(self) -> Optional[str]:
         """
         :returns: The SID of the context's Execution resource.
         """
-        return self._properties["execution_sid"]
+        return self._execution_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "ExecutionContextInstance":
         """

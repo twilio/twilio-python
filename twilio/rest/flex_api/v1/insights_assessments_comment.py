@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -29,106 +29,101 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assessment_id": payload.get("assessment_id"),
-            "comment": payload.get("comment"),
-            "offset": deserialize.decimal(payload.get("offset")),
-            "report": payload.get("report"),
-            "weight": deserialize.decimal(payload.get("weight")),
-            "agent_id": payload.get("agent_id"),
-            "segment_id": payload.get("segment_id"),
-            "user_name": payload.get("user_name"),
-            "user_email": payload.get("user_email"),
-            "timestamp": deserialize.decimal(payload.get("timestamp")),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._assessment_id: Optional[str] = payload.get("assessment_id")
+        self._comment: Optional[Dict[str, object]] = payload.get("comment")
+        self._offset: Optional[float] = deserialize.decimal(payload.get("offset"))
+        self._report: Optional[bool] = payload.get("report")
+        self._weight: Optional[float] = deserialize.decimal(payload.get("weight"))
+        self._agent_id: Optional[str] = payload.get("agent_id")
+        self._segment_id: Optional[str] = payload.get("segment_id")
+        self._user_name: Optional[str] = payload.get("user_name")
+        self._user_email: Optional[str] = payload.get("user_email")
+        self._timestamp: Optional[float] = deserialize.decimal(payload.get("timestamp"))
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def assessment_id(self) -> str:
+    def assessment_id(self) -> Optional[str]:
         """
         :returns: The unique ID of the assessment.
         """
-        return self._properties["assessment_id"]
+        return self._assessment_id
 
     @property
-    def comment(self) -> Dict[str, object]:
+    def comment(self) -> Optional[Dict[str, object]]:
         """
         :returns: The comment added for assessment.
         """
-        return self._properties["comment"]
+        return self._comment
 
     @property
-    def offset(self) -> float:
+    def offset(self) -> Optional[float]:
         """
         :returns: The offset
         """
-        return self._properties["offset"]
+        return self._offset
 
     @property
-    def report(self) -> bool:
+    def report(self) -> Optional[bool]:
         """
         :returns: The flag indicating if this assessment is part of report
         """
-        return self._properties["report"]
+        return self._report
 
     @property
-    def weight(self) -> float:
+    def weight(self) -> Optional[float]:
         """
         :returns: The weightage given to this comment
         """
-        return self._properties["weight"]
+        return self._weight
 
     @property
-    def agent_id(self) -> str:
+    def agent_id(self) -> Optional[str]:
         """
         :returns: The id of the agent.
         """
-        return self._properties["agent_id"]
+        return self._agent_id
 
     @property
-    def segment_id(self) -> str:
+    def segment_id(self) -> Optional[str]:
         """
         :returns: The id of the segment.
         """
-        return self._properties["segment_id"]
+        return self._segment_id
 
     @property
-    def user_name(self) -> str:
+    def user_name(self) -> Optional[str]:
         """
         :returns: The name of the user.
         """
-        return self._properties["user_name"]
+        return self._user_name
 
     @property
-    def user_email(self) -> str:
+    def user_email(self) -> Optional[str]:
         """
         :returns: The email id of the user.
         """
-        return self._properties["user_email"]
+        return self._user_email
 
     @property
-    def timestamp(self) -> float:
+    def timestamp(self) -> Optional[float]:
         """
         :returns: The timestamp when the record is inserted
         """
-        return self._properties["timestamp"]
+        return self._timestamp
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def __repr__(self) -> str:
         """

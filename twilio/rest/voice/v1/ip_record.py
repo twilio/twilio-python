@@ -30,21 +30,23 @@ class IpRecordInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "ip_address": payload.get("ip_address"),
-            "cidr_prefix_length": deserialize.integer(
-                payload.get("cidr_prefix_length")
-            ),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._ip_address: Optional[str] = payload.get("ip_address")
+        self._cidr_prefix_length: Optional[int] = deserialize.integer(
+            payload.get("cidr_prefix_length")
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[IpRecordContext] = None
 
@@ -64,60 +66,60 @@ class IpRecordInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IP Record resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the IP Record resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def ip_address(self) -> str:
+    def ip_address(self) -> Optional[str]:
         """
         :returns: An IP address in dotted decimal notation, IPv4 only.
         """
-        return self._properties["ip_address"]
+        return self._ip_address
 
     @property
-    def cidr_prefix_length(self) -> int:
+    def cidr_prefix_length(self) -> Optional[int]:
         """
         :returns: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
         """
-        return self._properties["cidr_prefix_length"]
+        return self._cidr_prefix_length
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

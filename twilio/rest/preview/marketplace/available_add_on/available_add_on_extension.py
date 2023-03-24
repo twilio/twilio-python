@@ -31,18 +31,16 @@ class AvailableAddOnExtensionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "available_add_on_sid": payload.get("available_add_on_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "product_name": payload.get("product_name"),
-            "unique_name": payload.get("unique_name"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._available_add_on_sid: Optional[str] = payload.get("available_add_on_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._product_name: Optional[str] = payload.get("product_name")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "available_add_on_sid": available_add_on_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AvailableAddOnExtensionContext] = None
 
@@ -63,46 +61,46 @@ class AvailableAddOnExtensionInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the AvailableAddOnExtension resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def available_add_on_sid(self) -> str:
+    def available_add_on_sid(self) -> Optional[str]:
         """
         :returns: The SID of the AvailableAddOn resource to which this extension applies.
         """
-        return self._properties["available_add_on_sid"]
+        return self._available_add_on_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def product_name(self) -> str:
+    def product_name(self) -> Optional[str]:
         """
         :returns: The name of the Product this Extension is used within.
         """
-        return self._properties["product_name"]
+        return self._product_name
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: An application-defined string that uniquely identifies the resource.
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "AvailableAddOnExtensionInstance":
         """

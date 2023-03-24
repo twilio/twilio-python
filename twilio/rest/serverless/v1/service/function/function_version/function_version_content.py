@@ -27,14 +27,12 @@ class FunctionVersionContentInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "function_sid": payload.get("function_sid"),
-            "content": payload.get("content"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._function_sid: Optional[str] = payload.get("function_sid")
+        self._content: Optional[str] = payload.get("content")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
@@ -61,46 +59,43 @@ class FunctionVersionContentInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Function Version resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Service that the Function Version resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def function_sid(self) -> str:
+    def function_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Function that is the parent of the Function Version.
         """
-        return self._properties["function_sid"]
+        return self._function_sid
 
     @property
-    def content(self) -> str:
+    def content(self) -> Optional[str]:
         """
         :returns: The content of the Function Version resource.
         """
-        return self._properties["content"]
+        return self._content
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self) -> "FunctionVersionContentInstance":
         """

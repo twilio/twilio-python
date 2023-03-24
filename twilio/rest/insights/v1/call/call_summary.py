@@ -58,31 +58,45 @@ class CallSummaryInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "call_sid": payload.get("call_sid"),
-            "call_type": payload.get("call_type"),
-            "call_state": payload.get("call_state"),
-            "answered_by": payload.get("answered_by"),
-            "processing_state": payload.get("processing_state"),
-            "created_time": deserialize.iso8601_datetime(payload.get("created_time")),
-            "start_time": deserialize.iso8601_datetime(payload.get("start_time")),
-            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
-            "duration": deserialize.integer(payload.get("duration")),
-            "connect_duration": deserialize.integer(payload.get("connect_duration")),
-            "_from": payload.get("from"),
-            "to": payload.get("to"),
-            "carrier_edge": payload.get("carrier_edge"),
-            "client_edge": payload.get("client_edge"),
-            "sdk_edge": payload.get("sdk_edge"),
-            "sip_edge": payload.get("sip_edge"),
-            "tags": payload.get("tags"),
-            "url": payload.get("url"),
-            "attributes": payload.get("attributes"),
-            "properties": payload.get("properties"),
-            "trust": payload.get("trust"),
-            "annotation": payload.get("annotation"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._call_sid: Optional[str] = payload.get("call_sid")
+        self._call_type: Optional["CallSummaryInstance.CallType"] = payload.get(
+            "call_type"
+        )
+        self._call_state: Optional["CallSummaryInstance.CallState"] = payload.get(
+            "call_state"
+        )
+        self._answered_by: Optional["CallSummaryInstance.AnsweredBy"] = payload.get(
+            "answered_by"
+        )
+        self._processing_state: Optional[
+            "CallSummaryInstance.ProcessingState"
+        ] = payload.get("processing_state")
+        self._created_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("created_time")
+        )
+        self._start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self._end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
+        self._duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self._connect_duration: Optional[int] = deserialize.integer(
+            payload.get("connect_duration")
+        )
+        self.__from: Optional[Dict[str, object]] = payload.get("from")
+        self._to: Optional[Dict[str, object]] = payload.get("to")
+        self._carrier_edge: Optional[Dict[str, object]] = payload.get("carrier_edge")
+        self._client_edge: Optional[Dict[str, object]] = payload.get("client_edge")
+        self._sdk_edge: Optional[Dict[str, object]] = payload.get("sdk_edge")
+        self._sip_edge: Optional[Dict[str, object]] = payload.get("sip_edge")
+        self._tags: Optional[List[str]] = payload.get("tags")
+        self._url: Optional[str] = payload.get("url")
+        self._attributes: Optional[Dict[str, object]] = payload.get("attributes")
+        self._properties: Optional[Dict[str, object]] = payload.get("properties")
+        self._trust: Optional[Dict[str, object]] = payload.get("trust")
+        self._annotation: Optional[Dict[str, object]] = payload.get("annotation")
 
         self._solution = {
             "call_sid": call_sid,
@@ -105,165 +119,96 @@ class CallSummaryInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def call_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["call_sid"]
+    def call_sid(self) -> Optional[str]:
+        return self._call_sid
 
     @property
-    def call_type(self) -> "CallSummaryInstance.CallType":
-        """
-        :returns:
-        """
-        return self._properties["call_type"]
+    def call_type(self) -> Optional["CallSummaryInstance.CallType"]:
+        return self._call_type
 
     @property
-    def call_state(self) -> "CallSummaryInstance.CallState":
-        """
-        :returns:
-        """
-        return self._properties["call_state"]
+    def call_state(self) -> Optional["CallSummaryInstance.CallState"]:
+        return self._call_state
 
     @property
-    def answered_by(self) -> "CallSummaryInstance.AnsweredBy":
-        """
-        :returns:
-        """
-        return self._properties["answered_by"]
+    def answered_by(self) -> Optional["CallSummaryInstance.AnsweredBy"]:
+        return self._answered_by
 
     @property
-    def processing_state(self) -> "CallSummaryInstance.ProcessingState":
-        """
-        :returns:
-        """
-        return self._properties["processing_state"]
+    def processing_state(self) -> Optional["CallSummaryInstance.ProcessingState"]:
+        return self._processing_state
 
     @property
-    def created_time(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["created_time"]
+    def created_time(self) -> Optional[datetime]:
+        return self._created_time
 
     @property
-    def start_time(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["start_time"]
+    def start_time(self) -> Optional[datetime]:
+        return self._start_time
 
     @property
-    def end_time(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["end_time"]
+    def end_time(self) -> Optional[datetime]:
+        return self._end_time
 
     @property
-    def duration(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["duration"]
+    def duration(self) -> Optional[int]:
+        return self._duration
 
     @property
-    def connect_duration(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["connect_duration"]
+    def connect_duration(self) -> Optional[int]:
+        return self._connect_duration
 
     @property
-    def _from(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["_from"]
+    def _from(self) -> Optional[Dict[str, object]]:
+        return self.__from
 
     @property
-    def to(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["to"]
+    def to(self) -> Optional[Dict[str, object]]:
+        return self._to
 
     @property
-    def carrier_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["carrier_edge"]
+    def carrier_edge(self) -> Optional[Dict[str, object]]:
+        return self._carrier_edge
 
     @property
-    def client_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["client_edge"]
+    def client_edge(self) -> Optional[Dict[str, object]]:
+        return self._client_edge
 
     @property
-    def sdk_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["sdk_edge"]
+    def sdk_edge(self) -> Optional[Dict[str, object]]:
+        return self._sdk_edge
 
     @property
-    def sip_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["sip_edge"]
+    def sip_edge(self) -> Optional[Dict[str, object]]:
+        return self._sip_edge
 
     @property
-    def tags(self) -> List[str]:
-        """
-        :returns:
-        """
-        return self._properties["tags"]
+    def tags(self) -> Optional[List[str]]:
+        return self._tags
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def attributes(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["attributes"]
+    def attributes(self) -> Optional[Dict[str, object]]:
+        return self._attributes
 
     @property
-    def properties(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["properties"]
+    def properties(self) -> Optional[Dict[str, object]]:
+        return self._properties
 
     @property
-    def trust(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["trust"]
+    def trust(self) -> Optional[Dict[str, object]]:
+        return self._trust
 
     @property
-    def annotation(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["annotation"]
+    def annotation(self) -> Optional[Dict[str, object]]:
+        return self._annotation
 
     def fetch(self, processing_state=values.unset) -> "CallSummaryInstance":
         """

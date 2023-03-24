@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -34,42 +34,40 @@ class UsageRecordInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "period": payload.get("period"),
-            "commands": payload.get("commands"),
-            "data": payload.get("data"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._period: Optional[Dict[str, object]] = payload.get("period")
+        self._commands: Optional[Dict[str, object]] = payload.get("commands")
+        self._data: Optional[Dict[str, object]] = payload.get("data")
 
         self._solution = {}
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AccountUsageRecord resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def period(self) -> Dict[str, object]:
+    def period(self) -> Optional[Dict[str, object]]:
         """
         :returns: The time period for which usage is reported. Contains `start` and `end` properties that describe the period using GMT date-time values specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
         """
-        return self._properties["period"]
+        return self._period
 
     @property
-    def commands(self) -> Dict[str, object]:
+    def commands(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object that describes the aggregated Commands usage for all SIMs during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#commands-usage-object).
         """
-        return self._properties["commands"]
+        return self._commands
 
     @property
-    def data(self) -> Dict[str, object]:
+    def data(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object that describes the aggregated Data usage for all SIMs over the period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#data-usage-object).
         """
-        return self._properties["data"]
+        return self._data
 
     def __repr__(self) -> str:
         """

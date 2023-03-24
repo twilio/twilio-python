@@ -34,61 +34,105 @@ class ConfigurationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "attributes": payload.get("attributes"),
-            "status": payload.get("status"),
-            "taskrouter_workspace_sid": payload.get("taskrouter_workspace_sid"),
-            "taskrouter_target_workflow_sid": payload.get(
-                "taskrouter_target_workflow_sid"
-            ),
-            "taskrouter_target_taskqueue_sid": payload.get(
-                "taskrouter_target_taskqueue_sid"
-            ),
-            "taskrouter_taskqueues": payload.get("taskrouter_taskqueues"),
-            "taskrouter_skills": payload.get("taskrouter_skills"),
-            "taskrouter_worker_channels": payload.get("taskrouter_worker_channels"),
-            "taskrouter_worker_attributes": payload.get("taskrouter_worker_attributes"),
-            "taskrouter_offline_activity_sid": payload.get(
-                "taskrouter_offline_activity_sid"
-            ),
-            "runtime_domain": payload.get("runtime_domain"),
-            "messaging_service_instance_sid": payload.get(
-                "messaging_service_instance_sid"
-            ),
-            "chat_service_instance_sid": payload.get("chat_service_instance_sid"),
-            "flex_service_instance_sid": payload.get("flex_service_instance_sid"),
-            "ui_language": payload.get("ui_language"),
-            "ui_attributes": payload.get("ui_attributes"),
-            "ui_dependencies": payload.get("ui_dependencies"),
-            "ui_version": payload.get("ui_version"),
-            "service_version": payload.get("service_version"),
-            "call_recording_enabled": payload.get("call_recording_enabled"),
-            "call_recording_webhook_url": payload.get("call_recording_webhook_url"),
-            "crm_enabled": payload.get("crm_enabled"),
-            "crm_type": payload.get("crm_type"),
-            "crm_callback_url": payload.get("crm_callback_url"),
-            "crm_fallback_url": payload.get("crm_fallback_url"),
-            "crm_attributes": payload.get("crm_attributes"),
-            "public_attributes": payload.get("public_attributes"),
-            "plugin_service_enabled": payload.get("plugin_service_enabled"),
-            "plugin_service_attributes": payload.get("plugin_service_attributes"),
-            "integrations": payload.get("integrations"),
-            "outbound_call_flows": payload.get("outbound_call_flows"),
-            "serverless_service_sids": payload.get("serverless_service_sids"),
-            "queue_stats_configuration": payload.get("queue_stats_configuration"),
-            "notifications": payload.get("notifications"),
-            "markdown": payload.get("markdown"),
-            "url": payload.get("url"),
-            "flex_insights_hr": payload.get("flex_insights_hr"),
-            "flex_insights_drilldown": payload.get("flex_insights_drilldown"),
-            "flex_url": payload.get("flex_url"),
-            "channel_configs": payload.get("channel_configs"),
-            "debugger_integration": payload.get("debugger_integration"),
-            "flex_ui_status_report": payload.get("flex_ui_status_report"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._attributes: Optional[Dict[str, object]] = payload.get("attributes")
+        self._status: Optional["ConfigurationInstance.Status"] = payload.get("status")
+        self._taskrouter_workspace_sid: Optional[str] = payload.get(
+            "taskrouter_workspace_sid"
+        )
+        self._taskrouter_target_workflow_sid: Optional[str] = payload.get(
+            "taskrouter_target_workflow_sid"
+        )
+        self._taskrouter_target_taskqueue_sid: Optional[str] = payload.get(
+            "taskrouter_target_taskqueue_sid"
+        )
+        self._taskrouter_taskqueues: Optional[List[object]] = payload.get(
+            "taskrouter_taskqueues"
+        )
+        self._taskrouter_skills: Optional[List[object]] = payload.get(
+            "taskrouter_skills"
+        )
+        self._taskrouter_worker_channels: Optional[Dict[str, object]] = payload.get(
+            "taskrouter_worker_channels"
+        )
+        self._taskrouter_worker_attributes: Optional[Dict[str, object]] = payload.get(
+            "taskrouter_worker_attributes"
+        )
+        self._taskrouter_offline_activity_sid: Optional[str] = payload.get(
+            "taskrouter_offline_activity_sid"
+        )
+        self._runtime_domain: Optional[str] = payload.get("runtime_domain")
+        self._messaging_service_instance_sid: Optional[str] = payload.get(
+            "messaging_service_instance_sid"
+        )
+        self._chat_service_instance_sid: Optional[str] = payload.get(
+            "chat_service_instance_sid"
+        )
+        self._flex_service_instance_sid: Optional[str] = payload.get(
+            "flex_service_instance_sid"
+        )
+        self._ui_language: Optional[str] = payload.get("ui_language")
+        self._ui_attributes: Optional[Dict[str, object]] = payload.get("ui_attributes")
+        self._ui_dependencies: Optional[Dict[str, object]] = payload.get(
+            "ui_dependencies"
+        )
+        self._ui_version: Optional[str] = payload.get("ui_version")
+        self._service_version: Optional[str] = payload.get("service_version")
+        self._call_recording_enabled: Optional[bool] = payload.get(
+            "call_recording_enabled"
+        )
+        self._call_recording_webhook_url: Optional[str] = payload.get(
+            "call_recording_webhook_url"
+        )
+        self._crm_enabled: Optional[bool] = payload.get("crm_enabled")
+        self._crm_type: Optional[str] = payload.get("crm_type")
+        self._crm_callback_url: Optional[str] = payload.get("crm_callback_url")
+        self._crm_fallback_url: Optional[str] = payload.get("crm_fallback_url")
+        self._crm_attributes: Optional[Dict[str, object]] = payload.get(
+            "crm_attributes"
+        )
+        self._public_attributes: Optional[Dict[str, object]] = payload.get(
+            "public_attributes"
+        )
+        self._plugin_service_enabled: Optional[bool] = payload.get(
+            "plugin_service_enabled"
+        )
+        self._plugin_service_attributes: Optional[Dict[str, object]] = payload.get(
+            "plugin_service_attributes"
+        )
+        self._integrations: Optional[List[object]] = payload.get("integrations")
+        self._outbound_call_flows: Optional[Dict[str, object]] = payload.get(
+            "outbound_call_flows"
+        )
+        self._serverless_service_sids: Optional[List[str]] = payload.get(
+            "serverless_service_sids"
+        )
+        self._queue_stats_configuration: Optional[Dict[str, object]] = payload.get(
+            "queue_stats_configuration"
+        )
+        self._notifications: Optional[Dict[str, object]] = payload.get("notifications")
+        self._markdown: Optional[Dict[str, object]] = payload.get("markdown")
+        self._url: Optional[str] = payload.get("url")
+        self._flex_insights_hr: Optional[Dict[str, object]] = payload.get(
+            "flex_insights_hr"
+        )
+        self._flex_insights_drilldown: Optional[bool] = payload.get(
+            "flex_insights_drilldown"
+        )
+        self._flex_url: Optional[str] = payload.get("flex_url")
+        self._channel_configs: Optional[List[object]] = payload.get("channel_configs")
+        self._debugger_integration: Optional[Dict[str, object]] = payload.get(
+            "debugger_integration"
+        )
+        self._flex_ui_status_report: Optional[Dict[str, object]] = payload.get(
+            "flex_ui_status_report"
+        )
 
         self._solution = {}
         self._context: Optional[ConfigurationContext] = None
@@ -108,319 +152,316 @@ class ConfigurationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Configuration resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the Configuration resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the Configuration resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def attributes(self) -> Dict[str, object]:
+    def attributes(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object that contains application-specific data.
         """
-        return self._properties["attributes"]
+        return self._attributes
 
     @property
-    def status(self) -> "ConfigurationInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["ConfigurationInstance.Status"]:
+        return self._status
 
     @property
-    def taskrouter_workspace_sid(self) -> str:
+    def taskrouter_workspace_sid(self) -> Optional[str]:
         """
         :returns: The SID of the TaskRouter Workspace.
         """
-        return self._properties["taskrouter_workspace_sid"]
+        return self._taskrouter_workspace_sid
 
     @property
-    def taskrouter_target_workflow_sid(self) -> str:
+    def taskrouter_target_workflow_sid(self) -> Optional[str]:
         """
         :returns: The SID of the TaskRouter target Workflow.
         """
-        return self._properties["taskrouter_target_workflow_sid"]
+        return self._taskrouter_target_workflow_sid
 
     @property
-    def taskrouter_target_taskqueue_sid(self) -> str:
+    def taskrouter_target_taskqueue_sid(self) -> Optional[str]:
         """
         :returns: The SID of the TaskRouter Target TaskQueue.
         """
-        return self._properties["taskrouter_target_taskqueue_sid"]
+        return self._taskrouter_target_taskqueue_sid
 
     @property
-    def taskrouter_taskqueues(self) -> List[object]:
+    def taskrouter_taskqueues(self) -> Optional[List[object]]:
         """
         :returns: The list of TaskRouter TaskQueues.
         """
-        return self._properties["taskrouter_taskqueues"]
+        return self._taskrouter_taskqueues
 
     @property
-    def taskrouter_skills(self) -> List[object]:
+    def taskrouter_skills(self) -> Optional[List[object]]:
         """
         :returns: The Skill description for TaskRouter workers.
         """
-        return self._properties["taskrouter_skills"]
+        return self._taskrouter_skills
 
     @property
-    def taskrouter_worker_channels(self) -> Dict[str, object]:
+    def taskrouter_worker_channels(self) -> Optional[Dict[str, object]]:
         """
         :returns: The TaskRouter default channel capacities and availability for workers.
         """
-        return self._properties["taskrouter_worker_channels"]
+        return self._taskrouter_worker_channels
 
     @property
-    def taskrouter_worker_attributes(self) -> Dict[str, object]:
+    def taskrouter_worker_attributes(self) -> Optional[Dict[str, object]]:
         """
         :returns: The TaskRouter Worker attributes.
         """
-        return self._properties["taskrouter_worker_attributes"]
+        return self._taskrouter_worker_attributes
 
     @property
-    def taskrouter_offline_activity_sid(self) -> str:
+    def taskrouter_offline_activity_sid(self) -> Optional[str]:
         """
         :returns: The TaskRouter SID of the offline activity.
         """
-        return self._properties["taskrouter_offline_activity_sid"]
+        return self._taskrouter_offline_activity_sid
 
     @property
-    def runtime_domain(self) -> str:
+    def runtime_domain(self) -> Optional[str]:
         """
         :returns: The URL where the Flex instance is hosted.
         """
-        return self._properties["runtime_domain"]
+        return self._runtime_domain
 
     @property
-    def messaging_service_instance_sid(self) -> str:
+    def messaging_service_instance_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Messaging service instance.
         """
-        return self._properties["messaging_service_instance_sid"]
+        return self._messaging_service_instance_sid
 
     @property
-    def chat_service_instance_sid(self) -> str:
+    def chat_service_instance_sid(self) -> Optional[str]:
         """
         :returns: The SID of the chat service this user belongs to.
         """
-        return self._properties["chat_service_instance_sid"]
+        return self._chat_service_instance_sid
 
     @property
-    def flex_service_instance_sid(self) -> str:
+    def flex_service_instance_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Flex service instance.
         """
-        return self._properties["flex_service_instance_sid"]
+        return self._flex_service_instance_sid
 
     @property
-    def ui_language(self) -> str:
+    def ui_language(self) -> Optional[str]:
         """
         :returns: The primary language of the Flex UI.
         """
-        return self._properties["ui_language"]
+        return self._ui_language
 
     @property
-    def ui_attributes(self) -> Dict[str, object]:
+    def ui_attributes(self) -> Optional[Dict[str, object]]:
         """
         :returns: The object that describes Flex UI characteristics and settings.
         """
-        return self._properties["ui_attributes"]
+        return self._ui_attributes
 
     @property
-    def ui_dependencies(self) -> Dict[str, object]:
+    def ui_dependencies(self) -> Optional[Dict[str, object]]:
         """
         :returns: The object that defines the NPM packages and versions to be used in Hosted Flex.
         """
-        return self._properties["ui_dependencies"]
+        return self._ui_dependencies
 
     @property
-    def ui_version(self) -> str:
+    def ui_version(self) -> Optional[str]:
         """
         :returns: The Pinned UI version.
         """
-        return self._properties["ui_version"]
+        return self._ui_version
 
     @property
-    def service_version(self) -> str:
+    def service_version(self) -> Optional[str]:
         """
         :returns: The Flex Service version.
         """
-        return self._properties["service_version"]
+        return self._service_version
 
     @property
-    def call_recording_enabled(self) -> bool:
+    def call_recording_enabled(self) -> Optional[bool]:
         """
         :returns: Whether call recording is enabled.
         """
-        return self._properties["call_recording_enabled"]
+        return self._call_recording_enabled
 
     @property
-    def call_recording_webhook_url(self) -> str:
+    def call_recording_webhook_url(self) -> Optional[str]:
         """
         :returns: The call recording webhook URL.
         """
-        return self._properties["call_recording_webhook_url"]
+        return self._call_recording_webhook_url
 
     @property
-    def crm_enabled(self) -> bool:
+    def crm_enabled(self) -> Optional[bool]:
         """
         :returns: Whether CRM is present for Flex.
         """
-        return self._properties["crm_enabled"]
+        return self._crm_enabled
 
     @property
-    def crm_type(self) -> str:
+    def crm_type(self) -> Optional[str]:
         """
         :returns: The CRM type.
         """
-        return self._properties["crm_type"]
+        return self._crm_type
 
     @property
-    def crm_callback_url(self) -> str:
+    def crm_callback_url(self) -> Optional[str]:
         """
         :returns: The CRM Callback URL.
         """
-        return self._properties["crm_callback_url"]
+        return self._crm_callback_url
 
     @property
-    def crm_fallback_url(self) -> str:
+    def crm_fallback_url(self) -> Optional[str]:
         """
         :returns: The CRM Fallback URL.
         """
-        return self._properties["crm_fallback_url"]
+        return self._crm_fallback_url
 
     @property
-    def crm_attributes(self) -> Dict[str, object]:
+    def crm_attributes(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object that contains the CRM attributes.
         """
-        return self._properties["crm_attributes"]
+        return self._crm_attributes
 
     @property
-    def public_attributes(self) -> Dict[str, object]:
+    def public_attributes(self) -> Optional[Dict[str, object]]:
         """
         :returns: The list of public attributes, which are visible to unauthenticated clients.
         """
-        return self._properties["public_attributes"]
+        return self._public_attributes
 
     @property
-    def plugin_service_enabled(self) -> bool:
+    def plugin_service_enabled(self) -> Optional[bool]:
         """
         :returns: Whether the plugin service enabled.
         """
-        return self._properties["plugin_service_enabled"]
+        return self._plugin_service_enabled
 
     @property
-    def plugin_service_attributes(self) -> Dict[str, object]:
+    def plugin_service_attributes(self) -> Optional[Dict[str, object]]:
         """
         :returns: The plugin service attributes.
         """
-        return self._properties["plugin_service_attributes"]
+        return self._plugin_service_attributes
 
     @property
-    def integrations(self) -> List[object]:
+    def integrations(self) -> Optional[List[object]]:
         """
         :returns: A list of objects that contain the configurations for the Integrations supported in this configuration.
         """
-        return self._properties["integrations"]
+        return self._integrations
 
     @property
-    def outbound_call_flows(self) -> Dict[str, object]:
+    def outbound_call_flows(self) -> Optional[Dict[str, object]]:
         """
         :returns: The list of outbound call flows.
         """
-        return self._properties["outbound_call_flows"]
+        return self._outbound_call_flows
 
     @property
-    def serverless_service_sids(self) -> List[str]:
+    def serverless_service_sids(self) -> Optional[List[str]]:
         """
         :returns: The list of serverless service SIDs.
         """
-        return self._properties["serverless_service_sids"]
+        return self._serverless_service_sids
 
     @property
-    def queue_stats_configuration(self) -> Dict[str, object]:
+    def queue_stats_configuration(self) -> Optional[Dict[str, object]]:
         """
         :returns: Configurable parameters for Queues Statistics.
         """
-        return self._properties["queue_stats_configuration"]
+        return self._queue_stats_configuration
 
     @property
-    def notifications(self) -> Dict[str, object]:
+    def notifications(self) -> Optional[Dict[str, object]]:
         """
         :returns: Configurable parameters for Notifications.
         """
-        return self._properties["notifications"]
+        return self._notifications
 
     @property
-    def markdown(self) -> Dict[str, object]:
+    def markdown(self) -> Optional[Dict[str, object]]:
         """
         :returns: Configurable parameters for Markdown.
         """
-        return self._properties["markdown"]
+        return self._markdown
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Configuration resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def flex_insights_hr(self) -> Dict[str, object]:
+    def flex_insights_hr(self) -> Optional[Dict[str, object]]:
         """
         :returns: Object with enabled/disabled flag with list of workspaces.
         """
-        return self._properties["flex_insights_hr"]
+        return self._flex_insights_hr
 
     @property
-    def flex_insights_drilldown(self) -> bool:
+    def flex_insights_drilldown(self) -> Optional[bool]:
         """
         :returns: Setting this to true will redirect Flex UI to the URL set in flex_url
         """
-        return self._properties["flex_insights_drilldown"]
+        return self._flex_insights_drilldown
 
     @property
-    def flex_url(self) -> str:
+    def flex_url(self) -> Optional[str]:
         """
         :returns: URL to redirect to in case drilldown is enabled.
         """
-        return self._properties["flex_url"]
+        return self._flex_url
 
     @property
-    def channel_configs(self) -> List[object]:
+    def channel_configs(self) -> Optional[List[object]]:
         """
         :returns: Settings for different limits for Flex Conversations channels attachments.
         """
-        return self._properties["channel_configs"]
+        return self._channel_configs
 
     @property
-    def debugger_integration(self) -> Dict[str, object]:
+    def debugger_integration(self) -> Optional[Dict[str, object]]:
         """
         :returns: Configurable parameters for Debugger Integration.
         """
-        return self._properties["debugger_integration"]
+        return self._debugger_integration
 
     @property
-    def flex_ui_status_report(self) -> Dict[str, object]:
+    def flex_ui_status_report(self) -> Optional[Dict[str, object]]:
         """
         :returns: Configurable parameters for Flex UI Status report.
         """
-        return self._properties["flex_ui_status_report"]
+        return self._flex_ui_status_report
 
     def fetch(self, ui_version=values.unset) -> "ConfigurationInstance":
         """

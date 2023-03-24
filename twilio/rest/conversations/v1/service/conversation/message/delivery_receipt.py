@@ -45,26 +45,30 @@ class DeliveryReceiptInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "conversation_sid": payload.get("conversation_sid"),
-            "message_sid": payload.get("message_sid"),
-            "sid": payload.get("sid"),
-            "channel_message_sid": payload.get("channel_message_sid"),
-            "participant_sid": payload.get("participant_sid"),
-            "status": payload.get("status"),
-            "error_code": deserialize.integer(payload.get("error_code")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self._conversation_sid: Optional[str] = payload.get("conversation_sid")
+        self._message_sid: Optional[str] = payload.get("message_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._channel_message_sid: Optional[str] = payload.get("channel_message_sid")
+        self._participant_sid: Optional[str] = payload.get("participant_sid")
+        self._status: Optional["DeliveryReceiptInstance.DeliveryStatus"] = payload.get(
+            "status"
+        )
+        self._error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "conversation_sid": conversation_sid,
             "message_sid": message_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[DeliveryReceiptContext] = None
 
@@ -87,88 +91,85 @@ class DeliveryReceiptInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this participant.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def chat_service_sid(self) -> str:
+    def chat_service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
         """
-        return self._properties["chat_service_sid"]
+        return self._chat_service_sid
 
     @property
-    def conversation_sid(self) -> str:
+    def conversation_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
         """
-        return self._properties["conversation_sid"]
+        return self._conversation_sid
 
     @property
-    def message_sid(self) -> str:
+    def message_sid(self) -> Optional[str]:
         """
         :returns: The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to
         """
-        return self._properties["message_sid"]
+        return self._message_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def channel_message_sid(self) -> str:
+    def channel_message_sid(self) -> Optional[str]:
         """
         :returns: A messaging channel-specific identifier for the message delivered to participant e.g. `SMxx` for SMS, `WAxx` for Whatsapp etc.
         """
-        return self._properties["channel_message_sid"]
+        return self._channel_message_sid
 
     @property
-    def participant_sid(self) -> str:
+    def participant_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the participant the delivery receipt belongs to.
         """
-        return self._properties["participant_sid"]
+        return self._participant_sid
 
     @property
-    def status(self) -> "DeliveryReceiptInstance.DeliveryStatus":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["DeliveryReceiptInstance.DeliveryStatus"]:
+        return self._status
 
     @property
-    def error_code(self) -> int:
+    def error_code(self) -> Optional[int]:
         """
         :returns: The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status,
         """
-        return self._properties["error_code"]
+        return self._error_code
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was created.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was last updated. `null` if the delivery receipt has not been updated.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: An absolute API resource URL for this delivery receipt.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "DeliveryReceiptInstance":
         """

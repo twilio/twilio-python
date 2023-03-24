@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -40,98 +40,98 @@ class UsageRecordInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "network_sid": payload.get("network_sid"),
-            "fleet_sid": payload.get("fleet_sid"),
-            "iso_country": payload.get("iso_country"),
-            "period": payload.get("period"),
-            "data_upload": payload.get("data_upload"),
-            "data_download": payload.get("data_download"),
-            "data_total": payload.get("data_total"),
-            "data_total_billed": deserialize.decimal(payload.get("data_total_billed")),
-            "billed_unit": payload.get("billed_unit"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._sim_sid: Optional[str] = payload.get("sim_sid")
+        self._network_sid: Optional[str] = payload.get("network_sid")
+        self._fleet_sid: Optional[str] = payload.get("fleet_sid")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._period: Optional[Dict[str, object]] = payload.get("period")
+        self._data_upload: Optional[int] = payload.get("data_upload")
+        self._data_download: Optional[int] = payload.get("data_download")
+        self._data_total: Optional[int] = payload.get("data_total")
+        self._data_total_billed: Optional[float] = deserialize.decimal(
+            payload.get("data_total_billed")
+        )
+        self._billed_unit: Optional[str] = payload.get("billed_unit")
 
         self._solution = {}
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that incurred the usage.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def sim_sid(self) -> str:
+    def sim_sid(self) -> Optional[str]:
         """
         :returns: SID of a Sim resource to which the UsageRecord belongs. Value will only be present when either a value for the `Sim` query parameter is provided or when UsageRecords are grouped by `sim`. Otherwise, the value will be `null`.
         """
-        return self._properties["sim_sid"]
+        return self._sim_sid
 
     @property
-    def network_sid(self) -> str:
+    def network_sid(self) -> Optional[str]:
         """
         :returns: SID of the Network resource the usage occurred on. Value will only be present when either a value for the `Network` query parameter is provided or when UsageRecords are grouped by `network`. Otherwise, the value will be `null`.
         """
-        return self._properties["network_sid"]
+        return self._network_sid
 
     @property
-    def fleet_sid(self) -> str:
+    def fleet_sid(self) -> Optional[str]:
         """
         :returns: SID of the Fleet resource the usage occurred on. Value will only be present when either a value for the `Fleet` query parameter is provided or when UsageRecords are grouped by `fleet`. Otherwise, the value will be `null`.
         """
-        return self._properties["fleet_sid"]
+        return self._fleet_sid
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: Alpha-2 ISO Country Code that the usage occurred in. Value will only be present when either a value for the `IsoCountry` query parameter is provided or when UsageRecords are grouped by `isoCountry`. Otherwise, the value will be `null`.
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def period(self) -> Dict[str, object]:
+    def period(self) -> Optional[Dict[str, object]]:
         """
         :returns: The time period for which the usage is reported. The period is represented as a pair of `start_time` and `end_time` timestamps specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["period"]
+        return self._period
 
     @property
-    def data_upload(self) -> int:
+    def data_upload(self) -> Optional[int]:
         """
         :returns: Total data uploaded in bytes, aggregated by the query parameters.
         """
-        return self._properties["data_upload"]
+        return self._data_upload
 
     @property
-    def data_download(self) -> int:
+    def data_download(self) -> Optional[int]:
         """
         :returns: Total data downloaded in bytes, aggregated by the query parameters.
         """
-        return self._properties["data_download"]
+        return self._data_download
 
     @property
-    def data_total(self) -> int:
+    def data_total(self) -> Optional[int]:
         """
         :returns: Total of data_upload and data_download.
         """
-        return self._properties["data_total"]
+        return self._data_total
 
     @property
-    def data_total_billed(self) -> float:
+    def data_total_billed(self) -> Optional[float]:
         """
         :returns: Total amount in the `billed_unit` that was charged for the data uploaded or downloaded. Will return 0 for usage prior to February 1, 2022. Value may be 0 despite `data_total` being greater than 0 if the data usage is still being processed by Twilio's billing system. Refer to [Data Usage Processing](https://www.twilio.com/docs/iot/supersim/api/usage-record-resource#data-usage-processing) for more details.
         """
-        return self._properties["data_total_billed"]
+        return self._data_total_billed
 
     @property
-    def billed_unit(self) -> str:
+    def billed_unit(self) -> Optional[str]:
         """
         :returns: The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`). This can be null when data_toal_billed is 0 and we do not yet have billing information for the corresponding data usage. Refer to [Data Usage Processing](https://www.twilio.com/docs/iot/supersim/api/usage-record-resource#data-usage-processing) for more details.
         """
-        return self._properties["billed_unit"]
+        return self._billed_unit
 
     def __repr__(self) -> str:
         """

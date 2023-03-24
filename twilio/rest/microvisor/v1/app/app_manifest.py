@@ -27,12 +27,10 @@ class AppManifestInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "app_sid": payload.get("app_sid"),
-            "hash": payload.get("hash"),
-            "encoded_bytes": payload.get("encoded_bytes"),
-            "url": payload.get("url"),
-        }
+        self._app_sid: Optional[str] = payload.get("app_sid")
+        self._hash: Optional[str] = payload.get("hash")
+        self._encoded_bytes: Optional[str] = payload.get("encoded_bytes")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "app_sid": app_sid,
@@ -55,32 +53,32 @@ class AppManifestInstance(InstanceResource):
         return self._context
 
     @property
-    def app_sid(self) -> str:
+    def app_sid(self) -> Optional[str]:
         """
         :returns: A 34-character string that uniquely identifies this App.
         """
-        return self._properties["app_sid"]
+        return self._app_sid
 
     @property
-    def hash(self) -> str:
+    def hash(self) -> Optional[str]:
         """
         :returns: App manifest hash represented as `hash_algorithm:hash_value`.
         """
-        return self._properties["hash"]
+        return self._hash
 
     @property
-    def encoded_bytes(self) -> str:
+    def encoded_bytes(self) -> Optional[str]:
         """
         :returns: The base-64 encoded manifest
         """
-        return self._properties["encoded_bytes"]
+        return self._encoded_bytes
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of this Manifest.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "AppManifestInstance":
         """

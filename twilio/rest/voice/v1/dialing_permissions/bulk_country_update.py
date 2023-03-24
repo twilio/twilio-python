@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -27,26 +28,26 @@ class BulkCountryUpdateInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "update_count": deserialize.integer(payload.get("update_count")),
-            "update_request": payload.get("update_request"),
-        }
+        self._update_count: Optional[int] = deserialize.integer(
+            payload.get("update_count")
+        )
+        self._update_request: Optional[str] = payload.get("update_request")
 
         self._solution = {}
 
     @property
-    def update_count(self) -> int:
+    def update_count(self) -> Optional[int]:
         """
         :returns: The number of countries updated
         """
-        return self._properties["update_count"]
+        return self._update_count
 
     @property
-    def update_request(self) -> str:
+    def update_request(self) -> Optional[str]:
         """
         :returns: A bulk update request to change voice dialing country permissions stored as a URL-encoded, JSON array of update objects. For example : `[ { \"iso_code\": \"GB\", \"low_risk_numbers_enabled\": \"true\", \"high_risk_special_numbers_enabled\":\"true\", \"high_risk_tollfraud_numbers_enabled\": \"false\" } ]`
         """
-        return self._properties["update_request"]
+        return self._update_request
 
     def __repr__(self) -> str:
         """

@@ -30,18 +30,20 @@ class EventTypeInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "type": payload.get("type"),
-            "schema_id": payload.get("schema_id"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "description": payload.get("description"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._type: Optional[str] = payload.get("type")
+        self._schema_id: Optional[str] = payload.get("schema_id")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._description: Optional[str] = payload.get("description")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "type": type or self._properties["type"],
+            "type": type or self._type,
         }
         self._context: Optional[EventTypeContext] = None
 
@@ -61,53 +63,50 @@ class EventTypeInstance(InstanceResource):
         return self._context
 
     @property
-    def type(self) -> str:
+    def type(self) -> Optional[str]:
         """
         :returns: A string that uniquely identifies this Event Type.
         """
-        return self._properties["type"]
+        return self._type
 
     @property
-    def schema_id(self) -> str:
+    def schema_id(self) -> Optional[str]:
         """
         :returns: A string that uniquely identifies the Schema this Event Type adheres to.
         """
-        return self._properties["schema_id"]
+        return self._schema_id
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this Event Type was created, given in ISO 8601 format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this Event Type was updated, given in ISO 8601 format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def description(self) -> str:
+    def description(self) -> Optional[str]:
         """
         :returns: A human readable description for this Event Type.
         """
-        return self._properties["description"]
+        return self._description
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def fetch(self) -> "EventTypeInstance":
         """

@@ -29,18 +29,16 @@ class DayInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "redirect_to": payload.get("redirect_to"),
-            "day": payload.get("day"),
-            "size": deserialize.integer(payload.get("size")),
-            "create_date": payload.get("create_date"),
-            "friendly_name": payload.get("friendly_name"),
-            "resource_type": payload.get("resource_type"),
-        }
+        self._redirect_to: Optional[str] = payload.get("redirect_to")
+        self._day: Optional[str] = payload.get("day")
+        self._size: Optional[int] = deserialize.integer(payload.get("size"))
+        self._create_date: Optional[str] = payload.get("create_date")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._resource_type: Optional[str] = payload.get("resource_type")
 
         self._solution = {
             "resource_type": resource_type,
-            "day": day or self._properties["day"],
+            "day": day or self._day,
         }
         self._context: Optional[DayContext] = None
 
@@ -61,46 +59,43 @@ class DayInstance(InstanceResource):
         return self._context
 
     @property
-    def redirect_to(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["redirect_to"]
+    def redirect_to(self) -> Optional[str]:
+        return self._redirect_to
 
     @property
-    def day(self) -> str:
+    def day(self) -> Optional[str]:
         """
         :returns: The ISO 8601 format date of the resources in the file, for a UTC day
         """
-        return self._properties["day"]
+        return self._day
 
     @property
-    def size(self) -> int:
+    def size(self) -> Optional[int]:
         """
         :returns: The size of the day's data file in bytes
         """
-        return self._properties["size"]
+        return self._size
 
     @property
-    def create_date(self) -> str:
+    def create_date(self) -> Optional[str]:
         """
         :returns: The ISO 8601 format date when resources is created
         """
-        return self._properties["create_date"]
+        return self._create_date
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The friendly name specified when creating the job
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def resource_type(self) -> str:
+    def resource_type(self) -> Optional[str]:
         """
         :returns: The type of communication – Messages, Calls, Conferences, and Participants
         """
-        return self._properties["resource_type"]
+        return self._resource_type
 
     def fetch(self) -> "DayInstance":
         """

@@ -29,21 +29,19 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "question_id": payload.get("question_id"),
-            "question": payload.get("question"),
-            "description": payload.get("description"),
-            "category": payload.get("category"),
-            "answer_set_id": payload.get("answer_set_id"),
-            "allow_na": payload.get("allow_na"),
-            "usage": deserialize.integer(payload.get("usage")),
-            "answer_set": payload.get("answer_set"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._question_id: Optional[str] = payload.get("question_id")
+        self._question: Optional[str] = payload.get("question")
+        self._description: Optional[str] = payload.get("description")
+        self._category: Optional[Dict[str, object]] = payload.get("category")
+        self._answer_set_id: Optional[str] = payload.get("answer_set_id")
+        self._allow_na: Optional[bool] = payload.get("allow_na")
+        self._usage: Optional[int] = deserialize.integer(payload.get("usage"))
+        self._answer_set: Optional[Dict[str, object]] = payload.get("answer_set")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "question_id": question_id or self._properties["question_id"],
+            "question_id": question_id or self._question_id,
         }
         self._context: Optional[InsightsQuestionnairesQuestionContext] = None
 
@@ -63,74 +61,71 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def question_id(self) -> str:
+    def question_id(self) -> Optional[str]:
         """
         :returns: The unique ID of the question
         """
-        return self._properties["question_id"]
+        return self._question_id
 
     @property
-    def question(self) -> str:
+    def question(self) -> Optional[str]:
         """
         :returns: The question.
         """
-        return self._properties["question"]
+        return self._question
 
     @property
-    def description(self) -> str:
+    def description(self) -> Optional[str]:
         """
         :returns: The description for the question.
         """
-        return self._properties["description"]
+        return self._description
 
     @property
-    def category(self) -> Dict[str, object]:
+    def category(self) -> Optional[Dict[str, object]]:
         """
         :returns: The Category for the question.
         """
-        return self._properties["category"]
+        return self._category
 
     @property
-    def answer_set_id(self) -> str:
+    def answer_set_id(self) -> Optional[str]:
         """
         :returns: The answer_set for the question.
         """
-        return self._properties["answer_set_id"]
+        return self._answer_set_id
 
     @property
-    def allow_na(self) -> bool:
+    def allow_na(self) -> Optional[bool]:
         """
         :returns: The flag  to enable for disable NA for answer.
         """
-        return self._properties["allow_na"]
+        return self._allow_na
 
     @property
-    def usage(self) -> int:
+    def usage(self) -> Optional[int]:
         """
         :returns: Integer value that tells a particular question is used by how many questionnaires
         """
-        return self._properties["usage"]
+        return self._usage
 
     @property
-    def answer_set(self) -> Dict[str, object]:
+    def answer_set(self) -> Optional[Dict[str, object]]:
         """
         :returns: Set of answers for the question
         """
-        return self._properties["answer_set"]
+        return self._answer_set
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def delete(self, token=values.unset) -> bool:
         """

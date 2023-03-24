@@ -45,29 +45,31 @@ class MessageInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "attributes": payload.get("attributes"),
-            "service_sid": payload.get("service_sid"),
-            "to": payload.get("to"),
-            "channel_sid": payload.get("channel_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "last_updated_by": payload.get("last_updated_by"),
-            "was_edited": payload.get("was_edited"),
-            "_from": payload.get("from"),
-            "body": payload.get("body"),
-            "index": deserialize.integer(payload.get("index")),
-            "type": payload.get("type"),
-            "media": payload.get("media"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._attributes: Optional[str] = payload.get("attributes")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._to: Optional[str] = payload.get("to")
+        self._channel_sid: Optional[str] = payload.get("channel_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._last_updated_by: Optional[str] = payload.get("last_updated_by")
+        self._was_edited: Optional[bool] = payload.get("was_edited")
+        self.__from: Optional[str] = payload.get("from")
+        self._body: Optional[str] = payload.get("body")
+        self._index: Optional[int] = deserialize.integer(payload.get("index"))
+        self._type: Optional[str] = payload.get("type")
+        self._media: Optional[Dict[str, object]] = payload.get("media")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[MessageContext] = None
 
@@ -89,116 +91,68 @@ class MessageInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def attributes(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["attributes"]
+    def attributes(self) -> Optional[str]:
+        return self._attributes
 
     @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
+    def service_sid(self) -> Optional[str]:
+        return self._service_sid
 
     @property
-    def to(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["to"]
+    def to(self) -> Optional[str]:
+        return self._to
 
     @property
-    def channel_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["channel_sid"]
+    def channel_sid(self) -> Optional[str]:
+        return self._channel_sid
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def last_updated_by(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["last_updated_by"]
+    def last_updated_by(self) -> Optional[str]:
+        return self._last_updated_by
 
     @property
-    def was_edited(self) -> bool:
-        """
-        :returns:
-        """
-        return self._properties["was_edited"]
+    def was_edited(self) -> Optional[bool]:
+        return self._was_edited
 
     @property
-    def _from(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["_from"]
+    def _from(self) -> Optional[str]:
+        return self.__from
 
     @property
-    def body(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["body"]
+    def body(self) -> Optional[str]:
+        return self._body
 
     @property
-    def index(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["index"]
+    def index(self) -> Optional[int]:
+        return self._index
 
     @property
-    def type(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["type"]
+    def type(self) -> Optional[str]:
+        return self._type
 
     @property
-    def media(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["media"]
+    def media(self) -> Optional[Dict[str, object]]:
+        return self._media
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """

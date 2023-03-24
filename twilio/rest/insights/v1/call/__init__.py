@@ -32,14 +32,12 @@ class CallInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[CallContext] = None
 
@@ -59,25 +57,16 @@ class CallInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def fetch(self) -> "CallInstance":
         """

@@ -30,26 +30,34 @@ class ByocTrunkInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "voice_url": payload.get("voice_url"),
-            "voice_method": payload.get("voice_method"),
-            "voice_fallback_url": payload.get("voice_fallback_url"),
-            "voice_fallback_method": payload.get("voice_fallback_method"),
-            "status_callback_url": payload.get("status_callback_url"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "cnam_lookup_enabled": payload.get("cnam_lookup_enabled"),
-            "connection_policy_sid": payload.get("connection_policy_sid"),
-            "from_domain_sid": payload.get("from_domain_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._voice_url: Optional[str] = payload.get("voice_url")
+        self._voice_method: Optional[str] = payload.get("voice_method")
+        self._voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
+        self._voice_fallback_method: Optional[str] = payload.get(
+            "voice_fallback_method"
+        )
+        self._status_callback_url: Optional[str] = payload.get("status_callback_url")
+        self._status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
+        self._cnam_lookup_enabled: Optional[bool] = payload.get("cnam_lookup_enabled")
+        self._connection_policy_sid: Optional[str] = payload.get(
+            "connection_policy_sid"
+        )
+        self._from_domain_sid: Optional[str] = payload.get("from_domain_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ByocTrunkContext] = None
 
@@ -69,109 +77,109 @@ class ByocTrunkInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the BYOC Trunk resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the BYOC Trunk resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def voice_url(self) -> str:
+    def voice_url(self) -> Optional[str]:
         """
         :returns: The URL we call using the `voice_method` when the BYOC Trunk receives a call.
         """
-        return self._properties["voice_url"]
+        return self._voice_url
 
     @property
-    def voice_method(self) -> str:
+    def voice_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["voice_method"]
+        return self._voice_method
 
     @property
-    def voice_fallback_url(self) -> str:
+    def voice_fallback_url(self) -> Optional[str]:
         """
         :returns: The URL that we call when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
         """
-        return self._properties["voice_fallback_url"]
+        return self._voice_fallback_url
 
     @property
-    def voice_fallback_method(self) -> str:
+    def voice_fallback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["voice_fallback_method"]
+        return self._voice_fallback_method
 
     @property
-    def status_callback_url(self) -> str:
+    def status_callback_url(self) -> Optional[str]:
         """
         :returns: The URL that we call to pass status parameters (such as call ended) to your application.
         """
-        return self._properties["status_callback_url"]
+        return self._status_callback_url
 
     @property
-    def status_callback_method(self) -> str:
+    def status_callback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `status_callback_url`. Either `GET` or `POST`.
         """
-        return self._properties["status_callback_method"]
+        return self._status_callback_method
 
     @property
-    def cnam_lookup_enabled(self) -> bool:
+    def cnam_lookup_enabled(self) -> Optional[bool]:
         """
         :returns: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
         """
-        return self._properties["cnam_lookup_enabled"]
+        return self._cnam_lookup_enabled
 
     @property
-    def connection_policy_sid(self) -> str:
+    def connection_policy_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
         """
-        return self._properties["connection_policy_sid"]
+        return self._connection_policy_sid
 
     @property
-    def from_domain_sid(self) -> str:
+    def from_domain_sid(self) -> Optional[str]:
         """
         :returns: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \"call back\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \"sip.twilio.com\".
         """
-        return self._properties["from_domain_sid"]
+        return self._from_domain_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

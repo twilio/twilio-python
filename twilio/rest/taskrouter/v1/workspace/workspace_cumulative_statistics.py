@@ -29,45 +29,63 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "avg_task_acceptance_time": deserialize.integer(
-                payload.get("avg_task_acceptance_time")
-            ),
-            "start_time": deserialize.iso8601_datetime(payload.get("start_time")),
-            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
-            "reservations_created": deserialize.integer(
-                payload.get("reservations_created")
-            ),
-            "reservations_accepted": deserialize.integer(
-                payload.get("reservations_accepted")
-            ),
-            "reservations_rejected": deserialize.integer(
-                payload.get("reservations_rejected")
-            ),
-            "reservations_timed_out": deserialize.integer(
-                payload.get("reservations_timed_out")
-            ),
-            "reservations_canceled": deserialize.integer(
-                payload.get("reservations_canceled")
-            ),
-            "reservations_rescinded": deserialize.integer(
-                payload.get("reservations_rescinded")
-            ),
-            "split_by_wait_time": payload.get("split_by_wait_time"),
-            "wait_duration_until_accepted": payload.get("wait_duration_until_accepted"),
-            "wait_duration_until_canceled": payload.get("wait_duration_until_canceled"),
-            "tasks_canceled": deserialize.integer(payload.get("tasks_canceled")),
-            "tasks_completed": deserialize.integer(payload.get("tasks_completed")),
-            "tasks_created": deserialize.integer(payload.get("tasks_created")),
-            "tasks_deleted": deserialize.integer(payload.get("tasks_deleted")),
-            "tasks_moved": deserialize.integer(payload.get("tasks_moved")),
-            "tasks_timed_out_in_workflow": deserialize.integer(
-                payload.get("tasks_timed_out_in_workflow")
-            ),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._avg_task_acceptance_time: Optional[int] = deserialize.integer(
+            payload.get("avg_task_acceptance_time")
+        )
+        self._start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self._end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
+        self._reservations_created: Optional[int] = deserialize.integer(
+            payload.get("reservations_created")
+        )
+        self._reservations_accepted: Optional[int] = deserialize.integer(
+            payload.get("reservations_accepted")
+        )
+        self._reservations_rejected: Optional[int] = deserialize.integer(
+            payload.get("reservations_rejected")
+        )
+        self._reservations_timed_out: Optional[int] = deserialize.integer(
+            payload.get("reservations_timed_out")
+        )
+        self._reservations_canceled: Optional[int] = deserialize.integer(
+            payload.get("reservations_canceled")
+        )
+        self._reservations_rescinded: Optional[int] = deserialize.integer(
+            payload.get("reservations_rescinded")
+        )
+        self._split_by_wait_time: Optional[Dict[str, object]] = payload.get(
+            "split_by_wait_time"
+        )
+        self._wait_duration_until_accepted: Optional[Dict[str, object]] = payload.get(
+            "wait_duration_until_accepted"
+        )
+        self._wait_duration_until_canceled: Optional[Dict[str, object]] = payload.get(
+            "wait_duration_until_canceled"
+        )
+        self._tasks_canceled: Optional[int] = deserialize.integer(
+            payload.get("tasks_canceled")
+        )
+        self._tasks_completed: Optional[int] = deserialize.integer(
+            payload.get("tasks_completed")
+        )
+        self._tasks_created: Optional[int] = deserialize.integer(
+            payload.get("tasks_created")
+        )
+        self._tasks_deleted: Optional[int] = deserialize.integer(
+            payload.get("tasks_deleted")
+        )
+        self._tasks_moved: Optional[int] = deserialize.integer(
+            payload.get("tasks_moved")
+        )
+        self._tasks_timed_out_in_workflow: Optional[int] = deserialize.integer(
+            payload.get("tasks_timed_out_in_workflow")
+        )
+        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -90,151 +108,151 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def avg_task_acceptance_time(self) -> int:
+    def avg_task_acceptance_time(self) -> Optional[int]:
         """
         :returns: The average time in seconds between Task creation and acceptance.
         """
-        return self._properties["avg_task_acceptance_time"]
+        return self._avg_task_acceptance_time
 
     @property
-    def start_time(self) -> datetime:
+    def start_time(self) -> Optional[datetime]:
         """
         :returns: The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["start_time"]
+        return self._start_time
 
     @property
-    def end_time(self) -> datetime:
+    def end_time(self) -> Optional[datetime]:
         """
         :returns: The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["end_time"]
+        return self._end_time
 
     @property
-    def reservations_created(self) -> int:
+    def reservations_created(self) -> Optional[int]:
         """
         :returns: The total number of Reservations that were created for Workers.
         """
-        return self._properties["reservations_created"]
+        return self._reservations_created
 
     @property
-    def reservations_accepted(self) -> int:
+    def reservations_accepted(self) -> Optional[int]:
         """
         :returns: The total number of Reservations accepted by Workers.
         """
-        return self._properties["reservations_accepted"]
+        return self._reservations_accepted
 
     @property
-    def reservations_rejected(self) -> int:
+    def reservations_rejected(self) -> Optional[int]:
         """
         :returns: The total number of Reservations that were rejected.
         """
-        return self._properties["reservations_rejected"]
+        return self._reservations_rejected
 
     @property
-    def reservations_timed_out(self) -> int:
+    def reservations_timed_out(self) -> Optional[int]:
         """
         :returns: The total number of Reservations that were timed out.
         """
-        return self._properties["reservations_timed_out"]
+        return self._reservations_timed_out
 
     @property
-    def reservations_canceled(self) -> int:
+    def reservations_canceled(self) -> Optional[int]:
         """
         :returns: The total number of Reservations that were canceled.
         """
-        return self._properties["reservations_canceled"]
+        return self._reservations_canceled
 
     @property
-    def reservations_rescinded(self) -> int:
+    def reservations_rescinded(self) -> Optional[int]:
         """
         :returns: The total number of Reservations that were rescinded.
         """
-        return self._properties["reservations_rescinded"]
+        return self._reservations_rescinded
 
     @property
-    def split_by_wait_time(self) -> Dict[str, object]:
+    def split_by_wait_time(self) -> Optional[Dict[str, object]]:
         """
         :returns: A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds.
         """
-        return self._properties["split_by_wait_time"]
+        return self._split_by_wait_time
 
     @property
-    def wait_duration_until_accepted(self) -> Dict[str, object]:
+    def wait_duration_until_accepted(self) -> Optional[Dict[str, object]]:
         """
         :returns: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were accepted.
         """
-        return self._properties["wait_duration_until_accepted"]
+        return self._wait_duration_until_accepted
 
     @property
-    def wait_duration_until_canceled(self) -> Dict[str, object]:
+    def wait_duration_until_canceled(self) -> Optional[Dict[str, object]]:
         """
         :returns: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks that were canceled.
         """
-        return self._properties["wait_duration_until_canceled"]
+        return self._wait_duration_until_canceled
 
     @property
-    def tasks_canceled(self) -> int:
+    def tasks_canceled(self) -> Optional[int]:
         """
         :returns: The total number of Tasks that were canceled.
         """
-        return self._properties["tasks_canceled"]
+        return self._tasks_canceled
 
     @property
-    def tasks_completed(self) -> int:
+    def tasks_completed(self) -> Optional[int]:
         """
         :returns: The total number of Tasks that were completed.
         """
-        return self._properties["tasks_completed"]
+        return self._tasks_completed
 
     @property
-    def tasks_created(self) -> int:
+    def tasks_created(self) -> Optional[int]:
         """
         :returns: The total number of Tasks created.
         """
-        return self._properties["tasks_created"]
+        return self._tasks_created
 
     @property
-    def tasks_deleted(self) -> int:
+    def tasks_deleted(self) -> Optional[int]:
         """
         :returns: The total number of Tasks that were deleted.
         """
-        return self._properties["tasks_deleted"]
+        return self._tasks_deleted
 
     @property
-    def tasks_moved(self) -> int:
+    def tasks_moved(self) -> Optional[int]:
         """
         :returns: The total number of Tasks that were moved from one queue to another.
         """
-        return self._properties["tasks_moved"]
+        return self._tasks_moved
 
     @property
-    def tasks_timed_out_in_workflow(self) -> int:
+    def tasks_timed_out_in_workflow(self) -> Optional[int]:
         """
         :returns: The total number of Tasks that were timed out of their Workflows (and deleted).
         """
-        return self._properties["tasks_timed_out_in_workflow"]
+        return self._tasks_timed_out_in_workflow
 
     @property
-    def workspace_sid(self) -> str:
+    def workspace_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Workspace.
         """
-        return self._properties["workspace_sid"]
+        return self._workspace_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Workspace statistics resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(
         self,

@@ -28,16 +28,14 @@ class CompositionSettingsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "aws_credentials_sid": payload.get("aws_credentials_sid"),
-            "aws_s3_url": payload.get("aws_s3_url"),
-            "aws_storage_enabled": payload.get("aws_storage_enabled"),
-            "encryption_key_sid": payload.get("encryption_key_sid"),
-            "encryption_enabled": payload.get("encryption_enabled"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._aws_credentials_sid: Optional[str] = payload.get("aws_credentials_sid")
+        self._aws_s3_url: Optional[str] = payload.get("aws_s3_url")
+        self._aws_storage_enabled: Optional[bool] = payload.get("aws_storage_enabled")
+        self._encryption_key_sid: Optional[str] = payload.get("encryption_key_sid")
+        self._encryption_enabled: Optional[bool] = payload.get("encryption_enabled")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[CompositionSettingsContext] = None
@@ -57,60 +55,60 @@ class CompositionSettingsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CompositionSettings resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource and that will be shown in the console
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def aws_credentials_sid(self) -> str:
+    def aws_credentials_sid(self) -> Optional[str]:
         """
         :returns: The SID of the stored Credential resource.
         """
-        return self._properties["aws_credentials_sid"]
+        return self._aws_credentials_sid
 
     @property
-    def aws_s3_url(self) -> str:
+    def aws_s3_url(self) -> Optional[str]:
         """
         :returns: The URL of the AWS S3 bucket where the compositions are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
         """
-        return self._properties["aws_s3_url"]
+        return self._aws_s3_url
 
     @property
-    def aws_storage_enabled(self) -> bool:
+    def aws_storage_enabled(self) -> Optional[bool]:
         """
         :returns: Whether all compositions are written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
         """
-        return self._properties["aws_storage_enabled"]
+        return self._aws_storage_enabled
 
     @property
-    def encryption_key_sid(self) -> str:
+    def encryption_key_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Public Key resource used for encryption.
         """
-        return self._properties["encryption_key_sid"]
+        return self._encryption_key_sid
 
     @property
-    def encryption_enabled(self) -> bool:
+    def encryption_enabled(self) -> Optional[bool]:
         """
         :returns: Whether all compositions are stored in an encrypted form. The default is `false`.
         """
-        return self._properties["encryption_enabled"]
+        return self._encryption_enabled
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def create(
         self,

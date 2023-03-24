@@ -43,25 +43,37 @@ class ServiceInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "account_sid": payload.get("account_sid"),
-            "chat_instance_sid": payload.get("chat_instance_sid"),
-            "callback_url": payload.get("callback_url"),
-            "default_ttl": deserialize.integer(payload.get("default_ttl")),
-            "number_selection_behavior": payload.get("number_selection_behavior"),
-            "geo_match_level": payload.get("geo_match_level"),
-            "intercept_callback_url": payload.get("intercept_callback_url"),
-            "out_of_session_callback_url": payload.get("out_of_session_callback_url"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._chat_instance_sid: Optional[str] = payload.get("chat_instance_sid")
+        self._callback_url: Optional[str] = payload.get("callback_url")
+        self._default_ttl: Optional[int] = deserialize.integer(
+            payload.get("default_ttl")
+        )
+        self._number_selection_behavior: Optional[
+            "ServiceInstance.NumberSelectionBehavior"
+        ] = payload.get("number_selection_behavior")
+        self._geo_match_level: Optional["ServiceInstance.GeoMatchLevel"] = payload.get(
+            "geo_match_level"
+        )
+        self._intercept_callback_url: Optional[str] = payload.get(
+            "intercept_callback_url"
+        )
+        self._out_of_session_callback_url: Optional[str] = payload.get(
+            "out_of_session_callback_url"
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -81,102 +93,98 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Service resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. Supports UTF-8 characters. **This value should not have PII.**
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def chat_instance_sid(self) -> str:
+    def chat_instance_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
         """
-        return self._properties["chat_instance_sid"]
+        return self._chat_instance_sid
 
     @property
-    def callback_url(self) -> str:
+    def callback_url(self) -> Optional[str]:
         """
         :returns: The URL we call when the interaction status changes.
         """
-        return self._properties["callback_url"]
+        return self._callback_url
 
     @property
-    def default_ttl(self) -> int:
+    def default_ttl(self) -> Optional[int]:
         """
         :returns: The default `ttl` value for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
         """
-        return self._properties["default_ttl"]
+        return self._default_ttl
 
     @property
-    def number_selection_behavior(self) -> "ServiceInstance.NumberSelectionBehavior":
-        """
-        :returns:
-        """
-        return self._properties["number_selection_behavior"]
+    def number_selection_behavior(
+        self,
+    ) -> Optional["ServiceInstance.NumberSelectionBehavior"]:
+        return self._number_selection_behavior
 
     @property
-    def geo_match_level(self) -> "ServiceInstance.GeoMatchLevel":
-        """
-        :returns:
-        """
-        return self._properties["geo_match_level"]
+    def geo_match_level(self) -> Optional["ServiceInstance.GeoMatchLevel"]:
+        return self._geo_match_level
 
     @property
-    def intercept_callback_url(self) -> str:
+    def intercept_callback_url(self) -> Optional[str]:
         """
         :returns: The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
         """
-        return self._properties["intercept_callback_url"]
+        return self._intercept_callback_url
 
     @property
-    def out_of_session_callback_url(self) -> str:
+    def out_of_session_callback_url(self) -> Optional[str]:
         """
         :returns: The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
         """
-        return self._properties["out_of_session_callback_url"]
+        return self._out_of_session_callback_url
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Service resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of resources related to the Service.
         """
-        return self._properties["links"]
+        return self._links
 
     def delete(self) -> bool:
         """

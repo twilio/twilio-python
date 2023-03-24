@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict
+from typing import Dict, Optional
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -28,10 +28,8 @@ class StreamMessageInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "data": payload.get("data"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._data: Optional[Dict[str, object]] = payload.get("data")
 
         self._solution = {
             "service_sid": service_sid,
@@ -39,18 +37,18 @@ class StreamMessageInstance(InstanceResource):
         }
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Stream Message resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def data(self) -> Dict[str, object]:
+    def data(self) -> Optional[Dict[str, object]]:
         """
         :returns: An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
         """
-        return self._properties["data"]
+        return self._data
 
     def __repr__(self) -> str:
         """

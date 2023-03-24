@@ -34,20 +34,24 @@ class FleetInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "url": payload.get("url"),
-            "unique_name": payload.get("unique_name"),
-            "friendly_name": payload.get("friendly_name"),
-            "account_sid": payload.get("account_sid"),
-            "default_deployment_sid": payload.get("default_deployment_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._url: Optional[str] = payload.get("url")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._default_deployment_sid: Optional[str] = payload.get(
+            "default_deployment_sid"
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[FleetContext] = None
 
@@ -67,67 +71,67 @@ class FleetInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: Contains a 34 character string that uniquely identifies this Fleet resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: Contains an absolute URL for this Fleet resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: Contains a unique and addressable name of this Fleet, e.g. 'default', up to 128 characters long.
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: Contains a human readable descriptive text for this Fleet, up to 256 characters long.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: Speicifies the unique string identifier of the Account responsible for this Fleet.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def default_deployment_sid(self) -> str:
+    def default_deployment_sid(self) -> Optional[str]:
         """
         :returns: Contains the string identifier of the automatically provisioned default Deployment of this Fleet.
         """
-        return self._properties["default_deployment_sid"]
+        return self._default_deployment_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: Specifies the date this Fleet was created, given in UTC ISO 8601 format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: Specifies the date this Fleet was last updated, given in UTC ISO 8601 format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: Contains a dictionary of URL links to nested resources of this Fleet.
         """
-        return self._properties["links"]
+        return self._links
 
     def delete(self) -> bool:
         """

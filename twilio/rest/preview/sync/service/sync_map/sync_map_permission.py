@@ -36,21 +36,19 @@ class SyncMapPermissionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "map_sid": payload.get("map_sid"),
-            "identity": payload.get("identity"),
-            "read": payload.get("read"),
-            "write": payload.get("write"),
-            "manage": payload.get("manage"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._map_sid: Optional[str] = payload.get("map_sid")
+        self._identity: Optional[str] = payload.get("identity")
+        self._read: Optional[bool] = payload.get("read")
+        self._write: Optional[bool] = payload.get("write")
+        self._manage: Optional[bool] = payload.get("manage")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "map_sid": map_sid,
-            "identity": identity or self._properties["identity"],
+            "identity": identity or self._identity,
         }
         self._context: Optional[SyncMapPermissionContext] = None
 
@@ -72,60 +70,60 @@ class SyncMapPermissionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Twilio Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Sync Service Instance.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def map_sid(self) -> str:
+    def map_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Sync Map to which the Permission applies.
         """
-        return self._properties["map_sid"]
+        return self._map_sid
 
     @property
-    def identity(self) -> str:
+    def identity(self) -> Optional[str]:
         """
         :returns: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
         """
-        return self._properties["identity"]
+        return self._identity
 
     @property
-    def read(self) -> bool:
+    def read(self) -> Optional[bool]:
         """
         :returns: Boolean flag specifying whether the identity can read the Sync Map and its Items.
         """
-        return self._properties["read"]
+        return self._read
 
     @property
-    def write(self) -> bool:
+    def write(self) -> Optional[bool]:
         """
         :returns: Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
         """
-        return self._properties["write"]
+        return self._write
 
     @property
-    def manage(self) -> bool:
+    def manage(self) -> Optional[bool]:
         """
         :returns: Boolean flag specifying whether the identity can delete the Sync Map.
         """
-        return self._properties["manage"]
+        return self._manage
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: Contains an absolute URL for this Sync Map Permission.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

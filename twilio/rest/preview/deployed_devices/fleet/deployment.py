@@ -30,20 +30,22 @@ class DeploymentInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "url": payload.get("url"),
-            "friendly_name": payload.get("friendly_name"),
-            "fleet_sid": payload.get("fleet_sid"),
-            "account_sid": payload.get("account_sid"),
-            "sync_service_sid": payload.get("sync_service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._url: Optional[str] = payload.get("url")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._fleet_sid: Optional[str] = payload.get("fleet_sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._sync_service_sid: Optional[str] = payload.get("sync_service_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
             "fleet_sid": fleet_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[DeploymentContext] = None
 
@@ -64,60 +66,60 @@ class DeploymentInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: Contains a 34 character string that uniquely identifies this Deployment resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: Contains an absolute URL for this Deployment resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: Contains a human readable descriptive text for this Deployment, up to 64 characters long
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def fleet_sid(self) -> str:
+    def fleet_sid(self) -> Optional[str]:
         """
         :returns: Specifies the unique string identifier of the Fleet that the given Deployment belongs to.
         """
-        return self._properties["fleet_sid"]
+        return self._fleet_sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: Specifies the unique string identifier of the Account responsible for this Deployment.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def sync_service_sid(self) -> str:
+    def sync_service_sid(self) -> Optional[str]:
         """
         :returns: Specifies the unique string identifier of the Twilio Sync service instance linked to and accessible by this Deployment.
         """
-        return self._properties["sync_service_sid"]
+        return self._sync_service_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: Specifies the date this Deployment was created, given in UTC ISO 8601 format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: Specifies the date this Deployment was last updated, given in UTC ISO 8601 format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     def delete(self) -> bool:
         """

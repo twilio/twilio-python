@@ -30,24 +30,26 @@ class PhoneNumberInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "phone_number": payload.get("phone_number"),
-            "friendly_name": payload.get("friendly_name"),
-            "iso_country": payload.get("iso_country"),
-            "capabilities": payload.get("capabilities"),
-            "url": payload.get("url"),
-            "is_reserved": payload.get("is_reserved"),
-            "in_use": deserialize.integer(payload.get("in_use")),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._phone_number: Optional[str] = payload.get("phone_number")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._capabilities: Optional[str] = payload.get("capabilities")
+        self._url: Optional[str] = payload.get("url")
+        self._is_reserved: Optional[bool] = payload.get("is_reserved")
+        self._in_use: Optional[int] = deserialize.integer(payload.get("in_use"))
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[PhoneNumberContext] = None
 
@@ -68,88 +70,85 @@ class PhoneNumberInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the PhoneNumber resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PhoneNumber resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the PhoneNumber resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def phone_number(self) -> str:
+    def phone_number(self) -> Optional[str]:
         """
         :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
         """
-        return self._properties["phone_number"]
+        return self._phone_number
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The ISO Country Code for the phone number.
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def capabilities(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["capabilities"]
+    def capabilities(self) -> Optional[str]:
+        return self._capabilities
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the PhoneNumber resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def is_reserved(self) -> bool:
+    def is_reserved(self) -> Optional[bool]:
         """
         :returns: Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
         """
-        return self._properties["is_reserved"]
+        return self._is_reserved
 
     @property
-    def in_use(self) -> int:
+    def in_use(self) -> Optional[int]:
         """
         :returns: The number of open session assigned to the number. See the [How many Phone Numbers do I need?](https://www.twilio.com/docs/proxy/phone-numbers-needed) guide for more information.
         """
-        return self._properties["in_use"]
+        return self._in_use
 
     def delete(self) -> bool:
         """

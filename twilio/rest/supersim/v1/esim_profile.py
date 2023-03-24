@@ -38,25 +38,27 @@ class EsimProfileInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "iccid": payload.get("iccid"),
-            "sim_sid": payload.get("sim_sid"),
-            "status": payload.get("status"),
-            "eid": payload.get("eid"),
-            "smdp_plus_address": payload.get("smdp_plus_address"),
-            "matching_id": payload.get("matching_id"),
-            "activation_code": payload.get("activation_code"),
-            "error_code": payload.get("error_code"),
-            "error_message": payload.get("error_message"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._iccid: Optional[str] = payload.get("iccid")
+        self._sim_sid: Optional[str] = payload.get("sim_sid")
+        self._status: Optional["EsimProfileInstance.Status"] = payload.get("status")
+        self._eid: Optional[str] = payload.get("eid")
+        self._smdp_plus_address: Optional[str] = payload.get("smdp_plus_address")
+        self._matching_id: Optional[str] = payload.get("matching_id")
+        self._activation_code: Optional[str] = payload.get("activation_code")
+        self._error_code: Optional[str] = payload.get("error_code")
+        self._error_message: Optional[str] = payload.get("error_message")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[EsimProfileContext] = None
 
@@ -76,102 +78,99 @@ class EsimProfileInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the eSIM Profile resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the eSIM Profile resource belongs.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def iccid(self) -> str:
+    def iccid(self) -> Optional[str]:
         """
         :returns: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the Sim resource.
         """
-        return self._properties["iccid"]
+        return self._iccid
 
     @property
-    def sim_sid(self) -> str:
+    def sim_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource that this eSIM Profile controls.
         """
-        return self._properties["sim_sid"]
+        return self._sim_sid
 
     @property
-    def status(self) -> "EsimProfileInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["EsimProfileInstance.Status"]:
+        return self._status
 
     @property
-    def eid(self) -> str:
+    def eid(self) -> Optional[str]:
         """
         :returns: Identifier of the eUICC that can claim the eSIM Profile.
         """
-        return self._properties["eid"]
+        return self._eid
 
     @property
-    def smdp_plus_address(self) -> str:
+    def smdp_plus_address(self) -> Optional[str]:
         """
         :returns: Address of the SM-DP+ server from which the Profile will be downloaded. The URL will appear once the eSIM Profile reaches the status `available`.
         """
-        return self._properties["smdp_plus_address"]
+        return self._smdp_plus_address
 
     @property
-    def matching_id(self) -> str:
+    def matching_id(self) -> Optional[str]:
         """
         :returns: Unique identifier of the eSIM profile that can be used to identify and download the eSIM profile from the SM-DP+ server. Populated if `generate_matching_id` is set to `true` when creating the eSIM profile reservation.
         """
-        return self._properties["matching_id"]
+        return self._matching_id
 
     @property
-    def activation_code(self) -> str:
+    def activation_code(self) -> Optional[str]:
         """
         :returns: Combined machine-readable activation code for acquiring an eSIM Profile with the Activation Code download method. Can be used in a QR code to download an eSIM profile.
         """
-        return self._properties["activation_code"]
+        return self._activation_code
 
     @property
-    def error_code(self) -> str:
+    def error_code(self) -> Optional[str]:
         """
         :returns: Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state.
         """
-        return self._properties["error_code"]
+        return self._error_code
 
     @property
-    def error_message(self) -> str:
+    def error_message(self) -> Optional[str]:
         """
         :returns: Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state.
         """
-        return self._properties["error_message"]
+        return self._error_message
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the eSIM Profile resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "EsimProfileInstance":
         """

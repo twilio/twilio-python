@@ -30,17 +30,19 @@ class SchemaVersionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "id": payload.get("id"),
-            "schema_version": deserialize.integer(payload.get("schema_version")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-            "raw": payload.get("raw"),
-        }
+        self._id: Optional[str] = payload.get("id")
+        self._schema_version: Optional[int] = deserialize.integer(
+            payload.get("schema_version")
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._raw: Optional[str] = payload.get("raw")
 
         self._solution = {
             "id": id,
-            "schema_version": schema_version or self._properties["schema_version"],
+            "schema_version": schema_version or self._schema_version,
         }
         self._context: Optional[SchemaVersionContext] = None
 
@@ -61,39 +63,36 @@ class SchemaVersionInstance(InstanceResource):
         return self._context
 
     @property
-    def id(self) -> str:
+    def id(self) -> Optional[str]:
         """
         :returns: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
         """
-        return self._properties["id"]
+        return self._id
 
     @property
-    def schema_version(self) -> int:
+    def schema_version(self) -> Optional[int]:
         """
         :returns: The version of this schema.
         """
-        return self._properties["schema_version"]
+        return self._schema_version
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date the schema version was created, given in ISO 8601 format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def raw(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["raw"]
+    def raw(self) -> Optional[str]:
+        return self._raw
 
     def fetch(self) -> "SchemaVersionInstance":
         """

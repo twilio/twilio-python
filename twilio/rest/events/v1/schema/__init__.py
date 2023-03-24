@@ -31,18 +31,18 @@ class SchemaInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "id": payload.get("id"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "latest_version_date_created": deserialize.iso8601_datetime(
-                payload.get("latest_version_date_created")
-            ),
-            "latest_version": deserialize.integer(payload.get("latest_version")),
-        }
+        self._id: Optional[str] = payload.get("id")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self._latest_version_date_created: Optional[
+            datetime
+        ] = deserialize.iso8601_datetime(payload.get("latest_version_date_created"))
+        self._latest_version: Optional[int] = deserialize.integer(
+            payload.get("latest_version")
+        )
 
         self._solution = {
-            "id": id or self._properties["id"],
+            "id": id or self._id,
         }
         self._context: Optional[SchemaContext] = None
 
@@ -62,39 +62,39 @@ class SchemaInstance(InstanceResource):
         return self._context
 
     @property
-    def id(self) -> str:
+    def id(self) -> Optional[str]:
         """
         :returns: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
         """
-        return self._properties["id"]
+        return self._id
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: Contains a dictionary of URL links to nested resources of this schema.
         """
-        return self._properties["links"]
+        return self._links
 
     @property
-    def latest_version_date_created(self) -> datetime:
+    def latest_version_date_created(self) -> Optional[datetime]:
         """
         :returns: The date that the latest schema version was created, given in ISO 8601 format.
         """
-        return self._properties["latest_version_date_created"]
+        return self._latest_version_date_created
 
     @property
-    def latest_version(self) -> int:
+    def latest_version(self) -> Optional[int]:
         """
         :returns: The latest version published of this schema.
         """
-        return self._properties["latest_version"]
+        return self._latest_version
 
     def fetch(self) -> "SchemaInstance":
         """

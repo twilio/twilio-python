@@ -42,26 +42,28 @@ class TranscriptionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "api_version": payload.get("api_version"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "duration": payload.get("duration"),
-            "price": deserialize.decimal(payload.get("price")),
-            "price_unit": payload.get("price_unit"),
-            "recording_sid": payload.get("recording_sid"),
-            "sid": payload.get("sid"),
-            "status": payload.get("status"),
-            "transcription_text": payload.get("transcription_text"),
-            "type": payload.get("type"),
-            "uri": payload.get("uri"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._api_version: Optional[str] = payload.get("api_version")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._duration: Optional[str] = payload.get("duration")
+        self._price: Optional[float] = deserialize.decimal(payload.get("price"))
+        self._price_unit: Optional[str] = payload.get("price_unit")
+        self._recording_sid: Optional[str] = payload.get("recording_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._status: Optional["TranscriptionInstance.Status"] = payload.get("status")
+        self._transcription_text: Optional[str] = payload.get("transcription_text")
+        self._type: Optional[str] = payload.get("type")
+        self._uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "recording_sid": recording_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[TranscriptionContext] = None
 
@@ -83,95 +85,92 @@ class TranscriptionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def api_version(self) -> str:
+    def api_version(self) -> Optional[str]:
         """
         :returns: The API version used to create the transcription.
         """
-        return self._properties["api_version"]
+        return self._api_version
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def duration(self) -> str:
+    def duration(self) -> Optional[str]:
         """
         :returns: The duration of the transcribed audio in seconds.
         """
-        return self._properties["duration"]
+        return self._duration
 
     @property
-    def price(self) -> float:
+    def price(self) -> Optional[float]:
         """
         :returns: The charge for the transcript in the currency associated with the account. This value is populated after the transcript is complete so it may not be available immediately.
         """
-        return self._properties["price"]
+        return self._price
 
     @property
-    def price_unit(self) -> str:
+    def price_unit(self) -> Optional[str]:
         """
         :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
         """
-        return self._properties["price_unit"]
+        return self._price_unit
 
     @property
-    def recording_sid(self) -> str:
+    def recording_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) from which the transcription was created.
         """
-        return self._properties["recording_sid"]
+        return self._recording_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the Transcription resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def status(self) -> "TranscriptionInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["TranscriptionInstance.Status"]:
+        return self._status
 
     @property
-    def transcription_text(self) -> str:
+    def transcription_text(self) -> Optional[str]:
         """
         :returns: The text content of the transcription.
         """
-        return self._properties["transcription_text"]
+        return self._transcription_text
 
     @property
-    def type(self) -> str:
+    def type(self) -> Optional[str]:
         """
         :returns: The transcription type.
         """
-        return self._properties["type"]
+        return self._type
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     def delete(self) -> bool:
         """

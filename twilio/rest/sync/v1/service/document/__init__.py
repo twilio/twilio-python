@@ -33,24 +33,28 @@ class DocumentInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "revision": payload.get("revision"),
-            "data": payload.get("data"),
-            "date_expires": deserialize.iso8601_datetime(payload.get("date_expires")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self._revision: Optional[str] = payload.get("revision")
+        self._data: Optional[Dict[str, object]] = payload.get("data")
+        self._date_expires: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_expires")
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._created_by: Optional[str] = payload.get("created_by")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[DocumentContext] = None
 
@@ -71,88 +75,88 @@ class DocumentInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Document resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource and can be up to 320 characters long.
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Document resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Document resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of resources related to the Sync Document.
         """
-        return self._properties["links"]
+        return self._links
 
     @property
-    def revision(self) -> str:
+    def revision(self) -> Optional[str]:
         """
         :returns: The current revision of the Sync Document, represented as a string. The `revision` property is used with conditional updates to ensure data consistency.
         """
-        return self._properties["revision"]
+        return self._revision
 
     @property
-    def data(self) -> Dict[str, object]:
+    def data(self) -> Optional[Dict[str, object]]:
         """
         :returns: An arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
         """
-        return self._properties["data"]
+        return self._data
 
     @property
-    def date_expires(self) -> datetime:
+    def date_expires(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the Sync Document expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Sync Document does not expire, this value is `null`. The Document resource might not be deleted immediately after it expires.
         """
-        return self._properties["date_expires"]
+        return self._date_expires
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def created_by(self) -> str:
+    def created_by(self) -> Optional[str]:
         """
         :returns: The identity of the Sync Document's creator. If the Sync Document is created from the client SDK, the value matches the Access Token's `identity` field. If the Sync Document was created from the REST API, the value is `system`.
         """
-        return self._properties["created_by"]
+        return self._created_by
 
     def delete(self) -> bool:
         """

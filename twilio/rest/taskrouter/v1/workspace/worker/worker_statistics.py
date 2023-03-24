@@ -28,13 +28,11 @@ class WorkerStatisticsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "cumulative": payload.get("cumulative"),
-            "worker_sid": payload.get("worker_sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._cumulative: Optional[Dict[str, object]] = payload.get("cumulative")
+        self._worker_sid: Optional[str] = payload.get("worker_sid")
+        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -59,39 +57,39 @@ class WorkerStatisticsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def cumulative(self) -> Dict[str, object]:
+    def cumulative(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object that contains the cumulative statistics for the Worker.
         """
-        return self._properties["cumulative"]
+        return self._cumulative
 
     @property
-    def worker_sid(self) -> str:
+    def worker_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Worker that contains the WorkerChannel.
         """
-        return self._properties["worker_sid"]
+        return self._worker_sid
 
     @property
-    def workspace_sid(self) -> str:
+    def workspace_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Workspace that contains the WorkerChannel.
         """
-        return self._properties["workspace_sid"]
+        return self._workspace_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the WorkerChannel statistics resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(
         self,

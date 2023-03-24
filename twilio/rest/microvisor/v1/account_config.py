@@ -30,15 +30,15 @@ class AccountConfigInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "key": payload.get("key"),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "value": payload.get("value"),
-            "url": payload.get("url"),
-        }
+        self._key: Optional[str] = payload.get("key")
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._value: Optional[str] = payload.get("value")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "key": key or self._properties["key"],
+            "key": key or self._key,
         }
         self._context: Optional[AccountConfigContext] = None
 
@@ -58,32 +58,29 @@ class AccountConfigInstance(InstanceResource):
         return self._context
 
     @property
-    def key(self) -> str:
+    def key(self) -> Optional[str]:
         """
         :returns: The config key; up to 100 characters.
         """
-        return self._properties["key"]
+        return self._key
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def value(self) -> str:
+    def value(self) -> Optional[str]:
         """
         :returns: The config value; up to 4096 characters.
         """
-        return self._properties["value"]
+        return self._value
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Config.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

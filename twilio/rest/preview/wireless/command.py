@@ -30,22 +30,24 @@ class CommandInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "device_sid": payload.get("device_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "command": payload.get("command"),
-            "command_mode": payload.get("command_mode"),
-            "status": payload.get("status"),
-            "direction": payload.get("direction"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._device_sid: Optional[str] = payload.get("device_sid")
+        self._sim_sid: Optional[str] = payload.get("sim_sid")
+        self._command: Optional[str] = payload.get("command")
+        self._command_mode: Optional[str] = payload.get("command_mode")
+        self._status: Optional[str] = payload.get("status")
+        self._direction: Optional[str] = payload.get("direction")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[CommandContext] = None
 
@@ -65,81 +67,48 @@ class CommandInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def device_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["device_sid"]
+    def device_sid(self) -> Optional[str]:
+        return self._device_sid
 
     @property
-    def sim_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sim_sid"]
+    def sim_sid(self) -> Optional[str]:
+        return self._sim_sid
 
     @property
-    def command(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["command"]
+    def command(self) -> Optional[str]:
+        return self._command
 
     @property
-    def command_mode(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["command_mode"]
+    def command_mode(self) -> Optional[str]:
+        return self._command_mode
 
     @property
-    def status(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional[str]:
+        return self._status
 
     @property
-    def direction(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["direction"]
+    def direction(self) -> Optional[str]:
+        return self._direction
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self) -> "CommandInstance":
         """

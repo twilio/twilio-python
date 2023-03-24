@@ -30,28 +30,30 @@ class BindingInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "credential_sid": payload.get("credential_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "notification_protocol_version": payload.get(
-                "notification_protocol_version"
-            ),
-            "endpoint": payload.get("endpoint"),
-            "identity": payload.get("identity"),
-            "binding_type": payload.get("binding_type"),
-            "address": payload.get("address"),
-            "tags": payload.get("tags"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._credential_sid: Optional[str] = payload.get("credential_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._notification_protocol_version: Optional[str] = payload.get(
+            "notification_protocol_version"
+        )
+        self._endpoint: Optional[str] = payload.get("endpoint")
+        self._identity: Optional[str] = payload.get("identity")
+        self._binding_type: Optional[str] = payload.get("binding_type")
+        self._address: Optional[str] = payload.get("address")
+        self._tags: Optional[List[str]] = payload.get("tags")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[BindingContext] = None
 
@@ -72,102 +74,102 @@ class BindingInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Binding resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Binding resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) the resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def credential_sid(self) -> str:
+    def credential_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm` type Bindings.
         """
-        return self._properties["credential_sid"]
+        return self._credential_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def notification_protocol_version(self) -> str:
+    def notification_protocol_version(self) -> Optional[str]:
         """
         :returns: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` in the [Service](https://www.twilio.com/docs/notify/api/service-resource) for the protocol. The current version is `\"3\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
         """
-        return self._properties["notification_protocol_version"]
+        return self._notification_protocol_version
 
     @property
-    def endpoint(self) -> str:
+    def endpoint(self) -> Optional[str]:
         """
         :returns: Deprecated.
         """
-        return self._properties["endpoint"]
+        return self._endpoint
 
     @property
-    def identity(self) -> str:
+    def identity(self) -> Optional[str]:
         """
         :returns: The `identity` value that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
         """
-        return self._properties["identity"]
+        return self._identity
 
     @property
-    def binding_type(self) -> str:
+    def binding_type(self) -> Optional[str]:
         """
         :returns: The transport technology to use for the Binding. Can be: `apn`, `fcm`, `gcm`, `sms`, or `facebook-messenger`.
         """
-        return self._properties["binding_type"]
+        return self._binding_type
 
     @property
-    def address(self) -> str:
+    def address(self) -> Optional[str]:
         """
         :returns: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
         """
-        return self._properties["address"]
+        return self._address
 
     @property
-    def tags(self) -> List[str]:
+    def tags(self) -> Optional[List[str]]:
         """
         :returns: The list of tags associated with this Binding. Tags can be used to select the Bindings to use when sending a notification. Maximum 20 tags are allowed.
         """
-        return self._properties["tags"]
+        return self._tags
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Binding resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of related resources.
         """
-        return self._properties["links"]
+        return self._links
 
     def delete(self) -> bool:
         """

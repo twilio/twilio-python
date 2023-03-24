@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -29,13 +29,15 @@ class SubscribeRulesInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "participant_sid": payload.get("participant_sid"),
-            "room_sid": payload.get("room_sid"),
-            "rules": payload.get("rules"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self._participant_sid: Optional[str] = payload.get("participant_sid")
+        self._room_sid: Optional[str] = payload.get("room_sid")
+        self._rules: Optional[List[str]] = payload.get("rules")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
             "room_sid": room_sid,
@@ -43,39 +45,39 @@ class SubscribeRulesInstance(InstanceResource):
         }
 
     @property
-    def participant_sid(self) -> str:
+    def participant_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Participant resource for the Subscribe Rules.
         """
-        return self._properties["participant_sid"]
+        return self._participant_sid
 
     @property
-    def room_sid(self) -> str:
+    def room_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Room resource for the Subscribe Rules
         """
-        return self._properties["room_sid"]
+        return self._room_sid
 
     @property
-    def rules(self) -> List[str]:
+    def rules(self) -> Optional[List[str]]:
         """
         :returns: A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
         """
-        return self._properties["rules"]
+        return self._rules
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     def __repr__(self) -> str:
         """

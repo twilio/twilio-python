@@ -30,16 +30,18 @@ class SigningKeyInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[SigningKeyContext] = None
 
@@ -60,32 +62,20 @@ class SigningKeyInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def friendly_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["friendly_name"]
+    def friendly_name(self) -> Optional[str]:
+        return self._friendly_name
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     def delete(self) -> bool:
         """

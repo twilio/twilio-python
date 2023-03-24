@@ -28,12 +28,10 @@ class SettingsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "dialing_permissions_inheritance": payload.get(
-                "dialing_permissions_inheritance"
-            ),
-            "url": payload.get("url"),
-        }
+        self._dialing_permissions_inheritance: Optional[bool] = payload.get(
+            "dialing_permissions_inheritance"
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[SettingsContext] = None
@@ -53,18 +51,18 @@ class SettingsInstance(InstanceResource):
         return self._context
 
     @property
-    def dialing_permissions_inheritance(self) -> bool:
+    def dialing_permissions_inheritance(self) -> Optional[bool]:
         """
         :returns: `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`.
         """
-        return self._properties["dialing_permissions_inheritance"]
+        return self._dialing_permissions_inheritance
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "SettingsInstance":
         """

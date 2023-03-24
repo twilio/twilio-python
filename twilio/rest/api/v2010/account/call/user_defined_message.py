@@ -14,6 +14,7 @@ r"""
 
 
 from datetime import datetime
+from typing import Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -28,12 +29,12 @@ class UserDefinedMessageInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "call_sid": payload.get("call_sid"),
-            "sid": payload.get("sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._call_sid: Optional[str] = payload.get("call_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
 
         self._solution = {
             "account_sid": account_sid,
@@ -41,32 +42,32 @@ class UserDefinedMessageInstance(InstanceResource):
         }
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def call_sid(self) -> str:
+    def call_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
         """
-        return self._properties["call_sid"]
+        return self._call_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The SID that uniquely identifies this User Defined Message.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this User Defined Message was created, given in RFC 2822 format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     def __repr__(self) -> str:
         """

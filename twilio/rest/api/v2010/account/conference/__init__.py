@@ -48,24 +48,32 @@ class ConferenceInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "api_version": payload.get("api_version"),
-            "friendly_name": payload.get("friendly_name"),
-            "region": payload.get("region"),
-            "sid": payload.get("sid"),
-            "status": payload.get("status"),
-            "uri": payload.get("uri"),
-            "subresource_uris": payload.get("subresource_uris"),
-            "reason_conference_ended": payload.get("reason_conference_ended"),
-            "call_sid_ending_conference": payload.get("call_sid_ending_conference"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._api_version: Optional[str] = payload.get("api_version")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._region: Optional[str] = payload.get("region")
+        self._sid: Optional[str] = payload.get("sid")
+        self._status: Optional["ConferenceInstance.Status"] = payload.get("status")
+        self._uri: Optional[str] = payload.get("uri")
+        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
+        self._reason_conference_ended: Optional[
+            "ConferenceInstance.ReasonConferenceEnded"
+        ] = payload.get("reason_conference_ended")
+        self._call_sid_ending_conference: Optional[str] = payload.get(
+            "call_sid_ending_conference"
+        )
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ConferenceContext] = None
 
@@ -86,88 +94,84 @@ class ConferenceInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Conference resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def api_version(self) -> str:
+    def api_version(self) -> Optional[str]:
         """
         :returns: The API version used to create this conference.
         """
-        return self._properties["api_version"]
+        return self._api_version
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A string that you assigned to describe this conference room. Maxiumum length is 128 characters.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def region(self) -> str:
+    def region(self) -> Optional[str]:
         """
         :returns: A string that represents the Twilio Region where the conference audio was mixed. May be `us1`, `ie1`,  `de1`, `sg1`, `br1`, `au1`, and `jp1`. Basic conference audio will always be mixed in `us1`. Global Conference audio will be mixed nearest to the majority of participants.
         """
-        return self._properties["region"]
+        return self._region
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify this Conference resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def status(self) -> "ConferenceInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["ConferenceInstance.Status"]:
+        return self._status
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of this resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def subresource_uris(self) -> Dict[str, object]:
+    def subresource_uris(self) -> Optional[Dict[str, object]]:
         """
         :returns: A list of related resources identified by their URIs relative to `https://api.twilio.com`.
         """
-        return self._properties["subresource_uris"]
+        return self._subresource_uris
 
     @property
-    def reason_conference_ended(self) -> "ConferenceInstance.ReasonConferenceEnded":
-        """
-        :returns:
-        """
-        return self._properties["reason_conference_ended"]
+    def reason_conference_ended(
+        self,
+    ) -> Optional["ConferenceInstance.ReasonConferenceEnded"]:
+        return self._reason_conference_ended
 
     @property
-    def call_sid_ending_conference(self) -> str:
+    def call_sid_ending_conference(self) -> Optional[str]:
         """
         :returns: The call SID that caused the conference to end.
         """
-        return self._properties["call_sid_ending_conference"]
+        return self._call_sid_ending_conference
 
     def fetch(self) -> "ConferenceInstance":
         """

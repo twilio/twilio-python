@@ -39,29 +39,37 @@ class ServiceInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "code_length": deserialize.integer(payload.get("code_length")),
-            "lookup_enabled": payload.get("lookup_enabled"),
-            "psd2_enabled": payload.get("psd2_enabled"),
-            "skip_sms_to_landlines": payload.get("skip_sms_to_landlines"),
-            "dtmf_input_required": payload.get("dtmf_input_required"),
-            "tts_name": payload.get("tts_name"),
-            "do_not_share_warning_enabled": payload.get("do_not_share_warning_enabled"),
-            "custom_code_enabled": payload.get("custom_code_enabled"),
-            "push": payload.get("push"),
-            "totp": payload.get("totp"),
-            "default_template_sid": payload.get("default_template_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._code_length: Optional[int] = deserialize.integer(
+            payload.get("code_length")
+        )
+        self._lookup_enabled: Optional[bool] = payload.get("lookup_enabled")
+        self._psd2_enabled: Optional[bool] = payload.get("psd2_enabled")
+        self._skip_sms_to_landlines: Optional[bool] = payload.get(
+            "skip_sms_to_landlines"
+        )
+        self._dtmf_input_required: Optional[bool] = payload.get("dtmf_input_required")
+        self._tts_name: Optional[str] = payload.get("tts_name")
+        self._do_not_share_warning_enabled: Optional[bool] = payload.get(
+            "do_not_share_warning_enabled"
+        )
+        self._custom_code_enabled: Optional[bool] = payload.get("custom_code_enabled")
+        self._push: Optional[Dict[str, object]] = payload.get("push")
+        self._totp: Optional[Dict[str, object]] = payload.get("totp")
+        self._default_template_sid: Optional[str] = payload.get("default_template_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -81,130 +89,127 @@ class ServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Service resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the verification service. **This value should not contain PII.**
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def code_length(self) -> int:
+    def code_length(self) -> Optional[int]:
         """
         :returns: The length of the verification code to generate.
         """
-        return self._properties["code_length"]
+        return self._code_length
 
     @property
-    def lookup_enabled(self) -> bool:
+    def lookup_enabled(self) -> Optional[bool]:
         """
         :returns: Whether to perform a lookup with each verification started and return info about the phone number.
         """
-        return self._properties["lookup_enabled"]
+        return self._lookup_enabled
 
     @property
-    def psd2_enabled(self) -> bool:
+    def psd2_enabled(self) -> Optional[bool]:
         """
         :returns: Whether to pass PSD2 transaction parameters when starting a verification.
         """
-        return self._properties["psd2_enabled"]
+        return self._psd2_enabled
 
     @property
-    def skip_sms_to_landlines(self) -> bool:
+    def skip_sms_to_landlines(self) -> Optional[bool]:
         """
         :returns: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
         """
-        return self._properties["skip_sms_to_landlines"]
+        return self._skip_sms_to_landlines
 
     @property
-    def dtmf_input_required(self) -> bool:
+    def dtmf_input_required(self) -> Optional[bool]:
         """
         :returns: Whether to ask the user to press a number before delivering the verify code in a phone call.
         """
-        return self._properties["dtmf_input_required"]
+        return self._dtmf_input_required
 
     @property
-    def tts_name(self) -> str:
+    def tts_name(self) -> Optional[str]:
         """
         :returns: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         """
-        return self._properties["tts_name"]
+        return self._tts_name
 
     @property
-    def do_not_share_warning_enabled(self) -> bool:
+    def do_not_share_warning_enabled(self) -> Optional[bool]:
         """
         :returns: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
         """
-        return self._properties["do_not_share_warning_enabled"]
+        return self._do_not_share_warning_enabled
 
     @property
-    def custom_code_enabled(self) -> bool:
+    def custom_code_enabled(self) -> Optional[bool]:
         """
         :returns: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
         """
-        return self._properties["custom_code_enabled"]
+        return self._custom_code_enabled
 
     @property
-    def push(self) -> Dict[str, object]:
+    def push(self) -> Optional[Dict[str, object]]:
         """
         :returns: Configurations for the Push factors (channel) created under this Service.
         """
-        return self._properties["push"]
+        return self._push
 
     @property
-    def totp(self) -> Dict[str, object]:
+    def totp(self) -> Optional[Dict[str, object]]:
         """
         :returns: Configurations for the TOTP factors (channel) created under this Service.
         """
-        return self._properties["totp"]
+        return self._totp
 
     @property
-    def default_template_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["default_template_sid"]
+    def default_template_sid(self) -> Optional[str]:
+        return self._default_template_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of related resources.
         """
-        return self._properties["links"]
+        return self._links
 
     def delete(self) -> bool:
         """

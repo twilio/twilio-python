@@ -42,22 +42,24 @@ class PublishedTrackInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "participant_sid": payload.get("participant_sid"),
-            "room_sid": payload.get("room_sid"),
-            "name": payload.get("name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "enabled": payload.get("enabled"),
-            "kind": payload.get("kind"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._participant_sid: Optional[str] = payload.get("participant_sid")
+        self._room_sid: Optional[str] = payload.get("room_sid")
+        self._name: Optional[str] = payload.get("name")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._enabled: Optional[bool] = payload.get("enabled")
+        self._kind: Optional["PublishedTrackInstance.Kind"] = payload.get("kind")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "room_sid": room_sid,
             "participant_sid": participant_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[PublishedTrackContext] = None
 
@@ -79,67 +81,64 @@ class PublishedTrackInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the RoomParticipantPublishedTrack resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def participant_sid(self) -> str:
+    def participant_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Participant resource with the published track.
         """
-        return self._properties["participant_sid"]
+        return self._participant_sid
 
     @property
-    def room_sid(self) -> str:
+    def room_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Room resource where the track is published.
         """
-        return self._properties["room_sid"]
+        return self._room_sid
 
     @property
-    def name(self) -> str:
+    def name(self) -> Optional[str]:
         """
         :returns: The track name. Must be no more than 128 characters, and be unique among the participant's published tracks.
         """
-        return self._properties["name"]
+        return self._name
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def enabled(self) -> bool:
+    def enabled(self) -> Optional[bool]:
         """
         :returns: Whether the track is enabled.
         """
-        return self._properties["enabled"]
+        return self._enabled
 
     @property
-    def kind(self) -> "PublishedTrackInstance.Kind":
-        """
-        :returns:
-        """
-        return self._properties["kind"]
+    def kind(self) -> Optional["PublishedTrackInstance.Kind"]:
+        return self._kind
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "PublishedTrackInstance":
         """

@@ -30,17 +30,19 @@ class ConfigurationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "default_chat_service_sid": payload.get("default_chat_service_sid"),
-            "default_messaging_service_sid": payload.get(
-                "default_messaging_service_sid"
-            ),
-            "default_inactive_timer": payload.get("default_inactive_timer"),
-            "default_closed_timer": payload.get("default_closed_timer"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._default_chat_service_sid: Optional[str] = payload.get(
+            "default_chat_service_sid"
+        )
+        self._default_messaging_service_sid: Optional[str] = payload.get(
+            "default_messaging_service_sid"
+        )
+        self._default_inactive_timer: Optional[str] = payload.get(
+            "default_inactive_timer"
+        )
+        self._default_closed_timer: Optional[str] = payload.get("default_closed_timer")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {}
         self._context: Optional[ConfigurationContext] = None
@@ -60,53 +62,53 @@ class ConfigurationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def default_chat_service_sid(self) -> str:
+    def default_chat_service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) used when creating a conversation.
         """
-        return self._properties["default_chat_service_sid"]
+        return self._default_chat_service_sid
 
     @property
-    def default_messaging_service_sid(self) -> str:
+    def default_messaging_service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) used when creating a conversation.
         """
-        return self._properties["default_messaging_service_sid"]
+        return self._default_messaging_service_sid
 
     @property
-    def default_inactive_timer(self) -> str:
+    def default_inactive_timer(self) -> Optional[str]:
         """
         :returns: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         """
-        return self._properties["default_inactive_timer"]
+        return self._default_inactive_timer
 
     @property
-    def default_closed_timer(self) -> str:
+    def default_closed_timer(self) -> Optional[str]:
         """
         :returns: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         """
-        return self._properties["default_closed_timer"]
+        return self._default_closed_timer
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: An absolute API resource URL for this global configuration.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: Contains absolute API resource URLs to access the webhook and default service configurations.
         """
-        return self._properties["links"]
+        return self._links
 
     def fetch(self) -> "ConfigurationInstance":
         """

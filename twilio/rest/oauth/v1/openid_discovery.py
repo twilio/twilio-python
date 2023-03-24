@@ -27,25 +27,29 @@ class OpenidDiscoveryInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "issuer": payload.get("issuer"),
-            "authorization_endpoint": payload.get("authorization_endpoint"),
-            "device_authorization_endpoint": payload.get(
-                "device_authorization_endpoint"
-            ),
-            "token_endpoint": payload.get("token_endpoint"),
-            "userinfo_endpoint": payload.get("userinfo_endpoint"),
-            "revocation_endpoint": payload.get("revocation_endpoint"),
-            "jwk_uri": payload.get("jwk_uri"),
-            "response_type_supported": payload.get("response_type_supported"),
-            "subject_type_supported": payload.get("subject_type_supported"),
-            "id_token_signing_alg_values_supported": payload.get(
-                "id_token_signing_alg_values_supported"
-            ),
-            "scopes_supported": payload.get("scopes_supported"),
-            "claims_supported": payload.get("claims_supported"),
-            "url": payload.get("url"),
-        }
+        self._issuer: Optional[str] = payload.get("issuer")
+        self._authorization_endpoint: Optional[str] = payload.get(
+            "authorization_endpoint"
+        )
+        self._device_authorization_endpoint: Optional[str] = payload.get(
+            "device_authorization_endpoint"
+        )
+        self._token_endpoint: Optional[str] = payload.get("token_endpoint")
+        self._userinfo_endpoint: Optional[str] = payload.get("userinfo_endpoint")
+        self._revocation_endpoint: Optional[str] = payload.get("revocation_endpoint")
+        self._jwk_uri: Optional[str] = payload.get("jwk_uri")
+        self._response_type_supported: Optional[List[str]] = payload.get(
+            "response_type_supported"
+        )
+        self._subject_type_supported: Optional[List[str]] = payload.get(
+            "subject_type_supported"
+        )
+        self._id_token_signing_alg_values_supported: Optional[List[str]] = payload.get(
+            "id_token_signing_alg_values_supported"
+        )
+        self._scopes_supported: Optional[List[str]] = payload.get("scopes_supported")
+        self._claims_supported: Optional[List[str]] = payload.get("claims_supported")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[OpenidDiscoveryContext] = None
@@ -65,95 +69,92 @@ class OpenidDiscoveryInstance(InstanceResource):
         return self._context
 
     @property
-    def issuer(self) -> str:
+    def issuer(self) -> Optional[str]:
         """
         :returns: The URL of the party that will create the token and sign it with its private key.
         """
-        return self._properties["issuer"]
+        return self._issuer
 
     @property
-    def authorization_endpoint(self) -> str:
+    def authorization_endpoint(self) -> Optional[str]:
         """
         :returns: The endpoint that validates all authorization requests.
         """
-        return self._properties["authorization_endpoint"]
+        return self._authorization_endpoint
 
     @property
-    def device_authorization_endpoint(self) -> str:
+    def device_authorization_endpoint(self) -> Optional[str]:
         """
         :returns: The endpoint that validates all device code related authorization requests.
         """
-        return self._properties["device_authorization_endpoint"]
+        return self._device_authorization_endpoint
 
     @property
-    def token_endpoint(self) -> str:
+    def token_endpoint(self) -> Optional[str]:
         """
         :returns: The URL of the token endpoint. After a client has received an authorization code, that code is presented to the token endpoint and exchanged for an identity token, an access token, and a refresh token.
         """
-        return self._properties["token_endpoint"]
+        return self._token_endpoint
 
     @property
-    def userinfo_endpoint(self) -> str:
+    def userinfo_endpoint(self) -> Optional[str]:
         """
         :returns: The URL of the user info endpoint, which returns user profile information to a client. Keep in mind that the user info endpoint returns only the information that has been requested.
         """
-        return self._properties["userinfo_endpoint"]
+        return self._userinfo_endpoint
 
     @property
-    def revocation_endpoint(self) -> str:
+    def revocation_endpoint(self) -> Optional[str]:
         """
         :returns: The endpoint used to revoke access or refresh tokens issued by the authorization server.
         """
-        return self._properties["revocation_endpoint"]
+        return self._revocation_endpoint
 
     @property
-    def jwk_uri(self) -> str:
+    def jwk_uri(self) -> Optional[str]:
         """
         :returns: The URL of your JSON Web Key Set. This set is a collection of JSON Web Keys, a standard method for representing cryptographic keys in a JSON structure.
         """
-        return self._properties["jwk_uri"]
+        return self._jwk_uri
 
     @property
-    def response_type_supported(self) -> List[str]:
+    def response_type_supported(self) -> Optional[List[str]]:
         """
         :returns: A collection of response type supported by authorization server.
         """
-        return self._properties["response_type_supported"]
+        return self._response_type_supported
 
     @property
-    def subject_type_supported(self) -> List[str]:
+    def subject_type_supported(self) -> Optional[List[str]]:
         """
         :returns: A collection of subject by authorization server.
         """
-        return self._properties["subject_type_supported"]
+        return self._subject_type_supported
 
     @property
-    def id_token_signing_alg_values_supported(self) -> List[str]:
+    def id_token_signing_alg_values_supported(self) -> Optional[List[str]]:
         """
         :returns: A collection of JWS signing algorithms supported by authorization server to sign identity token.
         """
-        return self._properties["id_token_signing_alg_values_supported"]
+        return self._id_token_signing_alg_values_supported
 
     @property
-    def scopes_supported(self) -> List[str]:
+    def scopes_supported(self) -> Optional[List[str]]:
         """
         :returns: A collection of scopes supported by authorization server for identity token
         """
-        return self._properties["scopes_supported"]
+        return self._scopes_supported
 
     @property
-    def claims_supported(self) -> List[str]:
+    def claims_supported(self) -> Optional[List[str]]:
         """
         :returns: A collection of claims supported by authorization server for identity token
         """
-        return self._properties["claims_supported"]
+        return self._claims_supported
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self) -> "OpenidDiscoveryInstance":
         """

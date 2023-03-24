@@ -28,20 +28,30 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "activity_statistics": payload.get("activity_statistics"),
-            "longest_task_waiting_age": deserialize.integer(
-                payload.get("longest_task_waiting_age")
-            ),
-            "longest_task_waiting_sid": payload.get("longest_task_waiting_sid"),
-            "tasks_by_priority": payload.get("tasks_by_priority"),
-            "tasks_by_status": payload.get("tasks_by_status"),
-            "total_tasks": deserialize.integer(payload.get("total_tasks")),
-            "total_workers": deserialize.integer(payload.get("total_workers")),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._activity_statistics: Optional[List[object]] = payload.get(
+            "activity_statistics"
+        )
+        self._longest_task_waiting_age: Optional[int] = deserialize.integer(
+            payload.get("longest_task_waiting_age")
+        )
+        self._longest_task_waiting_sid: Optional[str] = payload.get(
+            "longest_task_waiting_sid"
+        )
+        self._tasks_by_priority: Optional[Dict[str, object]] = payload.get(
+            "tasks_by_priority"
+        )
+        self._tasks_by_status: Optional[Dict[str, object]] = payload.get(
+            "tasks_by_status"
+        )
+        self._total_tasks: Optional[int] = deserialize.integer(
+            payload.get("total_tasks")
+        )
+        self._total_workers: Optional[int] = deserialize.integer(
+            payload.get("total_workers")
+        )
+        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -64,74 +74,74 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workspace resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def activity_statistics(self) -> List[object]:
+    def activity_statistics(self) -> Optional[List[object]]:
         """
         :returns: The number of current Workers by Activity.
         """
-        return self._properties["activity_statistics"]
+        return self._activity_statistics
 
     @property
-    def longest_task_waiting_age(self) -> int:
+    def longest_task_waiting_age(self) -> Optional[int]:
         """
         :returns: The age of the longest waiting Task.
         """
-        return self._properties["longest_task_waiting_age"]
+        return self._longest_task_waiting_age
 
     @property
-    def longest_task_waiting_sid(self) -> str:
+    def longest_task_waiting_sid(self) -> Optional[str]:
         """
         :returns: The SID of the longest waiting Task.
         """
-        return self._properties["longest_task_waiting_sid"]
+        return self._longest_task_waiting_sid
 
     @property
-    def tasks_by_priority(self) -> Dict[str, object]:
+    def tasks_by_priority(self) -> Optional[Dict[str, object]]:
         """
         :returns: The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
         """
-        return self._properties["tasks_by_priority"]
+        return self._tasks_by_priority
 
     @property
-    def tasks_by_status(self) -> Dict[str, object]:
+    def tasks_by_status(self) -> Optional[Dict[str, object]]:
         """
         :returns: The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
         """
-        return self._properties["tasks_by_status"]
+        return self._tasks_by_status
 
     @property
-    def total_tasks(self) -> int:
+    def total_tasks(self) -> Optional[int]:
         """
         :returns: The total number of Tasks.
         """
-        return self._properties["total_tasks"]
+        return self._total_tasks
 
     @property
-    def total_workers(self) -> int:
+    def total_workers(self) -> Optional[int]:
         """
         :returns: The total number of Workers in the Workspace.
         """
-        return self._properties["total_workers"]
+        return self._total_workers
 
     @property
-    def workspace_sid(self) -> str:
+    def workspace_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Workspace.
         """
-        return self._properties["workspace_sid"]
+        return self._workspace_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Workspace statistics resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self, task_channel=values.unset) -> "WorkspaceRealTimeStatisticsInstance":
         """

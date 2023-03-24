@@ -31,21 +31,27 @@ class QueueInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "current_size": deserialize.integer(payload.get("current_size")),
-            "friendly_name": payload.get("friendly_name"),
-            "uri": payload.get("uri"),
-            "account_sid": payload.get("account_sid"),
-            "average_wait_time": deserialize.integer(payload.get("average_wait_time")),
-            "sid": payload.get("sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "max_size": deserialize.integer(payload.get("max_size")),
-        }
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._current_size: Optional[int] = deserialize.integer(
+            payload.get("current_size")
+        )
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._uri: Optional[str] = payload.get("uri")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._average_wait_time: Optional[int] = deserialize.integer(
+            payload.get("average_wait_time")
+        )
+        self._sid: Optional[str] = payload.get("sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._max_size: Optional[int] = deserialize.integer(payload.get("max_size"))
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[QueueContext] = None
 
@@ -66,67 +72,67 @@ class QueueInstance(InstanceResource):
         return self._context
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def current_size(self) -> int:
+    def current_size(self) -> Optional[int]:
         """
         :returns: The number of calls currently in the queue.
         """
-        return self._properties["current_size"]
+        return self._current_size
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A string that you assigned to describe this resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of this resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Queue resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def average_wait_time(self) -> int:
+    def average_wait_time(self) -> Optional[int]:
         """
         :returns:  The average wait time in seconds of the members in this queue. This is calculated at the time of the request.
         """
-        return self._properties["average_wait_time"]
+        return self._average_wait_time
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify this Queue resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def max_size(self) -> int:
+    def max_size(self) -> Optional[int]:
         """
         :returns:  The maximum number of calls that can be in the queue. The default is 1000 and the maximum is 5000.
         """
-        return self._properties["max_size"]
+        return self._max_size
 
     def delete(self) -> bool:
         """

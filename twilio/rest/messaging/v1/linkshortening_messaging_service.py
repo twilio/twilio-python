@@ -34,16 +34,16 @@ class LinkshorteningMessagingServiceInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "domain_sid": payload.get("domain_sid"),
-            "messaging_service_sid": payload.get("messaging_service_sid"),
-            "url": payload.get("url"),
-        }
+        self._domain_sid: Optional[str] = payload.get("domain_sid")
+        self._messaging_service_sid: Optional[str] = payload.get(
+            "messaging_service_sid"
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "domain_sid": domain_sid or self._properties["domain_sid"],
+            "domain_sid": domain_sid or self._domain_sid,
             "messaging_service_sid": messaging_service_sid
-            or self._properties["messaging_service_sid"],
+            or self._messaging_service_sid,
         }
         self._context: Optional[LinkshorteningMessagingServiceContext] = None
 
@@ -64,25 +64,22 @@ class LinkshorteningMessagingServiceInstance(InstanceResource):
         return self._context
 
     @property
-    def domain_sid(self) -> str:
+    def domain_sid(self) -> Optional[str]:
         """
         :returns: The unique string identifies the domain resource
         """
-        return self._properties["domain_sid"]
+        return self._domain_sid
 
     @property
-    def messaging_service_sid(self) -> str:
+    def messaging_service_sid(self) -> Optional[str]:
         """
         :returns: The unique string that identifies the messaging service
         """
-        return self._properties["messaging_service_sid"]
+        return self._messaging_service_sid
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def create(self) -> "LinkshorteningMessagingServiceInstance":
         """

@@ -29,17 +29,19 @@ class CountryInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "country": payload.get("country"),
-            "iso_country": payload.get("iso_country"),
-            "outbound_sms_prices": payload.get("outbound_sms_prices"),
-            "inbound_sms_prices": payload.get("inbound_sms_prices"),
-            "price_unit": payload.get("price_unit"),
-            "url": payload.get("url"),
-        }
+        self._country: Optional[str] = payload.get("country")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._outbound_sms_prices: Optional[List[str]] = payload.get(
+            "outbound_sms_prices"
+        )
+        self._inbound_sms_prices: Optional[List[str]] = payload.get(
+            "inbound_sms_prices"
+        )
+        self._price_unit: Optional[str] = payload.get("price_unit")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "iso_country": iso_country or self._properties["iso_country"],
+            "iso_country": iso_country or self._iso_country,
         }
         self._context: Optional[CountryContext] = None
 
@@ -59,46 +61,46 @@ class CountryInstance(InstanceResource):
         return self._context
 
     @property
-    def country(self) -> str:
+    def country(self) -> Optional[str]:
         """
         :returns: The name of the country.
         """
-        return self._properties["country"]
+        return self._country
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def outbound_sms_prices(self) -> List[str]:
+    def outbound_sms_prices(self) -> Optional[List[str]]:
         """
         :returns: The list of [OutboundSMSPrice](https://www.twilio.com/docs/sms/api/pricing#outbound-sms-price) records that represent the price to send a message for each MCC/MNC applicable in this country.
         """
-        return self._properties["outbound_sms_prices"]
+        return self._outbound_sms_prices
 
     @property
-    def inbound_sms_prices(self) -> List[str]:
+    def inbound_sms_prices(self) -> Optional[List[str]]:
         """
         :returns: The list of [InboundPrice](https://www.twilio.com/docs/sms/api/pricing#inbound-price) records that describe the price to receive an inbound SMS to the different Twilio phone number types supported in this country
         """
-        return self._properties["inbound_sms_prices"]
+        return self._inbound_sms_prices
 
     @property
-    def price_unit(self) -> str:
+    def price_unit(self) -> Optional[str]:
         """
         :returns: The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
         """
-        return self._properties["price_unit"]
+        return self._price_unit
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "CountryInstance":
         """

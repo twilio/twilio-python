@@ -37,20 +37,22 @@ class CredentialInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "credential_list_sid": payload.get("credential_list_sid"),
-            "username": payload.get("username"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "uri": payload.get("uri"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._credential_list_sid: Optional[str] = payload.get("credential_list_sid")
+        self._username: Optional[str] = payload.get("username")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "credential_list_sid": credential_list_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[CredentialContext] = None
 
@@ -72,53 +74,53 @@ class CredentialInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique id of the Account that is responsible for this resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def credential_list_sid(self) -> str:
+    def credential_list_sid(self) -> Optional[str]:
         """
         :returns: The unique id that identifies the credential list that includes this credential.
         """
-        return self._properties["credential_list_sid"]
+        return self._credential_list_sid
 
     @property
-    def username(self) -> str:
+    def username(self) -> Optional[str]:
         """
         :returns: The username for this credential.
         """
-        return self._properties["username"]
+        return self._username
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI for this resource, relative to `https://api.twilio.com`
         """
-        return self._properties["uri"]
+        return self._uri
 
     def delete(self) -> bool:
         """

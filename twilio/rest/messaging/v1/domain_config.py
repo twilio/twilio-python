@@ -29,19 +29,23 @@ class DomainConfigInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "domain_sid": payload.get("domain_sid"),
-            "config_sid": payload.get("config_sid"),
-            "messaging_service_sids": payload.get("messaging_service_sids"),
-            "fallback_url": payload.get("fallback_url"),
-            "callback_url": payload.get("callback_url"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._domain_sid: Optional[str] = payload.get("domain_sid")
+        self._config_sid: Optional[str] = payload.get("config_sid")
+        self._messaging_service_sids: Optional[List[str]] = payload.get(
+            "messaging_service_sids"
+        )
+        self._fallback_url: Optional[str] = payload.get("fallback_url")
+        self._callback_url: Optional[str] = payload.get("callback_url")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "domain_sid": domain_sid or self._properties["domain_sid"],
+            "domain_sid": domain_sid or self._domain_sid,
         }
         self._context: Optional[DomainConfigContext] = None
 
@@ -61,60 +65,57 @@ class DomainConfigInstance(InstanceResource):
         return self._context
 
     @property
-    def domain_sid(self) -> str:
+    def domain_sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Domain resource.
         """
-        return self._properties["domain_sid"]
+        return self._domain_sid
 
     @property
-    def config_sid(self) -> str:
+    def config_sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Domain config (prefix ZK).
         """
-        return self._properties["config_sid"]
+        return self._config_sid
 
     @property
-    def messaging_service_sids(self) -> List[str]:
+    def messaging_service_sids(self) -> Optional[List[str]]:
         """
         :returns: A list of messagingServiceSids (with prefix MG).
         """
-        return self._properties["messaging_service_sids"]
+        return self._messaging_service_sids
 
     @property
-    def fallback_url(self) -> str:
+    def fallback_url(self) -> Optional[str]:
         """
         :returns: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         """
-        return self._properties["fallback_url"]
+        return self._fallback_url
 
     @property
-    def callback_url(self) -> str:
+    def callback_url(self) -> Optional[str]:
         """
         :returns: URL to receive click events to your webhook whenever the recipients click on the shortened links.
         """
-        return self._properties["callback_url"]
+        return self._callback_url
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: Date this Domain Config was created.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: Date that this Domain Config was last updated.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self) -> "DomainConfigInstance":
         """

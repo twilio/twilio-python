@@ -28,18 +28,16 @@ class PhoneNumberInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "caller_name": payload.get("caller_name"),
-            "country_code": payload.get("country_code"),
-            "phone_number": payload.get("phone_number"),
-            "national_format": payload.get("national_format"),
-            "carrier": payload.get("carrier"),
-            "add_ons": payload.get("add_ons"),
-            "url": payload.get("url"),
-        }
+        self._caller_name: Optional[Dict[str, object]] = payload.get("caller_name")
+        self._country_code: Optional[str] = payload.get("country_code")
+        self._phone_number: Optional[str] = payload.get("phone_number")
+        self._national_format: Optional[str] = payload.get("national_format")
+        self._carrier: Optional[Dict[str, object]] = payload.get("carrier")
+        self._add_ons: Optional[Dict[str, object]] = payload.get("add_ons")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "phone_number": phone_number or self._properties["phone_number"],
+            "phone_number": phone_number or self._phone_number,
         }
         self._context: Optional[PhoneNumberContext] = None
 
@@ -59,53 +57,53 @@ class PhoneNumberInstance(InstanceResource):
         return self._context
 
     @property
-    def caller_name(self) -> Dict[str, object]:
+    def caller_name(self) -> Optional[Dict[str, object]]:
         """
         :returns: The name of the phone number's owner. If `null`, that information was not available.
         """
-        return self._properties["caller_name"]
+        return self._caller_name
 
     @property
-    def country_code(self) -> str:
+    def country_code(self) -> Optional[str]:
         """
         :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the phone number.
         """
-        return self._properties["country_code"]
+        return self._country_code
 
     @property
-    def phone_number(self) -> str:
+    def phone_number(self) -> Optional[str]:
         """
         :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
         """
-        return self._properties["phone_number"]
+        return self._phone_number
 
     @property
-    def national_format(self) -> str:
+    def national_format(self) -> Optional[str]:
         """
         :returns: The phone number, in national format.
         """
-        return self._properties["national_format"]
+        return self._national_format
 
     @property
-    def carrier(self) -> Dict[str, object]:
+    def carrier(self) -> Optional[Dict[str, object]]:
         """
         :returns: The telecom company that provides the phone number.
         """
-        return self._properties["carrier"]
+        return self._carrier
 
     @property
-    def add_ons(self) -> Dict[str, object]:
+    def add_ons(self) -> Optional[Dict[str, object]]:
         """
         :returns: A JSON string with the results of the Add-ons you specified in the `add_ons` parameters. For the format of the object, see [Using Add-ons](https://www.twilio.com/docs/add-ons).
         """
-        return self._properties["add_ons"]
+        return self._add_ons
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(
         self,

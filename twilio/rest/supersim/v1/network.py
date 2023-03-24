@@ -29,16 +29,14 @@ class NetworkInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "url": payload.get("url"),
-            "iso_country": payload.get("iso_country"),
-            "identifiers": payload.get("identifiers"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._url: Optional[str] = payload.get("url")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._identifiers: Optional[List[object]] = payload.get("identifiers")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[NetworkContext] = None
 
@@ -58,39 +56,39 @@ class NetworkInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Network resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A human readable identifier of this resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Network resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resource.
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def identifiers(self) -> List[object]:
+    def identifiers(self) -> Optional[List[object]]:
         """
         :returns: Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
         """
-        return self._properties["identifiers"]
+        return self._identifiers
 
     def fetch(self) -> "NetworkInstance":
         """

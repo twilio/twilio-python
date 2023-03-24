@@ -33,23 +33,29 @@ class ConnectAppInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "authorize_redirect_url": payload.get("authorize_redirect_url"),
-            "company_name": payload.get("company_name"),
-            "deauthorize_callback_method": payload.get("deauthorize_callback_method"),
-            "deauthorize_callback_url": payload.get("deauthorize_callback_url"),
-            "description": payload.get("description"),
-            "friendly_name": payload.get("friendly_name"),
-            "homepage_url": payload.get("homepage_url"),
-            "permissions": payload.get("permissions"),
-            "sid": payload.get("sid"),
-            "uri": payload.get("uri"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._authorize_redirect_url: Optional[str] = payload.get(
+            "authorize_redirect_url"
+        )
+        self._company_name: Optional[str] = payload.get("company_name")
+        self._deauthorize_callback_method: Optional[str] = payload.get(
+            "deauthorize_callback_method"
+        )
+        self._deauthorize_callback_url: Optional[str] = payload.get(
+            "deauthorize_callback_url"
+        )
+        self._description: Optional[str] = payload.get("description")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._homepage_url: Optional[str] = payload.get("homepage_url")
+        self._permissions: Optional[
+            List["ConnectAppInstance.Permission"]
+        ] = payload.get("permissions")
+        self._sid: Optional[str] = payload.get("sid")
+        self._uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ConnectAppContext] = None
 
@@ -70,81 +76,81 @@ class ConnectAppInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def authorize_redirect_url(self) -> str:
+    def authorize_redirect_url(self) -> Optional[str]:
         """
         :returns: The URL we redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
         """
-        return self._properties["authorize_redirect_url"]
+        return self._authorize_redirect_url
 
     @property
-    def company_name(self) -> str:
+    def company_name(self) -> Optional[str]:
         """
         :returns: The company name set for the Connect App.
         """
-        return self._properties["company_name"]
+        return self._company_name
 
     @property
-    def deauthorize_callback_method(self) -> str:
+    def deauthorize_callback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `deauthorize_callback_url`.
         """
-        return self._properties["deauthorize_callback_method"]
+        return self._deauthorize_callback_method
 
     @property
-    def deauthorize_callback_url(self) -> str:
+    def deauthorize_callback_url(self) -> Optional[str]:
         """
         :returns: The URL we call using the `deauthorize_callback_method` to de-authorize the Connect App.
         """
-        return self._properties["deauthorize_callback_url"]
+        return self._deauthorize_callback_url
 
     @property
-    def description(self) -> str:
+    def description(self) -> Optional[str]:
         """
         :returns: The description of the Connect App.
         """
-        return self._properties["description"]
+        return self._description
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def homepage_url(self) -> str:
+    def homepage_url(self) -> Optional[str]:
         """
         :returns: The public URL where users can obtain more information about this Connect App.
         """
-        return self._properties["homepage_url"]
+        return self._homepage_url
 
     @property
-    def permissions(self) -> List["ConnectAppInstance.Permission"]:
+    def permissions(self) -> Optional[List["ConnectAppInstance.Permission"]]:
         """
         :returns: The set of permissions that your ConnectApp requests.
         """
-        return self._properties["permissions"]
+        return self._permissions
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the ConnectApp resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     def delete(self) -> bool:
         """

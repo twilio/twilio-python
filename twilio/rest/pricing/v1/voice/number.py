@@ -27,18 +27,16 @@ class NumberInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "number": payload.get("number"),
-            "country": payload.get("country"),
-            "iso_country": payload.get("iso_country"),
-            "outbound_call_price": payload.get("outbound_call_price"),
-            "inbound_call_price": payload.get("inbound_call_price"),
-            "price_unit": payload.get("price_unit"),
-            "url": payload.get("url"),
-        }
+        self._number: Optional[str] = payload.get("number")
+        self._country: Optional[str] = payload.get("country")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._outbound_call_price: Optional[str] = payload.get("outbound_call_price")
+        self._inbound_call_price: Optional[str] = payload.get("inbound_call_price")
+        self._price_unit: Optional[str] = payload.get("price_unit")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "number": number or self._properties["number"],
+            "number": number or self._number,
         }
         self._context: Optional[NumberContext] = None
 
@@ -58,53 +56,47 @@ class NumberInstance(InstanceResource):
         return self._context
 
     @property
-    def number(self) -> str:
+    def number(self) -> Optional[str]:
         """
         :returns: The phone number.
         """
-        return self._properties["number"]
+        return self._number
 
     @property
-    def country(self) -> str:
+    def country(self) -> Optional[str]:
         """
         :returns: The name of the country.
         """
-        return self._properties["country"]
+        return self._country
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def outbound_call_price(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["outbound_call_price"]
+    def outbound_call_price(self) -> Optional[str]:
+        return self._outbound_call_price
 
     @property
-    def inbound_call_price(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["inbound_call_price"]
+    def inbound_call_price(self) -> Optional[str]:
+        return self._inbound_call_price
 
     @property
-    def price_unit(self) -> str:
+    def price_unit(self) -> Optional[str]:
         """
         :returns: The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
         """
-        return self._properties["price_unit"]
+        return self._price_unit
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "NumberInstance":
         """

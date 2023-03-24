@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -34,76 +34,81 @@ class BillingPeriodInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "start_time": deserialize.iso8601_datetime(payload.get("start_time")),
-            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
-            "period_type": payload.get("period_type"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._sim_sid: Optional[str] = payload.get("sim_sid")
+        self._start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self._end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
+        self._period_type: Optional["BillingPeriodInstance.BpType"] = payload.get(
+            "period_type"
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
             "sim_sid": sim_sid,
         }
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The SID of the Billing Period.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) the Super SIM belongs to.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def sim_sid(self) -> str:
+    def sim_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Super SIM the Billing Period belongs to.
         """
-        return self._properties["sim_sid"]
+        return self._sim_sid
 
     @property
-    def start_time(self) -> datetime:
+    def start_time(self) -> Optional[datetime]:
         """
         :returns: The start time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["start_time"]
+        return self._start_time
 
     @property
-    def end_time(self) -> datetime:
+    def end_time(self) -> Optional[datetime]:
         """
         :returns: The end time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["end_time"]
+        return self._end_time
 
     @property
-    def period_type(self) -> "BillingPeriodInstance.BpType":
-        """
-        :returns:
-        """
-        return self._properties["period_type"]
+    def period_type(self) -> Optional["BillingPeriodInstance.BpType"]:
+        return self._period_type
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     def __repr__(self) -> str:
         """

@@ -35,18 +35,18 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "network_access_profile_sid": payload.get("network_access_profile_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "iso_country": payload.get("iso_country"),
-            "identifiers": payload.get("identifiers"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._network_access_profile_sid: Optional[str] = payload.get(
+            "network_access_profile_sid"
+        )
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._identifiers: Optional[List[object]] = payload.get("identifiers")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "network_access_profile_sid": network_access_profile_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[NetworkAccessProfileNetworkContext] = None
 
@@ -67,46 +67,46 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that identifies the Network resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def network_access_profile_sid(self) -> str:
+    def network_access_profile_sid(self) -> Optional[str]:
         """
         :returns: The unique string that identifies the Network resource's Network Access Profile resource.
         """
-        return self._properties["network_access_profile_sid"]
+        return self._network_access_profile_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A human readable identifier of the Network this resource refers to.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resource.
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def identifiers(self) -> List[object]:
+    def identifiers(self) -> Optional[List[object]]:
         """
         :returns: Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
         """
-        return self._properties["identifiers"]
+        return self._identifiers
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Network resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

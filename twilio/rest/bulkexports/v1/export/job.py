@@ -27,23 +27,23 @@ class JobInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "resource_type": payload.get("resource_type"),
-            "friendly_name": payload.get("friendly_name"),
-            "details": payload.get("details"),
-            "start_day": payload.get("start_day"),
-            "end_day": payload.get("end_day"),
-            "job_sid": payload.get("job_sid"),
-            "webhook_url": payload.get("webhook_url"),
-            "webhook_method": payload.get("webhook_method"),
-            "email": payload.get("email"),
-            "url": payload.get("url"),
-            "job_queue_position": payload.get("job_queue_position"),
-            "estimated_completion_time": payload.get("estimated_completion_time"),
-        }
+        self._resource_type: Optional[str] = payload.get("resource_type")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._details: Optional[Dict[str, object]] = payload.get("details")
+        self._start_day: Optional[str] = payload.get("start_day")
+        self._end_day: Optional[str] = payload.get("end_day")
+        self._job_sid: Optional[str] = payload.get("job_sid")
+        self._webhook_url: Optional[str] = payload.get("webhook_url")
+        self._webhook_method: Optional[str] = payload.get("webhook_method")
+        self._email: Optional[str] = payload.get("email")
+        self._url: Optional[str] = payload.get("url")
+        self._job_queue_position: Optional[str] = payload.get("job_queue_position")
+        self._estimated_completion_time: Optional[str] = payload.get(
+            "estimated_completion_time"
+        )
 
         self._solution = {
-            "job_sid": job_sid or self._properties["job_sid"],
+            "job_sid": job_sid or self._job_sid,
         }
         self._context: Optional[JobContext] = None
 
@@ -63,88 +63,85 @@ class JobInstance(InstanceResource):
         return self._context
 
     @property
-    def resource_type(self) -> str:
+    def resource_type(self) -> Optional[str]:
         """
         :returns: The type of communication – Messages, Calls, Conferences, and Participants
         """
-        return self._properties["resource_type"]
+        return self._resource_type
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The friendly name specified when creating the job
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def details(self) -> Dict[str, object]:
+    def details(self) -> Optional[Dict[str, object]]:
         """
         :returns: The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
         """
-        return self._properties["details"]
+        return self._details
 
     @property
-    def start_day(self) -> str:
+    def start_day(self) -> Optional[str]:
         """
         :returns: The start time for the export specified when creating the job
         """
-        return self._properties["start_day"]
+        return self._start_day
 
     @property
-    def end_day(self) -> str:
+    def end_day(self) -> Optional[str]:
         """
         :returns: The end time for the export specified when creating the job
         """
-        return self._properties["end_day"]
+        return self._end_day
 
     @property
-    def job_sid(self) -> str:
+    def job_sid(self) -> Optional[str]:
         """
         :returns: The job_sid returned when the export was created
         """
-        return self._properties["job_sid"]
+        return self._job_sid
 
     @property
-    def webhook_url(self) -> str:
+    def webhook_url(self) -> Optional[str]:
         """
         :returns: The optional webhook url called on completion
         """
-        return self._properties["webhook_url"]
+        return self._webhook_url
 
     @property
-    def webhook_method(self) -> str:
+    def webhook_method(self) -> Optional[str]:
         """
         :returns: This is the method used to call the webhook
         """
-        return self._properties["webhook_method"]
+        return self._webhook_method
 
     @property
-    def email(self) -> str:
+    def email(self) -> Optional[str]:
         """
         :returns: The optional email to send the completion notification to
         """
-        return self._properties["email"]
+        return self._email
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def job_queue_position(self) -> str:
+    def job_queue_position(self) -> Optional[str]:
         """
         :returns: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
         """
-        return self._properties["job_queue_position"]
+        return self._job_queue_position
 
     @property
-    def estimated_completion_time(self) -> str:
+    def estimated_completion_time(self) -> Optional[str]:
         """
         :returns: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
         """
-        return self._properties["estimated_completion_time"]
+        return self._estimated_completion_time
 
     def delete(self) -> bool:
         """

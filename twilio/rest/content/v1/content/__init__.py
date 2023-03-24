@@ -31,21 +31,23 @@ class ContentInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "language": payload.get("language"),
-            "variables": payload.get("variables"),
-            "types": payload.get("types"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._language: Optional[str] = payload.get("language")
+        self._variables: Optional[Dict[str, object]] = payload.get("variables")
+        self._types: Optional[Dict[str, object]] = payload.get("types")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ContentContext] = None
 
@@ -65,74 +67,74 @@ class ContentInstance(InstanceResource):
         return self._context
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the Content resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A string name used to describe the Content resource. Not visible to the end recipient.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def language(self) -> str:
+    def language(self) -> Optional[str]:
         """
         :returns: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
         """
-        return self._properties["language"]
+        return self._language
 
     @property
-    def variables(self) -> Dict[str, object]:
+    def variables(self) -> Optional[Dict[str, object]]:
         """
         :returns: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
         """
-        return self._properties["variables"]
+        return self._variables
 
     @property
-    def types(self) -> Dict[str, object]:
+    def types(self) -> Optional[Dict[str, object]]:
         """
         :returns: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
         """
-        return self._properties["types"]
+        return self._types
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of the resource, relative to `https://content.twilio.com`.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: A list of links related to the Content resource, such as approval_fetch and approval_create
         """
-        return self._properties["links"]
+        return self._links
 
     def delete(self) -> bool:
         """

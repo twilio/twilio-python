@@ -42,21 +42,23 @@ class AssetVersionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "asset_sid": payload.get("asset_sid"),
-            "path": payload.get("path"),
-            "visibility": payload.get("visibility"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._asset_sid: Optional[str] = payload.get("asset_sid")
+        self._path: Optional[str] = payload.get("path")
+        self._visibility: Optional["AssetVersionInstance.Visibility"] = payload.get(
+            "visibility"
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "asset_sid": asset_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AssetVersionContext] = None
 
@@ -78,60 +80,57 @@ class AssetVersionInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Asset Version resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Asset Version resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Service that the Asset Version resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def asset_sid(self) -> str:
+    def asset_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Asset resource that is the parent of the Asset Version.
         """
-        return self._properties["asset_sid"]
+        return self._asset_sid
 
     @property
-    def path(self) -> str:
+    def path(self) -> Optional[str]:
         """
         :returns: The URL-friendly string by which the Asset Version can be referenced. It can be a maximum of 255 characters. All paths begin with a forward slash ('/'). If an Asset Version creation request is submitted with a path not containing a leading slash, the path will automatically be prepended with one.
         """
-        return self._properties["path"]
+        return self._path
 
     @property
-    def visibility(self) -> "AssetVersionInstance.Visibility":
-        """
-        :returns:
-        """
-        return self._properties["visibility"]
+    def visibility(self) -> Optional["AssetVersionInstance.Visibility"]:
+        return self._visibility
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the Asset Version resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Asset Version resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "AssetVersionInstance":
         """

@@ -31,17 +31,17 @@ class SubscribedEventInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "type": payload.get("type"),
-            "schema_version": deserialize.integer(payload.get("schema_version")),
-            "subscription_sid": payload.get("subscription_sid"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._type: Optional[str] = payload.get("type")
+        self._schema_version: Optional[int] = deserialize.integer(
+            payload.get("schema_version")
+        )
+        self._subscription_sid: Optional[str] = payload.get("subscription_sid")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "subscription_sid": subscription_sid,
-            "type": type or self._properties["type"],
+            "type": type or self._type,
         }
         self._context: Optional[SubscribedEventContext] = None
 
@@ -62,39 +62,39 @@ class SubscribedEventInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def type(self) -> str:
+    def type(self) -> Optional[str]:
         """
         :returns: Type of event being subscribed to.
         """
-        return self._properties["type"]
+        return self._type
 
     @property
-    def schema_version(self) -> int:
+    def schema_version(self) -> Optional[int]:
         """
         :returns: The schema version that the subscription should use.
         """
-        return self._properties["schema_version"]
+        return self._schema_version
 
     @property
-    def subscription_sid(self) -> str:
+    def subscription_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Subscription.
         """
-        return self._properties["subscription_sid"]
+        return self._subscription_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

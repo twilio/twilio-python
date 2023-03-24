@@ -37,20 +37,22 @@ class IpAccessControlListMappingInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "domain_sid": payload.get("domain_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "sid": payload.get("sid"),
-            "uri": payload.get("uri"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._domain_sid: Optional[str] = payload.get("domain_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._sid: Optional[str] = payload.get("sid")
+        self._uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "domain_sid": domain_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[IpAccessControlListMappingContext] = None
 
@@ -72,53 +74,53 @@ class IpAccessControlListMappingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique id of the Account that is responsible for this resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def domain_sid(self) -> str:
+    def domain_sid(self) -> Optional[str]:
         """
         :returns: The unique string that is created to identify the SipDomain resource.
         """
-        return self._properties["domain_sid"]
+        return self._domain_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A human readable descriptive text for this resource, up to 64 characters long.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI for this resource, relative to `https://api.twilio.com`
         """
-        return self._properties["uri"]
+        return self._uri
 
     def delete(self) -> bool:
         """

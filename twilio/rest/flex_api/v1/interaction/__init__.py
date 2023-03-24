@@ -32,16 +32,14 @@ class InteractionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "channel": payload.get("channel"),
-            "routing": payload.get("routing"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._channel: Optional[Dict[str, object]] = payload.get("channel")
+        self._routing: Optional[Dict[str, object]] = payload.get("routing")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[InteractionContext] = None
 
@@ -61,39 +59,33 @@ class InteractionInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def channel(self) -> Dict[str, object]:
+    def channel(self) -> Optional[Dict[str, object]]:
         """
         :returns: A JSON object that defines the Interaction’s communication channel and includes details about the channel. See the [Outbound SMS](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) and [inbound (API-initiated)](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#api-initiated-contact) Channel object examples.
         """
-        return self._properties["channel"]
+        return self._channel
 
     @property
-    def routing(self) -> Dict[str, object]:
+    def routing(self) -> Optional[Dict[str, object]]:
         """
         :returns: A JSON Object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
         """
-        return self._properties["routing"]
+        return self._routing
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def fetch(self) -> "InteractionInstance":
         """

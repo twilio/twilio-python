@@ -43,45 +43,75 @@ class TollfreeVerificationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "customer_profile_sid": payload.get("customer_profile_sid"),
-            "trust_product_sid": payload.get("trust_product_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "regulated_item_sid": payload.get("regulated_item_sid"),
-            "business_name": payload.get("business_name"),
-            "business_street_address": payload.get("business_street_address"),
-            "business_street_address2": payload.get("business_street_address2"),
-            "business_city": payload.get("business_city"),
-            "business_state_province_region": payload.get(
-                "business_state_province_region"
-            ),
-            "business_postal_code": payload.get("business_postal_code"),
-            "business_country": payload.get("business_country"),
-            "business_website": payload.get("business_website"),
-            "business_contact_first_name": payload.get("business_contact_first_name"),
-            "business_contact_last_name": payload.get("business_contact_last_name"),
-            "business_contact_email": payload.get("business_contact_email"),
-            "business_contact_phone": payload.get("business_contact_phone"),
-            "notification_email": payload.get("notification_email"),
-            "use_case_categories": payload.get("use_case_categories"),
-            "use_case_summary": payload.get("use_case_summary"),
-            "production_message_sample": payload.get("production_message_sample"),
-            "opt_in_image_urls": payload.get("opt_in_image_urls"),
-            "opt_in_type": payload.get("opt_in_type"),
-            "message_volume": payload.get("message_volume"),
-            "additional_information": payload.get("additional_information"),
-            "tollfree_phone_number_sid": payload.get("tollfree_phone_number_sid"),
-            "status": payload.get("status"),
-            "url": payload.get("url"),
-            "resource_links": payload.get("resource_links"),
-            "external_reference_id": payload.get("external_reference_id"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._customer_profile_sid: Optional[str] = payload.get("customer_profile_sid")
+        self._trust_product_sid: Optional[str] = payload.get("trust_product_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._regulated_item_sid: Optional[str] = payload.get("regulated_item_sid")
+        self._business_name: Optional[str] = payload.get("business_name")
+        self._business_street_address: Optional[str] = payload.get(
+            "business_street_address"
+        )
+        self._business_street_address2: Optional[str] = payload.get(
+            "business_street_address2"
+        )
+        self._business_city: Optional[str] = payload.get("business_city")
+        self._business_state_province_region: Optional[str] = payload.get(
+            "business_state_province_region"
+        )
+        self._business_postal_code: Optional[str] = payload.get("business_postal_code")
+        self._business_country: Optional[str] = payload.get("business_country")
+        self._business_website: Optional[str] = payload.get("business_website")
+        self._business_contact_first_name: Optional[str] = payload.get(
+            "business_contact_first_name"
+        )
+        self._business_contact_last_name: Optional[str] = payload.get(
+            "business_contact_last_name"
+        )
+        self._business_contact_email: Optional[str] = payload.get(
+            "business_contact_email"
+        )
+        self._business_contact_phone: Optional[str] = payload.get(
+            "business_contact_phone"
+        )
+        self._notification_email: Optional[str] = payload.get("notification_email")
+        self._use_case_categories: Optional[List[str]] = payload.get(
+            "use_case_categories"
+        )
+        self._use_case_summary: Optional[str] = payload.get("use_case_summary")
+        self._production_message_sample: Optional[str] = payload.get(
+            "production_message_sample"
+        )
+        self._opt_in_image_urls: Optional[List[str]] = payload.get("opt_in_image_urls")
+        self._opt_in_type: Optional[
+            "TollfreeVerificationInstance.OptInType"
+        ] = payload.get("opt_in_type")
+        self._message_volume: Optional[str] = payload.get("message_volume")
+        self._additional_information: Optional[str] = payload.get(
+            "additional_information"
+        )
+        self._tollfree_phone_number_sid: Optional[str] = payload.get(
+            "tollfree_phone_number_sid"
+        )
+        self._status: Optional["TollfreeVerificationInstance.Status"] = payload.get(
+            "status"
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._resource_links: Optional[Dict[str, object]] = payload.get(
+            "resource_links"
+        )
+        self._external_reference_id: Optional[str] = payload.get(
+            "external_reference_id"
+        )
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[TollfreeVerificationContext] = None
 
@@ -101,228 +131,222 @@ class TollfreeVerificationInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string to identify Tollfree Verification.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Tollfree Verification resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def customer_profile_sid(self) -> str:
+    def customer_profile_sid(self) -> Optional[str]:
         """
         :returns: Customer's Profile Bundle BundleSid.
         """
-        return self._properties["customer_profile_sid"]
+        return self._customer_profile_sid
 
     @property
-    def trust_product_sid(self) -> str:
+    def trust_product_sid(self) -> Optional[str]:
         """
         :returns: Tollfree TrustProduct Bundle BundleSid.
         """
-        return self._properties["trust_product_sid"]
+        return self._trust_product_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def regulated_item_sid(self) -> str:
+    def regulated_item_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Regulated Item.
         """
-        return self._properties["regulated_item_sid"]
+        return self._regulated_item_sid
 
     @property
-    def business_name(self) -> str:
+    def business_name(self) -> Optional[str]:
         """
         :returns: The name of the business or organization using the Tollfree number.
         """
-        return self._properties["business_name"]
+        return self._business_name
 
     @property
-    def business_street_address(self) -> str:
+    def business_street_address(self) -> Optional[str]:
         """
         :returns: The address of the business or organization using the Tollfree number.
         """
-        return self._properties["business_street_address"]
+        return self._business_street_address
 
     @property
-    def business_street_address2(self) -> str:
+    def business_street_address2(self) -> Optional[str]:
         """
         :returns: The address of the business or organization using the Tollfree number.
         """
-        return self._properties["business_street_address2"]
+        return self._business_street_address2
 
     @property
-    def business_city(self) -> str:
+    def business_city(self) -> Optional[str]:
         """
         :returns: The city of the business or organization using the Tollfree number.
         """
-        return self._properties["business_city"]
+        return self._business_city
 
     @property
-    def business_state_province_region(self) -> str:
+    def business_state_province_region(self) -> Optional[str]:
         """
         :returns: The state/province/region of the business or organization using the Tollfree number.
         """
-        return self._properties["business_state_province_region"]
+        return self._business_state_province_region
 
     @property
-    def business_postal_code(self) -> str:
+    def business_postal_code(self) -> Optional[str]:
         """
         :returns: The postal code of the business or organization using the Tollfree number.
         """
-        return self._properties["business_postal_code"]
+        return self._business_postal_code
 
     @property
-    def business_country(self) -> str:
+    def business_country(self) -> Optional[str]:
         """
         :returns: The country of the business or organization using the Tollfree number.
         """
-        return self._properties["business_country"]
+        return self._business_country
 
     @property
-    def business_website(self) -> str:
+    def business_website(self) -> Optional[str]:
         """
         :returns: The website of the business or organization using the Tollfree number.
         """
-        return self._properties["business_website"]
+        return self._business_website
 
     @property
-    def business_contact_first_name(self) -> str:
+    def business_contact_first_name(self) -> Optional[str]:
         """
         :returns: The first name of the contact for the business or organization using the Tollfree number.
         """
-        return self._properties["business_contact_first_name"]
+        return self._business_contact_first_name
 
     @property
-    def business_contact_last_name(self) -> str:
+    def business_contact_last_name(self) -> Optional[str]:
         """
         :returns: The last name of the contact for the business or organization using the Tollfree number.
         """
-        return self._properties["business_contact_last_name"]
+        return self._business_contact_last_name
 
     @property
-    def business_contact_email(self) -> str:
+    def business_contact_email(self) -> Optional[str]:
         """
         :returns: The email address of the contact for the business or organization using the Tollfree number.
         """
-        return self._properties["business_contact_email"]
+        return self._business_contact_email
 
     @property
-    def business_contact_phone(self) -> str:
+    def business_contact_phone(self) -> Optional[str]:
         """
         :returns: The phone number of the contact for the business or organization using the Tollfree number.
         """
-        return self._properties["business_contact_phone"]
+        return self._business_contact_phone
 
     @property
-    def notification_email(self) -> str:
+    def notification_email(self) -> Optional[str]:
         """
         :returns: The email address to receive the notification about the verification result. .
         """
-        return self._properties["notification_email"]
+        return self._notification_email
 
     @property
-    def use_case_categories(self) -> List[str]:
+    def use_case_categories(self) -> Optional[List[str]]:
         """
         :returns: The category of the use case for the Tollfree Number. List as many are applicable..
         """
-        return self._properties["use_case_categories"]
+        return self._use_case_categories
 
     @property
-    def use_case_summary(self) -> str:
+    def use_case_summary(self) -> Optional[str]:
         """
         :returns: Use this to further explain how messaging is used by the business or organization.
         """
-        return self._properties["use_case_summary"]
+        return self._use_case_summary
 
     @property
-    def production_message_sample(self) -> str:
+    def production_message_sample(self) -> Optional[str]:
         """
         :returns: An example of message content, i.e. a sample message.
         """
-        return self._properties["production_message_sample"]
+        return self._production_message_sample
 
     @property
-    def opt_in_image_urls(self) -> List[str]:
+    def opt_in_image_urls(self) -> Optional[List[str]]:
         """
         :returns: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
         """
-        return self._properties["opt_in_image_urls"]
+        return self._opt_in_image_urls
 
     @property
-    def opt_in_type(self) -> "TollfreeVerificationInstance.OptInType":
-        """
-        :returns:
-        """
-        return self._properties["opt_in_type"]
+    def opt_in_type(self) -> Optional["TollfreeVerificationInstance.OptInType"]:
+        return self._opt_in_type
 
     @property
-    def message_volume(self) -> str:
+    def message_volume(self) -> Optional[str]:
         """
         :returns: Estimate monthly volume of messages from the Tollfree Number.
         """
-        return self._properties["message_volume"]
+        return self._message_volume
 
     @property
-    def additional_information(self) -> str:
+    def additional_information(self) -> Optional[str]:
         """
         :returns: Additional information to be provided for verification.
         """
-        return self._properties["additional_information"]
+        return self._additional_information
 
     @property
-    def tollfree_phone_number_sid(self) -> str:
+    def tollfree_phone_number_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Phone Number associated with the Tollfree Verification.
         """
-        return self._properties["tollfree_phone_number_sid"]
+        return self._tollfree_phone_number_sid
 
     @property
-    def status(self) -> "TollfreeVerificationInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["TollfreeVerificationInstance.Status"]:
+        return self._status
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Tollfree Verification resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def resource_links(self) -> Dict[str, object]:
+    def resource_links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of the documents associated with the Tollfree Verification resource.
         """
-        return self._properties["resource_links"]
+        return self._resource_links
 
     @property
-    def external_reference_id(self) -> str:
+    def external_reference_id(self) -> Optional[str]:
         """
         :returns: An optional external reference ID supplied by customer and echoed back on status retrieval.
         """
-        return self._properties["external_reference_id"]
+        return self._external_reference_id
 
     def fetch(self) -> "TollfreeVerificationInstance":
         """

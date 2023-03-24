@@ -36,38 +36,50 @@ class PhoneNumberInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "address_requirements": payload.get("address_requirements"),
-            "api_version": payload.get("api_version"),
-            "beta": payload.get("beta"),
-            "capabilities": payload.get("capabilities"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "links": payload.get("links"),
-            "phone_number": payload.get("phone_number"),
-            "sid": payload.get("sid"),
-            "sms_application_sid": payload.get("sms_application_sid"),
-            "sms_fallback_method": payload.get("sms_fallback_method"),
-            "sms_fallback_url": payload.get("sms_fallback_url"),
-            "sms_method": payload.get("sms_method"),
-            "sms_url": payload.get("sms_url"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "trunk_sid": payload.get("trunk_sid"),
-            "url": payload.get("url"),
-            "voice_application_sid": payload.get("voice_application_sid"),
-            "voice_caller_id_lookup": payload.get("voice_caller_id_lookup"),
-            "voice_fallback_method": payload.get("voice_fallback_method"),
-            "voice_fallback_url": payload.get("voice_fallback_url"),
-            "voice_method": payload.get("voice_method"),
-            "voice_url": payload.get("voice_url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._address_requirements: Optional[
+            "PhoneNumberInstance.AddressRequirement"
+        ] = payload.get("address_requirements")
+        self._api_version: Optional[str] = payload.get("api_version")
+        self._beta: Optional[bool] = payload.get("beta")
+        self._capabilities: Optional[Dict[str, object]] = payload.get("capabilities")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self._phone_number: Optional[str] = payload.get("phone_number")
+        self._sid: Optional[str] = payload.get("sid")
+        self._sms_application_sid: Optional[str] = payload.get("sms_application_sid")
+        self._sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
+        self._sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
+        self._sms_method: Optional[str] = payload.get("sms_method")
+        self._sms_url: Optional[str] = payload.get("sms_url")
+        self._status_callback: Optional[str] = payload.get("status_callback")
+        self._status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
+        self._trunk_sid: Optional[str] = payload.get("trunk_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._voice_application_sid: Optional[str] = payload.get(
+            "voice_application_sid"
+        )
+        self._voice_caller_id_lookup: Optional[bool] = payload.get(
+            "voice_caller_id_lookup"
+        )
+        self._voice_fallback_method: Optional[str] = payload.get(
+            "voice_fallback_method"
+        )
+        self._voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
+        self._voice_method: Optional[str] = payload.get("voice_method")
+        self._voice_url: Optional[str] = payload.get("voice_url")
 
         self._solution = {
             "trunk_sid": trunk_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[PhoneNumberContext] = None
 
@@ -88,186 +100,185 @@ class PhoneNumberInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PhoneNumber resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def address_requirements(self) -> "PhoneNumberInstance.AddressRequirement":
-        """
-        :returns:
-        """
-        return self._properties["address_requirements"]
+    def address_requirements(
+        self,
+    ) -> Optional["PhoneNumberInstance.AddressRequirement"]:
+        return self._address_requirements
 
     @property
-    def api_version(self) -> str:
+    def api_version(self) -> Optional[str]:
         """
         :returns: The API version used to start a new TwiML session.
         """
-        return self._properties["api_version"]
+        return self._api_version
 
     @property
-    def beta(self) -> bool:
+    def beta(self) -> Optional[bool]:
         """
         :returns: Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
         """
-        return self._properties["beta"]
+        return self._beta
 
     @property
-    def capabilities(self) -> Dict[str, object]:
+    def capabilities(self) -> Optional[Dict[str, object]]:
         """
         :returns: The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
         """
-        return self._properties["capabilities"]
+        return self._capabilities
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of related resources.
         """
-        return self._properties["links"]
+        return self._links
 
     @property
-    def phone_number(self) -> str:
+    def phone_number(self) -> Optional[str]:
         """
         :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
         """
-        return self._properties["phone_number"]
+        return self._phone_number
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the PhoneNumber resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def sms_application_sid(self) -> str:
+    def sms_application_sid(self) -> Optional[str]:
         """
         :returns: The SID of the application that handles SMS messages sent to the phone number. If an `sms_application_sid` is present, we ignore all `sms_*_url` values and use those of the application.
         """
-        return self._properties["sms_application_sid"]
+        return self._sms_application_sid
 
     @property
-    def sms_fallback_method(self) -> str:
+    def sms_fallback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["sms_fallback_method"]
+        return self._sms_fallback_method
 
     @property
-    def sms_fallback_url(self) -> str:
+    def sms_fallback_url(self) -> Optional[str]:
         """
         :returns: The URL that we call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML from `sms_url`.
         """
-        return self._properties["sms_fallback_url"]
+        return self._sms_fallback_url
 
     @property
-    def sms_method(self) -> str:
+    def sms_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["sms_method"]
+        return self._sms_method
 
     @property
-    def sms_url(self) -> str:
+    def sms_url(self) -> Optional[str]:
         """
         :returns: The URL we call using the `sms_method` when the phone number receives an incoming SMS message.
         """
-        return self._properties["sms_url"]
+        return self._sms_url
 
     @property
-    def status_callback(self) -> str:
+    def status_callback(self) -> Optional[str]:
         """
         :returns: The URL we call using the `status_callback_method` to send status information to your application.
         """
-        return self._properties["status_callback"]
+        return self._status_callback
 
     @property
-    def status_callback_method(self) -> str:
+    def status_callback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
         """
-        return self._properties["status_callback_method"]
+        return self._status_callback_method
 
     @property
-    def trunk_sid(self) -> str:
+    def trunk_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Trunk that handles calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice URLs and voice applications and use those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
         """
-        return self._properties["trunk_sid"]
+        return self._trunk_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def voice_application_sid(self) -> str:
+    def voice_application_sid(self) -> Optional[str]:
         """
         :returns: The SID of the application that handles calls to the phone number. If a `voice_application_sid` is present, we ignore all of the voice URLs and use those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
         """
-        return self._properties["voice_application_sid"]
+        return self._voice_application_sid
 
     @property
-    def voice_caller_id_lookup(self) -> bool:
+    def voice_caller_id_lookup(self) -> Optional[bool]:
         """
         :returns: Whether we look up the caller's caller-ID name from the CNAM database ($0.01 per look up). Can be: `true` or `false`.
         """
-        return self._properties["voice_caller_id_lookup"]
+        return self._voice_caller_id_lookup
 
     @property
-    def voice_fallback_method(self) -> str:
+    def voice_fallback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method that we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["voice_fallback_method"]
+        return self._voice_fallback_method
 
     @property
-    def voice_fallback_url(self) -> str:
+    def voice_fallback_url(self) -> Optional[str]:
         """
         :returns: The URL that we call using the `voice_fallback_method` when an error occurs retrieving or executing the TwiML requested by `url`.
         """
-        return self._properties["voice_fallback_url"]
+        return self._voice_fallback_url
 
     @property
-    def voice_method(self) -> str:
+    def voice_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["voice_method"]
+        return self._voice_method
 
     @property
-    def voice_url(self) -> str:
+    def voice_url(self) -> Optional[str]:
         """
         :returns: The URL we call using the `voice_method` when the phone number receives a call. The `voice_url` is not be used if a `voice_application_sid` or a `trunk_sid` is set.
         """
-        return self._properties["voice_url"]
+        return self._voice_url
 
     def delete(self) -> bool:
         """

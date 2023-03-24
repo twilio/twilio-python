@@ -37,23 +37,21 @@ class AssignedAddOnExtensionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "resource_sid": payload.get("resource_sid"),
-            "assigned_add_on_sid": payload.get("assigned_add_on_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "product_name": payload.get("product_name"),
-            "unique_name": payload.get("unique_name"),
-            "uri": payload.get("uri"),
-            "enabled": payload.get("enabled"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._resource_sid: Optional[str] = payload.get("resource_sid")
+        self._assigned_add_on_sid: Optional[str] = payload.get("assigned_add_on_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._product_name: Optional[str] = payload.get("product_name")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._uri: Optional[str] = payload.get("uri")
+        self._enabled: Optional[bool] = payload.get("enabled")
 
         self._solution = {
             "account_sid": account_sid,
             "resource_sid": resource_sid,
             "assigned_add_on_sid": assigned_add_on_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[AssignedAddOnExtensionContext] = None
 
@@ -76,67 +74,67 @@ class AssignedAddOnExtensionInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def resource_sid(self) -> str:
+    def resource_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Phone Number to which the Add-on is assigned.
         """
-        return self._properties["resource_sid"]
+        return self._resource_sid
 
     @property
-    def assigned_add_on_sid(self) -> str:
+    def assigned_add_on_sid(self) -> Optional[str]:
         """
         :returns: The SID that uniquely identifies the assigned Add-on installation.
         """
-        return self._properties["assigned_add_on_sid"]
+        return self._assigned_add_on_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def product_name(self) -> str:
+    def product_name(self) -> Optional[str]:
         """
         :returns: A string that you assigned to describe the Product this Extension is used within.
         """
-        return self._properties["product_name"]
+        return self._product_name
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def enabled(self) -> bool:
+    def enabled(self) -> Optional[bool]:
         """
         :returns: Whether the Extension will be invoked.
         """
-        return self._properties["enabled"]
+        return self._enabled
 
     def fetch(self) -> "AssignedAddOnExtensionInstance":
         """

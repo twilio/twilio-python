@@ -28,12 +28,10 @@ class StyleSheetInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "url": payload.get("url"),
-            "data": payload.get("data"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._data: Optional[Dict[str, object]] = payload.get("data")
 
         self._solution = {
             "assistant_sid": assistant_sid,
@@ -56,32 +54,32 @@ class StyleSheetInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the StyleSheet resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def assistant_sid(self) -> str:
+    def assistant_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
         """
-        return self._properties["assistant_sid"]
+        return self._assistant_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the StyleSheet resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def data(self) -> Dict[str, object]:
+    def data(self) -> Optional[Dict[str, object]]:
         """
         :returns: The JSON string that describes the style sheet object.
         """
-        return self._properties["data"]
+        return self._data
 
     def fetch(self) -> "StyleSheetInstance":
         """

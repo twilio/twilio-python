@@ -28,13 +28,11 @@ class InsightsSessionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "workspace_id": payload.get("workspace_id"),
-            "session_expiry": payload.get("session_expiry"),
-            "session_id": payload.get("session_id"),
-            "base_url": payload.get("base_url"),
-            "url": payload.get("url"),
-        }
+        self._workspace_id: Optional[str] = payload.get("workspace_id")
+        self._session_expiry: Optional[str] = payload.get("session_expiry")
+        self._session_id: Optional[str] = payload.get("session_id")
+        self._base_url: Optional[str] = payload.get("base_url")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[InsightsSessionContext] = None
@@ -54,39 +52,39 @@ class InsightsSessionInstance(InstanceResource):
         return self._context
 
     @property
-    def workspace_id(self) -> str:
+    def workspace_id(self) -> Optional[str]:
         """
         :returns: Unique ID to identify the user's workspace
         """
-        return self._properties["workspace_id"]
+        return self._workspace_id
 
     @property
-    def session_expiry(self) -> str:
+    def session_expiry(self) -> Optional[str]:
         """
         :returns: The session expiry date and time, given in ISO 8601 format.
         """
-        return self._properties["session_expiry"]
+        return self._session_expiry
 
     @property
-    def session_id(self) -> str:
+    def session_id(self) -> Optional[str]:
         """
         :returns: The unique ID for the session
         """
-        return self._properties["session_id"]
+        return self._session_id
 
     @property
-    def base_url(self) -> str:
+    def base_url(self) -> Optional[str]:
         """
         :returns: The base URL to fetch reports and dashboards
         """
-        return self._properties["base_url"]
+        return self._base_url
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def create(self, authorization=values.unset) -> "InsightsSessionInstance":
         """

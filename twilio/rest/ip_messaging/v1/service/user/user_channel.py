@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -34,20 +34,20 @@ class UserChannelInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "member_sid": payload.get("member_sid"),
-            "status": payload.get("status"),
-            "last_consumed_message_index": deserialize.integer(
-                payload.get("last_consumed_message_index")
-            ),
-            "unread_messages_count": deserialize.integer(
-                payload.get("unread_messages_count")
-            ),
-            "links": payload.get("links"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._channel_sid: Optional[str] = payload.get("channel_sid")
+        self._member_sid: Optional[str] = payload.get("member_sid")
+        self._status: Optional["UserChannelInstance.ChannelStatus"] = payload.get(
+            "status"
+        )
+        self._last_consumed_message_index: Optional[int] = deserialize.integer(
+            payload.get("last_consumed_message_index")
+        )
+        self._unread_messages_count: Optional[int] = deserialize.integer(
+            payload.get("unread_messages_count")
+        )
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
@@ -55,60 +55,36 @@ class UserChannelInstance(InstanceResource):
         }
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
+    def service_sid(self) -> Optional[str]:
+        return self._service_sid
 
     @property
-    def channel_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["channel_sid"]
+    def channel_sid(self) -> Optional[str]:
+        return self._channel_sid
 
     @property
-    def member_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["member_sid"]
+    def member_sid(self) -> Optional[str]:
+        return self._member_sid
 
     @property
-    def status(self) -> "UserChannelInstance.ChannelStatus":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["UserChannelInstance.ChannelStatus"]:
+        return self._status
 
     @property
-    def last_consumed_message_index(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["last_consumed_message_index"]
+    def last_consumed_message_index(self) -> Optional[int]:
+        return self._last_consumed_message_index
 
     @property
-    def unread_messages_count(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["unread_messages_count"]
+    def unread_messages_count(self) -> Optional[int]:
+        return self._unread_messages_count
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def __repr__(self) -> str:
         """

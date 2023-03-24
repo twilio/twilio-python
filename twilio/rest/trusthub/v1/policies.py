@@ -29,15 +29,13 @@ class PoliciesInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "requirements": payload.get("requirements"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._requirements: Optional[Dict[str, object]] = payload.get("requirements")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[PoliciesContext] = None
 
@@ -57,32 +55,32 @@ class PoliciesInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that identifies the Policy resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A human-readable description that is assigned to describe the Policy resource. Examples can include Primary Customer profile policy
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def requirements(self) -> Dict[str, object]:
+    def requirements(self) -> Optional[Dict[str, object]]:
         """
         :returns: The SID of an object that holds the policy information
         """
-        return self._properties["requirements"]
+        return self._requirements
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Policy resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "PoliciesInstance":
         """

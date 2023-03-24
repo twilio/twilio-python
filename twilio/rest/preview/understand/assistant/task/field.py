@@ -37,22 +37,24 @@ class FieldInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "field_type": payload.get("field_type"),
-            "task_sid": payload.get("task_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._field_type: Optional[str] = payload.get("field_type")
+        self._task_sid: Optional[str] = payload.get("task_sid")
+        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "assistant_sid": assistant_sid,
             "task_sid": task_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[FieldContext] = None
 
@@ -74,67 +76,64 @@ class FieldInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the Account that created this Field.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was created
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this resource was last updated
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def field_type(self) -> str:
+    def field_type(self) -> Optional[str]:
         """
         :returns: The Field Type of this field. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or sid of a custom Field Type.
         """
-        return self._properties["field_type"]
+        return self._field_type
 
     @property
-    def task_sid(self) -> str:
+    def task_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the Task associated with this Field.
         """
-        return self._properties["task_sid"]
+        return self._task_sid
 
     @property
-    def assistant_sid(self) -> str:
+    def assistant_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the parent Assistant.
         """
-        return self._properties["assistant_sid"]
+        return self._assistant_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def delete(self) -> bool:
         """

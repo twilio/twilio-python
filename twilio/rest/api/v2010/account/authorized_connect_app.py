@@ -36,22 +36,34 @@ class AuthorizedConnectAppInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "connect_app_company_name": payload.get("connect_app_company_name"),
-            "connect_app_description": payload.get("connect_app_description"),
-            "connect_app_friendly_name": payload.get("connect_app_friendly_name"),
-            "connect_app_homepage_url": payload.get("connect_app_homepage_url"),
-            "connect_app_sid": payload.get("connect_app_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "permissions": payload.get("permissions"),
-            "uri": payload.get("uri"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._connect_app_company_name: Optional[str] = payload.get(
+            "connect_app_company_name"
+        )
+        self._connect_app_description: Optional[str] = payload.get(
+            "connect_app_description"
+        )
+        self._connect_app_friendly_name: Optional[str] = payload.get(
+            "connect_app_friendly_name"
+        )
+        self._connect_app_homepage_url: Optional[str] = payload.get(
+            "connect_app_homepage_url"
+        )
+        self._connect_app_sid: Optional[str] = payload.get("connect_app_sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._permissions: Optional[
+            List["AuthorizedConnectAppInstance.Permission"]
+        ] = payload.get("permissions")
+        self._uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
-            "connect_app_sid": connect_app_sid or self._properties["connect_app_sid"],
+            "connect_app_sid": connect_app_sid or self._connect_app_sid,
         }
         self._context: Optional[AuthorizedConnectAppContext] = None
 
@@ -72,74 +84,74 @@ class AuthorizedConnectAppInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def connect_app_company_name(self) -> str:
+    def connect_app_company_name(self) -> Optional[str]:
         """
         :returns: The company name set for the Connect App.
         """
-        return self._properties["connect_app_company_name"]
+        return self._connect_app_company_name
 
     @property
-    def connect_app_description(self) -> str:
+    def connect_app_description(self) -> Optional[str]:
         """
         :returns: A detailed description of the Connect App.
         """
-        return self._properties["connect_app_description"]
+        return self._connect_app_description
 
     @property
-    def connect_app_friendly_name(self) -> str:
+    def connect_app_friendly_name(self) -> Optional[str]:
         """
         :returns: The name of the Connect App.
         """
-        return self._properties["connect_app_friendly_name"]
+        return self._connect_app_friendly_name
 
     @property
-    def connect_app_homepage_url(self) -> str:
+    def connect_app_homepage_url(self) -> Optional[str]:
         """
         :returns: The public URL for the Connect App.
         """
-        return self._properties["connect_app_homepage_url"]
+        return self._connect_app_homepage_url
 
     @property
-    def connect_app_sid(self) -> str:
+    def connect_app_sid(self) -> Optional[str]:
         """
         :returns: The SID that we assigned to the Connect App.
         """
-        return self._properties["connect_app_sid"]
+        return self._connect_app_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def permissions(self) -> List["AuthorizedConnectAppInstance.Permission"]:
+    def permissions(self) -> Optional[List["AuthorizedConnectAppInstance.Permission"]]:
         """
         :returns: The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
         """
-        return self._properties["permissions"]
+        return self._permissions
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     def fetch(self) -> "AuthorizedConnectAppInstance":
         """

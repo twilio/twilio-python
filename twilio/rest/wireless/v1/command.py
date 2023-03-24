@@ -49,23 +49,33 @@ class CommandInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "command": payload.get("command"),
-            "command_mode": payload.get("command_mode"),
-            "transport": payload.get("transport"),
-            "delivery_receipt_requested": payload.get("delivery_receipt_requested"),
-            "status": payload.get("status"),
-            "direction": payload.get("direction"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._sim_sid: Optional[str] = payload.get("sim_sid")
+        self._command: Optional[str] = payload.get("command")
+        self._command_mode: Optional["CommandInstance.CommandMode"] = payload.get(
+            "command_mode"
+        )
+        self._transport: Optional["CommandInstance.Transport"] = payload.get(
+            "transport"
+        )
+        self._delivery_receipt_requested: Optional[bool] = payload.get(
+            "delivery_receipt_requested"
+        )
+        self._status: Optional["CommandInstance.Status"] = payload.get("status")
+        self._direction: Optional["CommandInstance.Direction"] = payload.get(
+            "direction"
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[CommandContext] = None
 
@@ -85,88 +95,76 @@ class CommandInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Command resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Command resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def sim_sid(self) -> str:
+    def sim_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Command was sent to or from.
         """
-        return self._properties["sim_sid"]
+        return self._sim_sid
 
     @property
-    def command(self) -> str:
+    def command(self) -> Optional[str]:
         """
         :returns: The message being sent to or from the SIM. For text mode messages, this can be up to 160 characters. For binary mode messages, this is a series of up to 140 bytes of data encoded using base64.
         """
-        return self._properties["command"]
+        return self._command
 
     @property
-    def command_mode(self) -> "CommandInstance.CommandMode":
-        """
-        :returns:
-        """
-        return self._properties["command_mode"]
+    def command_mode(self) -> Optional["CommandInstance.CommandMode"]:
+        return self._command_mode
 
     @property
-    def transport(self) -> "CommandInstance.Transport":
-        """
-        :returns:
-        """
-        return self._properties["transport"]
+    def transport(self) -> Optional["CommandInstance.Transport"]:
+        return self._transport
 
     @property
-    def delivery_receipt_requested(self) -> bool:
+    def delivery_receipt_requested(self) -> Optional[bool]:
         """
         :returns: Whether to request a delivery receipt.
         """
-        return self._properties["delivery_receipt_requested"]
+        return self._delivery_receipt_requested
 
     @property
-    def status(self) -> "CommandInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["CommandInstance.Status"]:
+        return self._status
 
     @property
-    def direction(self) -> "CommandInstance.Direction":
-        """
-        :returns:
-        """
-        return self._properties["direction"]
+    def direction(self) -> Optional["CommandInstance.Direction"]:
+        return self._direction
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

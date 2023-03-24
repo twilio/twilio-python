@@ -53,20 +53,20 @@ class InteractionChannelInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "interaction_sid": payload.get("interaction_sid"),
-            "type": payload.get("type"),
-            "status": payload.get("status"),
-            "error_code": deserialize.integer(payload.get("error_code")),
-            "error_message": payload.get("error_message"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._interaction_sid: Optional[str] = payload.get("interaction_sid")
+        self._type: Optional["InteractionChannelInstance.Type"] = payload.get("type")
+        self._status: Optional[
+            "InteractionChannelInstance.ChannelStatus"
+        ] = payload.get("status")
+        self._error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
+        self._error_message: Optional[str] = payload.get("error_message")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "interaction_sid": interaction_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[InteractionChannelContext] = None
 
@@ -87,60 +87,48 @@ class InteractionChannelInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def interaction_sid(self) -> str:
+    def interaction_sid(self) -> Optional[str]:
         """
         :returns: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
         """
-        return self._properties["interaction_sid"]
+        return self._interaction_sid
 
     @property
-    def type(self) -> "InteractionChannelInstance.Type":
-        """
-        :returns:
-        """
-        return self._properties["type"]
+    def type(self) -> Optional["InteractionChannelInstance.Type"]:
+        return self._type
 
     @property
-    def status(self) -> "InteractionChannelInstance.ChannelStatus":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["InteractionChannelInstance.ChannelStatus"]:
+        return self._status
 
     @property
-    def error_code(self) -> int:
+    def error_code(self) -> Optional[int]:
         """
         :returns: The Twilio error code for a failed channel.
         """
-        return self._properties["error_code"]
+        return self._error_code
 
     @property
-    def error_message(self) -> str:
+    def error_message(self) -> Optional[str]:
         """
         :returns: The error message for a failed channel.
         """
-        return self._properties["error_message"]
+        return self._error_message
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def fetch(self) -> "InteractionChannelInstance":
         """

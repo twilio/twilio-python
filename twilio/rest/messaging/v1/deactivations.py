@@ -28,9 +28,7 @@ class DeactivationsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "redirect_to": payload.get("redirect_to"),
-        }
+        self._redirect_to: Optional[str] = payload.get("redirect_to")
 
         self._solution = {}
         self._context: Optional[DeactivationsContext] = None
@@ -50,11 +48,11 @@ class DeactivationsInstance(InstanceResource):
         return self._context
 
     @property
-    def redirect_to(self) -> str:
+    def redirect_to(self) -> Optional[str]:
         """
         :returns: Returns an authenticated url that redirects to a file containing the deactivated numbers for the requested day. This url is valid for up to two minutes.
         """
-        return self._properties["redirect_to"]
+        return self._redirect_to
 
     def fetch(self, date=values.unset) -> "DeactivationsInstance":
         """

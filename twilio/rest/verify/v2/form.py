@@ -30,15 +30,13 @@ class FormInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "form_type": payload.get("form_type"),
-            "forms": payload.get("forms"),
-            "form_meta": payload.get("form_meta"),
-            "url": payload.get("url"),
-        }
+        self._form_type: Optional["FormInstance.FormTypes"] = payload.get("form_type")
+        self._forms: Optional[Dict[str, object]] = payload.get("forms")
+        self._form_meta: Optional[Dict[str, object]] = payload.get("form_meta")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "form_type": form_type or self._properties["form_type"],
+            "form_type": form_type or self._form_type,
         }
         self._context: Optional[FormContext] = None
 
@@ -58,32 +56,29 @@ class FormInstance(InstanceResource):
         return self._context
 
     @property
-    def form_type(self) -> "FormInstance.FormTypes":
-        """
-        :returns:
-        """
-        return self._properties["form_type"]
+    def form_type(self) -> Optional["FormInstance.FormTypes"]:
+        return self._form_type
 
     @property
-    def forms(self) -> Dict[str, object]:
+    def forms(self) -> Optional[Dict[str, object]]:
         """
         :returns: Object that contains the available forms for this type. This available forms are given in the standard [JSON Schema](https://json-schema.org/) format
         """
-        return self._properties["forms"]
+        return self._forms
 
     @property
-    def form_meta(self) -> Dict[str, object]:
+    def form_meta(self) -> Optional[Dict[str, object]]:
         """
         :returns: Additional information for the available forms for this type. E.g. The separator string used for `binding` in a Factor push.
         """
-        return self._properties["form_meta"]
+        return self._form_meta
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL to access the forms for this type.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "FormInstance":
         """

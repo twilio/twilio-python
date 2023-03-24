@@ -14,6 +14,7 @@ r"""
 
 
 from datetime import datetime
+from typing import Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -28,50 +29,52 @@ class ExternalCampaignInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "campaign_id": payload.get("campaign_id"),
-            "messaging_service_sid": payload.get("messaging_service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._campaign_id: Optional[str] = payload.get("campaign_id")
+        self._messaging_service_sid: Optional[str] = payload.get(
+            "messaging_service_sid"
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
 
         self._solution = {}
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def campaign_id(self) -> str:
+    def campaign_id(self) -> Optional[str]:
         """
         :returns: ID of the preregistered campaign.
         """
-        return self._properties["campaign_id"]
+        return self._campaign_id
 
     @property
-    def messaging_service_sid(self) -> str:
+    def messaging_service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
         """
-        return self._properties["messaging_service_sid"]
+        return self._messaging_service_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     def __repr__(self) -> str:
         """

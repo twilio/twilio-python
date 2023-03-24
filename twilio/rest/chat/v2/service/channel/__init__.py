@@ -42,26 +42,32 @@ class ChannelInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "unique_name": payload.get("unique_name"),
-            "attributes": payload.get("attributes"),
-            "type": payload.get("type"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-            "members_count": deserialize.integer(payload.get("members_count")),
-            "messages_count": deserialize.integer(payload.get("messages_count")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._unique_name: Optional[str] = payload.get("unique_name")
+        self._attributes: Optional[str] = payload.get("attributes")
+        self._type: Optional["ChannelInstance.ChannelType"] = payload.get("type")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._created_by: Optional[str] = payload.get("created_by")
+        self._members_count: Optional[int] = deserialize.integer(
+            payload.get("members_count")
+        )
+        self._messages_count: Optional[int] = deserialize.integer(
+            payload.get("messages_count")
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ChannelContext] = None
 
@@ -82,102 +88,99 @@ class ChannelInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Channel resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Channel resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def unique_name(self) -> str:
+    def unique_name(self) -> Optional[str]:
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
         """
-        return self._properties["unique_name"]
+        return self._unique_name
 
     @property
-    def attributes(self) -> str:
+    def attributes(self) -> Optional[str]:
         """
         :returns: The JSON string that stores application-specific data. If attributes have not been set, `{}` is returned.
         """
-        return self._properties["attributes"]
+        return self._attributes
 
     @property
-    def type(self) -> "ChannelInstance.ChannelType":
-        """
-        :returns:
-        """
-        return self._properties["type"]
+    def type(self) -> Optional["ChannelInstance.ChannelType"]:
+        return self._type
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def created_by(self) -> str:
+    def created_by(self) -> Optional[str]:
         """
         :returns: The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`.
         """
-        return self._properties["created_by"]
+        return self._created_by
 
     @property
-    def members_count(self) -> int:
+    def members_count(self) -> Optional[int]:
         """
         :returns: The number of Members in the Channel.
         """
-        return self._properties["members_count"]
+        return self._members_count
 
     @property
-    def messages_count(self) -> int:
+    def messages_count(self) -> Optional[int]:
         """
         :returns: The number of Messages that have been passed in the Channel.
         """
-        return self._properties["messages_count"]
+        return self._messages_count
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Channel resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The absolute URLs of the [Members](https://www.twilio.com/docs/chat/rest/member-resource), [Messages](https://www.twilio.com/docs/chat/rest/message-resource), [Invites](https://www.twilio.com/docs/chat/rest/invite-resource), Webhooks and, if it exists, the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) for the Channel.
         """
-        return self._properties["links"]
+        return self._links
 
     def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -29,13 +29,11 @@ class InteractionChannelInviteInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "interaction_sid": payload.get("interaction_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "routing": payload.get("routing"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._interaction_sid: Optional[str] = payload.get("interaction_sid")
+        self._channel_sid: Optional[str] = payload.get("channel_sid")
+        self._routing: Optional[Dict[str, object]] = payload.get("routing")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "interaction_sid": interaction_sid,
@@ -43,39 +41,36 @@ class InteractionChannelInviteInstance(InstanceResource):
         }
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string created by Twilio to identify an Interaction Channel Invite resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def interaction_sid(self) -> str:
+    def interaction_sid(self) -> Optional[str]:
         """
         :returns: The Interaction SID for this Channel.
         """
-        return self._properties["interaction_sid"]
+        return self._interaction_sid
 
     @property
-    def channel_sid(self) -> str:
+    def channel_sid(self) -> Optional[str]:
         """
         :returns: The Channel SID for this Invite.
         """
-        return self._properties["channel_sid"]
+        return self._channel_sid
 
     @property
-    def routing(self) -> Dict[str, object]:
+    def routing(self) -> Optional[Dict[str, object]]:
         """
         :returns: A JSON object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
         """
-        return self._properties["routing"]
+        return self._routing
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def __repr__(self) -> str:
         """

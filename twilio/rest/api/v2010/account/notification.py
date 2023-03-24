@@ -30,29 +30,33 @@ class NotificationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "api_version": payload.get("api_version"),
-            "call_sid": payload.get("call_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "error_code": payload.get("error_code"),
-            "log": payload.get("log"),
-            "message_date": deserialize.rfc2822_datetime(payload.get("message_date")),
-            "message_text": payload.get("message_text"),
-            "more_info": payload.get("more_info"),
-            "request_method": payload.get("request_method"),
-            "request_url": payload.get("request_url"),
-            "request_variables": payload.get("request_variables"),
-            "response_body": payload.get("response_body"),
-            "response_headers": payload.get("response_headers"),
-            "sid": payload.get("sid"),
-            "uri": payload.get("uri"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._api_version: Optional[str] = payload.get("api_version")
+        self._call_sid: Optional[str] = payload.get("call_sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._error_code: Optional[str] = payload.get("error_code")
+        self._log: Optional[str] = payload.get("log")
+        self._message_date: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("message_date")
+        )
+        self._message_text: Optional[str] = payload.get("message_text")
+        self._more_info: Optional[str] = payload.get("more_info")
+        self._request_method: Optional[str] = payload.get("request_method")
+        self._request_url: Optional[str] = payload.get("request_url")
+        self._request_variables: Optional[str] = payload.get("request_variables")
+        self._response_body: Optional[str] = payload.get("response_body")
+        self._response_headers: Optional[str] = payload.get("response_headers")
+        self._sid: Optional[str] = payload.get("sid")
+        self._uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[NotificationContext] = None
 
@@ -73,123 +77,123 @@ class NotificationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def api_version(self) -> str:
+    def api_version(self) -> Optional[str]:
         """
         :returns: The API version used to generate the notification. Can be empty for events that don't have a specific API version, such as incoming phone calls.
         """
-        return self._properties["api_version"]
+        return self._api_version
 
     @property
-    def call_sid(self) -> str:
+    def call_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Notification resource is associated with.
         """
-        return self._properties["call_sid"]
+        return self._call_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def error_code(self) -> str:
+    def error_code(self) -> Optional[str]:
         """
         :returns: A unique error code for the error condition that is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors).
         """
-        return self._properties["error_code"]
+        return self._error_code
 
     @property
-    def log(self) -> str:
+    def log(self) -> Optional[str]:
         """
         :returns: An integer log level that corresponds to the type of notification: `0` is ERROR, `1` is WARNING.
         """
-        return self._properties["log"]
+        return self._log
 
     @property
-    def message_date(self) -> datetime:
+    def message_date(self) -> Optional[datetime]:
         """
         :returns: The date the notification was actually generated in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. Message buffering can cause this value to differ from `date_created`.
         """
-        return self._properties["message_date"]
+        return self._message_date
 
     @property
-    def message_text(self) -> str:
+    def message_text(self) -> Optional[str]:
         """
         :returns: The text of the notification.
         """
-        return self._properties["message_text"]
+        return self._message_text
 
     @property
-    def more_info(self) -> str:
+    def more_info(self) -> Optional[str]:
         """
         :returns: The URL for more information about the error condition. This value is a page in our [Error Dictionary](https://www.twilio.com/docs/api/errors).
         """
-        return self._properties["more_info"]
+        return self._more_info
 
     @property
-    def request_method(self) -> str:
+    def request_method(self) -> Optional[str]:
         """
         :returns: The HTTP method used to generate the notification. If the notification was generated during a phone call, this is the HTTP Method used to request the resource on your server. If the notification was generated by your use of our REST API, this is the HTTP method used to call the resource on our servers.
         """
-        return self._properties["request_method"]
+        return self._request_method
 
     @property
-    def request_url(self) -> str:
+    def request_url(self) -> Optional[str]:
         """
         :returns: The URL of the resource that generated the notification. If the notification was generated during a phone call, this is the URL of the resource on your server that caused the notification. If the notification was generated by your use of our REST API, this is the URL of the resource you called.
         """
-        return self._properties["request_url"]
+        return self._request_url
 
     @property
-    def request_variables(self) -> str:
+    def request_variables(self) -> Optional[str]:
         """
         :returns: The HTTP GET or POST variables we sent to your server. However, if the notification was generated by our REST API, this contains the HTTP POST or PUT variables you sent to our API.
         """
-        return self._properties["request_variables"]
+        return self._request_variables
 
     @property
-    def response_body(self) -> str:
+    def response_body(self) -> Optional[str]:
         """
         :returns: The HTTP body returned by your server.
         """
-        return self._properties["response_body"]
+        return self._response_body
 
     @property
-    def response_headers(self) -> str:
+    def response_headers(self) -> Optional[str]:
         """
         :returns: The HTTP headers returned by your server.
         """
-        return self._properties["response_headers"]
+        return self._response_headers
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the Notification resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     def fetch(self) -> "NotificationInstance":
         """

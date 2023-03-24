@@ -66,34 +66,52 @@ class MessageInteractionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "session_sid": payload.get("session_sid"),
-            "service_sid": payload.get("service_sid"),
-            "account_sid": payload.get("account_sid"),
-            "data": payload.get("data"),
-            "type": payload.get("type"),
-            "participant_sid": payload.get("participant_sid"),
-            "inbound_participant_sid": payload.get("inbound_participant_sid"),
-            "inbound_resource_sid": payload.get("inbound_resource_sid"),
-            "inbound_resource_status": payload.get("inbound_resource_status"),
-            "inbound_resource_type": payload.get("inbound_resource_type"),
-            "inbound_resource_url": payload.get("inbound_resource_url"),
-            "outbound_participant_sid": payload.get("outbound_participant_sid"),
-            "outbound_resource_sid": payload.get("outbound_resource_sid"),
-            "outbound_resource_status": payload.get("outbound_resource_status"),
-            "outbound_resource_type": payload.get("outbound_resource_type"),
-            "outbound_resource_url": payload.get("outbound_resource_url"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._session_sid: Optional[str] = payload.get("session_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._data: Optional[str] = payload.get("data")
+        self._type: Optional["MessageInteractionInstance.Type"] = payload.get("type")
+        self._participant_sid: Optional[str] = payload.get("participant_sid")
+        self._inbound_participant_sid: Optional[str] = payload.get(
+            "inbound_participant_sid"
+        )
+        self._inbound_resource_sid: Optional[str] = payload.get("inbound_resource_sid")
+        self._inbound_resource_status: Optional[
+            "MessageInteractionInstance.ResourceStatus"
+        ] = payload.get("inbound_resource_status")
+        self._inbound_resource_type: Optional[str] = payload.get(
+            "inbound_resource_type"
+        )
+        self._inbound_resource_url: Optional[str] = payload.get("inbound_resource_url")
+        self._outbound_participant_sid: Optional[str] = payload.get(
+            "outbound_participant_sid"
+        )
+        self._outbound_resource_sid: Optional[str] = payload.get(
+            "outbound_resource_sid"
+        )
+        self._outbound_resource_status: Optional[
+            "MessageInteractionInstance.ResourceStatus"
+        ] = payload.get("outbound_resource_status")
+        self._outbound_resource_type: Optional[str] = payload.get(
+            "outbound_resource_type"
+        )
+        self._outbound_resource_url: Optional[str] = payload.get(
+            "outbound_resource_url"
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "session_sid": session_sid,
             "participant_sid": participant_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[MessageInteractionContext] = None
 
@@ -116,144 +134,139 @@ class MessageInteractionInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the MessageInteraction resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def session_sid(self) -> str:
+    def session_sid(self) -> Optional[str]:
         """
         :returns: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
         """
-        return self._properties["session_sid"]
+        return self._session_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MessageInteraction resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def data(self) -> str:
+    def data(self) -> Optional[str]:
         """
         :returns: A JSON string that includes the message body sent to the participant. (e.g. `{\"body\": \"hello\"}`)
         """
-        return self._properties["data"]
+        return self._data
 
     @property
-    def type(self) -> "MessageInteractionInstance.Type":
-        """
-        :returns:
-        """
-        return self._properties["type"]
+    def type(self) -> Optional["MessageInteractionInstance.Type"]:
+        return self._type
 
     @property
-    def participant_sid(self) -> str:
+    def participant_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
         """
-        return self._properties["participant_sid"]
+        return self._participant_sid
 
     @property
-    def inbound_participant_sid(self) -> str:
+    def inbound_participant_sid(self) -> Optional[str]:
         """
         :returns: Always empty for created Message Interactions.
         """
-        return self._properties["inbound_participant_sid"]
+        return self._inbound_participant_sid
 
     @property
-    def inbound_resource_sid(self) -> str:
+    def inbound_resource_sid(self) -> Optional[str]:
         """
         :returns: Always empty for created Message Interactions.
         """
-        return self._properties["inbound_resource_sid"]
+        return self._inbound_resource_sid
 
     @property
-    def inbound_resource_status(self) -> "MessageInteractionInstance.ResourceStatus":
-        """
-        :returns:
-        """
-        return self._properties["inbound_resource_status"]
+    def inbound_resource_status(
+        self,
+    ) -> Optional["MessageInteractionInstance.ResourceStatus"]:
+        return self._inbound_resource_status
 
     @property
-    def inbound_resource_type(self) -> str:
+    def inbound_resource_type(self) -> Optional[str]:
         """
         :returns: Always empty for created Message Interactions.
         """
-        return self._properties["inbound_resource_type"]
+        return self._inbound_resource_type
 
     @property
-    def inbound_resource_url(self) -> str:
+    def inbound_resource_url(self) -> Optional[str]:
         """
         :returns: Always empty for created Message Interactions.
         """
-        return self._properties["inbound_resource_url"]
+        return self._inbound_resource_url
 
     @property
-    def outbound_participant_sid(self) -> str:
+    def outbound_participant_sid(self) -> Optional[str]:
         """
         :returns: The SID of the outbound [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
         """
-        return self._properties["outbound_participant_sid"]
+        return self._outbound_participant_sid
 
     @property
-    def outbound_resource_sid(self) -> str:
+    def outbound_resource_sid(self) -> Optional[str]:
         """
         :returns: The SID of the outbound [Message](https://www.twilio.com/docs/sms/api/message-resource) resource.
         """
-        return self._properties["outbound_resource_sid"]
+        return self._outbound_resource_sid
 
     @property
-    def outbound_resource_status(self) -> "MessageInteractionInstance.ResourceStatus":
-        """
-        :returns:
-        """
-        return self._properties["outbound_resource_status"]
+    def outbound_resource_status(
+        self,
+    ) -> Optional["MessageInteractionInstance.ResourceStatus"]:
+        return self._outbound_resource_status
 
     @property
-    def outbound_resource_type(self) -> str:
+    def outbound_resource_type(self) -> Optional[str]:
         """
         :returns: The outbound resource type. This value is always `Message`.
         """
-        return self._properties["outbound_resource_type"]
+        return self._outbound_resource_type
 
     @property
-    def outbound_resource_url(self) -> str:
+    def outbound_resource_url(self) -> Optional[str]:
         """
         :returns: The URL of the Twilio message resource.
         """
-        return self._properties["outbound_resource_url"]
+        return self._outbound_resource_url
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the MessageInteraction resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "MessageInteractionInstance":
         """

@@ -30,14 +30,14 @@ class AccountSecretInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "key": payload.get("key"),
-            "date_rotated": deserialize.iso8601_datetime(payload.get("date_rotated")),
-            "url": payload.get("url"),
-        }
+        self._key: Optional[str] = payload.get("key")
+        self._date_rotated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_rotated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "key": key or self._properties["key"],
+            "key": key or self._key,
         }
         self._context: Optional[AccountSecretContext] = None
 
@@ -57,25 +57,22 @@ class AccountSecretInstance(InstanceResource):
         return self._context
 
     @property
-    def key(self) -> str:
+    def key(self) -> Optional[str]:
         """
         :returns: The secret key; up to 100 characters.
         """
-        return self._properties["key"]
+        return self._key
 
     @property
-    def date_rotated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_rotated"]
+    def date_rotated(self) -> Optional[datetime]:
+        return self._date_rotated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Secret.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

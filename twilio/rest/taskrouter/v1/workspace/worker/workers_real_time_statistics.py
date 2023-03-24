@@ -28,13 +28,15 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "activity_statistics": payload.get("activity_statistics"),
-            "total_workers": deserialize.integer(payload.get("total_workers")),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._activity_statistics: Optional[List[object]] = payload.get(
+            "activity_statistics"
+        )
+        self._total_workers: Optional[int] = deserialize.integer(
+            payload.get("total_workers")
+        )
+        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -57,39 +59,39 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def activity_statistics(self) -> List[object]:
+    def activity_statistics(self) -> Optional[List[object]]:
         """
         :returns: The number of current Workers by Activity.
         """
-        return self._properties["activity_statistics"]
+        return self._activity_statistics
 
     @property
-    def total_workers(self) -> int:
+    def total_workers(self) -> Optional[int]:
         """
         :returns: The total number of Workers.
         """
-        return self._properties["total_workers"]
+        return self._total_workers
 
     @property
-    def workspace_sid(self) -> str:
+    def workspace_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Workspace that contains the Workers.
         """
-        return self._properties["workspace_sid"]
+        return self._workspace_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Workers statistics resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self, task_channel=values.unset) -> "WorkersRealTimeStatisticsInstance":
         """

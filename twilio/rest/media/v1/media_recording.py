@@ -44,26 +44,30 @@ class MediaRecordingInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "duration": deserialize.integer(payload.get("duration")),
-            "format": payload.get("format"),
-            "links": payload.get("links"),
-            "processor_sid": payload.get("processor_sid"),
-            "resolution": payload.get("resolution"),
-            "source_sid": payload.get("source_sid"),
-            "sid": payload.get("sid"),
-            "media_size": payload.get("media_size"),
-            "status": payload.get("status"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self._format: Optional["MediaRecordingInstance.Format"] = payload.get("format")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self._processor_sid: Optional[str] = payload.get("processor_sid")
+        self._resolution: Optional[str] = payload.get("resolution")
+        self._source_sid: Optional[str] = payload.get("source_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._media_size: Optional[int] = payload.get("media_size")
+        self._status: Optional["MediaRecordingInstance.Status"] = payload.get("status")
+        self._status_callback: Optional[str] = payload.get("status_callback")
+        self._status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[MediaRecordingContext] = None
 
@@ -83,109 +87,103 @@ class MediaRecordingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaRecording resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def duration(self) -> int:
+    def duration(self) -> Optional[int]:
         """
         :returns: The duration of the MediaRecording in seconds.
         """
-        return self._properties["duration"]
+        return self._duration
 
     @property
-    def format(self) -> "MediaRecordingInstance.Format":
-        """
-        :returns:
-        """
-        return self._properties["format"]
+    def format(self) -> Optional["MediaRecordingInstance.Format"]:
+        return self._format
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of related resources.
         """
-        return self._properties["links"]
+        return self._links
 
     @property
-    def processor_sid(self) -> str:
+    def processor_sid(self) -> Optional[str]:
         """
         :returns: The SID of the MediaProcessor resource which produced the MediaRecording.
         """
-        return self._properties["processor_sid"]
+        return self._processor_sid
 
     @property
-    def resolution(self) -> str:
+    def resolution(self) -> Optional[str]:
         """
         :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height).
         """
-        return self._properties["resolution"]
+        return self._resolution
 
     @property
-    def source_sid(self) -> str:
+    def source_sid(self) -> Optional[str]:
         """
         :returns: The SID of the resource that generated the original media track(s) of the MediaRecording.
         """
-        return self._properties["source_sid"]
+        return self._source_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string generated to identify the MediaRecording resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def media_size(self) -> int:
+    def media_size(self) -> Optional[int]:
         """
         :returns: The size of the recording media in bytes.
         """
-        return self._properties["media_size"]
+        return self._media_size
 
     @property
-    def status(self) -> "MediaRecordingInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["MediaRecordingInstance.Status"]:
+        return self._status
 
     @property
-    def status_callback(self) -> str:
+    def status_callback(self) -> Optional[str]:
         """
         :returns: The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
         """
-        return self._properties["status_callback"]
+        return self._status_callback
 
     @property
-    def status_callback_method(self) -> str:
+    def status_callback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
         """
-        return self._properties["status_callback_method"]
+        return self._status_callback_method
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

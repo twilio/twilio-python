@@ -28,17 +28,19 @@ class UsageInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sim_sid": payload.get("sim_sid"),
-            "sim_unique_name": payload.get("sim_unique_name"),
-            "account_sid": payload.get("account_sid"),
-            "period": payload.get("period"),
-            "commands_usage": payload.get("commands_usage"),
-            "commands_costs": payload.get("commands_costs"),
-            "data_usage": payload.get("data_usage"),
-            "data_costs": payload.get("data_costs"),
-            "url": payload.get("url"),
-        }
+        self._sim_sid: Optional[str] = payload.get("sim_sid")
+        self._sim_unique_name: Optional[str] = payload.get("sim_unique_name")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._period: Optional[Dict[str, object]] = payload.get("period")
+        self._commands_usage: Optional[Dict[str, object]] = payload.get(
+            "commands_usage"
+        )
+        self._commands_costs: Optional[Dict[str, object]] = payload.get(
+            "commands_costs"
+        )
+        self._data_usage: Optional[Dict[str, object]] = payload.get("data_usage")
+        self._data_costs: Optional[Dict[str, object]] = payload.get("data_costs")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "sim_sid": sim_sid,
@@ -61,67 +63,40 @@ class UsageInstance(InstanceResource):
         return self._context
 
     @property
-    def sim_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sim_sid"]
+    def sim_sid(self) -> Optional[str]:
+        return self._sim_sid
 
     @property
-    def sim_unique_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sim_unique_name"]
+    def sim_unique_name(self) -> Optional[str]:
+        return self._sim_unique_name
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def period(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["period"]
+    def period(self) -> Optional[Dict[str, object]]:
+        return self._period
 
     @property
-    def commands_usage(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["commands_usage"]
+    def commands_usage(self) -> Optional[Dict[str, object]]:
+        return self._commands_usage
 
     @property
-    def commands_costs(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["commands_costs"]
+    def commands_costs(self) -> Optional[Dict[str, object]]:
+        return self._commands_costs
 
     @property
-    def data_usage(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["data_usage"]
+    def data_usage(self) -> Optional[Dict[str, object]]:
+        return self._data_usage
 
     @property
-    def data_costs(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["data_costs"]
+    def data_costs(self) -> Optional[Dict[str, object]]:
+        return self._data_costs
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self, end=values.unset, start=values.unset) -> "UsageInstance":
         """

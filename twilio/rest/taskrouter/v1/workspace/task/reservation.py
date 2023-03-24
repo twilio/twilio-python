@@ -47,24 +47,28 @@ class ReservationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "reservation_status": payload.get("reservation_status"),
-            "sid": payload.get("sid"),
-            "task_sid": payload.get("task_sid"),
-            "worker_name": payload.get("worker_name"),
-            "worker_sid": payload.get("worker_sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._reservation_status: Optional["ReservationInstance.Status"] = payload.get(
+            "reservation_status"
+        )
+        self._sid: Optional[str] = payload.get("sid")
+        self._task_sid: Optional[str] = payload.get("task_sid")
+        self._worker_name: Optional[str] = payload.get("worker_name")
+        self._worker_sid: Optional[str] = payload.get("worker_sid")
+        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "workspace_sid": workspace_sid,
             "task_sid": task_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[ReservationContext] = None
 
@@ -86,81 +90,78 @@ class ReservationInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskReservation resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def reservation_status(self) -> "ReservationInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["reservation_status"]
+    def reservation_status(self) -> Optional["ReservationInstance.Status"]:
+        return self._reservation_status
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the TaskReservation resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def task_sid(self) -> str:
+    def task_sid(self) -> Optional[str]:
         """
         :returns: The SID of the reserved Task resource.
         """
-        return self._properties["task_sid"]
+        return self._task_sid
 
     @property
-    def worker_name(self) -> str:
+    def worker_name(self) -> Optional[str]:
         """
         :returns: The `friendly_name` of the Worker that is reserved.
         """
-        return self._properties["worker_name"]
+        return self._worker_name
 
     @property
-    def worker_sid(self) -> str:
+    def worker_sid(self) -> Optional[str]:
         """
         :returns: The SID of the reserved Worker resource.
         """
-        return self._properties["worker_sid"]
+        return self._worker_sid
 
     @property
-    def workspace_sid(self) -> str:
+    def workspace_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Workspace that this task is contained within.
         """
-        return self._properties["workspace_sid"]
+        return self._workspace_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the TaskReservation reservation.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of related resources.
         """
-        return self._properties["links"]
+        return self._links
 
     def fetch(self) -> "ReservationInstance":
         """

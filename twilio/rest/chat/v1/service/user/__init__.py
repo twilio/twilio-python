@@ -31,28 +31,30 @@ class UserInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "attributes": payload.get("attributes"),
-            "friendly_name": payload.get("friendly_name"),
-            "role_sid": payload.get("role_sid"),
-            "identity": payload.get("identity"),
-            "is_online": payload.get("is_online"),
-            "is_notifiable": payload.get("is_notifiable"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "joined_channels_count": deserialize.integer(
-                payload.get("joined_channels_count")
-            ),
-            "links": payload.get("links"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._attributes: Optional[str] = payload.get("attributes")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._role_sid: Optional[str] = payload.get("role_sid")
+        self._identity: Optional[str] = payload.get("identity")
+        self._is_online: Optional[bool] = payload.get("is_online")
+        self._is_notifiable: Optional[bool] = payload.get("is_notifiable")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._joined_channels_count: Optional[int] = deserialize.integer(
+            payload.get("joined_channels_count")
+        )
+        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[UserContext] = None
 
@@ -73,102 +75,102 @@ class UserInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the User resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the User resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def attributes(self) -> str:
+    def attributes(self) -> Optional[str]:
         """
         :returns: The JSON string that stores application-specific data. **Note** If this property has been assigned a value, it's only  displayed in a FETCH action that returns a single resource; otherwise, it's null. If the attributes have not been set, `{}` is returned.
         """
-        return self._properties["attributes"]
+        return self._attributes
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def role_sid(self) -> str:
+    def role_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the user.
         """
-        return self._properties["role_sid"]
+        return self._role_sid
 
     @property
-    def identity(self) -> str:
+    def identity(self) -> Optional[str]:
         """
         :returns: The application-defined string that uniquely identifies the resource's User within the [Service](https://www.twilio.com/docs/api/chat/rest/services). This value is often a username or an email address. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info.
         """
-        return self._properties["identity"]
+        return self._identity
 
     @property
-    def is_online(self) -> bool:
+    def is_online(self) -> Optional[bool]:
         """
         :returns: Whether the User is actively connected to the Service instance and online. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, if the User has never been online for the Service instance, even if the Service's `reachability_enabled` is `true`.
         """
-        return self._properties["is_online"]
+        return self._is_online
 
     @property
-    def is_notifiable(self) -> bool:
+    def is_notifiable(self) -> Optional[bool]:
         """
         :returns: Whether the User has a potentially valid Push Notification registration (APN or GCM) for the Service instance. If at least one registration exists, `true`; otherwise `false`. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, and if the User has never had a notification registration, even if the Service's `reachability_enabled` is `true`.
         """
-        return self._properties["is_notifiable"]
+        return self._is_notifiable
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def joined_channels_count(self) -> int:
+    def joined_channels_count(self) -> Optional[int]:
         """
         :returns: The number of Channels this User is a Member of.
         """
-        return self._properties["joined_channels_count"]
+        return self._joined_channels_count
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The absolute URLs of the [Channel](https://www.twilio.com/docs/chat/api/channels) and [Binding](https://www.twilio.com/docs/chat/rest/bindings-resource) resources related to the user.
         """
-        return self._properties["links"]
+        return self._links
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the User resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

@@ -30,23 +30,25 @@ class OriginationUrlInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "trunk_sid": payload.get("trunk_sid"),
-            "weight": deserialize.integer(payload.get("weight")),
-            "enabled": payload.get("enabled"),
-            "sip_url": payload.get("sip_url"),
-            "friendly_name": payload.get("friendly_name"),
-            "priority": deserialize.integer(payload.get("priority")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._trunk_sid: Optional[str] = payload.get("trunk_sid")
+        self._weight: Optional[int] = deserialize.integer(payload.get("weight"))
+        self._enabled: Optional[bool] = payload.get("enabled")
+        self._sip_url: Optional[str] = payload.get("sip_url")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._priority: Optional[int] = deserialize.integer(payload.get("priority"))
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "trunk_sid": trunk_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[OriginationUrlContext] = None
 
@@ -67,81 +69,81 @@ class OriginationUrlInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OriginationUrl resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the OriginationUrl resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def trunk_sid(self) -> str:
+    def trunk_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Trunk that owns the Origination URL.
         """
-        return self._properties["trunk_sid"]
+        return self._trunk_sid
 
     @property
-    def weight(self) -> int:
+    def weight(self) -> Optional[int]:
         """
         :returns: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
         """
-        return self._properties["weight"]
+        return self._weight
 
     @property
-    def enabled(self) -> bool:
+    def enabled(self) -> Optional[bool]:
         """
         :returns: Whether the URL is enabled. The default is `true`.
         """
-        return self._properties["enabled"]
+        return self._enabled
 
     @property
-    def sip_url(self) -> str:
+    def sip_url(self) -> Optional[str]:
         """
         :returns: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
         """
-        return self._properties["sip_url"]
+        return self._sip_url
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def priority(self) -> int:
+    def priority(self) -> Optional[int]:
         """
         :returns: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
         """
-        return self._properties["priority"]
+        return self._priority
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

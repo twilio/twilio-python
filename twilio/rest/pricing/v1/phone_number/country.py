@@ -29,16 +29,16 @@ class CountryInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "country": payload.get("country"),
-            "iso_country": payload.get("iso_country"),
-            "phone_number_prices": payload.get("phone_number_prices"),
-            "price_unit": payload.get("price_unit"),
-            "url": payload.get("url"),
-        }
+        self._country: Optional[str] = payload.get("country")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._phone_number_prices: Optional[List[str]] = payload.get(
+            "phone_number_prices"
+        )
+        self._price_unit: Optional[str] = payload.get("price_unit")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "iso_country": iso_country or self._properties["iso_country"],
+            "iso_country": iso_country or self._iso_country,
         }
         self._context: Optional[CountryContext] = None
 
@@ -58,39 +58,39 @@ class CountryInstance(InstanceResource):
         return self._context
 
     @property
-    def country(self) -> str:
+    def country(self) -> Optional[str]:
         """
         :returns: The name of the country.
         """
-        return self._properties["country"]
+        return self._country
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def phone_number_prices(self) -> List[str]:
+    def phone_number_prices(self) -> Optional[List[str]]:
         """
         :returns: The list of [PhoneNumberPrice](https://www.twilio.com/docs/phone-numbers/pricing#phone-number-price) records.
         """
-        return self._properties["phone_number_prices"]
+        return self._phone_number_prices
 
     @property
-    def price_unit(self) -> str:
+    def price_unit(self) -> Optional[str]:
         """
         :returns: The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
         """
-        return self._properties["price_unit"]
+        return self._price_unit
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "CountryInstance":
         """

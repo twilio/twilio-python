@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -40,34 +40,50 @@ class DependentPhoneNumberInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "phone_number": payload.get("phone_number"),
-            "voice_url": payload.get("voice_url"),
-            "voice_method": payload.get("voice_method"),
-            "voice_fallback_method": payload.get("voice_fallback_method"),
-            "voice_fallback_url": payload.get("voice_fallback_url"),
-            "voice_caller_id_lookup": payload.get("voice_caller_id_lookup"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "sms_fallback_method": payload.get("sms_fallback_method"),
-            "sms_fallback_url": payload.get("sms_fallback_url"),
-            "sms_method": payload.get("sms_method"),
-            "sms_url": payload.get("sms_url"),
-            "address_requirements": payload.get("address_requirements"),
-            "capabilities": payload.get("capabilities"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "api_version": payload.get("api_version"),
-            "sms_application_sid": payload.get("sms_application_sid"),
-            "voice_application_sid": payload.get("voice_application_sid"),
-            "trunk_sid": payload.get("trunk_sid"),
-            "emergency_status": payload.get("emergency_status"),
-            "emergency_address_sid": payload.get("emergency_address_sid"),
-            "uri": payload.get("uri"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._phone_number: Optional[str] = payload.get("phone_number")
+        self._voice_url: Optional[str] = payload.get("voice_url")
+        self._voice_method: Optional[str] = payload.get("voice_method")
+        self._voice_fallback_method: Optional[str] = payload.get(
+            "voice_fallback_method"
+        )
+        self._voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
+        self._voice_caller_id_lookup: Optional[bool] = payload.get(
+            "voice_caller_id_lookup"
+        )
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
+        self._sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
+        self._sms_method: Optional[str] = payload.get("sms_method")
+        self._sms_url: Optional[str] = payload.get("sms_url")
+        self._address_requirements: Optional[
+            "DependentPhoneNumberInstance.AddressRequirement"
+        ] = payload.get("address_requirements")
+        self._capabilities: Optional[Dict[str, object]] = payload.get("capabilities")
+        self._status_callback: Optional[str] = payload.get("status_callback")
+        self._status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
+        self._api_version: Optional[str] = payload.get("api_version")
+        self._sms_application_sid: Optional[str] = payload.get("sms_application_sid")
+        self._voice_application_sid: Optional[str] = payload.get(
+            "voice_application_sid"
+        )
+        self._trunk_sid: Optional[str] = payload.get("trunk_sid")
+        self._emergency_status: Optional[
+            "DependentPhoneNumberInstance.EmergencyStatus"
+        ] = payload.get("emergency_status")
+        self._emergency_address_sid: Optional[str] = payload.get(
+            "emergency_address_sid"
+        )
+        self._uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
@@ -75,186 +91,184 @@ class DependentPhoneNumberInstance(InstanceResource):
         }
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the DependentPhoneNumber resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def phone_number(self) -> str:
+    def phone_number(self) -> Optional[str]:
         """
         :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
         """
-        return self._properties["phone_number"]
+        return self._phone_number
 
     @property
-    def voice_url(self) -> str:
+    def voice_url(self) -> Optional[str]:
         """
         :returns: The URL we call when the phone number receives a call. The `voice_url` will not be used if a `voice_application_sid` or a `trunk_sid` is set.
         """
-        return self._properties["voice_url"]
+        return self._voice_url
 
     @property
-    def voice_method(self) -> str:
+    def voice_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["voice_method"]
+        return self._voice_method
 
     @property
-    def voice_fallback_method(self) -> str:
+    def voice_fallback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["voice_fallback_method"]
+        return self._voice_fallback_method
 
     @property
-    def voice_fallback_url(self) -> str:
+    def voice_fallback_url(self) -> Optional[str]:
         """
         :returns: The URL that we call when an error occurs retrieving or executing the TwiML requested by `url`.
         """
-        return self._properties["voice_fallback_url"]
+        return self._voice_fallback_url
 
     @property
-    def voice_caller_id_lookup(self) -> bool:
+    def voice_caller_id_lookup(self) -> Optional[bool]:
         """
         :returns: Whether we look up the caller's caller-ID name from the CNAM database. Can be: `true` or `false`. Caller ID lookups can cost $0.01 each.
         """
-        return self._properties["voice_caller_id_lookup"]
+        return self._voice_caller_id_lookup
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def sms_fallback_method(self) -> str:
+    def sms_fallback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["sms_fallback_method"]
+        return self._sms_fallback_method
 
     @property
-    def sms_fallback_url(self) -> str:
+    def sms_fallback_url(self) -> Optional[str]:
         """
         :returns: The URL that we call when an error occurs while retrieving or executing the TwiML from `sms_url`.
         """
-        return self._properties["sms_fallback_url"]
+        return self._sms_fallback_url
 
     @property
-    def sms_method(self) -> str:
+    def sms_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["sms_method"]
+        return self._sms_method
 
     @property
-    def sms_url(self) -> str:
+    def sms_url(self) -> Optional[str]:
         """
         :returns: The URL we call when the phone number receives an incoming SMS message.
         """
-        return self._properties["sms_url"]
+        return self._sms_url
 
     @property
-    def address_requirements(self) -> "DependentPhoneNumberInstance.AddressRequirement":
-        """
-        :returns:
-        """
-        return self._properties["address_requirements"]
+    def address_requirements(
+        self,
+    ) -> Optional["DependentPhoneNumberInstance.AddressRequirement"]:
+        return self._address_requirements
 
     @property
-    def capabilities(self) -> Dict[str, object]:
+    def capabilities(self) -> Optional[Dict[str, object]]:
         """
         :returns: The set of Boolean properties that indicates whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
         """
-        return self._properties["capabilities"]
+        return self._capabilities
 
     @property
-    def status_callback(self) -> str:
+    def status_callback(self) -> Optional[str]:
         """
         :returns: The URL we call using the `status_callback_method` to send status information to your application.
         """
-        return self._properties["status_callback"]
+        return self._status_callback
 
     @property
-    def status_callback_method(self) -> str:
+    def status_callback_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
         """
-        return self._properties["status_callback_method"]
+        return self._status_callback_method
 
     @property
-    def api_version(self) -> str:
+    def api_version(self) -> Optional[str]:
         """
         :returns: The API version used to start a new TwiML session.
         """
-        return self._properties["api_version"]
+        return self._api_version
 
     @property
-    def sms_application_sid(self) -> str:
+    def sms_application_sid(self) -> Optional[str]:
         """
         :returns: The SID of the application that handles SMS messages sent to the phone number. If an `sms_application_sid` is present, we ignore all `sms_*_url` values and use those of the application.
         """
-        return self._properties["sms_application_sid"]
+        return self._sms_application_sid
 
     @property
-    def voice_application_sid(self) -> str:
+    def voice_application_sid(self) -> Optional[str]:
         """
         :returns: The SID of the application that handles calls to the phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
         """
-        return self._properties["voice_application_sid"]
+        return self._voice_application_sid
 
     @property
-    def trunk_sid(self) -> str:
+    def trunk_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Trunk that handles calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
         """
-        return self._properties["trunk_sid"]
+        return self._trunk_sid
 
     @property
-    def emergency_status(self) -> "DependentPhoneNumberInstance.EmergencyStatus":
-        """
-        :returns:
-        """
-        return self._properties["emergency_status"]
+    def emergency_status(
+        self,
+    ) -> Optional["DependentPhoneNumberInstance.EmergencyStatus"]:
+        return self._emergency_status
 
     @property
-    def emergency_address_sid(self) -> str:
+    def emergency_address_sid(self) -> Optional[str]:
         """
         :returns: The SID of the emergency address configuration that we use for emergency calling from the phone number.
         """
-        return self._properties["emergency_address_sid"]
+        return self._emergency_address_sid
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     def __repr__(self) -> str:
         """

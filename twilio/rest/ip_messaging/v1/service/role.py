@@ -34,21 +34,23 @@ class RoleInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "type": payload.get("type"),
-            "permissions": payload.get("permissions"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._type: Optional["RoleInstance.RoleType"] = payload.get("type")
+        self._permissions: Optional[List[str]] = payload.get("permissions")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[RoleContext] = None
 
@@ -69,67 +71,40 @@ class RoleInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
+    def service_sid(self) -> Optional[str]:
+        return self._service_sid
 
     @property
-    def friendly_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["friendly_name"]
+    def friendly_name(self) -> Optional[str]:
+        return self._friendly_name
 
     @property
-    def type(self) -> "RoleInstance.RoleType":
-        """
-        :returns:
-        """
-        return self._properties["type"]
+    def type(self) -> Optional["RoleInstance.RoleType"]:
+        return self._type
 
     @property
-    def permissions(self) -> List[str]:
-        """
-        :returns:
-        """
-        return self._properties["permissions"]
+    def permissions(self) -> Optional[List[str]]:
+        return self._permissions
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def delete(self) -> bool:
         """

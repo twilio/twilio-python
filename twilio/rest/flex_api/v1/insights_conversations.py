@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -29,42 +29,42 @@ class InsightsConversationsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_id": payload.get("account_id"),
-            "conversation_id": payload.get("conversation_id"),
-            "segment_count": deserialize.integer(payload.get("segment_count")),
-            "segments": payload.get("segments"),
-        }
+        self._account_id: Optional[str] = payload.get("account_id")
+        self._conversation_id: Optional[str] = payload.get("conversation_id")
+        self._segment_count: Optional[int] = deserialize.integer(
+            payload.get("segment_count")
+        )
+        self._segments: Optional[List[object]] = payload.get("segments")
 
         self._solution = {}
 
     @property
-    def account_id(self) -> str:
+    def account_id(self) -> Optional[str]:
         """
         :returns: The id of the account.
         """
-        return self._properties["account_id"]
+        return self._account_id
 
     @property
-    def conversation_id(self) -> str:
+    def conversation_id(self) -> Optional[str]:
         """
         :returns: The unique id of the conversation
         """
-        return self._properties["conversation_id"]
+        return self._conversation_id
 
     @property
-    def segment_count(self) -> int:
+    def segment_count(self) -> Optional[int]:
         """
         :returns: The count of segments for a conversation
         """
-        return self._properties["segment_count"]
+        return self._segment_count
 
     @property
-    def segments(self) -> List[object]:
+    def segments(self) -> Optional[List[object]]:
         """
         :returns: The Segments of a conversation
         """
-        return self._properties["segments"]
+        return self._segments
 
     def __repr__(self) -> str:
         """

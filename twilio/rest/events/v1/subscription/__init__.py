@@ -31,19 +31,21 @@ class SubscriptionInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "description": payload.get("description"),
-            "sink_sid": payload.get("sink_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._description: Optional[str] = payload.get("description")
+        self._sink_sid: Optional[str] = payload.get("sink_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[SubscriptionContext] = None
 
@@ -63,60 +65,60 @@ class SubscriptionInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies this Subscription.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this Subscription was created, given in ISO 8601 format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that this Subscription was updated, given in ISO 8601 format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def description(self) -> str:
+    def description(self) -> Optional[str]:
         """
         :returns: A human readable description for the Subscription
         """
-        return self._properties["description"]
+        return self._description
 
     @property
-    def sink_sid(self) -> str:
+    def sink_sid(self) -> Optional[str]:
         """
         :returns: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
         """
-        return self._properties["sink_sid"]
+        return self._sink_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: Contains a dictionary of URL links to nested resources of this Subscription.
         """
-        return self._properties["links"]
+        return self._links
 
     def delete(self) -> bool:
         """

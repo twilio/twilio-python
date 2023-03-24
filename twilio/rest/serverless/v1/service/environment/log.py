@@ -42,25 +42,25 @@ class LogInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "environment_sid": payload.get("environment_sid"),
-            "build_sid": payload.get("build_sid"),
-            "deployment_sid": payload.get("deployment_sid"),
-            "function_sid": payload.get("function_sid"),
-            "request_sid": payload.get("request_sid"),
-            "level": payload.get("level"),
-            "message": payload.get("message"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._environment_sid: Optional[str] = payload.get("environment_sid")
+        self._build_sid: Optional[str] = payload.get("build_sid")
+        self._deployment_sid: Optional[str] = payload.get("deployment_sid")
+        self._function_sid: Optional[str] = payload.get("function_sid")
+        self._request_sid: Optional[str] = payload.get("request_sid")
+        self._level: Optional["LogInstance.Level"] = payload.get("level")
+        self._message: Optional[str] = payload.get("message")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "environment_sid": environment_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[LogContext] = None
 
@@ -82,88 +82,85 @@ class LogInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Log resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Log resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Service that the Log resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def environment_sid(self) -> str:
+    def environment_sid(self) -> Optional[str]:
         """
         :returns: The SID of the environment in which the log occurred.
         """
-        return self._properties["environment_sid"]
+        return self._environment_sid
 
     @property
-    def build_sid(self) -> str:
+    def build_sid(self) -> Optional[str]:
         """
         :returns: The SID of the build that corresponds to the log.
         """
-        return self._properties["build_sid"]
+        return self._build_sid
 
     @property
-    def deployment_sid(self) -> str:
+    def deployment_sid(self) -> Optional[str]:
         """
         :returns: The SID of the deployment that corresponds to the log.
         """
-        return self._properties["deployment_sid"]
+        return self._deployment_sid
 
     @property
-    def function_sid(self) -> str:
+    def function_sid(self) -> Optional[str]:
         """
         :returns: The SID of the function whose invocation produced the log.
         """
-        return self._properties["function_sid"]
+        return self._function_sid
 
     @property
-    def request_sid(self) -> str:
+    def request_sid(self) -> Optional[str]:
         """
         :returns: The SID of the request associated with the log.
         """
-        return self._properties["request_sid"]
+        return self._request_sid
 
     @property
-    def level(self) -> "LogInstance.Level":
-        """
-        :returns:
-        """
-        return self._properties["level"]
+    def level(self) -> Optional["LogInstance.Level"]:
+        return self._level
 
     @property
-    def message(self) -> str:
+    def message(self) -> Optional[str]:
         """
         :returns: The log message.
         """
-        return self._properties["message"]
+        return self._message
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the Log resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Log resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "LogInstance":
         """

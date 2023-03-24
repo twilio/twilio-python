@@ -13,6 +13,8 @@ r"""
 """
 
 
+from typing import Optional
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -25,36 +27,34 @@ class BalanceInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "balance": payload.get("balance"),
-            "currency": payload.get("currency"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._balance: Optional[str] = payload.get("balance")
+        self._currency: Optional[str] = payload.get("currency")
 
         self._solution = {
             "account_sid": account_sid,
         }
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def balance(self) -> str:
+    def balance(self) -> Optional[str]:
         """
         :returns: The balance of the Account, in units specified by the unit parameter. Balance changes may not be reflected immediately. Child accounts do not contain balance information
         """
-        return self._properties["balance"]
+        return self._balance
 
     @property
-    def currency(self) -> str:
+    def currency(self) -> Optional[str]:
         """
         :returns: The units of currency for the account balance
         """
-        return self._properties["currency"]
+        return self._currency
 
     def __repr__(self) -> str:
         """

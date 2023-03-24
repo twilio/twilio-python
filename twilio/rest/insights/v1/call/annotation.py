@@ -41,18 +41,20 @@ class AnnotationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "call_sid": payload.get("call_sid"),
-            "account_sid": payload.get("account_sid"),
-            "answered_by": payload.get("answered_by"),
-            "connectivity_issue": payload.get("connectivity_issue"),
-            "quality_issues": payload.get("quality_issues"),
-            "spam": payload.get("spam"),
-            "call_score": deserialize.integer(payload.get("call_score")),
-            "comment": payload.get("comment"),
-            "incident": payload.get("incident"),
-            "url": payload.get("url"),
-        }
+        self._call_sid: Optional[str] = payload.get("call_sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._answered_by: Optional["AnnotationInstance.AnsweredBy"] = payload.get(
+            "answered_by"
+        )
+        self._connectivity_issue: Optional[
+            "AnnotationInstance.ConnectivityIssue"
+        ] = payload.get("connectivity_issue")
+        self._quality_issues: Optional[List[str]] = payload.get("quality_issues")
+        self._spam: Optional[bool] = payload.get("spam")
+        self._call_score: Optional[int] = deserialize.integer(payload.get("call_score"))
+        self._comment: Optional[str] = payload.get("comment")
+        self._incident: Optional[str] = payload.get("incident")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "call_sid": call_sid,
@@ -75,74 +77,68 @@ class AnnotationInstance(InstanceResource):
         return self._context
 
     @property
-    def call_sid(self) -> str:
+    def call_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Call.
         """
-        return self._properties["call_sid"]
+        return self._call_sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def answered_by(self) -> "AnnotationInstance.AnsweredBy":
-        """
-        :returns:
-        """
-        return self._properties["answered_by"]
+    def answered_by(self) -> Optional["AnnotationInstance.AnsweredBy"]:
+        return self._answered_by
 
     @property
-    def connectivity_issue(self) -> "AnnotationInstance.ConnectivityIssue":
-        """
-        :returns:
-        """
-        return self._properties["connectivity_issue"]
+    def connectivity_issue(self) -> Optional["AnnotationInstance.ConnectivityIssue"]:
+        return self._connectivity_issue
 
     @property
-    def quality_issues(self) -> List[str]:
+    def quality_issues(self) -> Optional[List[str]]:
         """
         :returns: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
         """
-        return self._properties["quality_issues"]
+        return self._quality_issues
 
     @property
-    def spam(self) -> bool:
+    def spam(self) -> Optional[bool]:
         """
         :returns: Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
         """
-        return self._properties["spam"]
+        return self._spam
 
     @property
-    def call_score(self) -> int:
+    def call_score(self) -> Optional[int]:
         """
         :returns: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         """
-        return self._properties["call_score"]
+        return self._call_score
 
     @property
-    def comment(self) -> str:
+    def comment(self) -> Optional[str]:
         """
         :returns: Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
         """
-        return self._properties["comment"]
+        return self._comment
 
     @property
-    def incident(self) -> str:
+    def incident(self) -> Optional[str]:
         """
         :returns: Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
         """
-        return self._properties["incident"]
+        return self._incident
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "AnnotationInstance":
         """

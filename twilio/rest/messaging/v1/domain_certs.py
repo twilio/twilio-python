@@ -29,19 +29,25 @@ class DomainCertsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "domain_sid": payload.get("domain_sid"),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "date_expires": deserialize.iso8601_datetime(payload.get("date_expires")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "domain_name": payload.get("domain_name"),
-            "certificate_sid": payload.get("certificate_sid"),
-            "url": payload.get("url"),
-            "cert_in_validation": payload.get("cert_in_validation"),
-        }
+        self._domain_sid: Optional[str] = payload.get("domain_sid")
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._date_expires: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_expires")
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._domain_name: Optional[str] = payload.get("domain_name")
+        self._certificate_sid: Optional[str] = payload.get("certificate_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._cert_in_validation: Optional[Dict[str, object]] = payload.get(
+            "cert_in_validation"
+        )
 
         self._solution = {
-            "domain_sid": domain_sid or self._properties["domain_sid"],
+            "domain_sid": domain_sid or self._domain_sid,
         }
         self._context: Optional[DomainCertsContext] = None
 
@@ -61,60 +67,57 @@ class DomainCertsInstance(InstanceResource):
         return self._context
 
     @property
-    def domain_sid(self) -> str:
+    def domain_sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Domain resource.
         """
-        return self._properties["domain_sid"]
+        return self._domain_sid
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: Date that this Domain was last updated.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def date_expires(self) -> datetime:
+    def date_expires(self) -> Optional[datetime]:
         """
         :returns: Date that the private certificate associated with this domain expires. You will need to update the certificate before that date to ensure your shortened links will continue to work.
         """
-        return self._properties["date_expires"]
+        return self._date_expires
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: Date that this Domain was registered to the Twilio platform to create a new Domain object.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def domain_name(self) -> str:
+    def domain_name(self) -> Optional[str]:
         """
         :returns: Full url path for this domain.
         """
-        return self._properties["domain_name"]
+        return self._domain_name
 
     @property
-    def certificate_sid(self) -> str:
+    def certificate_sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify this Certificate resource.
         """
-        return self._properties["certificate_sid"]
+        return self._certificate_sid
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def cert_in_validation(self) -> Dict[str, object]:
+    def cert_in_validation(self) -> Optional[Dict[str, object]]:
         """
         :returns: Optional JSON field describing the status and upload date of a new certificate in the process of validation
         """
-        return self._properties["cert_in_validation"]
+        return self._cert_in_validation
 
     def delete(self) -> bool:
         """

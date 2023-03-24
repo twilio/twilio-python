@@ -39,35 +39,45 @@ class TaskInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "age": deserialize.integer(payload.get("age")),
-            "assignment_status": payload.get("assignment_status"),
-            "attributes": payload.get("attributes"),
-            "addons": payload.get("addons"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "task_queue_entered_date": deserialize.iso8601_datetime(
-                payload.get("task_queue_entered_date")
-            ),
-            "priority": deserialize.integer(payload.get("priority")),
-            "reason": payload.get("reason"),
-            "sid": payload.get("sid"),
-            "task_queue_sid": payload.get("task_queue_sid"),
-            "task_queue_friendly_name": payload.get("task_queue_friendly_name"),
-            "task_channel_sid": payload.get("task_channel_sid"),
-            "task_channel_unique_name": payload.get("task_channel_unique_name"),
-            "timeout": deserialize.integer(payload.get("timeout")),
-            "workflow_sid": payload.get("workflow_sid"),
-            "workflow_friendly_name": payload.get("workflow_friendly_name"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._age: Optional[int] = deserialize.integer(payload.get("age"))
+        self._assignment_status: Optional["TaskInstance.Status"] = payload.get(
+            "assignment_status"
+        )
+        self._attributes: Optional[str] = payload.get("attributes")
+        self._addons: Optional[str] = payload.get("addons")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._task_queue_entered_date: Optional[
+            datetime
+        ] = deserialize.iso8601_datetime(payload.get("task_queue_entered_date"))
+        self._priority: Optional[int] = deserialize.integer(payload.get("priority"))
+        self._reason: Optional[str] = payload.get("reason")
+        self._sid: Optional[str] = payload.get("sid")
+        self._task_queue_sid: Optional[str] = payload.get("task_queue_sid")
+        self._task_queue_friendly_name: Optional[str] = payload.get(
+            "task_queue_friendly_name"
+        )
+        self._task_channel_sid: Optional[str] = payload.get("task_channel_sid")
+        self._task_channel_unique_name: Optional[str] = payload.get(
+            "task_channel_unique_name"
+        )
+        self._timeout: Optional[int] = deserialize.integer(payload.get("timeout"))
+        self._workflow_sid: Optional[str] = payload.get("workflow_sid")
+        self._workflow_friendly_name: Optional[str] = payload.get(
+            "workflow_friendly_name"
+        )
+        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "workspace_sid": workspace_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[TaskContext] = None
 
@@ -88,151 +98,148 @@ class TaskInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def age(self) -> int:
+    def age(self) -> Optional[int]:
         """
         :returns: The number of seconds since the Task was created.
         """
-        return self._properties["age"]
+        return self._age
 
     @property
-    def assignment_status(self) -> "TaskInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["assignment_status"]
+    def assignment_status(self) -> Optional["TaskInstance.Status"]:
+        return self._assignment_status
 
     @property
-    def attributes(self) -> str:
+    def attributes(self) -> Optional[str]:
         """
         :returns: The JSON string with custom attributes of the work. **Note** If this property has been assigned a value, it will only be displayed in FETCH action that returns a single resource. Otherwise, it will be null.
         """
-        return self._properties["attributes"]
+        return self._attributes
 
     @property
-    def addons(self) -> str:
+    def addons(self) -> Optional[str]:
         """
         :returns: An object that contains the [addon](https://www.twilio.com/docs/taskrouter/marketplace) data for all installed addons.
         """
-        return self._properties["addons"]
+        return self._addons
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def task_queue_entered_date(self) -> datetime:
+    def task_queue_entered_date(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the Task entered the TaskQueue, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["task_queue_entered_date"]
+        return self._task_queue_entered_date
 
     @property
-    def priority(self) -> int:
+    def priority(self) -> Optional[int]:
         """
         :returns: The current priority score of the Task as assigned to a Worker by the workflow. Tasks with higher priority values will be assigned before Tasks with lower values.
         """
-        return self._properties["priority"]
+        return self._priority
 
     @property
-    def reason(self) -> str:
+    def reason(self) -> Optional[str]:
         """
         :returns: The reason the Task was canceled or completed, if applicable.
         """
-        return self._properties["reason"]
+        return self._reason
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Task resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def task_queue_sid(self) -> str:
+    def task_queue_sid(self) -> Optional[str]:
         """
         :returns: The SID of the TaskQueue.
         """
-        return self._properties["task_queue_sid"]
+        return self._task_queue_sid
 
     @property
-    def task_queue_friendly_name(self) -> str:
+    def task_queue_friendly_name(self) -> Optional[str]:
         """
         :returns: The friendly name of the TaskQueue.
         """
-        return self._properties["task_queue_friendly_name"]
+        return self._task_queue_friendly_name
 
     @property
-    def task_channel_sid(self) -> str:
+    def task_channel_sid(self) -> Optional[str]:
         """
         :returns: The SID of the TaskChannel.
         """
-        return self._properties["task_channel_sid"]
+        return self._task_channel_sid
 
     @property
-    def task_channel_unique_name(self) -> str:
+    def task_channel_unique_name(self) -> Optional[str]:
         """
         :returns: The unique name of the TaskChannel.
         """
-        return self._properties["task_channel_unique_name"]
+        return self._task_channel_unique_name
 
     @property
-    def timeout(self) -> int:
+    def timeout(self) -> Optional[int]:
         """
         :returns: The amount of time in seconds that the Task can live before being assigned.
         """
-        return self._properties["timeout"]
+        return self._timeout
 
     @property
-    def workflow_sid(self) -> str:
+    def workflow_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Workflow that is controlling the Task.
         """
-        return self._properties["workflow_sid"]
+        return self._workflow_sid
 
     @property
-    def workflow_friendly_name(self) -> str:
+    def workflow_friendly_name(self) -> Optional[str]:
         """
         :returns: The friendly name of the Workflow that is controlling the Task.
         """
-        return self._properties["workflow_friendly_name"]
+        return self._workflow_friendly_name
 
     @property
-    def workspace_sid(self) -> str:
+    def workspace_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Workspace that contains the Task.
         """
-        return self._properties["workspace_sid"]
+        return self._workspace_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Task resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of related resources.
         """
-        return self._properties["links"]
+        return self._links
 
     def delete(self, if_match=values.unset) -> bool:
         """

@@ -30,21 +30,23 @@ class PhoneNumberInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "phone_number": payload.get("phone_number"),
-            "country_code": payload.get("country_code"),
-            "capabilities": payload.get("capabilities"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._phone_number: Optional[str] = payload.get("phone_number")
+        self._country_code: Optional[str] = payload.get("country_code")
+        self._capabilities: Optional[List[str]] = payload.get("capabilities")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[PhoneNumberContext] = None
 
@@ -65,67 +67,67 @@ class PhoneNumberInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the PhoneNumber resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PhoneNumber resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
+    def service_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the resource is associated with.
         """
-        return self._properties["service_sid"]
+        return self._service_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def phone_number(self) -> str:
+    def phone_number(self) -> Optional[str]:
         """
         :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
         """
-        return self._properties["phone_number"]
+        return self._phone_number
 
     @property
-    def country_code(self) -> str:
+    def country_code(self) -> Optional[str]:
         """
         :returns: The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
         """
-        return self._properties["country_code"]
+        return self._country_code
 
     @property
-    def capabilities(self) -> List[str]:
+    def capabilities(self) -> Optional[List[str]]:
         """
         :returns: An array of values that describe whether the number can receive calls or messages. Can be: `Voice`, `SMS`, and `MMS`.
         """
-        return self._properties["capabilities"]
+        return self._capabilities
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the PhoneNumber resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

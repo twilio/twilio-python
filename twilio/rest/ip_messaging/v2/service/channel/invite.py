@@ -37,23 +37,25 @@ class InviteInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "service_sid": payload.get("service_sid"),
-            "identity": payload.get("identity"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "role_sid": payload.get("role_sid"),
-            "created_by": payload.get("created_by"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._channel_sid: Optional[str] = payload.get("channel_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._identity: Optional[str] = payload.get("identity")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._role_sid: Optional[str] = payload.get("role_sid")
+        self._created_by: Optional[str] = payload.get("created_by")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[InviteContext] = None
 
@@ -75,74 +77,44 @@ class InviteInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def channel_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["channel_sid"]
+    def channel_sid(self) -> Optional[str]:
+        return self._channel_sid
 
     @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
+    def service_sid(self) -> Optional[str]:
+        return self._service_sid
 
     @property
-    def identity(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["identity"]
+    def identity(self) -> Optional[str]:
+        return self._identity
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def role_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["role_sid"]
+    def role_sid(self) -> Optional[str]:
+        return self._role_sid
 
     @property
-    def created_by(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["created_by"]
+    def created_by(self) -> Optional[str]:
+        return self._created_by
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def delete(self) -> bool:
         """

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -27,26 +28,24 @@ class WebChannelsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "conversation_sid": payload.get("conversation_sid"),
-            "identity": payload.get("identity"),
-        }
+        self._conversation_sid: Optional[str] = payload.get("conversation_sid")
+        self._identity: Optional[str] = payload.get("identity")
 
         self._solution = {}
 
     @property
-    def conversation_sid(self) -> str:
+    def conversation_sid(self) -> Optional[str]:
         """
         :returns: The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.
         """
-        return self._properties["conversation_sid"]
+        return self._conversation_sid
 
     @property
-    def identity(self) -> str:
+    def identity(self) -> Optional[str]:
         """
         :returns: The unique string representing the User created and should be authorized to participate in the Conversation. For more details, see [User Identity & Access Tokens](https://www.twilio.com/docs/conversations/identity).
         """
-        return self._properties["identity"]
+        return self._identity
 
     def __repr__(self) -> str:
         """

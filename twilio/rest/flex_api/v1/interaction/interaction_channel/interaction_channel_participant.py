@@ -43,18 +43,18 @@ class InteractionChannelParticipantInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "type": payload.get("type"),
-            "interaction_sid": payload.get("interaction_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._type: Optional[
+            "InteractionChannelParticipantInstance.Type"
+        ] = payload.get("type")
+        self._interaction_sid: Optional[str] = payload.get("interaction_sid")
+        self._channel_sid: Optional[str] = payload.get("channel_sid")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "interaction_sid": interaction_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[InteractionChannelParticipantContext] = None
 
@@ -76,39 +76,33 @@ class InteractionChannelParticipantInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string created by Twilio to identify an Interaction Channel Participant resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def type(self) -> "InteractionChannelParticipantInstance.Type":
-        """
-        :returns:
-        """
-        return self._properties["type"]
+    def type(self) -> Optional["InteractionChannelParticipantInstance.Type"]:
+        return self._type
 
     @property
-    def interaction_sid(self) -> str:
+    def interaction_sid(self) -> Optional[str]:
         """
         :returns: The Interaction Sid for this channel.
         """
-        return self._properties["interaction_sid"]
+        return self._interaction_sid
 
     @property
-    def channel_sid(self) -> str:
+    def channel_sid(self) -> Optional[str]:
         """
         :returns: The Channel Sid for this Participant.
         """
-        return self._properties["channel_sid"]
+        return self._channel_sid
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def update(self, status) -> "InteractionChannelParticipantInstance":
         """

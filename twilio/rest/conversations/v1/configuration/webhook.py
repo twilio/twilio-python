@@ -36,15 +36,13 @@ class WebhookInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "method": payload.get("method"),
-            "filters": payload.get("filters"),
-            "pre_webhook_url": payload.get("pre_webhook_url"),
-            "post_webhook_url": payload.get("post_webhook_url"),
-            "target": payload.get("target"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._method: Optional["WebhookInstance.Method"] = payload.get("method")
+        self._filters: Optional[List[str]] = payload.get("filters")
+        self._pre_webhook_url: Optional[str] = payload.get("pre_webhook_url")
+        self._post_webhook_url: Optional[str] = payload.get("post_webhook_url")
+        self._target: Optional["WebhookInstance.Target"] = payload.get("target")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[WebhookContext] = None
@@ -64,53 +62,47 @@ class WebhookInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def method(self) -> "WebhookInstance.Method":
-        """
-        :returns:
-        """
-        return self._properties["method"]
+    def method(self) -> Optional["WebhookInstance.Method"]:
+        return self._method
 
     @property
-    def filters(self) -> List[str]:
+    def filters(self) -> Optional[List[str]]:
         """
         :returns: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         """
-        return self._properties["filters"]
+        return self._filters
 
     @property
-    def pre_webhook_url(self) -> str:
+    def pre_webhook_url(self) -> Optional[str]:
         """
         :returns: The absolute url the pre-event webhook request should be sent to.
         """
-        return self._properties["pre_webhook_url"]
+        return self._pre_webhook_url
 
     @property
-    def post_webhook_url(self) -> str:
+    def post_webhook_url(self) -> Optional[str]:
         """
         :returns: The absolute url the post-event webhook request should be sent to.
         """
-        return self._properties["post_webhook_url"]
+        return self._post_webhook_url
 
     @property
-    def target(self) -> "WebhookInstance.Target":
-        """
-        :returns:
-        """
-        return self._properties["target"]
+    def target(self) -> Optional["WebhookInstance.Target"]:
+        return self._target
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: An absolute API resource API resource URL for this webhook.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "WebhookInstance":
         """

@@ -33,18 +33,18 @@ class RegulationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "iso_country": payload.get("iso_country"),
-            "number_type": payload.get("number_type"),
-            "end_user_type": payload.get("end_user_type"),
-            "requirements": payload.get("requirements"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._number_type: Optional[str] = payload.get("number_type")
+        self._end_user_type: Optional["RegulationInstance.EndUserType"] = payload.get(
+            "end_user_type"
+        )
+        self._requirements: Optional[Dict[str, object]] = payload.get("requirements")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[RegulationContext] = None
 
@@ -64,53 +64,50 @@ class RegulationInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that identifies the Regulation resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A human-readable description that is assigned to describe the Regulation resource. Examples can include Germany: Mobile - Business.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The ISO country code of the phone number's country.
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def number_type(self) -> str:
+    def number_type(self) -> Optional[str]:
         """
         :returns: The type of phone number restricted by the regulatory requirement. For example, Germany mobile phone numbers provisioned by businesses require a business name with commercial register proof from the Handelsregisterauszug and a proof of address from Handelsregisterauszug or a trade license by Gewerbeanmeldung.
         """
-        return self._properties["number_type"]
+        return self._number_type
 
     @property
-    def end_user_type(self) -> "RegulationInstance.EndUserType":
-        """
-        :returns:
-        """
-        return self._properties["end_user_type"]
+    def end_user_type(self) -> Optional["RegulationInstance.EndUserType"]:
+        return self._end_user_type
 
     @property
-    def requirements(self) -> Dict[str, object]:
+    def requirements(self) -> Optional[Dict[str, object]]:
         """
         :returns: The SID of an object that holds the regulatory information of the phone number country, phone number type, and end user type.
         """
-        return self._properties["requirements"]
+        return self._requirements
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Regulation resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "RegulationInstance":
         """

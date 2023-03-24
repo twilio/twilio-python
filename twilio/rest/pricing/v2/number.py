@@ -28,20 +28,21 @@ class NumberInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "destination_number": payload.get("destination_number"),
-            "origination_number": payload.get("origination_number"),
-            "country": payload.get("country"),
-            "iso_country": payload.get("iso_country"),
-            "terminating_prefix_prices": payload.get("terminating_prefix_prices"),
-            "originating_call_price": payload.get("originating_call_price"),
-            "price_unit": payload.get("price_unit"),
-            "url": payload.get("url"),
-        }
+        self._destination_number: Optional[str] = payload.get("destination_number")
+        self._origination_number: Optional[str] = payload.get("origination_number")
+        self._country: Optional[str] = payload.get("country")
+        self._iso_country: Optional[str] = payload.get("iso_country")
+        self._terminating_prefix_prices: Optional[List[str]] = payload.get(
+            "terminating_prefix_prices"
+        )
+        self._originating_call_price: Optional[str] = payload.get(
+            "originating_call_price"
+        )
+        self._price_unit: Optional[str] = payload.get("price_unit")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "destination_number": destination_number
-            or self._properties["destination_number"],
+            "destination_number": destination_number or self._destination_number,
         }
         self._context: Optional[NumberContext] = None
 
@@ -61,60 +62,54 @@ class NumberInstance(InstanceResource):
         return self._context
 
     @property
-    def destination_number(self) -> str:
+    def destination_number(self) -> Optional[str]:
         """
         :returns: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
         """
-        return self._properties["destination_number"]
+        return self._destination_number
 
     @property
-    def origination_number(self) -> str:
+    def origination_number(self) -> Optional[str]:
         """
         :returns: The origination phone number in [[E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
         """
-        return self._properties["origination_number"]
+        return self._origination_number
 
     @property
-    def country(self) -> str:
+    def country(self) -> Optional[str]:
         """
         :returns: The name of the country.
         """
-        return self._properties["country"]
+        return self._country
 
     @property
-    def iso_country(self) -> str:
+    def iso_country(self) -> Optional[str]:
         """
         :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
         """
-        return self._properties["iso_country"]
+        return self._iso_country
 
     @property
-    def terminating_prefix_prices(self) -> List[str]:
-        """
-        :returns:
-        """
-        return self._properties["terminating_prefix_prices"]
+    def terminating_prefix_prices(self) -> Optional[List[str]]:
+        return self._terminating_prefix_prices
 
     @property
-    def originating_call_price(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["originating_call_price"]
+    def originating_call_price(self) -> Optional[str]:
+        return self._originating_call_price
 
     @property
-    def price_unit(self) -> str:
+    def price_unit(self) -> Optional[str]:
         """
         :returns: The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
         """
-        return self._properties["price_unit"]
+        return self._price_unit
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self, origination_number=values.unset) -> "NumberInstance":
         """

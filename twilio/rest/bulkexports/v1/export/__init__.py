@@ -31,14 +31,12 @@ class ExportInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "resource_type": payload.get("resource_type"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._resource_type: Optional[str] = payload.get("resource_type")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "resource_type": resource_type or self._properties["resource_type"],
+            "resource_type": resource_type or self._resource_type,
         }
         self._context: Optional[ExportContext] = None
 
@@ -58,25 +56,25 @@ class ExportInstance(InstanceResource):
         return self._context
 
     @property
-    def resource_type(self) -> str:
+    def resource_type(self) -> Optional[str]:
         """
         :returns: The type of communication – Messages, Calls, Conferences, and Participants
         """
-        return self._properties["resource_type"]
+        return self._resource_type
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: Contains a dictionary of URL links to nested resources of this Export.
         """
-        return self._properties["links"]
+        return self._links
 
     def fetch(self) -> "ExportInstance":
         """

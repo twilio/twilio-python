@@ -27,17 +27,15 @@ class DialogueInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "sid": payload.get("sid"),
-            "data": payload.get("data"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self._sid: Optional[str] = payload.get("sid")
+        self._data: Optional[Dict[str, object]] = payload.get("data")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "assistant_sid": assistant_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[DialogueContext] = None
 
@@ -58,39 +56,39 @@ class DialogueInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Dialogue resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def assistant_sid(self) -> str:
+    def assistant_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
         """
-        return self._properties["assistant_sid"]
+        return self._assistant_sid
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Dialogue resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def data(self) -> Dict[str, object]:
+    def data(self) -> Optional[Dict[str, object]]:
         """
         :returns: The JSON string that describes the dialogue session object.
         """
-        return self._properties["data"]
+        return self._data
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Dialogue resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "DialogueInstance":
         """

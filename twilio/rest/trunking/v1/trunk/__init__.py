@@ -44,28 +44,38 @@ class TrunkInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "domain_name": payload.get("domain_name"),
-            "disaster_recovery_method": payload.get("disaster_recovery_method"),
-            "disaster_recovery_url": payload.get("disaster_recovery_url"),
-            "friendly_name": payload.get("friendly_name"),
-            "secure": payload.get("secure"),
-            "recording": payload.get("recording"),
-            "transfer_mode": payload.get("transfer_mode"),
-            "transfer_caller_id": payload.get("transfer_caller_id"),
-            "cnam_lookup_enabled": payload.get("cnam_lookup_enabled"),
-            "auth_type": payload.get("auth_type"),
-            "auth_type_set": payload.get("auth_type_set"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "sid": payload.get("sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._domain_name: Optional[str] = payload.get("domain_name")
+        self._disaster_recovery_method: Optional[str] = payload.get(
+            "disaster_recovery_method"
+        )
+        self._disaster_recovery_url: Optional[str] = payload.get(
+            "disaster_recovery_url"
+        )
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._secure: Optional[bool] = payload.get("secure")
+        self._recording: Optional[Dict[str, object]] = payload.get("recording")
+        self._transfer_mode: Optional["TrunkInstance.TransferSetting"] = payload.get(
+            "transfer_mode"
+        )
+        self._transfer_caller_id: Optional[
+            "TrunkInstance.TransferCallerId"
+        ] = payload.get("transfer_caller_id")
+        self._cnam_lookup_enabled: Optional[bool] = payload.get("cnam_lookup_enabled")
+        self._auth_type: Optional[str] = payload.get("auth_type")
+        self._auth_type_set: Optional[List[str]] = payload.get("auth_type_set")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._sid: Optional[str] = payload.get("sid")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[TrunkContext] = None
 
@@ -85,123 +95,117 @@ class TrunkInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Trunk resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def domain_name(self) -> str:
+    def domain_name(self) -> Optional[str]:
         """
         :returns: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
         """
-        return self._properties["domain_name"]
+        return self._domain_name
 
     @property
-    def disaster_recovery_method(self) -> str:
+    def disaster_recovery_method(self) -> Optional[str]:
         """
         :returns: The HTTP method we use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
         """
-        return self._properties["disaster_recovery_method"]
+        return self._disaster_recovery_method
 
     @property
-    def disaster_recovery_url(self) -> str:
+    def disaster_recovery_url(self) -> Optional[str]:
         """
         :returns: The URL we call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from this URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
         """
-        return self._properties["disaster_recovery_url"]
+        return self._disaster_recovery_url
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The string that you assigned to describe the resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def secure(self) -> bool:
+    def secure(self) -> Optional[bool]:
         """
         :returns: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
         """
-        return self._properties["secure"]
+        return self._secure
 
     @property
-    def recording(self) -> Dict[str, object]:
+    def recording(self) -> Optional[Dict[str, object]]:
         """
         :returns: The recording settings for the trunk. Can be: `do-not-record`, `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing` or `record-from-answer`, all calls going through the trunk will be recorded. The only way to change recording parameters is on a sub-resource of a Trunk after it has been created. e.g.`/Trunks/[Trunk_SID]/Recording -XPOST -d'Mode=record-from-answer'`. See [Recording](https://www.twilio.com/docs/sip-trunking#recording) for more information.
         """
-        return self._properties["recording"]
+        return self._recording
 
     @property
-    def transfer_mode(self) -> "TrunkInstance.TransferSetting":
-        """
-        :returns:
-        """
-        return self._properties["transfer_mode"]
+    def transfer_mode(self) -> Optional["TrunkInstance.TransferSetting"]:
+        return self._transfer_mode
 
     @property
-    def transfer_caller_id(self) -> "TrunkInstance.TransferCallerId":
-        """
-        :returns:
-        """
-        return self._properties["transfer_caller_id"]
+    def transfer_caller_id(self) -> Optional["TrunkInstance.TransferCallerId"]:
+        return self._transfer_caller_id
 
     @property
-    def cnam_lookup_enabled(self) -> bool:
+    def cnam_lookup_enabled(self) -> Optional[bool]:
         """
         :returns: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
         """
-        return self._properties["cnam_lookup_enabled"]
+        return self._cnam_lookup_enabled
 
     @property
-    def auth_type(self) -> str:
+    def auth_type(self) -> Optional[str]:
         """
         :returns: The types of authentication mapped to the domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If both are mapped, the values are returned in a comma delimited list. If empty, the domain will not receive any traffic.
         """
-        return self._properties["auth_type"]
+        return self._auth_type
 
     @property
-    def auth_type_set(self) -> List[str]:
+    def auth_type_set(self) -> Optional[List[str]]:
         """
         :returns: Reserved.
         """
-        return self._properties["auth_type_set"]
+        return self._auth_type_set
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Trunk resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: The URLs of related resources.
         """
-        return self._properties["links"]
+        return self._links
 
     def delete(self) -> bool:
         """

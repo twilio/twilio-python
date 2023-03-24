@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -29,52 +29,50 @@ class TaskQueuesStatisticsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "cumulative": payload.get("cumulative"),
-            "realtime": payload.get("realtime"),
-            "task_queue_sid": payload.get("task_queue_sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._cumulative: Optional[Dict[str, object]] = payload.get("cumulative")
+        self._realtime: Optional[Dict[str, object]] = payload.get("realtime")
+        self._task_queue_sid: Optional[str] = payload.get("task_queue_sid")
+        self._workspace_sid: Optional[str] = payload.get("workspace_sid")
 
         self._solution = {
             "workspace_sid": workspace_sid,
         }
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def cumulative(self) -> Dict[str, object]:
+    def cumulative(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object that contains the cumulative statistics for the TaskQueues.
         """
-        return self._properties["cumulative"]
+        return self._cumulative
 
     @property
-    def realtime(self) -> Dict[str, object]:
+    def realtime(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object that contains the real-time statistics for the TaskQueues.
         """
-        return self._properties["realtime"]
+        return self._realtime
 
     @property
-    def task_queue_sid(self) -> str:
+    def task_queue_sid(self) -> Optional[str]:
         """
         :returns: The SID of the TaskQueue from which these statistics were calculated.
         """
-        return self._properties["task_queue_sid"]
+        return self._task_queue_sid
 
     @property
-    def workspace_sid(self) -> str:
+    def workspace_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Workspace that contains the TaskQueues.
         """
-        return self._properties["workspace_sid"]
+        return self._workspace_sid
 
     def __repr__(self) -> str:
         """

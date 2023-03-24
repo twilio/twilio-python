@@ -30,17 +30,19 @@ class SourceIpMappingInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "ip_record_sid": payload.get("ip_record_sid"),
-            "sip_domain_sid": payload.get("sip_domain_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._ip_record_sid: Optional[str] = payload.get("ip_record_sid")
+        self._sip_domain_sid: Optional[str] = payload.get("sip_domain_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[SourceIpMappingContext] = None
 
@@ -60,46 +62,46 @@ class SourceIpMappingInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the IP Record resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def ip_record_sid(self) -> str:
+    def ip_record_sid(self) -> Optional[str]:
         """
         :returns: The Twilio-provided string that uniquely identifies the IP Record resource to map from.
         """
-        return self._properties["ip_record_sid"]
+        return self._ip_record_sid
 
     @property
-    def sip_domain_sid(self) -> str:
+    def sip_domain_sid(self) -> Optional[str]:
         """
         :returns: The SID of the SIP Domain that the IP Record is mapped to.
         """
-        return self._properties["sip_domain_sid"]
+        return self._sip_domain_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

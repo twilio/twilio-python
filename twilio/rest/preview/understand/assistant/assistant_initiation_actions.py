@@ -28,12 +28,10 @@ class AssistantInitiationActionsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "url": payload.get("url"),
-            "data": payload.get("data"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._data: Optional[Dict[str, object]] = payload.get("data")
 
         self._solution = {
             "assistant_sid": assistant_sid,
@@ -56,32 +54,20 @@ class AssistantInitiationActionsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def assistant_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["assistant_sid"]
+    def assistant_sid(self) -> Optional[str]:
+        return self._assistant_sid
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def data(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["data"]
+    def data(self) -> Optional[Dict[str, object]]:
+        return self._data
 
     def fetch(self) -> "AssistantInitiationActionsInstance":
         """

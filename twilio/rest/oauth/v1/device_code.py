@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -27,58 +28,58 @@ class DeviceCodeInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "device_code": payload.get("device_code"),
-            "user_code": payload.get("user_code"),
-            "verification_uri": payload.get("verification_uri"),
-            "verification_uri_complete": payload.get("verification_uri_complete"),
-            "expires_in": payload.get("expires_in"),
-            "interval": deserialize.integer(payload.get("interval")),
-        }
+        self._device_code: Optional[str] = payload.get("device_code")
+        self._user_code: Optional[str] = payload.get("user_code")
+        self._verification_uri: Optional[str] = payload.get("verification_uri")
+        self._verification_uri_complete: Optional[str] = payload.get(
+            "verification_uri_complete"
+        )
+        self._expires_in: Optional[int] = payload.get("expires_in")
+        self._interval: Optional[int] = deserialize.integer(payload.get("interval"))
 
         self._solution = {}
 
     @property
-    def device_code(self) -> str:
+    def device_code(self) -> Optional[str]:
         """
         :returns: The device verification code.
         """
-        return self._properties["device_code"]
+        return self._device_code
 
     @property
-    def user_code(self) -> str:
+    def user_code(self) -> Optional[str]:
         """
         :returns: The verification code which end user uses to verify authorization request.
         """
-        return self._properties["user_code"]
+        return self._user_code
 
     @property
-    def verification_uri(self) -> str:
+    def verification_uri(self) -> Optional[str]:
         """
         :returns: The URI that the end user visits to verify authorization request.
         """
-        return self._properties["verification_uri"]
+        return self._verification_uri
 
     @property
-    def verification_uri_complete(self) -> str:
+    def verification_uri_complete(self) -> Optional[str]:
         """
         :returns: The URI with user_code that the end-user alternatively visits to verify authorization request.
         """
-        return self._properties["verification_uri_complete"]
+        return self._verification_uri_complete
 
     @property
-    def expires_in(self) -> int:
+    def expires_in(self) -> Optional[int]:
         """
         :returns: The expiration time of the device_code and user_code in seconds.
         """
-        return self._properties["expires_in"]
+        return self._expires_in
 
     @property
-    def interval(self) -> int:
+    def interval(self) -> Optional[int]:
         """
         :returns: The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint.
         """
-        return self._properties["interval"]
+        return self._interval
 
     def __repr__(self) -> str:
         """

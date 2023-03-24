@@ -75,43 +75,63 @@ class ConferenceParticipantInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "participant_sid": payload.get("participant_sid"),
-            "label": payload.get("label"),
-            "conference_sid": payload.get("conference_sid"),
-            "call_sid": payload.get("call_sid"),
-            "account_sid": payload.get("account_sid"),
-            "call_direction": payload.get("call_direction"),
-            "_from": payload.get("from"),
-            "to": payload.get("to"),
-            "call_status": payload.get("call_status"),
-            "country_code": payload.get("country_code"),
-            "is_moderator": payload.get("is_moderator"),
-            "join_time": deserialize.iso8601_datetime(payload.get("join_time")),
-            "leave_time": deserialize.iso8601_datetime(payload.get("leave_time")),
-            "duration_seconds": deserialize.integer(payload.get("duration_seconds")),
-            "outbound_queue_length": deserialize.integer(
-                payload.get("outbound_queue_length")
-            ),
-            "outbound_time_in_queue": deserialize.integer(
-                payload.get("outbound_time_in_queue")
-            ),
-            "jitter_buffer_size": payload.get("jitter_buffer_size"),
-            "is_coach": payload.get("is_coach"),
-            "coached_participants": payload.get("coached_participants"),
-            "participant_region": payload.get("participant_region"),
-            "conference_region": payload.get("conference_region"),
-            "call_type": payload.get("call_type"),
-            "processing_state": payload.get("processing_state"),
-            "properties": payload.get("properties"),
-            "events": payload.get("events"),
-            "metrics": payload.get("metrics"),
-            "url": payload.get("url"),
-        }
+        self._participant_sid: Optional[str] = payload.get("participant_sid")
+        self._label: Optional[str] = payload.get("label")
+        self._conference_sid: Optional[str] = payload.get("conference_sid")
+        self._call_sid: Optional[str] = payload.get("call_sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._call_direction: Optional[
+            "ConferenceParticipantInstance.CallDirection"
+        ] = payload.get("call_direction")
+        self.__from: Optional[str] = payload.get("from")
+        self._to: Optional[str] = payload.get("to")
+        self._call_status: Optional[
+            "ConferenceParticipantInstance.CallStatus"
+        ] = payload.get("call_status")
+        self._country_code: Optional[str] = payload.get("country_code")
+        self._is_moderator: Optional[bool] = payload.get("is_moderator")
+        self._join_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("join_time")
+        )
+        self._leave_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("leave_time")
+        )
+        self._duration_seconds: Optional[int] = deserialize.integer(
+            payload.get("duration_seconds")
+        )
+        self._outbound_queue_length: Optional[int] = deserialize.integer(
+            payload.get("outbound_queue_length")
+        )
+        self._outbound_time_in_queue: Optional[int] = deserialize.integer(
+            payload.get("outbound_time_in_queue")
+        )
+        self._jitter_buffer_size: Optional[
+            "ConferenceParticipantInstance.JitterBufferSize"
+        ] = payload.get("jitter_buffer_size")
+        self._is_coach: Optional[bool] = payload.get("is_coach")
+        self._coached_participants: Optional[List[str]] = payload.get(
+            "coached_participants"
+        )
+        self._participant_region: Optional[
+            "ConferenceParticipantInstance.Region"
+        ] = payload.get("participant_region")
+        self._conference_region: Optional[
+            "ConferenceParticipantInstance.Region"
+        ] = payload.get("conference_region")
+        self._call_type: Optional[
+            "ConferenceParticipantInstance.CallType"
+        ] = payload.get("call_type")
+        self._processing_state: Optional[
+            "ConferenceParticipantInstance.ProcessingState"
+        ] = payload.get("processing_state")
+        self._properties: Optional[Dict[str, object]] = payload.get("properties")
+        self._events: Optional[Dict[str, object]] = payload.get("events")
+        self._metrics: Optional[Dict[str, object]] = payload.get("metrics")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "conference_sid": conference_sid,
-            "participant_sid": participant_sid or self._properties["participant_sid"],
+            "participant_sid": participant_sid or self._participant_sid,
         }
         self._context: Optional[ConferenceParticipantContext] = None
 
@@ -132,193 +152,176 @@ class ConferenceParticipantInstance(InstanceResource):
         return self._context
 
     @property
-    def participant_sid(self) -> str:
+    def participant_sid(self) -> Optional[str]:
         """
         :returns: SID for this participant.
         """
-        return self._properties["participant_sid"]
+        return self._participant_sid
 
     @property
-    def label(self) -> str:
+    def label(self) -> Optional[str]:
         """
         :returns: The user-specified label of this participant.
         """
-        return self._properties["label"]
+        return self._label
 
     @property
-    def conference_sid(self) -> str:
+    def conference_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Conference.
         """
-        return self._properties["conference_sid"]
+        return self._conference_sid
 
     @property
-    def call_sid(self) -> str:
+    def call_sid(self) -> Optional[str]:
         """
         :returns: Unique SID identifier of the call that generated the Participant resource.
         """
-        return self._properties["call_sid"]
+        return self._call_sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def call_direction(self) -> "ConferenceParticipantInstance.CallDirection":
-        """
-        :returns:
-        """
-        return self._properties["call_direction"]
+    def call_direction(self) -> Optional["ConferenceParticipantInstance.CallDirection"]:
+        return self._call_direction
 
     @property
-    def _from(self) -> str:
+    def _from(self) -> Optional[str]:
         """
         :returns: Caller ID of the calling party.
         """
-        return self._properties["_from"]
+        return self.__from
 
     @property
-    def to(self) -> str:
+    def to(self) -> Optional[str]:
         """
         :returns: Called party.
         """
-        return self._properties["to"]
+        return self._to
 
     @property
-    def call_status(self) -> "ConferenceParticipantInstance.CallStatus":
-        """
-        :returns:
-        """
-        return self._properties["call_status"]
+    def call_status(self) -> Optional["ConferenceParticipantInstance.CallStatus"]:
+        return self._call_status
 
     @property
-    def country_code(self) -> str:
+    def country_code(self) -> Optional[str]:
         """
         :returns: ISO alpha-2 country code of the participant based on caller ID or called number.
         """
-        return self._properties["country_code"]
+        return self._country_code
 
     @property
-    def is_moderator(self) -> bool:
+    def is_moderator(self) -> Optional[bool]:
         """
         :returns: Boolean. Indicates whether participant had startConferenceOnEnter=true or endConferenceOnExit=true.
         """
-        return self._properties["is_moderator"]
+        return self._is_moderator
 
     @property
-    def join_time(self) -> datetime:
+    def join_time(self) -> Optional[datetime]:
         """
         :returns: ISO 8601 timestamp of participant join event.
         """
-        return self._properties["join_time"]
+        return self._join_time
 
     @property
-    def leave_time(self) -> datetime:
+    def leave_time(self) -> Optional[datetime]:
         """
         :returns: ISO 8601 timestamp of participant leave event.
         """
-        return self._properties["leave_time"]
+        return self._leave_time
 
     @property
-    def duration_seconds(self) -> int:
+    def duration_seconds(self) -> Optional[int]:
         """
         :returns: Participant durations in seconds.
         """
-        return self._properties["duration_seconds"]
+        return self._duration_seconds
 
     @property
-    def outbound_queue_length(self) -> int:
+    def outbound_queue_length(self) -> Optional[int]:
         """
         :returns: Add Participant API only. Estimated time in queue at call creation.
         """
-        return self._properties["outbound_queue_length"]
+        return self._outbound_queue_length
 
     @property
-    def outbound_time_in_queue(self) -> int:
+    def outbound_time_in_queue(self) -> Optional[int]:
         """
         :returns: Add Participant API only. Actual time in queue in seconds.
         """
-        return self._properties["outbound_time_in_queue"]
+        return self._outbound_time_in_queue
 
     @property
-    def jitter_buffer_size(self) -> "ConferenceParticipantInstance.JitterBufferSize":
-        """
-        :returns:
-        """
-        return self._properties["jitter_buffer_size"]
+    def jitter_buffer_size(
+        self,
+    ) -> Optional["ConferenceParticipantInstance.JitterBufferSize"]:
+        return self._jitter_buffer_size
 
     @property
-    def is_coach(self) -> bool:
+    def is_coach(self) -> Optional[bool]:
         """
         :returns: Boolean. Indicated whether participant was a coach.
         """
-        return self._properties["is_coach"]
+        return self._is_coach
 
     @property
-    def coached_participants(self) -> List[str]:
+    def coached_participants(self) -> Optional[List[str]]:
         """
         :returns: Call SIDs coached by this participant.
         """
-        return self._properties["coached_participants"]
+        return self._coached_participants
 
     @property
-    def participant_region(self) -> "ConferenceParticipantInstance.Region":
-        """
-        :returns:
-        """
-        return self._properties["participant_region"]
+    def participant_region(self) -> Optional["ConferenceParticipantInstance.Region"]:
+        return self._participant_region
 
     @property
-    def conference_region(self) -> "ConferenceParticipantInstance.Region":
-        """
-        :returns:
-        """
-        return self._properties["conference_region"]
+    def conference_region(self) -> Optional["ConferenceParticipantInstance.Region"]:
+        return self._conference_region
 
     @property
-    def call_type(self) -> "ConferenceParticipantInstance.CallType":
-        """
-        :returns:
-        """
-        return self._properties["call_type"]
+    def call_type(self) -> Optional["ConferenceParticipantInstance.CallType"]:
+        return self._call_type
 
     @property
-    def processing_state(self) -> "ConferenceParticipantInstance.ProcessingState":
-        """
-        :returns:
-        """
-        return self._properties["processing_state"]
+    def processing_state(
+        self,
+    ) -> Optional["ConferenceParticipantInstance.ProcessingState"]:
+        return self._processing_state
 
     @property
-    def properties(self) -> Dict[str, object]:
+    def properties(self) -> Optional[Dict[str, object]]:
         """
         :returns: Participant properties and metadata.
         """
-        return self._properties["properties"]
+        return self._properties
 
     @property
-    def events(self) -> Dict[str, object]:
+    def events(self) -> Optional[Dict[str, object]]:
         """
         :returns: Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant.
         """
-        return self._properties["events"]
+        return self._events
 
     @property
-    def metrics(self) -> Dict[str, object]:
+    def metrics(self) -> Optional[Dict[str, object]]:
         """
         :returns: Object. Contains participant call quality metrics.
         """
-        return self._properties["metrics"]
+        return self._metrics
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(
         self, events=values.unset, metrics=values.unset

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -30,82 +30,86 @@ class ContentAndApprovalsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "language": payload.get("language"),
-            "variables": payload.get("variables"),
-            "types": payload.get("types"),
-            "approval_requests": payload.get("approval_requests"),
-        }
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._language: Optional[str] = payload.get("language")
+        self._variables: Optional[Dict[str, object]] = payload.get("variables")
+        self._types: Optional[Dict[str, object]] = payload.get("types")
+        self._approval_requests: Optional[Dict[str, object]] = payload.get(
+            "approval_requests"
+        )
 
         self._solution = {}
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the Content resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A string name used to describe the Content resource. Not visible to the end recipient.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def language(self) -> str:
+    def language(self) -> Optional[str]:
         """
         :returns: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
         """
-        return self._properties["language"]
+        return self._language
 
     @property
-    def variables(self) -> Dict[str, object]:
+    def variables(self) -> Optional[Dict[str, object]]:
         """
         :returns: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
         """
-        return self._properties["variables"]
+        return self._variables
 
     @property
-    def types(self) -> Dict[str, object]:
+    def types(self) -> Optional[Dict[str, object]]:
         """
         :returns: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
         """
-        return self._properties["types"]
+        return self._types
 
     @property
-    def approval_requests(self) -> Dict[str, object]:
+    def approval_requests(self) -> Optional[Dict[str, object]]:
         """
         :returns: The submitted information and approval request status of the Content resource.
         """
-        return self._properties["approval_requests"]
+        return self._approval_requests
 
     def __repr__(self) -> str:
         """

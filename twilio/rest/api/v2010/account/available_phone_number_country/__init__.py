@@ -48,17 +48,17 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "country_code": payload.get("country_code"),
-            "country": payload.get("country"),
-            "uri": payload.get("uri"),
-            "beta": payload.get("beta"),
-            "subresource_uris": payload.get("subresource_uris"),
-        }
+        self._country_code: Optional[str] = payload.get("country_code")
+        self._country: Optional[str] = payload.get("country")
+        self._uri: Optional[str] = payload.get("uri")
+        self._beta: Optional[bool] = payload.get("beta")
+        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
 
         self._solution = {
             "account_sid": account_sid,
-            "country_code": country_code or self._properties["country_code"],
+            "country_code": country_code or self._country_code,
         }
         self._context: Optional[AvailablePhoneNumberCountryContext] = None
 
@@ -79,39 +79,39 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         return self._context
 
     @property
-    def country_code(self) -> str:
+    def country_code(self) -> Optional[str]:
         """
         :returns: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country.
         """
-        return self._properties["country_code"]
+        return self._country_code
 
     @property
-    def country(self) -> str:
+    def country(self) -> Optional[str]:
         """
         :returns: The name of the country.
         """
-        return self._properties["country"]
+        return self._country
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the Country resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def beta(self) -> bool:
+    def beta(self) -> Optional[bool]:
         """
         :returns: Whether all phone numbers available in the country are new to the Twilio platform. `true` if they are and `false` if all numbers are not in the Twilio Phone Number Beta program.
         """
-        return self._properties["beta"]
+        return self._beta
 
     @property
-    def subresource_uris(self) -> Dict[str, object]:
+    def subresource_uris(self) -> Optional[Dict[str, object]]:
         """
         :returns: A list of related AvailablePhoneNumber resources identified by their URIs relative to `https://api.twilio.com`.
         """
-        return self._properties["subresource_uris"]
+        return self._subresource_uris
 
     def fetch(self) -> "AvailablePhoneNumberCountryInstance":
         """

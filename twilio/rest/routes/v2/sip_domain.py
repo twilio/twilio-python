@@ -29,19 +29,21 @@ class SipDomainInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sip_domain": payload.get("sip_domain"),
-            "url": payload.get("url"),
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "voice_region": payload.get("voice_region"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self._sip_domain: Optional[str] = payload.get("sip_domain")
+        self._url: Optional[str] = payload.get("url")
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._voice_region: Optional[str] = payload.get("voice_region")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
-            "sip_domain": sip_domain or self._properties["sip_domain"],
+            "sip_domain": sip_domain or self._sip_domain,
         }
         self._context: Optional[SipDomainContext] = None
 
@@ -61,60 +63,36 @@ class SipDomainInstance(InstanceResource):
         return self._context
 
     @property
-    def sip_domain(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sip_domain"]
+    def sip_domain(self) -> Optional[str]:
+        return self._sip_domain
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["friendly_name"]
+    def friendly_name(self) -> Optional[str]:
+        return self._friendly_name
 
     @property
-    def voice_region(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["voice_region"]
+    def voice_region(self) -> Optional[str]:
+        return self._voice_region
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     def fetch(self) -> "SipDomainInstance":
         """

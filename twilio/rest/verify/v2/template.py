@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -29,50 +29,48 @@ class TemplateInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "channels": payload.get("channels"),
-            "translations": payload.get("translations"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._channels: Optional[List[str]] = payload.get("channels")
+        self._translations: Optional[Dict[str, object]] = payload.get("translations")
 
         self._solution = {}
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies a Verification Template.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A descriptive string that you create to describe a Template.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def channels(self) -> List[str]:
+    def channels(self) -> Optional[List[str]]:
         """
         :returns: A list of channels that support the Template. Can include: sms, voice
         """
-        return self._properties["channels"]
+        return self._channels
 
     @property
-    def translations(self) -> Dict[str, object]:
+    def translations(self) -> Optional[Dict[str, object]]:
         """
         :returns: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
         """
-        return self._properties["translations"]
+        return self._translations
 
     def __repr__(self) -> str:
         """

@@ -27,14 +27,12 @@ class UserInfoInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "user_sid": payload.get("user_sid"),
-            "first_name": payload.get("first_name"),
-            "last_name": payload.get("last_name"),
-            "friendly_name": payload.get("friendly_name"),
-            "email": payload.get("email"),
-            "url": payload.get("url"),
-        }
+        self._user_sid: Optional[str] = payload.get("user_sid")
+        self._first_name: Optional[str] = payload.get("first_name")
+        self._last_name: Optional[str] = payload.get("last_name")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._email: Optional[str] = payload.get("email")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[UserInfoContext] = None
@@ -54,46 +52,43 @@ class UserInfoInstance(InstanceResource):
         return self._context
 
     @property
-    def user_sid(self) -> str:
+    def user_sid(self) -> Optional[str]:
         """
         :returns: The URL of the party that will create the token and sign it with its private key.
         """
-        return self._properties["user_sid"]
+        return self._user_sid
 
     @property
-    def first_name(self) -> str:
+    def first_name(self) -> Optional[str]:
         """
         :returns: The first name of the end-user.
         """
-        return self._properties["first_name"]
+        return self._first_name
 
     @property
-    def last_name(self) -> str:
+    def last_name(self) -> Optional[str]:
         """
         :returns: The last name of the end-user.
         """
-        return self._properties["last_name"]
+        return self._last_name
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: The friendly name of the end-user.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def email(self) -> str:
+    def email(self) -> Optional[str]:
         """
         :returns: The end-user's preferred email address.
         """
-        return self._properties["email"]
+        return self._email
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self) -> "UserInfoInstance":
         """

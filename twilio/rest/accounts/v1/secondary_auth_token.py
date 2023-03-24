@@ -29,13 +29,15 @@ class SecondaryAuthTokenInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "secondary_auth_token": payload.get("secondary_auth_token"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._secondary_auth_token: Optional[str] = payload.get("secondary_auth_token")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[SecondaryAuthTokenContext] = None
@@ -55,39 +57,39 @@ class SecondaryAuthTokenInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in UTC when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in UTC when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def secondary_auth_token(self) -> str:
+    def secondary_auth_token(self) -> Optional[str]:
         """
         :returns: The generated secondary Auth Token that can be used to authenticate future API requests.
         """
-        return self._properties["secondary_auth_token"]
+        return self._secondary_auth_token
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URI for this resource, relative to `https://accounts.twilio.com`
         """
-        return self._properties["url"]
+        return self._url
 
     def create(self) -> "SecondaryAuthTokenInstance":
         """

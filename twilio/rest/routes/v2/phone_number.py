@@ -29,19 +29,21 @@ class PhoneNumberInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "phone_number": payload.get("phone_number"),
-            "url": payload.get("url"),
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "voice_region": payload.get("voice_region"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self._phone_number: Optional[str] = payload.get("phone_number")
+        self._url: Optional[str] = payload.get("url")
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._voice_region: Optional[str] = payload.get("voice_region")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
-            "phone_number": phone_number or self._properties["phone_number"],
+            "phone_number": phone_number or self._phone_number,
         }
         self._context: Optional[PhoneNumberContext] = None
 
@@ -61,60 +63,60 @@ class PhoneNumberInstance(InstanceResource):
         return self._context
 
     @property
-    def phone_number(self) -> str:
+    def phone_number(self) -> Optional[str]:
         """
         :returns: The phone number in E.164 format
         """
-        return self._properties["phone_number"]
+        return self._phone_number
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: A 34 character string that uniquely identifies the Inbound Processing Region assignments for this phone number.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A human readable description of the Inbound Processing Region assignments for this phone number, up to 64 characters.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def voice_region(self) -> str:
+    def voice_region(self) -> Optional[str]:
         """
         :returns: The Inbound Processing Region used for this phone number for voice.
         """
-        return self._properties["voice_region"]
+        return self._voice_region
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date that this phone number was assigned an Inbound Processing Region, given in ISO 8601 format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date that the Inbound Processing Region was updated for this phone number, given in ISO 8601 format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     def fetch(self) -> "PhoneNumberInstance":
         """

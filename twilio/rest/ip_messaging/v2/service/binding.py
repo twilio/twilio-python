@@ -35,24 +35,28 @@ class BindingInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "endpoint": payload.get("endpoint"),
-            "identity": payload.get("identity"),
-            "credential_sid": payload.get("credential_sid"),
-            "binding_type": payload.get("binding_type"),
-            "message_types": payload.get("message_types"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._endpoint: Optional[str] = payload.get("endpoint")
+        self._identity: Optional[str] = payload.get("identity")
+        self._credential_sid: Optional[str] = payload.get("credential_sid")
+        self._binding_type: Optional["BindingInstance.BindingType"] = payload.get(
+            "binding_type"
+        )
+        self._message_types: Optional[List[str]] = payload.get("message_types")
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[BindingContext] = None
 
@@ -73,88 +77,52 @@ class BindingInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
+    def sid(self) -> Optional[str]:
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
+    def service_sid(self) -> Optional[str]:
+        return self._service_sid
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def endpoint(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["endpoint"]
+    def endpoint(self) -> Optional[str]:
+        return self._endpoint
 
     @property
-    def identity(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["identity"]
+    def identity(self) -> Optional[str]:
+        return self._identity
 
     @property
-    def credential_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["credential_sid"]
+    def credential_sid(self) -> Optional[str]:
+        return self._credential_sid
 
     @property
-    def binding_type(self) -> "BindingInstance.BindingType":
-        """
-        :returns:
-        """
-        return self._properties["binding_type"]
+    def binding_type(self) -> Optional["BindingInstance.BindingType"]:
+        return self._binding_type
 
     @property
-    def message_types(self) -> List[str]:
-        """
-        :returns:
-        """
-        return self._properties["message_types"]
+    def message_types(self) -> Optional[List[str]]:
+        return self._message_types
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def delete(self) -> bool:
         """

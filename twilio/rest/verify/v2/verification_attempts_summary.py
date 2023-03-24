@@ -34,15 +34,19 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "total_attempts": deserialize.integer(payload.get("total_attempts")),
-            "total_converted": deserialize.integer(payload.get("total_converted")),
-            "total_unconverted": deserialize.integer(payload.get("total_unconverted")),
-            "conversion_rate_percentage": deserialize.decimal(
-                payload.get("conversion_rate_percentage")
-            ),
-            "url": payload.get("url"),
-        }
+        self._total_attempts: Optional[int] = deserialize.integer(
+            payload.get("total_attempts")
+        )
+        self._total_converted: Optional[int] = deserialize.integer(
+            payload.get("total_converted")
+        )
+        self._total_unconverted: Optional[int] = deserialize.integer(
+            payload.get("total_unconverted")
+        )
+        self._conversion_rate_percentage: Optional[float] = deserialize.decimal(
+            payload.get("conversion_rate_percentage")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[VerificationAttemptsSummaryContext] = None
@@ -62,39 +66,36 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         return self._context
 
     @property
-    def total_attempts(self) -> int:
+    def total_attempts(self) -> Optional[int]:
         """
         :returns: Total of attempts made according to the provided filters
         """
-        return self._properties["total_attempts"]
+        return self._total_attempts
 
     @property
-    def total_converted(self) -> int:
+    def total_converted(self) -> Optional[int]:
         """
         :returns: Total of  attempts made that were confirmed by the end user, according to the provided filters.
         """
-        return self._properties["total_converted"]
+        return self._total_converted
 
     @property
-    def total_unconverted(self) -> int:
+    def total_unconverted(self) -> Optional[int]:
         """
         :returns: Total of attempts made that were not confirmed by the end user, according to the provided filters.
         """
-        return self._properties["total_unconverted"]
+        return self._total_unconverted
 
     @property
-    def conversion_rate_percentage(self) -> float:
+    def conversion_rate_percentage(self) -> Optional[float]:
         """
         :returns: Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100.
         """
-        return self._properties["conversion_rate_percentage"]
+        return self._conversion_rate_percentage
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(
         self,

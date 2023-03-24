@@ -39,10 +39,8 @@ class RecordingInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "mode": payload.get("mode"),
-            "trim": payload.get("trim"),
-        }
+        self._mode: Optional["RecordingInstance.RecordingMode"] = payload.get("mode")
+        self._trim: Optional["RecordingInstance.RecordingTrim"] = payload.get("trim")
 
         self._solution = {
             "trunk_sid": trunk_sid,
@@ -65,18 +63,12 @@ class RecordingInstance(InstanceResource):
         return self._context
 
     @property
-    def mode(self) -> "RecordingInstance.RecordingMode":
-        """
-        :returns:
-        """
-        return self._properties["mode"]
+    def mode(self) -> Optional["RecordingInstance.RecordingMode"]:
+        return self._mode
 
     @property
-    def trim(self) -> "RecordingInstance.RecordingTrim":
-        """
-        :returns:
-        """
-        return self._properties["trim"]
+    def trim(self) -> Optional["RecordingInstance.RecordingTrim"]:
+        return self._trim
 
     def fetch(self) -> "RecordingInstance":
         """

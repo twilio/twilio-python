@@ -33,21 +33,19 @@ class ConfigurationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "default_conversation_creator_role_sid": payload.get(
-                "default_conversation_creator_role_sid"
-            ),
-            "default_conversation_role_sid": payload.get(
-                "default_conversation_role_sid"
-            ),
-            "default_chat_service_role_sid": payload.get(
-                "default_chat_service_role_sid"
-            ),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "reachability_enabled": payload.get("reachability_enabled"),
-        }
+        self._chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self._default_conversation_creator_role_sid: Optional[str] = payload.get(
+            "default_conversation_creator_role_sid"
+        )
+        self._default_conversation_role_sid: Optional[str] = payload.get(
+            "default_conversation_role_sid"
+        )
+        self._default_chat_service_role_sid: Optional[str] = payload.get(
+            "default_chat_service_role_sid"
+        )
+        self._url: Optional[str] = payload.get("url")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
+        self._reachability_enabled: Optional[bool] = payload.get("reachability_enabled")
 
         self._solution = {
             "chat_service_sid": chat_service_sid,
@@ -70,53 +68,53 @@ class ConfigurationInstance(InstanceResource):
         return self._context
 
     @property
-    def chat_service_sid(self) -> str:
+    def chat_service_sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the Service configuration resource.
         """
-        return self._properties["chat_service_sid"]
+        return self._chat_service_sid
 
     @property
-    def default_conversation_creator_role_sid(self) -> str:
+    def default_conversation_creator_role_sid(self) -> Optional[str]:
         """
         :returns: The conversation-level role assigned to a conversation creator user when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         """
-        return self._properties["default_conversation_creator_role_sid"]
+        return self._default_conversation_creator_role_sid
 
     @property
-    def default_conversation_role_sid(self) -> str:
+    def default_conversation_role_sid(self) -> Optional[str]:
         """
         :returns: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         """
-        return self._properties["default_conversation_role_sid"]
+        return self._default_conversation_role_sid
 
     @property
-    def default_chat_service_role_sid(self) -> str:
+    def default_chat_service_role_sid(self) -> Optional[str]:
         """
         :returns: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         """
-        return self._properties["default_chat_service_role_sid"]
+        return self._default_chat_service_role_sid
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: An absolute API resource URL for this service configuration.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def links(self) -> Dict[str, object]:
+    def links(self) -> Optional[Dict[str, object]]:
         """
         :returns: Contains an absolute API resource URL to access the push notifications configuration of this service.
         """
-        return self._properties["links"]
+        return self._links
 
     @property
-    def reachability_enabled(self) -> bool:
+    def reachability_enabled(self) -> Optional[bool]:
         """
         :returns: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
         """
-        return self._properties["reachability_enabled"]
+        return self._reachability_enabled
 
     def fetch(self) -> "ConfigurationInstance":
         """

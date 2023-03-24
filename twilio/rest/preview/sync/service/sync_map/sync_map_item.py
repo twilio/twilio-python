@@ -45,23 +45,25 @@ class SyncMapItemInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "key": payload.get("key"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "map_sid": payload.get("map_sid"),
-            "url": payload.get("url"),
-            "revision": payload.get("revision"),
-            "data": payload.get("data"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-        }
+        self._key: Optional[str] = payload.get("key")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._service_sid: Optional[str] = payload.get("service_sid")
+        self._map_sid: Optional[str] = payload.get("map_sid")
+        self._url: Optional[str] = payload.get("url")
+        self._revision: Optional[str] = payload.get("revision")
+        self._data: Optional[Dict[str, object]] = payload.get("data")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._created_by: Optional[str] = payload.get("created_by")
 
         self._solution = {
             "service_sid": service_sid,
             "map_sid": map_sid,
-            "key": key or self._properties["key"],
+            "key": key or self._key,
         }
         self._context: Optional[SyncMapItemContext] = None
 
@@ -83,74 +85,44 @@ class SyncMapItemInstance(InstanceResource):
         return self._context
 
     @property
-    def key(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["key"]
+    def key(self) -> Optional[str]:
+        return self._key
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
+    def service_sid(self) -> Optional[str]:
+        return self._service_sid
 
     @property
-    def map_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["map_sid"]
+    def map_sid(self) -> Optional[str]:
+        return self._map_sid
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     @property
-    def revision(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["revision"]
+    def revision(self) -> Optional[str]:
+        return self._revision
 
     @property
-    def data(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["data"]
+    def data(self) -> Optional[Dict[str, object]]:
+        return self._data
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def created_by(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["created_by"]
+    def created_by(self) -> Optional[str]:
+        return self._created_by
 
     def delete(self, if_match=values.unset) -> bool:
         """

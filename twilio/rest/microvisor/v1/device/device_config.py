@@ -30,17 +30,17 @@ class DeviceConfigInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "device_sid": payload.get("device_sid"),
-            "key": payload.get("key"),
-            "value": payload.get("value"),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self._device_sid: Optional[str] = payload.get("device_sid")
+        self._key: Optional[str] = payload.get("key")
+        self._value: Optional[str] = payload.get("value")
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "device_sid": device_sid,
-            "key": key or self._properties["key"],
+            "key": key or self._key,
         }
         self._context: Optional[DeviceConfigContext] = None
 
@@ -61,39 +61,36 @@ class DeviceConfigInstance(InstanceResource):
         return self._context
 
     @property
-    def device_sid(self) -> str:
+    def device_sid(self) -> Optional[str]:
         """
         :returns: A 34-character string that uniquely identifies the parent Device.
         """
-        return self._properties["device_sid"]
+        return self._device_sid
 
     @property
-    def key(self) -> str:
+    def key(self) -> Optional[str]:
         """
         :returns: The config key; up to 100 characters.
         """
-        return self._properties["key"]
+        return self._key
 
     @property
-    def value(self) -> str:
+    def value(self) -> Optional[str]:
         """
         :returns: The config value; up to 4096 characters.
         """
-        return self._properties["value"]
+        return self._value
 
     @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
+    def date_updated(self) -> Optional[datetime]:
+        return self._date_updated
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Config.
         """
-        return self._properties["url"]
+        return self._url
 
     def delete(self) -> bool:
         """

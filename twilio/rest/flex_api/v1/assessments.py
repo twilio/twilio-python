@@ -29,25 +29,23 @@ class AssessmentsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assessment_id": payload.get("assessment_id"),
-            "offset": deserialize.decimal(payload.get("offset")),
-            "report": payload.get("report"),
-            "weight": deserialize.decimal(payload.get("weight")),
-            "agent_id": payload.get("agent_id"),
-            "segment_id": payload.get("segment_id"),
-            "user_name": payload.get("user_name"),
-            "user_email": payload.get("user_email"),
-            "answer_text": payload.get("answer_text"),
-            "answer_id": payload.get("answer_id"),
-            "assessment": payload.get("assessment"),
-            "timestamp": deserialize.decimal(payload.get("timestamp")),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._assessment_id: Optional[str] = payload.get("assessment_id")
+        self._offset: Optional[float] = deserialize.decimal(payload.get("offset"))
+        self._report: Optional[bool] = payload.get("report")
+        self._weight: Optional[float] = deserialize.decimal(payload.get("weight"))
+        self._agent_id: Optional[str] = payload.get("agent_id")
+        self._segment_id: Optional[str] = payload.get("segment_id")
+        self._user_name: Optional[str] = payload.get("user_name")
+        self._user_email: Optional[str] = payload.get("user_email")
+        self._answer_text: Optional[str] = payload.get("answer_text")
+        self._answer_id: Optional[str] = payload.get("answer_id")
+        self._assessment: Optional[Dict[str, object]] = payload.get("assessment")
+        self._timestamp: Optional[float] = deserialize.decimal(payload.get("timestamp"))
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "assessment_id": assessment_id or self._properties["assessment_id"],
+            "assessment_id": assessment_id or self._assessment_id,
         }
         self._context: Optional[AssessmentsContext] = None
 
@@ -67,102 +65,96 @@ class AssessmentsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The unique SID identifier of the Account.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def assessment_id(self) -> str:
+    def assessment_id(self) -> Optional[str]:
         """
         :returns: The unique id of the assessment
         """
-        return self._properties["assessment_id"]
+        return self._assessment_id
 
     @property
-    def offset(self) -> float:
+    def offset(self) -> Optional[float]:
         """
         :returns: Offset of the conversation
         """
-        return self._properties["offset"]
+        return self._offset
 
     @property
-    def report(self) -> bool:
+    def report(self) -> Optional[bool]:
         """
         :returns: The flag indicating if this assessment is part of report
         """
-        return self._properties["report"]
+        return self._report
 
     @property
-    def weight(self) -> float:
+    def weight(self) -> Optional[float]:
         """
         :returns: The weightage given to this comment
         """
-        return self._properties["weight"]
+        return self._weight
 
     @property
-    def agent_id(self) -> str:
+    def agent_id(self) -> Optional[str]:
         """
         :returns: The id of the Agent
         """
-        return self._properties["agent_id"]
+        return self._agent_id
 
     @property
-    def segment_id(self) -> str:
+    def segment_id(self) -> Optional[str]:
         """
         :returns: Segment Id of conversation
         """
-        return self._properties["segment_id"]
+        return self._segment_id
 
     @property
-    def user_name(self) -> str:
+    def user_name(self) -> Optional[str]:
         """
         :returns: The name of the user.
         """
-        return self._properties["user_name"]
+        return self._user_name
 
     @property
-    def user_email(self) -> str:
+    def user_email(self) -> Optional[str]:
         """
         :returns: The email id of the user.
         """
-        return self._properties["user_email"]
+        return self._user_email
 
     @property
-    def answer_text(self) -> str:
+    def answer_text(self) -> Optional[str]:
         """
         :returns: The answer text selected by user
         """
-        return self._properties["answer_text"]
+        return self._answer_text
 
     @property
-    def answer_id(self) -> str:
+    def answer_id(self) -> Optional[str]:
         """
         :returns: The id of the answer selected by user
         """
-        return self._properties["answer_id"]
+        return self._answer_id
 
     @property
-    def assessment(self) -> Dict[str, object]:
+    def assessment(self) -> Optional[Dict[str, object]]:
         """
         :returns: Assessment Details associated with an assessment
         """
-        return self._properties["assessment"]
+        return self._assessment
 
     @property
-    def timestamp(self) -> float:
-        """
-        :returns:
-        """
-        return self._properties["timestamp"]
+    def timestamp(self) -> Optional[float]:
+        return self._timestamp
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def update(
         self, offset, answer_text, answer_id, token=values.unset

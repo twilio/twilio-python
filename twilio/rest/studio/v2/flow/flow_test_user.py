@@ -28,11 +28,9 @@ class FlowTestUserInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "test_users": payload.get("test_users"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._test_users: Optional[List[str]] = payload.get("test_users")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "sid": sid,
@@ -55,25 +53,25 @@ class FlowTestUserInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: Unique identifier of the flow.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def test_users(self) -> List[str]:
+    def test_users(self) -> Optional[List[str]]:
         """
         :returns: List of test user identities that can test draft versions of the flow.
         """
-        return self._properties["test_users"]
+        return self._test_users
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "FlowTestUserInstance":
         """

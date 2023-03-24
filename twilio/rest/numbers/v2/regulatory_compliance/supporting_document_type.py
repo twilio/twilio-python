@@ -29,16 +29,14 @@ class SupportingDocumentTypeInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "machine_name": payload.get("machine_name"),
-            "fields": payload.get("fields"),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._friendly_name: Optional[str] = payload.get("friendly_name")
+        self._machine_name: Optional[str] = payload.get("machine_name")
+        self._fields: Optional[List[object]] = payload.get("fields")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[SupportingDocumentTypeContext] = None
 
@@ -58,39 +56,39 @@ class SupportingDocumentTypeInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that identifies the Supporting Document Type resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def friendly_name(self) -> str:
+    def friendly_name(self) -> Optional[str]:
         """
         :returns: A human-readable description of the Supporting Document Type resource.
         """
-        return self._properties["friendly_name"]
+        return self._friendly_name
 
     @property
-    def machine_name(self) -> str:
+    def machine_name(self) -> Optional[str]:
         """
         :returns: The machine-readable description of the Supporting Document Type resource.
         """
-        return self._properties["machine_name"]
+        return self._machine_name
 
     @property
-    def fields(self) -> List[object]:
+    def fields(self) -> Optional[List[object]]:
         """
         :returns: The required information for creating a Supporting Document. The required fields will change as regulatory needs change and will differ for businesses and individuals.
         """
-        return self._properties["fields"]
+        return self._fields
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Supporting Document Type resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "SupportingDocumentTypeInstance":
         """

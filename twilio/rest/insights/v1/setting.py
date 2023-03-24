@@ -28,12 +28,10 @@ class SettingInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "advanced_features": payload.get("advanced_features"),
-            "voice_trace": payload.get("voice_trace"),
-            "url": payload.get("url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._advanced_features: Optional[bool] = payload.get("advanced_features")
+        self._voice_trace: Optional[bool] = payload.get("voice_trace")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[SettingContext] = None
@@ -53,32 +51,20 @@ class SettingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
+    def account_sid(self) -> Optional[str]:
+        return self._account_sid
 
     @property
-    def advanced_features(self) -> bool:
-        """
-        :returns:
-        """
-        return self._properties["advanced_features"]
+    def advanced_features(self) -> Optional[bool]:
+        return self._advanced_features
 
     @property
-    def voice_trace(self) -> bool:
-        """
-        :returns:
-        """
-        return self._properties["voice_trace"]
+    def voice_trace(self) -> Optional[bool]:
+        return self._voice_trace
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self, subaccount_sid=values.unset) -> "SettingInstance":
         """

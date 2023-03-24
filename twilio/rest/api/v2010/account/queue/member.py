@@ -37,19 +37,19 @@ class MemberInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "call_sid": payload.get("call_sid"),
-            "date_enqueued": deserialize.rfc2822_datetime(payload.get("date_enqueued")),
-            "position": deserialize.integer(payload.get("position")),
-            "uri": payload.get("uri"),
-            "wait_time": deserialize.integer(payload.get("wait_time")),
-            "queue_sid": payload.get("queue_sid"),
-        }
+        self._call_sid: Optional[str] = payload.get("call_sid")
+        self._date_enqueued: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_enqueued")
+        )
+        self._position: Optional[int] = deserialize.integer(payload.get("position"))
+        self._uri: Optional[str] = payload.get("uri")
+        self._wait_time: Optional[int] = deserialize.integer(payload.get("wait_time"))
+        self._queue_sid: Optional[str] = payload.get("queue_sid")
 
         self._solution = {
             "account_sid": account_sid,
             "queue_sid": queue_sid,
-            "call_sid": call_sid or self._properties["call_sid"],
+            "call_sid": call_sid or self._call_sid,
         }
         self._context: Optional[MemberContext] = None
 
@@ -71,46 +71,46 @@ class MemberInstance(InstanceResource):
         return self._context
 
     @property
-    def call_sid(self) -> str:
+    def call_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Member resource is associated with.
         """
-        return self._properties["call_sid"]
+        return self._call_sid
 
     @property
-    def date_enqueued(self) -> datetime:
+    def date_enqueued(self) -> Optional[datetime]:
         """
         :returns: The date that the member was enqueued, given in RFC 2822 format.
         """
-        return self._properties["date_enqueued"]
+        return self._date_enqueued
 
     @property
-    def position(self) -> int:
+    def position(self) -> Optional[int]:
         """
         :returns: This member's current position in the queue.
         """
-        return self._properties["position"]
+        return self._position
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def wait_time(self) -> int:
+    def wait_time(self) -> Optional[int]:
         """
         :returns: The number of seconds the member has been in the queue.
         """
-        return self._properties["wait_time"]
+        return self._wait_time
 
     @property
-    def queue_sid(self) -> str:
+    def queue_sid(self) -> Optional[str]:
         """
         :returns: The SID of the Queue the member is in.
         """
-        return self._properties["queue_sid"]
+        return self._queue_sid
 
     def fetch(self) -> "MemberInstance":
         """

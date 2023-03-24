@@ -51,31 +51,47 @@ class BrandRegistrationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "customer_profile_bundle_sid": payload.get("customer_profile_bundle_sid"),
-            "a2p_profile_bundle_sid": payload.get("a2p_profile_bundle_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "brand_type": payload.get("brand_type"),
-            "status": payload.get("status"),
-            "tcr_id": payload.get("tcr_id"),
-            "failure_reason": payload.get("failure_reason"),
-            "url": payload.get("url"),
-            "brand_score": deserialize.integer(payload.get("brand_score")),
-            "brand_feedback": payload.get("brand_feedback"),
-            "identity_status": payload.get("identity_status"),
-            "russell_3000": payload.get("russell_3000"),
-            "government_entity": payload.get("government_entity"),
-            "tax_exempt_status": payload.get("tax_exempt_status"),
-            "skip_automatic_sec_vet": payload.get("skip_automatic_sec_vet"),
-            "mock": payload.get("mock"),
-            "links": payload.get("links"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._customer_profile_bundle_sid: Optional[str] = payload.get(
+            "customer_profile_bundle_sid"
+        )
+        self._a2p_profile_bundle_sid: Optional[str] = payload.get(
+            "a2p_profile_bundle_sid"
+        )
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self._brand_type: Optional[str] = payload.get("brand_type")
+        self._status: Optional["BrandRegistrationInstance.Status"] = payload.get(
+            "status"
+        )
+        self._tcr_id: Optional[str] = payload.get("tcr_id")
+        self._failure_reason: Optional[str] = payload.get("failure_reason")
+        self._url: Optional[str] = payload.get("url")
+        self._brand_score: Optional[int] = deserialize.integer(
+            payload.get("brand_score")
+        )
+        self._brand_feedback: Optional[
+            List["BrandRegistrationInstance.BrandFeedback"]
+        ] = payload.get("brand_feedback")
+        self._identity_status: Optional[
+            "BrandRegistrationInstance.IdentityStatus"
+        ] = payload.get("identity_status")
+        self._russell_3000: Optional[bool] = payload.get("russell_3000")
+        self._government_entity: Optional[bool] = payload.get("government_entity")
+        self._tax_exempt_status: Optional[str] = payload.get("tax_exempt_status")
+        self._skip_automatic_sec_vet: Optional[bool] = payload.get(
+            "skip_automatic_sec_vet"
+        )
+        self._mock: Optional[bool] = payload.get("mock")
+        self._links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[BrandRegistrationContext] = None
 
@@ -95,144 +111,137 @@ class BrandRegistrationInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string to identify Brand Registration.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Brand Registration resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def customer_profile_bundle_sid(self) -> str:
+    def customer_profile_bundle_sid(self) -> Optional[str]:
         """
         :returns: A2P Messaging Profile Bundle BundleSid.
         """
-        return self._properties["customer_profile_bundle_sid"]
+        return self._customer_profile_bundle_sid
 
     @property
-    def a2p_profile_bundle_sid(self) -> str:
+    def a2p_profile_bundle_sid(self) -> Optional[str]:
         """
         :returns: A2P Messaging Profile Bundle BundleSid.
         """
-        return self._properties["a2p_profile_bundle_sid"]
+        return self._a2p_profile_bundle_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def brand_type(self) -> str:
+    def brand_type(self) -> Optional[str]:
         """
         :returns: Type of brand. One of: \"STANDARD\", \"STARTER\". STARTER is for the low volume, STARTER campaign use case. There can only be one STARTER campaign created per STARTER brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand.
         """
-        return self._properties["brand_type"]
+        return self._brand_type
 
     @property
-    def status(self) -> "BrandRegistrationInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["BrandRegistrationInstance.Status"]:
+        return self._status
 
     @property
-    def tcr_id(self) -> str:
+    def tcr_id(self) -> Optional[str]:
         """
         :returns: Campaign Registry (TCR) Brand ID. Assigned only after successful brand registration.
         """
-        return self._properties["tcr_id"]
+        return self._tcr_id
 
     @property
-    def failure_reason(self) -> str:
+    def failure_reason(self) -> Optional[str]:
         """
         :returns: A reason why brand registration has failed. Only applicable when status is FAILED.
         """
-        return self._properties["failure_reason"]
+        return self._failure_reason
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The absolute URL of the Brand Registration resource.
         """
-        return self._properties["url"]
+        return self._url
 
     @property
-    def brand_score(self) -> int:
+    def brand_score(self) -> Optional[int]:
         """
         :returns: The secondary vetting score if it was done. Otherwise, it will be the brand score if it's returned from TCR. It may be null if no score is available.
         """
-        return self._properties["brand_score"]
+        return self._brand_score
 
     @property
-    def brand_feedback(self) -> List["BrandRegistrationInstance.BrandFeedback"]:
+    def brand_feedback(
+        self,
+    ) -> Optional[List["BrandRegistrationInstance.BrandFeedback"]]:
         """
         :returns: Feedback on how to improve brand score
         """
-        return self._properties["brand_feedback"]
+        return self._brand_feedback
 
     @property
-    def identity_status(self) -> "BrandRegistrationInstance.IdentityStatus":
-        """
-        :returns:
-        """
-        return self._properties["identity_status"]
+    def identity_status(self) -> Optional["BrandRegistrationInstance.IdentityStatus"]:
+        return self._identity_status
 
     @property
-    def russell_3000(self) -> bool:
+    def russell_3000(self) -> Optional[bool]:
         """
         :returns: Publicly traded company identified in the Russell 3000 Index
         """
-        return self._properties["russell_3000"]
+        return self._russell_3000
 
     @property
-    def government_entity(self) -> bool:
+    def government_entity(self) -> Optional[bool]:
         """
         :returns: Identified as a government entity
         """
-        return self._properties["government_entity"]
+        return self._government_entity
 
     @property
-    def tax_exempt_status(self) -> str:
+    def tax_exempt_status(self) -> Optional[str]:
         """
         :returns: Nonprofit organization tax-exempt status per section 501 of the U.S. tax code.
         """
-        return self._properties["tax_exempt_status"]
+        return self._tax_exempt_status
 
     @property
-    def skip_automatic_sec_vet(self) -> bool:
+    def skip_automatic_sec_vet(self) -> Optional[bool]:
         """
         :returns: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
         """
-        return self._properties["skip_automatic_sec_vet"]
+        return self._skip_automatic_sec_vet
 
     @property
-    def mock(self) -> bool:
+    def mock(self) -> Optional[bool]:
         """
         :returns: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
         """
-        return self._properties["mock"]
+        return self._mock
 
     @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
+    def links(self) -> Optional[Dict[str, object]]:
+        return self._links
 
     def fetch(self) -> "BrandRegistrationInstance":
         """

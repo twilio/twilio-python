@@ -36,20 +36,22 @@ class TrustProductsEvaluationsInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "policy_sid": payload.get("policy_sid"),
-            "trust_product_sid": payload.get("trust_product_sid"),
-            "status": payload.get("status"),
-            "results": payload.get("results"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-        }
+        self._sid: Optional[str] = payload.get("sid")
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._policy_sid: Optional[str] = payload.get("policy_sid")
+        self._trust_product_sid: Optional[str] = payload.get("trust_product_sid")
+        self._status: Optional["TrustProductsEvaluationsInstance.Status"] = payload.get(
+            "status"
+        )
+        self._results: Optional[List[object]] = payload.get("results")
+        self._date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
             "trust_product_sid": trust_product_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[TrustProductsEvaluationsContext] = None
 
@@ -70,60 +72,51 @@ class TrustProductsEvaluationsInstance(InstanceResource):
         return self._context
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that identifies the Evaluation resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the trust_product resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def policy_sid(self) -> str:
+    def policy_sid(self) -> Optional[str]:
         """
         :returns: The unique string of a policy that is associated to the trust_product resource.
         """
-        return self._properties["policy_sid"]
+        return self._policy_sid
 
     @property
-    def trust_product_sid(self) -> str:
+    def trust_product_sid(self) -> Optional[str]:
         """
         :returns: The unique string that we created to identify the trust_product resource.
         """
-        return self._properties["trust_product_sid"]
+        return self._trust_product_sid
 
     @property
-    def status(self) -> "TrustProductsEvaluationsInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["TrustProductsEvaluationsInstance.Status"]:
+        return self._status
 
     @property
-    def results(self) -> List[object]:
+    def results(self) -> Optional[List[object]]:
         """
         :returns: The results of the Evaluation which includes the valid and invalid attributes.
         """
-        return self._properties["results"]
+        return self._results
 
     @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
+    def date_created(self) -> Optional[datetime]:
+        return self._date_created
 
     @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
+    def url(self) -> Optional[str]:
+        return self._url
 
     def fetch(self) -> "TrustProductsEvaluationsInstance":
         """

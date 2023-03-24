@@ -50,31 +50,39 @@ class RecordingInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "api_version": payload.get("api_version"),
-            "call_sid": payload.get("call_sid"),
-            "conference_sid": payload.get("conference_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "start_time": deserialize.rfc2822_datetime(payload.get("start_time")),
-            "duration": payload.get("duration"),
-            "sid": payload.get("sid"),
-            "price": payload.get("price"),
-            "price_unit": payload.get("price_unit"),
-            "status": payload.get("status"),
-            "channels": deserialize.integer(payload.get("channels")),
-            "source": payload.get("source"),
-            "error_code": deserialize.integer(payload.get("error_code")),
-            "uri": payload.get("uri"),
-            "encryption_details": payload.get("encryption_details"),
-            "subresource_uris": payload.get("subresource_uris"),
-            "media_url": payload.get("media_url"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._api_version: Optional[str] = payload.get("api_version")
+        self._call_sid: Optional[str] = payload.get("call_sid")
+        self._conference_sid: Optional[str] = payload.get("conference_sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._start_time: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("start_time")
+        )
+        self._duration: Optional[str] = payload.get("duration")
+        self._sid: Optional[str] = payload.get("sid")
+        self._price: Optional[str] = payload.get("price")
+        self._price_unit: Optional[str] = payload.get("price_unit")
+        self._status: Optional["RecordingInstance.Status"] = payload.get("status")
+        self._channels: Optional[int] = deserialize.integer(payload.get("channels"))
+        self._source: Optional["RecordingInstance.Source"] = payload.get("source")
+        self._error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
+        self._uri: Optional[str] = payload.get("uri")
+        self._encryption_details: Optional[Dict[str, object]] = payload.get(
+            "encryption_details"
+        )
+        self._subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
+        self._media_url: Optional[str] = payload.get("media_url")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self._sid,
         }
         self._context: Optional[RecordingContext] = None
 
@@ -95,137 +103,131 @@ class RecordingInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def api_version(self) -> str:
+    def api_version(self) -> Optional[str]:
         """
         :returns: The API version used during the recording.
         """
-        return self._properties["api_version"]
+        return self._api_version
 
     @property
-    def call_sid(self) -> str:
+    def call_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Recording resource is associated with. This will always refer to the parent leg of a two-leg call.
         """
-        return self._properties["call_sid"]
+        return self._call_sid
 
     @property
-    def conference_sid(self) -> str:
+    def conference_sid(self) -> Optional[str]:
         """
         :returns: The Conference SID that identifies the conference associated with the recording, if a conference recording.
         """
-        return self._properties["conference_sid"]
+        return self._conference_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def start_time(self) -> datetime:
+    def start_time(self) -> Optional[datetime]:
         """
         :returns: The start time of the recording in GMT and in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
         """
-        return self._properties["start_time"]
+        return self._start_time
 
     @property
-    def duration(self) -> str:
+    def duration(self) -> Optional[str]:
         """
         :returns: The length of the recording in seconds.
         """
-        return self._properties["duration"]
+        return self._duration
 
     @property
-    def sid(self) -> str:
+    def sid(self) -> Optional[str]:
         """
         :returns: The unique string that that we created to identify the Recording resource.
         """
-        return self._properties["sid"]
+        return self._sid
 
     @property
-    def price(self) -> str:
+    def price(self) -> Optional[str]:
         """
         :returns: The one-time cost of creating the recording in the `price_unit` currency.
         """
-        return self._properties["price"]
+        return self._price
 
     @property
-    def price_unit(self) -> str:
+    def price_unit(self) -> Optional[str]:
         """
         :returns: The currency used in the `price` property. Example: `USD`.
         """
-        return self._properties["price_unit"]
+        return self._price_unit
 
     @property
-    def status(self) -> "RecordingInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
+    def status(self) -> Optional["RecordingInstance.Status"]:
+        return self._status
 
     @property
-    def channels(self) -> int:
+    def channels(self) -> Optional[int]:
         """
         :returns: The number of channels in the final recording file. Can be: `1` or `2`. You can split a call with two legs into two separate recording channels if you record using [TwiML Dial](https://www.twilio.com/docs/voice/twiml/dial#record) or the [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls#manage-your-outbound-call).
         """
-        return self._properties["channels"]
+        return self._channels
 
     @property
-    def source(self) -> "RecordingInstance.Source":
-        """
-        :returns:
-        """
-        return self._properties["source"]
+    def source(self) -> Optional["RecordingInstance.Source"]:
+        return self._source
 
     @property
-    def error_code(self) -> int:
+    def error_code(self) -> Optional[int]:
         """
         :returns: The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
         """
-        return self._properties["error_code"]
+        return self._error_code
 
     @property
-    def uri(self) -> str:
+    def uri(self) -> Optional[str]:
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         """
-        return self._properties["uri"]
+        return self._uri
 
     @property
-    def encryption_details(self) -> Dict[str, object]:
+    def encryption_details(self) -> Optional[Dict[str, object]]:
         """
         :returns: How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
         """
-        return self._properties["encryption_details"]
+        return self._encryption_details
 
     @property
-    def subresource_uris(self) -> Dict[str, object]:
+    def subresource_uris(self) -> Optional[Dict[str, object]]:
         """
         :returns: A list of related resources identified by their relative URIs.
         """
-        return self._properties["subresource_uris"]
+        return self._subresource_uris
 
     @property
-    def media_url(self) -> str:
+    def media_url(self) -> Optional[str]:
         """
         :returns: The URL of the media file associated with this recording resource. When stored externally, this is the full URL location of the media file.
         """
-        return self._properties["media_url"]
+        return self._media_url
 
     def delete(self) -> bool:
         """

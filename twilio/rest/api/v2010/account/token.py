@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -29,68 +29,70 @@ class TokenInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "ice_servers": payload.get("ice_servers"),
-            "password": payload.get("password"),
-            "ttl": payload.get("ttl"),
-            "username": payload.get("username"),
-        }
+        self._account_sid: Optional[str] = payload.get("account_sid")
+        self._date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self._date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self._ice_servers: Optional[List[str]] = payload.get("ice_servers")
+        self._password: Optional[str] = payload.get("password")
+        self._ttl: Optional[str] = payload.get("ttl")
+        self._username: Optional[str] = payload.get("username")
 
         self._solution = {
             "account_sid": account_sid,
         }
 
     @property
-    def account_sid(self) -> str:
+    def account_sid(self) -> Optional[str]:
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Token resource.
         """
-        return self._properties["account_sid"]
+        return self._account_sid
 
     @property
-    def date_created(self) -> datetime:
+    def date_created(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_created"]
+        return self._date_created
 
     @property
-    def date_updated(self) -> datetime:
+    def date_updated(self) -> Optional[datetime]:
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         """
-        return self._properties["date_updated"]
+        return self._date_updated
 
     @property
-    def ice_servers(self) -> List[str]:
+    def ice_servers(self) -> Optional[List[str]]:
         """
         :returns: An array representing the ephemeral credentials and the STUN and TURN server URIs.
         """
-        return self._properties["ice_servers"]
+        return self._ice_servers
 
     @property
-    def password(self) -> str:
+    def password(self) -> Optional[str]:
         """
         :returns: The temporary password that the username will use when authenticating with Twilio.
         """
-        return self._properties["password"]
+        return self._password
 
     @property
-    def ttl(self) -> str:
+    def ttl(self) -> Optional[str]:
         """
         :returns: The duration in seconds for which the username and password are valid.
         """
-        return self._properties["ttl"]
+        return self._ttl
 
     @property
-    def username(self) -> str:
+    def username(self) -> Optional[str]:
         """
         :returns: The temporary username that uniquely identifies a Token.
         """
-        return self._properties["username"]
+        return self._username
 
     def __repr__(self) -> str:
         """

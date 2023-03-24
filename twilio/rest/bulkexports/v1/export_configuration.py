@@ -28,16 +28,14 @@ class ExportConfigurationInstance(InstanceResource):
         """
         super().__init__(version)
 
-        self._properties = {
-            "enabled": payload.get("enabled"),
-            "webhook_url": payload.get("webhook_url"),
-            "webhook_method": payload.get("webhook_method"),
-            "resource_type": payload.get("resource_type"),
-            "url": payload.get("url"),
-        }
+        self._enabled: Optional[bool] = payload.get("enabled")
+        self._webhook_url: Optional[str] = payload.get("webhook_url")
+        self._webhook_method: Optional[str] = payload.get("webhook_method")
+        self._resource_type: Optional[str] = payload.get("resource_type")
+        self._url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "resource_type": resource_type or self._properties["resource_type"],
+            "resource_type": resource_type or self._resource_type,
         }
         self._context: Optional[ExportConfigurationContext] = None
 
@@ -57,39 +55,39 @@ class ExportConfigurationInstance(InstanceResource):
         return self._context
 
     @property
-    def enabled(self) -> bool:
+    def enabled(self) -> Optional[bool]:
         """
         :returns: If true, Twilio will automatically generate every day's file when the day is over.
         """
-        return self._properties["enabled"]
+        return self._enabled
 
     @property
-    def webhook_url(self) -> str:
+    def webhook_url(self) -> Optional[str]:
         """
         :returns: Stores the URL destination for the method specified in webhook_method.
         """
-        return self._properties["webhook_url"]
+        return self._webhook_url
 
     @property
-    def webhook_method(self) -> str:
+    def webhook_method(self) -> Optional[str]:
         """
         :returns: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
         """
-        return self._properties["webhook_method"]
+        return self._webhook_method
 
     @property
-    def resource_type(self) -> str:
+    def resource_type(self) -> Optional[str]:
         """
         :returns: The type of communication – Messages, Calls, Conferences, and Participants
         """
-        return self._properties["resource_type"]
+        return self._resource_type
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """
         :returns: The URL of this resource.
         """
-        return self._properties["url"]
+        return self._url
 
     def fetch(self) -> "ExportConfigurationInstance":
         """
