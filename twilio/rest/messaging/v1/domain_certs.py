@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -110,7 +110,7 @@ class DomainCertsInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def cert_in_validation(self) -> dict:
+    def cert_in_validation(self) -> Dict[str, object]:
         """
         :returns: Optional JSON field describing the status and upload date of a new certificate in the process of validation
         """

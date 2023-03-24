@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -176,7 +176,7 @@ class MessageInstance(InstanceResource):
         return self._properties["date_updated"]
 
     @property
-    def delivery(self) -> dict:
+    def delivery(self) -> Dict[str, object]:
         """
         :returns: An object that contains the summary of delivery statuses for the message to non-chat participants.
         """
@@ -190,7 +190,7 @@ class MessageInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: Contains an absolute API resource URL to access the delivery & read receipts of this message.
         """

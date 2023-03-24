@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -163,7 +163,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
         return self._properties["reservations_rescinded"]
 
     @property
-    def split_by_wait_time(self) -> dict:
+    def split_by_wait_time(self) -> Dict[str, object]:
         """
         :returns: A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds.
         """
@@ -177,21 +177,21 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
         return self._properties["task_queue_sid"]
 
     @property
-    def wait_duration_until_accepted(self) -> dict:
+    def wait_duration_until_accepted(self) -> Dict[str, object]:
         """
         :returns: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks were created. For transfers, the wait duration is counted from the moment ***the Task was created***, and not from when the transfer was initiated.
         """
         return self._properties["wait_duration_until_accepted"]
 
     @property
-    def wait_duration_until_canceled(self) -> dict:
+    def wait_duration_until_canceled(self) -> Dict[str, object]:
         """
         :returns: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks canceled while in the TaskQueue.
         """
         return self._properties["wait_duration_until_canceled"]
 
     @property
-    def wait_duration_in_queue_until_accepted(self) -> dict:
+    def wait_duration_in_queue_until_accepted(self) -> Dict[str, object]:
         """
         :returns: The relative wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks entered the TaskQueue.
         """

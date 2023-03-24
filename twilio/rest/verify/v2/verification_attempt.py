@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -131,14 +131,14 @@ class VerificationAttemptInstance(InstanceResource):
         return self._properties["channel"]
 
     @property
-    def price(self) -> dict:
+    def price(self) -> Dict[str, object]:
         """
         :returns: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
         """
         return self._properties["price"]
 
     @property
-    def channel_data(self) -> dict:
+    def channel_data(self) -> Dict[str, object]:
         """
         :returns: An object containing the channel specific information for an attempt.
         """

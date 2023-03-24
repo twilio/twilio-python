@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -116,7 +116,7 @@ class WebhookInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def configuration(self) -> dict:
+    def configuration(self) -> Dict[str, object]:
         """
         :returns: The JSON string that describes how the channel webhook is configured. The configuration object contains the `url`, `method`, `filters`, and `retry_count` values that are configured by the create and update actions.
         """

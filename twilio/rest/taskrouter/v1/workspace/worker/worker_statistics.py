@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -66,7 +66,7 @@ class WorkerStatisticsInstance(InstanceResource):
         return self._properties["account_sid"]
 
     @property
-    def cumulative(self) -> dict:
+    def cumulative(self) -> Dict[str, object]:
         """
         :returns: An object that contains the cumulative statistics for the Worker.
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Dict, List
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -92,7 +92,7 @@ class UsageRecordInstance(InstanceResource):
         return self._properties["iso_country"]
 
     @property
-    def period(self) -> dict:
+    def period(self) -> Dict[str, object]:
         """
         :returns: The time period for which the usage is reported. The period is represented as a pair of `start_time` and `end_time` timestamps specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         """

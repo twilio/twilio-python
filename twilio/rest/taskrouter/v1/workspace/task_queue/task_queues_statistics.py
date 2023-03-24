@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Dict, List
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -49,14 +49,14 @@ class TaskQueuesStatisticsInstance(InstanceResource):
         return self._properties["account_sid"]
 
     @property
-    def cumulative(self) -> dict:
+    def cumulative(self) -> Dict[str, object]:
         """
         :returns: An object that contains the cumulative statistics for the TaskQueues.
         """
         return self._properties["cumulative"]
 
     @property
-    def realtime(self) -> dict:
+    def realtime(self) -> Dict[str, object]:
         """
         :returns: An object that contains the real-time statistics for the TaskQueues.
         """

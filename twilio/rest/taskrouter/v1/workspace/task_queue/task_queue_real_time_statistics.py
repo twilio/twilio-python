@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -127,14 +127,14 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
         return self._properties["task_queue_sid"]
 
     @property
-    def tasks_by_priority(self) -> dict:
+    def tasks_by_priority(self) -> Dict[str, object]:
         """
         :returns: The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
         """
         return self._properties["tasks_by_priority"]
 
     @property
-    def tasks_by_status(self) -> dict:
+    def tasks_by_status(self) -> Dict[str, object]:
         """
         :returns: The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
         """

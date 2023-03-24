@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Dict
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -45,7 +46,7 @@ class StreamMessageInstance(InstanceResource):
         return self._properties["sid"]
 
     @property
-    def data(self) -> dict:
+    def data(self) -> Dict[str, object]:
         """
         :returns: An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
         """

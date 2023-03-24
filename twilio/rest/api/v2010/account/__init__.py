@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -150,7 +150,7 @@ class AccountInstance(InstanceResource):
         return self._properties["status"]
 
     @property
-    def subresource_uris(self) -> dict:
+    def subresource_uris(self) -> Dict[str, object]:
         """
         :returns: A Map of various subresources available for the given Account Instance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -182,42 +182,42 @@ class CallSummaryInstance(InstanceResource):
         return self._properties["connect_duration"]
 
     @property
-    def _from(self) -> dict:
+    def _from(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["_from"]
 
     @property
-    def to(self) -> dict:
+    def to(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["to"]
 
     @property
-    def carrier_edge(self) -> dict:
+    def carrier_edge(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["carrier_edge"]
 
     @property
-    def client_edge(self) -> dict:
+    def client_edge(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["client_edge"]
 
     @property
-    def sdk_edge(self) -> dict:
+    def sdk_edge(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["sdk_edge"]
 
     @property
-    def sip_edge(self) -> dict:
+    def sip_edge(self) -> Dict[str, object]:
         """
         :returns:
         """
@@ -238,28 +238,28 @@ class CallSummaryInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def attributes(self) -> dict:
+    def attributes(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["attributes"]
 
     @property
-    def properties(self) -> dict:
+    def properties(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["properties"]
 
     @property
-    def trust(self) -> dict:
+    def trust(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["trust"]
 
     @property
-    def annotation(self) -> dict:
+    def annotation(self) -> Dict[str, object]:
         """
         :returns:
         """

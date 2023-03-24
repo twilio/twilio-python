@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -166,7 +166,7 @@ class UsAppToPersonInstance(InstanceResource):
         return self._properties["is_externally_registered"]
 
     @property
-    def rate_limits(self) -> dict:
+    def rate_limits(self) -> Dict[str, object]:
         """
         :returns: Rate limit and/or classification set by each carrier, Ex. AT&T or T-Mobile.
         """

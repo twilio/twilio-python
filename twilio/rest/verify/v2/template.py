@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Dict, List
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -68,7 +68,7 @@ class TemplateInstance(InstanceResource):
         return self._properties["channels"]
 
     @property
-    def translations(self) -> dict:
+    def translations(self) -> Dict[str, object]:
         """
         :returns: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
         """

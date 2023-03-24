@@ -13,6 +13,8 @@ r"""
 """
 
 
+from typing import Dict
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -43,21 +45,21 @@ class InsightsSettingsAnswerSetsInstance(InstanceResource):
         return self._properties["account_sid"]
 
     @property
-    def answer_sets(self) -> dict:
+    def answer_sets(self) -> Dict[str, object]:
         """
         :returns: The lis of answer sets
         """
         return self._properties["answer_sets"]
 
     @property
-    def answer_set_categories(self) -> dict:
+    def answer_set_categories(self) -> Dict[str, object]:
         """
         :returns: The list of answer set categories
         """
         return self._properties["answer_set_categories"]
 
     @property
-    def not_applicable(self) -> dict:
+    def not_applicable(self) -> Dict[str, object]:
         """
         :returns: The details for not applicable answer set
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -71,7 +71,7 @@ class PoliciesInstance(InstanceResource):
         return self._properties["friendly_name"]
 
     @property
-    def requirements(self) -> dict:
+    def requirements(self) -> Dict[str, object]:
         """
         :returns: The SID of an object that holds the policy information
         """

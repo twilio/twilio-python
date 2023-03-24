@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -91,7 +91,7 @@ class AvailableAddOnInstance(InstanceResource):
         return self._properties["pricing_type"]
 
     @property
-    def configuration_schema(self) -> dict:
+    def configuration_schema(self) -> Dict[str, object]:
         """
         :returns: The JSON object with the configuration that must be provided when installing a given Add-on.
         """
@@ -105,7 +105,7 @@ class AvailableAddOnInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The URLs of related resources.
         """

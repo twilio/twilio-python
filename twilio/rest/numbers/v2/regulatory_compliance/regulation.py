@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -99,7 +99,7 @@ class RegulationInstance(InstanceResource):
         return self._properties["end_user_type"]
 
     @property
-    def requirements(self) -> dict:
+    def requirements(self) -> Dict[str, object]:
         """
         :returns: The SID of an object that holds the regulatory information of the phone number country, phone number type, and end user type.
         """

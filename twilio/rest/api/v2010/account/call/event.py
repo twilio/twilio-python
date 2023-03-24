@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Dict, List
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -40,14 +40,14 @@ class EventInstance(InstanceResource):
         }
 
     @property
-    def request(self) -> dict:
+    def request(self) -> Dict[str, object]:
         """
         :returns: Contains a dictionary representing the request of the call.
         """
         return self._properties["request"]
 
     @property
-    def response(self) -> dict:
+    def response(self) -> Dict[str, object]:
         """
         :returns: Contains a dictionary representing the call response, including a list of the call events.
         """

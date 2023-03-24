@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -63,7 +63,7 @@ class BuildInstance(InstanceResource):
         self._context: Optional[BuildContext] = None
 
     @property
-    def _proxy(self) -> 'BuildContext':
+    def _proxy(self) -> "BuildContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
@@ -152,7 +152,7 @@ class BuildInstance(InstanceResource):
         return self._properties['url']
     
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: 
         """

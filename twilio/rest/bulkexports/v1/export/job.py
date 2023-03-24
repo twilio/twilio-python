@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -77,7 +77,7 @@ class JobInstance(InstanceResource):
         return self._properties["friendly_name"]
 
     @property
-    def details(self) -> dict:
+    def details(self) -> Dict[str, object]:
         """
         :returns: The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
         """

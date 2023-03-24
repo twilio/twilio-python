@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -158,14 +158,14 @@ class ServiceInstance(InstanceResource):
         return self._properties["custom_code_enabled"]
 
     @property
-    def push(self) -> dict:
+    def push(self) -> Dict[str, object]:
         """
         :returns: Configurations for the Push factors (channel) created under this Service.
         """
         return self._properties["push"]
 
     @property
-    def totp(self) -> dict:
+    def totp(self) -> Dict[str, object]:
         """
         :returns: Configurations for the TOTP factors (channel) created under this Service.
         """
@@ -200,7 +200,7 @@ class ServiceInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The URLs of related resources.
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -96,7 +96,7 @@ class EventInstance(InstanceResource):
         return self._properties["description"]
 
     @property
-    def event_data(self) -> dict:
+    def event_data(self) -> Dict[str, object]:
         """
         :returns: An object with additional data about the event. The  contents depend on `event_type`. For example, event-types of the form `RESOURCE.updated`, this value contains a `resource_properties` dictionary that describes the previous and updated properties of the resource.
         """
@@ -159,7 +159,7 @@ class EventInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The absolute URLs of related resources.
         """

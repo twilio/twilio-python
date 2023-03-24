@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import deserialize
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -76,7 +76,7 @@ class SchemaInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: Contains a dictionary of URL links to nested resources of this schema.
         """

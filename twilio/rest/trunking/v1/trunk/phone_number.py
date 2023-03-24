@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -116,7 +116,7 @@ class PhoneNumberInstance(InstanceResource):
         return self._properties["beta"]
 
     @property
-    def capabilities(self) -> dict:
+    def capabilities(self) -> Dict[str, object]:
         """
         :returns: The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
         """
@@ -144,7 +144,7 @@ class PhoneNumberInstance(InstanceResource):
         return self._properties["friendly_name"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The URLs of related resources.
         """

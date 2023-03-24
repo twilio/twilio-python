@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Dict, List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -61,7 +61,7 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
         return self._properties["assessment_id"]
 
     @property
-    def comment(self) -> dict:
+    def comment(self) -> Dict[str, object]:
         """
         :returns: The comment added for assessment.
         """

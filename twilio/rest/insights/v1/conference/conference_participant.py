@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -293,21 +293,21 @@ class ConferenceParticipantInstance(InstanceResource):
         return self._properties["processing_state"]
 
     @property
-    def properties(self) -> dict:
+    def properties(self) -> Dict[str, object]:
         """
         :returns: Participant properties and metadata.
         """
         return self._properties["properties"]
 
     @property
-    def events(self) -> dict:
+    def events(self) -> Dict[str, object]:
         """
         :returns: Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant.
         """
         return self._properties["events"]
 
     @property
-    def metrics(self) -> dict:
+    def metrics(self) -> Dict[str, object]:
         """
         :returns: Object. Contains participant call quality metrics.
         """

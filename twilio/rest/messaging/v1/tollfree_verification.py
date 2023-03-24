@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -311,7 +311,7 @@ class TollfreeVerificationInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def resource_links(self) -> dict:
+    def resource_links(self) -> Dict[str, object]:
         """
         :returns: The URLs of the documents associated with the Tollfree Verification resource.
         """

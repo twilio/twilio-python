@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -86,14 +86,14 @@ class DeviceInstance(InstanceResource):
         return self._properties["account_sid"]
 
     @property
-    def app(self) -> dict:
+    def app(self) -> Dict[str, object]:
         """
         :returns: Information about the target App and the App reported by this Device. Contains the properties `target_sid`, `date_targeted`, `update_status` (one of `up-to-date`, `pending` and `error`), `update_error_code`, `reported_sid` and `date_reported`.
         """
         return self._properties["app"]
 
     @property
-    def logging(self) -> dict:
+    def logging(self) -> Dict[str, object]:
         """
         :returns: Object specifying whether application logging is enabled for this Device. Contains the properties `enabled` and `date_expires`.
         """
@@ -121,7 +121,7 @@ class DeviceInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The absolute URLs of related resources.
         """

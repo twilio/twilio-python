@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -151,7 +151,7 @@ class FlexFlowInstance(InstanceResource):
         return self._properties["integration_type"]
 
     @property
-    def integration(self) -> dict:
+    def integration(self) -> Dict[str, object]:
         """
         :returns: An object that contains specific parameters for the integration.
         """

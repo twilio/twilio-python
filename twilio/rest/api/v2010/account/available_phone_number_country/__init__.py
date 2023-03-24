@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -107,7 +107,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         return self._properties["beta"]
 
     @property
-    def subresource_uris(self) -> dict:
+    def subresource_uris(self) -> Dict[str, object]:
         """
         :returns: A list of related AvailablePhoneNumber resources identified by their URIs relative to `https://api.twilio.com`.
         """

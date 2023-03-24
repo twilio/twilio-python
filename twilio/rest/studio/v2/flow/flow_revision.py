@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -93,7 +93,7 @@ class FlowRevisionInstance(InstanceResource):
         return self._properties["friendly_name"]
 
     @property
-    def definition(self) -> dict:
+    def definition(self) -> Dict[str, object]:
         """
         :returns: JSON representation of flow definition.
         """

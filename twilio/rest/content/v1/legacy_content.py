@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List
+from typing import Dict, List
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -89,14 +89,14 @@ class LegacyContentInstance(InstanceResource):
         return self._properties["language"]
 
     @property
-    def variables(self) -> dict:
+    def variables(self) -> Dict[str, object]:
         """
         :returns: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
         """
         return self._properties["variables"]
 
     @property
-    def types(self) -> dict:
+    def types(self) -> Dict[str, object]:
         """
         :returns: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
         """

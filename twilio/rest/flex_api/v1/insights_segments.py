@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -201,21 +201,21 @@ class InsightsSegmentsInstance(InstanceResource):
         return self._properties["segment_recording_offset"]
 
     @property
-    def media(self) -> dict:
+    def media(self) -> Dict[str, object]:
         """
         :returns: The media identifiers of the conversation.
         """
         return self._properties["media"]
 
     @property
-    def assessment_type(self) -> dict:
+    def assessment_type(self) -> Dict[str, object]:
         """
         :returns: The type of the assessment.
         """
         return self._properties["assessment_type"]
 
     @property
-    def assessment_percentage(self) -> dict:
+    def assessment_percentage(self) -> Dict[str, object]:
         """
         :returns: The percentage scored on the Assessments.
         """

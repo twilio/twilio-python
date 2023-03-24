@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -126,7 +126,7 @@ class SyncMapItemInstance(InstanceResource):
         return self._properties["revision"]
 
     @property
-    def data(self) -> dict:
+    def data(self) -> Dict[str, object]:
         """
         :returns: An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
         """

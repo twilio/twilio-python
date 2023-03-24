@@ -13,6 +13,8 @@ r"""
 """
 
 
+from typing import Dict
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -41,7 +43,7 @@ class InsightsSettingsCommentInstance(InstanceResource):
         return self._properties["account_sid"]
 
     @property
-    def comments(self) -> dict:
+    def comments(self) -> Dict[str, object]:
         """
         :returns:
         """

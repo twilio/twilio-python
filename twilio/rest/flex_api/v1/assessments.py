@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -144,7 +144,7 @@ class AssessmentsInstance(InstanceResource):
         return self._properties["answer_id"]
 
     @property
-    def assessment(self) -> dict:
+    def assessment(self) -> Dict[str, object]:
         """
         :returns: Assessment Details associated with an assessment
         """

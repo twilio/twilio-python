@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Dict, List
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -94,28 +94,28 @@ class MetricInstance(InstanceResource):
         return self._properties["direction"]
 
     @property
-    def carrier_edge(self) -> dict:
+    def carrier_edge(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["carrier_edge"]
 
     @property
-    def sip_edge(self) -> dict:
+    def sip_edge(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["sip_edge"]
 
     @property
-    def sdk_edge(self) -> dict:
+    def sdk_edge(self) -> Dict[str, object]:
         """
         :returns:
         """
         return self._properties["sdk_edge"]
 
     @property
-    def client_edge(self) -> dict:
+    def client_edge(self) -> Dict[str, object]:
         """
         :returns:
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -105,7 +105,7 @@ class ConfigurationInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: Contains an absolute API resource URL to access the push notifications configuration of this service.
         """

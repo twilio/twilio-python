@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -117,56 +117,56 @@ class PhoneNumberInstance(InstanceResource):
         return self._properties["validation_errors"]
 
     @property
-    def caller_name(self) -> dict:
+    def caller_name(self) -> Dict[str, object]:
         """
         :returns: An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
         """
         return self._properties["caller_name"]
 
     @property
-    def sim_swap(self) -> dict:
+    def sim_swap(self) -> Dict[str, object]:
         """
         :returns: An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
         """
         return self._properties["sim_swap"]
 
     @property
-    def call_forwarding(self) -> dict:
+    def call_forwarding(self) -> Dict[str, object]:
         """
         :returns: An object that contains information on the unconditional call forwarding status of mobile phone number.
         """
         return self._properties["call_forwarding"]
 
     @property
-    def live_activity(self) -> dict:
+    def live_activity(self) -> Dict[str, object]:
         """
         :returns: An object that contains live activity information for a mobile phone number.
         """
         return self._properties["live_activity"]
 
     @property
-    def line_type_intelligence(self) -> dict:
+    def line_type_intelligence(self) -> Dict[str, object]:
         """
         :returns: An object that contains line type information including the carrier name, mobile country code, and mobile network code.
         """
         return self._properties["line_type_intelligence"]
 
     @property
-    def identity_match(self) -> dict:
+    def identity_match(self) -> Dict[str, object]:
         """
         :returns: An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
         """
         return self._properties["identity_match"]
 
     @property
-    def sms_pumping_risk(self) -> dict:
+    def sms_pumping_risk(self) -> Dict[str, object]:
         """
         :returns: An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
         """
         return self._properties["sms_pumping_risk"]
 
     @property
-    def disposable_phone_number_risk(self) -> dict:
+    def disposable_phone_number_risk(self) -> Dict[str, object]:
         """
         :returns: An object that contains information on if a mobile phone number could be a disposable or burner number.
         """

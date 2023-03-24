@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -110,7 +110,7 @@ class EngagementInstance(InstanceResource):
         return self._properties["contact_channel_address"]
 
     @property
-    def context(self) -> dict:
+    def context(self) -> Dict[str, object]:
         """
         :returns: The current state of the execution flow. As your flow executes, we save the state in a flow context. Your widgets can access the data in the flow context as variables, either in configuration fields or in text areas as variable substitution.
         """
@@ -145,7 +145,7 @@ class EngagementInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The URLs of the Engagement's nested resources.
         """

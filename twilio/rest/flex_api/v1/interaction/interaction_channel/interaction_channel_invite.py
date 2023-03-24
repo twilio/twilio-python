@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Dict, List
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -64,7 +64,7 @@ class InteractionChannelInviteInstance(InstanceResource):
         return self._properties["channel_sid"]
 
     @property
-    def routing(self) -> dict:
+    def routing(self) -> Dict[str, object]:
         """
         :returns: A JSON object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
         """

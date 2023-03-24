@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import date
-from typing import List
+from typing import Dict, List
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -449,7 +449,7 @@ class LastMonthInstance(InstanceResource):
         return self._properties["start_date"]
 
     @property
-    def subresource_uris(self) -> dict:
+    def subresource_uris(self) -> Dict[str, object]:
         """
         :returns: A list of related resources identified by their URIs. For more information, see [List Subresources](https://www.twilio.com/docs/usage/api/usage-record#list-subresources).
         """

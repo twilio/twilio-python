@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -171,7 +171,7 @@ class RoomRecordingInstance(InstanceResource):
         return self._properties["codec"]
 
     @property
-    def grouping_sids(self) -> dict:
+    def grouping_sids(self) -> Dict[str, object]:
         """
         :returns: A list of SIDs related to the Recording. Includes the `room_sid` and `participant_sid`.
         """
@@ -206,7 +206,7 @@ class RoomRecordingInstance(InstanceResource):
         return self._properties["room_sid"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The URLs of related resources.
         """

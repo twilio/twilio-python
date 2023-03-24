@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -115,7 +115,7 @@ class ExecutionStepInstance(InstanceResource):
         return self._properties["name"]
 
     @property
-    def context(self) -> dict:
+    def context(self) -> Dict[str, object]:
         """
         :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
         """
@@ -157,7 +157,7 @@ class ExecutionStepInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def links(self) -> dict:
+    def links(self) -> Dict[str, object]:
         """
         :returns: The URLs of related resources.
         """
