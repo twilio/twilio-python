@@ -46,7 +46,11 @@ class BuildStatusInstance(InstanceResource):
         self.status: Optional["BuildStatusInstance.Status"] = payload.get("status")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = { "service_sid": service_sid, "sid": sid,  }
+        
+        self._solution = { 
+            "service_sid": service_sid,
+            "sid": sid,
+        }
         self._context: Optional[BuildStatusContext] = None
 
     @property

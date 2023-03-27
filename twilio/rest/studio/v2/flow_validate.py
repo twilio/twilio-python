@@ -32,16 +32,14 @@ class FlowValidateInstance(InstanceResource):
 
         self.valid: Optional[bool] = payload.get("valid")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowValidateInstance {}>".format(context)
+
+        return "<Twilio.Studio.V2.FlowValidateInstance>"
 
 
 class FlowValidateList(ListResource):

@@ -61,16 +61,14 @@ class RestoreAssistantInstance(InstanceResource):
         self.callback_url: Optional[str] = payload.get("callback_url")
         self.callback_events: Optional[str] = payload.get("callback_events")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Autopilot.V1.RestoreAssistantInstance {}>".format(context)
+
+        return "<Twilio.Autopilot.V1.RestoreAssistantInstance>"
 
 
 class RestoreAssistantList(ListResource):

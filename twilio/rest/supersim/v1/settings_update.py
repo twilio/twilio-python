@@ -59,16 +59,14 @@ class SettingsUpdateInstance(InstanceResource):
             payload.get("date_updated")
         )
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SettingsUpdateInstance {}>".format(context)
+
+        return "<Twilio.Supersim.V1.SettingsUpdateInstance>"
 
 
 class SettingsUpdatePage(Page):

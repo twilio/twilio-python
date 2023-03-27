@@ -41,7 +41,6 @@ class UserInfoInstance(InstanceResource):
         self.email: Optional[str] = payload.get("email")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
         self._context: Optional[UserInfoContext] = None
 
     @property
@@ -82,8 +81,8 @@ class UserInfoInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Oauth.V1.UserInfoInstance {}>".format(context)
+
+        return "<Twilio.Oauth.V1.UserInfoInstance>"
 
 
 class UserInfoContext(InstanceContext):

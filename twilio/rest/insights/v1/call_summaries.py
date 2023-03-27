@@ -130,16 +130,14 @@ class CallSummariesInstance(InstanceResource):
         self.properties: Optional[Dict[str, object]] = payload.get("properties")
         self.trust: Optional[Dict[str, object]] = payload.get("trust")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.CallSummariesInstance {}>".format(context)
+
+        return "<Twilio.Insights.V1.CallSummariesInstance>"
 
 
 class CallSummariesPage(Page):

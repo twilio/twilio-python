@@ -36,16 +36,14 @@ class BulkCountryUpdateInstance(InstanceResource):
         )
         self.update_request: Optional[str] = payload.get("update_request")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.BulkCountryUpdateInstance {}>".format(context)
+
+        return "<Twilio.Voice.V1.BulkCountryUpdateInstance>"
 
 
 class BulkCountryUpdateList(ListResource):

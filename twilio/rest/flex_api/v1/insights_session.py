@@ -40,7 +40,6 @@ class InsightsSessionInstance(InstanceResource):
         self.base_url: Optional[str] = payload.get("base_url")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
         self._context: Optional[InsightsSessionContext] = None
 
     @property
@@ -89,8 +88,8 @@ class InsightsSessionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsSessionInstance {}>".format(context)
+
+        return "<Twilio.FlexApi.V1.InsightsSessionInstance>"
 
 
 class InsightsSessionContext(InstanceContext):

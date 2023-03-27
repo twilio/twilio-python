@@ -86,18 +86,14 @@ class ParticipantConversationInstance(InstanceResource):
         )
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ParticipantConversationInstance {}>".format(
-            context
-        )
+
+        return "<Twilio.Conversations.V1.ParticipantConversationInstance>"
 
 
 class ParticipantConversationPage(Page):

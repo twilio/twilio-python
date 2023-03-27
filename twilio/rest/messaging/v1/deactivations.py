@@ -32,7 +32,6 @@ class DeactivationsInstance(InstanceResource):
 
         self.redirect_to: Optional[str] = payload.get("redirect_to")
 
-        self._solution = {}
         self._context: Optional[DeactivationsContext] = None
 
     @property
@@ -79,8 +78,8 @@ class DeactivationsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.DeactivationsInstance {}>".format(context)
+
+        return "<Twilio.Messaging.V1.DeactivationsInstance>"
 
 
 class DeactivationsContext(InstanceContext):
