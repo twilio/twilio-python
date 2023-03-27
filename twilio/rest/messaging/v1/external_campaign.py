@@ -14,6 +14,7 @@ r"""
 
 
 from datetime import datetime
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -22,56 +23,27 @@ from twilio.base.version import Version
 
 
 class ExternalCampaignInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the ExternalCampaignInstance
-        """
+
+    """
+    :ivar sid: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
+    :ivar campaign_id: ID of the preregistered campaign.
+    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "campaign_id": payload.get("campaign_id"),
-            "messaging_service_sid": payload.get("messaging_service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.campaign_id: Optional[str] = payload.get("campaign_id")
+        self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
 
         self._solution = {}
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def campaign_id(self) -> str:
-        """
-        :returns: ID of the preregistered campaign.
-        """
-        return self._properties["campaign_id"]
-
-    @property
-    def messaging_service_sid(self) -> str:
-        """
-        :returns: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
-        """
-        return self._properties["messaging_service_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
 
     def __repr__(self) -> str:
         """

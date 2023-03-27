@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,25 +27,44 @@ class AnonymizeInstance(InstanceResource):
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
 
-    def __init__(self, version, payload, room_sid: str, sid: str):
-        """
-        Initialize the AnonymizeInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the RoomParticipant resource.
+    :ivar room_sid: The SID of the participant's room.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomParticipant resource.
+    :ivar status: 
+    :ivar identity: The SID of the participant.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar start_time: The time of participant connected to the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+    :ivar end_time: The time when the participant disconnected from the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+    :ivar duration: The duration in seconds that the participant was `connected`. Populated only after the participant is `disconnected`.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], room_sid: str, sid: str
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "room_sid": payload.get("room_sid"),
-            "account_sid": payload.get("account_sid"),
-            "status": payload.get("status"),
-            "identity": payload.get("identity"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "start_time": deserialize.iso8601_datetime(payload.get("start_time")),
-            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
-            "duration": deserialize.integer(payload.get("duration")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.room_sid: Optional[str] = payload.get("room_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.status: Optional["AnonymizeInstance.Status"] = payload.get("status")
+        self.identity: Optional[str] = payload.get("identity")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
+        self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "room_sid": room_sid,
@@ -68,83 +87,6 @@ class AnonymizeInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the RoomParticipant resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def room_sid(self) -> str:
-        """
-        :returns: The SID of the participant's room.
-        """
-        return self._properties["room_sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RoomParticipant resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def status(self) -> "AnonymizeInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: The SID of the participant.
-        """
-        return self._properties["identity"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def start_time(self) -> datetime:
-        """
-        :returns: The time of participant connected to the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        """
-        return self._properties["start_time"]
-
-    @property
-    def end_time(self) -> datetime:
-        """
-        :returns: The time when the participant disconnected from the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        """
-        return self._properties["end_time"]
-
-    @property
-    def duration(self) -> int:
-        """
-        :returns: The duration in seconds that the participant was `connected`. Populated only after the participant is `disconnected`.
-        """
-        return self._properties["duration"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def update(self) -> "AnonymizeInstance":
         """

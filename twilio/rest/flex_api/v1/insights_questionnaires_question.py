@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,27 +23,41 @@ from twilio.base.page import Page
 
 
 class InsightsQuestionnairesQuestionInstance(InstanceResource):
-    def __init__(self, version, payload, question_id: Optional[str] = None):
-        """
-        Initialize the InsightsQuestionnairesQuestionInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+    :ivar question_id: The unique ID of the question
+    :ivar question: The question.
+    :ivar description: The description for the question.
+    :ivar category: The Category for the question.
+    :ivar answer_set_id: The answer_set for the question.
+    :ivar allow_na: The flag  to enable for disable NA for answer.
+    :ivar usage: Integer value that tells a particular question is used by how many questionnaires
+    :ivar answer_set: Set of answers for the question
+    :ivar url:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        question_id: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "question_id": payload.get("question_id"),
-            "question": payload.get("question"),
-            "description": payload.get("description"),
-            "category": payload.get("category"),
-            "answer_set_id": payload.get("answer_set_id"),
-            "allow_na": payload.get("allow_na"),
-            "usage": deserialize.integer(payload.get("usage")),
-            "answer_set": payload.get("answer_set"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.question_id: Optional[str] = payload.get("question_id")
+        self.question: Optional[str] = payload.get("question")
+        self.description: Optional[str] = payload.get("description")
+        self.category: Optional[Dict[str, object]] = payload.get("category")
+        self.answer_set_id: Optional[str] = payload.get("answer_set_id")
+        self.allow_na: Optional[bool] = payload.get("allow_na")
+        self.usage: Optional[int] = deserialize.integer(payload.get("usage"))
+        self.answer_set: Optional[Dict[str, object]] = payload.get("answer_set")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "question_id": question_id or self._properties["question_id"],
+            "question_id": question_id or self.question_id,
         }
         self._context: Optional[InsightsQuestionnairesQuestionContext] = None
 
@@ -61,76 +75,6 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
                 question_id=self._solution["question_id"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def question_id(self) -> str:
-        """
-        :returns: The unique ID of the question
-        """
-        return self._properties["question_id"]
-
-    @property
-    def question(self) -> str:
-        """
-        :returns: The question.
-        """
-        return self._properties["question"]
-
-    @property
-    def description(self) -> str:
-        """
-        :returns: The description for the question.
-        """
-        return self._properties["description"]
-
-    @property
-    def category(self) -> Dict[str, object]:
-        """
-        :returns: The Category for the question.
-        """
-        return self._properties["category"]
-
-    @property
-    def answer_set_id(self) -> str:
-        """
-        :returns: The answer_set for the question.
-        """
-        return self._properties["answer_set_id"]
-
-    @property
-    def allow_na(self) -> bool:
-        """
-        :returns: The flag  to enable for disable NA for answer.
-        """
-        return self._properties["allow_na"]
-
-    @property
-    def usage(self) -> int:
-        """
-        :returns: Integer value that tells a particular question is used by how many questionnaires
-        """
-        return self._properties["usage"]
-
-    @property
-    def answer_set(self) -> Dict[str, object]:
-        """
-        :returns: Set of answers for the question
-        """
-        return self._properties["answer_set"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def delete(self, token=values.unset) -> bool:
         """

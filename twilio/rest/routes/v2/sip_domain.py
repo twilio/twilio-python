@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,25 +23,41 @@ from twilio.base.version import Version
 
 
 class SipDomainInstance(InstanceResource):
-    def __init__(self, version, payload, sip_domain: Optional[str] = None):
-        """
-        Initialize the SipDomainInstance
-        """
+
+    """
+    :ivar sip_domain:
+    :ivar url:
+    :ivar sid:
+    :ivar account_sid:
+    :ivar friendly_name:
+    :ivar voice_region:
+    :ivar date_created:
+    :ivar date_updated:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        sip_domain: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sip_domain": payload.get("sip_domain"),
-            "url": payload.get("url"),
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "voice_region": payload.get("voice_region"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self.sip_domain: Optional[str] = payload.get("sip_domain")
+        self.url: Optional[str] = payload.get("url")
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.voice_region: Optional[str] = payload.get("voice_region")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
-            "sip_domain": sip_domain or self._properties["sip_domain"],
+            "sip_domain": sip_domain or self.sip_domain,
         }
         self._context: Optional[SipDomainContext] = None
 
@@ -59,62 +75,6 @@ class SipDomainInstance(InstanceResource):
                 sip_domain=self._solution["sip_domain"],
             )
         return self._context
-
-    @property
-    def sip_domain(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sip_domain"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def voice_region(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["voice_region"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
 
     def fetch(self) -> "SipDomainInstance":
         """

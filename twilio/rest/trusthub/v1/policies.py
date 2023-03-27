@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,21 +23,26 @@ from twilio.base.page import Page
 
 
 class PoliciesInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the PoliciesInstance
-        """
+
+    """
+    :ivar sid: The unique string that identifies the Policy resource.
+    :ivar friendly_name: A human-readable description that is assigned to describe the Policy resource. Examples can include Primary Customer profile policy
+    :ivar requirements: The SID of an object that holds the policy information
+    :ivar url: The absolute URL of the Policy resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "requirements": payload.get("requirements"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.requirements: Optional[Dict[str, object]] = payload.get("requirements")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[PoliciesContext] = None
 
@@ -55,34 +60,6 @@ class PoliciesInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that identifies the Policy resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: A human-readable description that is assigned to describe the Policy resource. Examples can include Primary Customer profile policy
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def requirements(self) -> Dict[str, object]:
-        """
-        :returns: The SID of an object that holds the policy information
-        """
-        return self._properties["requirements"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Policy resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "PoliciesInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,24 +32,36 @@ from twilio.rest.conversations.v1.service.user import UserList
 
 
 class ServiceInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ServiceInstance
-        """
+
+    """
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this service.
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar friendly_name: The human-readable name of this service, limited to 256 characters. Optional.
+    :ivar date_created: The date that this resource was created.
+    :ivar date_updated: The date that this resource was last updated.
+    :ivar url: An absolute API resource URL for this service.
+    :ivar links: Contains absolute API resource URLs to access conversations, users, roles, bindings and configuration of this service.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -67,55 +79,6 @@ class ServiceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this service.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The human-readable name of this service, limited to 256 characters. Optional.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this resource was created.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this resource was last updated.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: An absolute API resource URL for this service.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: Contains absolute API resource URLs to access conversations, users, roles, bindings and configuration of this service.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

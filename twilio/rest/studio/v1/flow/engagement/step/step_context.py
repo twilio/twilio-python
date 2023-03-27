@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,22 +21,32 @@ from twilio.base.version import Version
 
 
 class StepContextInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the StepContext resource.
+    :ivar context: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
+    :ivar engagement_sid: The SID of the Engagement.
+    :ivar flow_sid: The SID of the Flow.
+    :ivar step_sid: The SID of the Step the context is associated with.
+    :ivar url: The absolute URL of the resource.
+    """
+
     def __init__(
-        self, version, payload, flow_sid: str, engagement_sid: str, step_sid: str
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        flow_sid: str,
+        engagement_sid: str,
+        step_sid: str,
     ):
-        """
-        Initialize the StepContextInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "context": payload.get("context"),
-            "engagement_sid": payload.get("engagement_sid"),
-            "flow_sid": payload.get("flow_sid"),
-            "step_sid": payload.get("step_sid"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.context: Optional[Dict[str, object]] = payload.get("context")
+        self.engagement_sid: Optional[str] = payload.get("engagement_sid")
+        self.flow_sid: Optional[str] = payload.get("flow_sid")
+        self.step_sid: Optional[str] = payload.get("step_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "flow_sid": flow_sid,
@@ -61,48 +71,6 @@ class StepContextInstance(InstanceResource):
                 step_sid=self._solution["step_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the StepContext resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def context(self) -> Dict[str, object]:
-        """
-        :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
-        """
-        return self._properties["context"]
-
-    @property
-    def engagement_sid(self) -> str:
-        """
-        :returns: The SID of the Engagement.
-        """
-        return self._properties["engagement_sid"]
-
-    @property
-    def flow_sid(self) -> str:
-        """
-        :returns: The SID of the Flow.
-        """
-        return self._properties["flow_sid"]
-
-    @property
-    def step_sid(self) -> str:
-        """
-        :returns: The SID of the Step the context is associated with.
-        """
-        return self._properties["step_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "StepContextInstance":
         """

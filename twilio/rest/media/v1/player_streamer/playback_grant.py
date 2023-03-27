@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,19 +23,25 @@ from twilio.base.version import Version
 
 
 class PlaybackGrantInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str):
-        """
-        Initialize the PlaybackGrantInstance
-        """
+
+    """
+    :ivar sid: The unique string generated to identify the PlayerStreamer resource that this PlaybackGrant authorizes views for.
+    :ivar url: The absolute URL of the resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar grant: The grant that authorizes the player sdk to connect to the livestream
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "url": payload.get("url"),
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "grant": payload.get("grant"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.url: Optional[str] = payload.get("url")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.grant: Optional[Dict[str, object]] = payload.get("grant")
 
         self._solution = {
             "sid": sid,
@@ -56,41 +62,6 @@ class PlaybackGrantInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string generated to identify the PlayerStreamer resource that this PlaybackGrant authorizes views for.
-        """
-        return self._properties["sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def grant(self) -> Dict[str, object]:
-        """
-        :returns: The grant that authorizes the player sdk to connect to the livestream
-        """
-        return self._properties["grant"]
 
     def create(
         self, ttl=values.unset, access_control_allow_origin=values.unset

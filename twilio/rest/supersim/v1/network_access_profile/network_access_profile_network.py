@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,30 +23,37 @@ from twilio.base.page import Page
 
 
 class NetworkAccessProfileNetworkInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that identifies the Network resource.
+    :ivar network_access_profile_sid: The unique string that identifies the Network resource's Network Access Profile resource.
+    :ivar friendly_name: A human readable identifier of the Network this resource refers to.
+    :ivar iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resource.
+    :ivar identifiers: Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
+    :ivar url: The absolute URL of the Network resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         network_access_profile_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the NetworkAccessProfileNetworkInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "network_access_profile_sid": payload.get("network_access_profile_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "iso_country": payload.get("iso_country"),
-            "identifiers": payload.get("identifiers"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.network_access_profile_sid: Optional[str] = payload.get(
+            "network_access_profile_sid"
+        )
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.iso_country: Optional[str] = payload.get("iso_country")
+        self.identifiers: Optional[List[object]] = payload.get("identifiers")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "network_access_profile_sid": network_access_profile_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[NetworkAccessProfileNetworkContext] = None
 
@@ -65,48 +72,6 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that identifies the Network resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def network_access_profile_sid(self) -> str:
-        """
-        :returns: The unique string that identifies the Network resource's Network Access Profile resource.
-        """
-        return self._properties["network_access_profile_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: A human readable identifier of the Network this resource refers to.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def iso_country(self) -> str:
-        """
-        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resource.
-        """
-        return self._properties["iso_country"]
-
-    @property
-    def identifiers(self) -> List[object]:
-        """
-        :returns: Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
-        """
-        return self._properties["identifiers"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Network resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

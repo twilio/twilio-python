@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,38 +25,53 @@ from twilio.rest.studio.v1.flow.engagement.step.step_context import StepContextL
 
 
 class StepInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the Step resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Step resource.
+    :ivar flow_sid: The SID of the Flow.
+    :ivar engagement_sid: The SID of the Engagement.
+    :ivar name: The event that caused the Flow to transition to the Step.
+    :ivar context: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
+    :ivar transitioned_from: The Widget that preceded the Widget for the Step.
+    :ivar transitioned_to: The Widget that will follow the Widget for the Step.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the resource.
+    :ivar links: The URLs of related resources.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         flow_sid: str,
         engagement_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the StepInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "flow_sid": payload.get("flow_sid"),
-            "engagement_sid": payload.get("engagement_sid"),
-            "name": payload.get("name"),
-            "context": payload.get("context"),
-            "transitioned_from": payload.get("transitioned_from"),
-            "transitioned_to": payload.get("transitioned_to"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.flow_sid: Optional[str] = payload.get("flow_sid")
+        self.engagement_sid: Optional[str] = payload.get("engagement_sid")
+        self.name: Optional[str] = payload.get("name")
+        self.context: Optional[Dict[str, object]] = payload.get("context")
+        self.transitioned_from: Optional[str] = payload.get("transitioned_from")
+        self.transitioned_to: Optional[str] = payload.get("transitioned_to")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "flow_sid": flow_sid,
             "engagement_sid": engagement_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[StepContext] = None
 
@@ -76,90 +91,6 @@ class StepInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Step resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Step resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def flow_sid(self) -> str:
-        """
-        :returns: The SID of the Flow.
-        """
-        return self._properties["flow_sid"]
-
-    @property
-    def engagement_sid(self) -> str:
-        """
-        :returns: The SID of the Engagement.
-        """
-        return self._properties["engagement_sid"]
-
-    @property
-    def name(self) -> str:
-        """
-        :returns: The event that caused the Flow to transition to the Step.
-        """
-        return self._properties["name"]
-
-    @property
-    def context(self) -> Dict[str, object]:
-        """
-        :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
-        """
-        return self._properties["context"]
-
-    @property
-    def transitioned_from(self) -> str:
-        """
-        :returns: The Widget that preceded the Widget for the Step.
-        """
-        return self._properties["transitioned_from"]
-
-    @property
-    def transitioned_to(self) -> str:
-        """
-        :returns: The Widget that will follow the Widget for the Step.
-        """
-        return self._properties["transitioned_to"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._properties["links"]
 
     def fetch(self) -> "StepInstance":
         """

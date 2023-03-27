@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,23 +23,37 @@ from twilio.base.page import Page
 
 
 class CountryInstance(InstanceResource):
-    def __init__(self, version, payload, iso_country: Optional[str] = None):
-        """
-        Initialize the CountryInstance
-        """
+
+    """
+    :ivar country: The name of the country.
+    :ivar iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+    :ivar outbound_prefix_prices: The list of OutboundPrefixPrice records, which include a list of the `prefixes`, the `friendly_name`, `base_price`, and the   `current_price` for those prefixes.
+    :ivar inbound_call_prices: The list of [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) records.
+    :ivar price_unit: The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        iso_country: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "country": payload.get("country"),
-            "iso_country": payload.get("iso_country"),
-            "outbound_prefix_prices": payload.get("outbound_prefix_prices"),
-            "inbound_call_prices": payload.get("inbound_call_prices"),
-            "price_unit": payload.get("price_unit"),
-            "url": payload.get("url"),
-        }
+        self.country: Optional[str] = payload.get("country")
+        self.iso_country: Optional[str] = payload.get("iso_country")
+        self.outbound_prefix_prices: Optional[List[str]] = payload.get(
+            "outbound_prefix_prices"
+        )
+        self.inbound_call_prices: Optional[List[str]] = payload.get(
+            "inbound_call_prices"
+        )
+        self.price_unit: Optional[str] = payload.get("price_unit")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "iso_country": iso_country or self._properties["iso_country"],
+            "iso_country": iso_country or self.iso_country,
         }
         self._context: Optional[CountryContext] = None
 
@@ -57,48 +71,6 @@ class CountryInstance(InstanceResource):
                 iso_country=self._solution["iso_country"],
             )
         return self._context
-
-    @property
-    def country(self) -> str:
-        """
-        :returns: The name of the country.
-        """
-        return self._properties["country"]
-
-    @property
-    def iso_country(self) -> str:
-        """
-        :returns: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-        """
-        return self._properties["iso_country"]
-
-    @property
-    def outbound_prefix_prices(self) -> List[str]:
-        """
-        :returns: The list of OutboundPrefixPrice records, which include a list of the `prefixes`, the `friendly_name`, `base_price`, and the   `current_price` for those prefixes.
-        """
-        return self._properties["outbound_prefix_prices"]
-
-    @property
-    def inbound_call_prices(self) -> List[str]:
-        """
-        :returns: The list of [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) records.
-        """
-        return self._properties["inbound_call_prices"]
-
-    @property
-    def price_unit(self) -> str:
-        """
-        :returns: The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        """
-        return self._properties["price_unit"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "CountryInstance":
         """

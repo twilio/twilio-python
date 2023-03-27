@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,34 +24,45 @@ from twilio.base.page import Page
 
 
 class DeploymentInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the Deployment resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Deployment resource.
+    :ivar service_sid: The SID of the Service that the Deployment resource is associated with.
+    :ivar environment_sid: The SID of the Environment for the Deployment.
+    :ivar build_sid: The SID of the Build for the deployment.
+    :ivar date_created: The date and time in GMT when the Deployment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the Deployment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Deployment resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         environment_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the DeploymentInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "environment_sid": payload.get("environment_sid"),
-            "build_sid": payload.get("build_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.environment_sid: Optional[str] = payload.get("environment_sid")
+        self.build_sid: Optional[str] = payload.get("build_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "environment_sid": environment_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[DeploymentContext] = None
 
@@ -71,62 +82,6 @@ class DeploymentInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Deployment resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Deployment resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the Service that the Deployment resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def environment_sid(self) -> str:
-        """
-        :returns: The SID of the Environment for the Deployment.
-        """
-        return self._properties["environment_sid"]
-
-    @property
-    def build_sid(self) -> str:
-        """
-        :returns: The SID of the Build for the deployment.
-        """
-        return self._properties["build_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Deployment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Deployment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Deployment resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "DeploymentInstance":
         """

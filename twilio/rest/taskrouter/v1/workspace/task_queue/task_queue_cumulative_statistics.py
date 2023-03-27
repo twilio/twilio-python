@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,52 +23,99 @@ from twilio.base.version import Version
 
 
 class TaskQueueCumulativeStatisticsInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, task_queue_sid: str):
-        """
-        Initialize the TaskQueueCumulativeStatisticsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
+    :ivar avg_task_acceptance_time: The average time in seconds between Task creation and acceptance.
+    :ivar start_time: The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar end_time: The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar reservations_created: The total number of Reservations created for Tasks in the TaskQueue.
+    :ivar reservations_accepted: The total number of Reservations accepted for Tasks in the TaskQueue.
+    :ivar reservations_rejected: The total number of Reservations rejected for Tasks in the TaskQueue.
+    :ivar reservations_timed_out: The total number of Reservations that timed out for Tasks in the TaskQueue.
+    :ivar reservations_canceled: The total number of Reservations canceled for Tasks in the TaskQueue.
+    :ivar reservations_rescinded: The total number of Reservations rescinded.
+    :ivar split_by_wait_time: A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds.
+    :ivar task_queue_sid: The SID of the TaskQueue from which these statistics were calculated.
+    :ivar wait_duration_until_accepted: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks were created. For transfers, the wait duration is counted from the moment ***the Task was created***, and not from when the transfer was initiated.
+    :ivar wait_duration_until_canceled: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks canceled while in the TaskQueue.
+    :ivar wait_duration_in_queue_until_accepted: The relative wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks entered the TaskQueue.
+    :ivar tasks_canceled: The total number of Tasks canceled in the TaskQueue.
+    :ivar tasks_completed: The total number of Tasks completed in the TaskQueue.
+    :ivar tasks_deleted: The total number of Tasks deleted in the TaskQueue.
+    :ivar tasks_entered: The total number of Tasks entered into the TaskQueue.
+    :ivar tasks_moved: The total number of Tasks that were moved from one queue to another.
+    :ivar workspace_sid: The SID of the Workspace that contains the TaskQueue.
+    :ivar url: The absolute URL of the TaskQueue statistics resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        task_queue_sid: str,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "avg_task_acceptance_time": deserialize.integer(
-                payload.get("avg_task_acceptance_time")
-            ),
-            "start_time": deserialize.iso8601_datetime(payload.get("start_time")),
-            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
-            "reservations_created": deserialize.integer(
-                payload.get("reservations_created")
-            ),
-            "reservations_accepted": deserialize.integer(
-                payload.get("reservations_accepted")
-            ),
-            "reservations_rejected": deserialize.integer(
-                payload.get("reservations_rejected")
-            ),
-            "reservations_timed_out": deserialize.integer(
-                payload.get("reservations_timed_out")
-            ),
-            "reservations_canceled": deserialize.integer(
-                payload.get("reservations_canceled")
-            ),
-            "reservations_rescinded": deserialize.integer(
-                payload.get("reservations_rescinded")
-            ),
-            "split_by_wait_time": payload.get("split_by_wait_time"),
-            "task_queue_sid": payload.get("task_queue_sid"),
-            "wait_duration_until_accepted": payload.get("wait_duration_until_accepted"),
-            "wait_duration_until_canceled": payload.get("wait_duration_until_canceled"),
-            "wait_duration_in_queue_until_accepted": payload.get(
-                "wait_duration_in_queue_until_accepted"
-            ),
-            "tasks_canceled": deserialize.integer(payload.get("tasks_canceled")),
-            "tasks_completed": deserialize.integer(payload.get("tasks_completed")),
-            "tasks_deleted": deserialize.integer(payload.get("tasks_deleted")),
-            "tasks_entered": deserialize.integer(payload.get("tasks_entered")),
-            "tasks_moved": deserialize.integer(payload.get("tasks_moved")),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.avg_task_acceptance_time: Optional[int] = deserialize.integer(
+            payload.get("avg_task_acceptance_time")
+        )
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
+        self.reservations_created: Optional[int] = deserialize.integer(
+            payload.get("reservations_created")
+        )
+        self.reservations_accepted: Optional[int] = deserialize.integer(
+            payload.get("reservations_accepted")
+        )
+        self.reservations_rejected: Optional[int] = deserialize.integer(
+            payload.get("reservations_rejected")
+        )
+        self.reservations_timed_out: Optional[int] = deserialize.integer(
+            payload.get("reservations_timed_out")
+        )
+        self.reservations_canceled: Optional[int] = deserialize.integer(
+            payload.get("reservations_canceled")
+        )
+        self.reservations_rescinded: Optional[int] = deserialize.integer(
+            payload.get("reservations_rescinded")
+        )
+        self.split_by_wait_time: Optional[Dict[str, object]] = payload.get(
+            "split_by_wait_time"
+        )
+        self.task_queue_sid: Optional[str] = payload.get("task_queue_sid")
+        self.wait_duration_until_accepted: Optional[Dict[str, object]] = payload.get(
+            "wait_duration_until_accepted"
+        )
+        self.wait_duration_until_canceled: Optional[Dict[str, object]] = payload.get(
+            "wait_duration_until_canceled"
+        )
+        self.wait_duration_in_queue_until_accepted: Optional[
+            Dict[str, object]
+        ] = payload.get("wait_duration_in_queue_until_accepted")
+        self.tasks_canceled: Optional[int] = deserialize.integer(
+            payload.get("tasks_canceled")
+        )
+        self.tasks_completed: Optional[int] = deserialize.integer(
+            payload.get("tasks_completed")
+        )
+        self.tasks_deleted: Optional[int] = deserialize.integer(
+            payload.get("tasks_deleted")
+        )
+        self.tasks_entered: Optional[int] = deserialize.integer(
+            payload.get("tasks_entered")
+        )
+        self.tasks_moved: Optional[int] = deserialize.integer(
+            payload.get("tasks_moved")
+        )
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -91,160 +138,6 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
                 task_queue_sid=self._solution["task_queue_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def avg_task_acceptance_time(self) -> int:
-        """
-        :returns: The average time in seconds between Task creation and acceptance.
-        """
-        return self._properties["avg_task_acceptance_time"]
-
-    @property
-    def start_time(self) -> datetime:
-        """
-        :returns: The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["start_time"]
-
-    @property
-    def end_time(self) -> datetime:
-        """
-        :returns: The end of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["end_time"]
-
-    @property
-    def reservations_created(self) -> int:
-        """
-        :returns: The total number of Reservations created for Tasks in the TaskQueue.
-        """
-        return self._properties["reservations_created"]
-
-    @property
-    def reservations_accepted(self) -> int:
-        """
-        :returns: The total number of Reservations accepted for Tasks in the TaskQueue.
-        """
-        return self._properties["reservations_accepted"]
-
-    @property
-    def reservations_rejected(self) -> int:
-        """
-        :returns: The total number of Reservations rejected for Tasks in the TaskQueue.
-        """
-        return self._properties["reservations_rejected"]
-
-    @property
-    def reservations_timed_out(self) -> int:
-        """
-        :returns: The total number of Reservations that timed out for Tasks in the TaskQueue.
-        """
-        return self._properties["reservations_timed_out"]
-
-    @property
-    def reservations_canceled(self) -> int:
-        """
-        :returns: The total number of Reservations canceled for Tasks in the TaskQueue.
-        """
-        return self._properties["reservations_canceled"]
-
-    @property
-    def reservations_rescinded(self) -> int:
-        """
-        :returns: The total number of Reservations rescinded.
-        """
-        return self._properties["reservations_rescinded"]
-
-    @property
-    def split_by_wait_time(self) -> Dict[str, object]:
-        """
-        :returns: A list of objects that describe the number of Tasks canceled and reservations accepted above and below the thresholds specified in seconds.
-        """
-        return self._properties["split_by_wait_time"]
-
-    @property
-    def task_queue_sid(self) -> str:
-        """
-        :returns: The SID of the TaskQueue from which these statistics were calculated.
-        """
-        return self._properties["task_queue_sid"]
-
-    @property
-    def wait_duration_until_accepted(self) -> Dict[str, object]:
-        """
-        :returns: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks were created. For transfers, the wait duration is counted from the moment ***the Task was created***, and not from when the transfer was initiated.
-        """
-        return self._properties["wait_duration_until_accepted"]
-
-    @property
-    def wait_duration_until_canceled(self) -> Dict[str, object]:
-        """
-        :returns: The wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks canceled while in the TaskQueue.
-        """
-        return self._properties["wait_duration_until_canceled"]
-
-    @property
-    def wait_duration_in_queue_until_accepted(self) -> Dict[str, object]:
-        """
-        :returns: The relative wait duration statistics (`avg`, `min`, `max`, `total`) for Tasks accepted while in the TaskQueue. Calculation is based on the time when the Tasks entered the TaskQueue.
-        """
-        return self._properties["wait_duration_in_queue_until_accepted"]
-
-    @property
-    def tasks_canceled(self) -> int:
-        """
-        :returns: The total number of Tasks canceled in the TaskQueue.
-        """
-        return self._properties["tasks_canceled"]
-
-    @property
-    def tasks_completed(self) -> int:
-        """
-        :returns: The total number of Tasks completed in the TaskQueue.
-        """
-        return self._properties["tasks_completed"]
-
-    @property
-    def tasks_deleted(self) -> int:
-        """
-        :returns: The total number of Tasks deleted in the TaskQueue.
-        """
-        return self._properties["tasks_deleted"]
-
-    @property
-    def tasks_entered(self) -> int:
-        """
-        :returns: The total number of Tasks entered into the TaskQueue.
-        """
-        return self._properties["tasks_entered"]
-
-    @property
-    def tasks_moved(self) -> int:
-        """
-        :returns: The total number of Tasks that were moved from one queue to another.
-        """
-        return self._properties["tasks_moved"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that contains the TaskQueue.
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the TaskQueue statistics resource.
-        """
-        return self._properties["url"]
 
     def fetch(
         self,

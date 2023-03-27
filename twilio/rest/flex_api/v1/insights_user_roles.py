@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,16 +22,17 @@ from twilio.base.version import Version
 
 
 class InsightsUserRolesInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the InsightsUserRolesInstance
-        """
+
+    """
+    :ivar roles: Flex Insights roles for the user
+    :ivar url:
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "roles": payload.get("roles"),
-            "url": payload.get("url"),
-        }
+        self.roles: Optional[List[str]] = payload.get("roles")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[InsightsUserRolesContext] = None
@@ -49,20 +50,6 @@ class InsightsUserRolesInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def roles(self) -> List[str]:
-        """
-        :returns: Flex Insights roles for the user
-        """
-        return self._properties["roles"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def fetch(self, authorization=values.unset) -> "InsightsUserRolesInstance":
         """

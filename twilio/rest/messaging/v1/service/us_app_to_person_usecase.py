@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Any, Dict, List, Optional
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,26 +21,23 @@ from twilio.base.version import Version
 
 
 class UsAppToPersonUsecaseInstance(InstanceResource):
-    def __init__(self, version, payload, messaging_service_sid: str):
-        """
-        Initialize the UsAppToPersonUsecaseInstance
-        """
+
+    """
+    :ivar us_app_to_person_usecases: Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], messaging_service_sid: str
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "us_app_to_person_usecases": payload.get("us_app_to_person_usecases"),
-        }
+        self.us_app_to_person_usecases: Optional[List[object]] = payload.get(
+            "us_app_to_person_usecases"
+        )
 
         self._solution = {
             "messaging_service_sid": messaging_service_sid,
         }
-
-    @property
-    def us_app_to_person_usecases(self) -> List[object]:
-        """
-        :returns: Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
-        """
-        return self._properties["us_app_to_person_usecases"]
 
     def __repr__(self) -> str:
         """

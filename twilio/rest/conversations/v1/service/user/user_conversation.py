@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,49 +33,72 @@ class UserConversationInstance(InstanceResource):
         ACTIVE = "active"
         CLOSED = "closed"
 
+    """
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
+    :ivar chat_service_sid: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
+    :ivar conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this User Conversation.
+    :ivar unread_messages_count: The number of unread Messages in the Conversation for the Participant.
+    :ivar last_read_message_index: The index of the last Message in the Conversation that the Participant has read.
+    :ivar participant_sid: The unique ID of the [participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) the user conversation belongs to.
+    :ivar user_sid: The unique string that identifies the [User resource](https://www.twilio.com/docs/conversations/api/user-resource).
+    :ivar friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+    :ivar conversation_state: 
+    :ivar timers: Timer date values representing state update for this conversation.
+    :ivar attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+    :ivar date_created: The date that this conversation was created, given in ISO 8601 format.
+    :ivar date_updated: The date that this conversation was last updated, given in ISO 8601 format.
+    :ivar created_by: Identity of the creator of this Conversation.
+    :ivar notification_level: 
+    :ivar unique_name: An application-defined string that uniquely identifies the Conversation resource. It can be used to address the resource in place of the resource's `conversation_sid` in the URL.
+    :ivar url: 
+    :ivar links: Contains absolute URLs to access the [participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) and [conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) of this conversation.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         chat_service_sid: str,
         user_sid: str,
         conversation_sid: Optional[str] = None,
     ):
-        """
-        Initialize the UserConversationInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "conversation_sid": payload.get("conversation_sid"),
-            "unread_messages_count": deserialize.integer(
-                payload.get("unread_messages_count")
-            ),
-            "last_read_message_index": deserialize.integer(
-                payload.get("last_read_message_index")
-            ),
-            "participant_sid": payload.get("participant_sid"),
-            "user_sid": payload.get("user_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "conversation_state": payload.get("conversation_state"),
-            "timers": payload.get("timers"),
-            "attributes": payload.get("attributes"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-            "notification_level": payload.get("notification_level"),
-            "unique_name": payload.get("unique_name"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self.conversation_sid: Optional[str] = payload.get("conversation_sid")
+        self.unread_messages_count: Optional[int] = deserialize.integer(
+            payload.get("unread_messages_count")
+        )
+        self.last_read_message_index: Optional[int] = deserialize.integer(
+            payload.get("last_read_message_index")
+        )
+        self.participant_sid: Optional[str] = payload.get("participant_sid")
+        self.user_sid: Optional[str] = payload.get("user_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.conversation_state: Optional[
+            "UserConversationInstance.State"
+        ] = payload.get("conversation_state")
+        self.timers: Optional[Dict[str, object]] = payload.get("timers")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.created_by: Optional[str] = payload.get("created_by")
+        self.notification_level: Optional[
+            "UserConversationInstance.NotificationLevel"
+        ] = payload.get("notification_level")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "user_sid": user_sid,
-            "conversation_sid": conversation_sid
-            or self._properties["conversation_sid"],
+            "conversation_sid": conversation_sid or self.conversation_sid,
         }
         self._context: Optional[UserConversationContext] = None
 
@@ -95,132 +118,6 @@ class UserConversationInstance(InstanceResource):
                 conversation_sid=self._solution["conversation_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def chat_service_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
-        """
-        return self._properties["chat_service_sid"]
-
-    @property
-    def conversation_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this User Conversation.
-        """
-        return self._properties["conversation_sid"]
-
-    @property
-    def unread_messages_count(self) -> int:
-        """
-        :returns: The number of unread Messages in the Conversation for the Participant.
-        """
-        return self._properties["unread_messages_count"]
-
-    @property
-    def last_read_message_index(self) -> int:
-        """
-        :returns: The index of the last Message in the Conversation that the Participant has read.
-        """
-        return self._properties["last_read_message_index"]
-
-    @property
-    def participant_sid(self) -> str:
-        """
-        :returns: The unique ID of the [participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) the user conversation belongs to.
-        """
-        return self._properties["participant_sid"]
-
-    @property
-    def user_sid(self) -> str:
-        """
-        :returns: The unique string that identifies the [User resource](https://www.twilio.com/docs/conversations/api/user-resource).
-        """
-        return self._properties["user_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The human-readable name of this conversation, limited to 256 characters. Optional.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def conversation_state(self) -> "UserConversationInstance.State":
-        """
-        :returns:
-        """
-        return self._properties["conversation_state"]
-
-    @property
-    def timers(self) -> Dict[str, object]:
-        """
-        :returns: Timer date values representing state update for this conversation.
-        """
-        return self._properties["timers"]
-
-    @property
-    def attributes(self) -> str:
-        """
-        :returns: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
-        """
-        return self._properties["attributes"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this conversation was created, given in ISO 8601 format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this conversation was last updated, given in ISO 8601 format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def created_by(self) -> str:
-        """
-        :returns: Identity of the creator of this Conversation.
-        """
-        return self._properties["created_by"]
-
-    @property
-    def notification_level(self) -> "UserConversationInstance.NotificationLevel":
-        """
-        :returns:
-        """
-        return self._properties["notification_level"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns: An application-defined string that uniquely identifies the Conversation resource. It can be used to address the resource in place of the resource's `conversation_sid` in the URL.
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: Contains absolute URLs to access the [participant](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) and [conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) of this conversation.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,19 +22,29 @@ from twilio.base.version import Version
 
 
 class TaskActionsInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, task_sid: str):
-        """
-        Initialize the TaskActionsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskActions resource.
+    :ivar assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
+    :ivar task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the resource.
+    :ivar url: The absolute URL of the TaskActions resource.
+    :ivar data: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assistant_sid: str,
+        task_sid: str,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "task_sid": payload.get("task_sid"),
-            "url": payload.get("url"),
-            "data": payload.get("data"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.task_sid: Optional[str] = payload.get("task_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
 
         self._solution = {
             "assistant_sid": assistant_sid,
@@ -57,41 +67,6 @@ class TaskActionsInstance(InstanceResource):
                 task_sid=self._solution["task_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskActions resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def assistant_sid(self) -> str:
-        """
-        :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
-        """
-        return self._properties["assistant_sid"]
-
-    @property
-    def task_sid(self) -> str:
-        """
-        :returns: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the resource.
-        """
-        return self._properties["task_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the TaskActions resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def data(self) -> Dict[str, object]:
-        """
-        :returns: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
-        """
-        return self._properties["data"]
 
     def fetch(self) -> "TaskActionsInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,35 +24,47 @@ from twilio.base.page import Page
 
 
 class WebhookInstance(InstanceResource):
+
+    """
+    :ivar sid:
+    :ivar account_sid:
+    :ivar service_sid:
+    :ivar channel_sid:
+    :ivar type:
+    :ivar url:
+    :ivar configuration:
+    :ivar date_created:
+    :ivar date_updated:
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         channel_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the WebhookInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "type": payload.get("type"),
-            "url": payload.get("url"),
-            "configuration": payload.get("configuration"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.type: Optional[str] = payload.get("type")
+        self.url: Optional[str] = payload.get("url")
+        self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[WebhookContext] = None
 
@@ -72,69 +84,6 @@ class WebhookInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def channel_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["channel_sid"]
-
-    @property
-    def type(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["type"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def configuration(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["configuration"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
 
     def delete(self) -> bool:
         """

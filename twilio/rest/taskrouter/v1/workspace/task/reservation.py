@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -34,37 +34,52 @@ class ReservationInstance(InstanceResource):
         WRAPPING = "wrapping"
         COMPLETED = "completed"
 
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskReservation resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar reservation_status: 
+    :ivar sid: The unique string that we created to identify the TaskReservation resource.
+    :ivar task_sid: The SID of the reserved Task resource.
+    :ivar worker_name: The `friendly_name` of the Worker that is reserved.
+    :ivar worker_sid: The SID of the reserved Worker resource.
+    :ivar workspace_sid: The SID of the Workspace that this task is contained within.
+    :ivar url: The absolute URL of the TaskReservation reservation.
+    :ivar links: The URLs of related resources.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         workspace_sid: str,
         task_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the ReservationInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "reservation_status": payload.get("reservation_status"),
-            "sid": payload.get("sid"),
-            "task_sid": payload.get("task_sid"),
-            "worker_name": payload.get("worker_name"),
-            "worker_sid": payload.get("worker_sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.reservation_status: Optional["ReservationInstance.Status"] = payload.get(
+            "reservation_status"
+        )
+        self.sid: Optional[str] = payload.get("sid")
+        self.task_sid: Optional[str] = payload.get("task_sid")
+        self.worker_name: Optional[str] = payload.get("worker_name")
+        self.worker_sid: Optional[str] = payload.get("worker_sid")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "workspace_sid": workspace_sid,
             "task_sid": task_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ReservationContext] = None
 
@@ -84,83 +99,6 @@ class ReservationInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskReservation resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def reservation_status(self) -> "ReservationInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["reservation_status"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the TaskReservation resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def task_sid(self) -> str:
-        """
-        :returns: The SID of the reserved Task resource.
-        """
-        return self._properties["task_sid"]
-
-    @property
-    def worker_name(self) -> str:
-        """
-        :returns: The `friendly_name` of the Worker that is reserved.
-        """
-        return self._properties["worker_name"]
-
-    @property
-    def worker_sid(self) -> str:
-        """
-        :returns: The SID of the reserved Worker resource.
-        """
-        return self._properties["worker_sid"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that this task is contained within.
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the TaskReservation reservation.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._properties["links"]
 
     def fetch(self) -> "ReservationInstance":
         """

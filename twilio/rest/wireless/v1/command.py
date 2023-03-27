@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -43,29 +43,49 @@ class CommandInstance(InstanceResource):
         SMS = "sms"
         IP = "ip"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the CommandInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Command resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Command resource.
+    :ivar sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Command was sent to or from.
+    :ivar command: The message being sent to or from the SIM. For text mode messages, this can be up to 160 characters. For binary mode messages, this is a series of up to 140 bytes of data encoded using base64.
+    :ivar command_mode: 
+    :ivar transport: 
+    :ivar delivery_receipt_requested: Whether to request a delivery receipt.
+    :ivar status: 
+    :ivar direction: 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "command": payload.get("command"),
-            "command_mode": payload.get("command_mode"),
-            "transport": payload.get("transport"),
-            "delivery_receipt_requested": payload.get("delivery_receipt_requested"),
-            "status": payload.get("status"),
-            "direction": payload.get("direction"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sim_sid: Optional[str] = payload.get("sim_sid")
+        self.command: Optional[str] = payload.get("command")
+        self.command_mode: Optional["CommandInstance.CommandMode"] = payload.get(
+            "command_mode"
+        )
+        self.transport: Optional["CommandInstance.Transport"] = payload.get("transport")
+        self.delivery_receipt_requested: Optional[bool] = payload.get(
+            "delivery_receipt_requested"
+        )
+        self.status: Optional["CommandInstance.Status"] = payload.get("status")
+        self.direction: Optional["CommandInstance.Direction"] = payload.get("direction")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[CommandContext] = None
 
@@ -83,90 +103,6 @@ class CommandInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Command resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Command resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sim_sid(self) -> str:
-        """
-        :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Command was sent to or from.
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def command(self) -> str:
-        """
-        :returns: The message being sent to or from the SIM. For text mode messages, this can be up to 160 characters. For binary mode messages, this is a series of up to 140 bytes of data encoded using base64.
-        """
-        return self._properties["command"]
-
-    @property
-    def command_mode(self) -> "CommandInstance.CommandMode":
-        """
-        :returns:
-        """
-        return self._properties["command_mode"]
-
-    @property
-    def transport(self) -> "CommandInstance.Transport":
-        """
-        :returns:
-        """
-        return self._properties["transport"]
-
-    @property
-    def delivery_receipt_requested(self) -> bool:
-        """
-        :returns: Whether to request a delivery receipt.
-        """
-        return self._properties["delivery_receipt_requested"]
-
-    @property
-    def status(self) -> "CommandInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def direction(self) -> "CommandInstance.Direction":
-        """
-        :returns:
-        """
-        return self._properties["direction"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,32 +28,55 @@ class CompositionHookInstance(InstanceResource):
         MP4 = "mp4"
         WEBM = "webm"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the CompositionHookInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CompositionHook resource.
+    :ivar friendly_name: The string that you assigned to describe the resource. Can be up to 100 characters long and must be unique within the account.
+    :ivar enabled: Whether the CompositionHook is active. When `true`, the CompositionHook is triggered for every completed Group Room on the account. When `false`, the CompositionHook is never triggered.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar sid: The unique string that we created to identify the CompositionHook resource.
+    :ivar audio_sources: The array of track names to include in the compositions created by the composition hook. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+    :ivar audio_sources_excluded: The array of track names to exclude from the compositions created by the composition hook. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+    :ivar video_layout: A JSON object that describes the video layout of the composition in terms of regions as specified in the HTTP POST request that created the CompositionHook resource. See [POST Parameters](https://www.twilio.com/docs/video/api/compositions-resource#http-post-parameters) for more information. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+    :ivar resolution: The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string's format is `{width}x{height}`, such as `640x480`.
+    :ivar trim: Whether intervals with no media are clipped, as specified in the POST request that created the CompositionHook resource. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+    :ivar format: 
+    :ivar status_callback: The URL we call using the `status_callback_method` to send status information to your application.
+    :ivar status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "enabled": payload.get("enabled"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "sid": payload.get("sid"),
-            "audio_sources": payload.get("audio_sources"),
-            "audio_sources_excluded": payload.get("audio_sources_excluded"),
-            "video_layout": payload.get("video_layout"),
-            "resolution": payload.get("resolution"),
-            "trim": payload.get("trim"),
-            "format": payload.get("format"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.enabled: Optional[bool] = payload.get("enabled")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.sid: Optional[str] = payload.get("sid")
+        self.audio_sources: Optional[List[str]] = payload.get("audio_sources")
+        self.audio_sources_excluded: Optional[List[str]] = payload.get(
+            "audio_sources_excluded"
+        )
+        self.video_layout: Optional[Dict[str, object]] = payload.get("video_layout")
+        self.resolution: Optional[str] = payload.get("resolution")
+        self.trim: Optional[bool] = payload.get("trim")
+        self.format: Optional["CompositionHookInstance.Format"] = payload.get("format")
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[CompositionHookContext] = None
 
@@ -71,111 +94,6 @@ class CompositionHookInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CompositionHook resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource. Can be up to 100 characters long and must be unique within the account.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def enabled(self) -> bool:
-        """
-        :returns: Whether the CompositionHook is active. When `true`, the CompositionHook is triggered for every completed Group Room on the account. When `false`, the CompositionHook is never triggered.
-        """
-        return self._properties["enabled"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the CompositionHook resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def audio_sources(self) -> List[str]:
-        """
-        :returns: The array of track names to include in the compositions created by the composition hook. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-        """
-        return self._properties["audio_sources"]
-
-    @property
-    def audio_sources_excluded(self) -> List[str]:
-        """
-        :returns: The array of track names to exclude from the compositions created by the composition hook. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
-        """
-        return self._properties["audio_sources_excluded"]
-
-    @property
-    def video_layout(self) -> Dict[str, object]:
-        """
-        :returns: A JSON object that describes the video layout of the composition in terms of regions as specified in the HTTP POST request that created the CompositionHook resource. See [POST Parameters](https://www.twilio.com/docs/video/api/compositions-resource#http-post-parameters) for more information. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-        """
-        return self._properties["video_layout"]
-
-    @property
-    def resolution(self) -> str:
-        """
-        :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string's format is `{width}x{height}`, such as `640x480`.
-        """
-        return self._properties["resolution"]
-
-    @property
-    def trim(self) -> bool:
-        """
-        :returns: Whether intervals with no media are clipped, as specified in the POST request that created the CompositionHook resource. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        """
-        return self._properties["trim"]
-
-    @property
-    def format(self) -> "CompositionHookInstance.Format":
-        """
-        :returns:
-        """
-        return self._properties["format"]
-
-    @property
-    def status_callback(self) -> str:
-        """
-        :returns: The URL we call using the `status_callback_method` to send status information to your application.
-        """
-        return self._properties["status_callback"]
-
-    @property
-    def status_callback_method(self) -> str:
-        """
-        :returns: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
-        """
-        return self._properties["status_callback_method"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

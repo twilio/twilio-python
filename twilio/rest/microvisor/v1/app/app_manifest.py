@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,18 +21,21 @@ from twilio.base.version import Version
 
 
 class AppManifestInstance(InstanceResource):
-    def __init__(self, version, payload, app_sid: str):
-        """
-        Initialize the AppManifestInstance
-        """
+
+    """
+    :ivar app_sid: A 34-character string that uniquely identifies this App.
+    :ivar hash: App manifest hash represented as `hash_algorithm:hash_value`.
+    :ivar encoded_bytes: The base-64 encoded manifest
+    :ivar url: The absolute URL of this Manifest.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], app_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "app_sid": payload.get("app_sid"),
-            "hash": payload.get("hash"),
-            "encoded_bytes": payload.get("encoded_bytes"),
-            "url": payload.get("url"),
-        }
+        self.app_sid: Optional[str] = payload.get("app_sid")
+        self.hash: Optional[str] = payload.get("hash")
+        self.encoded_bytes: Optional[str] = payload.get("encoded_bytes")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "app_sid": app_sid,
@@ -53,34 +56,6 @@ class AppManifestInstance(InstanceResource):
                 app_sid=self._solution["app_sid"],
             )
         return self._context
-
-    @property
-    def app_sid(self) -> str:
-        """
-        :returns: A 34-character string that uniquely identifies this App.
-        """
-        return self._properties["app_sid"]
-
-    @property
-    def hash(self) -> str:
-        """
-        :returns: App manifest hash represented as `hash_algorithm:hash_value`.
-        """
-        return self._properties["hash"]
-
-    @property
-    def encoded_bytes(self) -> str:
-        """
-        :returns: The base-64 encoded manifest
-        """
-        return self._properties["encoded_bytes"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of this Manifest.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "AppManifestInstance":
         """

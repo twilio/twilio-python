@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,29 +27,44 @@ from twilio.rest.preview.sync.service.sync_map import SyncMapList
 
 
 class ServiceInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ServiceInstance
-        """
+
+    """
+    :ivar sid:
+    :ivar account_sid:
+    :ivar friendly_name:
+    :ivar date_created:
+    :ivar date_updated:
+    :ivar url:
+    :ivar webhook_url:
+    :ivar reachability_webhooks_enabled:
+    :ivar acl_enabled:
+    :ivar links:
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "webhook_url": payload.get("webhook_url"),
-            "reachability_webhooks_enabled": payload.get(
-                "reachability_webhooks_enabled"
-            ),
-            "acl_enabled": payload.get("acl_enabled"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.webhook_url: Optional[str] = payload.get("webhook_url")
+        self.reachability_webhooks_enabled: Optional[bool] = payload.get(
+            "reachability_webhooks_enabled"
+        )
+        self.acl_enabled: Optional[bool] = payload.get("acl_enabled")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -67,76 +82,6 @@ class ServiceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def webhook_url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["webhook_url"]
-
-    @property
-    def reachability_webhooks_enabled(self) -> bool:
-        """
-        :returns:
-        """
-        return self._properties["reachability_webhooks_enabled"]
-
-    @property
-    def acl_enabled(self) -> bool:
-        """
-        :returns:
-        """
-        return self._properties["acl_enabled"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

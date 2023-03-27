@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,25 +29,37 @@ class CredentialInstance(InstanceResource):
         GCM = "gcm"
         FCM = "fcm"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the CredentialInstance
-        """
+    """
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this credential.
+    :ivar friendly_name: The human-readable name of this credential, limited to 64 characters. Optional.
+    :ivar type: 
+    :ivar sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+    :ivar date_created: The date that this resource was created.
+    :ivar date_updated: The date that this resource was last updated.
+    :ivar url: An absolute API resource URL for this credential.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "type": payload.get("type"),
-            "sandbox": payload.get("sandbox"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.type: Optional["CredentialInstance.PushType"] = payload.get("type")
+        self.sandbox: Optional[str] = payload.get("sandbox")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[CredentialContext] = None
 
@@ -65,62 +77,6 @@ class CredentialInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this credential.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The human-readable name of this credential, limited to 64 characters. Optional.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def type(self) -> "CredentialInstance.PushType":
-        """
-        :returns:
-        """
-        return self._properties["type"]
-
-    @property
-    def sandbox(self) -> str:
-        """
-        :returns: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        """
-        return self._properties["sandbox"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this resource was created.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this resource was last updated.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: An absolute API resource URL for this credential.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

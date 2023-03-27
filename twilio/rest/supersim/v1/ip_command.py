@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,30 +38,53 @@ class IpCommandInstance(InstanceResource):
         RECEIVED = "received"
         FAILED = "failed"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the IpCommandInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the IP Command resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IP Command resource.
+    :ivar sim_sid: The SID of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
+    :ivar sim_iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
+    :ivar status: 
+    :ivar direction: 
+    :ivar device_ip: The IP address of the device that the IP Command was sent to or received from. For an IP Command sent to a Super SIM, `device_ip` starts out as `null`, and once the IP Command is “sent”, the `device_ip` will be filled out. An IP Command sent from a Super SIM have its `device_ip` always set.
+    :ivar device_port: For an IP Command sent to a Super SIM, it would be the destination port of the IP message. For an IP Command sent from a Super SIM, it would be the source port of the IP message.
+    :ivar payload_type: 
+    :ivar payload: The payload that is carried in the IP/UDP message. The payload can be encoded in either text or binary format. For text payload, UTF-8 encoding must be used.  For an IP Command sent to a Super SIM, the payload is appended to the IP/UDP message “as is”. The payload should not exceed 1300 bytes.  For an IP Command sent from a Super SIM, the payload from the received IP/UDP message is extracted and sent in binary encoding. For an IP Command sent from a Super SIM, the payload should not exceed 1300 bytes. If it is larger than 1300 bytes, there might be fragmentation on the upstream and the message may appear truncated.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the IP Command resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "sim_iccid": payload.get("sim_iccid"),
-            "status": payload.get("status"),
-            "direction": payload.get("direction"),
-            "device_ip": payload.get("device_ip"),
-            "device_port": deserialize.integer(payload.get("device_port")),
-            "payload_type": payload.get("payload_type"),
-            "payload": payload.get("payload"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sim_sid: Optional[str] = payload.get("sim_sid")
+        self.sim_iccid: Optional[str] = payload.get("sim_iccid")
+        self.status: Optional["IpCommandInstance.Status"] = payload.get("status")
+        self.direction: Optional["IpCommandInstance.Direction"] = payload.get(
+            "direction"
+        )
+        self.device_ip: Optional[str] = payload.get("device_ip")
+        self.device_port: Optional[int] = deserialize.integer(
+            payload.get("device_port")
+        )
+        self.payload_type: Optional["IpCommandInstance.PayloadType"] = payload.get(
+            "payload_type"
+        )
+        self.payload: Optional[str] = payload.get("payload")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[IpCommandContext] = None
 
@@ -79,97 +102,6 @@ class IpCommandInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the IP Command resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IP Command resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sim_sid(self) -> str:
-        """
-        :returns: The SID of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def sim_iccid(self) -> str:
-        """
-        :returns: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
-        """
-        return self._properties["sim_iccid"]
-
-    @property
-    def status(self) -> "IpCommandInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def direction(self) -> "IpCommandInstance.Direction":
-        """
-        :returns:
-        """
-        return self._properties["direction"]
-
-    @property
-    def device_ip(self) -> str:
-        """
-        :returns: The IP address of the device that the IP Command was sent to or received from. For an IP Command sent to a Super SIM, `device_ip` starts out as `null`, and once the IP Command is “sent”, the `device_ip` will be filled out. An IP Command sent from a Super SIM have its `device_ip` always set.
-        """
-        return self._properties["device_ip"]
-
-    @property
-    def device_port(self) -> int:
-        """
-        :returns: For an IP Command sent to a Super SIM, it would be the destination port of the IP message. For an IP Command sent from a Super SIM, it would be the source port of the IP message.
-        """
-        return self._properties["device_port"]
-
-    @property
-    def payload_type(self) -> "IpCommandInstance.PayloadType":
-        """
-        :returns:
-        """
-        return self._properties["payload_type"]
-
-    @property
-    def payload(self) -> str:
-        """
-        :returns: The payload that is carried in the IP/UDP message. The payload can be encoded in either text or binary format. For text payload, UTF-8 encoding must be used.  For an IP Command sent to a Super SIM, the payload is appended to the IP/UDP message “as is”. The payload should not exceed 1300 bytes.  For an IP Command sent from a Super SIM, the payload from the received IP/UDP message is extracted and sent in binary encoding. For an IP Command sent from a Super SIM, the payload should not exceed 1300 bytes. If it is larger than 1300 bytes, there might be fragmentation on the upstream and the message may appear truncated.
-        """
-        return self._properties["payload"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the IP Command resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "IpCommandInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -37,26 +37,41 @@ class SinkInstance(InstanceResource):
         ACTIVE = "active"
         FAILED = "failed"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the SinkInstance
-        """
+    """
+    :ivar date_created: The date that this Sink was created, given in ISO 8601 format.
+    :ivar date_updated: The date that this Sink was updated, given in ISO 8601 format.
+    :ivar description: A human readable description for the Sink
+    :ivar sid: A 34 character string that uniquely identifies this Sink.
+    :ivar sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
+    :ivar sink_type: 
+    :ivar status: 
+    :ivar url: The URL of this resource.
+    :ivar links: Contains a dictionary of URL links to nested resources of this Sink.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "description": payload.get("description"),
-            "sid": payload.get("sid"),
-            "sink_configuration": payload.get("sink_configuration"),
-            "sink_type": payload.get("sink_type"),
-            "status": payload.get("status"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.description: Optional[str] = payload.get("description")
+        self.sid: Optional[str] = payload.get("sid")
+        self.sink_configuration: Optional[Dict[str, object]] = payload.get(
+            "sink_configuration"
+        )
+        self.sink_type: Optional["SinkInstance.SinkType"] = payload.get("sink_type")
+        self.status: Optional["SinkInstance.Status"] = payload.get("status")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[SinkContext] = None
 
@@ -74,69 +89,6 @@ class SinkInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this Sink was created, given in ISO 8601 format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this Sink was updated, given in ISO 8601 format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def description(self) -> str:
-        """
-        :returns: A human readable description for the Sink
-        """
-        return self._properties["description"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies this Sink.
-        """
-        return self._properties["sid"]
-
-    @property
-    def sink_configuration(self) -> Dict[str, object]:
-        """
-        :returns: The information required for Twilio to connect to the provided Sink encoded as JSON.
-        """
-        return self._properties["sink_configuration"]
-
-    @property
-    def sink_type(self) -> "SinkInstance.SinkType":
-        """
-        :returns:
-        """
-        return self._properties["sink_type"]
-
-    @property
-    def status(self) -> "SinkInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: Contains a dictionary of URL links to nested resources of this Sink.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

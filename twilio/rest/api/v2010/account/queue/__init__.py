@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,27 +25,49 @@ from twilio.rest.api.v2010.account.queue.member import MemberList
 
 
 class QueueInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the QueueInstance
-        """
+
+    """
+    :ivar date_updated: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar current_size: The number of calls currently in the queue.
+    :ivar friendly_name: A string that you assigned to describe this resource.
+    :ivar uri: The URI of this resource, relative to `https://api.twilio.com`.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Queue resource.
+    :ivar average_wait_time:  The average wait time in seconds of the members in this queue. This is calculated at the time of the request.
+    :ivar sid: The unique string that that we created to identify this Queue resource.
+    :ivar date_created: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar max_size:  The maximum number of calls that can be in the queue. The default is 1000 and the maximum is 5000.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "current_size": deserialize.integer(payload.get("current_size")),
-            "friendly_name": payload.get("friendly_name"),
-            "uri": payload.get("uri"),
-            "account_sid": payload.get("account_sid"),
-            "average_wait_time": deserialize.integer(payload.get("average_wait_time")),
-            "sid": payload.get("sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "max_size": deserialize.integer(payload.get("max_size")),
-        }
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self.current_size: Optional[int] = deserialize.integer(
+            payload.get("current_size")
+        )
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.uri: Optional[str] = payload.get("uri")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.average_wait_time: Optional[int] = deserialize.integer(
+            payload.get("average_wait_time")
+        )
+        self.sid: Optional[str] = payload.get("sid")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.max_size: Optional[int] = deserialize.integer(payload.get("max_size"))
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[QueueContext] = None
 
@@ -64,69 +86,6 @@ class QueueInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def current_size(self) -> int:
-        """
-        :returns: The number of calls currently in the queue.
-        """
-        return self._properties["current_size"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: A string that you assigned to describe this resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def uri(self) -> str:
-        """
-        :returns: The URI of this resource, relative to `https://api.twilio.com`.
-        """
-        return self._properties["uri"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Queue resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def average_wait_time(self) -> int:
-        """
-        :returns:  The average wait time in seconds of the members in this queue. This is calculated at the time of the request.
-        """
-        return self._properties["average_wait_time"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that that we created to identify this Queue resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def max_size(self) -> int:
-        """
-        :returns:  The maximum number of calls that can be in the queue. The default is 1000 and the maximum is 5000.
-        """
-        return self._properties["max_size"]
 
     def delete(self) -> bool:
         """

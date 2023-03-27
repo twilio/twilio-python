@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,20 +22,27 @@ from twilio.base.version import Version
 
 
 class SafelistInstance(InstanceResource):
-    def __init__(self, version, payload, phone_number: Optional[str] = None):
-        """
-        Initialize the SafelistInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the SafeList resource.
+    :ivar phone_number: The phone number in SafeList.
+    :ivar url: The absolute URL of the SafeList resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        phone_number: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "phone_number": payload.get("phone_number"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.phone_number: Optional[str] = payload.get("phone_number")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "phone_number": phone_number or self._properties["phone_number"],
+            "phone_number": phone_number or self.phone_number,
         }
         self._context: Optional[SafelistContext] = None
 
@@ -53,27 +60,6 @@ class SafelistInstance(InstanceResource):
                 phone_number=self._solution["phone_number"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the SafeList resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def phone_number(self) -> str:
-        """
-        :returns: The phone number in SafeList.
-        """
-        return self._properties["phone_number"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the SafeList resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

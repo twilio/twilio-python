@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,37 +24,51 @@ from twilio.base.page import Page
 
 
 class IpAddressInstance(InstanceResource):
+
+    """
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar account_sid: The unique id of the Account that is responsible for this resource.
+    :ivar friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+    :ivar ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+    :ivar cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+    :ivar ip_access_control_list_sid: The unique id of the IpAccessControlList resource that includes this resource.
+    :ivar date_created: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar date_updated: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar uri: The URI for this resource, relative to `https://api.twilio.com`
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         ip_access_control_list_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the IpAddressInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "ip_address": payload.get("ip_address"),
-            "cidr_prefix_length": deserialize.integer(
-                payload.get("cidr_prefix_length")
-            ),
-            "ip_access_control_list_sid": payload.get("ip_access_control_list_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "uri": payload.get("uri"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.ip_address: Optional[str] = payload.get("ip_address")
+        self.cidr_prefix_length: Optional[int] = deserialize.integer(
+            payload.get("cidr_prefix_length")
+        )
+        self.ip_access_control_list_sid: Optional[str] = payload.get(
+            "ip_access_control_list_sid"
+        )
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "ip_access_control_list_sid": ip_access_control_list_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[IpAddressContext] = None
 
@@ -74,69 +88,6 @@ class IpAddressInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique id of the Account that is responsible for this resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: A human readable descriptive text for this resource, up to 255 characters long.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def ip_address(self) -> str:
-        """
-        :returns: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        """
-        return self._properties["ip_address"]
-
-    @property
-    def cidr_prefix_length(self) -> int:
-        """
-        :returns: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-        """
-        return self._properties["cidr_prefix_length"]
-
-    @property
-    def ip_access_control_list_sid(self) -> str:
-        """
-        :returns: The unique id of the IpAccessControlList resource that includes this resource.
-        """
-        return self._properties["ip_access_control_list_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def uri(self) -> str:
-        """
-        :returns: The URI for this resource, relative to `https://api.twilio.com`
-        """
-        return self._properties["uri"]
 
     def delete(self) -> bool:
         """

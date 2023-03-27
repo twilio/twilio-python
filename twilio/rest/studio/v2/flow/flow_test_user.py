@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,17 +22,19 @@ from twilio.base.version import Version
 
 
 class FlowTestUserInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str):
-        """
-        Initialize the FlowTestUserInstance
-        """
+
+    """
+    :ivar sid: Unique identifier of the flow.
+    :ivar test_users: List of test user identities that can test draft versions of the flow.
+    :ivar url: The URL of this resource.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "test_users": payload.get("test_users"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.test_users: Optional[List[str]] = payload.get("test_users")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "sid": sid,
@@ -53,27 +55,6 @@ class FlowTestUserInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: Unique identifier of the flow.
-        """
-        return self._properties["sid"]
-
-    @property
-    def test_users(self) -> List[str]:
-        """
-        :returns: List of test user identities that can test draft versions of the flow.
-        """
-        return self._properties["test_users"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "FlowTestUserInstance":
         """

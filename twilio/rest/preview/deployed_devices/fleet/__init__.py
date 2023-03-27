@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,26 +28,42 @@ from twilio.rest.preview.deployed_devices.fleet.key import KeyList
 
 
 class FleetInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the FleetInstance
-        """
+
+    """
+    :ivar sid: Contains a 34 character string that uniquely identifies this Fleet resource.
+    :ivar url: Contains an absolute URL for this Fleet resource.
+    :ivar unique_name: Contains a unique and addressable name of this Fleet, e.g. 'default', up to 128 characters long.
+    :ivar friendly_name: Contains a human readable descriptive text for this Fleet, up to 256 characters long.
+    :ivar account_sid: Speicifies the unique string identifier of the Account responsible for this Fleet.
+    :ivar default_deployment_sid: Contains the string identifier of the automatically provisioned default Deployment of this Fleet.
+    :ivar date_created: Specifies the date this Fleet was created, given in UTC ISO 8601 format.
+    :ivar date_updated: Specifies the date this Fleet was last updated, given in UTC ISO 8601 format.
+    :ivar links: Contains a dictionary of URL links to nested resources of this Fleet.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "url": payload.get("url"),
-            "unique_name": payload.get("unique_name"),
-            "friendly_name": payload.get("friendly_name"),
-            "account_sid": payload.get("account_sid"),
-            "default_deployment_sid": payload.get("default_deployment_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.url: Optional[str] = payload.get("url")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.default_deployment_sid: Optional[str] = payload.get(
+            "default_deployment_sid"
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[FleetContext] = None
 
@@ -65,69 +81,6 @@ class FleetInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: Contains a 34 character string that uniquely identifies this Fleet resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: Contains an absolute URL for this Fleet resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns: Contains a unique and addressable name of this Fleet, e.g. 'default', up to 128 characters long.
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: Contains a human readable descriptive text for this Fleet, up to 256 characters long.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: Speicifies the unique string identifier of the Account responsible for this Fleet.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def default_deployment_sid(self) -> str:
-        """
-        :returns: Contains the string identifier of the automatically provisioned default Deployment of this Fleet.
-        """
-        return self._properties["default_deployment_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: Specifies the date this Fleet was created, given in UTC ISO 8601 format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: Specifies the date this Fleet was last updated, given in UTC ISO 8601 format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: Contains a dictionary of URL links to nested resources of this Fleet.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

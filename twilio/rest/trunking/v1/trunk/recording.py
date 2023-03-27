@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,16 +33,16 @@ class RecordingInstance(InstanceResource):
         TRIM_SILENCE = "trim-silence"
         DO_NOT_TRIM = "do-not-trim"
 
-    def __init__(self, version, payload, trunk_sid: str):
-        """
-        Initialize the RecordingInstance
-        """
+    """
+    :ivar mode: 
+    :ivar trim: 
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], trunk_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "mode": payload.get("mode"),
-            "trim": payload.get("trim"),
-        }
+        self.mode: Optional["RecordingInstance.RecordingMode"] = payload.get("mode")
+        self.trim: Optional["RecordingInstance.RecordingTrim"] = payload.get("trim")
 
         self._solution = {
             "trunk_sid": trunk_sid,
@@ -63,20 +63,6 @@ class RecordingInstance(InstanceResource):
                 trunk_sid=self._solution["trunk_sid"],
             )
         return self._context
-
-    @property
-    def mode(self) -> "RecordingInstance.RecordingMode":
-        """
-        :returns:
-        """
-        return self._properties["mode"]
-
-    @property
-    def trim(self) -> "RecordingInstance.RecordingTrim":
-        """
-        :returns:
-        """
-        return self._properties["trim"]
 
     def fetch(self) -> "RecordingInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,26 +23,41 @@ from twilio.base.version import Version
 
 
 class TrunkInstance(InstanceResource):
-    def __init__(self, version, payload, sip_trunk_domain: Optional[str] = None):
-        """
-        Initialize the TrunkInstance
-        """
+
+    """
+    :ivar sip_trunk_domain: The absolute URL of the SIP Trunk
+    :ivar url: The absolute URL of the resource.
+    :ivar sid: A 34 character string that uniquely identifies the Inbound Processing Region assignments for this SIP Trunk.
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar friendly_name: A human readable description of the Inbound Processing Region assignments for this SIP Trunk, up to 64 characters.
+    :ivar voice_region: The Inbound Processing Region used for this SIP Trunk for voice.
+    :ivar date_created: The date that this SIP Trunk was assigned an Inbound Processing Region, given in ISO 8601 format.
+    :ivar date_updated: The date that the Inbound Processing Region was updated for this SIP Trunk, given in ISO 8601 format.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        sip_trunk_domain: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sip_trunk_domain": payload.get("sip_trunk_domain"),
-            "url": payload.get("url"),
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "voice_region": payload.get("voice_region"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self.sip_trunk_domain: Optional[str] = payload.get("sip_trunk_domain")
+        self.url: Optional[str] = payload.get("url")
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.voice_region: Optional[str] = payload.get("voice_region")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
-            "sip_trunk_domain": sip_trunk_domain
-            or self._properties["sip_trunk_domain"],
+            "sip_trunk_domain": sip_trunk_domain or self.sip_trunk_domain,
         }
         self._context: Optional[TrunkContext] = None
 
@@ -60,62 +75,6 @@ class TrunkInstance(InstanceResource):
                 sip_trunk_domain=self._solution["sip_trunk_domain"],
             )
         return self._context
-
-    @property
-    def sip_trunk_domain(self) -> str:
-        """
-        :returns: The absolute URL of the SIP Trunk
-        """
-        return self._properties["sip_trunk_domain"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies the Inbound Processing Region assignments for this SIP Trunk.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: A human readable description of the Inbound Processing Region assignments for this SIP Trunk, up to 64 characters.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def voice_region(self) -> str:
-        """
-        :returns: The Inbound Processing Region used for this SIP Trunk for voice.
-        """
-        return self._properties["voice_region"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this SIP Trunk was assigned an Inbound Processing Region, given in ISO 8601 format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that the Inbound Processing Region was updated for this SIP Trunk, given in ISO 8601 format.
-        """
-        return self._properties["date_updated"]
 
     def fetch(self) -> "TrunkInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,26 +28,40 @@ class EvaluationInstance(InstanceResource):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
 
-    def __init__(self, version, payload, bundle_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the EvaluationInstance
-        """
+    """
+    :ivar sid: The unique string that identifies the Evaluation resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
+    :ivar regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
+    :ivar bundle_sid: The unique string that we created to identify the Bundle resource.
+    :ivar status: 
+    :ivar results: The results of the Evaluation which includes the valid and invalid attributes.
+    :ivar date_created: 
+    :ivar url: 
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        bundle_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "regulation_sid": payload.get("regulation_sid"),
-            "bundle_sid": payload.get("bundle_sid"),
-            "status": payload.get("status"),
-            "results": payload.get("results"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.regulation_sid: Optional[str] = payload.get("regulation_sid")
+        self.bundle_sid: Optional[str] = payload.get("bundle_sid")
+        self.status: Optional["EvaluationInstance.Status"] = payload.get("status")
+        self.results: Optional[List[object]] = payload.get("results")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "bundle_sid": bundle_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[EvaluationContext] = None
 
@@ -66,62 +80,6 @@ class EvaluationInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that identifies the Evaluation resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def regulation_sid(self) -> str:
-        """
-        :returns: The unique string of a regulation that is associated to the Bundle resource.
-        """
-        return self._properties["regulation_sid"]
-
-    @property
-    def bundle_sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Bundle resource.
-        """
-        return self._properties["bundle_sid"]
-
-    @property
-    def status(self) -> "EvaluationInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def results(self) -> List[object]:
-        """
-        :returns: The results of the Evaluation which includes the valid and invalid attributes.
-        """
-        return self._properties["results"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "EvaluationInstance":
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,18 +22,21 @@ from twilio.base.version import Version
 
 
 class AssistantFallbackActionsInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str):
-        """
-        Initialize the AssistantFallbackActionsInstance
-        """
+
+    """
+    :ivar account_sid:
+    :ivar assistant_sid:
+    :ivar url:
+    :ivar data:
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], assistant_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "url": payload.get("url"),
-            "data": payload.get("data"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
 
         self._solution = {
             "assistant_sid": assistant_sid,
@@ -54,34 +57,6 @@ class AssistantFallbackActionsInstance(InstanceResource):
                 assistant_sid=self._solution["assistant_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def assistant_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["assistant_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def data(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["data"]
 
     def fetch(self) -> "AssistantFallbackActionsInstance":
         """

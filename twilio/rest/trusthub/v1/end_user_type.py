@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,22 +23,28 @@ from twilio.base.page import Page
 
 
 class EndUserTypeInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the EndUserTypeInstance
-        """
+
+    """
+    :ivar sid: The unique string that identifies the End-User Type resource.
+    :ivar friendly_name: A human-readable description that is assigned to describe the End-User Type resource. Examples can include first name, last name, email, business name, etc
+    :ivar machine_name: A machine-readable description of the End-User Type resource. Examples can include first_name, last_name, email, business_name, etc.
+    :ivar fields: The required information for creating an End-User. The required fields will change as regulatory needs change and will differ for businesses and individuals.
+    :ivar url: The absolute URL of the End-User Type resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "machine_name": payload.get("machine_name"),
-            "fields": payload.get("fields"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.machine_name: Optional[str] = payload.get("machine_name")
+        self.fields: Optional[List[object]] = payload.get("fields")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[EndUserTypeContext] = None
 
@@ -56,41 +62,6 @@ class EndUserTypeInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that identifies the End-User Type resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: A human-readable description that is assigned to describe the End-User Type resource. Examples can include first name, last name, email, business name, etc
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def machine_name(self) -> str:
-        """
-        :returns: A machine-readable description of the End-User Type resource. Examples can include first_name, last_name, email, business_name, etc.
-        """
-        return self._properties["machine_name"]
-
-    @property
-    def fields(self) -> List[object]:
-        """
-        :returns: The required information for creating an End-User. The required fields will change as regulatory needs change and will differ for businesses and individuals.
-        """
-        return self._properties["fields"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the End-User Type resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "EndUserTypeInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,36 +29,48 @@ class SubscribedTrackInstance(InstanceResource):
         VIDEO = "video"
         DATA = "data"
 
+    """
+    :ivar sid: The unique string that we created to identify the RoomParticipantSubscribedTrack resource.
+    :ivar participant_sid: The SID of the participant that subscribes to the track.
+    :ivar publisher_sid: The SID of the participant that publishes the track.
+    :ivar room_sid: The SID of the room where the track is published.
+    :ivar name: The track name. Must have no more than 128 characters and be unique among the participant's published tracks.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar enabled: Whether the track is enabled.
+    :ivar kind: 
+    :ivar url: The absolute URL of the resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         room_sid: str,
         participant_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the SubscribedTrackInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "participant_sid": payload.get("participant_sid"),
-            "publisher_sid": payload.get("publisher_sid"),
-            "room_sid": payload.get("room_sid"),
-            "name": payload.get("name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "enabled": payload.get("enabled"),
-            "kind": payload.get("kind"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.participant_sid: Optional[str] = payload.get("participant_sid")
+        self.publisher_sid: Optional[str] = payload.get("publisher_sid")
+        self.room_sid: Optional[str] = payload.get("room_sid")
+        self.name: Optional[str] = payload.get("name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.enabled: Optional[bool] = payload.get("enabled")
+        self.kind: Optional["SubscribedTrackInstance.Kind"] = payload.get("kind")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "room_sid": room_sid,
             "participant_sid": participant_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[SubscribedTrackContext] = None
 
@@ -78,76 +90,6 @@ class SubscribedTrackInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the RoomParticipantSubscribedTrack resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def participant_sid(self) -> str:
-        """
-        :returns: The SID of the participant that subscribes to the track.
-        """
-        return self._properties["participant_sid"]
-
-    @property
-    def publisher_sid(self) -> str:
-        """
-        :returns: The SID of the participant that publishes the track.
-        """
-        return self._properties["publisher_sid"]
-
-    @property
-    def room_sid(self) -> str:
-        """
-        :returns: The SID of the room where the track is published.
-        """
-        return self._properties["room_sid"]
-
-    @property
-    def name(self) -> str:
-        """
-        :returns: The track name. Must have no more than 128 characters and be unique among the participant's published tracks.
-        """
-        return self._properties["name"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def enabled(self) -> bool:
-        """
-        :returns: Whether the track is enabled.
-        """
-        return self._properties["enabled"]
-
-    @property
-    def kind(self) -> "SubscribedTrackInstance.Kind":
-        """
-        :returns:
-        """
-        return self._properties["kind"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "SubscribedTrackInstance":
         """

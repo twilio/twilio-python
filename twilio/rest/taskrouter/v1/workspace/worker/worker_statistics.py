@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,19 +22,29 @@ from twilio.base.version import Version
 
 
 class WorkerStatisticsInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, worker_sid: str):
-        """
-        Initialize the WorkerStatisticsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
+    :ivar cumulative: An object that contains the cumulative statistics for the Worker.
+    :ivar worker_sid: The SID of the Worker that contains the WorkerChannel.
+    :ivar workspace_sid: The SID of the Workspace that contains the WorkerChannel.
+    :ivar url: The absolute URL of the WorkerChannel statistics resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        worker_sid: str,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "cumulative": payload.get("cumulative"),
-            "worker_sid": payload.get("worker_sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.cumulative: Optional[Dict[str, object]] = payload.get("cumulative")
+        self.worker_sid: Optional[str] = payload.get("worker_sid")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -57,41 +67,6 @@ class WorkerStatisticsInstance(InstanceResource):
                 worker_sid=self._solution["worker_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def cumulative(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains the cumulative statistics for the Worker.
-        """
-        return self._properties["cumulative"]
-
-    @property
-    def worker_sid(self) -> str:
-        """
-        :returns: The SID of the Worker that contains the WorkerChannel.
-        """
-        return self._properties["worker_sid"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that contains the WorkerChannel.
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the WorkerChannel statistics resource.
-        """
-        return self._properties["url"]
 
     def fetch(
         self,

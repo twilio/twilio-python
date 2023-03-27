@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,42 +28,56 @@ class MemberInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
+    """
+    :ivar sid: The unique string that we created to identify the Member resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource.
+    :ivar channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource belongs to.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Member resource is associated with.
+    :ivar identity: The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the member.
+    :ivar last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+    :ivar last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
+    :ivar url: The absolute URL of the Member resource.
+    :ivar attributes: The JSON string that stores application-specific data. If attributes have not been set, `{}` is returned.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         channel_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the MemberInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "service_sid": payload.get("service_sid"),
-            "identity": payload.get("identity"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "role_sid": payload.get("role_sid"),
-            "last_consumed_message_index": deserialize.integer(
-                payload.get("last_consumed_message_index")
-            ),
-            "last_consumption_timestamp": deserialize.iso8601_datetime(
-                payload.get("last_consumption_timestamp")
-            ),
-            "url": payload.get("url"),
-            "attributes": payload.get("attributes"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.role_sid: Optional[str] = payload.get("role_sid")
+        self.last_consumed_message_index: Optional[int] = deserialize.integer(
+            payload.get("last_consumed_message_index")
+        )
+        self.last_consumption_timestamp: Optional[
+            datetime
+        ] = deserialize.iso8601_datetime(payload.get("last_consumption_timestamp"))
+        self.url: Optional[str] = payload.get("url")
+        self.attributes: Optional[str] = payload.get("attributes")
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[MemberContext] = None
 
@@ -83,90 +97,6 @@ class MemberInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Member resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def channel_sid(self) -> str:
-        """
-        :returns: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource belongs to.
-        """
-        return self._properties["channel_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Member resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
-        """
-        return self._properties["identity"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def role_sid(self) -> str:
-        """
-        :returns: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the member.
-        """
-        return self._properties["role_sid"]
-
-    @property
-    def last_consumed_message_index(self) -> int:
-        """
-        :returns: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
-        """
-        return self._properties["last_consumed_message_index"]
-
-    @property
-    def last_consumption_timestamp(self) -> datetime:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
-        """
-        return self._properties["last_consumption_timestamp"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Member resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def attributes(self) -> str:
-        """
-        :returns: The JSON string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        """
-        return self._properties["attributes"]
 
     def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """

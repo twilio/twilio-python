@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,34 +24,57 @@ from twilio.base.page import Page
 
 
 class BindingInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the BindingInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the Binding resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Binding resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) the resource is associated with.
+    :ivar credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm` type Bindings.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar notification_protocol_version: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` in the [Service](https://www.twilio.com/docs/notify/api/service-resource) for the protocol. The current version is `\"3\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
+    :ivar endpoint: Deprecated.
+    :ivar identity: The `identity` value that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
+    :ivar binding_type: The transport technology to use for the Binding. Can be: `apn`, `fcm`, `gcm`, `sms`, or `facebook-messenger`.
+    :ivar address: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
+    :ivar tags: The list of tags associated with this Binding. Tags can be used to select the Bindings to use when sending a notification. Maximum 20 tags are allowed.
+    :ivar url: The absolute URL of the Binding resource.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "credential_sid": payload.get("credential_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "notification_protocol_version": payload.get(
-                "notification_protocol_version"
-            ),
-            "endpoint": payload.get("endpoint"),
-            "identity": payload.get("identity"),
-            "binding_type": payload.get("binding_type"),
-            "address": payload.get("address"),
-            "tags": payload.get("tags"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.credential_sid: Optional[str] = payload.get("credential_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.notification_protocol_version: Optional[str] = payload.get(
+            "notification_protocol_version"
+        )
+        self.endpoint: Optional[str] = payload.get("endpoint")
+        self.identity: Optional[str] = payload.get("identity")
+        self.binding_type: Optional[str] = payload.get("binding_type")
+        self.address: Optional[str] = payload.get("address")
+        self.tags: Optional[List[str]] = payload.get("tags")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[BindingContext] = None
 
@@ -70,104 +93,6 @@ class BindingInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Binding resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Binding resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) the resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def credential_sid(self) -> str:
-        """
-        :returns: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm` type Bindings.
-        """
-        return self._properties["credential_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def notification_protocol_version(self) -> str:
-        """
-        :returns: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` in the [Service](https://www.twilio.com/docs/notify/api/service-resource) for the protocol. The current version is `\"3\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
-        """
-        return self._properties["notification_protocol_version"]
-
-    @property
-    def endpoint(self) -> str:
-        """
-        :returns: Deprecated.
-        """
-        return self._properties["endpoint"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: The `identity` value that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
-        """
-        return self._properties["identity"]
-
-    @property
-    def binding_type(self) -> str:
-        """
-        :returns: The transport technology to use for the Binding. Can be: `apn`, `fcm`, `gcm`, `sms`, or `facebook-messenger`.
-        """
-        return self._properties["binding_type"]
-
-    @property
-    def address(self) -> str:
-        """
-        :returns: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
-        """
-        return self._properties["address"]
-
-    @property
-    def tags(self) -> List[str]:
-        """
-        :returns: The list of tags associated with this Binding. Tags can be used to select the Bindings to use when sending a notification. Maximum 20 tags are allowed.
-        """
-        return self._properties["tags"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Binding resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

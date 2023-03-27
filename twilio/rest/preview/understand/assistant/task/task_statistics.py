@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,20 +22,35 @@ from twilio.base.version import Version
 
 
 class TaskStatisticsInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, task_sid: str):
-        """
-        Initialize the TaskStatisticsInstance
-        """
+
+    """
+    :ivar account_sid: The unique ID of the Account that created this Field.
+    :ivar assistant_sid: The unique ID of the parent Assistant.
+    :ivar task_sid: The unique ID of the Task associated with this Field.
+    :ivar samples_count: The total number of Samples associated with this Task.
+    :ivar fields_count: The total number of Fields associated with this Task.
+    :ivar url:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assistant_sid: str,
+        task_sid: str,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "task_sid": payload.get("task_sid"),
-            "samples_count": deserialize.integer(payload.get("samples_count")),
-            "fields_count": deserialize.integer(payload.get("fields_count")),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.task_sid: Optional[str] = payload.get("task_sid")
+        self.samples_count: Optional[int] = deserialize.integer(
+            payload.get("samples_count")
+        )
+        self.fields_count: Optional[int] = deserialize.integer(
+            payload.get("fields_count")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "assistant_sid": assistant_sid,
@@ -58,48 +73,6 @@ class TaskStatisticsInstance(InstanceResource):
                 task_sid=self._solution["task_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique ID of the Account that created this Field.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def assistant_sid(self) -> str:
-        """
-        :returns: The unique ID of the parent Assistant.
-        """
-        return self._properties["assistant_sid"]
-
-    @property
-    def task_sid(self) -> str:
-        """
-        :returns: The unique ID of the Task associated with this Field.
-        """
-        return self._properties["task_sid"]
-
-    @property
-    def samples_count(self) -> int:
-        """
-        :returns: The total number of Samples associated with this Task.
-        """
-        return self._properties["samples_count"]
-
-    @property
-    def fields_count(self) -> int:
-        """
-        :returns: The total number of Fields associated with this Task.
-        """
-        return self._properties["fields_count"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "TaskStatisticsInstance":
         """

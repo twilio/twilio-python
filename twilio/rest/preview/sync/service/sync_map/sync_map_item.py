@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,36 +32,48 @@ class SyncMapItemInstance(InstanceResource):
         ASC = "asc"
         DESC = "desc"
 
+    """
+    :ivar key: 
+    :ivar account_sid: 
+    :ivar service_sid: 
+    :ivar map_sid: 
+    :ivar url: 
+    :ivar revision: 
+    :ivar data: 
+    :ivar date_created: 
+    :ivar date_updated: 
+    :ivar created_by: 
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         map_sid: str,
         key: Optional[str] = None,
     ):
-        """
-        Initialize the SyncMapItemInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "key": payload.get("key"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "map_sid": payload.get("map_sid"),
-            "url": payload.get("url"),
-            "revision": payload.get("revision"),
-            "data": payload.get("data"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-        }
+        self.key: Optional[str] = payload.get("key")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.map_sid: Optional[str] = payload.get("map_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.revision: Optional[str] = payload.get("revision")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.created_by: Optional[str] = payload.get("created_by")
 
         self._solution = {
             "service_sid": service_sid,
             "map_sid": map_sid,
-            "key": key or self._properties["key"],
+            "key": key or self.key,
         }
         self._context: Optional[SyncMapItemContext] = None
 
@@ -81,76 +93,6 @@ class SyncMapItemInstance(InstanceResource):
                 key=self._solution["key"],
             )
         return self._context
-
-    @property
-    def key(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["key"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def map_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["map_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def revision(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["revision"]
-
-    @property
-    def data(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["data"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def created_by(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["created_by"]
 
     def delete(self, if_match=values.unset) -> bool:
         """

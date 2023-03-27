@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,44 +27,74 @@ from twilio.rest.chat.v1.service.user import UserList
 
 
 class ServiceInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ServiceInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the Service resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the Service resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar default_service_role_sid: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+    :ivar default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+    :ivar default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+    :ivar read_status_enabled: Whether the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature is enabled. The default is `true`.
+    :ivar reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Service instance. The default is `false`.
+    :ivar typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
+    :ivar consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
+    :ivar limits: An object that describes the limits of the service instance. The `limits` object contains  `channel_members` to describe the members/channel limit and `user_channels` to describe the channels/user limit. `channel_members` can be 1,000 or less, with a default of 250. `user_channels` can be 1,000 or less, with a default value of 100.
+    :ivar webhooks: An object that contains information about the webhooks configured for this service.
+    :ivar pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+    :ivar post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+    :ivar webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+    :ivar webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+    :ivar notifications: The notification configuration for the Service instance. See [Push Notification Configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
+    :ivar url: The absolute URL of the Service resource.
+    :ivar links: The absolute URLs of the Service's [Channels](https://www.twilio.com/docs/chat/api/channels), [Roles](https://www.twilio.com/docs/chat/api/roles), and [Users](https://www.twilio.com/docs/chat/api/users).
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "default_service_role_sid": payload.get("default_service_role_sid"),
-            "default_channel_role_sid": payload.get("default_channel_role_sid"),
-            "default_channel_creator_role_sid": payload.get(
-                "default_channel_creator_role_sid"
-            ),
-            "read_status_enabled": payload.get("read_status_enabled"),
-            "reachability_enabled": payload.get("reachability_enabled"),
-            "typing_indicator_timeout": deserialize.integer(
-                payload.get("typing_indicator_timeout")
-            ),
-            "consumption_report_interval": deserialize.integer(
-                payload.get("consumption_report_interval")
-            ),
-            "limits": payload.get("limits"),
-            "webhooks": payload.get("webhooks"),
-            "pre_webhook_url": payload.get("pre_webhook_url"),
-            "post_webhook_url": payload.get("post_webhook_url"),
-            "webhook_method": payload.get("webhook_method"),
-            "webhook_filters": payload.get("webhook_filters"),
-            "notifications": payload.get("notifications"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.default_service_role_sid: Optional[str] = payload.get(
+            "default_service_role_sid"
+        )
+        self.default_channel_role_sid: Optional[str] = payload.get(
+            "default_channel_role_sid"
+        )
+        self.default_channel_creator_role_sid: Optional[str] = payload.get(
+            "default_channel_creator_role_sid"
+        )
+        self.read_status_enabled: Optional[bool] = payload.get("read_status_enabled")
+        self.reachability_enabled: Optional[bool] = payload.get("reachability_enabled")
+        self.typing_indicator_timeout: Optional[int] = deserialize.integer(
+            payload.get("typing_indicator_timeout")
+        )
+        self.consumption_report_interval: Optional[int] = deserialize.integer(
+            payload.get("consumption_report_interval")
+        )
+        self.limits: Optional[Dict[str, object]] = payload.get("limits")
+        self.webhooks: Optional[Dict[str, object]] = payload.get("webhooks")
+        self.pre_webhook_url: Optional[str] = payload.get("pre_webhook_url")
+        self.post_webhook_url: Optional[str] = payload.get("post_webhook_url")
+        self.webhook_method: Optional[str] = payload.get("webhook_method")
+        self.webhook_filters: Optional[List[str]] = payload.get("webhook_filters")
+        self.notifications: Optional[Dict[str, object]] = payload.get("notifications")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -82,153 +112,6 @@ class ServiceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Service resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the Service resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def default_service_role_sid(self) -> str:
-        """
-        :returns: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        """
-        return self._properties["default_service_role_sid"]
-
-    @property
-    def default_channel_role_sid(self) -> str:
-        """
-        :returns: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        """
-        return self._properties["default_channel_role_sid"]
-
-    @property
-    def default_channel_creator_role_sid(self) -> str:
-        """
-        :returns: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        """
-        return self._properties["default_channel_creator_role_sid"]
-
-    @property
-    def read_status_enabled(self) -> bool:
-        """
-        :returns: Whether the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature is enabled. The default is `true`.
-        """
-        return self._properties["read_status_enabled"]
-
-    @property
-    def reachability_enabled(self) -> bool:
-        """
-        :returns: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Service instance. The default is `false`.
-        """
-        return self._properties["reachability_enabled"]
-
-    @property
-    def typing_indicator_timeout(self) -> int:
-        """
-        :returns: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-        """
-        return self._properties["typing_indicator_timeout"]
-
-    @property
-    def consumption_report_interval(self) -> int:
-        """
-        :returns: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-        """
-        return self._properties["consumption_report_interval"]
-
-    @property
-    def limits(self) -> Dict[str, object]:
-        """
-        :returns: An object that describes the limits of the service instance. The `limits` object contains  `channel_members` to describe the members/channel limit and `user_channels` to describe the channels/user limit. `channel_members` can be 1,000 or less, with a default of 250. `user_channels` can be 1,000 or less, with a default value of 100.
-        """
-        return self._properties["limits"]
-
-    @property
-    def webhooks(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains information about the webhooks configured for this service.
-        """
-        return self._properties["webhooks"]
-
-    @property
-    def pre_webhook_url(self) -> str:
-        """
-        :returns: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        """
-        return self._properties["pre_webhook_url"]
-
-    @property
-    def post_webhook_url(self) -> str:
-        """
-        :returns: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        """
-        return self._properties["post_webhook_url"]
-
-    @property
-    def webhook_method(self) -> str:
-        """
-        :returns: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        """
-        return self._properties["webhook_method"]
-
-    @property
-    def webhook_filters(self) -> List[str]:
-        """
-        :returns: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        """
-        return self._properties["webhook_filters"]
-
-    @property
-    def notifications(self) -> Dict[str, object]:
-        """
-        :returns: The notification configuration for the Service instance. See [Push Notification Configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-        """
-        return self._properties["notifications"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Service resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The absolute URLs of the Service's [Channels](https://www.twilio.com/docs/chat/api/channels), [Roles](https://www.twilio.com/docs/chat/api/roles), and [Users](https://www.twilio.com/docs/chat/api/users).
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

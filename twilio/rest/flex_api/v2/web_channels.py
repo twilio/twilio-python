@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Any, Dict, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -21,32 +22,19 @@ from twilio.base.version import Version
 
 
 class WebChannelsInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the WebChannelsInstance
-        """
+
+    """
+    :ivar conversation_sid: The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.
+    :ivar identity: The unique string representing the User created and should be authorized to participate in the Conversation. For more details, see [User Identity & Access Tokens](https://www.twilio.com/docs/conversations/identity).
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "conversation_sid": payload.get("conversation_sid"),
-            "identity": payload.get("identity"),
-        }
+        self.conversation_sid: Optional[str] = payload.get("conversation_sid")
+        self.identity: Optional[str] = payload.get("identity")
 
         self._solution = {}
-
-    @property
-    def conversation_sid(self) -> str:
-        """
-        :returns: The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.
-        """
-        return self._properties["conversation_sid"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: The unique string representing the User created and should be authorized to participate in the Conversation. For more details, see [User Identity & Access Tokens](https://www.twilio.com/docs/conversations/identity).
-        """
-        return self._properties["identity"]
 
     def __repr__(self) -> str:
         """

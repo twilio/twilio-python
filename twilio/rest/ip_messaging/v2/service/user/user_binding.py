@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,38 +29,54 @@ class UserBindingInstance(InstanceResource):
         APN = "apn"
         FCM = "fcm"
 
+    """
+    :ivar sid: 
+    :ivar account_sid: 
+    :ivar service_sid: 
+    :ivar date_created: 
+    :ivar date_updated: 
+    :ivar endpoint: 
+    :ivar identity: 
+    :ivar user_sid: 
+    :ivar credential_sid: 
+    :ivar binding_type: 
+    :ivar message_types: 
+    :ivar url: 
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         user_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the UserBindingInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "endpoint": payload.get("endpoint"),
-            "identity": payload.get("identity"),
-            "user_sid": payload.get("user_sid"),
-            "credential_sid": payload.get("credential_sid"),
-            "binding_type": payload.get("binding_type"),
-            "message_types": payload.get("message_types"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.endpoint: Optional[str] = payload.get("endpoint")
+        self.identity: Optional[str] = payload.get("identity")
+        self.user_sid: Optional[str] = payload.get("user_sid")
+        self.credential_sid: Optional[str] = payload.get("credential_sid")
+        self.binding_type: Optional["UserBindingInstance.BindingType"] = payload.get(
+            "binding_type"
+        )
+        self.message_types: Optional[List[str]] = payload.get("message_types")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "user_sid": user_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[UserBindingContext] = None
 
@@ -80,90 +96,6 @@ class UserBindingInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def endpoint(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["endpoint"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["identity"]
-
-    @property
-    def user_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["user_sid"]
-
-    @property
-    def credential_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["credential_sid"]
-
-    @property
-    def binding_type(self) -> "UserBindingInstance.BindingType":
-        """
-        :returns:
-        """
-        return self._properties["binding_type"]
-
-    @property
-    def message_types(self) -> List[str]:
-        """
-        :returns:
-        """
-        return self._properties["message_types"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

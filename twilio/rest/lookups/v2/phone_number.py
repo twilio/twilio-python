@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,32 +30,60 @@ class PhoneNumberInstance(InstanceResource):
         INVALID_LENGTH = "INVALID_LENGTH"
         NOT_A_NUMBER = "NOT_A_NUMBER"
 
-    def __init__(self, version, payload, phone_number: Optional[str] = None):
-        """
-        Initialize the PhoneNumberInstance
-        """
+    """
+    :ivar calling_country_code: International dialing prefix of the phone number defined in the E.164 standard.
+    :ivar country_code: The phone number's [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+    :ivar phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+    :ivar national_format: The phone number in [national format](https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers).
+    :ivar valid: Boolean which indicates if the phone number is in a valid range that can be freely assigned by a carrier to a user.
+    :ivar validation_errors: Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
+    :ivar caller_name: An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
+    :ivar sim_swap: An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
+    :ivar call_forwarding: An object that contains information on the unconditional call forwarding status of mobile phone number.
+    :ivar live_activity: An object that contains live activity information for a mobile phone number.
+    :ivar line_type_intelligence: An object that contains line type information including the carrier name, mobile country code, and mobile network code.
+    :ivar identity_match: An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
+    :ivar sms_pumping_risk: An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
+    :ivar disposable_phone_number_risk: An object that contains information on if a mobile phone number could be a disposable or burner number.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        phone_number: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "calling_country_code": payload.get("calling_country_code"),
-            "country_code": payload.get("country_code"),
-            "phone_number": payload.get("phone_number"),
-            "national_format": payload.get("national_format"),
-            "valid": payload.get("valid"),
-            "validation_errors": payload.get("validation_errors"),
-            "caller_name": payload.get("caller_name"),
-            "sim_swap": payload.get("sim_swap"),
-            "call_forwarding": payload.get("call_forwarding"),
-            "live_activity": payload.get("live_activity"),
-            "line_type_intelligence": payload.get("line_type_intelligence"),
-            "identity_match": payload.get("identity_match"),
-            "sms_pumping_risk": payload.get("sms_pumping_risk"),
-            "disposable_phone_number_risk": payload.get("disposable_phone_number_risk"),
-            "url": payload.get("url"),
-        }
+        self.calling_country_code: Optional[str] = payload.get("calling_country_code")
+        self.country_code: Optional[str] = payload.get("country_code")
+        self.phone_number: Optional[str] = payload.get("phone_number")
+        self.national_format: Optional[str] = payload.get("national_format")
+        self.valid: Optional[bool] = payload.get("valid")
+        self.validation_errors: Optional[
+            List["PhoneNumberInstance.ValidationError"]
+        ] = payload.get("validation_errors")
+        self.caller_name: Optional[Dict[str, object]] = payload.get("caller_name")
+        self.sim_swap: Optional[Dict[str, object]] = payload.get("sim_swap")
+        self.call_forwarding: Optional[Dict[str, object]] = payload.get(
+            "call_forwarding"
+        )
+        self.live_activity: Optional[Dict[str, object]] = payload.get("live_activity")
+        self.line_type_intelligence: Optional[Dict[str, object]] = payload.get(
+            "line_type_intelligence"
+        )
+        self.identity_match: Optional[Dict[str, object]] = payload.get("identity_match")
+        self.sms_pumping_risk: Optional[Dict[str, object]] = payload.get(
+            "sms_pumping_risk"
+        )
+        self.disposable_phone_number_risk: Optional[Dict[str, object]] = payload.get(
+            "disposable_phone_number_risk"
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "phone_number": phone_number or self._properties["phone_number"],
+            "phone_number": phone_number or self.phone_number,
         }
         self._context: Optional[PhoneNumberContext] = None
 
@@ -73,111 +101,6 @@ class PhoneNumberInstance(InstanceResource):
                 phone_number=self._solution["phone_number"],
             )
         return self._context
-
-    @property
-    def calling_country_code(self) -> str:
-        """
-        :returns: International dialing prefix of the phone number defined in the E.164 standard.
-        """
-        return self._properties["calling_country_code"]
-
-    @property
-    def country_code(self) -> str:
-        """
-        :returns: The phone number's [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-        """
-        return self._properties["country_code"]
-
-    @property
-    def phone_number(self) -> str:
-        """
-        :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        """
-        return self._properties["phone_number"]
-
-    @property
-    def national_format(self) -> str:
-        """
-        :returns: The phone number in [national format](https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers).
-        """
-        return self._properties["national_format"]
-
-    @property
-    def valid(self) -> bool:
-        """
-        :returns: Boolean which indicates if the phone number is in a valid range that can be freely assigned by a carrier to a user.
-        """
-        return self._properties["valid"]
-
-    @property
-    def validation_errors(self) -> List["PhoneNumberInstance.ValidationError"]:
-        """
-        :returns: Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
-        """
-        return self._properties["validation_errors"]
-
-    @property
-    def caller_name(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
-        """
-        return self._properties["caller_name"]
-
-    @property
-    def sim_swap(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
-        """
-        return self._properties["sim_swap"]
-
-    @property
-    def call_forwarding(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains information on the unconditional call forwarding status of mobile phone number.
-        """
-        return self._properties["call_forwarding"]
-
-    @property
-    def live_activity(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains live activity information for a mobile phone number.
-        """
-        return self._properties["live_activity"]
-
-    @property
-    def line_type_intelligence(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains line type information including the carrier name, mobile country code, and mobile network code.
-        """
-        return self._properties["line_type_intelligence"]
-
-    @property
-    def identity_match(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
-        """
-        return self._properties["identity_match"]
-
-    @property
-    def sms_pumping_risk(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
-        """
-        return self._properties["sms_pumping_risk"]
-
-    @property
-    def disposable_phone_number_risk(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains information on if a mobile phone number could be a disposable or burner number.
-        """
-        return self._properties["disposable_phone_number_risk"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def fetch(
         self,

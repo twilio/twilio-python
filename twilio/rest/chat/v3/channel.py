@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,38 +31,58 @@ class ChannelInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
+    """
+    :ivar sid: The unique string that we created to identify the Channel resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Channel resource is associated with.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+    :ivar attributes: The JSON string that stores application-specific data. If attributes have not been set, `{}` is returned.
+    :ivar type: 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar created_by: The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`.
+    :ivar members_count: The number of Members in the Channel.
+    :ivar messages_count: The number of Messages that have been passed in the Channel.
+    :ivar messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+    :ivar url: The absolute URL of the Channel resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: Optional[str] = None,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the ChannelInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "unique_name": payload.get("unique_name"),
-            "attributes": payload.get("attributes"),
-            "type": payload.get("type"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-            "members_count": deserialize.integer(payload.get("members_count")),
-            "messages_count": deserialize.integer(payload.get("messages_count")),
-            "messaging_service_sid": payload.get("messaging_service_sid"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.type: Optional["ChannelInstance.ChannelType"] = payload.get("type")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.created_by: Optional[str] = payload.get("created_by")
+        self.members_count: Optional[int] = deserialize.integer(
+            payload.get("members_count")
+        )
+        self.messages_count: Optional[int] = deserialize.integer(
+            payload.get("messages_count")
+        )
+        self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "service_sid": service_sid or self._properties["service_sid"],
-            "sid": sid or self._properties["sid"],
+            "service_sid": service_sid or self.service_sid,
+            "sid": sid or self.sid,
         }
         self._context: Optional[ChannelContext] = None
 
@@ -81,104 +101,6 @@ class ChannelInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Channel resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Channel resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def attributes(self) -> str:
-        """
-        :returns: The JSON string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        """
-        return self._properties["attributes"]
-
-    @property
-    def type(self) -> "ChannelInstance.ChannelType":
-        """
-        :returns:
-        """
-        return self._properties["type"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def created_by(self) -> str:
-        """
-        :returns: The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`.
-        """
-        return self._properties["created_by"]
-
-    @property
-    def members_count(self) -> int:
-        """
-        :returns: The number of Members in the Channel.
-        """
-        return self._properties["members_count"]
-
-    @property
-    def messages_count(self) -> int:
-        """
-        :returns: The number of Messages that have been passed in the Channel.
-        """
-        return self._properties["messages_count"]
-
-    @property
-    def messaging_service_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
-        """
-        return self._properties["messaging_service_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Channel resource.
-        """
-        return self._properties["url"]
 
     def update(
         self,

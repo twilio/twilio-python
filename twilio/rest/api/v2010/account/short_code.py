@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,30 +24,51 @@ from twilio.base.page import Page
 
 
 class ShortCodeInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ShortCodeInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this ShortCode resource.
+    :ivar api_version: The API version used to start a new TwiML session when an SMS message is sent to this short code.
+    :ivar date_created: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar friendly_name: A string that you assigned to describe this resource. By default, the `FriendlyName` is the short code.
+    :ivar short_code: The short code. e.g., 894546.
+    :ivar sid: The unique string that that we created to identify this ShortCode resource.
+    :ivar sms_fallback_method: The HTTP method we use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
+    :ivar sms_fallback_url: The URL that we call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+    :ivar sms_method: The HTTP method we use to call the `sms_url`. Can be: `GET` or `POST`.
+    :ivar sms_url: The URL we call when receiving an incoming SMS message to this short code.
+    :ivar uri: The URI of this resource, relative to `https://api.twilio.com`.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "api_version": payload.get("api_version"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "short_code": payload.get("short_code"),
-            "sid": payload.get("sid"),
-            "sms_fallback_method": payload.get("sms_fallback_method"),
-            "sms_fallback_url": payload.get("sms_fallback_url"),
-            "sms_method": payload.get("sms_method"),
-            "sms_url": payload.get("sms_url"),
-            "uri": payload.get("uri"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.api_version: Optional[str] = payload.get("api_version")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.short_code: Optional[str] = payload.get("short_code")
+        self.sid: Optional[str] = payload.get("sid")
+        self.sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
+        self.sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
+        self.sms_method: Optional[str] = payload.get("sms_method")
+        self.sms_url: Optional[str] = payload.get("sms_url")
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ShortCodeContext] = None
 
@@ -66,90 +87,6 @@ class ShortCodeInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this ShortCode resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def api_version(self) -> str:
-        """
-        :returns: The API version used to start a new TwiML session when an SMS message is sent to this short code.
-        """
-        return self._properties["api_version"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: A string that you assigned to describe this resource. By default, the `FriendlyName` is the short code.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def short_code(self) -> str:
-        """
-        :returns: The short code. e.g., 894546.
-        """
-        return self._properties["short_code"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that that we created to identify this ShortCode resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def sms_fallback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["sms_fallback_method"]
-
-    @property
-    def sms_fallback_url(self) -> str:
-        """
-        :returns: The URL that we call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-        """
-        return self._properties["sms_fallback_url"]
-
-    @property
-    def sms_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call the `sms_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["sms_method"]
-
-    @property
-    def sms_url(self) -> str:
-        """
-        :returns: The URL we call when receiving an incoming SMS message to this short code.
-        """
-        return self._properties["sms_url"]
-
-    @property
-    def uri(self) -> str:
-        """
-        :returns: The URI of this resource, relative to `https://api.twilio.com`.
-        """
-        return self._properties["uri"]
 
     def fetch(self) -> "ShortCodeInstance":
         """

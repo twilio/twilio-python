@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,56 +23,25 @@ from twilio.base.page import Page
 
 
 class TemplateInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the TemplateInstance
-        """
+
+    """
+    :ivar sid: A 34 character string that uniquely identifies a Verification Template.
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar friendly_name: A descriptive string that you create to describe a Template.
+    :ivar channels: A list of channels that support the Template. Can include: sms, voice
+    :ivar translations: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "channels": payload.get("channels"),
-            "translations": payload.get("translations"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.channels: Optional[List[str]] = payload.get("channels")
+        self.translations: Optional[Dict[str, object]] = payload.get("translations")
 
         self._solution = {}
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies a Verification Template.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: A descriptive string that you create to describe a Template.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def channels(self) -> List[str]:
-        """
-        :returns: A list of channels that support the Template. Can include: sms, voice
-        """
-        return self._properties["channels"]
-
-    @property
-    def translations(self) -> Dict[str, object]:
-        """
-        :returns: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
-        """
-        return self._properties["translations"]
 
     def __repr__(self) -> str:
         """

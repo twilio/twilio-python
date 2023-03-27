@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -33,29 +33,49 @@ class MediaProcessorInstance(InstanceResource):
         STARTED = "started"
         ENDED = "ended"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the MediaProcessorInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaProcessor resource.
+    :ivar sid: The unique string generated to identify the MediaProcessor resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar extension: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
+    :ivar extension_context: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
+    :ivar status: 
+    :ivar url: The absolute URL of the resource.
+    :ivar ended_reason: The reason why a MediaProcessor ended. When a MediaProcessor is in progress, will be `null`. When a MediaProcessor is completed, can be `ended-via-api`, `max-duration-exceeded`, `error-loading-extension`, `error-streaming-media` or `internal-service-error`. See [ended reasons](/docs/live/api/mediaprocessors#mediaprocessor-ended-reason-values) for more details.
+    :ivar status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
+    :ivar status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+    :ivar max_duration: The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "extension": payload.get("extension"),
-            "extension_context": payload.get("extension_context"),
-            "status": payload.get("status"),
-            "url": payload.get("url"),
-            "ended_reason": payload.get("ended_reason"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "max_duration": deserialize.integer(payload.get("max_duration")),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.extension: Optional[str] = payload.get("extension")
+        self.extension_context: Optional[str] = payload.get("extension_context")
+        self.status: Optional["MediaProcessorInstance.Status"] = payload.get("status")
+        self.url: Optional[str] = payload.get("url")
+        self.ended_reason: Optional[str] = payload.get("ended_reason")
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
+        self.max_duration: Optional[int] = deserialize.integer(
+            payload.get("max_duration")
+        )
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[MediaProcessorContext] = None
 
@@ -73,90 +93,6 @@ class MediaProcessorInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaProcessor resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string generated to identify the MediaProcessor resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def extension(self) -> str:
-        """
-        :returns: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
-        """
-        return self._properties["extension"]
-
-    @property
-    def extension_context(self) -> str:
-        """
-        :returns: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
-        """
-        return self._properties["extension_context"]
-
-    @property
-    def status(self) -> "MediaProcessorInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def ended_reason(self) -> str:
-        """
-        :returns: The reason why a MediaProcessor ended. When a MediaProcessor is in progress, will be `null`. When a MediaProcessor is completed, can be `ended-via-api`, `max-duration-exceeded`, `error-loading-extension`, `error-streaming-media` or `internal-service-error`. See [ended reasons](/docs/live/api/mediaprocessors#mediaprocessor-ended-reason-values) for more details.
-        """
-        return self._properties["ended_reason"]
-
-    @property
-    def status_callback(self) -> str:
-        """
-        :returns: The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
-        """
-        return self._properties["status_callback"]
-
-    @property
-    def status_callback_method(self) -> str:
-        """
-        :returns: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
-        """
-        return self._properties["status_callback_method"]
-
-    @property
-    def max_duration(self) -> int:
-        """
-        :returns: The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
-        """
-        return self._properties["max_duration"]
 
     def fetch(self) -> "MediaProcessorInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,34 +25,57 @@ from twilio.rest.ip_messaging.v1.service.user.user_channel import UserChannelLis
 
 
 class UserInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the UserInstance
-        """
+
+    """
+    :ivar sid:
+    :ivar account_sid:
+    :ivar service_sid:
+    :ivar attributes:
+    :ivar friendly_name:
+    :ivar role_sid:
+    :ivar identity:
+    :ivar is_online:
+    :ivar is_notifiable:
+    :ivar date_created:
+    :ivar date_updated:
+    :ivar joined_channels_count:
+    :ivar links:
+    :ivar url:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "attributes": payload.get("attributes"),
-            "friendly_name": payload.get("friendly_name"),
-            "role_sid": payload.get("role_sid"),
-            "identity": payload.get("identity"),
-            "is_online": payload.get("is_online"),
-            "is_notifiable": payload.get("is_notifiable"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "joined_channels_count": deserialize.integer(
-                payload.get("joined_channels_count")
-            ),
-            "links": payload.get("links"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.role_sid: Optional[str] = payload.get("role_sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.is_online: Optional[bool] = payload.get("is_online")
+        self.is_notifiable: Optional[bool] = payload.get("is_notifiable")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.joined_channels_count: Optional[int] = deserialize.integer(
+            payload.get("joined_channels_count")
+        )
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[UserContext] = None
 
@@ -71,104 +94,6 @@ class UserInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def attributes(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["attributes"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def role_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["role_sid"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["identity"]
-
-    @property
-    def is_online(self) -> bool:
-        """
-        :returns:
-        """
-        return self._properties["is_online"]
-
-    @property
-    def is_notifiable(self) -> bool:
-        """
-        :returns:
-        """
-        return self._properties["is_notifiable"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def joined_channels_count(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["joined_channels_count"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

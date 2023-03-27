@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -38,33 +38,55 @@ from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import (
 
 
 class WorkerInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the WorkerInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
+    :ivar activity_name: The `friendly_name` of the Worker's current Activity.
+    :ivar activity_sid: The SID of the Worker's current Activity.
+    :ivar attributes: The JSON string that describes the Worker. For example: `{ \"email\": \"Bob@example.com\", \"phone\": \"+5095551234\" }`. **Note** If this property has been assigned a value, it will only be displayed in FETCH actions that return a single resource. Otherwise, this property will be null, even if it has a value. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker.
+    :ivar available: Whether the Worker is available to perform tasks.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_status_changed: The date and time in GMT of the last change to the Worker's activity specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Used to calculate Workflow statistics.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar friendly_name: The string that you assigned to describe the resource. Friendly names are case insensitive, and unique within the TaskRouter Workspace.
+    :ivar sid: The unique string that we created to identify the Worker resource.
+    :ivar workspace_sid: The SID of the Workspace that contains the Worker.
+    :ivar url: The absolute URL of the Worker resource.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "activity_name": payload.get("activity_name"),
-            "activity_sid": payload.get("activity_sid"),
-            "attributes": payload.get("attributes"),
-            "available": payload.get("available"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_status_changed": deserialize.iso8601_datetime(
-                payload.get("date_status_changed")
-            ),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "sid": payload.get("sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.activity_name: Optional[str] = payload.get("activity_name")
+        self.activity_sid: Optional[str] = payload.get("activity_sid")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.available: Optional[bool] = payload.get("available")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_status_changed: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_status_changed")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.sid: Optional[str] = payload.get("sid")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "workspace_sid": workspace_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[WorkerContext] = None
 
@@ -83,97 +105,6 @@ class WorkerInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def activity_name(self) -> str:
-        """
-        :returns: The `friendly_name` of the Worker's current Activity.
-        """
-        return self._properties["activity_name"]
-
-    @property
-    def activity_sid(self) -> str:
-        """
-        :returns: The SID of the Worker's current Activity.
-        """
-        return self._properties["activity_sid"]
-
-    @property
-    def attributes(self) -> str:
-        """
-        :returns: The JSON string that describes the Worker. For example: `{ \"email\": \"Bob@example.com\", \"phone\": \"+5095551234\" }`. **Note** If this property has been assigned a value, it will only be displayed in FETCH actions that return a single resource. Otherwise, this property will be null, even if it has a value. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker.
-        """
-        return self._properties["attributes"]
-
-    @property
-    def available(self) -> bool:
-        """
-        :returns: Whether the Worker is available to perform tasks.
-        """
-        return self._properties["available"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_status_changed(self) -> datetime:
-        """
-        :returns: The date and time in GMT of the last change to the Worker's activity specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Used to calculate Workflow statistics.
-        """
-        return self._properties["date_status_changed"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource. Friendly names are case insensitive, and unique within the TaskRouter Workspace.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Worker resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that contains the Worker.
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Worker resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._properties["links"]
 
     def delete(self, if_match=values.unset) -> bool:
         """

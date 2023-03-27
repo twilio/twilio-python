@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,36 +24,49 @@ from twilio.base.page import Page
 
 
 class InviteInstance(InstanceResource):
+
+    """
+    :ivar sid:
+    :ivar account_sid:
+    :ivar channel_sid:
+    :ivar service_sid:
+    :ivar identity:
+    :ivar date_created:
+    :ivar date_updated:
+    :ivar role_sid:
+    :ivar created_by:
+    :ivar url:
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         channel_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the InviteInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "service_sid": payload.get("service_sid"),
-            "identity": payload.get("identity"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "role_sid": payload.get("role_sid"),
-            "created_by": payload.get("created_by"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.role_sid: Optional[str] = payload.get("role_sid")
+        self.created_by: Optional[str] = payload.get("created_by")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[InviteContext] = None
 
@@ -73,76 +86,6 @@ class InviteInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def channel_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["channel_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["identity"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def role_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["role_sid"]
-
-    @property
-    def created_by(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["created_by"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

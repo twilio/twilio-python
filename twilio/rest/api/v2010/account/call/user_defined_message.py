@@ -14,6 +14,7 @@ r"""
 
 
 from datetime import datetime
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -22,51 +23,30 @@ from twilio.base.version import Version
 
 
 class UserDefinedMessageInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, call_sid: str):
-        """
-        Initialize the UserDefinedMessageInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
+    :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
+    :ivar sid: The SID that uniquely identifies this User Defined Message.
+    :ivar date_created: The date that this User Defined Message was created, given in RFC 2822 format.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], account_sid: str, call_sid: str
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "call_sid": payload.get("call_sid"),
-            "sid": payload.get("sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
 
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,
         }
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def call_sid(self) -> str:
-        """
-        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The SID that uniquely identifies this User Defined Message.
-        """
-        return self._properties["sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this User Defined Message was created, given in RFC 2822 format.
-        """
-        return self._properties["date_created"]
 
     def __repr__(self) -> str:
         """

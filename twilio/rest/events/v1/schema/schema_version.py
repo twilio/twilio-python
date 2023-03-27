@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,23 +24,37 @@ from twilio.base.page import Page
 
 
 class SchemaVersionInstance(InstanceResource):
-    def __init__(self, version, payload, id: str, schema_version: Optional[int] = None):
-        """
-        Initialize the SchemaVersionInstance
-        """
+
+    """
+    :ivar id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+    :ivar schema_version: The version of this schema.
+    :ivar date_created: The date the schema version was created, given in ISO 8601 format.
+    :ivar url: The URL of this resource.
+    :ivar raw:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        id: str,
+        schema_version: Optional[int] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "id": payload.get("id"),
-            "schema_version": deserialize.integer(payload.get("schema_version")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-            "raw": payload.get("raw"),
-        }
+        self.id: Optional[str] = payload.get("id")
+        self.schema_version: Optional[int] = deserialize.integer(
+            payload.get("schema_version")
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.raw: Optional[str] = payload.get("raw")
 
         self._solution = {
             "id": id,
-            "schema_version": schema_version or self._properties["schema_version"],
+            "schema_version": schema_version or self.schema_version,
         }
         self._context: Optional[SchemaVersionContext] = None
 
@@ -59,41 +73,6 @@ class SchemaVersionInstance(InstanceResource):
                 schema_version=self._solution["schema_version"],
             )
         return self._context
-
-    @property
-    def id(self) -> str:
-        """
-        :returns: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-        """
-        return self._properties["id"]
-
-    @property
-    def schema_version(self) -> int:
-        """
-        :returns: The version of this schema.
-        """
-        return self._properties["schema_version"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date the schema version was created, given in ISO 8601 format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def raw(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["raw"]
 
     def fetch(self) -> "SchemaVersionInstance":
         """

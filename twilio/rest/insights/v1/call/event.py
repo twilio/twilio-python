@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -37,106 +37,38 @@ class EventInstance(InstanceResource):
         SDK_EDGE = "sdk_edge"
         CLIENT_EDGE = "client_edge"
 
-    def __init__(self, version, payload, call_sid: str):
-        """
-        Initialize the EventInstance
-        """
+    """
+    :ivar timestamp: 
+    :ivar call_sid: 
+    :ivar account_sid: 
+    :ivar edge: 
+    :ivar group: 
+    :ivar level: 
+    :ivar name: 
+    :ivar carrier_edge: 
+    :ivar sip_edge: 
+    :ivar sdk_edge: 
+    :ivar client_edge: 
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "timestamp": payload.get("timestamp"),
-            "call_sid": payload.get("call_sid"),
-            "account_sid": payload.get("account_sid"),
-            "edge": payload.get("edge"),
-            "group": payload.get("group"),
-            "level": payload.get("level"),
-            "name": payload.get("name"),
-            "carrier_edge": payload.get("carrier_edge"),
-            "sip_edge": payload.get("sip_edge"),
-            "sdk_edge": payload.get("sdk_edge"),
-            "client_edge": payload.get("client_edge"),
-        }
+        self.timestamp: Optional[str] = payload.get("timestamp")
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.edge: Optional["EventInstance.TwilioEdge"] = payload.get("edge")
+        self.group: Optional[str] = payload.get("group")
+        self.level: Optional["EventInstance.Level"] = payload.get("level")
+        self.name: Optional[str] = payload.get("name")
+        self.carrier_edge: Optional[Dict[str, object]] = payload.get("carrier_edge")
+        self.sip_edge: Optional[Dict[str, object]] = payload.get("sip_edge")
+        self.sdk_edge: Optional[Dict[str, object]] = payload.get("sdk_edge")
+        self.client_edge: Optional[Dict[str, object]] = payload.get("client_edge")
 
         self._solution = {
             "call_sid": call_sid,
         }
-
-    @property
-    def timestamp(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["timestamp"]
-
-    @property
-    def call_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def edge(self) -> "EventInstance.TwilioEdge":
-        """
-        :returns:
-        """
-        return self._properties["edge"]
-
-    @property
-    def group(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["group"]
-
-    @property
-    def level(self) -> "EventInstance.Level":
-        """
-        :returns:
-        """
-        return self._properties["level"]
-
-    @property
-    def name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["name"]
-
-    @property
-    def carrier_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["carrier_edge"]
-
-    @property
-    def sip_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["sip_edge"]
-
-    @property
-    def sdk_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["sdk_edge"]
-
-    @property
-    def client_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["client_edge"]
 
     def __repr__(self) -> str:
         """

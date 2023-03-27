@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,19 +21,29 @@ from twilio.base.version import Version
 
 
 class EngagementContextInstance(InstanceResource):
-    def __init__(self, version, payload, flow_sid: str, engagement_sid: str):
-        """
-        Initialize the EngagementContextInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the Account.
+    :ivar context: As your flow executes, we save the state in what's called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.
+    :ivar engagement_sid: The SID of the Engagement.
+    :ivar flow_sid: The SID of the Flow.
+    :ivar url: The URL of the resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        flow_sid: str,
+        engagement_sid: str,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "context": payload.get("context"),
-            "engagement_sid": payload.get("engagement_sid"),
-            "flow_sid": payload.get("flow_sid"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.context: Optional[Dict[str, object]] = payload.get("context")
+        self.engagement_sid: Optional[str] = payload.get("engagement_sid")
+        self.flow_sid: Optional[str] = payload.get("flow_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "flow_sid": flow_sid,
@@ -56,41 +66,6 @@ class EngagementContextInstance(InstanceResource):
                 engagement_sid=self._solution["engagement_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the Account.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def context(self) -> Dict[str, object]:
-        """
-        :returns: As your flow executes, we save the state in what's called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.
-        """
-        return self._properties["context"]
-
-    @property
-    def engagement_sid(self) -> str:
-        """
-        :returns: The SID of the Engagement.
-        """
-        return self._properties["engagement_sid"]
-
-    @property
-    def flow_sid(self) -> str:
-        """
-        :returns: The SID of the Flow.
-        """
-        return self._properties["flow_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The URL of the resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "EngagementContextInstance":
         """

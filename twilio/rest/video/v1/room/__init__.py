@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -42,51 +42,87 @@ class RoomInstance(InstanceResource):
         VP8 = "VP8"
         H264 = "H264"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the RoomInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Room resource.
+    :ivar status: 
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Room resource.
+    :ivar enable_turn: Deprecated, now always considered to be true.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+    :ivar status_callback: The URL we call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+    :ivar status_callback_method: The HTTP method we use to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
+    :ivar end_time: The UTC end time of the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+    :ivar duration: The duration of the room in seconds.
+    :ivar type: 
+    :ivar max_participants: The maximum number of concurrent Participants allowed in the room. 
+    :ivar max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+    :ivar max_concurrent_published_tracks: The maximum number of published audio, video, and data tracks all participants combined are allowed to publish in the room at the same time. Check [Programmable Video Limits](https://www.twilio.com/docs/video/programmable-video-limits) for more details. If it is set to 0 it means unconstrained.
+    :ivar record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+    :ivar video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+    :ivar media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+    :ivar audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+    :ivar empty_room_timeout: Specifies how long (in minutes) a room will remain active after last participant leaves. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
+    :ivar unused_room_timeout: Specifies how long (in minutes) a room will remain active if no one joins. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
+    :ivar large_room: Indicates if this is a large room.
+    :ivar url: The absolute URL of the resource.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "status": payload.get("status"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "account_sid": payload.get("account_sid"),
-            "enable_turn": payload.get("enable_turn"),
-            "unique_name": payload.get("unique_name"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
-            "duration": deserialize.integer(payload.get("duration")),
-            "type": payload.get("type"),
-            "max_participants": deserialize.integer(payload.get("max_participants")),
-            "max_participant_duration": deserialize.integer(
-                payload.get("max_participant_duration")
-            ),
-            "max_concurrent_published_tracks": deserialize.integer(
-                payload.get("max_concurrent_published_tracks")
-            ),
-            "record_participants_on_connect": payload.get(
-                "record_participants_on_connect"
-            ),
-            "video_codecs": payload.get("video_codecs"),
-            "media_region": payload.get("media_region"),
-            "audio_only": payload.get("audio_only"),
-            "empty_room_timeout": deserialize.integer(
-                payload.get("empty_room_timeout")
-            ),
-            "unused_room_timeout": deserialize.integer(
-                payload.get("unused_room_timeout")
-            ),
-            "large_room": payload.get("large_room"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.status: Optional["RoomInstance.RoomStatus"] = payload.get("status")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.enable_turn: Optional[bool] = payload.get("enable_turn")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
+        self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self.type: Optional["RoomInstance.RoomType"] = payload.get("type")
+        self.max_participants: Optional[int] = deserialize.integer(
+            payload.get("max_participants")
+        )
+        self.max_participant_duration: Optional[int] = deserialize.integer(
+            payload.get("max_participant_duration")
+        )
+        self.max_concurrent_published_tracks: Optional[int] = deserialize.integer(
+            payload.get("max_concurrent_published_tracks")
+        )
+        self.record_participants_on_connect: Optional[bool] = payload.get(
+            "record_participants_on_connect"
+        )
+        self.video_codecs: Optional[List["RoomInstance.VideoCodec"]] = payload.get(
+            "video_codecs"
+        )
+        self.media_region: Optional[str] = payload.get("media_region")
+        self.audio_only: Optional[bool] = payload.get("audio_only")
+        self.empty_room_timeout: Optional[int] = deserialize.integer(
+            payload.get("empty_room_timeout")
+        )
+        self.unused_room_timeout: Optional[int] = deserialize.integer(
+            payload.get("unused_room_timeout")
+        )
+        self.large_room: Optional[bool] = payload.get("large_room")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[RoomContext] = None
 
@@ -104,174 +140,6 @@ class RoomInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Room resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def status(self) -> "RoomInstance.RoomStatus":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Room resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def enable_turn(self) -> bool:
-        """
-        :returns: Deprecated, now always considered to be true.
-        """
-        return self._properties["enable_turn"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def status_callback(self) -> str:
-        """
-        :returns: The URL we call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-        """
-        return self._properties["status_callback"]
-
-    @property
-    def status_callback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
-        """
-        return self._properties["status_callback_method"]
-
-    @property
-    def end_time(self) -> datetime:
-        """
-        :returns: The UTC end time of the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        """
-        return self._properties["end_time"]
-
-    @property
-    def duration(self) -> int:
-        """
-        :returns: The duration of the room in seconds.
-        """
-        return self._properties["duration"]
-
-    @property
-    def type(self) -> "RoomInstance.RoomType":
-        """
-        :returns:
-        """
-        return self._properties["type"]
-
-    @property
-    def max_participants(self) -> int:
-        """
-        :returns: The maximum number of concurrent Participants allowed in the room.
-        """
-        return self._properties["max_participants"]
-
-    @property
-    def max_participant_duration(self) -> int:
-        """
-        :returns: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
-        """
-        return self._properties["max_participant_duration"]
-
-    @property
-    def max_concurrent_published_tracks(self) -> int:
-        """
-        :returns: The maximum number of published audio, video, and data tracks all participants combined are allowed to publish in the room at the same time. Check [Programmable Video Limits](https://www.twilio.com/docs/video/programmable-video-limits) for more details. If it is set to 0 it means unconstrained.
-        """
-        return self._properties["max_concurrent_published_tracks"]
-
-    @property
-    def record_participants_on_connect(self) -> bool:
-        """
-        :returns: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        """
-        return self._properties["record_participants_on_connect"]
-
-    @property
-    def video_codecs(self) -> List["RoomInstance.VideoCodec"]:
-        """
-        :returns: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        """
-        return self._properties["video_codecs"]
-
-    @property
-    def media_region(self) -> str:
-        """
-        :returns: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#media-servers). ***This feature is not available in `peer-to-peer` rooms.***
-        """
-        return self._properties["media_region"]
-
-    @property
-    def audio_only(self) -> bool:
-        """
-        :returns: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
-        """
-        return self._properties["audio_only"]
-
-    @property
-    def empty_room_timeout(self) -> int:
-        """
-        :returns: Specifies how long (in minutes) a room will remain active after last participant leaves. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
-        """
-        return self._properties["empty_room_timeout"]
-
-    @property
-    def unused_room_timeout(self) -> int:
-        """
-        :returns: Specifies how long (in minutes) a room will remain active if no one joins. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
-        """
-        return self._properties["unused_room_timeout"]
-
-    @property
-    def large_room(self) -> bool:
-        """
-        :returns: Indicates if this is a large room.
-        """
-        return self._properties["large_room"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._properties["links"]
 
     def fetch(self) -> "RoomInstance":
         """

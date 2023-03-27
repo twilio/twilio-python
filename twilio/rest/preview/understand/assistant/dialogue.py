@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,23 +21,33 @@ from twilio.base.version import Version
 
 
 class DialogueInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the DialogueInstance
-        """
+
+    """
+    :ivar account_sid: The unique ID of the Account that created this Field.
+    :ivar assistant_sid: The unique ID of the parent Assistant.
+    :ivar sid: The unique ID of the Dialogue
+    :ivar data: The dialogue memory object as json
+    :ivar url:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assistant_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "sid": payload.get("sid"),
-            "data": payload.get("data"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "assistant_sid": assistant_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[DialogueContext] = None
 
@@ -56,41 +66,6 @@ class DialogueInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique ID of the Account that created this Field.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def assistant_sid(self) -> str:
-        """
-        :returns: The unique ID of the parent Assistant.
-        """
-        return self._properties["assistant_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique ID of the Dialogue
-        """
-        return self._properties["sid"]
-
-    @property
-    def data(self) -> Dict[str, object]:
-        """
-        :returns: The dialogue memory object as json
-        """
-        return self._properties["data"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "DialogueInstance":
         """

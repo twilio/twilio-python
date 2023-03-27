@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -52,29 +52,47 @@ class BundleInstance(InstanceResource):
         TWILIO_APPROVED = "twilio-approved"
         PROVISIONALLY_APPROVED = "provisionally-approved"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the BundleInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Bundle resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
+    :ivar regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar status: 
+    :ivar valid_until: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
+    :ivar email: The email address that will receive updates when the Bundle resource changes status.
+    :ivar status_callback: The URL we call to inform your application of status changes.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Bundle resource.
+    :ivar links: The URLs of the Assigned Items of the Bundle resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "regulation_sid": payload.get("regulation_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "status": payload.get("status"),
-            "valid_until": deserialize.iso8601_datetime(payload.get("valid_until")),
-            "email": payload.get("email"),
-            "status_callback": payload.get("status_callback"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.regulation_sid: Optional[str] = payload.get("regulation_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.status: Optional["BundleInstance.Status"] = payload.get("status")
+        self.valid_until: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("valid_until")
+        )
+        self.email: Optional[str] = payload.get("email")
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[BundleContext] = None
 
@@ -92,90 +110,6 @@ class BundleInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Bundle resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def regulation_sid(self) -> str:
-        """
-        :returns: The unique string of a regulation that is associated to the Bundle resource.
-        """
-        return self._properties["regulation_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def status(self) -> "BundleInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def valid_until(self) -> datetime:
-        """
-        :returns: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
-        """
-        return self._properties["valid_until"]
-
-    @property
-    def email(self) -> str:
-        """
-        :returns: The email address that will receive updates when the Bundle resource changes status.
-        """
-        return self._properties["email"]
-
-    @property
-    def status_callback(self) -> str:
-        """
-        :returns: The URL we call to inform your application of status changes.
-        """
-        return self._properties["status_callback"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Bundle resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of the Assigned Items of the Bundle resource.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -63,192 +63,74 @@ class CallSummariesInstance(InstanceResource):
         START_TIME = "start_time"
         END_TIME = "end_time"
 
-    def __init__(self, version, payload):
-        """
-        Initialize the CallSummariesInstance
-        """
+    """
+    :ivar account_sid: 
+    :ivar call_sid: 
+    :ivar answered_by: 
+    :ivar call_type: 
+    :ivar call_state: 
+    :ivar processing_state: 
+    :ivar created_time: 
+    :ivar start_time: 
+    :ivar end_time: 
+    :ivar duration: 
+    :ivar connect_duration: 
+    :ivar _from: 
+    :ivar to: 
+    :ivar carrier_edge: 
+    :ivar client_edge: 
+    :ivar sdk_edge: 
+    :ivar sip_edge: 
+    :ivar tags: 
+    :ivar url: 
+    :ivar attributes: 
+    :ivar properties: 
+    :ivar trust: 
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "call_sid": payload.get("call_sid"),
-            "answered_by": payload.get("answered_by"),
-            "call_type": payload.get("call_type"),
-            "call_state": payload.get("call_state"),
-            "processing_state": payload.get("processing_state"),
-            "created_time": deserialize.iso8601_datetime(payload.get("created_time")),
-            "start_time": deserialize.iso8601_datetime(payload.get("start_time")),
-            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
-            "duration": deserialize.integer(payload.get("duration")),
-            "connect_duration": deserialize.integer(payload.get("connect_duration")),
-            "_from": payload.get("from"),
-            "to": payload.get("to"),
-            "carrier_edge": payload.get("carrier_edge"),
-            "client_edge": payload.get("client_edge"),
-            "sdk_edge": payload.get("sdk_edge"),
-            "sip_edge": payload.get("sip_edge"),
-            "tags": payload.get("tags"),
-            "url": payload.get("url"),
-            "attributes": payload.get("attributes"),
-            "properties": payload.get("properties"),
-            "trust": payload.get("trust"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.answered_by: Optional["CallSummariesInstance.AnsweredBy"] = payload.get(
+            "answered_by"
+        )
+        self.call_type: Optional["CallSummariesInstance.CallType"] = payload.get(
+            "call_type"
+        )
+        self.call_state: Optional["CallSummariesInstance.CallState"] = payload.get(
+            "call_state"
+        )
+        self.processing_state: Optional[
+            "CallSummariesInstance.ProcessingState"
+        ] = payload.get("processing_state")
+        self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("created_time")
+        )
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
+        self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
+        self.connect_duration: Optional[int] = deserialize.integer(
+            payload.get("connect_duration")
+        )
+        self._from: Optional[Dict[str, object]] = payload.get("from")
+        self.to: Optional[Dict[str, object]] = payload.get("to")
+        self.carrier_edge: Optional[Dict[str, object]] = payload.get("carrier_edge")
+        self.client_edge: Optional[Dict[str, object]] = payload.get("client_edge")
+        self.sdk_edge: Optional[Dict[str, object]] = payload.get("sdk_edge")
+        self.sip_edge: Optional[Dict[str, object]] = payload.get("sip_edge")
+        self.tags: Optional[List[str]] = payload.get("tags")
+        self.url: Optional[str] = payload.get("url")
+        self.attributes: Optional[Dict[str, object]] = payload.get("attributes")
+        self.properties: Optional[Dict[str, object]] = payload.get("properties")
+        self.trust: Optional[Dict[str, object]] = payload.get("trust")
 
         self._solution = {}
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def call_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def answered_by(self) -> "CallSummariesInstance.AnsweredBy":
-        """
-        :returns:
-        """
-        return self._properties["answered_by"]
-
-    @property
-    def call_type(self) -> "CallSummariesInstance.CallType":
-        """
-        :returns:
-        """
-        return self._properties["call_type"]
-
-    @property
-    def call_state(self) -> "CallSummariesInstance.CallState":
-        """
-        :returns:
-        """
-        return self._properties["call_state"]
-
-    @property
-    def processing_state(self) -> "CallSummariesInstance.ProcessingState":
-        """
-        :returns:
-        """
-        return self._properties["processing_state"]
-
-    @property
-    def created_time(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["created_time"]
-
-    @property
-    def start_time(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["start_time"]
-
-    @property
-    def end_time(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["end_time"]
-
-    @property
-    def duration(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["duration"]
-
-    @property
-    def connect_duration(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["connect_duration"]
-
-    @property
-    def _from(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["_from"]
-
-    @property
-    def to(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["to"]
-
-    @property
-    def carrier_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["carrier_edge"]
-
-    @property
-    def client_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["client_edge"]
-
-    @property
-    def sdk_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["sdk_edge"]
-
-    @property
-    def sip_edge(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["sip_edge"]
-
-    @property
-    def tags(self) -> List[str]:
-        """
-        :returns:
-        """
-        return self._properties["tags"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def attributes(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["attributes"]
-
-    @property
-    def properties(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["properties"]
-
-    @property
-    def trust(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["trust"]
 
     def __repr__(self) -> str:
         """

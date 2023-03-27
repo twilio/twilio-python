@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,31 +24,48 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the EventInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
+    :ivar actor_sid: The SID of the actor that caused the event, if available. Can be `null`.
+    :ivar actor_type: The type of actor that caused the event. Can be: `user` for a change made by a logged-in user in the Twilio Console, `account` for an event caused by an API request by an authenticating Account, `twilio-admin` for an event caused by a Twilio employee, and so on.
+    :ivar description: A description of the event. Can be `null`.
+    :ivar event_data: An object with additional data about the event. The  contents depend on `event_type`. For example, event-types of the form `RESOURCE.updated`, this value contains a `resource_properties` dictionary that describes the previous and updated properties of the resource.
+    :ivar event_date: The date and time in GMT when the event was recorded specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar event_type: The event's type. Event-types are typically in the form: `RESOURCE_TYPE.ACTION`, where `RESOURCE_TYPE` is the type of resource that was affected and `ACTION` is what happened to it. For example, `phone-number.created`. For a full list of all event-types, see the [Monitor Event Types](https://www.twilio.com/docs/usage/monitor-events#event-types).
+    :ivar resource_sid: The SID of the resource that was affected.
+    :ivar resource_type: The type of resource that was affected. For a full list of all resource-types, see the [Monitor Event Types](https://www.twilio.com/docs/usage/monitor-events#event-types).
+    :ivar sid: The unique string that we created to identify the Event resource.
+    :ivar source: The originating system or interface that caused the event.  Can be: `web` for events caused by user action in the Twilio Console, `api` for events caused by a request to our API, or   `twilio` for events caused by an automated or internal Twilio system.
+    :ivar source_ip_address: The IP address of the source, if the source is outside the Twilio cloud. This value is `null` for events with `source` of `twilio`
+    :ivar url: The absolute URL of the resource that was affected. Can be `null`.
+    :ivar links: The absolute URLs of related resources.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "actor_sid": payload.get("actor_sid"),
-            "actor_type": payload.get("actor_type"),
-            "description": payload.get("description"),
-            "event_data": payload.get("event_data"),
-            "event_date": deserialize.iso8601_datetime(payload.get("event_date")),
-            "event_type": payload.get("event_type"),
-            "resource_sid": payload.get("resource_sid"),
-            "resource_type": payload.get("resource_type"),
-            "sid": payload.get("sid"),
-            "source": payload.get("source"),
-            "source_ip_address": payload.get("source_ip_address"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.actor_sid: Optional[str] = payload.get("actor_sid")
+        self.actor_type: Optional[str] = payload.get("actor_type")
+        self.description: Optional[str] = payload.get("description")
+        self.event_data: Optional[Dict[str, object]] = payload.get("event_data")
+        self.event_date: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("event_date")
+        )
+        self.event_type: Optional[str] = payload.get("event_type")
+        self.resource_sid: Optional[str] = payload.get("resource_sid")
+        self.resource_type: Optional[str] = payload.get("resource_type")
+        self.sid: Optional[str] = payload.get("sid")
+        self.source: Optional[str] = payload.get("source")
+        self.source_ip_address: Optional[str] = payload.get("source_ip_address")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[EventContext] = None
 
@@ -66,104 +83,6 @@ class EventInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def actor_sid(self) -> str:
-        """
-        :returns: The SID of the actor that caused the event, if available. Can be `null`.
-        """
-        return self._properties["actor_sid"]
-
-    @property
-    def actor_type(self) -> str:
-        """
-        :returns: The type of actor that caused the event. Can be: `user` for a change made by a logged-in user in the Twilio Console, `account` for an event caused by an API request by an authenticating Account, `twilio-admin` for an event caused by a Twilio employee, and so on.
-        """
-        return self._properties["actor_type"]
-
-    @property
-    def description(self) -> str:
-        """
-        :returns: A description of the event. Can be `null`.
-        """
-        return self._properties["description"]
-
-    @property
-    def event_data(self) -> Dict[str, object]:
-        """
-        :returns: An object with additional data about the event. The  contents depend on `event_type`. For example, event-types of the form `RESOURCE.updated`, this value contains a `resource_properties` dictionary that describes the previous and updated properties of the resource.
-        """
-        return self._properties["event_data"]
-
-    @property
-    def event_date(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the event was recorded specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["event_date"]
-
-    @property
-    def event_type(self) -> str:
-        """
-        :returns: The event's type. Event-types are typically in the form: `RESOURCE_TYPE.ACTION`, where `RESOURCE_TYPE` is the type of resource that was affected and `ACTION` is what happened to it. For example, `phone-number.created`. For a full list of all event-types, see the [Monitor Event Types](https://www.twilio.com/docs/usage/monitor-events#event-types).
-        """
-        return self._properties["event_type"]
-
-    @property
-    def resource_sid(self) -> str:
-        """
-        :returns: The SID of the resource that was affected.
-        """
-        return self._properties["resource_sid"]
-
-    @property
-    def resource_type(self) -> str:
-        """
-        :returns: The type of resource that was affected. For a full list of all resource-types, see the [Monitor Event Types](https://www.twilio.com/docs/usage/monitor-events#event-types).
-        """
-        return self._properties["resource_type"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Event resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def source(self) -> str:
-        """
-        :returns: The originating system or interface that caused the event.  Can be: `web` for events caused by user action in the Twilio Console, `api` for events caused by a request to our API, or   `twilio` for events caused by an automated or internal Twilio system.
-        """
-        return self._properties["source"]
-
-    @property
-    def source_ip_address(self) -> str:
-        """
-        :returns: The IP address of the source, if the source is outside the Twilio cloud. This value is `null` for events with `source` of `twilio`
-        """
-        return self._properties["source_ip_address"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource that was affected. Can be `null`.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The absolute URLs of related resources.
-        """
-        return self._properties["links"]
 
     def fetch(self) -> "EventInstance":
         """

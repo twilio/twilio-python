@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -40,35 +40,68 @@ class TaskQueueInstance(InstanceResource):
         FIFO = "FIFO"
         LIFO = "LIFO"
 
-    def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the TaskQueueInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
+    :ivar assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+    :ivar assignment_activity_name: The name of the Activity to assign Workers when a task is assigned for them.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar max_reserved_workers: The maximum number of Workers to reserve for the assignment of a task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+    :ivar reservation_activity_sid: The SID of the Activity to assign Workers once a task is reserved for them.
+    :ivar reservation_activity_name: The name of the Activity to assign Workers once a task is reserved for them.
+    :ivar sid: The unique string that we created to identify the TaskQueue resource.
+    :ivar target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example `'\"language\" == \"spanish\"'` If no TargetWorkers parameter is provided, Tasks will wait in the TaskQueue until they are either deleted or moved to another TaskQueue. Additional examples on how to describing Worker selection criteria below. Defaults to 1==1.
+    :ivar task_order: 
+    :ivar url: The absolute URL of the TaskQueue resource.
+    :ivar workspace_sid: The SID of the Workspace that contains the TaskQueue.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assignment_activity_sid": payload.get("assignment_activity_sid"),
-            "assignment_activity_name": payload.get("assignment_activity_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "max_reserved_workers": deserialize.integer(
-                payload.get("max_reserved_workers")
-            ),
-            "reservation_activity_sid": payload.get("reservation_activity_sid"),
-            "reservation_activity_name": payload.get("reservation_activity_name"),
-            "sid": payload.get("sid"),
-            "target_workers": payload.get("target_workers"),
-            "task_order": payload.get("task_order"),
-            "url": payload.get("url"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "links": payload.get("links"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assignment_activity_sid: Optional[str] = payload.get(
+            "assignment_activity_sid"
+        )
+        self.assignment_activity_name: Optional[str] = payload.get(
+            "assignment_activity_name"
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.max_reserved_workers: Optional[int] = deserialize.integer(
+            payload.get("max_reserved_workers")
+        )
+        self.reservation_activity_sid: Optional[str] = payload.get(
+            "reservation_activity_sid"
+        )
+        self.reservation_activity_name: Optional[str] = payload.get(
+            "reservation_activity_name"
+        )
+        self.sid: Optional[str] = payload.get("sid")
+        self.target_workers: Optional[str] = payload.get("target_workers")
+        self.task_order: Optional["TaskQueueInstance.TaskOrder"] = payload.get(
+            "task_order"
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "workspace_sid": workspace_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[TaskQueueContext] = None
 
@@ -87,111 +120,6 @@ class TaskQueueInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def assignment_activity_sid(self) -> str:
-        """
-        :returns: The SID of the Activity to assign Workers when a task is assigned for them.
-        """
-        return self._properties["assignment_activity_sid"]
-
-    @property
-    def assignment_activity_name(self) -> str:
-        """
-        :returns: The name of the Activity to assign Workers when a task is assigned for them.
-        """
-        return self._properties["assignment_activity_name"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def max_reserved_workers(self) -> int:
-        """
-        :returns: The maximum number of Workers to reserve for the assignment of a task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-        """
-        return self._properties["max_reserved_workers"]
-
-    @property
-    def reservation_activity_sid(self) -> str:
-        """
-        :returns: The SID of the Activity to assign Workers once a task is reserved for them.
-        """
-        return self._properties["reservation_activity_sid"]
-
-    @property
-    def reservation_activity_name(self) -> str:
-        """
-        :returns: The name of the Activity to assign Workers once a task is reserved for them.
-        """
-        return self._properties["reservation_activity_name"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the TaskQueue resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def target_workers(self) -> str:
-        """
-        :returns: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example `'\"language\" == \"spanish\"'` If no TargetWorkers parameter is provided, Tasks will wait in the TaskQueue until they are either deleted or moved to another TaskQueue. Additional examples on how to describing Worker selection criteria below. Defaults to 1==1.
-        """
-        return self._properties["target_workers"]
-
-    @property
-    def task_order(self) -> "TaskQueueInstance.TaskOrder":
-        """
-        :returns:
-        """
-        return self._properties["task_order"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the TaskQueue resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that contains the TaskQueue.
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,19 +22,27 @@ from twilio.base.version import Version
 
 
 class WorkersRealTimeStatisticsInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str):
-        """
-        Initialize the WorkersRealTimeStatisticsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
+    :ivar activity_statistics: The number of current Workers by Activity.
+    :ivar total_workers: The total number of Workers.
+    :ivar workspace_sid: The SID of the Workspace that contains the Workers.
+    :ivar url: The absolute URL of the Workers statistics resource.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], workspace_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "activity_statistics": payload.get("activity_statistics"),
-            "total_workers": deserialize.integer(payload.get("total_workers")),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.activity_statistics: Optional[List[object]] = payload.get(
+            "activity_statistics"
+        )
+        self.total_workers: Optional[int] = deserialize.integer(
+            payload.get("total_workers")
+        )
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -55,41 +63,6 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
                 workspace_sid=self._solution["workspace_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def activity_statistics(self) -> List[object]:
-        """
-        :returns: The number of current Workers by Activity.
-        """
-        return self._properties["activity_statistics"]
-
-    @property
-    def total_workers(self) -> int:
-        """
-        :returns: The total number of Workers.
-        """
-        return self._properties["total_workers"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that contains the Workers.
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Workers statistics resource.
-        """
-        return self._properties["url"]
 
     def fetch(self, task_channel=values.unset) -> "WorkersRealTimeStatisticsInstance":
         """

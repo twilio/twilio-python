@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,27 +25,45 @@ from twilio.rest.autopilot.v1.assistant.field_type.field_value import FieldValue
 
 
 class FieldTypeInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the FieldTypeInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the FieldType resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar friendly_name: The string that you assigned to describe the resource. It is not unique and can be up to 255 characters long.
+    :ivar links: A list of the URLs of related resources.
+    :ivar assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
+    :ivar sid: The unique string that we created to identify the FieldType resource.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+    :ivar url: The absolute URL of the FieldType resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assistant_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "links": payload.get("links"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "assistant_sid": assistant_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[FieldTypeContext] = None
 
@@ -64,69 +82,6 @@ class FieldTypeInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the FieldType resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource. It is not unique and can be up to 255 characters long.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: A list of the URLs of related resources.
-        """
-        return self._properties["links"]
-
-    @property
-    def assistant_sid(self) -> str:
-        """
-        :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
-        """
-        return self._properties["assistant_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the FieldType resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the FieldType resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

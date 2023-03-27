@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,18 +22,19 @@ from twilio.base.version import Version
 
 
 class SettingsInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the SettingsInstance
-        """
+
+    """
+    :ivar dialing_permissions_inheritance: `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`.
+    :ivar url: The absolute URL of this resource.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "dialing_permissions_inheritance": payload.get(
-                "dialing_permissions_inheritance"
-            ),
-            "url": payload.get("url"),
-        }
+        self.dialing_permissions_inheritance: Optional[bool] = payload.get(
+            "dialing_permissions_inheritance"
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[SettingsContext] = None
@@ -51,20 +52,6 @@ class SettingsInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def dialing_permissions_inheritance(self) -> bool:
-        """
-        :returns: `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`.
-        """
-        return self._properties["dialing_permissions_inheritance"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of this resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "SettingsInstance":
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,24 +26,34 @@ from twilio.rest.preview.marketplace.available_add_on.available_add_on_extension
 
 
 class AvailableAddOnInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the AvailableAddOnInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the AvailableAddOn resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar description: A short description of the Add-on's functionality.
+    :ivar pricing_type: How customers are charged for using this Add-on.
+    :ivar configuration_schema: The JSON object with the configuration that must be provided when installing a given Add-on.
+    :ivar url: The absolute URL of the resource.
+    :ivar links: The URLs of related resources.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "description": payload.get("description"),
-            "pricing_type": payload.get("pricing_type"),
-            "configuration_schema": payload.get("configuration_schema"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.description: Optional[str] = payload.get("description")
+        self.pricing_type: Optional[str] = payload.get("pricing_type")
+        self.configuration_schema: Optional[Dict[str, object]] = payload.get(
+            "configuration_schema"
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[AvailableAddOnContext] = None
 
@@ -61,55 +71,6 @@ class AvailableAddOnInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the AvailableAddOn resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def description(self) -> str:
-        """
-        :returns: A short description of the Add-on's functionality.
-        """
-        return self._properties["description"]
-
-    @property
-    def pricing_type(self) -> str:
-        """
-        :returns: How customers are charged for using this Add-on.
-        """
-        return self._properties["pricing_type"]
-
-    @property
-    def configuration_schema(self) -> Dict[str, object]:
-        """
-        :returns: The JSON object with the configuration that must be provided when installing a given Add-on.
-        """
-        return self._properties["configuration_schema"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of related resources.
-        """
-        return self._properties["links"]
 
     def fetch(self) -> "AvailableAddOnInstance":
         """

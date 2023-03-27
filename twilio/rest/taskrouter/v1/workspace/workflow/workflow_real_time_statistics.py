@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,25 +22,47 @@ from twilio.base.version import Version
 
 
 class WorkflowRealTimeStatisticsInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, workflow_sid: str):
-        """
-        Initialize the WorkflowRealTimeStatisticsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
+    :ivar longest_task_waiting_age: The age of the longest waiting Task.
+    :ivar longest_task_waiting_sid: The SID of the longest waiting Task.
+    :ivar tasks_by_priority: The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
+    :ivar tasks_by_status: The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
+    :ivar total_tasks: The total number of Tasks.
+    :ivar workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
+    :ivar workspace_sid: The SID of the Workspace that contains the Workflow.
+    :ivar url: The absolute URL of the Workflow statistics resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        workflow_sid: str,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "longest_task_waiting_age": deserialize.integer(
-                payload.get("longest_task_waiting_age")
-            ),
-            "longest_task_waiting_sid": payload.get("longest_task_waiting_sid"),
-            "tasks_by_priority": payload.get("tasks_by_priority"),
-            "tasks_by_status": payload.get("tasks_by_status"),
-            "total_tasks": deserialize.integer(payload.get("total_tasks")),
-            "workflow_sid": payload.get("workflow_sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.longest_task_waiting_age: Optional[int] = deserialize.integer(
+            payload.get("longest_task_waiting_age")
+        )
+        self.longest_task_waiting_sid: Optional[str] = payload.get(
+            "longest_task_waiting_sid"
+        )
+        self.tasks_by_priority: Optional[Dict[str, object]] = payload.get(
+            "tasks_by_priority"
+        )
+        self.tasks_by_status: Optional[Dict[str, object]] = payload.get(
+            "tasks_by_status"
+        )
+        self.total_tasks: Optional[int] = deserialize.integer(
+            payload.get("total_tasks")
+        )
+        self.workflow_sid: Optional[str] = payload.get("workflow_sid")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -63,69 +85,6 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
                 workflow_sid=self._solution["workflow_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def longest_task_waiting_age(self) -> int:
-        """
-        :returns: The age of the longest waiting Task.
-        """
-        return self._properties["longest_task_waiting_age"]
-
-    @property
-    def longest_task_waiting_sid(self) -> str:
-        """
-        :returns: The SID of the longest waiting Task.
-        """
-        return self._properties["longest_task_waiting_sid"]
-
-    @property
-    def tasks_by_priority(self) -> Dict[str, object]:
-        """
-        :returns: The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
-        """
-        return self._properties["tasks_by_priority"]
-
-    @property
-    def tasks_by_status(self) -> Dict[str, object]:
-        """
-        :returns: The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
-        """
-        return self._properties["tasks_by_status"]
-
-    @property
-    def total_tasks(self) -> int:
-        """
-        :returns: The total number of Tasks.
-        """
-        return self._properties["total_tasks"]
-
-    @property
-    def workflow_sid(self) -> str:
-        """
-        :returns: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
-        """
-        return self._properties["workflow_sid"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that contains the Workflow.
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Workflow statistics resource.
-        """
-        return self._properties["url"]
 
     def fetch(self, task_channel=values.unset) -> "WorkflowRealTimeStatisticsInstance":
         """

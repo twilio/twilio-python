@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,50 +23,29 @@ from twilio.base.version import Version
 
 
 class RecordingRulesInstance(InstanceResource):
-    def __init__(self, version, payload, room_sid: str):
-        """
-        Initialize the RecordingRulesInstance
-        """
+
+    """
+    :ivar room_sid: The SID of the Room resource for the Recording Rules
+    :ivar rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], room_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "room_sid": payload.get("room_sid"),
-            "rules": payload.get("rules"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self.room_sid: Optional[str] = payload.get("room_sid")
+        self.rules: Optional[List[str]] = payload.get("rules")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
             "room_sid": room_sid,
         }
-
-    @property
-    def room_sid(self) -> str:
-        """
-        :returns: The SID of the Room resource for the Recording Rules
-        """
-        return self._properties["room_sid"]
-
-    @property
-    def rules(self) -> List[str]:
-        """
-        :returns: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        """
-        return self._properties["rules"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
 
     def __repr__(self) -> str:
         """

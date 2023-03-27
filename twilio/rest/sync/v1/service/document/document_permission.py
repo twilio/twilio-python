@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,34 +23,41 @@ from twilio.base.page import Page
 
 
 class DocumentPermissionInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Document Permission resource.
+    :ivar service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
+    :ivar document_sid: The SID of the Sync Document to which the Document Permission applies.
+    :ivar identity: The application-defined string that uniquely identifies the resource's User within the Service to an FPA token.
+    :ivar read: Whether the identity can read the Sync Document.
+    :ivar write: Whether the identity can update the Sync Document.
+    :ivar manage: Whether the identity can delete the Sync Document.
+    :ivar url: The absolute URL of the Sync Document Permission resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         document_sid: str,
         identity: Optional[str] = None,
     ):
-        """
-        Initialize the DocumentPermissionInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "document_sid": payload.get("document_sid"),
-            "identity": payload.get("identity"),
-            "read": payload.get("read"),
-            "write": payload.get("write"),
-            "manage": payload.get("manage"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.document_sid: Optional[str] = payload.get("document_sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.read: Optional[bool] = payload.get("read")
+        self.write: Optional[bool] = payload.get("write")
+        self.manage: Optional[bool] = payload.get("manage")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "document_sid": document_sid,
-            "identity": identity or self._properties["identity"],
+            "identity": identity or self.identity,
         }
         self._context: Optional[DocumentPermissionContext] = None
 
@@ -70,62 +77,6 @@ class DocumentPermissionInstance(InstanceResource):
                 identity=self._solution["identity"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Document Permission resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def document_sid(self) -> str:
-        """
-        :returns: The SID of the Sync Document to which the Document Permission applies.
-        """
-        return self._properties["document_sid"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: The application-defined string that uniquely identifies the resource's User within the Service to an FPA token.
-        """
-        return self._properties["identity"]
-
-    @property
-    def read(self) -> bool:
-        """
-        :returns: Whether the identity can read the Sync Document.
-        """
-        return self._properties["read"]
-
-    @property
-    def write(self) -> bool:
-        """
-        :returns: Whether the identity can update the Sync Document.
-        """
-        return self._properties["write"]
-
-    @property
-    def manage(self) -> bool:
-        """
-        :returns: Whether the identity can delete the Sync Document.
-        """
-        return self._properties["manage"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Sync Document Permission resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

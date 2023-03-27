@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -34,26 +34,41 @@ class AuthorizationDocumentInstance(InstanceResource):
         CANCELED = "canceled"
         FAILED = "failed"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the AuthorizationDocumentInstance
-        """
+    """
+    :ivar sid: A 34 character string that uniquely identifies this AuthorizationDocument.
+    :ivar address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+    :ivar status: 
+    :ivar email: Email that this AuthorizationDocument will be sent to for signing.
+    :ivar cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
+    :ivar date_created: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar url: 
+    :ivar links: 
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "address_sid": payload.get("address_sid"),
-            "status": payload.get("status"),
-            "email": payload.get("email"),
-            "cc_emails": payload.get("cc_emails"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.address_sid: Optional[str] = payload.get("address_sid")
+        self.status: Optional["AuthorizationDocumentInstance.Status"] = payload.get(
+            "status"
+        )
+        self.email: Optional[str] = payload.get("email")
+        self.cc_emails: Optional[List[str]] = payload.get("cc_emails")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[AuthorizationDocumentContext] = None
 
@@ -71,69 +86,6 @@ class AuthorizationDocumentInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies this AuthorizationDocument.
-        """
-        return self._properties["sid"]
-
-    @property
-    def address_sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-        """
-        return self._properties["address_sid"]
-
-    @property
-    def status(self) -> "AuthorizationDocumentInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def email(self) -> str:
-        """
-        :returns: Email that this AuthorizationDocument will be sent to for signing.
-        """
-        return self._properties["email"]
-
-    @property
-    def cc_emails(self) -> List[str]:
-        """
-        :returns: Email recipients who will be informed when an Authorization Document has been sent and signed.
-        """
-        return self._properties["cc_emails"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
 
     def fetch(self) -> "AuthorizationDocumentInstance":
         """

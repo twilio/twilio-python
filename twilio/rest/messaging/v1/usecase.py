@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Any, Dict, List, Optional
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,24 +21,17 @@ from twilio.base.version import Version
 
 
 class UsecaseInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the UsecaseInstance
-        """
+
+    """
+    :ivar usecases: Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "usecases": payload.get("usecases"),
-        }
+        self.usecases: Optional[List[object]] = payload.get("usecases")
 
         self._solution = {}
-
-    @property
-    def usecases(self) -> List[object]:
-        """
-        :returns: Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
-        """
-        return self._properties["usecases"]
 
     def __repr__(self) -> str:
         """

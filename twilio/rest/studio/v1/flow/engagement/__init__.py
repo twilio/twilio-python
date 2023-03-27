@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,29 +32,50 @@ class EngagementInstance(InstanceResource):
         ACTIVE = "active"
         ENDED = "ended"
 
-    def __init__(self, version, payload, flow_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the EngagementInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Engagement resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Engagement resource.
+    :ivar flow_sid: The SID of the Flow.
+    :ivar contact_sid: The SID of the Contact.
+    :ivar contact_channel_address: The phone number, SIP address or Client identifier that triggered this Engagement. Phone numbers are in E.164 format (+16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+    :ivar context: The current state of the execution flow. As your flow executes, we save the state in a flow context. Your widgets can access the data in the flow context as variables, either in configuration fields or in text areas as variable substitution.
+    :ivar status: 
+    :ivar date_created: The date and time in GMT when the Engagement was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the Engagement was updated in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the resource.
+    :ivar links: The URLs of the Engagement's nested resources.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        flow_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "flow_sid": payload.get("flow_sid"),
-            "contact_sid": payload.get("contact_sid"),
-            "contact_channel_address": payload.get("contact_channel_address"),
-            "context": payload.get("context"),
-            "status": payload.get("status"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.flow_sid: Optional[str] = payload.get("flow_sid")
+        self.contact_sid: Optional[str] = payload.get("contact_sid")
+        self.contact_channel_address: Optional[str] = payload.get(
+            "contact_channel_address"
+        )
+        self.context: Optional[Dict[str, object]] = payload.get("context")
+        self.status: Optional["EngagementInstance.Status"] = payload.get("status")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "flow_sid": flow_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[EngagementContext] = None
 
@@ -73,83 +94,6 @@ class EngagementInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Engagement resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Engagement resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def flow_sid(self) -> str:
-        """
-        :returns: The SID of the Flow.
-        """
-        return self._properties["flow_sid"]
-
-    @property
-    def contact_sid(self) -> str:
-        """
-        :returns: The SID of the Contact.
-        """
-        return self._properties["contact_sid"]
-
-    @property
-    def contact_channel_address(self) -> str:
-        """
-        :returns: The phone number, SIP address or Client identifier that triggered this Engagement. Phone numbers are in E.164 format (+16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-        """
-        return self._properties["contact_channel_address"]
-
-    @property
-    def context(self) -> Dict[str, object]:
-        """
-        :returns: The current state of the execution flow. As your flow executes, we save the state in a flow context. Your widgets can access the data in the flow context as variables, either in configuration fields or in text areas as variable substitution.
-        """
-        return self._properties["context"]
-
-    @property
-    def status(self) -> "EngagementInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Engagement was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Engagement was updated in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of the Engagement's nested resources.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

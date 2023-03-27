@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,32 +24,54 @@ from twilio.base.page import Page
 
 
 class ByocTrunkInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ByocTrunkInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the BYOC Trunk resource.
+    :ivar sid: The unique string that that we created to identify the BYOC Trunk resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar voice_url: The URL we call using the `voice_method` when the BYOC Trunk receives a call.
+    :ivar voice_method: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
+    :ivar voice_fallback_url: The URL that we call when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
+    :ivar voice_fallback_method: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+    :ivar status_callback_url: The URL that we call to pass status parameters (such as call ended) to your application.
+    :ivar status_callback_method: The HTTP method we use to call `status_callback_url`. Either `GET` or `POST`.
+    :ivar cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+    :ivar connection_policy_sid: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
+    :ivar from_domain_sid: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \"call back\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \"sip.twilio.com\".
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "voice_url": payload.get("voice_url"),
-            "voice_method": payload.get("voice_method"),
-            "voice_fallback_url": payload.get("voice_fallback_url"),
-            "voice_fallback_method": payload.get("voice_fallback_method"),
-            "status_callback_url": payload.get("status_callback_url"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "cnam_lookup_enabled": payload.get("cnam_lookup_enabled"),
-            "connection_policy_sid": payload.get("connection_policy_sid"),
-            "from_domain_sid": payload.get("from_domain_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.voice_url: Optional[str] = payload.get("voice_url")
+        self.voice_method: Optional[str] = payload.get("voice_method")
+        self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
+        self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
+        self.status_callback_url: Optional[str] = payload.get("status_callback_url")
+        self.status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
+        self.cnam_lookup_enabled: Optional[bool] = payload.get("cnam_lookup_enabled")
+        self.connection_policy_sid: Optional[str] = payload.get("connection_policy_sid")
+        self.from_domain_sid: Optional[str] = payload.get("from_domain_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ByocTrunkContext] = None
 
@@ -67,111 +89,6 @@ class ByocTrunkInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the BYOC Trunk resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that that we created to identify the BYOC Trunk resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def voice_url(self) -> str:
-        """
-        :returns: The URL we call using the `voice_method` when the BYOC Trunk receives a call.
-        """
-        return self._properties["voice_url"]
-
-    @property
-    def voice_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["voice_method"]
-
-    @property
-    def voice_fallback_url(self) -> str:
-        """
-        :returns: The URL that we call when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
-        """
-        return self._properties["voice_fallback_url"]
-
-    @property
-    def voice_fallback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["voice_fallback_method"]
-
-    @property
-    def status_callback_url(self) -> str:
-        """
-        :returns: The URL that we call to pass status parameters (such as call ended) to your application.
-        """
-        return self._properties["status_callback_url"]
-
-    @property
-    def status_callback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `status_callback_url`. Either `GET` or `POST`.
-        """
-        return self._properties["status_callback_method"]
-
-    @property
-    def cnam_lookup_enabled(self) -> bool:
-        """
-        :returns: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        """
-        return self._properties["cnam_lookup_enabled"]
-
-    @property
-    def connection_policy_sid(self) -> str:
-        """
-        :returns: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
-        """
-        return self._properties["connection_policy_sid"]
-
-    @property
-    def from_domain_sid(self) -> str:
-        """
-        :returns: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \"call back\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \"sip.twilio.com\".
-        """
-        return self._properties["from_domain_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

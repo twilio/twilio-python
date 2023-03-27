@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,29 +27,49 @@ from twilio.rest.preview.sync.service.document.document_permission import (
 
 
 class DocumentInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the DocumentInstance
-        """
+
+    """
+    :ivar sid:
+    :ivar unique_name:
+    :ivar account_sid:
+    :ivar service_sid:
+    :ivar url:
+    :ivar links:
+    :ivar revision:
+    :ivar data:
+    :ivar date_created:
+    :ivar date_updated:
+    :ivar created_by:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "revision": payload.get("revision"),
-            "data": payload.get("data"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.revision: Optional[str] = payload.get("revision")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.created_by: Optional[str] = payload.get("created_by")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[DocumentContext] = None
 
@@ -68,83 +88,6 @@ class DocumentInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
-
-    @property
-    def revision(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["revision"]
-
-    @property
-    def data(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["data"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def created_by(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["created_by"]
 
     def delete(self) -> bool:
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -30,31 +30,36 @@ class InteractionChannelParticipantInstance(InstanceResource):
         AGENT = "agent"
         UNKNOWN = "unknown"
 
+    """
+    :ivar sid: The unique string created by Twilio to identify an Interaction Channel Participant resource.
+    :ivar type: 
+    :ivar interaction_sid: The Interaction Sid for this channel.
+    :ivar channel_sid: The Channel Sid for this Participant.
+    :ivar url: 
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         interaction_sid: str,
         channel_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the InteractionChannelParticipantInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "type": payload.get("type"),
-            "interaction_sid": payload.get("interaction_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.type: Optional["InteractionChannelParticipantInstance.Type"] = payload.get(
+            "type"
+        )
+        self.interaction_sid: Optional[str] = payload.get("interaction_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "interaction_sid": interaction_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[InteractionChannelParticipantContext] = None
 
@@ -74,41 +79,6 @@ class InteractionChannelParticipantInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string created by Twilio to identify an Interaction Channel Participant resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def type(self) -> "InteractionChannelParticipantInstance.Type":
-        """
-        :returns:
-        """
-        return self._properties["type"]
-
-    @property
-    def interaction_sid(self) -> str:
-        """
-        :returns: The Interaction Sid for this channel.
-        """
-        return self._properties["interaction_sid"]
-
-    @property
-    def channel_sid(self) -> str:
-        """
-        :returns: The Channel Sid for this Participant.
-        """
-        return self._properties["channel_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def update(self, status) -> "InteractionChannelParticipantInstance":
         """

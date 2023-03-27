@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,31 +23,37 @@ from twilio.base.version import Version
 
 
 class UserDefinedMessageSubscriptionInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
+    :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages.
+    :ivar sid: The SID that uniquely identifies this User Defined Message Subscription.
+    :ivar date_created: The date that this User Defined Message Subscription was created, given in RFC 2822 format.
+    :ivar uri: The URI of the User Defined Message Subscription Resource, relative to `https://api.twilio.com`.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         call_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the UserDefinedMessageSubscriptionInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "call_sid": payload.get("call_sid"),
-            "sid": payload.get("sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "uri": payload.get("uri"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[UserDefinedMessageSubscriptionContext] = None
 
@@ -67,41 +73,6 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def call_sid(self) -> str:
-        """
-        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages.
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The SID that uniquely identifies this User Defined Message Subscription.
-        """
-        return self._properties["sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this User Defined Message Subscription was created, given in RFC 2822 format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def uri(self) -> str:
-        """
-        :returns: The URI of the User Defined Message Subscription Resource, relative to `https://api.twilio.com`.
-        """
-        return self._properties["uri"]
 
     def delete(self) -> bool:
         """

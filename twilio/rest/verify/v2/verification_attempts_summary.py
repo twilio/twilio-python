@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,21 +28,30 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         EMAIL = "email"
         WHATSAPP = "whatsapp"
 
-    def __init__(self, version, payload):
-        """
-        Initialize the VerificationAttemptsSummaryInstance
-        """
+    """
+    :ivar total_attempts: Total of attempts made according to the provided filters
+    :ivar total_converted: Total of  attempts made that were confirmed by the end user, according to the provided filters.
+    :ivar total_unconverted: Total of attempts made that were not confirmed by the end user, according to the provided filters.
+    :ivar conversion_rate_percentage: Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100. 
+    :ivar url: 
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "total_attempts": deserialize.integer(payload.get("total_attempts")),
-            "total_converted": deserialize.integer(payload.get("total_converted")),
-            "total_unconverted": deserialize.integer(payload.get("total_unconverted")),
-            "conversion_rate_percentage": deserialize.decimal(
-                payload.get("conversion_rate_percentage")
-            ),
-            "url": payload.get("url"),
-        }
+        self.total_attempts: Optional[int] = deserialize.integer(
+            payload.get("total_attempts")
+        )
+        self.total_converted: Optional[int] = deserialize.integer(
+            payload.get("total_converted")
+        )
+        self.total_unconverted: Optional[int] = deserialize.integer(
+            payload.get("total_unconverted")
+        )
+        self.conversion_rate_percentage: Optional[float] = deserialize.decimal(
+            payload.get("conversion_rate_percentage")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[VerificationAttemptsSummaryContext] = None
@@ -60,41 +69,6 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def total_attempts(self) -> int:
-        """
-        :returns: Total of attempts made according to the provided filters
-        """
-        return self._properties["total_attempts"]
-
-    @property
-    def total_converted(self) -> int:
-        """
-        :returns: Total of  attempts made that were confirmed by the end user, according to the provided filters.
-        """
-        return self._properties["total_converted"]
-
-    @property
-    def total_unconverted(self) -> int:
-        """
-        :returns: Total of attempts made that were not confirmed by the end user, according to the provided filters.
-        """
-        return self._properties["total_unconverted"]
-
-    @property
-    def conversion_rate_percentage(self) -> float:
-        """
-        :returns: Percentage of the confirmed messages over the total, defined by (total_converted/total_attempts)*100.
-        """
-        return self._properties["conversion_rate_percentage"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def fetch(
         self,

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,21 +24,28 @@ class FormInstance(InstanceResource):
     class FormTypes(object):
         FORM_PUSH = "form-push"
 
-    def __init__(self, version, payload, form_type: Optional[FormTypes] = None):
-        """
-        Initialize the FormInstance
-        """
+    """
+    :ivar form_type: 
+    :ivar forms: Object that contains the available forms for this type. This available forms are given in the standard [JSON Schema](https://json-schema.org/) format
+    :ivar form_meta: Additional information for the available forms for this type. E.g. The separator string used for `binding` in a Factor push.
+    :ivar url: The URL to access the forms for this type.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        form_type: Optional[FormTypes] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "form_type": payload.get("form_type"),
-            "forms": payload.get("forms"),
-            "form_meta": payload.get("form_meta"),
-            "url": payload.get("url"),
-        }
+        self.form_type: Optional["FormInstance.FormTypes"] = payload.get("form_type")
+        self.forms: Optional[Dict[str, object]] = payload.get("forms")
+        self.form_meta: Optional[Dict[str, object]] = payload.get("form_meta")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "form_type": form_type or self._properties["form_type"],
+            "form_type": form_type or self.form_type,
         }
         self._context: Optional[FormContext] = None
 
@@ -56,34 +63,6 @@ class FormInstance(InstanceResource):
                 form_type=self._solution["form_type"],
             )
         return self._context
-
-    @property
-    def form_type(self) -> "FormInstance.FormTypes":
-        """
-        :returns:
-        """
-        return self._properties["form_type"]
-
-    @property
-    def forms(self) -> Dict[str, object]:
-        """
-        :returns: Object that contains the available forms for this type. This available forms are given in the standard [JSON Schema](https://json-schema.org/) format
-        """
-        return self._properties["forms"]
-
-    @property
-    def form_meta(self) -> Dict[str, object]:
-        """
-        :returns: Additional information for the available forms for this type. E.g. The separator string used for `binding` in a Factor push.
-        """
-        return self._properties["form_meta"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The URL to access the forms for this type.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "FormInstance":
         """

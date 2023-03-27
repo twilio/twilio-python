@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,26 +26,40 @@ from twilio.rest.microvisor.v1.device.device_secret import DeviceSecretList
 
 
 class DeviceInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the DeviceInstance
-        """
+
+    """
+    :ivar sid: A 34-character string that uniquely identifies this Device.
+    :ivar unique_name: A developer-defined string that uniquely identifies the Device. This value must be unique for all Devices on this Account. The `unique_name` value may be used as an alternative to the `sid` in the URL path to address the resource.
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar app: Information about the target App and the App reported by this Device. Contains the properties `target_sid`, `date_targeted`, `update_status` (one of `up-to-date`, `pending` and `error`), `update_error_code`, `reported_sid` and `date_reported`.
+    :ivar logging: Object specifying whether application logging is enabled for this Device. Contains the properties `enabled` and `date_expires`.
+    :ivar date_created: The date that this Device was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date that this Device was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The URL of this resource.
+    :ivar links: The absolute URLs of related resources.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "account_sid": payload.get("account_sid"),
-            "app": payload.get("app"),
-            "logging": payload.get("logging"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.app: Optional[Dict[str, object]] = payload.get("app")
+        self.logging: Optional[Dict[str, object]] = payload.get("logging")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[DeviceContext] = None
 
@@ -63,69 +77,6 @@ class DeviceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34-character string that uniquely identifies this Device.
-        """
-        return self._properties["sid"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns: A developer-defined string that uniquely identifies the Device. This value must be unique for all Devices on this Account. The `unique_name` value may be used as an alternative to the `sid` in the URL path to address the resource.
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def app(self) -> Dict[str, object]:
-        """
-        :returns: Information about the target App and the App reported by this Device. Contains the properties `target_sid`, `date_targeted`, `update_status` (one of `up-to-date`, `pending` and `error`), `update_error_code`, `reported_sid` and `date_reported`.
-        """
-        return self._properties["app"]
-
-    @property
-    def logging(self) -> Dict[str, object]:
-        """
-        :returns: Object specifying whether application logging is enabled for this Device. Contains the properties `enabled` and `date_expires`.
-        """
-        return self._properties["logging"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this Device was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this Device was last updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The absolute URLs of related resources.
-        """
-        return self._properties["links"]
 
     def fetch(self) -> "DeviceInstance":
         """

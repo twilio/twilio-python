@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,48 +23,25 @@ from twilio.base.page import Page
 
 
 class InsightsConversationsInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the InsightsConversationsInstance
-        """
+
+    """
+    :ivar account_id: The id of the account.
+    :ivar conversation_id: The unique id of the conversation
+    :ivar segment_count: The count of segments for a conversation
+    :ivar segments: The Segments of a conversation
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "account_id": payload.get("account_id"),
-            "conversation_id": payload.get("conversation_id"),
-            "segment_count": deserialize.integer(payload.get("segment_count")),
-            "segments": payload.get("segments"),
-        }
+        self.account_id: Optional[str] = payload.get("account_id")
+        self.conversation_id: Optional[str] = payload.get("conversation_id")
+        self.segment_count: Optional[int] = deserialize.integer(
+            payload.get("segment_count")
+        )
+        self.segments: Optional[List[object]] = payload.get("segments")
 
         self._solution = {}
-
-    @property
-    def account_id(self) -> str:
-        """
-        :returns: The id of the account.
-        """
-        return self._properties["account_id"]
-
-    @property
-    def conversation_id(self) -> str:
-        """
-        :returns: The unique id of the conversation
-        """
-        return self._properties["conversation_id"]
-
-    @property
-    def segment_count(self) -> int:
-        """
-        :returns: The count of segments for a conversation
-        """
-        return self._properties["segment_count"]
-
-    @property
-    def segments(self) -> List[object]:
-        """
-        :returns: The Segments of a conversation
-        """
-        return self._properties["segments"]
 
     def __repr__(self) -> str:
         """

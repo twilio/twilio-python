@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,32 +27,55 @@ class FleetInstance(InstanceResource):
     class DataMetering(object):
         PAYG = "payg"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the FleetInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Fleet resource.
+    :ivar sid: The unique string that we created to identify the Fleet resource.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Fleet resource.
+    :ivar data_enabled: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
+    :ivar data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+    :ivar data_metering: 
+    :ivar sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+    :ivar sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+    :ivar sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+    :ivar network_access_profile_sid: The SID of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+    :ivar ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+    :ivar ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "data_enabled": payload.get("data_enabled"),
-            "data_limit": deserialize.integer(payload.get("data_limit")),
-            "data_metering": payload.get("data_metering"),
-            "sms_commands_enabled": payload.get("sms_commands_enabled"),
-            "sms_commands_url": payload.get("sms_commands_url"),
-            "sms_commands_method": payload.get("sms_commands_method"),
-            "network_access_profile_sid": payload.get("network_access_profile_sid"),
-            "ip_commands_url": payload.get("ip_commands_url"),
-            "ip_commands_method": payload.get("ip_commands_method"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.data_enabled: Optional[bool] = payload.get("data_enabled")
+        self.data_limit: Optional[int] = deserialize.integer(payload.get("data_limit"))
+        self.data_metering: Optional["FleetInstance.DataMetering"] = payload.get(
+            "data_metering"
+        )
+        self.sms_commands_enabled: Optional[bool] = payload.get("sms_commands_enabled")
+        self.sms_commands_url: Optional[str] = payload.get("sms_commands_url")
+        self.sms_commands_method: Optional[str] = payload.get("sms_commands_method")
+        self.network_access_profile_sid: Optional[str] = payload.get(
+            "network_access_profile_sid"
+        )
+        self.ip_commands_url: Optional[str] = payload.get("ip_commands_url")
+        self.ip_commands_method: Optional[str] = payload.get("ip_commands_method")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[FleetContext] = None
 
@@ -70,111 +93,6 @@ class FleetInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Fleet resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Fleet resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Fleet resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def data_enabled(self) -> bool:
-        """
-        :returns: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
-        """
-        return self._properties["data_enabled"]
-
-    @property
-    def data_limit(self) -> int:
-        """
-        :returns: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
-        """
-        return self._properties["data_limit"]
-
-    @property
-    def data_metering(self) -> "FleetInstance.DataMetering":
-        """
-        :returns:
-        """
-        return self._properties["data_metering"]
-
-    @property
-    def sms_commands_enabled(self) -> bool:
-        """
-        :returns: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
-        """
-        return self._properties["sms_commands_enabled"]
-
-    @property
-    def sms_commands_url(self) -> str:
-        """
-        :returns: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        """
-        return self._properties["sms_commands_url"]
-
-    @property
-    def sms_commands_method(self) -> str:
-        """
-        :returns: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        """
-        return self._properties["sms_commands_method"]
-
-    @property
-    def network_access_profile_sid(self) -> str:
-        """
-        :returns: The SID of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
-        """
-        return self._properties["network_access_profile_sid"]
-
-    @property
-    def ip_commands_url(self) -> str:
-        """
-        :returns: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        """
-        return self._properties["ip_commands_url"]
-
-    @property
-    def ip_commands_method(self) -> str:
-        """
-        :returns: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        """
-        return self._properties["ip_commands_method"]
 
     def fetch(self) -> "FleetInstance":
         """

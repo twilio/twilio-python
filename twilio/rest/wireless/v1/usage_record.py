@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -28,48 +28,22 @@ class UsageRecordInstance(InstanceResource):
         DAILY = "daily"
         ALL = "all"
 
-    def __init__(self, version, payload):
-        """
-        Initialize the UsageRecordInstance
-        """
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AccountUsageRecord resource.
+    :ivar period: The time period for which usage is reported. Contains `start` and `end` properties that describe the period using GMT date-time values specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar commands: An object that describes the aggregated Commands usage for all SIMs during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#commands-usage-object).
+    :ivar data: An object that describes the aggregated Data usage for all SIMs over the period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#data-usage-object).
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "period": payload.get("period"),
-            "commands": payload.get("commands"),
-            "data": payload.get("data"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.period: Optional[Dict[str, object]] = payload.get("period")
+        self.commands: Optional[Dict[str, object]] = payload.get("commands")
+        self.data: Optional[Dict[str, object]] = payload.get("data")
 
         self._solution = {}
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AccountUsageRecord resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def period(self) -> Dict[str, object]:
-        """
-        :returns: The time period for which usage is reported. Contains `start` and `end` properties that describe the period using GMT date-time values specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._properties["period"]
-
-    @property
-    def commands(self) -> Dict[str, object]:
-        """
-        :returns: An object that describes the aggregated Commands usage for all SIMs during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#commands-usage-object).
-        """
-        return self._properties["commands"]
-
-    @property
-    def data(self) -> Dict[str, object]:
-        """
-        :returns: An object that describes the aggregated Data usage for all SIMs over the period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#data-usage-object).
-        """
-        return self._properties["data"]
 
     def __repr__(self) -> str:
         """

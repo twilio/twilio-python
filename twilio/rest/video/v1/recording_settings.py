@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,22 +22,29 @@ from twilio.base.version import Version
 
 
 class RecordingSettingsInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the RecordingSettingsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource.
+    :ivar friendly_name: The string that you assigned to describe the resource and show the user in the console
+    :ivar aws_credentials_sid: The SID of the stored Credential resource.
+    :ivar aws_s3_url: The URL of the AWS S3 bucket where the recordings are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+    :ivar aws_storage_enabled: Whether all recordings are written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
+    :ivar encryption_key_sid: The SID of the Public Key resource used for encryption.
+    :ivar encryption_enabled: Whether all recordings are stored in an encrypted form. The default is `false`.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "aws_credentials_sid": payload.get("aws_credentials_sid"),
-            "aws_s3_url": payload.get("aws_s3_url"),
-            "aws_storage_enabled": payload.get("aws_storage_enabled"),
-            "encryption_key_sid": payload.get("encryption_key_sid"),
-            "encryption_enabled": payload.get("encryption_enabled"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.aws_credentials_sid: Optional[str] = payload.get("aws_credentials_sid")
+        self.aws_s3_url: Optional[str] = payload.get("aws_s3_url")
+        self.aws_storage_enabled: Optional[bool] = payload.get("aws_storage_enabled")
+        self.encryption_key_sid: Optional[str] = payload.get("encryption_key_sid")
+        self.encryption_enabled: Optional[bool] = payload.get("encryption_enabled")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[RecordingSettingsContext] = None
@@ -55,62 +62,6 @@ class RecordingSettingsInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource and show the user in the console
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def aws_credentials_sid(self) -> str:
-        """
-        :returns: The SID of the stored Credential resource.
-        """
-        return self._properties["aws_credentials_sid"]
-
-    @property
-    def aws_s3_url(self) -> str:
-        """
-        :returns: The URL of the AWS S3 bucket where the recordings are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
-        """
-        return self._properties["aws_s3_url"]
-
-    @property
-    def aws_storage_enabled(self) -> bool:
-        """
-        :returns: Whether all recordings are written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
-        """
-        return self._properties["aws_storage_enabled"]
-
-    @property
-    def encryption_key_sid(self) -> str:
-        """
-        :returns: The SID of the Public Key resource used for encryption.
-        """
-        return self._properties["encryption_key_sid"]
-
-    @property
-    def encryption_enabled(self) -> bool:
-        """
-        :returns: Whether all recordings are stored in an encrypted form. The default is `false`.
-        """
-        return self._properties["encryption_enabled"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def create(
         self,

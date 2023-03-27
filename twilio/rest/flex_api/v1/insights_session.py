@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,19 +22,23 @@ from twilio.base.version import Version
 
 
 class InsightsSessionInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the InsightsSessionInstance
-        """
+
+    """
+    :ivar workspace_id: Unique ID to identify the user's workspace
+    :ivar session_expiry: The session expiry date and time, given in ISO 8601 format.
+    :ivar session_id: The unique ID for the session
+    :ivar base_url: The base URL to fetch reports and dashboards
+    :ivar url: The URL of this resource.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "workspace_id": payload.get("workspace_id"),
-            "session_expiry": payload.get("session_expiry"),
-            "session_id": payload.get("session_id"),
-            "base_url": payload.get("base_url"),
-            "url": payload.get("url"),
-        }
+        self.workspace_id: Optional[str] = payload.get("workspace_id")
+        self.session_expiry: Optional[str] = payload.get("session_expiry")
+        self.session_id: Optional[str] = payload.get("session_id")
+        self.base_url: Optional[str] = payload.get("base_url")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[InsightsSessionContext] = None
@@ -52,41 +56,6 @@ class InsightsSessionInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def workspace_id(self) -> str:
-        """
-        :returns: Unique ID to identify the user's workspace
-        """
-        return self._properties["workspace_id"]
-
-    @property
-    def session_expiry(self) -> str:
-        """
-        :returns: The session expiry date and time, given in ISO 8601 format.
-        """
-        return self._properties["session_expiry"]
-
-    @property
-    def session_id(self) -> str:
-        """
-        :returns: The unique ID for the session
-        """
-        return self._properties["session_id"]
-
-    @property
-    def base_url(self) -> str:
-        """
-        :returns: The base URL to fetch reports and dashboards
-        """
-        return self._properties["base_url"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._properties["url"]
 
     def create(self, authorization=values.unset) -> "InsightsSessionInstance":
         """

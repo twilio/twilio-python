@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,25 +27,43 @@ from twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address import 
 
 
 class IpAccessControlListInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the IpAccessControlListInstance
-        """
+
+    """
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.
+    :ivar friendly_name: A human readable descriptive text, up to 255 characters long.
+    :ivar date_created: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar date_updated: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar subresource_uris: A list of the IpAddress resources associated with this IP access control list resource.
+    :ivar uri: The URI for this resource, relative to `https://api.twilio.com`
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "subresource_uris": payload.get("subresource_uris"),
-            "uri": payload.get("uri"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
+        self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[IpAccessControlListContext] = None
 
@@ -64,55 +82,6 @@ class IpAccessControlListInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: A human readable descriptive text, up to 255 characters long.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this resource was last updated, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def subresource_uris(self) -> Dict[str, object]:
-        """
-        :returns: A list of the IpAddress resources associated with this IP access control list resource.
-        """
-        return self._properties["subresource_uris"]
-
-    @property
-    def uri(self) -> str:
-        """
-        :returns: The URI for this resource, relative to `https://api.twilio.com`
-        """
-        return self._properties["uri"]
 
     def delete(self) -> bool:
         """

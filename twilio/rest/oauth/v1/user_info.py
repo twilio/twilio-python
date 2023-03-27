@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,20 +21,25 @@ from twilio.base.version import Version
 
 
 class UserInfoInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the UserInfoInstance
-        """
+
+    """
+    :ivar user_sid: The URL of the party that will create the token and sign it with its private key.
+    :ivar first_name: The first name of the end-user.
+    :ivar last_name: The last name of the end-user.
+    :ivar friendly_name: The friendly name of the end-user.
+    :ivar email: The end-user's preferred email address.
+    :ivar url:
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "user_sid": payload.get("user_sid"),
-            "first_name": payload.get("first_name"),
-            "last_name": payload.get("last_name"),
-            "friendly_name": payload.get("friendly_name"),
-            "email": payload.get("email"),
-            "url": payload.get("url"),
-        }
+        self.user_sid: Optional[str] = payload.get("user_sid")
+        self.first_name: Optional[str] = payload.get("first_name")
+        self.last_name: Optional[str] = payload.get("last_name")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.email: Optional[str] = payload.get("email")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[UserInfoContext] = None
@@ -52,48 +57,6 @@ class UserInfoInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def user_sid(self) -> str:
-        """
-        :returns: The URL of the party that will create the token and sign it with its private key.
-        """
-        return self._properties["user_sid"]
-
-    @property
-    def first_name(self) -> str:
-        """
-        :returns: The first name of the end-user.
-        """
-        return self._properties["first_name"]
-
-    @property
-    def last_name(self) -> str:
-        """
-        :returns: The last name of the end-user.
-        """
-        return self._properties["last_name"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The friendly name of the end-user.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def email(self) -> str:
-        """
-        :returns: The end-user's preferred email address.
-        """
-        return self._properties["email"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "UserInfoInstance":
         """

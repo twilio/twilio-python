@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,36 +24,49 @@ from twilio.base.page import Page
 
 
 class FieldValueInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the FieldValue resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar field_type_sid: The SID of the Field Type associated with the Field Value.
+    :ivar language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
+    :ivar assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resource.
+    :ivar sid: The unique string that we created to identify the FieldValue resource.
+    :ivar value: The Field Value data.
+    :ivar url: The absolute URL of the FieldValue resource.
+    :ivar synonym_of: The word for which the field value is a synonym of.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         assistant_sid: str,
         field_type_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the FieldValueInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "field_type_sid": payload.get("field_type_sid"),
-            "language": payload.get("language"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "sid": payload.get("sid"),
-            "value": payload.get("value"),
-            "url": payload.get("url"),
-            "synonym_of": payload.get("synonym_of"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.field_type_sid: Optional[str] = payload.get("field_type_sid")
+        self.language: Optional[str] = payload.get("language")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.value: Optional[str] = payload.get("value")
+        self.url: Optional[str] = payload.get("url")
+        self.synonym_of: Optional[str] = payload.get("synonym_of")
 
         self._solution = {
             "assistant_sid": assistant_sid,
             "field_type_sid": field_type_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[FieldValueContext] = None
 
@@ -73,76 +86,6 @@ class FieldValueInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the FieldValue resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def field_type_sid(self) -> str:
-        """
-        :returns: The SID of the Field Type associated with the Field Value.
-        """
-        return self._properties["field_type_sid"]
-
-    @property
-    def language(self) -> str:
-        """
-        :returns: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
-        """
-        return self._properties["language"]
-
-    @property
-    def assistant_sid(self) -> str:
-        """
-        :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resource.
-        """
-        return self._properties["assistant_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the FieldValue resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def value(self) -> str:
-        """
-        :returns: The Field Value data.
-        """
-        return self._properties["value"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the FieldValue resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def synonym_of(self) -> str:
-        """
-        :returns: The word for which the field value is a synonym of.
-        """
-        return self._properties["synonym_of"]
 
     def delete(self) -> bool:
         """

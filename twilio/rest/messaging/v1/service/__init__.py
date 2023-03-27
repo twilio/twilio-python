@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -36,42 +36,79 @@ class ServiceInstance(InstanceResource):
         ENABLE = "enable"
         DISABLE = "disable"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ServiceInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the Service resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar inbound_request_url: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
+    :ivar inbound_method: The HTTP method we use to call `inbound_request_url`. Can be `GET` or `POST`.
+    :ivar fallback_url: The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
+    :ivar fallback_method: The HTTP method we use to call `fallback_url`. Can be: `GET` or `POST`.
+    :ivar status_callback: The URL we call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
+    :ivar sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
+    :ivar mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
+    :ivar smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
+    :ivar scan_message_content: 
+    :ivar fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
+    :ivar area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
+    :ivar synchronous_validation: Reserved.
+    :ivar validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+    :ivar url: The absolute URL of the Service resource.
+    :ivar links: The absolute URLs of related resources.
+    :ivar usecase: A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..]
+    :ivar us_app_to_person_registered: Whether US A2P campaign is registered for this Service.
+    :ivar use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "inbound_request_url": payload.get("inbound_request_url"),
-            "inbound_method": payload.get("inbound_method"),
-            "fallback_url": payload.get("fallback_url"),
-            "fallback_method": payload.get("fallback_method"),
-            "status_callback": payload.get("status_callback"),
-            "sticky_sender": payload.get("sticky_sender"),
-            "mms_converter": payload.get("mms_converter"),
-            "smart_encoding": payload.get("smart_encoding"),
-            "scan_message_content": payload.get("scan_message_content"),
-            "fallback_to_long_code": payload.get("fallback_to_long_code"),
-            "area_code_geomatch": payload.get("area_code_geomatch"),
-            "synchronous_validation": payload.get("synchronous_validation"),
-            "validity_period": deserialize.integer(payload.get("validity_period")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "usecase": payload.get("usecase"),
-            "us_app_to_person_registered": payload.get("us_app_to_person_registered"),
-            "use_inbound_webhook_on_number": payload.get(
-                "use_inbound_webhook_on_number"
-            ),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.inbound_request_url: Optional[str] = payload.get("inbound_request_url")
+        self.inbound_method: Optional[str] = payload.get("inbound_method")
+        self.fallback_url: Optional[str] = payload.get("fallback_url")
+        self.fallback_method: Optional[str] = payload.get("fallback_method")
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.sticky_sender: Optional[bool] = payload.get("sticky_sender")
+        self.mms_converter: Optional[bool] = payload.get("mms_converter")
+        self.smart_encoding: Optional[bool] = payload.get("smart_encoding")
+        self.scan_message_content: Optional[
+            "ServiceInstance.ScanMessageContent"
+        ] = payload.get("scan_message_content")
+        self.fallback_to_long_code: Optional[bool] = payload.get(
+            "fallback_to_long_code"
+        )
+        self.area_code_geomatch: Optional[bool] = payload.get("area_code_geomatch")
+        self.synchronous_validation: Optional[bool] = payload.get(
+            "synchronous_validation"
+        )
+        self.validity_period: Optional[int] = deserialize.integer(
+            payload.get("validity_period")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.usecase: Optional[str] = payload.get("usecase")
+        self.us_app_to_person_registered: Optional[bool] = payload.get(
+            "us_app_to_person_registered"
+        )
+        self.use_inbound_webhook_on_number: Optional[bool] = payload.get(
+            "use_inbound_webhook_on_number"
+        )
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -89,167 +126,6 @@ class ServiceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Service resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def inbound_request_url(self) -> str:
-        """
-        :returns: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
-        """
-        return self._properties["inbound_request_url"]
-
-    @property
-    def inbound_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `inbound_request_url`. Can be `GET` or `POST`.
-        """
-        return self._properties["inbound_method"]
-
-    @property
-    def fallback_url(self) -> str:
-        """
-        :returns: The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
-        """
-        return self._properties["fallback_url"]
-
-    @property
-    def fallback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `fallback_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["fallback_method"]
-
-    @property
-    def status_callback(self) -> str:
-        """
-        :returns: The URL we call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
-        """
-        return self._properties["status_callback"]
-
-    @property
-    def sticky_sender(self) -> bool:
-        """
-        :returns: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
-        """
-        return self._properties["sticky_sender"]
-
-    @property
-    def mms_converter(self) -> bool:
-        """
-        :returns: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
-        """
-        return self._properties["mms_converter"]
-
-    @property
-    def smart_encoding(self) -> bool:
-        """
-        :returns: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        """
-        return self._properties["smart_encoding"]
-
-    @property
-    def scan_message_content(self) -> "ServiceInstance.ScanMessageContent":
-        """
-        :returns:
-        """
-        return self._properties["scan_message_content"]
-
-    @property
-    def fallback_to_long_code(self) -> bool:
-        """
-        :returns: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
-        """
-        return self._properties["fallback_to_long_code"]
-
-    @property
-    def area_code_geomatch(self) -> bool:
-        """
-        :returns: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
-        """
-        return self._properties["area_code_geomatch"]
-
-    @property
-    def synchronous_validation(self) -> bool:
-        """
-        :returns: Reserved.
-        """
-        return self._properties["synchronous_validation"]
-
-    @property
-    def validity_period(self) -> int:
-        """
-        :returns: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
-        """
-        return self._properties["validity_period"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Service resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The absolute URLs of related resources.
-        """
-        return self._properties["links"]
-
-    @property
-    def usecase(self) -> str:
-        """
-        :returns: A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..]
-        """
-        return self._properties["usecase"]
-
-    @property
-    def us_app_to_person_registered(self) -> bool:
-        """
-        :returns: Whether US A2P campaign is registered for this Service.
-        """
-        return self._properties["us_app_to_person_registered"]
-
-    @property
-    def use_inbound_webhook_on_number(self) -> bool:
-        """
-        :returns: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
-        """
-        return self._properties["use_inbound_webhook_on_number"]
 
     def delete(self) -> bool:
         """

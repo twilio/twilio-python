@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -45,28 +45,40 @@ class InteractionChannelInstance(InstanceResource):
         MESSENGER = "messenger"
         GBM = "gbm"
 
+    """
+    :ivar sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
+    :ivar interaction_sid: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
+    :ivar type: 
+    :ivar status: 
+    :ivar error_code: The Twilio error code for a failed channel.
+    :ivar error_message: The error message for a failed channel.
+    :ivar url: 
+    :ivar links: 
+    """
+
     def __init__(
-        self, version, payload, interaction_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        interaction_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the InteractionChannelInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "interaction_sid": payload.get("interaction_sid"),
-            "type": payload.get("type"),
-            "status": payload.get("status"),
-            "error_code": deserialize.integer(payload.get("error_code")),
-            "error_message": payload.get("error_message"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.interaction_sid: Optional[str] = payload.get("interaction_sid")
+        self.type: Optional["InteractionChannelInstance.Type"] = payload.get("type")
+        self.status: Optional["InteractionChannelInstance.ChannelStatus"] = payload.get(
+            "status"
+        )
+        self.error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
+        self.error_message: Optional[str] = payload.get("error_message")
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "interaction_sid": interaction_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[InteractionChannelContext] = None
 
@@ -85,62 +97,6 @@ class InteractionChannelInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
-        """
-        return self._properties["sid"]
-
-    @property
-    def interaction_sid(self) -> str:
-        """
-        :returns: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
-        """
-        return self._properties["interaction_sid"]
-
-    @property
-    def type(self) -> "InteractionChannelInstance.Type":
-        """
-        :returns:
-        """
-        return self._properties["type"]
-
-    @property
-    def status(self) -> "InteractionChannelInstance.ChannelStatus":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def error_code(self) -> int:
-        """
-        :returns: The Twilio error code for a failed channel.
-        """
-        return self._properties["error_code"]
-
-    @property
-    def error_message(self) -> str:
-        """
-        :returns: The error message for a failed channel.
-        """
-        return self._properties["error_message"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
 
     def fetch(self) -> "InteractionChannelInstance":
         """

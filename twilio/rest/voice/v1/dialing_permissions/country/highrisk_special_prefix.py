@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,26 +23,19 @@ from twilio.base.page import Page
 
 
 class HighriskSpecialPrefixInstance(InstanceResource):
-    def __init__(self, version, payload, iso_code: str):
-        """
-        Initialize the HighriskSpecialPrefixInstance
-        """
+
+    """
+    :ivar prefix: A prefix is a contiguous number range for a block of E.164 numbers that includes the E.164 assigned country code. For example, a North American Numbering Plan prefix like `+1510720` written like `+1(510) 720` matches all numbers inclusive from `+1(510) 720-0000` to `+1(510) 720-9999`.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], iso_code: str):
         super().__init__(version)
 
-        self._properties = {
-            "prefix": payload.get("prefix"),
-        }
+        self.prefix: Optional[str] = payload.get("prefix")
 
         self._solution = {
             "iso_code": iso_code,
         }
-
-    @property
-    def prefix(self) -> str:
-        """
-        :returns: A prefix is a contiguous number range for a block of E.164 numbers that includes the E.164 assigned country code. For example, a North American Numbering Plan prefix like `+1510720` written like `+1(510) 720` matches all numbers inclusive from `+1(510) 720-0000` to `+1(510) 720-9999`.
-        """
-        return self._properties["prefix"]
 
     def __repr__(self) -> str:
         """

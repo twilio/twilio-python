@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,24 +21,32 @@ from twilio.base.version import Version
 
 
 class NumberInstance(InstanceResource):
-    def __init__(self, version, payload, number: Optional[str] = None):
-        """
-        Initialize the NumberInstance
-        """
+
+    """
+    :ivar number: The phone number.
+    :ivar country: The name of the country.
+    :ivar iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+    :ivar outbound_call_price:
+    :ivar inbound_call_price:
+    :ivar price_unit: The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], number: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "number": payload.get("number"),
-            "country": payload.get("country"),
-            "iso_country": payload.get("iso_country"),
-            "outbound_call_price": payload.get("outbound_call_price"),
-            "inbound_call_price": payload.get("inbound_call_price"),
-            "price_unit": payload.get("price_unit"),
-            "url": payload.get("url"),
-        }
+        self.number: Optional[str] = payload.get("number")
+        self.country: Optional[str] = payload.get("country")
+        self.iso_country: Optional[str] = payload.get("iso_country")
+        self.outbound_call_price: Optional[str] = payload.get("outbound_call_price")
+        self.inbound_call_price: Optional[str] = payload.get("inbound_call_price")
+        self.price_unit: Optional[str] = payload.get("price_unit")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "number": number or self._properties["number"],
+            "number": number or self.number,
         }
         self._context: Optional[NumberContext] = None
 
@@ -56,55 +64,6 @@ class NumberInstance(InstanceResource):
                 number=self._solution["number"],
             )
         return self._context
-
-    @property
-    def number(self) -> str:
-        """
-        :returns: The phone number.
-        """
-        return self._properties["number"]
-
-    @property
-    def country(self) -> str:
-        """
-        :returns: The name of the country.
-        """
-        return self._properties["country"]
-
-    @property
-    def iso_country(self) -> str:
-        """
-        :returns: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-        """
-        return self._properties["iso_country"]
-
-    @property
-    def outbound_call_price(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["outbound_call_price"]
-
-    @property
-    def inbound_call_price(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["inbound_call_price"]
-
-    @property
-    def price_unit(self) -> str:
-        """
-        :returns: The currency in which prices are measured, specified in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        """
-        return self._properties["price_unit"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "NumberInstance":
         """

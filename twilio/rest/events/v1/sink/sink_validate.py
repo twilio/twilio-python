@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Any, Dict, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -21,26 +22,19 @@ from twilio.base.version import Version
 
 
 class SinkValidateInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str):
-        """
-        Initialize the SinkValidateInstance
-        """
+
+    """
+    :ivar result: Feedback indicating whether the given Sink was validated.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "result": payload.get("result"),
-        }
+        self.result: Optional[str] = payload.get("result")
 
         self._solution = {
             "sid": sid,
         }
-
-    @property
-    def result(self) -> str:
-        """
-        :returns: Feedback indicating whether the given Sink was validated.
-        """
-        return self._properties["result"]
 
     def __repr__(self) -> str:
         """

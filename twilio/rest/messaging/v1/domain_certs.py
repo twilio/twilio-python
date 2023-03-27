@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,25 +23,45 @@ from twilio.base.version import Version
 
 
 class DomainCertsInstance(InstanceResource):
-    def __init__(self, version, payload, domain_sid: Optional[str] = None):
-        """
-        Initialize the DomainCertsInstance
-        """
+
+    """
+    :ivar domain_sid: The unique string that we created to identify the Domain resource.
+    :ivar date_updated: Date that this Domain was last updated.
+    :ivar date_expires: Date that the private certificate associated with this domain expires. You will need to update the certificate before that date to ensure your shortened links will continue to work.
+    :ivar date_created: Date that this Domain was registered to the Twilio platform to create a new Domain object.
+    :ivar domain_name: Full url path for this domain.
+    :ivar certificate_sid: The unique string that we created to identify this Certificate resource.
+    :ivar url:
+    :ivar cert_in_validation: Optional JSON field describing the status and upload date of a new certificate in the process of validation
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        domain_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "domain_sid": payload.get("domain_sid"),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "date_expires": deserialize.iso8601_datetime(payload.get("date_expires")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "domain_name": payload.get("domain_name"),
-            "certificate_sid": payload.get("certificate_sid"),
-            "url": payload.get("url"),
-            "cert_in_validation": payload.get("cert_in_validation"),
-        }
+        self.domain_sid: Optional[str] = payload.get("domain_sid")
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.date_expires: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_expires")
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.domain_name: Optional[str] = payload.get("domain_name")
+        self.certificate_sid: Optional[str] = payload.get("certificate_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.cert_in_validation: Optional[Dict[str, object]] = payload.get(
+            "cert_in_validation"
+        )
 
         self._solution = {
-            "domain_sid": domain_sid or self._properties["domain_sid"],
+            "domain_sid": domain_sid or self.domain_sid,
         }
         self._context: Optional[DomainCertsContext] = None
 
@@ -59,62 +79,6 @@ class DomainCertsInstance(InstanceResource):
                 domain_sid=self._solution["domain_sid"],
             )
         return self._context
-
-    @property
-    def domain_sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Domain resource.
-        """
-        return self._properties["domain_sid"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: Date that this Domain was last updated.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def date_expires(self) -> datetime:
-        """
-        :returns: Date that the private certificate associated with this domain expires. You will need to update the certificate before that date to ensure your shortened links will continue to work.
-        """
-        return self._properties["date_expires"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: Date that this Domain was registered to the Twilio platform to create a new Domain object.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def domain_name(self) -> str:
-        """
-        :returns: Full url path for this domain.
-        """
-        return self._properties["domain_name"]
-
-    @property
-    def certificate_sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify this Certificate resource.
-        """
-        return self._properties["certificate_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def cert_in_validation(self) -> Dict[str, object]:
-        """
-        :returns: Optional JSON field describing the status and upload date of a new certificate in the process of validation
-        """
-        return self._properties["cert_in_validation"]
 
     def delete(self) -> bool:
         """

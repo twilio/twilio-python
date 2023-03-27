@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -30,114 +30,48 @@ class VerificationCheckInstance(InstanceResource):
         WHATSAPP = "whatsapp"
         SNA = "sna"
 
-    def __init__(self, version, payload, service_sid: str):
-        """
-        Initialize the VerificationCheckInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the VerificationCheck resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the VerificationCheck resource.
+    :ivar to: The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+    :ivar channel: 
+    :ivar status: The status of the verification. Can be: `pending`, `approved`, or `canceled`.
+    :ivar valid: Use \"status\" instead. Legacy property indicating whether the verification was successful.
+    :ivar amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+    :ivar payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+    :ivar date_created: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Verification Check resource was created.
+    :ivar date_updated: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Verification Check resource was last updated.
+    :ivar sna_attempts_error_codes: List of error codes as a result of attempting a verification using the `sna` channel. The error codes are chronologically ordered, from the first attempt to the latest attempt. This will be an empty list if no errors occured or `null` if the last channel used wasn't `sna`.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "service_sid": payload.get("service_sid"),
-            "account_sid": payload.get("account_sid"),
-            "to": payload.get("to"),
-            "channel": payload.get("channel"),
-            "status": payload.get("status"),
-            "valid": payload.get("valid"),
-            "amount": payload.get("amount"),
-            "payee": payload.get("payee"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "sna_attempts_error_codes": payload.get("sna_attempts_error_codes"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.to: Optional[str] = payload.get("to")
+        self.channel: Optional["VerificationCheckInstance.Channel"] = payload.get(
+            "channel"
+        )
+        self.status: Optional[str] = payload.get("status")
+        self.valid: Optional[bool] = payload.get("valid")
+        self.amount: Optional[str] = payload.get("amount")
+        self.payee: Optional[str] = payload.get("payee")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.sna_attempts_error_codes: Optional[List[object]] = payload.get(
+            "sna_attempts_error_codes"
+        )
 
         self._solution = {
             "service_sid": service_sid,
         }
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the VerificationCheck resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the VerificationCheck resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def to(self) -> str:
-        """
-        :returns: The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        """
-        return self._properties["to"]
-
-    @property
-    def channel(self) -> "VerificationCheckInstance.Channel":
-        """
-        :returns:
-        """
-        return self._properties["channel"]
-
-    @property
-    def status(self) -> str:
-        """
-        :returns: The status of the verification. Can be: `pending`, `approved`, or `canceled`.
-        """
-        return self._properties["status"]
-
-    @property
-    def valid(self) -> bool:
-        """
-        :returns: Use \"status\" instead. Legacy property indicating whether the verification was successful.
-        """
-        return self._properties["valid"]
-
-    @property
-    def amount(self) -> str:
-        """
-        :returns: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        """
-        return self._properties["amount"]
-
-    @property
-    def payee(self) -> str:
-        """
-        :returns: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        """
-        return self._properties["payee"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Verification Check resource was created.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the Verification Check resource was last updated.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def sna_attempts_error_codes(self) -> List[object]:
-        """
-        :returns: List of error codes as a result of attempting a verification using the `sna` channel. The error codes are chronologically ordered, from the first attempt to the latest attempt. This will be an empty list if no errors occured or `null` if the last channel used wasn't `sna`.
-        """
-        return self._properties["sna_attempts_error_codes"]
 
     def __repr__(self) -> str:
         """

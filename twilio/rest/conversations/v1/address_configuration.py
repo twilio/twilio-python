@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,26 +24,40 @@ from twilio.base.page import Page
 
 
 class AddressConfigurationInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the AddressConfigurationInstance
-        """
+
+    """
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) the address belongs to
+    :ivar type: Type of Address, value can be `whatsapp` or `sms`.
+    :ivar address: The unique address to be configured. The address can be a whatsapp address or phone number
+    :ivar friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+    :ivar auto_creation: Auto Creation configuration for the address.
+    :ivar date_created: The date that this resource was created.
+    :ivar date_updated: The date that this resource was last updated.
+    :ivar url: An absolute API resource URL for this address configuration.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "type": payload.get("type"),
-            "address": payload.get("address"),
-            "friendly_name": payload.get("friendly_name"),
-            "auto_creation": payload.get("auto_creation"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.type: Optional[str] = payload.get("type")
+        self.address: Optional[str] = payload.get("address")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.auto_creation: Optional[Dict[str, object]] = payload.get("auto_creation")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[AddressConfigurationContext] = None
 
@@ -61,69 +75,6 @@ class AddressConfigurationInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) the address belongs to
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def type(self) -> str:
-        """
-        :returns: Type of Address, value can be `whatsapp` or `sms`.
-        """
-        return self._properties["type"]
-
-    @property
-    def address(self) -> str:
-        """
-        :returns: The unique address to be configured. The address can be a whatsapp address or phone number
-        """
-        return self._properties["address"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The human-readable name of this configuration, limited to 256 characters. Optional.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def auto_creation(self) -> Dict[str, object]:
-        """
-        :returns: Auto Creation configuration for the address.
-        """
-        return self._properties["auto_creation"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this resource was created.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this resource was last updated.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: An absolute API resource URL for this address configuration.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

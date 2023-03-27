@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,19 +21,29 @@ from twilio.base.version import Version
 
 
 class ExecutionContextInstance(InstanceResource):
-    def __init__(self, version, payload, flow_sid: str, execution_sid: str):
-        """
-        Initialize the ExecutionContextInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionContext resource.
+    :ivar context: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
+    :ivar flow_sid: The SID of the Flow.
+    :ivar execution_sid: The SID of the context's Execution resource.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        flow_sid: str,
+        execution_sid: str,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "context": payload.get("context"),
-            "flow_sid": payload.get("flow_sid"),
-            "execution_sid": payload.get("execution_sid"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.context: Optional[Dict[str, object]] = payload.get("context")
+        self.flow_sid: Optional[str] = payload.get("flow_sid")
+        self.execution_sid: Optional[str] = payload.get("execution_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "flow_sid": flow_sid,
@@ -56,41 +66,6 @@ class ExecutionContextInstance(InstanceResource):
                 execution_sid=self._solution["execution_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionContext resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def context(self) -> Dict[str, object]:
-        """
-        :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
-        """
-        return self._properties["context"]
-
-    @property
-    def flow_sid(self) -> str:
-        """
-        :returns: The SID of the Flow.
-        """
-        return self._properties["flow_sid"]
-
-    @property
-    def execution_sid(self) -> str:
-        """
-        :returns: The SID of the context's Execution resource.
-        """
-        return self._properties["execution_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "ExecutionContextInstance":
         """

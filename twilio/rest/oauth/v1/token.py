@@ -14,6 +14,7 @@ r"""
 
 
 from datetime import datetime
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -22,60 +23,29 @@ from twilio.base.version import Version
 
 
 class TokenInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the TokenInstance
-        """
+
+    """
+    :ivar access_token: Token which carries the necessary information to access a Twilio resource directly.
+    :ivar refresh_token: Token which carries the information necessary to get a new access token.
+    :ivar id_token:
+    :ivar refresh_token_expires_at: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar access_token_expires_at: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "access_token": payload.get("access_token"),
-            "refresh_token": payload.get("refresh_token"),
-            "id_token": payload.get("id_token"),
-            "refresh_token_expires_at": deserialize.iso8601_datetime(
-                payload.get("refresh_token_expires_at")
-            ),
-            "access_token_expires_at": deserialize.iso8601_datetime(
-                payload.get("access_token_expires_at")
-            ),
-        }
+        self.access_token: Optional[str] = payload.get("access_token")
+        self.refresh_token: Optional[str] = payload.get("refresh_token")
+        self.id_token: Optional[str] = payload.get("id_token")
+        self.refresh_token_expires_at: Optional[
+            datetime
+        ] = deserialize.iso8601_datetime(payload.get("refresh_token_expires_at"))
+        self.access_token_expires_at: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("access_token_expires_at")
+        )
 
         self._solution = {}
-
-    @property
-    def access_token(self) -> str:
-        """
-        :returns: Token which carries the necessary information to access a Twilio resource directly.
-        """
-        return self._properties["access_token"]
-
-    @property
-    def refresh_token(self) -> str:
-        """
-        :returns: Token which carries the information necessary to get a new access token.
-        """
-        return self._properties["refresh_token"]
-
-    @property
-    def id_token(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["id_token"]
-
-    @property
-    def refresh_token_expires_at(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["refresh_token_expires_at"]
-
-    @property
-    def access_token_expires_at(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["access_token_expires_at"]
 
     def __repr__(self) -> str:
         """

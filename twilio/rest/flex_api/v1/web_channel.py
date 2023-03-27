@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,23 +24,34 @@ from twilio.base.page import Page
 
 
 class WebChannelInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the WebChannelInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the WebChannel resource and owns this Workflow.
+    :ivar flex_flow_sid: The SID of the Flex Flow.
+    :ivar sid: The unique string that we created to identify the WebChannel resource.
+    :ivar url: The absolute URL of the WebChannel resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "flex_flow_sid": payload.get("flex_flow_sid"),
-            "sid": payload.get("sid"),
-            "url": payload.get("url"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.flex_flow_sid: Optional[str] = payload.get("flex_flow_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.url: Optional[str] = payload.get("url")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[WebChannelContext] = None
 
@@ -58,48 +69,6 @@ class WebChannelInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the WebChannel resource and owns this Workflow.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def flex_flow_sid(self) -> str:
-        """
-        :returns: The SID of the Flex Flow.
-        """
-        return self._properties["flex_flow_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the WebChannel resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the WebChannel resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
 
     def delete(self) -> bool:
         """

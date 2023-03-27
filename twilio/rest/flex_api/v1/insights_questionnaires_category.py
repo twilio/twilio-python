@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,21 +23,29 @@ from twilio.base.page import Page
 
 
 class InsightsQuestionnairesCategoryInstance(InstanceResource):
-    def __init__(self, version, payload, category_id: Optional[str] = None):
-        """
-        Initialize the InsightsQuestionnairesCategoryInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+    :ivar category_id: The unique ID for the category
+    :ivar name: The name of this category.
+    :ivar url:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        category_id: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "category_id": payload.get("category_id"),
-            "name": payload.get("name"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.category_id: Optional[str] = payload.get("category_id")
+        self.name: Optional[str] = payload.get("name")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "category_id": category_id or self._properties["category_id"],
+            "category_id": category_id or self.category_id,
         }
         self._context: Optional[InsightsQuestionnairesCategoryContext] = None
 
@@ -55,34 +63,6 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
                 category_id=self._solution["category_id"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def category_id(self) -> str:
-        """
-        :returns: The unique ID for the category
-        """
-        return self._properties["category_id"]
-
-    @property
-    def name(self) -> str:
-        """
-        :returns: The name of this category.
-        """
-        return self._properties["name"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def delete(self, token=values.unset) -> bool:
         """

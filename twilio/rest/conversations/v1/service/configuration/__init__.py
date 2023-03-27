@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,27 +27,35 @@ from twilio.rest.conversations.v1.service.configuration.webhook import WebhookLi
 
 
 class ConfigurationInstance(InstanceResource):
-    def __init__(self, version, payload, chat_service_sid: str):
-        """
-        Initialize the ConfigurationInstance
-        """
+
+    """
+    :ivar chat_service_sid: The unique string that we created to identify the Service configuration resource.
+    :ivar default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator user when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+    :ivar default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+    :ivar default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+    :ivar url: An absolute API resource URL for this service configuration.
+    :ivar links: Contains an absolute API resource URL to access the push notifications configuration of this service.
+    :ivar reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], chat_service_sid: str
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "default_conversation_creator_role_sid": payload.get(
-                "default_conversation_creator_role_sid"
-            ),
-            "default_conversation_role_sid": payload.get(
-                "default_conversation_role_sid"
-            ),
-            "default_chat_service_role_sid": payload.get(
-                "default_chat_service_role_sid"
-            ),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "reachability_enabled": payload.get("reachability_enabled"),
-        }
+        self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self.default_conversation_creator_role_sid: Optional[str] = payload.get(
+            "default_conversation_creator_role_sid"
+        )
+        self.default_conversation_role_sid: Optional[str] = payload.get(
+            "default_conversation_role_sid"
+        )
+        self.default_chat_service_role_sid: Optional[str] = payload.get(
+            "default_chat_service_role_sid"
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.reachability_enabled: Optional[bool] = payload.get("reachability_enabled")
 
         self._solution = {
             "chat_service_sid": chat_service_sid,
@@ -68,55 +76,6 @@ class ConfigurationInstance(InstanceResource):
                 chat_service_sid=self._solution["chat_service_sid"],
             )
         return self._context
-
-    @property
-    def chat_service_sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Service configuration resource.
-        """
-        return self._properties["chat_service_sid"]
-
-    @property
-    def default_conversation_creator_role_sid(self) -> str:
-        """
-        :returns: The conversation-level role assigned to a conversation creator user when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        """
-        return self._properties["default_conversation_creator_role_sid"]
-
-    @property
-    def default_conversation_role_sid(self) -> str:
-        """
-        :returns: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        """
-        return self._properties["default_conversation_role_sid"]
-
-    @property
-    def default_chat_service_role_sid(self) -> str:
-        """
-        :returns: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        """
-        return self._properties["default_chat_service_role_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: An absolute API resource URL for this service configuration.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: Contains an absolute API resource URL to access the push notifications configuration of this service.
-        """
-        return self._properties["links"]
-
-    @property
-    def reachability_enabled(self) -> bool:
-        """
-        :returns: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
-        """
-        return self._properties["reachability_enabled"]
 
     def fetch(self) -> "ConfigurationInstance":
         """

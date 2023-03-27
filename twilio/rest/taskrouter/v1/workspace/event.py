@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,35 +24,59 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the EventInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
+    :ivar actor_sid: The SID of the resource that triggered the event.
+    :ivar actor_type: The type of resource that triggered the event.
+    :ivar actor_url: The absolute URL of the resource that triggered the event.
+    :ivar description: A description of the event.
+    :ivar event_data: Data about the event. For more information, see [Event types](https://www.twilio.com/docs/taskrouter/api/event#event-types).
+    :ivar event_date: The time the event was sent, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar event_date_ms: The time the event was sent in milliseconds.
+    :ivar event_type: The identifier for the event.
+    :ivar resource_sid: The SID of the object the event is most relevant to, such as a TaskSid, ReservationSid, or a  WorkerSid.
+    :ivar resource_type: The type of object the event is most relevant to, such as a Task, Reservation, or a Worker).
+    :ivar resource_url: The URL of the resource the event is most relevant to.
+    :ivar sid: The unique string that we created to identify the Event resource.
+    :ivar source: Where the Event originated.
+    :ivar source_ip_address: The IP from which the Event originated.
+    :ivar url: The absolute URL of the Event resource.
+    :ivar workspace_sid: The SID of the Workspace that contains the Event.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "actor_sid": payload.get("actor_sid"),
-            "actor_type": payload.get("actor_type"),
-            "actor_url": payload.get("actor_url"),
-            "description": payload.get("description"),
-            "event_data": payload.get("event_data"),
-            "event_date": deserialize.iso8601_datetime(payload.get("event_date")),
-            "event_date_ms": payload.get("event_date_ms"),
-            "event_type": payload.get("event_type"),
-            "resource_sid": payload.get("resource_sid"),
-            "resource_type": payload.get("resource_type"),
-            "resource_url": payload.get("resource_url"),
-            "sid": payload.get("sid"),
-            "source": payload.get("source"),
-            "source_ip_address": payload.get("source_ip_address"),
-            "url": payload.get("url"),
-            "workspace_sid": payload.get("workspace_sid"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.actor_sid: Optional[str] = payload.get("actor_sid")
+        self.actor_type: Optional[str] = payload.get("actor_type")
+        self.actor_url: Optional[str] = payload.get("actor_url")
+        self.description: Optional[str] = payload.get("description")
+        self.event_data: Optional[Dict[str, object]] = payload.get("event_data")
+        self.event_date: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("event_date")
+        )
+        self.event_date_ms: Optional[int] = payload.get("event_date_ms")
+        self.event_type: Optional[str] = payload.get("event_type")
+        self.resource_sid: Optional[str] = payload.get("resource_sid")
+        self.resource_type: Optional[str] = payload.get("resource_type")
+        self.resource_url: Optional[str] = payload.get("resource_url")
+        self.sid: Optional[str] = payload.get("sid")
+        self.source: Optional[str] = payload.get("source")
+        self.source_ip_address: Optional[str] = payload.get("source_ip_address")
+        self.url: Optional[str] = payload.get("url")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
 
         self._solution = {
             "workspace_sid": workspace_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[EventContext] = None
 
@@ -71,125 +95,6 @@ class EventInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def actor_sid(self) -> str:
-        """
-        :returns: The SID of the resource that triggered the event.
-        """
-        return self._properties["actor_sid"]
-
-    @property
-    def actor_type(self) -> str:
-        """
-        :returns: The type of resource that triggered the event.
-        """
-        return self._properties["actor_type"]
-
-    @property
-    def actor_url(self) -> str:
-        """
-        :returns: The absolute URL of the resource that triggered the event.
-        """
-        return self._properties["actor_url"]
-
-    @property
-    def description(self) -> str:
-        """
-        :returns: A description of the event.
-        """
-        return self._properties["description"]
-
-    @property
-    def event_data(self) -> Dict[str, object]:
-        """
-        :returns: Data about the event. For more information, see [Event types](https://www.twilio.com/docs/taskrouter/api/event#event-types).
-        """
-        return self._properties["event_data"]
-
-    @property
-    def event_date(self) -> datetime:
-        """
-        :returns: The time the event was sent, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["event_date"]
-
-    @property
-    def event_date_ms(self) -> int:
-        """
-        :returns: The time the event was sent in milliseconds.
-        """
-        return self._properties["event_date_ms"]
-
-    @property
-    def event_type(self) -> str:
-        """
-        :returns: The identifier for the event.
-        """
-        return self._properties["event_type"]
-
-    @property
-    def resource_sid(self) -> str:
-        """
-        :returns: The SID of the object the event is most relevant to, such as a TaskSid, ReservationSid, or a  WorkerSid.
-        """
-        return self._properties["resource_sid"]
-
-    @property
-    def resource_type(self) -> str:
-        """
-        :returns: The type of object the event is most relevant to, such as a Task, Reservation, or a Worker).
-        """
-        return self._properties["resource_type"]
-
-    @property
-    def resource_url(self) -> str:
-        """
-        :returns: The URL of the resource the event is most relevant to.
-        """
-        return self._properties["resource_url"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Event resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def source(self) -> str:
-        """
-        :returns: Where the Event originated.
-        """
-        return self._properties["source"]
-
-    @property
-    def source_ip_address(self) -> str:
-        """
-        :returns: The IP from which the Event originated.
-        """
-        return self._properties["source_ip_address"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Event resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that contains the Event.
-        """
-        return self._properties["workspace_sid"]
 
     def fetch(self) -> "EventInstance":
         """

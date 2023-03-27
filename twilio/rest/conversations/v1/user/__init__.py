@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,30 +29,47 @@ class UserInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the UserInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the User resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User resource.
+    :ivar chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
+    :ivar role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) assigned to the user.
+    :ivar identity: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+    :ivar is_online: Whether the User is actively connected to this Conversations Service and online. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, if the User has never been online for this Conversations Service, even if the Service's `reachability_enabled` is `true`.
+    :ivar is_notifiable: Whether the User has a potentially valid Push Notification registration (APN or GCM) for this Conversations Service. If at least one registration exists, `true`; otherwise `false`. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, and if the User has never had a notification registration, even if the Service's `reachability_enabled` is `true`.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: An absolute API resource URL for this user.
+    :ivar links: 
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "role_sid": payload.get("role_sid"),
-            "identity": payload.get("identity"),
-            "friendly_name": payload.get("friendly_name"),
-            "attributes": payload.get("attributes"),
-            "is_online": payload.get("is_online"),
-            "is_notifiable": payload.get("is_notifiable"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self.role_sid: Optional[str] = payload.get("role_sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.is_online: Optional[bool] = payload.get("is_online")
+        self.is_notifiable: Optional[bool] = payload.get("is_notifiable")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[UserContext] = None
 
@@ -70,97 +87,6 @@ class UserInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the User resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def chat_service_sid(self) -> str:
-        """
-        :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
-        """
-        return self._properties["chat_service_sid"]
-
-    @property
-    def role_sid(self) -> str:
-        """
-        :returns: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) assigned to the user.
-        """
-        return self._properties["role_sid"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
-        """
-        return self._properties["identity"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def attributes(self) -> str:
-        """
-        :returns: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        """
-        return self._properties["attributes"]
-
-    @property
-    def is_online(self) -> bool:
-        """
-        :returns: Whether the User is actively connected to this Conversations Service and online. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, if the User has never been online for this Conversations Service, even if the Service's `reachability_enabled` is `true`.
-        """
-        return self._properties["is_online"]
-
-    @property
-    def is_notifiable(self) -> bool:
-        """
-        :returns: Whether the User has a potentially valid Push Notification registration (APN or GCM) for this Conversations Service. If at least one registration exists, `true`; otherwise `false`. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, and if the User has never had a notification registration, even if the Service's `reachability_enabled` is `true`.
-        """
-        return self._properties["is_notifiable"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: An absolute API resource URL for this user.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
 
     def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """

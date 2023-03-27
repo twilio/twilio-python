@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,21 +24,28 @@ from twilio.base.page import Page
 
 
 class AccountConfigInstance(InstanceResource):
-    def __init__(self, version, payload, key: Optional[str] = None):
-        """
-        Initialize the AccountConfigInstance
-        """
+
+    """
+    :ivar key: The config key; up to 100 characters.
+    :ivar date_updated:
+    :ivar value: The config value; up to 4096 characters.
+    :ivar url: The absolute URL of the Config.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], key: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "key": payload.get("key"),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "value": payload.get("value"),
-            "url": payload.get("url"),
-        }
+        self.key: Optional[str] = payload.get("key")
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.value: Optional[str] = payload.get("value")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "key": key or self._properties["key"],
+            "key": key or self.key,
         }
         self._context: Optional[AccountConfigContext] = None
 
@@ -56,34 +63,6 @@ class AccountConfigInstance(InstanceResource):
                 key=self._solution["key"],
             )
         return self._context
-
-    @property
-    def key(self) -> str:
-        """
-        :returns: The config key; up to 100 characters.
-        """
-        return self._properties["key"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def value(self) -> str:
-        """
-        :returns: The config value; up to 4096 characters.
-        """
-        return self._properties["value"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Config.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

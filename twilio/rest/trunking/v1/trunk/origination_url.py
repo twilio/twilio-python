@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,29 +24,49 @@ from twilio.base.page import Page
 
 
 class OriginationUrlInstance(InstanceResource):
-    def __init__(self, version, payload, trunk_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the OriginationUrlInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OriginationUrl resource.
+    :ivar sid: The unique string that we created to identify the OriginationUrl resource.
+    :ivar trunk_sid: The SID of the Trunk that owns the Origination URL.
+    :ivar weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+    :ivar enabled: Whether the URL is enabled. The default is `true`.
+    :ivar sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        trunk_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "trunk_sid": payload.get("trunk_sid"),
-            "weight": deserialize.integer(payload.get("weight")),
-            "enabled": payload.get("enabled"),
-            "sip_url": payload.get("sip_url"),
-            "friendly_name": payload.get("friendly_name"),
-            "priority": deserialize.integer(payload.get("priority")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.trunk_sid: Optional[str] = payload.get("trunk_sid")
+        self.weight: Optional[int] = deserialize.integer(payload.get("weight"))
+        self.enabled: Optional[bool] = payload.get("enabled")
+        self.sip_url: Optional[str] = payload.get("sip_url")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.priority: Optional[int] = deserialize.integer(payload.get("priority"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "trunk_sid": trunk_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[OriginationUrlContext] = None
 
@@ -65,83 +85,6 @@ class OriginationUrlInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OriginationUrl resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the OriginationUrl resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def trunk_sid(self) -> str:
-        """
-        :returns: The SID of the Trunk that owns the Origination URL.
-        """
-        return self._properties["trunk_sid"]
-
-    @property
-    def weight(self) -> int:
-        """
-        :returns: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
-        """
-        return self._properties["weight"]
-
-    @property
-    def enabled(self) -> bool:
-        """
-        :returns: Whether the URL is enabled. The default is `true`.
-        """
-        return self._properties["enabled"]
-
-    @property
-    def sip_url(self) -> str:
-        """
-        :returns: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
-        """
-        return self._properties["sip_url"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def priority(self) -> int:
-        """
-        :returns: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-        """
-        return self._properties["priority"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

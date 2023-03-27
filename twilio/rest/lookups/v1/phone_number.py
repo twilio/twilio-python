@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,24 +22,35 @@ from twilio.base.version import Version
 
 
 class PhoneNumberInstance(InstanceResource):
-    def __init__(self, version, payload, phone_number: Optional[str] = None):
-        """
-        Initialize the PhoneNumberInstance
-        """
+
+    """
+    :ivar caller_name: The name of the phone number's owner. If `null`, that information was not available.
+    :ivar country_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the phone number.
+    :ivar phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+    :ivar national_format: The phone number, in national format.
+    :ivar carrier: The telecom company that provides the phone number.
+    :ivar add_ons: A JSON string with the results of the Add-ons you specified in the `add_ons` parameters. For the format of the object, see [Using Add-ons](https://www.twilio.com/docs/add-ons).
+    :ivar url: The absolute URL of the resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        phone_number: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "caller_name": payload.get("caller_name"),
-            "country_code": payload.get("country_code"),
-            "phone_number": payload.get("phone_number"),
-            "national_format": payload.get("national_format"),
-            "carrier": payload.get("carrier"),
-            "add_ons": payload.get("add_ons"),
-            "url": payload.get("url"),
-        }
+        self.caller_name: Optional[Dict[str, object]] = payload.get("caller_name")
+        self.country_code: Optional[str] = payload.get("country_code")
+        self.phone_number: Optional[str] = payload.get("phone_number")
+        self.national_format: Optional[str] = payload.get("national_format")
+        self.carrier: Optional[Dict[str, object]] = payload.get("carrier")
+        self.add_ons: Optional[Dict[str, object]] = payload.get("add_ons")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "phone_number": phone_number or self._properties["phone_number"],
+            "phone_number": phone_number or self.phone_number,
         }
         self._context: Optional[PhoneNumberContext] = None
 
@@ -57,55 +68,6 @@ class PhoneNumberInstance(InstanceResource):
                 phone_number=self._solution["phone_number"],
             )
         return self._context
-
-    @property
-    def caller_name(self) -> Dict[str, object]:
-        """
-        :returns: The name of the phone number's owner. If `null`, that information was not available.
-        """
-        return self._properties["caller_name"]
-
-    @property
-    def country_code(self) -> str:
-        """
-        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the phone number.
-        """
-        return self._properties["country_code"]
-
-    @property
-    def phone_number(self) -> str:
-        """
-        :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        """
-        return self._properties["phone_number"]
-
-    @property
-    def national_format(self) -> str:
-        """
-        :returns: The phone number, in national format.
-        """
-        return self._properties["national_format"]
-
-    @property
-    def carrier(self) -> Dict[str, object]:
-        """
-        :returns: The telecom company that provides the phone number.
-        """
-        return self._properties["carrier"]
-
-    @property
-    def add_ons(self) -> Dict[str, object]:
-        """
-        :returns: A JSON string with the results of the Add-ons you specified in the `add_ons` parameters. For the format of the object, see [Using Add-ons](https://www.twilio.com/docs/add-ons).
-        """
-        return self._properties["add_ons"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the resource.
-        """
-        return self._properties["url"]
 
     def fetch(
         self,

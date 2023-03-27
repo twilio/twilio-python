@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,34 +23,41 @@ from twilio.base.page import Page
 
 
 class SyncListPermissionInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The unique SID identifier of the Twilio Account.
+    :ivar service_sid: The unique SID identifier of the Sync Service Instance.
+    :ivar list_sid: The unique SID identifier of the Sync List to which the Permission applies.
+    :ivar identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+    :ivar read: Boolean flag specifying whether the identity can read the Sync List and its Items.
+    :ivar write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
+    :ivar manage: Boolean flag specifying whether the identity can delete the Sync List.
+    :ivar url: Contains an absolute URL for this Sync List Permission.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         list_sid: str,
         identity: Optional[str] = None,
     ):
-        """
-        Initialize the SyncListPermissionInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "list_sid": payload.get("list_sid"),
-            "identity": payload.get("identity"),
-            "read": payload.get("read"),
-            "write": payload.get("write"),
-            "manage": payload.get("manage"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.list_sid: Optional[str] = payload.get("list_sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.read: Optional[bool] = payload.get("read")
+        self.write: Optional[bool] = payload.get("write")
+        self.manage: Optional[bool] = payload.get("manage")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "list_sid": list_sid,
-            "identity": identity or self._properties["identity"],
+            "identity": identity or self.identity,
         }
         self._context: Optional[SyncListPermissionContext] = None
 
@@ -70,62 +77,6 @@ class SyncListPermissionInstance(InstanceResource):
                 identity=self._solution["identity"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique SID identifier of the Twilio Account.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The unique SID identifier of the Sync Service Instance.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def list_sid(self) -> str:
-        """
-        :returns: The unique SID identifier of the Sync List to which the Permission applies.
-        """
-        return self._properties["list_sid"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-        """
-        return self._properties["identity"]
-
-    @property
-    def read(self) -> bool:
-        """
-        :returns: Boolean flag specifying whether the identity can read the Sync List and its Items.
-        """
-        return self._properties["read"]
-
-    @property
-    def write(self) -> bool:
-        """
-        :returns: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-        """
-        return self._properties["write"]
-
-    @property
-    def manage(self) -> bool:
-        """
-        :returns: Boolean flag specifying whether the identity can delete the Sync List.
-        """
-        return self._properties["manage"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: Contains an absolute URL for this Sync List Permission.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

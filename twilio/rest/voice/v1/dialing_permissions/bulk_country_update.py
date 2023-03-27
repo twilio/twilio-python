@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -21,32 +22,21 @@ from twilio.base.version import Version
 
 
 class BulkCountryUpdateInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the BulkCountryUpdateInstance
-        """
+
+    """
+    :ivar update_count: The number of countries updated
+    :ivar update_request: A bulk update request to change voice dialing country permissions stored as a URL-encoded, JSON array of update objects. For example : `[ { \"iso_code\": \"GB\", \"low_risk_numbers_enabled\": \"true\", \"high_risk_special_numbers_enabled\":\"true\", \"high_risk_tollfraud_numbers_enabled\": \"false\" } ]`
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "update_count": deserialize.integer(payload.get("update_count")),
-            "update_request": payload.get("update_request"),
-        }
+        self.update_count: Optional[int] = deserialize.integer(
+            payload.get("update_count")
+        )
+        self.update_request: Optional[str] = payload.get("update_request")
 
         self._solution = {}
-
-    @property
-    def update_count(self) -> int:
-        """
-        :returns: The number of countries updated
-        """
-        return self._properties["update_count"]
-
-    @property
-    def update_request(self) -> str:
-        """
-        :returns: A bulk update request to change voice dialing country permissions stored as a URL-encoded, JSON array of update objects. For example : `[ { \"iso_code\": \"GB\", \"low_risk_numbers_enabled\": \"true\", \"high_risk_special_numbers_enabled\":\"true\", \"high_risk_tollfraud_numbers_enabled\": \"false\" } ]`
-        """
-        return self._properties["update_request"]
 
     def __repr__(self) -> str:
         """

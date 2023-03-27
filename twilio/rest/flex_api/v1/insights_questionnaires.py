@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,24 +23,32 @@ from twilio.base.page import Page
 
 
 class InsightsQuestionnairesInstance(InstanceResource):
-    def __init__(self, version, payload, id: Optional[str] = None):
-        """
-        Initialize the InsightsQuestionnairesInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+    :ivar id: The unique id of this questionnaire
+    :ivar name: The name of this category.
+    :ivar description: The description of this questionnaire
+    :ivar active: The flag to enable or disable questionnaire
+    :ivar questions: The list of questions with category for a questionnaire
+    :ivar url:
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "id": payload.get("id"),
-            "name": payload.get("name"),
-            "description": payload.get("description"),
-            "active": payload.get("active"),
-            "questions": payload.get("questions"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.id: Optional[str] = payload.get("id")
+        self.name: Optional[str] = payload.get("name")
+        self.description: Optional[str] = payload.get("description")
+        self.active: Optional[bool] = payload.get("active")
+        self.questions: Optional[List[object]] = payload.get("questions")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "id": id or self._properties["id"],
+            "id": id or self.id,
         }
         self._context: Optional[InsightsQuestionnairesContext] = None
 
@@ -58,55 +66,6 @@ class InsightsQuestionnairesInstance(InstanceResource):
                 id=self._solution["id"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def id(self) -> str:
-        """
-        :returns: The unique id of this questionnaire
-        """
-        return self._properties["id"]
-
-    @property
-    def name(self) -> str:
-        """
-        :returns: The name of this category.
-        """
-        return self._properties["name"]
-
-    @property
-    def description(self) -> str:
-        """
-        :returns: The description of this questionnaire
-        """
-        return self._properties["description"]
-
-    @property
-    def active(self) -> bool:
-        """
-        :returns: The flag to enable or disable questionnaire
-        """
-        return self._properties["active"]
-
-    @property
-    def questions(self) -> List[object]:
-        """
-        :returns: The list of questions with category for a questionnaire
-        """
-        return self._properties["questions"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def delete(self, token=values.unset) -> bool:
         """

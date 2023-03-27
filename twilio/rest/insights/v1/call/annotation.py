@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -35,24 +35,36 @@ class AnnotationInstance(InstanceResource):
         DROPPED_CALL = "dropped_call"
         NUMBER_REACHABILITY = "number_reachability"
 
-    def __init__(self, version, payload, call_sid: str):
-        """
-        Initialize the AnnotationInstance
-        """
+    """
+    :ivar call_sid: The unique SID identifier of the Call.
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar answered_by: 
+    :ivar connectivity_issue: 
+    :ivar quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
+    :ivar spam: Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
+    :ivar call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+    :ivar comment: Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
+    :ivar incident: Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
+    :ivar url: The URL of this resource.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "call_sid": payload.get("call_sid"),
-            "account_sid": payload.get("account_sid"),
-            "answered_by": payload.get("answered_by"),
-            "connectivity_issue": payload.get("connectivity_issue"),
-            "quality_issues": payload.get("quality_issues"),
-            "spam": payload.get("spam"),
-            "call_score": deserialize.integer(payload.get("call_score")),
-            "comment": payload.get("comment"),
-            "incident": payload.get("incident"),
-            "url": payload.get("url"),
-        }
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.answered_by: Optional["AnnotationInstance.AnsweredBy"] = payload.get(
+            "answered_by"
+        )
+        self.connectivity_issue: Optional[
+            "AnnotationInstance.ConnectivityIssue"
+        ] = payload.get("connectivity_issue")
+        self.quality_issues: Optional[List[str]] = payload.get("quality_issues")
+        self.spam: Optional[bool] = payload.get("spam")
+        self.call_score: Optional[int] = deserialize.integer(payload.get("call_score"))
+        self.comment: Optional[str] = payload.get("comment")
+        self.incident: Optional[str] = payload.get("incident")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "call_sid": call_sid,
@@ -73,76 +85,6 @@ class AnnotationInstance(InstanceResource):
                 call_sid=self._solution["call_sid"],
             )
         return self._context
-
-    @property
-    def call_sid(self) -> str:
-        """
-        :returns: The unique SID identifier of the Call.
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def answered_by(self) -> "AnnotationInstance.AnsweredBy":
-        """
-        :returns:
-        """
-        return self._properties["answered_by"]
-
-    @property
-    def connectivity_issue(self) -> "AnnotationInstance.ConnectivityIssue":
-        """
-        :returns:
-        """
-        return self._properties["connectivity_issue"]
-
-    @property
-    def quality_issues(self) -> List[str]:
-        """
-        :returns: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
-        """
-        return self._properties["quality_issues"]
-
-    @property
-    def spam(self) -> bool:
-        """
-        :returns: Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
-        """
-        return self._properties["spam"]
-
-    @property
-    def call_score(self) -> int:
-        """
-        :returns: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
-        """
-        return self._properties["call_score"]
-
-    @property
-    def comment(self) -> str:
-        """
-        :returns: Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
-        """
-        return self._properties["comment"]
-
-    @property
-    def incident(self) -> str:
-        """
-        :returns: Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
-        """
-        return self._properties["incident"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The URL of this resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "AnnotationInstance":
         """

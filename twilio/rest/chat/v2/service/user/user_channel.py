@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -36,41 +36,54 @@ class UserChannelInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User Channel resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the User Channel resource is associated with.
+    :ivar channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the User Channel resource belongs to.
+    :ivar user_sid: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) the User Channel belongs to.
+    :ivar member_sid: The SID of a [Member](https://www.twilio.com/docs/chat/rest/member-resource) that represents the User on the Channel.
+    :ivar status: 
+    :ivar last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+    :ivar unread_messages_count: The number of unread Messages in the Channel for the User. Note that retrieving messages on a client endpoint does not mean that messages are consumed or read. See [Consumption Horizon feature](https://www.twilio.com/docs/chat/consumption-horizon) to learn how to mark messages as consumed.
+    :ivar links: The absolute URLs of the [Members](https://www.twilio.com/docs/chat/rest/member-resource), [Messages](https://www.twilio.com/docs/chat/rest/message-resource) , [Invites](https://www.twilio.com/docs/chat/rest/invite-resource) and, if it exists, the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) for the Channel.
+    :ivar url: The absolute URL of the User Channel resource.
+    :ivar notification_level: 
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         user_sid: str,
         channel_sid: Optional[str] = None,
     ):
-        """
-        Initialize the UserChannelInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "user_sid": payload.get("user_sid"),
-            "member_sid": payload.get("member_sid"),
-            "status": payload.get("status"),
-            "last_consumed_message_index": deserialize.integer(
-                payload.get("last_consumed_message_index")
-            ),
-            "unread_messages_count": deserialize.integer(
-                payload.get("unread_messages_count")
-            ),
-            "links": payload.get("links"),
-            "url": payload.get("url"),
-            "notification_level": payload.get("notification_level"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.user_sid: Optional[str] = payload.get("user_sid")
+        self.member_sid: Optional[str] = payload.get("member_sid")
+        self.status: Optional["UserChannelInstance.ChannelStatus"] = payload.get(
+            "status"
+        )
+        self.last_consumed_message_index: Optional[int] = deserialize.integer(
+            payload.get("last_consumed_message_index")
+        )
+        self.unread_messages_count: Optional[int] = deserialize.integer(
+            payload.get("unread_messages_count")
+        )
+        self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.url: Optional[str] = payload.get("url")
+        self.notification_level: Optional[
+            "UserChannelInstance.NotificationLevel"
+        ] = payload.get("notification_level")
 
         self._solution = {
             "service_sid": service_sid,
             "user_sid": user_sid,
-            "channel_sid": channel_sid or self._properties["channel_sid"],
+            "channel_sid": channel_sid or self.channel_sid,
         }
         self._context: Optional[UserChannelContext] = None
 
@@ -90,83 +103,6 @@ class UserChannelInstance(InstanceResource):
                 channel_sid=self._solution["channel_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User Channel resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the User Channel resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def channel_sid(self) -> str:
-        """
-        :returns: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the User Channel resource belongs to.
-        """
-        return self._properties["channel_sid"]
-
-    @property
-    def user_sid(self) -> str:
-        """
-        :returns: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) the User Channel belongs to.
-        """
-        return self._properties["user_sid"]
-
-    @property
-    def member_sid(self) -> str:
-        """
-        :returns: The SID of a [Member](https://www.twilio.com/docs/chat/rest/member-resource) that represents the User on the Channel.
-        """
-        return self._properties["member_sid"]
-
-    @property
-    def status(self) -> "UserChannelInstance.ChannelStatus":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def last_consumed_message_index(self) -> int:
-        """
-        :returns: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
-        """
-        return self._properties["last_consumed_message_index"]
-
-    @property
-    def unread_messages_count(self) -> int:
-        """
-        :returns: The number of unread Messages in the Channel for the User. Note that retrieving messages on a client endpoint does not mean that messages are consumed or read. See [Consumption Horizon feature](https://www.twilio.com/docs/chat/consumption-horizon) to learn how to mark messages as consumed.
-        """
-        return self._properties["unread_messages_count"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The absolute URLs of the [Members](https://www.twilio.com/docs/chat/rest/member-resource), [Messages](https://www.twilio.com/docs/chat/rest/message-resource) , [Invites](https://www.twilio.com/docs/chat/rest/invite-resource) and, if it exists, the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) for the Channel.
-        """
-        return self._properties["links"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the User Channel resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def notification_level(self) -> "UserChannelInstance.NotificationLevel":
-        """
-        :returns:
-        """
-        return self._properties["notification_level"]
 
     def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
         """

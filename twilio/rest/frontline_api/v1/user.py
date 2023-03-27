@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,24 +26,31 @@ class UserInstance(InstanceResource):
         ACTIVE = "active"
         DEACTIVATED = "deactivated"
 
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the UserInstance
-        """
+    """
+    :ivar sid: The unique string that we created to identify the User resource.
+    :ivar identity: The application-defined string that uniquely identifies the resource's User. This value is often a username or an email address, and is case-sensitive.
+    :ivar friendly_name: The string that you assigned to describe the User.
+    :ivar avatar: The avatar URL which will be shown in Frontline application.
+    :ivar state: 
+    :ivar is_available: Whether the User is available for new conversations. Defaults to `false` for new users.
+    :ivar url: An absolute API resource URL for this user.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "identity": payload.get("identity"),
-            "friendly_name": payload.get("friendly_name"),
-            "avatar": payload.get("avatar"),
-            "state": payload.get("state"),
-            "is_available": payload.get("is_available"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.identity: Optional[str] = payload.get("identity")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.avatar: Optional[str] = payload.get("avatar")
+        self.state: Optional["UserInstance.StateType"] = payload.get("state")
+        self.is_available: Optional[bool] = payload.get("is_available")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[UserContext] = None
 
@@ -61,55 +68,6 @@ class UserInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the User resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: The application-defined string that uniquely identifies the resource's User. This value is often a username or an email address, and is case-sensitive.
-        """
-        return self._properties["identity"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the User.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def avatar(self) -> str:
-        """
-        :returns: The avatar URL which will be shown in Frontline application.
-        """
-        return self._properties["avatar"]
-
-    @property
-    def state(self) -> "UserInstance.StateType":
-        """
-        :returns:
-        """
-        return self._properties["state"]
-
-    @property
-    def is_available(self) -> bool:
-        """
-        :returns: Whether the User is available for new conversations. Defaults to `false` for new users.
-        """
-        return self._properties["is_available"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: An absolute API resource URL for this user.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "UserInstance":
         """

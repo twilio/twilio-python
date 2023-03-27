@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,21 +22,33 @@ from twilio.base.version import Version
 
 
 class NotificationInstance(InstanceResource):
-    def __init__(self, version, payload, chat_service_sid: str):
-        """
-        Initialize the NotificationInstance
-        """
+
+    """
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
+    :ivar chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
+    :ivar new_message: The Push Notification configuration for New Messages.
+    :ivar added_to_conversation: The Push Notification configuration for being added to a Conversation.
+    :ivar removed_from_conversation: The Push Notification configuration for being removed from a Conversation.
+    :ivar log_enabled: Weather the notification logging is enabled.
+    :ivar url: An absolute API resource URL for this configuration.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], chat_service_sid: str
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "new_message": payload.get("new_message"),
-            "added_to_conversation": payload.get("added_to_conversation"),
-            "removed_from_conversation": payload.get("removed_from_conversation"),
-            "log_enabled": payload.get("log_enabled"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self.new_message: Optional[Dict[str, object]] = payload.get("new_message")
+        self.added_to_conversation: Optional[Dict[str, object]] = payload.get(
+            "added_to_conversation"
+        )
+        self.removed_from_conversation: Optional[Dict[str, object]] = payload.get(
+            "removed_from_conversation"
+        )
+        self.log_enabled: Optional[bool] = payload.get("log_enabled")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "chat_service_sid": chat_service_sid,
@@ -57,55 +69,6 @@ class NotificationInstance(InstanceResource):
                 chat_service_sid=self._solution["chat_service_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def chat_service_sid(self) -> str:
-        """
-        :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
-        """
-        return self._properties["chat_service_sid"]
-
-    @property
-    def new_message(self) -> Dict[str, object]:
-        """
-        :returns: The Push Notification configuration for New Messages.
-        """
-        return self._properties["new_message"]
-
-    @property
-    def added_to_conversation(self) -> Dict[str, object]:
-        """
-        :returns: The Push Notification configuration for being added to a Conversation.
-        """
-        return self._properties["added_to_conversation"]
-
-    @property
-    def removed_from_conversation(self) -> Dict[str, object]:
-        """
-        :returns: The Push Notification configuration for being removed from a Conversation.
-        """
-        return self._properties["removed_from_conversation"]
-
-    @property
-    def log_enabled(self) -> bool:
-        """
-        :returns: Weather the notification logging is enabled.
-        """
-        return self._properties["log_enabled"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: An absolute API resource URL for this configuration.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "NotificationInstance":
         """

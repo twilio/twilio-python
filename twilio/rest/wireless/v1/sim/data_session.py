@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -24,148 +24,59 @@ from twilio.base.page import Page
 
 
 class DataSessionInstance(InstanceResource):
-    def __init__(self, version, payload, sim_sid: str):
-        """
-        Initialize the DataSessionInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the DataSession resource.
+    :ivar sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Data Session is for.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DataSession resource.
+    :ivar radio_link: The generation of wireless technology that the device was using.
+    :ivar operator_mcc: The 'mobile country code' is the unique ID of the home country where the Data Session took place. See: [MCC/MNC lookup](http://mcc-mnc.com/).
+    :ivar operator_mnc: The 'mobile network code' is the unique ID specific to the mobile operator network where the Data Session took place.
+    :ivar operator_country: The three letter country code representing where the device's Data Session took place. This is determined by looking up the `operator_mcc`.
+    :ivar operator_name: The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
+    :ivar cell_id: The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated.
+    :ivar cell_location_estimate: An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/wireless/api/datasession-resource#cell-location-estimate-object).
+    :ivar packets_uploaded: The number of packets uploaded by the device between the `start` time and when the Data Session was last updated.
+    :ivar packets_downloaded: The number of packets downloaded by the device between the `start` time and when the Data Session was last updated.
+    :ivar last_updated: The date that the resource was last updated, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar start: The date that the Data Session started, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar end: The date that the record ended, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+    :ivar imei: The 'international mobile equipment identity' is the unique ID of the device using the SIM to connect. An IMEI is a 15-digit string: 14 digits for the device identifier plus a check digit calculated using the Luhn formula.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], sim_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "account_sid": payload.get("account_sid"),
-            "radio_link": payload.get("radio_link"),
-            "operator_mcc": payload.get("operator_mcc"),
-            "operator_mnc": payload.get("operator_mnc"),
-            "operator_country": payload.get("operator_country"),
-            "operator_name": payload.get("operator_name"),
-            "cell_id": payload.get("cell_id"),
-            "cell_location_estimate": payload.get("cell_location_estimate"),
-            "packets_uploaded": deserialize.integer(payload.get("packets_uploaded")),
-            "packets_downloaded": deserialize.integer(
-                payload.get("packets_downloaded")
-            ),
-            "last_updated": deserialize.iso8601_datetime(payload.get("last_updated")),
-            "start": deserialize.iso8601_datetime(payload.get("start")),
-            "end": deserialize.iso8601_datetime(payload.get("end")),
-            "imei": payload.get("imei"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.sim_sid: Optional[str] = payload.get("sim_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.radio_link: Optional[str] = payload.get("radio_link")
+        self.operator_mcc: Optional[str] = payload.get("operator_mcc")
+        self.operator_mnc: Optional[str] = payload.get("operator_mnc")
+        self.operator_country: Optional[str] = payload.get("operator_country")
+        self.operator_name: Optional[str] = payload.get("operator_name")
+        self.cell_id: Optional[str] = payload.get("cell_id")
+        self.cell_location_estimate: Optional[Dict[str, object]] = payload.get(
+            "cell_location_estimate"
+        )
+        self.packets_uploaded: Optional[int] = deserialize.integer(
+            payload.get("packets_uploaded")
+        )
+        self.packets_downloaded: Optional[int] = deserialize.integer(
+            payload.get("packets_downloaded")
+        )
+        self.last_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("last_updated")
+        )
+        self.start: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start")
+        )
+        self.end: Optional[datetime] = deserialize.iso8601_datetime(payload.get("end"))
+        self.imei: Optional[str] = payload.get("imei")
 
         self._solution = {
             "sim_sid": sim_sid,
         }
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the DataSession resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def sim_sid(self) -> str:
-        """
-        :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Data Session is for.
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DataSession resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def radio_link(self) -> str:
-        """
-        :returns: The generation of wireless technology that the device was using.
-        """
-        return self._properties["radio_link"]
-
-    @property
-    def operator_mcc(self) -> str:
-        """
-        :returns: The 'mobile country code' is the unique ID of the home country where the Data Session took place. See: [MCC/MNC lookup](http://mcc-mnc.com/).
-        """
-        return self._properties["operator_mcc"]
-
-    @property
-    def operator_mnc(self) -> str:
-        """
-        :returns: The 'mobile network code' is the unique ID specific to the mobile operator network where the Data Session took place.
-        """
-        return self._properties["operator_mnc"]
-
-    @property
-    def operator_country(self) -> str:
-        """
-        :returns: The three letter country code representing where the device's Data Session took place. This is determined by looking up the `operator_mcc`.
-        """
-        return self._properties["operator_country"]
-
-    @property
-    def operator_name(self) -> str:
-        """
-        :returns: The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
-        """
-        return self._properties["operator_name"]
-
-    @property
-    def cell_id(self) -> str:
-        """
-        :returns: The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated.
-        """
-        return self._properties["cell_id"]
-
-    @property
-    def cell_location_estimate(self) -> Dict[str, object]:
-        """
-        :returns: An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/wireless/api/datasession-resource#cell-location-estimate-object).
-        """
-        return self._properties["cell_location_estimate"]
-
-    @property
-    def packets_uploaded(self) -> int:
-        """
-        :returns: The number of packets uploaded by the device between the `start` time and when the Data Session was last updated.
-        """
-        return self._properties["packets_uploaded"]
-
-    @property
-    def packets_downloaded(self) -> int:
-        """
-        :returns: The number of packets downloaded by the device between the `start` time and when the Data Session was last updated.
-        """
-        return self._properties["packets_downloaded"]
-
-    @property
-    def last_updated(self) -> datetime:
-        """
-        :returns: The date that the resource was last updated, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._properties["last_updated"]
-
-    @property
-    def start(self) -> datetime:
-        """
-        :returns: The date that the Data Session started, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._properties["start"]
-
-    @property
-    def end(self) -> datetime:
-        """
-        :returns: The date that the record ended, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        """
-        return self._properties["end"]
-
-    @property
-    def imei(self) -> str:
-        """
-        :returns: The 'international mobile equipment identity' is the unique ID of the device using the SIM to connect. An IMEI is a 15-digit string: 14 digits for the device identifier plus a check digit calculated using the Luhn formula.
-        """
-        return self._properties["imei"]
 
     def __repr__(self) -> str:
         """

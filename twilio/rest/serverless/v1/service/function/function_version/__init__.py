@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -32,35 +32,46 @@ class FunctionVersionInstance(InstanceResource):
         PRIVATE = "private"
         PROTECTED = "protected"
 
+    """
+    :ivar sid: The unique string that we created to identify the Function Version resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
+    :ivar service_sid: The SID of the Service that the Function Version resource is associated with.
+    :ivar function_sid: The SID of the Function resource that is the parent of the Function Version resource.
+    :ivar path: The URL-friendly string by which the Function Version resource can be referenced. It can be a maximum of 255 characters. All paths begin with a forward slash ('/'). If a Function Version creation request is submitted with a path not containing a leading slash, the path will automatically be prepended with one.
+    :ivar visibility: 
+    :ivar date_created: The date and time in GMT when the Function Version resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Function Version resource.
+    :ivar links: 
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         function_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the FunctionVersionInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "function_sid": payload.get("function_sid"),
-            "path": payload.get("path"),
-            "visibility": payload.get("visibility"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.function_sid: Optional[str] = payload.get("function_sid")
+        self.path: Optional[str] = payload.get("path")
+        self.visibility: Optional["FunctionVersionInstance.Visibility"] = payload.get(
+            "visibility"
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
             "function_sid": function_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[FunctionVersionContext] = None
 
@@ -80,69 +91,6 @@ class FunctionVersionInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Function Version resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the Service that the Function Version resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def function_sid(self) -> str:
-        """
-        :returns: The SID of the Function resource that is the parent of the Function Version resource.
-        """
-        return self._properties["function_sid"]
-
-    @property
-    def path(self) -> str:
-        """
-        :returns: The URL-friendly string by which the Function Version resource can be referenced. It can be a maximum of 255 characters. All paths begin with a forward slash ('/'). If a Function Version creation request is submitted with a path not containing a leading slash, the path will automatically be prepended with one.
-        """
-        return self._properties["path"]
-
-    @property
-    def visibility(self) -> "FunctionVersionInstance.Visibility":
-        """
-        :returns:
-        """
-        return self._properties["visibility"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Function Version resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Function Version resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
 
     def fetch(self) -> "FunctionVersionInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,39 +27,57 @@ from twilio.rest.proxy.v1.service.session.participant.message_interaction import
 
 
 class ParticipantInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the Participant resource.
+    :ivar session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
+    :ivar service_sid: The SID of the resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
+    :ivar friendly_name: The string that you assigned to describe the participant. This value must be 255 characters or fewer. Supports UTF-8 characters. **This value should not have PII.**
+    :ivar identifier: The phone number or channel identifier of the Participant. This value must be 191 characters or fewer. Supports UTF-8 characters.
+    :ivar proxy_identifier: The phone number or short code (masked number) of the participant's partner. The participant will call or message the partner participant at this number.
+    :ivar proxy_identifier_sid: The SID of the Proxy Identifier assigned to the Participant.
+    :ivar date_deleted: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Participant was removed from the session.
+    :ivar date_created: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
+    :ivar date_updated: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
+    :ivar url: The absolute URL of the Participant resource.
+    :ivar links: The URLs to resources related the participant.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         session_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the ParticipantInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "session_sid": payload.get("session_sid"),
-            "service_sid": payload.get("service_sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "identifier": payload.get("identifier"),
-            "proxy_identifier": payload.get("proxy_identifier"),
-            "proxy_identifier_sid": payload.get("proxy_identifier_sid"),
-            "date_deleted": deserialize.iso8601_datetime(payload.get("date_deleted")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.session_sid: Optional[str] = payload.get("session_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.identifier: Optional[str] = payload.get("identifier")
+        self.proxy_identifier: Optional[str] = payload.get("proxy_identifier")
+        self.proxy_identifier_sid: Optional[str] = payload.get("proxy_identifier_sid")
+        self.date_deleted: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_deleted")
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
             "session_sid": session_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ParticipantContext] = None
 
@@ -79,97 +97,6 @@ class ParticipantInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Participant resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def session_sid(self) -> str:
-        """
-        :returns: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
-        """
-        return self._properties["session_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the participant. This value must be 255 characters or fewer. Supports UTF-8 characters. **This value should not have PII.**
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def identifier(self) -> str:
-        """
-        :returns: The phone number or channel identifier of the Participant. This value must be 191 characters or fewer. Supports UTF-8 characters.
-        """
-        return self._properties["identifier"]
-
-    @property
-    def proxy_identifier(self) -> str:
-        """
-        :returns: The phone number or short code (masked number) of the participant's partner. The participant will call or message the partner participant at this number.
-        """
-        return self._properties["proxy_identifier"]
-
-    @property
-    def proxy_identifier_sid(self) -> str:
-        """
-        :returns: The SID of the Proxy Identifier assigned to the Participant.
-        """
-        return self._properties["proxy_identifier_sid"]
-
-    @property
-    def date_deleted(self) -> datetime:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Participant was removed from the session.
-        """
-        return self._properties["date_deleted"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Participant resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs to resources related the participant.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

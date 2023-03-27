@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,27 +24,39 @@ from twilio.base.page import Page
 
 
 class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the Item Assignment resource.
+    :ivar trust_product_sid: The unique string that we created to identify the CustomerProfile resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
+    :ivar channel_endpoint_type: The type of channel endpoint. eg: phone-number
+    :ivar channel_endpoint_sid: The SID of an channel endpoint
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Identity resource.
+    """
+
     def __init__(
-        self, version, payload, trust_product_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        trust_product_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the TrustProductsChannelEndpointAssignmentInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "trust_product_sid": payload.get("trust_product_sid"),
-            "account_sid": payload.get("account_sid"),
-            "channel_endpoint_type": payload.get("channel_endpoint_type"),
-            "channel_endpoint_sid": payload.get("channel_endpoint_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.trust_product_sid: Optional[str] = payload.get("trust_product_sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.channel_endpoint_type: Optional[str] = payload.get("channel_endpoint_type")
+        self.channel_endpoint_sid: Optional[str] = payload.get("channel_endpoint_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "trust_product_sid": trust_product_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[TrustProductsChannelEndpointAssignmentContext] = None
 
@@ -63,55 +75,6 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Item Assignment resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def trust_product_sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the CustomerProfile resource.
-        """
-        return self._properties["trust_product_sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def channel_endpoint_type(self) -> str:
-        """
-        :returns: The type of channel endpoint. eg: phone-number
-        """
-        return self._properties["channel_endpoint_type"]
-
-    @property
-    def channel_endpoint_sid(self) -> str:
-        """
-        :returns: The SID of an channel endpoint
-        """
-        return self._properties["channel_endpoint_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Identity resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

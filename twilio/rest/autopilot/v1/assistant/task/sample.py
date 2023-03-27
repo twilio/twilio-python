@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,36 +24,49 @@ from twilio.base.page import Page
 
 
 class SampleInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sample resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the resource.
+    :ivar language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
+    :ivar assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
+    :ivar sid: The unique string that we created to identify the Sample resource.
+    :ivar tagged_text: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+    :ivar url: The absolute URL of the Sample resource.
+    :ivar source_channel: The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         assistant_sid: str,
         task_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the SampleInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "task_sid": payload.get("task_sid"),
-            "language": payload.get("language"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "sid": payload.get("sid"),
-            "tagged_text": payload.get("tagged_text"),
-            "url": payload.get("url"),
-            "source_channel": payload.get("source_channel"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.task_sid: Optional[str] = payload.get("task_sid")
+        self.language: Optional[str] = payload.get("language")
+        self.assistant_sid: Optional[str] = payload.get("assistant_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.tagged_text: Optional[str] = payload.get("tagged_text")
+        self.url: Optional[str] = payload.get("url")
+        self.source_channel: Optional[str] = payload.get("source_channel")
 
         self._solution = {
             "assistant_sid": assistant_sid,
             "task_sid": task_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[SampleContext] = None
 
@@ -73,76 +86,6 @@ class SampleInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Sample resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def task_sid(self) -> str:
-        """
-        :returns: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the resource.
-        """
-        return self._properties["task_sid"]
-
-    @property
-    def language(self) -> str:
-        """
-        :returns: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-        """
-        return self._properties["language"]
-
-    @property
-    def assistant_sid(self) -> str:
-        """
-        :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.
-        """
-        return self._properties["assistant_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Sample resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def tagged_text(self) -> str:
-        """
-        :returns: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-        """
-        return self._properties["tagged_text"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Sample resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def source_channel(self) -> str:
-        """
-        :returns: The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
-        """
-        return self._properties["source_channel"]
 
     def delete(self) -> bool:
         """

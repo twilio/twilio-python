@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,43 +24,63 @@ from twilio.base.page import Page
 
 
 class WorkerChannelInstance(InstanceResource):
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
+    :ivar assigned_tasks: The total number of Tasks assigned to Worker for the TaskChannel type.
+    :ivar available: Whether the Worker should receive Tasks of the TaskChannel type.
+    :ivar available_capacity_percentage: The current percentage of capacity the TaskChannel has available. Can be a number between `0` and `100`. A value of `0` indicates that TaskChannel has no capacity available and a value of `100` means the  Worker is available to receive any Tasks of this TaskChannel type.
+    :ivar configured_capacity: The current configured capacity for the WorkerChannel. TaskRouter will not create any reservations after the assigned Tasks for the Worker reaches the value.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar sid: The unique string that we created to identify the WorkerChannel resource.
+    :ivar task_channel_sid: The SID of the TaskChannel.
+    :ivar task_channel_unique_name: The unique name of the TaskChannel, such as `voice` or `sms`.
+    :ivar worker_sid: The SID of the Worker that contains the WorkerChannel.
+    :ivar workspace_sid: The SID of the Workspace that contains the WorkerChannel.
+    :ivar url: The absolute URL of the WorkerChannel resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         workspace_sid: str,
         worker_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the WorkerChannelInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assigned_tasks": deserialize.integer(payload.get("assigned_tasks")),
-            "available": payload.get("available"),
-            "available_capacity_percentage": deserialize.integer(
-                payload.get("available_capacity_percentage")
-            ),
-            "configured_capacity": deserialize.integer(
-                payload.get("configured_capacity")
-            ),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "sid": payload.get("sid"),
-            "task_channel_sid": payload.get("task_channel_sid"),
-            "task_channel_unique_name": payload.get("task_channel_unique_name"),
-            "worker_sid": payload.get("worker_sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.assigned_tasks: Optional[int] = deserialize.integer(
+            payload.get("assigned_tasks")
+        )
+        self.available: Optional[bool] = payload.get("available")
+        self.available_capacity_percentage: Optional[int] = deserialize.integer(
+            payload.get("available_capacity_percentage")
+        )
+        self.configured_capacity: Optional[int] = deserialize.integer(
+            payload.get("configured_capacity")
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.sid: Optional[str] = payload.get("sid")
+        self.task_channel_sid: Optional[str] = payload.get("task_channel_sid")
+        self.task_channel_unique_name: Optional[str] = payload.get(
+            "task_channel_unique_name"
+        )
+        self.worker_sid: Optional[str] = payload.get("worker_sid")
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
             "worker_sid": worker_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[WorkerChannelContext] = None
 
@@ -80,97 +100,6 @@ class WorkerChannelInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def assigned_tasks(self) -> int:
-        """
-        :returns: The total number of Tasks assigned to Worker for the TaskChannel type.
-        """
-        return self._properties["assigned_tasks"]
-
-    @property
-    def available(self) -> bool:
-        """
-        :returns: Whether the Worker should receive Tasks of the TaskChannel type.
-        """
-        return self._properties["available"]
-
-    @property
-    def available_capacity_percentage(self) -> int:
-        """
-        :returns: The current percentage of capacity the TaskChannel has available. Can be a number between `0` and `100`. A value of `0` indicates that TaskChannel has no capacity available and a value of `100` means the  Worker is available to receive any Tasks of this TaskChannel type.
-        """
-        return self._properties["available_capacity_percentage"]
-
-    @property
-    def configured_capacity(self) -> int:
-        """
-        :returns: The current configured capacity for the WorkerChannel. TaskRouter will not create any reservations after the assigned Tasks for the Worker reaches the value.
-        """
-        return self._properties["configured_capacity"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the WorkerChannel resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def task_channel_sid(self) -> str:
-        """
-        :returns: The SID of the TaskChannel.
-        """
-        return self._properties["task_channel_sid"]
-
-    @property
-    def task_channel_unique_name(self) -> str:
-        """
-        :returns: The unique name of the TaskChannel, such as `voice` or `sms`.
-        """
-        return self._properties["task_channel_unique_name"]
-
-    @property
-    def worker_sid(self) -> str:
-        """
-        :returns: The SID of the Worker that contains the WorkerChannel.
-        """
-        return self._properties["worker_sid"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that contains the WorkerChannel.
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the WorkerChannel resource.
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "WorkerChannelInstance":
         """

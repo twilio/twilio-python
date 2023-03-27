@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,28 +28,44 @@ from twilio.rest.serverless.v1.service.function import FunctionList
 
 
 class ServiceInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ServiceInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the Service resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
+    :ivar friendly_name: The string that you assigned to describe the Service resource.
+    :ivar unique_name: A user-defined string that uniquely identifies the Service resource. It can be used in place of the Service resource's `sid` in the URL to address the Service resource.
+    :ivar include_credentials: Whether to inject Account credentials into a function invocation context.
+    :ivar ui_editable: Whether the Service resource's properties and subresources can be edited via the UI.
+    :ivar domain_base: The base domain name for this Service, which is a combination of the unique name and a randomly generated string.
+    :ivar date_created: The date and time in GMT when the Service resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the Service resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Service resource.
+    :ivar links: The URLs of the Service's nested resources.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "unique_name": payload.get("unique_name"),
-            "include_credentials": payload.get("include_credentials"),
-            "ui_editable": payload.get("ui_editable"),
-            "domain_base": payload.get("domain_base"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.include_credentials: Optional[bool] = payload.get("include_credentials")
+        self.ui_editable: Optional[bool] = payload.get("ui_editable")
+        self.domain_base: Optional[str] = payload.get("domain_base")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
 
@@ -67,83 +83,6 @@ class ServiceInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Service resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the Service resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns: A user-defined string that uniquely identifies the Service resource. It can be used in place of the Service resource's `sid` in the URL to address the Service resource.
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def include_credentials(self) -> bool:
-        """
-        :returns: Whether to inject Account credentials into a function invocation context.
-        """
-        return self._properties["include_credentials"]
-
-    @property
-    def ui_editable(self) -> bool:
-        """
-        :returns: Whether the Service resource's properties and subresources can be edited via the UI.
-        """
-        return self._properties["ui_editable"]
-
-    @property
-    def domain_base(self) -> str:
-        """
-        :returns: The base domain name for this Service, which is a combination of the unique name and a randomly generated string.
-        """
-        return self._properties["domain_base"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Service resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Service resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Service resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns: The URLs of the Service's nested resources.
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

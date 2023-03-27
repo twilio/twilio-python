@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,25 +24,38 @@ from twilio.base.page import Page
 
 
 class ChannelInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ChannelInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel resource and owns this Workflow.
+    :ivar flex_flow_sid: The SID of the Flex Flow.
+    :ivar sid: The unique string that we created to identify the Channel resource.
+    :ivar user_sid: The SID of the chat user.
+    :ivar task_sid: The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
+    :ivar url: The absolute URL of the Flex chat channel resource.
+    :ivar date_created: The date and time in GMT when the Flex chat channel was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the Flex chat channel was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    """
+
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "flex_flow_sid": payload.get("flex_flow_sid"),
-            "sid": payload.get("sid"),
-            "user_sid": payload.get("user_sid"),
-            "task_sid": payload.get("task_sid"),
-            "url": payload.get("url"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.flex_flow_sid: Optional[str] = payload.get("flex_flow_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.user_sid: Optional[str] = payload.get("user_sid")
+        self.task_sid: Optional[str] = payload.get("task_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
         self._solution = {
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ChannelContext] = None
 
@@ -60,62 +73,6 @@ class ChannelInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel resource and owns this Workflow.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def flex_flow_sid(self) -> str:
-        """
-        :returns: The SID of the Flex Flow.
-        """
-        return self._properties["flex_flow_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Channel resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def user_sid(self) -> str:
-        """
-        :returns: The SID of the chat user.
-        """
-        return self._properties["user_sid"]
-
-    @property
-    def task_sid(self) -> str:
-        """
-        :returns: The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
-        """
-        return self._properties["task_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Flex chat channel resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Flex chat channel was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Flex chat channel was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
 
     def delete(self) -> bool:
         """

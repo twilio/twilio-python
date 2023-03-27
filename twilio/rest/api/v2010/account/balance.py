@@ -13,48 +13,31 @@ r"""
 """
 
 
+from typing import Any, Dict, Optional
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
 class BalanceInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str):
-        """
-        Initialize the BalanceInstance
-        """
+
+    """
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar balance: The balance of the Account, in units specified by the unit parameter. Balance changes may not be reflected immediately. Child accounts do not contain balance information
+    :ivar currency: The units of currency for the account balance
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "balance": payload.get("balance"),
-            "currency": payload.get("currency"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.balance: Optional[str] = payload.get("balance")
+        self.currency: Optional[str] = payload.get("currency")
 
         self._solution = {
             "account_sid": account_sid,
         }
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique SID identifier of the Account.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def balance(self) -> str:
-        """
-        :returns: The balance of the Account, in units specified by the unit parameter. Balance changes may not be reflected immediately. Child accounts do not contain balance information
-        """
-        return self._properties["balance"]
-
-    @property
-    def currency(self) -> str:
-        """
-        :returns: The units of currency for the account balance
-        """
-        return self._properties["currency"]
 
     def __repr__(self) -> str:
         """

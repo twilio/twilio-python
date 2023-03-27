@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,38 +22,67 @@ from twilio.base.version import Version
 
 
 class TaskQueueRealTimeStatisticsInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, task_queue_sid: str):
-        """
-        Initialize the TaskQueueRealTimeStatisticsInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
+    :ivar activity_statistics: The number of current Workers by Activity.
+    :ivar longest_task_waiting_age: The age of the longest waiting Task.
+    :ivar longest_task_waiting_sid: The SID of the longest waiting Task.
+    :ivar longest_relative_task_age_in_queue: The relative age in the TaskQueue for the longest waiting Task. Calculation is based on the time when the Task entered the TaskQueue.
+    :ivar longest_relative_task_sid_in_queue: The Task SID of the Task waiting in the TaskQueue the longest. Calculation is based on the time when the Task entered the TaskQueue.
+    :ivar task_queue_sid: The SID of the TaskQueue from which these statistics were calculated.
+    :ivar tasks_by_priority: The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
+    :ivar tasks_by_status: The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
+    :ivar total_available_workers: The total number of Workers available for Tasks in the TaskQueue.
+    :ivar total_eligible_workers: The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state.
+    :ivar total_tasks: The total number of Tasks.
+    :ivar workspace_sid: The SID of the Workspace that contains the TaskQueue.
+    :ivar url: The absolute URL of the TaskQueue statistics resource.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        task_queue_sid: str,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "activity_statistics": payload.get("activity_statistics"),
-            "longest_task_waiting_age": deserialize.integer(
-                payload.get("longest_task_waiting_age")
-            ),
-            "longest_task_waiting_sid": payload.get("longest_task_waiting_sid"),
-            "longest_relative_task_age_in_queue": deserialize.integer(
-                payload.get("longest_relative_task_age_in_queue")
-            ),
-            "longest_relative_task_sid_in_queue": payload.get(
-                "longest_relative_task_sid_in_queue"
-            ),
-            "task_queue_sid": payload.get("task_queue_sid"),
-            "tasks_by_priority": payload.get("tasks_by_priority"),
-            "tasks_by_status": payload.get("tasks_by_status"),
-            "total_available_workers": deserialize.integer(
-                payload.get("total_available_workers")
-            ),
-            "total_eligible_workers": deserialize.integer(
-                payload.get("total_eligible_workers")
-            ),
-            "total_tasks": deserialize.integer(payload.get("total_tasks")),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.activity_statistics: Optional[List[object]] = payload.get(
+            "activity_statistics"
+        )
+        self.longest_task_waiting_age: Optional[int] = deserialize.integer(
+            payload.get("longest_task_waiting_age")
+        )
+        self.longest_task_waiting_sid: Optional[str] = payload.get(
+            "longest_task_waiting_sid"
+        )
+        self.longest_relative_task_age_in_queue: Optional[int] = deserialize.integer(
+            payload.get("longest_relative_task_age_in_queue")
+        )
+        self.longest_relative_task_sid_in_queue: Optional[str] = payload.get(
+            "longest_relative_task_sid_in_queue"
+        )
+        self.task_queue_sid: Optional[str] = payload.get("task_queue_sid")
+        self.tasks_by_priority: Optional[Dict[str, object]] = payload.get(
+            "tasks_by_priority"
+        )
+        self.tasks_by_status: Optional[Dict[str, object]] = payload.get(
+            "tasks_by_status"
+        )
+        self.total_available_workers: Optional[int] = deserialize.integer(
+            payload.get("total_available_workers")
+        )
+        self.total_eligible_workers: Optional[int] = deserialize.integer(
+            payload.get("total_eligible_workers")
+        )
+        self.total_tasks: Optional[int] = deserialize.integer(
+            payload.get("total_tasks")
+        )
+        self.workspace_sid: Optional[str] = payload.get("workspace_sid")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -76,104 +105,6 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
                 task_queue_sid=self._solution["task_queue_sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def activity_statistics(self) -> List[object]:
-        """
-        :returns: The number of current Workers by Activity.
-        """
-        return self._properties["activity_statistics"]
-
-    @property
-    def longest_task_waiting_age(self) -> int:
-        """
-        :returns: The age of the longest waiting Task.
-        """
-        return self._properties["longest_task_waiting_age"]
-
-    @property
-    def longest_task_waiting_sid(self) -> str:
-        """
-        :returns: The SID of the longest waiting Task.
-        """
-        return self._properties["longest_task_waiting_sid"]
-
-    @property
-    def longest_relative_task_age_in_queue(self) -> int:
-        """
-        :returns: The relative age in the TaskQueue for the longest waiting Task. Calculation is based on the time when the Task entered the TaskQueue.
-        """
-        return self._properties["longest_relative_task_age_in_queue"]
-
-    @property
-    def longest_relative_task_sid_in_queue(self) -> str:
-        """
-        :returns: The Task SID of the Task waiting in the TaskQueue the longest. Calculation is based on the time when the Task entered the TaskQueue.
-        """
-        return self._properties["longest_relative_task_sid_in_queue"]
-
-    @property
-    def task_queue_sid(self) -> str:
-        """
-        :returns: The SID of the TaskQueue from which these statistics were calculated.
-        """
-        return self._properties["task_queue_sid"]
-
-    @property
-    def tasks_by_priority(self) -> Dict[str, object]:
-        """
-        :returns: The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
-        """
-        return self._properties["tasks_by_priority"]
-
-    @property
-    def tasks_by_status(self) -> Dict[str, object]:
-        """
-        :returns: The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
-        """
-        return self._properties["tasks_by_status"]
-
-    @property
-    def total_available_workers(self) -> int:
-        """
-        :returns: The total number of Workers available for Tasks in the TaskQueue.
-        """
-        return self._properties["total_available_workers"]
-
-    @property
-    def total_eligible_workers(self) -> int:
-        """
-        :returns: The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state.
-        """
-        return self._properties["total_eligible_workers"]
-
-    @property
-    def total_tasks(self) -> int:
-        """
-        :returns: The total number of Tasks.
-        """
-        return self._properties["total_tasks"]
-
-    @property
-    def workspace_sid(self) -> str:
-        """
-        :returns: The SID of the Workspace that contains the TaskQueue.
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the TaskQueue statistics resource.
-        """
-        return self._properties["url"]
 
     def fetch(self, task_channel=values.unset) -> "TaskQueueRealTimeStatisticsInstance":
         """

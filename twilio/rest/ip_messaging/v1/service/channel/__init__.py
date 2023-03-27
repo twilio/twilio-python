@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,32 +31,58 @@ class ChannelInstance(InstanceResource):
         PUBLIC = "public"
         PRIVATE = "private"
 
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ChannelInstance
-        """
+    """
+    :ivar sid: 
+    :ivar account_sid: 
+    :ivar service_sid: 
+    :ivar friendly_name: 
+    :ivar unique_name: 
+    :ivar attributes: 
+    :ivar type: 
+    :ivar date_created: 
+    :ivar date_updated: 
+    :ivar created_by: 
+    :ivar members_count: 
+    :ivar messages_count: 
+    :ivar url: 
+    :ivar links: 
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "unique_name": payload.get("unique_name"),
-            "attributes": payload.get("attributes"),
-            "type": payload.get("type"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-            "members_count": deserialize.integer(payload.get("members_count")),
-            "messages_count": deserialize.integer(payload.get("messages_count")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.type: Optional["ChannelInstance.ChannelType"] = payload.get("type")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.created_by: Optional[str] = payload.get("created_by")
+        self.members_count: Optional[int] = deserialize.integer(
+            payload.get("members_count")
+        )
+        self.messages_count: Optional[int] = deserialize.integer(
+            payload.get("messages_count")
+        )
+        self.url: Optional[str] = payload.get("url")
+        self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ChannelContext] = None
 
@@ -75,104 +101,6 @@ class ChannelInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def attributes(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["attributes"]
-
-    @property
-    def type(self) -> "ChannelInstance.ChannelType":
-        """
-        :returns:
-        """
-        return self._properties["type"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns:
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def created_by(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["created_by"]
-
-    @property
-    def members_count(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["members_count"]
-
-    @property
-    def messages_count(self) -> int:
-        """
-        :returns:
-        """
-        return self._properties["messages_count"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self) -> Dict[str, object]:
-        """
-        :returns:
-        """
-        return self._properties["links"]
 
     def delete(self) -> bool:
         """

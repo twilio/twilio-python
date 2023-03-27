@@ -14,6 +14,7 @@ r"""
 
 
 from datetime import datetime
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -22,112 +23,45 @@ from twilio.base.version import Version
 
 
 class RestoreAssistantInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the RestoreAssistantInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Assistant resource.
+    :ivar sid: The unique string that we created to identify the Assistant resource.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+    :ivar friendly_name: The string that you assigned to describe the resource. It is not unique and can be up to 255 characters long.
+    :ivar needs_model_build: Whether model needs to be rebuilt.
+    :ivar latest_model_build_sid: Reserved.
+    :ivar log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
+    :ivar development_stage: A string describing the state of the assistant.
+    :ivar callback_url: Reserved.
+    :ivar callback_events: Reserved.
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "unique_name": payload.get("unique_name"),
-            "friendly_name": payload.get("friendly_name"),
-            "needs_model_build": payload.get("needs_model_build"),
-            "latest_model_build_sid": payload.get("latest_model_build_sid"),
-            "log_queries": payload.get("log_queries"),
-            "development_stage": payload.get("development_stage"),
-            "callback_url": payload.get("callback_url"),
-            "callback_events": payload.get("callback_events"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.sid: Optional[str] = payload.get("sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.unique_name: Optional[str] = payload.get("unique_name")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.needs_model_build: Optional[bool] = payload.get("needs_model_build")
+        self.latest_model_build_sid: Optional[str] = payload.get(
+            "latest_model_build_sid"
+        )
+        self.log_queries: Optional[bool] = payload.get("log_queries")
+        self.development_stage: Optional[str] = payload.get("development_stage")
+        self.callback_url: Optional[str] = payload.get("callback_url")
+        self.callback_events: Optional[str] = payload.get("callback_events")
 
         self._solution = {}
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Assistant resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Assistant resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def unique_name(self) -> str:
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource. It is not unique and can be up to 255 characters long.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def needs_model_build(self) -> bool:
-        """
-        :returns: Whether model needs to be rebuilt.
-        """
-        return self._properties["needs_model_build"]
-
-    @property
-    def latest_model_build_sid(self) -> str:
-        """
-        :returns: Reserved.
-        """
-        return self._properties["latest_model_build_sid"]
-
-    @property
-    def log_queries(self) -> bool:
-        """
-        :returns: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
-        """
-        return self._properties["log_queries"]
-
-    @property
-    def development_stage(self) -> str:
-        """
-        :returns: A string describing the state of the assistant.
-        """
-        return self._properties["development_stage"]
-
-    @property
-    def callback_url(self) -> str:
-        """
-        :returns: Reserved.
-        """
-        return self._properties["callback_url"]
-
-    @property
-    def callback_events(self) -> str:
-        """
-        :returns: Reserved.
-        """
-        return self._properties["callback_events"]
 
     def __repr__(self) -> str:
         """

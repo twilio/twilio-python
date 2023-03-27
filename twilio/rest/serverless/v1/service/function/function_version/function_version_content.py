@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,20 +21,32 @@ from twilio.base.version import Version
 
 
 class FunctionVersionContentInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, function_sid: str, sid: str):
-        """
-        Initialize the FunctionVersionContentInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the Function Version resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
+    :ivar service_sid: The SID of the Service that the Function Version resource is associated with.
+    :ivar function_sid: The SID of the Function that is the parent of the Function Version.
+    :ivar content: The content of the Function Version resource.
+    :ivar url:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        function_sid: str,
+        sid: str,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "function_sid": payload.get("function_sid"),
-            "content": payload.get("content"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.function_sid: Optional[str] = payload.get("function_sid")
+        self.content: Optional[str] = payload.get("content")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
@@ -59,48 +71,6 @@ class FunctionVersionContentInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Function Version resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the Service that the Function Version resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def function_sid(self) -> str:
-        """
-        :returns: The SID of the Function that is the parent of the Function Version.
-        """
-        return self._properties["function_sid"]
-
-    @property
-    def content(self) -> str:
-        """
-        :returns: The content of the Function Version resource.
-        """
-        return self._properties["content"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def fetch(self) -> "FunctionVersionContentInstance":
         """

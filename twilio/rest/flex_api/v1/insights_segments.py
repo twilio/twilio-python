@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,39 +23,75 @@ from twilio.base.page import Page
 
 
 class InsightsSegmentsInstance(InstanceResource):
-    def __init__(self, version, payload, segment_id: Optional[str] = None):
-        """
-        Initialize the InsightsSegmentsInstance
-        """
+
+    """
+    :ivar segment_id: To unique id of the segment
+    :ivar external_id: The unique id for the conversation.
+    :ivar queue:
+    :ivar external_contact:
+    :ivar external_segment_link_id: The uuid for the external_segment_link.
+    :ivar date: The date of the conversation.
+    :ivar account_id: The unique id for the account.
+    :ivar external_segment_link: The hyperlink to recording of the task event.
+    :ivar agent_id: The unique id for the agent.
+    :ivar agent_phone: The phone number of the agent.
+    :ivar agent_name: The name of the agent.
+    :ivar agent_team_name: The team name to which agent belongs.
+    :ivar agent_team_name_in_hierarchy: he team name to which agent belongs.
+    :ivar agent_link: The link to the agent conversation.
+    :ivar customer_phone: The phone number of the customer.
+    :ivar customer_name: The name of the customer.
+    :ivar customer_link: The link to the customer conversation.
+    :ivar segment_recording_offset: The offset value for the recording.
+    :ivar media: The media identifiers of the conversation.
+    :ivar assessment_type: The type of the assessment.
+    :ivar assessment_percentage: The percentage scored on the Assessments.
+    :ivar url:
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        segment_id: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "segment_id": payload.get("segment_id"),
-            "external_id": payload.get("external_id"),
-            "queue": payload.get("queue"),
-            "external_contact": payload.get("external_contact"),
-            "external_segment_link_id": payload.get("external_segment_link_id"),
-            "date": payload.get("date"),
-            "account_id": payload.get("account_id"),
-            "external_segment_link": payload.get("external_segment_link"),
-            "agent_id": payload.get("agent_id"),
-            "agent_phone": payload.get("agent_phone"),
-            "agent_name": payload.get("agent_name"),
-            "agent_team_name": payload.get("agent_team_name"),
-            "agent_team_name_in_hierarchy": payload.get("agent_team_name_in_hierarchy"),
-            "agent_link": payload.get("agent_link"),
-            "customer_phone": payload.get("customer_phone"),
-            "customer_name": payload.get("customer_name"),
-            "customer_link": payload.get("customer_link"),
-            "segment_recording_offset": payload.get("segment_recording_offset"),
-            "media": payload.get("media"),
-            "assessment_type": payload.get("assessment_type"),
-            "assessment_percentage": payload.get("assessment_percentage"),
-            "url": payload.get("url"),
-        }
+        self.segment_id: Optional[str] = payload.get("segment_id")
+        self.external_id: Optional[str] = payload.get("external_id")
+        self.queue: Optional[str] = payload.get("queue")
+        self.external_contact: Optional[str] = payload.get("external_contact")
+        self.external_segment_link_id: Optional[str] = payload.get(
+            "external_segment_link_id"
+        )
+        self.date: Optional[str] = payload.get("date")
+        self.account_id: Optional[str] = payload.get("account_id")
+        self.external_segment_link: Optional[str] = payload.get("external_segment_link")
+        self.agent_id: Optional[str] = payload.get("agent_id")
+        self.agent_phone: Optional[str] = payload.get("agent_phone")
+        self.agent_name: Optional[str] = payload.get("agent_name")
+        self.agent_team_name: Optional[str] = payload.get("agent_team_name")
+        self.agent_team_name_in_hierarchy: Optional[str] = payload.get(
+            "agent_team_name_in_hierarchy"
+        )
+        self.agent_link: Optional[str] = payload.get("agent_link")
+        self.customer_phone: Optional[str] = payload.get("customer_phone")
+        self.customer_name: Optional[str] = payload.get("customer_name")
+        self.customer_link: Optional[str] = payload.get("customer_link")
+        self.segment_recording_offset: Optional[str] = payload.get(
+            "segment_recording_offset"
+        )
+        self.media: Optional[Dict[str, object]] = payload.get("media")
+        self.assessment_type: Optional[Dict[str, object]] = payload.get(
+            "assessment_type"
+        )
+        self.assessment_percentage: Optional[Dict[str, object]] = payload.get(
+            "assessment_percentage"
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "segment_id": segment_id or self._properties["segment_id"],
+            "segment_id": segment_id or self.segment_id,
         }
         self._context: Optional[InsightsSegmentsContext] = None
 
@@ -73,160 +109,6 @@ class InsightsSegmentsInstance(InstanceResource):
                 segment_id=self._solution["segment_id"],
             )
         return self._context
-
-    @property
-    def segment_id(self) -> str:
-        """
-        :returns: To unique id of the segment
-        """
-        return self._properties["segment_id"]
-
-    @property
-    def external_id(self) -> str:
-        """
-        :returns: The unique id for the conversation.
-        """
-        return self._properties["external_id"]
-
-    @property
-    def queue(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["queue"]
-
-    @property
-    def external_contact(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["external_contact"]
-
-    @property
-    def external_segment_link_id(self) -> str:
-        """
-        :returns: The uuid for the external_segment_link.
-        """
-        return self._properties["external_segment_link_id"]
-
-    @property
-    def date(self) -> str:
-        """
-        :returns: The date of the conversation.
-        """
-        return self._properties["date"]
-
-    @property
-    def account_id(self) -> str:
-        """
-        :returns: The unique id for the account.
-        """
-        return self._properties["account_id"]
-
-    @property
-    def external_segment_link(self) -> str:
-        """
-        :returns: The hyperlink to recording of the task event.
-        """
-        return self._properties["external_segment_link"]
-
-    @property
-    def agent_id(self) -> str:
-        """
-        :returns: The unique id for the agent.
-        """
-        return self._properties["agent_id"]
-
-    @property
-    def agent_phone(self) -> str:
-        """
-        :returns: The phone number of the agent.
-        """
-        return self._properties["agent_phone"]
-
-    @property
-    def agent_name(self) -> str:
-        """
-        :returns: The name of the agent.
-        """
-        return self._properties["agent_name"]
-
-    @property
-    def agent_team_name(self) -> str:
-        """
-        :returns: The team name to which agent belongs.
-        """
-        return self._properties["agent_team_name"]
-
-    @property
-    def agent_team_name_in_hierarchy(self) -> str:
-        """
-        :returns: he team name to which agent belongs.
-        """
-        return self._properties["agent_team_name_in_hierarchy"]
-
-    @property
-    def agent_link(self) -> str:
-        """
-        :returns: The link to the agent conversation.
-        """
-        return self._properties["agent_link"]
-
-    @property
-    def customer_phone(self) -> str:
-        """
-        :returns: The phone number of the customer.
-        """
-        return self._properties["customer_phone"]
-
-    @property
-    def customer_name(self) -> str:
-        """
-        :returns: The name of the customer.
-        """
-        return self._properties["customer_name"]
-
-    @property
-    def customer_link(self) -> str:
-        """
-        :returns: The link to the customer conversation.
-        """
-        return self._properties["customer_link"]
-
-    @property
-    def segment_recording_offset(self) -> str:
-        """
-        :returns: The offset value for the recording.
-        """
-        return self._properties["segment_recording_offset"]
-
-    @property
-    def media(self) -> Dict[str, object]:
-        """
-        :returns: The media identifiers of the conversation.
-        """
-        return self._properties["media"]
-
-    @property
-    def assessment_type(self) -> Dict[str, object]:
-        """
-        :returns: The type of the assessment.
-        """
-        return self._properties["assessment_type"]
-
-    @property
-    def assessment_percentage(self) -> Dict[str, object]:
-        """
-        :returns: The percentage scored on the Assessments.
-        """
-        return self._properties["assessment_percentage"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["url"]
 
     def fetch(self, token=values.unset) -> "InsightsSegmentsInstance":
         """

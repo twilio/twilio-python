@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,35 +24,47 @@ from twilio.base.page import Page
 
 
 class VariableInstance(InstanceResource):
+
+    """
+    :ivar sid: The unique string that we created to identify the Variable resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Variable resource.
+    :ivar service_sid: The SID of the Service that the Variable resource is associated with.
+    :ivar environment_sid: The SID of the Environment in which the Variable exists.
+    :ivar key: A string by which the Variable resource can be referenced.
+    :ivar value: A string that contains the actual value of the Variable.
+    :ivar date_created: The date and time in GMT when the Variable resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the Variable resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The absolute URL of the Variable resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         environment_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the VariableInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "environment_sid": payload.get("environment_sid"),
-            "key": payload.get("key"),
-            "value": payload.get("value"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.environment_sid: Optional[str] = payload.get("environment_sid")
+        self.key: Optional[str] = payload.get("key")
+        self.value: Optional[str] = payload.get("value")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "environment_sid": environment_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[VariableContext] = None
 
@@ -72,69 +84,6 @@ class VariableInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Variable resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Variable resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the Service that the Variable resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def environment_sid(self) -> str:
-        """
-        :returns: The SID of the Environment in which the Variable exists.
-        """
-        return self._properties["environment_sid"]
-
-    @property
-    def key(self) -> str:
-        """
-        :returns: A string by which the Variable resource can be referenced.
-        """
-        return self._properties["key"]
-
-    @property
-    def value(self) -> str:
-        """
-        :returns: A string that contains the actual value of the Variable.
-        """
-        return self._properties["value"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Variable resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the Variable resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Variable resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -41,44 +41,68 @@ class RecordingInstance(InstanceResource):
         COMPLETED = "completed"
         ABSENT = "absent"
 
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource.
+    :ivar api_version: The API version used to make the recording.
+    :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Recording resource is associated with.
+    :ivar conference_sid: The Conference SID that identifies the conference associated with the recording, if a conference recording.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar start_time: The start time of the recording in GMT and in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
+    :ivar duration: The length of the recording in seconds.
+    :ivar sid: The unique string that that we created to identify the Recording resource.
+    :ivar price: The one-time cost of creating the recording in the `price_unit` currency.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar encryption_details: How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
+    :ivar price_unit: The currency used in the `price` property. Example: `USD`.
+    :ivar status: 
+    :ivar channels: The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options.
+    :ivar source: 
+    :ivar error_code: The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
+    :ivar track: The recorded track. Can be: `inbound`, `outbound`, or `both`.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         call_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the RecordingInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "api_version": payload.get("api_version"),
-            "call_sid": payload.get("call_sid"),
-            "conference_sid": payload.get("conference_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "start_time": deserialize.rfc2822_datetime(payload.get("start_time")),
-            "duration": payload.get("duration"),
-            "sid": payload.get("sid"),
-            "price": deserialize.decimal(payload.get("price")),
-            "uri": payload.get("uri"),
-            "encryption_details": payload.get("encryption_details"),
-            "price_unit": payload.get("price_unit"),
-            "status": payload.get("status"),
-            "channels": deserialize.integer(payload.get("channels")),
-            "source": payload.get("source"),
-            "error_code": deserialize.integer(payload.get("error_code")),
-            "track": payload.get("track"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.api_version: Optional[str] = payload.get("api_version")
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.conference_sid: Optional[str] = payload.get("conference_sid")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self.start_time: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("start_time")
+        )
+        self.duration: Optional[str] = payload.get("duration")
+        self.sid: Optional[str] = payload.get("sid")
+        self.price: Optional[float] = deserialize.decimal(payload.get("price"))
+        self.uri: Optional[str] = payload.get("uri")
+        self.encryption_details: Optional[Dict[str, object]] = payload.get(
+            "encryption_details"
+        )
+        self.price_unit: Optional[str] = payload.get("price_unit")
+        self.status: Optional["RecordingInstance.Status"] = payload.get("status")
+        self.channels: Optional[int] = deserialize.integer(payload.get("channels"))
+        self.source: Optional["RecordingInstance.Source"] = payload.get("source")
+        self.error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
+        self.track: Optional[str] = payload.get("track")
 
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[RecordingContext] = None
 
@@ -98,132 +122,6 @@ class RecordingInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def api_version(self) -> str:
-        """
-        :returns: The API version used to make the recording.
-        """
-        return self._properties["api_version"]
-
-    @property
-    def call_sid(self) -> str:
-        """
-        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Recording resource is associated with.
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def conference_sid(self) -> str:
-        """
-        :returns: The Conference SID that identifies the conference associated with the recording, if a conference recording.
-        """
-        return self._properties["conference_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT that the resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def start_time(self) -> datetime:
-        """
-        :returns: The start time of the recording in GMT and in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-        """
-        return self._properties["start_time"]
-
-    @property
-    def duration(self) -> str:
-        """
-        :returns: The length of the recording in seconds.
-        """
-        return self._properties["duration"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that that we created to identify the Recording resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def price(self) -> float:
-        """
-        :returns: The one-time cost of creating the recording in the `price_unit` currency.
-        """
-        return self._properties["price"]
-
-    @property
-    def uri(self) -> str:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._properties["uri"]
-
-    @property
-    def encryption_details(self) -> Dict[str, object]:
-        """
-        :returns: How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
-        """
-        return self._properties["encryption_details"]
-
-    @property
-    def price_unit(self) -> str:
-        """
-        :returns: The currency used in the `price` property. Example: `USD`.
-        """
-        return self._properties["price_unit"]
-
-    @property
-    def status(self) -> "RecordingInstance.Status":
-        """
-        :returns:
-        """
-        return self._properties["status"]
-
-    @property
-    def channels(self) -> int:
-        """
-        :returns: The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options.
-        """
-        return self._properties["channels"]
-
-    @property
-    def source(self) -> "RecordingInstance.Source":
-        """
-        :returns:
-        """
-        return self._properties["source"]
-
-    @property
-    def error_code(self) -> int:
-        """
-        :returns: The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
-        """
-        return self._properties["error_code"]
-
-    @property
-    def track(self) -> str:
-        """
-        :returns: The recorded track. Can be: `inbound`, `outbound`, or `both`.
-        """
-        return self._properties["track"]
 
     def delete(self) -> bool:
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,39 +31,77 @@ from twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping imp
 
 
 class DomainInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the DomainInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource.
+    :ivar api_version: The API version used to process the call.
+    :ivar auth_type: The types of authentication you have mapped to your domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If you have both defined for your domain, both will be returned in a comma delimited string. If `auth_type` is not defined, the domain will not be able to receive any traffic.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \"-\" and must end with `sip.twilio.com`.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar sid: The unique string that that we created to identify the SipDomain resource.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar voice_fallback_method: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+    :ivar voice_fallback_url: The URL that we call when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
+    :ivar voice_method: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
+    :ivar voice_status_callback_method: The HTTP method we use to call `voice_status_callback_url`. Either `GET` or `POST`.
+    :ivar voice_status_callback_url: The URL that we call to pass status parameters (such as call ended) to your application.
+    :ivar voice_url: The URL we call using the `voice_method` when the domain receives a call.
+    :ivar subresource_uris: A list of mapping resources associated with the SIP Domain resource identified by their relative URIs.
+    :ivar sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls.
+    :ivar emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+    :ivar secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+    :ivar byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+    :ivar emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "api_version": payload.get("api_version"),
-            "auth_type": payload.get("auth_type"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "domain_name": payload.get("domain_name"),
-            "friendly_name": payload.get("friendly_name"),
-            "sid": payload.get("sid"),
-            "uri": payload.get("uri"),
-            "voice_fallback_method": payload.get("voice_fallback_method"),
-            "voice_fallback_url": payload.get("voice_fallback_url"),
-            "voice_method": payload.get("voice_method"),
-            "voice_status_callback_method": payload.get("voice_status_callback_method"),
-            "voice_status_callback_url": payload.get("voice_status_callback_url"),
-            "voice_url": payload.get("voice_url"),
-            "subresource_uris": payload.get("subresource_uris"),
-            "sip_registration": payload.get("sip_registration"),
-            "emergency_calling_enabled": payload.get("emergency_calling_enabled"),
-            "secure": payload.get("secure"),
-            "byoc_trunk_sid": payload.get("byoc_trunk_sid"),
-            "emergency_caller_sid": payload.get("emergency_caller_sid"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.api_version: Optional[str] = payload.get("api_version")
+        self.auth_type: Optional[str] = payload.get("auth_type")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self.domain_name: Optional[str] = payload.get("domain_name")
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.sid: Optional[str] = payload.get("sid")
+        self.uri: Optional[str] = payload.get("uri")
+        self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
+        self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
+        self.voice_method: Optional[str] = payload.get("voice_method")
+        self.voice_status_callback_method: Optional[str] = payload.get(
+            "voice_status_callback_method"
+        )
+        self.voice_status_callback_url: Optional[str] = payload.get(
+            "voice_status_callback_url"
+        )
+        self.voice_url: Optional[str] = payload.get("voice_url")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
+        self.sip_registration: Optional[bool] = payload.get("sip_registration")
+        self.emergency_calling_enabled: Optional[bool] = payload.get(
+            "emergency_calling_enabled"
+        )
+        self.secure: Optional[bool] = payload.get("secure")
+        self.byoc_trunk_sid: Optional[str] = payload.get("byoc_trunk_sid")
+        self.emergency_caller_sid: Optional[str] = payload.get("emergency_caller_sid")
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[DomainContext] = None
 
@@ -82,153 +120,6 @@ class DomainInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def api_version(self) -> str:
-        """
-        :returns: The API version used to process the call.
-        """
-        return self._properties["api_version"]
-
-    @property
-    def auth_type(self) -> str:
-        """
-        :returns: The types of authentication you have mapped to your domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If you have both defined for your domain, both will be returned in a comma delimited string. If `auth_type` is not defined, the domain will not be able to receive any traffic.
-        """
-        return self._properties["auth_type"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def domain_name(self) -> str:
-        """
-        :returns: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \"-\" and must end with `sip.twilio.com`.
-        """
-        return self._properties["domain_name"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that that we created to identify the SipDomain resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def uri(self) -> str:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._properties["uri"]
-
-    @property
-    def voice_fallback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["voice_fallback_method"]
-
-    @property
-    def voice_fallback_url(self) -> str:
-        """
-        :returns: The URL that we call when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
-        """
-        return self._properties["voice_fallback_url"]
-
-    @property
-    def voice_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["voice_method"]
-
-    @property
-    def voice_status_callback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `voice_status_callback_url`. Either `GET` or `POST`.
-        """
-        return self._properties["voice_status_callback_method"]
-
-    @property
-    def voice_status_callback_url(self) -> str:
-        """
-        :returns: The URL that we call to pass status parameters (such as call ended) to your application.
-        """
-        return self._properties["voice_status_callback_url"]
-
-    @property
-    def voice_url(self) -> str:
-        """
-        :returns: The URL we call using the `voice_method` when the domain receives a call.
-        """
-        return self._properties["voice_url"]
-
-    @property
-    def subresource_uris(self) -> Dict[str, object]:
-        """
-        :returns: A list of mapping resources associated with the SIP Domain resource identified by their relative URIs.
-        """
-        return self._properties["subresource_uris"]
-
-    @property
-    def sip_registration(self) -> bool:
-        """
-        :returns: Whether to allow SIP Endpoints to register with the domain to receive calls.
-        """
-        return self._properties["sip_registration"]
-
-    @property
-    def emergency_calling_enabled(self) -> bool:
-        """
-        :returns: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-        """
-        return self._properties["emergency_calling_enabled"]
-
-    @property
-    def secure(self) -> bool:
-        """
-        :returns: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-        """
-        return self._properties["secure"]
-
-    @property
-    def byoc_trunk_sid(self) -> str:
-        """
-        :returns: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-        """
-        return self._properties["byoc_trunk_sid"]
-
-    @property
-    def emergency_caller_sid(self) -> str:
-        """
-        :returns: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
-        """
-        return self._properties["emergency_caller_sid"]
 
     def delete(self) -> bool:
         """

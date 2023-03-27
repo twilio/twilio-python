@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,19 +23,27 @@ from twilio.base.version import Version
 
 
 class AuthTokenPromotionInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the AuthTokenPromotionInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for.
+    :ivar auth_token: The promoted Auth Token that must be used to authenticate future API requests.
+    :ivar date_created: The date and time in UTC when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar url: The URI for this resource, relative to `https://accounts.twilio.com`
+    """
+
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "auth_token": payload.get("auth_token"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.auth_token: Optional[str] = payload.get("auth_token")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {}
         self._context: Optional[AuthTokenPromotionContext] = None
@@ -53,41 +61,6 @@ class AuthTokenPromotionInstance(InstanceResource):
                 self._version,
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def auth_token(self) -> str:
-        """
-        :returns: The promoted Auth Token that must be used to authenticate future API requests.
-        """
-        return self._properties["auth_token"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in UTC when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The URI for this resource, relative to `https://accounts.twilio.com`
-        """
-        return self._properties["url"]
 
     def update(self) -> "AuthTokenPromotionInstance":
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,28 +24,47 @@ from twilio.base.page import Page
 
 
 class ShortCodeInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ShortCodeInstance
-        """
+
+    """
+    :ivar sid: The unique string that we created to identify the ShortCode resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
+    :ivar service_sid: The SID of the ShortCode resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
+    :ivar date_created: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
+    :ivar date_updated: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
+    :ivar short_code: The short code's number.
+    :ivar iso_country: The ISO Country Code for the short code.
+    :ivar capabilities:
+    :ivar url: The absolute URL of the ShortCode resource.
+    :ivar is_reserved: Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "short_code": payload.get("short_code"),
-            "iso_country": payload.get("iso_country"),
-            "capabilities": payload.get("capabilities"),
-            "url": payload.get("url"),
-            "is_reserved": payload.get("is_reserved"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.short_code: Optional[str] = payload.get("short_code")
+        self.iso_country: Optional[str] = payload.get("iso_country")
+        self.capabilities: Optional[str] = payload.get("capabilities")
+        self.url: Optional[str] = payload.get("url")
+        self.is_reserved: Optional[bool] = payload.get("is_reserved")
 
         self._solution = {
             "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ShortCodeContext] = None
 
@@ -64,76 +83,6 @@ class ShortCodeInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the ShortCode resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the ShortCode resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def short_code(self) -> str:
-        """
-        :returns: The short code's number.
-        """
-        return self._properties["short_code"]
-
-    @property
-    def iso_country(self) -> str:
-        """
-        :returns: The ISO Country Code for the short code.
-        """
-        return self._properties["iso_country"]
-
-    @property
-    def capabilities(self) -> str:
-        """
-        :returns:
-        """
-        return self._properties["capabilities"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the ShortCode resource.
-        """
-        return self._properties["url"]
-
-    @property
-    def is_reserved(self) -> bool:
-        """
-        :returns: Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
-        """
-        return self._properties["is_reserved"]
 
     def delete(self) -> bool:
         """

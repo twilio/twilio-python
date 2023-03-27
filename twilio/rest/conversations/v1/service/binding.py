@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,31 +29,50 @@ class BindingInstance(InstanceResource):
         GCM = "gcm"
         FCM = "fcm"
 
+    """
+    :ivar sid: A 34 character string that uniquely identifies this resource.
+    :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this binding.
+    :ivar chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+    :ivar credential_sid: The SID of the [Credential](https://www.twilio.com/docs/conversations/api/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+    :ivar date_created: The date that this resource was created.
+    :ivar date_updated: The date that this resource was last updated.
+    :ivar endpoint: The unique endpoint identifier for the Binding. The format of this value depends on the `binding_type`.
+    :ivar identity: The application-defined string that uniquely identifies the [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more info.
+    :ivar binding_type: 
+    :ivar message_types: The [Conversation message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
+    :ivar url: An absolute API resource URL for this binding.
+    """
+
     def __init__(
-        self, version, payload, chat_service_sid: str, sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        chat_service_sid: str,
+        sid: Optional[str] = None,
     ):
-        """
-        Initialize the BindingInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "credential_sid": payload.get("credential_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "endpoint": payload.get("endpoint"),
-            "identity": payload.get("identity"),
-            "binding_type": payload.get("binding_type"),
-            "message_types": payload.get("message_types"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
+        self.credential_sid: Optional[str] = payload.get("credential_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.endpoint: Optional[str] = payload.get("endpoint")
+        self.identity: Optional[str] = payload.get("identity")
+        self.binding_type: Optional["BindingInstance.BindingType"] = payload.get(
+            "binding_type"
+        )
+        self.message_types: Optional[List[str]] = payload.get("message_types")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "chat_service_sid": chat_service_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[BindingContext] = None
 
@@ -72,83 +91,6 @@ class BindingInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this binding.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def chat_service_sid(self) -> str:
-        """
-        :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
-        """
-        return self._properties["chat_service_sid"]
-
-    @property
-    def credential_sid(self) -> str:
-        """
-        :returns: The SID of the [Credential](https://www.twilio.com/docs/conversations/api/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        """
-        return self._properties["credential_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date that this resource was created.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date that this resource was last updated.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def endpoint(self) -> str:
-        """
-        :returns: The unique endpoint identifier for the Binding. The format of this value depends on the `binding_type`.
-        """
-        return self._properties["endpoint"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: The application-defined string that uniquely identifies the [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more info.
-        """
-        return self._properties["identity"]
-
-    @property
-    def binding_type(self) -> "BindingInstance.BindingType":
-        """
-        :returns:
-        """
-        return self._properties["binding_type"]
-
-    @property
-    def message_types(self) -> List[str]:
-        """
-        :returns: The [Conversation message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
-        """
-        return self._properties["message_types"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: An absolute API resource URL for this binding.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

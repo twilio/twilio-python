@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -29,38 +29,54 @@ class UserBindingInstance(InstanceResource):
         APN = "apn"
         FCM = "fcm"
 
+    """
+    :ivar sid: The unique string that we created to identify the User Binding resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User Binding resource.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the User Binding resource is associated with.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar endpoint: The unique endpoint identifier for the User Binding. The format of the value depends on the `binding_type`.
+    :ivar identity: The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
+    :ivar user_sid: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) with the User Binding resource.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+    :ivar credential_sid: The SID of the [Credential](https://www.twilio.com/docs/chat/rest/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+    :ivar binding_type: 
+    :ivar message_types: The [Programmable Chat message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
+    :ivar url: The absolute URL of the User Binding resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         user_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the UserBindingInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "endpoint": payload.get("endpoint"),
-            "identity": payload.get("identity"),
-            "user_sid": payload.get("user_sid"),
-            "credential_sid": payload.get("credential_sid"),
-            "binding_type": payload.get("binding_type"),
-            "message_types": payload.get("message_types"),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.endpoint: Optional[str] = payload.get("endpoint")
+        self.identity: Optional[str] = payload.get("identity")
+        self.user_sid: Optional[str] = payload.get("user_sid")
+        self.credential_sid: Optional[str] = payload.get("credential_sid")
+        self.binding_type: Optional["UserBindingInstance.BindingType"] = payload.get(
+            "binding_type"
+        )
+        self.message_types: Optional[List[str]] = payload.get("message_types")
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "user_sid": user_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[UserBindingContext] = None
 
@@ -80,90 +96,6 @@ class UserBindingInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the User Binding resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User Binding resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the User Binding resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def endpoint(self) -> str:
-        """
-        :returns: The unique endpoint identifier for the User Binding. The format of the value depends on the `binding_type`.
-        """
-        return self._properties["endpoint"]
-
-    @property
-    def identity(self) -> str:
-        """
-        :returns: The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
-        """
-        return self._properties["identity"]
-
-    @property
-    def user_sid(self) -> str:
-        """
-        :returns: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) with the User Binding resource.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        """
-        return self._properties["user_sid"]
-
-    @property
-    def credential_sid(self) -> str:
-        """
-        :returns: The SID of the [Credential](https://www.twilio.com/docs/chat/rest/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        """
-        return self._properties["credential_sid"]
-
-    @property
-    def binding_type(self) -> "UserBindingInstance.BindingType":
-        """
-        :returns:
-        """
-        return self._properties["binding_type"]
-
-    @property
-    def message_types(self) -> List[str]:
-        """
-        :returns: The [Programmable Chat message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
-        """
-        return self._properties["message_types"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the User Binding resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

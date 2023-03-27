@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,32 +24,39 @@ from twilio.base.page import Page
 
 
 class MemberInstance(InstanceResource):
+
+    """
+    :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Member resource is associated with.
+    :ivar date_enqueued: The date that the member was enqueued, given in RFC 2822 format.
+    :ivar position: This member's current position in the queue.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar wait_time: The number of seconds the member has been in the queue.
+    :ivar queue_sid: The SID of the Queue the member is in.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         account_sid: str,
         queue_sid: str,
         call_sid: Optional[str] = None,
     ):
-        """
-        Initialize the MemberInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "call_sid": payload.get("call_sid"),
-            "date_enqueued": deserialize.rfc2822_datetime(payload.get("date_enqueued")),
-            "position": deserialize.integer(payload.get("position")),
-            "uri": payload.get("uri"),
-            "wait_time": deserialize.integer(payload.get("wait_time")),
-            "queue_sid": payload.get("queue_sid"),
-        }
+        self.call_sid: Optional[str] = payload.get("call_sid")
+        self.date_enqueued: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_enqueued")
+        )
+        self.position: Optional[int] = deserialize.integer(payload.get("position"))
+        self.uri: Optional[str] = payload.get("uri")
+        self.wait_time: Optional[int] = deserialize.integer(payload.get("wait_time"))
+        self.queue_sid: Optional[str] = payload.get("queue_sid")
 
         self._solution = {
             "account_sid": account_sid,
             "queue_sid": queue_sid,
-            "call_sid": call_sid or self._properties["call_sid"],
+            "call_sid": call_sid or self.call_sid,
         }
         self._context: Optional[MemberContext] = None
 
@@ -69,48 +76,6 @@ class MemberInstance(InstanceResource):
                 call_sid=self._solution["call_sid"],
             )
         return self._context
-
-    @property
-    def call_sid(self) -> str:
-        """
-        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Member resource is associated with.
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def date_enqueued(self) -> datetime:
-        """
-        :returns: The date that the member was enqueued, given in RFC 2822 format.
-        """
-        return self._properties["date_enqueued"]
-
-    @property
-    def position(self) -> int:
-        """
-        :returns: This member's current position in the queue.
-        """
-        return self._properties["position"]
-
-    @property
-    def uri(self) -> str:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._properties["uri"]
-
-    @property
-    def wait_time(self) -> int:
-        """
-        :returns: The number of seconds the member has been in the queue.
-        """
-        return self._properties["wait_time"]
-
-    @property
-    def queue_sid(self) -> str:
-        """
-        :returns: The SID of the Queue the member is in.
-        """
-        return self._properties["queue_sid"]
 
     def fetch(self) -> "MemberInstance":
         """

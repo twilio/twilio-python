@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -28,39 +28,54 @@ class MessageInstance(InstanceResource):
         ASC = "asc"
         DESC = "desc"
 
+    """
+    :ivar sid: The unique string that we created to identify the Message resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the Message resource.
+    :ivar attributes: The JSON string that stores application-specific data. **Note** If this property has been assigned a value, it's only  displayed in a FETCH action that returns a single resource; otherwise, it's null. If the attributes have not been set, `{}` is returned.
+    :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
+    :ivar to: The SID of the [Channel](https://www.twilio.com/docs/chat/api/channels) that the message was sent to.
+    :ivar channel_sid: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the Message resource belongs to.
+    :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar was_edited: Whether the message has been edited since it was created.
+    :ivar _from: The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the message's author. The default value is `system`.
+    :ivar body: The content of the message.
+    :ivar index: The index of the message within the [Channel](https://www.twilio.com/docs/chat/api/channels).
+    :ivar url: The absolute URL of the Message resource.
+    """
+
     def __init__(
         self,
-        version,
-        payload,
+        version: Version,
+        payload: Dict[str, Any],
         service_sid: str,
         channel_sid: str,
         sid: Optional[str] = None,
     ):
-        """
-        Initialize the MessageInstance
-        """
         super().__init__(version)
 
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "attributes": payload.get("attributes"),
-            "service_sid": payload.get("service_sid"),
-            "to": payload.get("to"),
-            "channel_sid": payload.get("channel_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "was_edited": payload.get("was_edited"),
-            "_from": payload.get("from"),
-            "body": payload.get("body"),
-            "index": deserialize.integer(payload.get("index")),
-            "url": payload.get("url"),
-        }
+        self.sid: Optional[str] = payload.get("sid")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.attributes: Optional[str] = payload.get("attributes")
+        self.service_sid: Optional[str] = payload.get("service_sid")
+        self.to: Optional[str] = payload.get("to")
+        self.channel_sid: Optional[str] = payload.get("channel_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.was_edited: Optional[bool] = payload.get("was_edited")
+        self._from: Optional[str] = payload.get("from")
+        self.body: Optional[str] = payload.get("body")
+        self.index: Optional[int] = deserialize.integer(payload.get("index"))
+        self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[MessageContext] = None
 
@@ -80,97 +95,6 @@ class MessageInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that we created to identify the Message resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the Message resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def attributes(self) -> str:
-        """
-        :returns: The JSON string that stores application-specific data. **Note** If this property has been assigned a value, it's only  displayed in a FETCH action that returns a single resource; otherwise, it's null. If the attributes have not been set, `{}` is returned.
-        """
-        return self._properties["attributes"]
-
-    @property
-    def service_sid(self) -> str:
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def to(self) -> str:
-        """
-        :returns: The SID of the [Channel](https://www.twilio.com/docs/chat/api/channels) that the message was sent to.
-        """
-        return self._properties["to"]
-
-    @property
-    def channel_sid(self) -> str:
-        """
-        :returns: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the Message resource belongs to.
-        """
-        return self._properties["channel_sid"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def was_edited(self) -> bool:
-        """
-        :returns: Whether the message has been edited since it was created.
-        """
-        return self._properties["was_edited"]
-
-    @property
-    def _from(self) -> str:
-        """
-        :returns: The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the message's author. The default value is `system`.
-        """
-        return self._properties["_from"]
-
-    @property
-    def body(self) -> str:
-        """
-        :returns: The content of the message.
-        """
-        return self._properties["body"]
-
-    @property
-    def index(self) -> int:
-        """
-        :returns: The index of the message within the [Channel](https://www.twilio.com/docs/chat/api/channels).
-        """
-        return self._properties["index"]
-
-    @property
-    def url(self) -> str:
-        """
-        :returns: The absolute URL of the Message resource.
-        """
-        return self._properties["url"]
 
     def delete(self) -> bool:
         """

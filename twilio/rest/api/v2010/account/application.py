@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -24,41 +24,77 @@ from twilio.base.page import Page
 
 
 class ApplicationInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ApplicationInstance
-        """
+
+    """
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource.
+    :ivar api_version: The API version used to start a new TwiML session.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar friendly_name: The string that you assigned to describe the resource.
+    :ivar message_status_callback: The URL we call using a POST method to send message status information to your application.
+    :ivar sid: The unique string that that we created to identify the Application resource.
+    :ivar sms_fallback_method: The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+    :ivar sms_fallback_url: The URL that we call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+    :ivar sms_method: The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
+    :ivar sms_status_callback: The URL we call using a POST method to send status information to your application about SMS messages that refer to the application.
+    :ivar sms_url: The URL we call when the phone number receives an incoming SMS message.
+    :ivar status_callback: The URL we call using the `status_callback_method` to send status information to your application.
+    :ivar status_callback_method: The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
+    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar voice_caller_id_lookup: Whether we look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+    :ivar voice_fallback_method: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+    :ivar voice_fallback_url: The URL that we call when an error occurs retrieving or executing the TwiML requested by `url`.
+    :ivar voice_method: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
+    :ivar voice_url: The URL we call when the phone number assigned to this application receives a call.
+    :ivar public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "api_version": payload.get("api_version"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "message_status_callback": payload.get("message_status_callback"),
-            "sid": payload.get("sid"),
-            "sms_fallback_method": payload.get("sms_fallback_method"),
-            "sms_fallback_url": payload.get("sms_fallback_url"),
-            "sms_method": payload.get("sms_method"),
-            "sms_status_callback": payload.get("sms_status_callback"),
-            "sms_url": payload.get("sms_url"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "uri": payload.get("uri"),
-            "voice_caller_id_lookup": payload.get("voice_caller_id_lookup"),
-            "voice_fallback_method": payload.get("voice_fallback_method"),
-            "voice_fallback_url": payload.get("voice_fallback_url"),
-            "voice_method": payload.get("voice_method"),
-            "voice_url": payload.get("voice_url"),
-            "public_application_connect_enabled": payload.get(
-                "public_application_connect_enabled"
-            ),
-        }
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.api_version: Optional[str] = payload.get("api_version")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.message_status_callback: Optional[str] = payload.get(
+            "message_status_callback"
+        )
+        self.sid: Optional[str] = payload.get("sid")
+        self.sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
+        self.sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
+        self.sms_method: Optional[str] = payload.get("sms_method")
+        self.sms_status_callback: Optional[str] = payload.get("sms_status_callback")
+        self.sms_url: Optional[str] = payload.get("sms_url")
+        self.status_callback: Optional[str] = payload.get("status_callback")
+        self.status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
+        self.uri: Optional[str] = payload.get("uri")
+        self.voice_caller_id_lookup: Optional[bool] = payload.get(
+            "voice_caller_id_lookup"
+        )
+        self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
+        self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
+        self.voice_method: Optional[str] = payload.get("voice_method")
+        self.voice_url: Optional[str] = payload.get("voice_url")
+        self.public_application_connect_enabled: Optional[bool] = payload.get(
+            "public_application_connect_enabled"
+        )
 
         self._solution = {
             "account_sid": account_sid,
-            "sid": sid or self._properties["sid"],
+            "sid": sid or self.sid,
         }
         self._context: Optional[ApplicationContext] = None
 
@@ -77,153 +113,6 @@ class ApplicationInstance(InstanceResource):
                 sid=self._solution["sid"],
             )
         return self._context
-
-    @property
-    def account_sid(self) -> str:
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource.
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def api_version(self) -> str:
-        """
-        :returns: The API version used to start a new TwiML session.
-        """
-        return self._properties["api_version"]
-
-    @property
-    def date_created(self) -> datetime:
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self) -> datetime:
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def friendly_name(self) -> str:
-        """
-        :returns: The string that you assigned to describe the resource.
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def message_status_callback(self) -> str:
-        """
-        :returns: The URL we call using a POST method to send message status information to your application.
-        """
-        return self._properties["message_status_callback"]
-
-    @property
-    def sid(self) -> str:
-        """
-        :returns: The unique string that that we created to identify the Application resource.
-        """
-        return self._properties["sid"]
-
-    @property
-    def sms_fallback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["sms_fallback_method"]
-
-    @property
-    def sms_fallback_url(self) -> str:
-        """
-        :returns: The URL that we call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        """
-        return self._properties["sms_fallback_url"]
-
-    @property
-    def sms_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["sms_method"]
-
-    @property
-    def sms_status_callback(self) -> str:
-        """
-        :returns: The URL we call using a POST method to send status information to your application about SMS messages that refer to the application.
-        """
-        return self._properties["sms_status_callback"]
-
-    @property
-    def sms_url(self) -> str:
-        """
-        :returns: The URL we call when the phone number receives an incoming SMS message.
-        """
-        return self._properties["sms_url"]
-
-    @property
-    def status_callback(self) -> str:
-        """
-        :returns: The URL we call using the `status_callback_method` to send status information to your application.
-        """
-        return self._properties["status_callback"]
-
-    @property
-    def status_callback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
-        """
-        return self._properties["status_callback_method"]
-
-    @property
-    def uri(self) -> str:
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        """
-        return self._properties["uri"]
-
-    @property
-    def voice_caller_id_lookup(self) -> bool:
-        """
-        :returns: Whether we look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-        """
-        return self._properties["voice_caller_id_lookup"]
-
-    @property
-    def voice_fallback_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["voice_fallback_method"]
-
-    @property
-    def voice_fallback_url(self) -> str:
-        """
-        :returns: The URL that we call when an error occurs retrieving or executing the TwiML requested by `url`.
-        """
-        return self._properties["voice_fallback_url"]
-
-    @property
-    def voice_method(self) -> str:
-        """
-        :returns: The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`.
-        """
-        return self._properties["voice_method"]
-
-    @property
-    def voice_url(self) -> str:
-        """
-        :returns: The URL we call when the phone number assigned to this application receives a call.
-        """
-        return self._properties["voice_url"]
-
-    @property
-    def public_application_connect_enabled(self) -> bool:
-        """
-        :returns: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
-        """
-        return self._properties["public_application_connect_enabled"]
 
     def delete(self) -> bool:
         """
