@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Dict, Union
+from typing import Any, Dict, Tuple, Union
 from urllib.parse import urlencode
 
 
@@ -16,11 +16,11 @@ class Request(object):
         self,
         method: Union[str, Match] = Match.ANY,
         url: Union[str, Match] = Match.ANY,
-        auth: Union[tuple, Match] = Match.ANY,
-        params: Union[Dict, Match] = Match.ANY,
-        data: Union[Dict, Match] = Match.ANY,
-        headers: Union[Dict, Match] = Match.ANY,
-        **kwargs
+        auth: Union[Tuple[str, str], Match] = Match.ANY,
+        params: Union[Dict[str, str], Match] = Match.ANY,
+        data: Union[Dict[str, str], Match] = Match.ANY,
+        headers: Union[Dict[str, str], Match] = Match.ANY,
+        **kwargs: Any
     ):
         self.method = method
         if method and method is not Match.ANY:
@@ -32,7 +32,7 @@ class Request(object):
         self.headers = headers
 
     @classmethod
-    def attribute_equal(cls, lhs, rhs):
+    def attribute_equal(cls, lhs, rhs) -> bool:
         if lhs == Match.ANY or rhs == Match.ANY:
             # ANY matches everything
             return True
@@ -42,7 +42,7 @@ class Request(object):
 
         return lhs == rhs
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         if not isinstance(other, Request):
             return False
 
@@ -55,7 +55,7 @@ class Request(object):
             and self.attribute_equal(self.headers, other.headers)
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         auth = ""
         if self.auth and self.auth != Match.ANY:
             auth = "{} ".format(self.auth)
@@ -87,5 +87,5 @@ class Request(object):
             headers=headers,
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self)

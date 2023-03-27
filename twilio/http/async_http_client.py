@@ -1,7 +1,9 @@
 import logging
+from typing import Dict, Optional, Tuple
 
 from aiohttp import BasicAuth, ClientSession
 from aiohttp_retry import ExponentialRetry, RetryClient
+
 from twilio.http import AsyncHttpClient
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response
@@ -16,23 +18,23 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
 
     def __init__(
         self,
-        pool_connections=True,
+        pool_connections: bool = True,
         trace_configs=None,
-        timeout=None,
-        logger=_logger,
-        proxy_url=None,
-        max_retries=None,
+        timeout: Optional[float] = None,
+        logger: logging.Logger = _logger,
+        proxy_url: Optional[str] = None,
+        max_retries: Optional[int] = None,
     ):
         """
         Constructor for the AsyncTwilioHttpClient
 
-        :param bool pool_connections: Creates a client session for making requests from.
+        :param pool_connections: Creates a client session for making requests from.
         :param trace_configs: Configuration used to trace request lifecycle events. See aiohttp library TraceConfig
                               documentation for more info.
-        :param float timeout: Timeout for the requests (seconds)
+        :param timeout: Timeout for the requests (seconds)
         :param logger
-        :param str proxy_url: Proxy URL
-        :param int max_retries: Maximum number of retries each request should attempt
+        :param proxy_url: Proxy URL
+        :param max_retries: Maximum number of retries each request should attempt
         """
         super().__init__(logger, True, timeout)
         self.proxy_url = proxy_url
@@ -50,30 +52,29 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
 
     async def request(
         self,
-        method,
-        url,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        url: str,
+        params: Optional[Dict[str, str]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Response:
         """
         Make an asynchronous HTTP Request with parameters provided.
 
-        :param str method: The HTTP method to use
-        :param str url: The URL to request
-        :param dict params: Query parameters to append to the URL
-        :param dict data: Parameters to go in the body of the HTTP request
-        :param dict headers: HTTP Headers to send with the request
-        :param tuple(str, str) auth: Basic Auth arguments (username, password entries)
-        :param float timeout: Socket/Read timeout for the request. Overrides the timeout if set on the client.
-        :param boolean allow_redirects: Whether or not to allow redirects
+        :param method: The HTTP method to use
+        :param url: The URL to request
+        :param params: Query parameters to append to the URL
+        :param data: Parameters to go in the body of the HTTP request
+        :param headers: HTTP Headers to send with the request
+        :param auth: Basic Auth arguments (username, password entries)
+        :param timeout: Socket/Read timeout for the request. Overrides the timeout if set on the client.
+        :param allow_redirects: Whether or not to allow redirects
         See the requests documentation for explanation of all these parameters
 
         :return: An http response
-        :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
         if timeout is not None and timeout <= 0:
             raise ValueError(timeout)
