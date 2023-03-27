@@ -7,7 +7,6 @@ from twilio.rest.messaging.v1.domain_certs import DomainCertsList
 from twilio.rest.messaging.v1.domain_config import DomainConfigList
 from twilio.rest.messaging.v1.external_campaign import ExternalCampaignList
 from twilio.rest.messaging.v1.service import ServiceList
-from twilio.rest.messaging.v1.tollfree_verification import TollfreeVerificationList
 from twilio.rest.messaging.v1.usecase import UsecaseList
 
 
@@ -65,15 +64,6 @@ class Messaging(MessagingBase):
             stacklevel=2,
         )
         return self.v1.services
-
-    @property
-    def tollfree_verifications(self) -> TollfreeVerificationList:
-        warn(
-            "tollfree_verifications is deprecated. Use v1.tollfree_verifications instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.v1.tollfree_verifications
 
     @property
     def usecases(self) -> UsecaseList:
