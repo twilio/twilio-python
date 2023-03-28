@@ -54,7 +54,7 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         self,
         method: str,
         url: str,
-        params: Optional[Dict[str, str]] = None,
+        params: Optional[Dict[str, object]] = None,
         data: Optional[Dict[str, object]] = None,
         headers: Optional[Dict[str, str]] = None,
         auth: Optional[Tuple[str, str]] = None,
