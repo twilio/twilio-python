@@ -1,11 +1,13 @@
+from typing import Dict
+
 unset = object()
 
 
-def of(d):
+def of(d: Dict[str, object]) -> Dict[str, object]:
     """
     Remove unset values from a dict.
 
-    :param dict d: A dict to strip.
-    :return dict: A dict with unset values removed.
+    :param d: A dict to strip.
+    :return A dict with unset values removed.
     """
     return {k: v for k, v in d.items() if v != unset}

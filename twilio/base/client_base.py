@@ -1,6 +1,6 @@
 import os
 import platform
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, MutableMapping, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
 from twilio import __version__
@@ -15,26 +15,26 @@ class ClientBase(object):
 
     def __init__(
         self,
-        username=None,
-        password=None,
-        account_sid=None,
-        region=None,
-        http_client=None,
-        environment=None,
-        edge=None,
-        user_agent_extensions=None,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
+        account_sid: Optional[str] = None,
+        region: Optional[str] = None,
+        http_client: Optional[HttpClient] = None,
+        environment: Optional[MutableMapping[str, str]] = None,
+        edge: Optional[str] = None,
+        user_agent_extensions: Optional[List[str]] = None,
     ):
         """
         Initializes the Twilio Client
 
-        :param str username: Username to authenticate with
-        :param str password: Password to authenticate with
-        :param str account_sid: Account SID, defaults to Username
-        :param str region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
-        :param HttpClient http_client: HttpClient, defaults to TwilioHttpClient
-        :param dict environment: Environment to look for auth details, defaults to os.environ
-        :param str edge: Twilio Edge to make requests to, defaults to None
-        :param list[str] user_agent_extensions: Additions to the user agent string
+        :param username: Username to authenticate with
+        :param password: Password to authenticate with
+        :param account_sid: Account SID, defaults to Username
+        :param region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
+        :param http_client: HttpClient, defaults to TwilioHttpClient
+        :param environment: Environment to look for auth details, defaults to os.environ
+        :param edge: Twilio Edge to make requests to, defaults to None
+        :param user_agent_extensions: Additions to the user agent string
         """
         environment = environment or os.environ
 
@@ -61,27 +61,27 @@ class ClientBase(object):
 
     def request(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
     ) -> Response:
         """
         Makes a request to the Twilio API using the configured http client
         Authentication information is automatically added if none is provided
 
-        :param str method: HTTP Method
-        :param str uri: Fully qualified url
-        :param dict[str, str] params: Query string parameters
-        :param dict[str, str] data: POST body data
-        :param dict[str, str] headers: HTTP Headers
-        :param tuple(str, str) auth: Authentication
-        :param int timeout: Timeout in seconds
-        :param bool allow_redirects: Should the client follow redirects
+        :param method: HTTP Method
+        :param uri: Fully qualified url
+        :param params: Query string parameters
+        :param data: POST body data
+        :param headers: HTTP Headers
+        :param auth: Authentication
+        :param timeout: Timeout in seconds
+        :param allow_redirects: Should the client follow redirects
 
         :returns: Response from the Twilio API
         """
@@ -102,28 +102,28 @@ class ClientBase(object):
 
     async def request_async(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
     ) -> Response:
         """
         Asynchronously makes a request to the Twilio API  using the configured http client
         The configured http client must be an asynchronous http client
         Authentication information is automatically added if none is provided
 
-        :param str method: HTTP Method
-        :param str uri: Fully qualified url
-        :param dict[str, str] params: Query string parameters
-        :param dict[str, str] data: POST body data
-        :param dict[str, str] headers: HTTP Headers
-        :param tuple(str, str) auth: Authentication
-        :param int timeout: Timeout in seconds
-        :param bool allow_redirects: Should the client follow redirects
+        :param method: HTTP Method
+        :param uri: Fully qualified url
+        :param params: Query string parameters
+        :param data: POST body data
+        :param headers: HTTP Headers
+        :param auth: Authentication
+        :param timeout: Timeout in seconds
+        :param allow_redirects: Should the client follow redirects
 
         :returns: Response from the Twilio API
         """

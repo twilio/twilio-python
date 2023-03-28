@@ -1,16 +1,23 @@
-from twilio.base.exceptions import TwilioException
+from logging import Logger
+from typing import Any, Dict, Optional, Tuple
 from urllib.parse import urlencode
+
+from requests import Response
+
+from twilio.base.exceptions import TwilioException
+from twilio.http.request import Request as TwilioRequest
+from twilio.http.response import Response as TwilioResponse
 
 
 class HttpClient(object):
-    def __init__(self, logger, is_async, timeout=None):
+    def __init__(self, logger: Logger, is_async: bool, timeout: Optional[float] = None):
         """
         Constructor for the abstract HTTP client
 
         :param logger
-        :param bool is_async: Whether the client supports async request calls.
-        :param float timeout: Timeout for the requests.
-                              Timeout should never be zero (0) or less.
+        :param is_async: Whether the client supports async request calls.
+        :param timeout: Timeout for the requests.
+                        Timeout should never be zero (0) or less.
         """
         self.logger = logger
         self.is_async = is_async
@@ -19,8 +26,8 @@ class HttpClient(object):
             raise ValueError(timeout)
         self.timeout = timeout
 
-        self._test_only_last_request = None
-        self._test_only_last_response = None
+        self._test_only_last_request: Optional[TwilioRequest] = None
+        self._test_only_last_response: Optional[TwilioResponse] = None
 
     """
     An abstract class representing an HTTP client.
@@ -28,21 +35,21 @@ class HttpClient(object):
 
     def request(
         self,
-        method,
-        url,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> TwilioResponse:
         """
         Make an HTTP request.
         """
         raise TwilioException("HttpClient is an abstract class")
 
-    def log_request(self, kwargs):
+    def log_request(self, kwargs: Dict[str, Any]) -> None:
         """
         Logs the HTTP request
         """
@@ -67,7 +74,7 @@ class HttpClient(object):
 
         self.logger.info("-- END Twilio API Request --")
 
-    def log_response(self, status_code, response):
+    def log_response(self, status_code: int, response: Response) -> None:
         """
         Logs the HTTP response
         """
@@ -82,14 +89,15 @@ class AsyncHttpClient(HttpClient):
 
     async def request(
         self,
-        method,
-        url,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> TwilioResponse:
         """
         Make an asynchronous HTTP request.
         """

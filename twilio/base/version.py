@@ -1,8 +1,11 @@
 import json
+from typing import Any, AsyncIterator, Dict, Iterator, Optional, Tuple
 
 from twilio.base import values
 from twilio.base.domain import Domain
 from twilio.base.exceptions import TwilioRestException
+from twilio.base.page import Page
+from twilio.http.response import Response
 
 
 class Version(object):
@@ -14,13 +17,13 @@ class Version(object):
         self.domain = domain
         self.version = version
 
-    def absolute_url(self, uri):
+    def absolute_url(self, uri: str) -> str:
         """
         Turns a relative uri into an absolute url.
         """
         return self.domain.absolute_url(self.relative_uri(uri))
 
-    def relative_uri(self, uri):
+    def relative_uri(self, uri: str) -> str:
         """
         Turns a relative uri into a versioned relative uri.
         """
@@ -28,15 +31,15 @@ class Version(object):
 
     def request(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Response:
         """
         Make an HTTP request.
         """
@@ -54,15 +57,15 @@ class Version(object):
 
     async def request_async(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Response:
         """
         Make an asynchronous HTTP request
         """
@@ -79,7 +82,9 @@ class Version(object):
         )
 
     @classmethod
-    def exception(cls, method, uri, response, message):
+    def exception(
+        cls, method: str, uri: str, response: Response, message: str
+    ) -> TwilioRestException:
         """
         Wraps an exceptional response in a `TwilioRestException`.
         """
@@ -98,7 +103,7 @@ class Version(object):
                 response.status_code, uri, message, response.status_code, method
             )
 
-    def _parse_fetch(self, method, uri, response):
+    def _parse_fetch(self, method: str, uri: str, response: Response) -> Any:
         """
         Parses fetch response JSON
         """
@@ -110,15 +115,15 @@ class Version(object):
 
     def fetch(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Any:
         """
         Fetch a resource instance.
         """
@@ -137,15 +142,15 @@ class Version(object):
 
     async def fetch_async(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Any:
         """
         Asynchronously fetch a resource instance.
         """
@@ -162,7 +167,7 @@ class Version(object):
 
         return self._parse_fetch(method, uri, response)
 
-    def _parse_update(self, method, uri, response):
+    def _parse_update(self, method: str, uri: str, response: Response) -> Any:
         """
         Parses update response JSON
         """
@@ -173,15 +178,15 @@ class Version(object):
 
     def update(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Any:
         """
         Update a resource instance.
         """
@@ -200,15 +205,15 @@ class Version(object):
 
     async def update_async(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Any:
         """
         Asynchronously update a resource instance.
         """
@@ -225,7 +230,7 @@ class Version(object):
 
         return self._parse_update(method, uri, response)
 
-    def _parse_delete(self, method, uri, response):
+    def _parse_delete(self, method: str, uri: str, response: Response) -> bool:
         """
         Parses delete response JSON
         """
@@ -236,15 +241,15 @@ class Version(object):
 
     def delete(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> bool:
         """
         Delete a resource.
         """
@@ -263,15 +268,15 @@ class Version(object):
 
     async def delete_async(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> bool:
         """
         Asynchronously delete a resource.
         """
@@ -288,14 +293,16 @@ class Version(object):
 
         return self._parse_delete(method, uri, response)
 
-    def read_limits(self, limit=None, page_size=None):
+    def read_limits(
+        self, limit: Optional[int] = None, page_size: Optional[int] = None
+    ) -> Dict[str, object]:
         """
         Takes a limit on the max number of records to read and a max page_size
         and calculates the max number of pages to read.
 
-        :param int limit: Max number of records to read.
-        :param int page_size: Max page size.
-        :return dict: A dictionary of paging limits.
+        :param limit: Max number of records to read.
+        :param page_size: Max page size.
+        :return A dictionary of paging limits.
         """
         if limit is not None and page_size is None:
             page_size = limit
@@ -307,15 +314,15 @@ class Version(object):
 
     def page(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Response:
         """
         Makes an HTTP request.
         """
@@ -332,15 +339,15 @@ class Version(object):
 
     async def page_async(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Response:
         """
         Makes an asynchronous HTTP request.
         """
@@ -355,13 +362,18 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
 
-    def stream(self, page, limit=None, page_limit=None):
+    def stream(
+        self,
+        page: Optional[Page],
+        limit: Optional[int] = None,
+        page_limit: Optional[int] = None,
+    ) -> Iterator[Any]:
         """
         Generates records one a time from a page, stopping at prescribed limits.
 
-        :param Page page: The page to stream.
-        :param int limit: The max number of records to read.
-        :param int page_limit: The max number of pages to read.
+        :param page: The page to stream.
+        :param limit: The max number of records to read.
+        :param page_limit: The max number of pages to read.
         """
         current_record = 1
         current_page = 1
@@ -383,13 +395,18 @@ class Version(object):
 
             page = page.next_page()
 
-    async def stream_async(self, page, limit=None, page_limit=None):
+    async def stream_async(
+        self,
+        page: Optional[Page],
+        limit: Optional[int] = None,
+        page_limit: Optional[int] = None,
+    ) -> AsyncIterator[Any]:
         """
         Generates records one a time from a page, stopping at prescribed limits.
 
-        :param Page page: The page to stream.
-        :param int limit: The max number of records to read.
-        :param int page_limit: The max number of pages to read.
+        :param page: The page to stream.
+        :param limit: The max number of records to read.
+        :param page_limit: The max number of pages to read.
         """
         current_record = 1
         current_page = 1
@@ -411,7 +428,7 @@ class Version(object):
 
             page = await page.next_page_async()
 
-    def _parse_create(self, method, uri, response):
+    def _parse_create(self, method: str, uri: str, response: Response) -> Any:
         """
         Parse create response JSON
         """
@@ -422,15 +439,15 @@ class Version(object):
 
     def create(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Any:
         """
         Create a resource instance.
         """
@@ -449,15 +466,15 @@ class Version(object):
 
     async def create_async(
         self,
-        method,
-        uri,
-        params=None,
-        data=None,
-        headers=None,
-        auth=None,
-        timeout=None,
-        allow_redirects=False,
-    ):
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Any:
         """
         Asynchronously create a resource instance.
         """

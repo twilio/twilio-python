@@ -1,6 +1,8 @@
 import json
+from typing import Any, Dict, Optional
 
 from twilio.base.exceptions import TwilioException
+from twilio.http.response import Response
 
 
 class Page(object):
@@ -25,7 +27,7 @@ class Page(object):
         "uri",
     }
 
-    def __init__(self, version, response, solution={}):
+    def __init__(self, version, response: Response, solution={}):
         payload = self.process_response(response)
 
         self._version = version
@@ -49,23 +51,23 @@ class Page(object):
         return self.get_instance(next(self._records))
 
     @classmethod
-    def process_response(cls, response):
+    def process_response(cls, response: Response) -> Any:
         """
         Load a JSON response.
 
-        :param Response response: The HTTP response.
-        :return dict: The JSON-loaded content.
+        :param response: The HTTP response.
+        :return The JSON-loaded content.
         """
         if response.status_code != 200:
             raise TwilioException("Unable to fetch page", response)
 
         return json.loads(response.text)
 
-    def load_page(self, payload):
+    def load_page(self, payload: Dict[str, Any]):
         """
         Parses the collection of records out of a list payload.
 
-        :param dict payload: The JSON-loaded content.
+        :param payload: The JSON-loaded content.
         :return list: The list of records.
         """
         if "meta" in payload and "key" in payload["meta"]:
@@ -79,7 +81,7 @@ class Page(object):
         raise TwilioException("Page Records can not be deserialized")
 
     @property
-    def previous_page_url(self):
+    def previous_page_url(self) -> Optional[str]:
         """
         :return str: Returns a link to the previous_page_url or None if doesn't exist.
         """
@@ -93,7 +95,7 @@ class Page(object):
         return None
 
     @property
-    def next_page_url(self):
+    def next_page_url(self) -> Optional[str]:
         """
         :return str: Returns a link to the next_page_url or None if doesn't exist.
         """
@@ -104,7 +106,7 @@ class Page(object):
 
         return None
 
-    def get_instance(self, payload):
+    def get_instance(self, payload: Dict[str, Any]) -> Any:
         """
         :param dict payload: A JSON-loaded representation of an instance record.
         :return: A rich, resource-dependent object.
@@ -113,10 +115,10 @@ class Page(object):
             "Page.get_instance() must be implemented in the derived class"
         )
 
-    def next_page(self):
+    def next_page(self) -> Optional["Page"]:
         """
         Return the `Page` after this one.
-        :return Page: The next page.
+        :return The next page.
         """
         if not self.next_page_url:
             return None
@@ -125,10 +127,10 @@ class Page(object):
         cls = type(self)
         return cls(self._version, response, self._solution)
 
-    async def next_page_async(self):
+    async def next_page_async(self) -> Optional["Page"]:
         """
         Asynchronously return the `Page` after this one.
-        :return Page: The next page.
+        :return The next page.
         """
         if not self.next_page_url:
             return None
@@ -139,10 +141,10 @@ class Page(object):
         cls = type(self)
         return cls(self._version, response, self._solution)
 
-    def previous_page(self):
+    def previous_page(self) -> Optional["Page"]:
         """
         Return the `Page` before this one.
-        :return Page: The previous page.
+        :return The previous page.
         """
         if not self.previous_page_url:
             return None
@@ -151,10 +153,10 @@ class Page(object):
         cls = type(self)
         return cls(self._version, response, self._solution)
 
-    async def previous_page_async(self):
+    async def previous_page_async(self) -> Optional["Page"]:
         """
         Asynchronously return the `Page` before this one.
-        :return Page: The previous page.
+        :return The previous page.
         """
         if not self.previous_page_url:
             return None
@@ -165,5 +167,5 @@ class Page(object):
         cls = type(self)
         return cls(self._version, response, self._solution)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<Page>"
