@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -118,7 +118,7 @@ class UsageRecordList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[UsageRecordInstance]:
+    ) -> Iterator[UsageRecordInstance]:
         """
         Streams UsageRecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -169,7 +169,7 @@ class UsageRecordList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[UsageRecordInstance]:
+    ) -> AsyncIterator[UsageRecordInstance]:
         """
         Asynchronously streams UsageRecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -206,7 +206,7 @@ class UsageRecordList(ListResource):
             page_size=limits["page_size"],
         )
 
-        return await self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits["limit"])
 
     def list(
         self,
@@ -241,7 +241,7 @@ class UsageRecordList(ListResource):
                           but a limit is defined, list() will attempt to read the limit
                           with the most efficient page size, i.e. min(limit, 1000)
 
-        :returns: Generator that will yield up to limit results
+        :returns: list that will contain up to limit results
         """
         return list(
             self.stream(
@@ -291,10 +291,11 @@ class UsageRecordList(ListResource):
                           but a limit is defined, list() will attempt to read the limit
                           with the most efficient page size, i.e. min(limit, 1000)
 
-        :returns: Generator that will yield up to limit results
+        :returns: list that will contain up to limit results
         """
-        return list(
-            await self.stream_async(
+        return [
+            record
+            async for record in await self.stream_async(
                 sim=sim,
                 fleet=fleet,
                 network=network,
@@ -306,7 +307,7 @@ class UsageRecordList(ListResource):
                 limit=limit,
                 page_size=page_size,
             )
-        )
+        ]
 
     def page(
         self,

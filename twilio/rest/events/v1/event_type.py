@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -199,7 +199,7 @@ class EventTypeList(ListResource):
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[EventTypeInstance]:
+    ) -> Iterator[EventTypeInstance]:
         """
         Streams EventTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -226,7 +226,7 @@ class EventTypeList(ListResource):
         schema_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[EventTypeInstance]:
+    ) -> AsyncIterator[EventTypeInstance]:
         """
         Asynchronously streams EventTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -246,7 +246,7 @@ class EventTypeList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(schema_id=schema_id, page_size=limits["page_size"])
 
-        return await self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits["limit"])
 
     def list(
         self,
@@ -267,7 +267,7 @@ class EventTypeList(ListResource):
                           but a limit is defined, list() will attempt to read the limit
                           with the most efficient page size, i.e. min(limit, 1000)
 
-        :returns: Generator that will yield up to limit results
+        :returns: list that will contain up to limit results
         """
         return list(
             self.stream(
@@ -296,15 +296,16 @@ class EventTypeList(ListResource):
                           but a limit is defined, list() will attempt to read the limit
                           with the most efficient page size, i.e. min(limit, 1000)
 
-        :returns: Generator that will yield up to limit results
+        :returns: list that will contain up to limit results
         """
-        return list(
-            await self.stream_async(
+        return [
+            record
+            async for record in await self.stream_async(
                 schema_id=schema_id,
                 limit=limit,
                 page_size=page_size,
             )
-        )
+        ]
 
     def page(
         self,

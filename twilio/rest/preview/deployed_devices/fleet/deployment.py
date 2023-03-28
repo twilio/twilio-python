@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -421,7 +421,7 @@ class DeploymentList(ListResource):
         self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[DeploymentInstance]:
+    ) -> Iterator[DeploymentInstance]:
         """
         Streams DeploymentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -446,7 +446,7 @@ class DeploymentList(ListResource):
         self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[DeploymentInstance]:
+    ) -> AsyncIterator[DeploymentInstance]:
         """
         Asynchronously streams DeploymentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -465,7 +465,7 @@ class DeploymentList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(page_size=limits["page_size"])
 
-        return await self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits["limit"])
 
     def list(
         self,
@@ -484,7 +484,7 @@ class DeploymentList(ListResource):
                           but a limit is defined, list() will attempt to read the limit
                           with the most efficient page size, i.e. min(limit, 1000)
 
-        :returns: Generator that will yield up to limit results
+        :returns: list that will contain up to limit results
         """
         return list(
             self.stream(
@@ -510,14 +510,15 @@ class DeploymentList(ListResource):
                           but a limit is defined, list() will attempt to read the limit
                           with the most efficient page size, i.e. min(limit, 1000)
 
-        :returns: Generator that will yield up to limit results
+        :returns: list that will contain up to limit results
         """
-        return list(
-            await self.stream_async(
+        return [
+            record
+            async for record in await self.stream_async(
                 limit=limit,
                 page_size=page_size,
             )
-        )
+        ]
 
     def page(
         self,
