@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -55,15 +55,19 @@ class FlowValidateList(ListResource):
         self._uri = "/Flows/Validate"
 
     def update(
-        self, friendly_name, status, definition, commit_message=values.unset
+        self,
+        friendly_name: str,
+        status: "FlowValidateInstance.Status",
+        definition: object,
+        commit_message: Union[str, object] = values.unset,
     ) -> FlowValidateInstance:
         """
         Update the FlowValidateInstance
 
-        :param str friendly_name: The string that you assigned to describe the Flow.
-        :param &quot;FlowValidateInstance.Status&quot; status:
-        :param object definition: JSON representation of flow definition.
-        :param str commit_message: Description of change made in the revision.
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param status:
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
 
         :returns: The created FlowValidateInstance
         """
@@ -85,15 +89,19 @@ class FlowValidateList(ListResource):
         return FlowValidateInstance(self._version, payload)
 
     async def update_async(
-        self, friendly_name, status, definition, commit_message=values.unset
+        self,
+        friendly_name: str,
+        status: "FlowValidateInstance.Status",
+        definition: object,
+        commit_message: Union[str, object] = values.unset,
     ) -> FlowValidateInstance:
         """
         Asynchronously update the FlowValidateInstance
 
-        :param str friendly_name: The string that you assigned to describe the Flow.
-        :param &quot;FlowValidateInstance.Status&quot; status:
-        :param object definition: JSON representation of flow definition.
-        :param str commit_message: Description of change made in the revision.
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param status:
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
 
         :returns: The created FlowValidateInstance
         """

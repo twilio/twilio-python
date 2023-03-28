@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -225,11 +225,13 @@ class CustomerProfilesEntityAssignmentsContext(InstanceContext):
 
 
 class CustomerProfilesEntityAssignmentsPage(Page):
-    def get_instance(self, payload) -> CustomerProfilesEntityAssignmentsInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> CustomerProfilesEntityAssignmentsInstance:
         """
         Build an instance of CustomerProfilesEntityAssignmentsInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CustomerProfilesEntityAssignmentsInstance(
             self._version,
@@ -265,11 +267,11 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
             **self._solution
         )
 
-    def create(self, object_sid) -> CustomerProfilesEntityAssignmentsInstance:
+    def create(self, object_sid: str) -> CustomerProfilesEntityAssignmentsInstance:
         """
         Create the CustomerProfilesEntityAssignmentsInstance
 
-        :param str object_sid: The SID of an object bag that holds information of the different items.
+        :param object_sid: The SID of an object bag that holds information of the different items.
 
         :returns: The created CustomerProfilesEntityAssignmentsInstance
         """
@@ -292,12 +294,12 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         )
 
     async def create_async(
-        self, object_sid
+        self, object_sid: str
     ) -> CustomerProfilesEntityAssignmentsInstance:
         """
         Asynchronously create the CustomerProfilesEntityAssignmentsInstance
 
-        :param str object_sid: The SID of an object bag that holds information of the different items.
+        :param object_sid: The SID of an object bag that holds information of the different items.
 
         :returns: The created CustomerProfilesEntityAssignmentsInstance
         """
@@ -320,7 +322,9 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         )
 
     def stream(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesEntityAssignmentsInstance]:
         """
         Streams CustomerProfilesEntityAssignmentsInstance records from the API as a generator stream.
@@ -328,12 +332,12 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -343,7 +347,9 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesEntityAssignmentsInstance]:
         """
         Asynchronously streams CustomerProfilesEntityAssignmentsInstance records from the API as a generator stream.
@@ -351,12 +357,12 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -366,19 +372,21 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesEntityAssignmentsInstance]:
         """
         Lists CustomerProfilesEntityAssignmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -390,19 +398,21 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesEntityAssignmentsInstance]:
         """
         Asynchronously lists CustomerProfilesEntityAssignmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -414,15 +424,18 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CustomerProfilesEntityAssignmentsPage:
         """
         Retrieve a single page of CustomerProfilesEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         """
@@ -440,15 +453,18 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         )
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CustomerProfilesEntityAssignmentsPage:
         """
         Asynchronously retrieve a single page of CustomerProfilesEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         """
@@ -467,12 +483,12 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
             self._version, response, self._solution
         )
 
-    def get_page(self, target_url) -> CustomerProfilesEntityAssignmentsPage:
+    def get_page(self, target_url: str) -> CustomerProfilesEntityAssignmentsPage:
         """
         Retrieve a specific page of CustomerProfilesEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         """
@@ -481,12 +497,14 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
             self._version, response, self._solution
         )
 
-    async def get_page_async(self, target_url) -> CustomerProfilesEntityAssignmentsPage:
+    async def get_page_async(
+        self, target_url: str
+    ) -> CustomerProfilesEntityAssignmentsPage:
         """
         Asynchronously retrieve a specific page of CustomerProfilesEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         """
@@ -495,7 +513,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
             self._version, response, self._solution
         )
 
-    def get(self, sid) -> CustomerProfilesEntityAssignmentsContext:
+    def get(self, sid: str) -> CustomerProfilesEntityAssignmentsContext:
         """
         Constructs a CustomerProfilesEntityAssignmentsContext
 
@@ -507,7 +525,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> CustomerProfilesEntityAssignmentsContext:
+    def __call__(self, sid: str) -> CustomerProfilesEntityAssignmentsContext:
         """
         Constructs a CustomerProfilesEntityAssignmentsContext
 

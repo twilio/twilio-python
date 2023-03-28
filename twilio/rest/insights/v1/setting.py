@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -54,11 +54,13 @@ class SettingInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, subaccount_sid=values.unset) -> "SettingInstance":
+    def fetch(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> "SettingInstance":
         """
         Fetch the SettingInstance
 
-        :param str subaccount_sid:
+        :param subaccount_sid:
 
         :returns: The fetched SettingInstance
         """
@@ -66,11 +68,13 @@ class SettingInstance(InstanceResource):
             subaccount_sid=subaccount_sid,
         )
 
-    async def fetch_async(self, subaccount_sid=values.unset) -> "SettingInstance":
+    async def fetch_async(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> "SettingInstance":
         """
         Asynchronous coroutine to fetch the SettingInstance
 
-        :param str subaccount_sid:
+        :param subaccount_sid:
 
         :returns: The fetched SettingInstance
         """
@@ -80,16 +84,16 @@ class SettingInstance(InstanceResource):
 
     def update(
         self,
-        advanced_features=values.unset,
-        voice_trace=values.unset,
-        subaccount_sid=values.unset,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
     ) -> "SettingInstance":
         """
         Update the SettingInstance
 
-        :param bool advanced_features:
-        :param bool voice_trace:
-        :param str subaccount_sid:
+        :param advanced_features:
+        :param voice_trace:
+        :param subaccount_sid:
 
         :returns: The updated SettingInstance
         """
@@ -101,16 +105,16 @@ class SettingInstance(InstanceResource):
 
     async def update_async(
         self,
-        advanced_features=values.unset,
-        voice_trace=values.unset,
-        subaccount_sid=values.unset,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
     ) -> "SettingInstance":
         """
         Asynchronous coroutine to update the SettingInstance
 
-        :param bool advanced_features:
-        :param bool voice_trace:
-        :param str subaccount_sid:
+        :param advanced_features:
+        :param voice_trace:
+        :param subaccount_sid:
 
         :returns: The updated SettingInstance
         """
@@ -141,11 +145,13 @@ class SettingContext(InstanceContext):
 
         self._uri = "/Voice/Settings"
 
-    def fetch(self, subaccount_sid=values.unset) -> SettingInstance:
+    def fetch(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> SettingInstance:
         """
         Fetch the SettingInstance
 
-        :param str subaccount_sid:
+        :param subaccount_sid:
 
         :returns: The fetched SettingInstance
         """
@@ -163,11 +169,13 @@ class SettingContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self, subaccount_sid=values.unset) -> SettingInstance:
+    async def fetch_async(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> SettingInstance:
         """
         Asynchronous coroutine to fetch the SettingInstance
 
-        :param str subaccount_sid:
+        :param subaccount_sid:
 
         :returns: The fetched SettingInstance
         """
@@ -189,16 +197,16 @@ class SettingContext(InstanceContext):
 
     def update(
         self,
-        advanced_features=values.unset,
-        voice_trace=values.unset,
-        subaccount_sid=values.unset,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
     ) -> SettingInstance:
         """
         Update the SettingInstance
 
-        :param bool advanced_features:
-        :param bool voice_trace:
-        :param str subaccount_sid:
+        :param advanced_features:
+        :param voice_trace:
+        :param subaccount_sid:
 
         :returns: The updated SettingInstance
         """
@@ -220,16 +228,16 @@ class SettingContext(InstanceContext):
 
     async def update_async(
         self,
-        advanced_features=values.unset,
-        voice_trace=values.unset,
-        subaccount_sid=values.unset,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
     ) -> SettingInstance:
         """
         Asynchronous coroutine to update the SettingInstance
 
-        :param bool advanced_features:
-        :param bool voice_trace:
-        :param str subaccount_sid:
+        :param advanced_features:
+        :param voice_trace:
+        :param subaccount_sid:
 
         :returns: The updated SettingInstance
         """

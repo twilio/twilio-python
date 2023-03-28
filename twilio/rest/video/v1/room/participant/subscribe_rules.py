@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -119,11 +119,13 @@ class SubscribeRulesList(ListResource):
             participant_sid=self._solution["participant_sid"],
         )
 
-    def update(self, rules=values.unset) -> SubscribeRulesInstance:
+    def update(
+        self, rules: Union[object, object] = values.unset
+    ) -> SubscribeRulesInstance:
         """
         Update the SubscribeRulesInstance
 
-        :param object rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+        :param rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 
         :returns: The created SubscribeRulesInstance
         """
@@ -146,11 +148,13 @@ class SubscribeRulesList(ListResource):
             participant_sid=self._solution["participant_sid"],
         )
 
-    async def update_async(self, rules=values.unset) -> SubscribeRulesInstance:
+    async def update_async(
+        self, rules: Union[object, object] = values.unset
+    ) -> SubscribeRulesInstance:
         """
         Asynchronously update the SubscribeRulesInstance
 
-        :param object rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+        :param rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 
         :returns: The created SubscribeRulesInstance
         """

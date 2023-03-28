@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -125,42 +125,42 @@ class SimInstance(InstanceResource):
 
     def update(
         self,
-        unique_name=values.unset,
-        callback_method=values.unset,
-        callback_url=values.unset,
-        friendly_name=values.unset,
-        rate_plan=values.unset,
-        status=values.unset,
-        commands_callback_method=values.unset,
-        commands_callback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_method=values.unset,
-        sms_url=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_url=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
     ) -> "SimInstance":
         """
         Update the SimInstance
 
-        :param str unique_name:
-        :param str callback_method:
-        :param str callback_url:
-        :param str friendly_name:
-        :param str rate_plan:
-        :param str status:
-        :param str commands_callback_method:
-        :param str commands_callback_url:
-        :param str sms_fallback_method:
-        :param str sms_fallback_url:
-        :param str sms_method:
-        :param str sms_url:
-        :param str voice_fallback_method:
-        :param str voice_fallback_url:
-        :param str voice_method:
-        :param str voice_url:
+        :param unique_name:
+        :param callback_method:
+        :param callback_url:
+        :param friendly_name:
+        :param rate_plan:
+        :param status:
+        :param commands_callback_method:
+        :param commands_callback_url:
+        :param sms_fallback_method:
+        :param sms_fallback_url:
+        :param sms_method:
+        :param sms_url:
+        :param voice_fallback_method:
+        :param voice_fallback_url:
+        :param voice_method:
+        :param voice_url:
 
         :returns: The updated SimInstance
         """
@@ -185,42 +185,42 @@ class SimInstance(InstanceResource):
 
     async def update_async(
         self,
-        unique_name=values.unset,
-        callback_method=values.unset,
-        callback_url=values.unset,
-        friendly_name=values.unset,
-        rate_plan=values.unset,
-        status=values.unset,
-        commands_callback_method=values.unset,
-        commands_callback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_method=values.unset,
-        sms_url=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_url=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
     ) -> "SimInstance":
         """
         Asynchronous coroutine to update the SimInstance
 
-        :param str unique_name:
-        :param str callback_method:
-        :param str callback_url:
-        :param str friendly_name:
-        :param str rate_plan:
-        :param str status:
-        :param str commands_callback_method:
-        :param str commands_callback_url:
-        :param str sms_fallback_method:
-        :param str sms_fallback_url:
-        :param str sms_method:
-        :param str sms_url:
-        :param str voice_fallback_method:
-        :param str voice_fallback_url:
-        :param str voice_method:
-        :param str voice_url:
+        :param unique_name:
+        :param callback_method:
+        :param callback_url:
+        :param friendly_name:
+        :param rate_plan:
+        :param status:
+        :param commands_callback_method:
+        :param commands_callback_url:
+        :param sms_fallback_method:
+        :param sms_fallback_url:
+        :param sms_method:
+        :param sms_url:
+        :param voice_fallback_method:
+        :param voice_fallback_url:
+        :param voice_method:
+        :param voice_url:
 
         :returns: The updated SimInstance
         """
@@ -318,42 +318,42 @@ class SimContext(InstanceContext):
 
     def update(
         self,
-        unique_name=values.unset,
-        callback_method=values.unset,
-        callback_url=values.unset,
-        friendly_name=values.unset,
-        rate_plan=values.unset,
-        status=values.unset,
-        commands_callback_method=values.unset,
-        commands_callback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_method=values.unset,
-        sms_url=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_url=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
     ) -> SimInstance:
         """
         Update the SimInstance
 
-        :param str unique_name:
-        :param str callback_method:
-        :param str callback_url:
-        :param str friendly_name:
-        :param str rate_plan:
-        :param str status:
-        :param str commands_callback_method:
-        :param str commands_callback_url:
-        :param str sms_fallback_method:
-        :param str sms_fallback_url:
-        :param str sms_method:
-        :param str sms_url:
-        :param str voice_fallback_method:
-        :param str voice_fallback_url:
-        :param str voice_method:
-        :param str voice_url:
+        :param unique_name:
+        :param callback_method:
+        :param callback_url:
+        :param friendly_name:
+        :param rate_plan:
+        :param status:
+        :param commands_callback_method:
+        :param commands_callback_url:
+        :param sms_fallback_method:
+        :param sms_fallback_url:
+        :param sms_method:
+        :param sms_url:
+        :param voice_fallback_method:
+        :param voice_fallback_url:
+        :param voice_method:
+        :param voice_url:
 
         :returns: The updated SimInstance
         """
@@ -388,42 +388,42 @@ class SimContext(InstanceContext):
 
     async def update_async(
         self,
-        unique_name=values.unset,
-        callback_method=values.unset,
-        callback_url=values.unset,
-        friendly_name=values.unset,
-        rate_plan=values.unset,
-        status=values.unset,
-        commands_callback_method=values.unset,
-        commands_callback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_method=values.unset,
-        sms_url=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_url=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
     ) -> SimInstance:
         """
         Asynchronous coroutine to update the SimInstance
 
-        :param str unique_name:
-        :param str callback_method:
-        :param str callback_url:
-        :param str friendly_name:
-        :param str rate_plan:
-        :param str status:
-        :param str commands_callback_method:
-        :param str commands_callback_url:
-        :param str sms_fallback_method:
-        :param str sms_fallback_url:
-        :param str sms_method:
-        :param str sms_url:
-        :param str voice_fallback_method:
-        :param str voice_fallback_url:
-        :param str voice_method:
-        :param str voice_url:
+        :param unique_name:
+        :param callback_method:
+        :param callback_url:
+        :param friendly_name:
+        :param rate_plan:
+        :param status:
+        :param commands_callback_method:
+        :param commands_callback_url:
+        :param sms_fallback_method:
+        :param sms_fallback_url:
+        :param sms_method:
+        :param sms_url:
+        :param voice_fallback_method:
+        :param voice_fallback_url:
+        :param voice_method:
+        :param voice_url:
 
         :returns: The updated SimInstance
         """
@@ -479,11 +479,11 @@ class SimContext(InstanceContext):
 
 
 class SimPage(Page):
-    def get_instance(self, payload) -> SimInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SimInstance:
         """
         Build an instance of SimInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SimInstance(self._version, payload)
 
@@ -510,13 +510,13 @@ class SimList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SimInstance]:
         """
         Streams SimInstance records from the API as a generator stream.
@@ -529,12 +529,12 @@ class SimList(ListResource):
         :param str rate_plan:
         :param str e_id:
         :param str sim_registration_code:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -552,13 +552,13 @@ class SimList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SimInstance]:
         """
         Asynchronously streams SimInstance records from the API as a generator stream.
@@ -571,12 +571,12 @@ class SimList(ListResource):
         :param str rate_plan:
         :param str e_id:
         :param str sim_registration_code:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -594,13 +594,13 @@ class SimList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SimInstance]:
         """
         Lists SimInstance records from the API as a list.
@@ -612,12 +612,12 @@ class SimList(ListResource):
         :param str rate_plan:
         :param str e_id:
         :param str sim_registration_code:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -635,13 +635,13 @@ class SimList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SimInstance]:
         """
         Asynchronously lists SimInstance records from the API as a list.
@@ -653,12 +653,12 @@ class SimList(ListResource):
         :param str rate_plan:
         :param str e_id:
         :param str sim_registration_code:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -676,27 +676,27 @@ class SimList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SimPage:
         """
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
 
-        :param str status:
-        :param str iccid:
-        :param str rate_plan:
-        :param str e_id:
-        :param str sim_registration_code:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status:
+        :param iccid:
+        :param rate_plan:
+        :param e_id:
+        :param sim_registration_code:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SimInstance
         """
@@ -718,27 +718,27 @@ class SimList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SimPage:
         """
         Asynchronously retrieve a single page of SimInstance records from the API.
         Request is executed immediately
 
-        :param str status:
-        :param str iccid:
-        :param str rate_plan:
-        :param str e_id:
-        :param str sim_registration_code:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status:
+        :param iccid:
+        :param rate_plan:
+        :param e_id:
+        :param sim_registration_code:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SimInstance
         """
@@ -760,31 +760,31 @@ class SimList(ListResource):
         )
         return SimPage(self._version, response)
 
-    def get_page(self, target_url) -> SimPage:
+    def get_page(self, target_url: str) -> SimPage:
         """
         Retrieve a specific page of SimInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SimInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SimPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> SimPage:
+    async def get_page_async(self, target_url: str) -> SimPage:
         """
         Asynchronously retrieve a specific page of SimInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SimInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SimPage(self._version, response)
 
-    def get(self, sid) -> SimContext:
+    def get(self, sid: str) -> SimContext:
         """
         Constructs a SimContext
 
@@ -792,7 +792,7 @@ class SimList(ListResource):
         """
         return SimContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> SimContext:
+    def __call__(self, sid: str) -> SimContext:
         """
         Constructs a SimContext
 

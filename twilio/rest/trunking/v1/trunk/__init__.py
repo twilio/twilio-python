@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -149,26 +149,28 @@ class TrunkInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        domain_name=values.unset,
-        disaster_recovery_url=values.unset,
-        disaster_recovery_method=values.unset,
-        transfer_mode=values.unset,
-        secure=values.unset,
-        cnam_lookup_enabled=values.unset,
-        transfer_caller_id=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        disaster_recovery_url: Union[str, object] = values.unset,
+        disaster_recovery_method: Union[str, object] = values.unset,
+        transfer_mode: Union["TrunkInstance.TransferSetting", object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        cnam_lookup_enabled: Union[bool, object] = values.unset,
+        transfer_caller_id: Union[
+            "TrunkInstance.TransferCallerId", object
+        ] = values.unset,
     ) -> "TrunkInstance":
         """
         Update the TrunkInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-        :param str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-        :param str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :param "TrunkInstance.TransferSetting" transfer_mode:
-        :param bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :param "TrunkInstance.TransferCallerId" transfer_caller_id:
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+        :param disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+        :param disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
+        :param transfer_mode:
+        :param secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+        :param cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :param transfer_caller_id:
 
         :returns: The updated TrunkInstance
         """
@@ -185,26 +187,28 @@ class TrunkInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        domain_name=values.unset,
-        disaster_recovery_url=values.unset,
-        disaster_recovery_method=values.unset,
-        transfer_mode=values.unset,
-        secure=values.unset,
-        cnam_lookup_enabled=values.unset,
-        transfer_caller_id=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        disaster_recovery_url: Union[str, object] = values.unset,
+        disaster_recovery_method: Union[str, object] = values.unset,
+        transfer_mode: Union["TrunkInstance.TransferSetting", object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        cnam_lookup_enabled: Union[bool, object] = values.unset,
+        transfer_caller_id: Union[
+            "TrunkInstance.TransferCallerId", object
+        ] = values.unset,
     ) -> "TrunkInstance":
         """
         Asynchronous coroutine to update the TrunkInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-        :param str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-        :param str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :param "TrunkInstance.TransferSetting" transfer_mode:
-        :param bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :param "TrunkInstance.TransferCallerId" transfer_caller_id:
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+        :param disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+        :param disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
+        :param transfer_mode:
+        :param secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+        :param cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :param transfer_caller_id:
 
         :returns: The updated TrunkInstance
         """
@@ -350,26 +354,28 @@ class TrunkContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        domain_name=values.unset,
-        disaster_recovery_url=values.unset,
-        disaster_recovery_method=values.unset,
-        transfer_mode=values.unset,
-        secure=values.unset,
-        cnam_lookup_enabled=values.unset,
-        transfer_caller_id=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        disaster_recovery_url: Union[str, object] = values.unset,
+        disaster_recovery_method: Union[str, object] = values.unset,
+        transfer_mode: Union["TrunkInstance.TransferSetting", object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        cnam_lookup_enabled: Union[bool, object] = values.unset,
+        transfer_caller_id: Union[
+            "TrunkInstance.TransferCallerId", object
+        ] = values.unset,
     ) -> TrunkInstance:
         """
         Update the TrunkInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-        :param str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-        :param str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :param "TrunkInstance.TransferSetting" transfer_mode:
-        :param bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :param "TrunkInstance.TransferCallerId" transfer_caller_id:
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+        :param disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+        :param disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
+        :param transfer_mode:
+        :param secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+        :param cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :param transfer_caller_id:
 
         :returns: The updated TrunkInstance
         """
@@ -396,26 +402,28 @@ class TrunkContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        domain_name=values.unset,
-        disaster_recovery_url=values.unset,
-        disaster_recovery_method=values.unset,
-        transfer_mode=values.unset,
-        secure=values.unset,
-        cnam_lookup_enabled=values.unset,
-        transfer_caller_id=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        disaster_recovery_url: Union[str, object] = values.unset,
+        disaster_recovery_method: Union[str, object] = values.unset,
+        transfer_mode: Union["TrunkInstance.TransferSetting", object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        cnam_lookup_enabled: Union[bool, object] = values.unset,
+        transfer_caller_id: Union[
+            "TrunkInstance.TransferCallerId", object
+        ] = values.unset,
     ) -> TrunkInstance:
         """
         Asynchronous coroutine to update the TrunkInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-        :param str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-        :param str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :param "TrunkInstance.TransferSetting" transfer_mode:
-        :param bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :param "TrunkInstance.TransferCallerId" transfer_caller_id:
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+        :param disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+        :param disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
+        :param transfer_mode:
+        :param secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+        :param cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :param transfer_caller_id:
 
         :returns: The updated TrunkInstance
         """
@@ -511,11 +519,11 @@ class TrunkContext(InstanceContext):
 
 
 class TrunkPage(Page):
-    def get_instance(self, payload) -> TrunkInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> TrunkInstance:
         """
         Build an instance of TrunkInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return TrunkInstance(self._version, payload)
 
@@ -542,26 +550,28 @@ class TrunkList(ListResource):
 
     def create(
         self,
-        friendly_name=values.unset,
-        domain_name=values.unset,
-        disaster_recovery_url=values.unset,
-        disaster_recovery_method=values.unset,
-        transfer_mode=values.unset,
-        secure=values.unset,
-        cnam_lookup_enabled=values.unset,
-        transfer_caller_id=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        disaster_recovery_url: Union[str, object] = values.unset,
+        disaster_recovery_method: Union[str, object] = values.unset,
+        transfer_mode: Union["TrunkInstance.TransferSetting", object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        cnam_lookup_enabled: Union[bool, object] = values.unset,
+        transfer_caller_id: Union[
+            "TrunkInstance.TransferCallerId", object
+        ] = values.unset,
     ) -> TrunkInstance:
         """
         Create the TrunkInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-        :param str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-        :param str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :param &quot;TrunkInstance.TransferSetting&quot; transfer_mode:
-        :param bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :param &quot;TrunkInstance.TransferCallerId&quot; transfer_caller_id:
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+        :param disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+        :param disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
+        :param transfer_mode:
+        :param secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+        :param cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :param transfer_caller_id:
 
         :returns: The created TrunkInstance
         """
@@ -588,26 +598,28 @@ class TrunkList(ListResource):
 
     async def create_async(
         self,
-        friendly_name=values.unset,
-        domain_name=values.unset,
-        disaster_recovery_url=values.unset,
-        disaster_recovery_method=values.unset,
-        transfer_mode=values.unset,
-        secure=values.unset,
-        cnam_lookup_enabled=values.unset,
-        transfer_caller_id=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        disaster_recovery_url: Union[str, object] = values.unset,
+        disaster_recovery_method: Union[str, object] = values.unset,
+        transfer_mode: Union["TrunkInstance.TransferSetting", object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        cnam_lookup_enabled: Union[bool, object] = values.unset,
+        transfer_caller_id: Union[
+            "TrunkInstance.TransferCallerId", object
+        ] = values.unset,
     ) -> TrunkInstance:
         """
         Asynchronously create the TrunkInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-        :param str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-        :param str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :param &quot;TrunkInstance.TransferSetting&quot; transfer_mode:
-        :param bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :param &quot;TrunkInstance.TransferCallerId&quot; transfer_caller_id:
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+        :param disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+        :param disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
+        :param transfer_mode:
+        :param secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+        :param cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :param transfer_caller_id:
 
         :returns: The created TrunkInstance
         """
@@ -632,19 +644,23 @@ class TrunkList(ListResource):
 
         return TrunkInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[TrunkInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[TrunkInstance]:
         """
         Streams TrunkInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -653,19 +669,23 @@ class TrunkList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[TrunkInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[TrunkInstance]:
         """
         Asynchronously streams TrunkInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -674,18 +694,22 @@ class TrunkList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[TrunkInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[TrunkInstance]:
         """
         Lists TrunkInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -696,18 +720,22 @@ class TrunkList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[TrunkInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[TrunkInstance]:
         """
         Asynchronously lists TrunkInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -719,15 +747,18 @@ class TrunkList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> TrunkPage:
         """
         Retrieve a single page of TrunkInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrunkInstance
         """
@@ -743,15 +774,18 @@ class TrunkList(ListResource):
         return TrunkPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> TrunkPage:
         """
         Asynchronously retrieve a single page of TrunkInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrunkInstance
         """
@@ -768,31 +802,31 @@ class TrunkList(ListResource):
         )
         return TrunkPage(self._version, response)
 
-    def get_page(self, target_url) -> TrunkPage:
+    def get_page(self, target_url: str) -> TrunkPage:
         """
         Retrieve a specific page of TrunkInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TrunkInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TrunkPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> TrunkPage:
+    async def get_page_async(self, target_url: str) -> TrunkPage:
         """
         Asynchronously retrieve a specific page of TrunkInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TrunkInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TrunkPage(self._version, response)
 
-    def get(self, sid) -> TrunkContext:
+    def get(self, sid: str) -> TrunkContext:
         """
         Constructs a TrunkContext
 
@@ -800,7 +834,7 @@ class TrunkList(ListResource):
         """
         return TrunkContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> TrunkContext:
+    def __call__(self, sid: str) -> TrunkContext:
         """
         Constructs a TrunkContext
 

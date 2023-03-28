@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -86,11 +86,13 @@ class TaskActionsInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, actions=values.unset) -> "TaskActionsInstance":
+    def update(
+        self, actions: Union[object, object] = values.unset
+    ) -> "TaskActionsInstance":
         """
         Update the TaskActionsInstance
 
-        :param object actions: The JSON actions that instruct the Assistant how to perform this task.
+        :param actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: The updated TaskActionsInstance
         """
@@ -98,11 +100,13 @@ class TaskActionsInstance(InstanceResource):
             actions=actions,
         )
 
-    async def update_async(self, actions=values.unset) -> "TaskActionsInstance":
+    async def update_async(
+        self, actions: Union[object, object] = values.unset
+    ) -> "TaskActionsInstance":
         """
         Asynchronous coroutine to update the TaskActionsInstance
 
-        :param object actions: The JSON actions that instruct the Assistant how to perform this task.
+        :param actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: The updated TaskActionsInstance
         """
@@ -180,11 +184,13 @@ class TaskActionsContext(InstanceContext):
             task_sid=self._solution["task_sid"],
         )
 
-    def update(self, actions=values.unset) -> TaskActionsInstance:
+    def update(
+        self, actions: Union[object, object] = values.unset
+    ) -> TaskActionsInstance:
         """
         Update the TaskActionsInstance
 
-        :param object actions: The JSON actions that instruct the Assistant how to perform this task.
+        :param actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: The updated TaskActionsInstance
         """
@@ -207,11 +213,13 @@ class TaskActionsContext(InstanceContext):
             task_sid=self._solution["task_sid"],
         )
 
-    async def update_async(self, actions=values.unset) -> TaskActionsInstance:
+    async def update_async(
+        self, actions: Union[object, object] = values.unset
+    ) -> TaskActionsInstance:
         """
         Asynchronous coroutine to update the TaskActionsInstance
 
-        :param object actions: The JSON actions that instruct the Assistant how to perform this task.
+        :param actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: The updated TaskActionsInstance
         """

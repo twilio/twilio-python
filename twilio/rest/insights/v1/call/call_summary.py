@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -141,11 +141,16 @@ class CallSummaryInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, processing_state=values.unset) -> "CallSummaryInstance":
+    def fetch(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> "CallSummaryInstance":
         """
         Fetch the CallSummaryInstance
 
-        :param "CallSummaryInstance.ProcessingState" processing_state:
+        :param processing_state:
 
         :returns: The fetched CallSummaryInstance
         """
@@ -153,11 +158,16 @@ class CallSummaryInstance(InstanceResource):
             processing_state=processing_state,
         )
 
-    async def fetch_async(self, processing_state=values.unset) -> "CallSummaryInstance":
+    async def fetch_async(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> "CallSummaryInstance":
         """
         Asynchronous coroutine to fetch the CallSummaryInstance
 
-        :param "CallSummaryInstance.ProcessingState" processing_state:
+        :param processing_state:
 
         :returns: The fetched CallSummaryInstance
         """
@@ -191,11 +201,16 @@ class CallSummaryContext(InstanceContext):
         }
         self._uri = "/Voice/{call_sid}/Summary".format(**self._solution)
 
-    def fetch(self, processing_state=values.unset) -> CallSummaryInstance:
+    def fetch(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> CallSummaryInstance:
         """
         Fetch the CallSummaryInstance
 
-        :param "CallSummaryInstance.ProcessingState" processing_state:
+        :param processing_state:
 
         :returns: The fetched CallSummaryInstance
         """
@@ -214,11 +229,16 @@ class CallSummaryContext(InstanceContext):
             call_sid=self._solution["call_sid"],
         )
 
-    async def fetch_async(self, processing_state=values.unset) -> CallSummaryInstance:
+    async def fetch_async(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> CallSummaryInstance:
         """
         Asynchronous coroutine to fetch the CallSummaryInstance
 
-        :param "CallSummaryInstance.ProcessingState" processing_state:
+        :param processing_state:
 
         :returns: The fetched CallSummaryInstance
         """

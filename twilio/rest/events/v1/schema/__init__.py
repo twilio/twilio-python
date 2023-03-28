@@ -192,7 +192,7 @@ class SchemaList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, id) -> SchemaContext:
+    def get(self, id: str) -> SchemaContext:
         """
         Constructs a SchemaContext
 
@@ -200,7 +200,7 @@ class SchemaList(ListResource):
         """
         return SchemaContext(self._version, id=id)
 
-    def __call__(self, id) -> SchemaContext:
+    def __call__(self, id: str) -> SchemaContext:
         """
         Constructs a SchemaContext
 

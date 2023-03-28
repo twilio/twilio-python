@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -67,11 +67,11 @@ class InsightsQuestionnairesInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, token=values.unset) -> bool:
+    def delete(self, token: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -79,11 +79,11 @@ class InsightsQuestionnairesInstance(InstanceResource):
             token=token,
         )
 
-    async def delete_async(self, token=values.unset) -> bool:
+    async def delete_async(self, token: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -91,11 +91,13 @@ class InsightsQuestionnairesInstance(InstanceResource):
             token=token,
         )
 
-    def fetch(self, token=values.unset) -> "InsightsQuestionnairesInstance":
+    def fetch(
+        self, token: Union[str, object] = values.unset
+    ) -> "InsightsQuestionnairesInstance":
         """
         Fetch the InsightsQuestionnairesInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
@@ -103,11 +105,13 @@ class InsightsQuestionnairesInstance(InstanceResource):
             token=token,
         )
 
-    async def fetch_async(self, token=values.unset) -> "InsightsQuestionnairesInstance":
+    async def fetch_async(
+        self, token: Union[str, object] = values.unset
+    ) -> "InsightsQuestionnairesInstance":
         """
         Asynchronous coroutine to fetch the InsightsQuestionnairesInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
@@ -117,20 +121,20 @@ class InsightsQuestionnairesInstance(InstanceResource):
 
     def update(
         self,
-        active,
-        token=values.unset,
-        name=values.unset,
-        description=values.unset,
-        question_ids=values.unset,
+        active: bool,
+        token: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_ids: Union[List[str], object] = values.unset,
     ) -> "InsightsQuestionnairesInstance":
         """
         Update the InsightsQuestionnairesInstance
 
-        :param bool active: The flag to enable or disable questionnaire
-        :param str token: The Token HTTP request header
-        :param str name: The name of this questionnaire
-        :param str description: The description of this questionnaire
-        :param List[str] question_ids: The list of questions ids under a questionnaire
+        :param active: The flag to enable or disable questionnaire
+        :param token: The Token HTTP request header
+        :param name: The name of this questionnaire
+        :param description: The description of this questionnaire
+        :param question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         """
@@ -144,20 +148,20 @@ class InsightsQuestionnairesInstance(InstanceResource):
 
     async def update_async(
         self,
-        active,
-        token=values.unset,
-        name=values.unset,
-        description=values.unset,
-        question_ids=values.unset,
+        active: bool,
+        token: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_ids: Union[List[str], object] = values.unset,
     ) -> "InsightsQuestionnairesInstance":
         """
         Asynchronous coroutine to update the InsightsQuestionnairesInstance
 
-        :param bool active: The flag to enable or disable questionnaire
-        :param str token: The Token HTTP request header
-        :param str name: The name of this questionnaire
-        :param str description: The description of this questionnaire
-        :param List[str] question_ids: The list of questions ids under a questionnaire
+        :param active: The flag to enable or disable questionnaire
+        :param token: The Token HTTP request header
+        :param name: The name of this questionnaire
+        :param description: The description of this questionnaire
+        :param question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         """
@@ -195,11 +199,11 @@ class InsightsQuestionnairesContext(InstanceContext):
         }
         self._uri = "/Insights/QM/Questionnaires/{id}".format(**self._solution)
 
-    def delete(self, token=values.unset) -> bool:
+    def delete(self, token: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -211,11 +215,11 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, token=values.unset) -> bool:
+    async def delete_async(self, token: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -229,11 +233,13 @@ class InsightsQuestionnairesContext(InstanceContext):
             method="DELETE", uri=self._uri, headers=headers
         )
 
-    def fetch(self, token=values.unset) -> InsightsQuestionnairesInstance:
+    def fetch(
+        self, token: Union[str, object] = values.unset
+    ) -> InsightsQuestionnairesInstance:
         """
         Fetch the InsightsQuestionnairesInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
@@ -252,11 +258,13 @@ class InsightsQuestionnairesContext(InstanceContext):
             id=self._solution["id"],
         )
 
-    async def fetch_async(self, token=values.unset) -> InsightsQuestionnairesInstance:
+    async def fetch_async(
+        self, token: Union[str, object] = values.unset
+    ) -> InsightsQuestionnairesInstance:
         """
         Asynchronous coroutine to fetch the InsightsQuestionnairesInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
@@ -279,20 +287,20 @@ class InsightsQuestionnairesContext(InstanceContext):
 
     def update(
         self,
-        active,
-        token=values.unset,
-        name=values.unset,
-        description=values.unset,
-        question_ids=values.unset,
+        active: bool,
+        token: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_ids: Union[List[str], object] = values.unset,
     ) -> InsightsQuestionnairesInstance:
         """
         Update the InsightsQuestionnairesInstance
 
-        :param bool active: The flag to enable or disable questionnaire
-        :param str token: The Token HTTP request header
-        :param str name: The name of this questionnaire
-        :param str description: The description of this questionnaire
-        :param List[str] question_ids: The list of questions ids under a questionnaire
+        :param active: The flag to enable or disable questionnaire
+        :param token: The Token HTTP request header
+        :param name: The name of this questionnaire
+        :param description: The description of this questionnaire
+        :param question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         """
@@ -320,20 +328,20 @@ class InsightsQuestionnairesContext(InstanceContext):
 
     async def update_async(
         self,
-        active,
-        token=values.unset,
-        name=values.unset,
-        description=values.unset,
-        question_ids=values.unset,
+        active: bool,
+        token: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_ids: Union[List[str], object] = values.unset,
     ) -> InsightsQuestionnairesInstance:
         """
         Asynchronous coroutine to update the InsightsQuestionnairesInstance
 
-        :param bool active: The flag to enable or disable questionnaire
-        :param str token: The Token HTTP request header
-        :param str name: The name of this questionnaire
-        :param str description: The description of this questionnaire
-        :param List[str] question_ids: The list of questions ids under a questionnaire
+        :param active: The flag to enable or disable questionnaire
+        :param token: The Token HTTP request header
+        :param name: The name of this questionnaire
+        :param description: The description of this questionnaire
+        :param question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         """
@@ -370,11 +378,11 @@ class InsightsQuestionnairesContext(InstanceContext):
 
 
 class InsightsQuestionnairesPage(Page):
-    def get_instance(self, payload) -> InsightsQuestionnairesInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> InsightsQuestionnairesInstance:
         """
         Build an instance of InsightsQuestionnairesInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return InsightsQuestionnairesInstance(self._version, payload)
 
@@ -401,20 +409,20 @@ class InsightsQuestionnairesList(ListResource):
 
     def create(
         self,
-        name,
-        token=values.unset,
-        description=values.unset,
-        active=values.unset,
-        question_ids=values.unset,
+        name: str,
+        token: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        active: Union[bool, object] = values.unset,
+        question_ids: Union[List[str], object] = values.unset,
     ) -> InsightsQuestionnairesInstance:
         """
         Create the InsightsQuestionnairesInstance
 
-        :param str name: The name of this questionnaire
-        :param str token: The Token HTTP request header
-        :param str description: The description of this questionnaire
-        :param bool active: The flag to enable or disable questionnaire
-        :param List[str] question_ids: The list of questions ids under a questionnaire
+        :param name: The name of this questionnaire
+        :param token: The Token HTTP request header
+        :param description: The description of this questionnaire
+        :param active: The flag to enable or disable questionnaire
+        :param question_ids: The list of questions ids under a questionnaire
 
         :returns: The created InsightsQuestionnairesInstance
         """
@@ -439,20 +447,20 @@ class InsightsQuestionnairesList(ListResource):
 
     async def create_async(
         self,
-        name,
-        token=values.unset,
-        description=values.unset,
-        active=values.unset,
-        question_ids=values.unset,
+        name: str,
+        token: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        active: Union[bool, object] = values.unset,
+        question_ids: Union[List[str], object] = values.unset,
     ) -> InsightsQuestionnairesInstance:
         """
         Asynchronously create the InsightsQuestionnairesInstance
 
-        :param str name: The name of this questionnaire
-        :param str token: The Token HTTP request header
-        :param str description: The description of this questionnaire
-        :param bool active: The flag to enable or disable questionnaire
-        :param List[str] question_ids: The list of questions ids under a questionnaire
+        :param name: The name of this questionnaire
+        :param token: The Token HTTP request header
+        :param description: The description of this questionnaire
+        :param active: The flag to enable or disable questionnaire
+        :param question_ids: The list of questions ids under a questionnaire
 
         :returns: The created InsightsQuestionnairesInstance
         """
@@ -477,10 +485,10 @@ class InsightsQuestionnairesList(ListResource):
 
     def stream(
         self,
-        token=values.unset,
-        include_inactive=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesInstance]:
         """
         Streams InsightsQuestionnairesInstance records from the API as a generator stream.
@@ -490,12 +498,12 @@ class InsightsQuestionnairesList(ListResource):
 
         :param str token: The Token HTTP request header
         :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -510,10 +518,10 @@ class InsightsQuestionnairesList(ListResource):
 
     async def stream_async(
         self,
-        token=values.unset,
-        include_inactive=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesInstance]:
         """
         Asynchronously streams InsightsQuestionnairesInstance records from the API as a generator stream.
@@ -523,12 +531,12 @@ class InsightsQuestionnairesList(ListResource):
 
         :param str token: The Token HTTP request header
         :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -543,10 +551,10 @@ class InsightsQuestionnairesList(ListResource):
 
     def list(
         self,
-        token=values.unset,
-        include_inactive=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesInstance]:
         """
         Lists InsightsQuestionnairesInstance records from the API as a list.
@@ -555,12 +563,12 @@ class InsightsQuestionnairesList(ListResource):
 
         :param str token: The Token HTTP request header
         :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -575,10 +583,10 @@ class InsightsQuestionnairesList(ListResource):
 
     async def list_async(
         self,
-        token=values.unset,
-        include_inactive=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesInstance]:
         """
         Asynchronously lists InsightsQuestionnairesInstance records from the API as a list.
@@ -587,12 +595,12 @@ class InsightsQuestionnairesList(ListResource):
 
         :param str token: The Token HTTP request header
         :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -607,21 +615,21 @@ class InsightsQuestionnairesList(ListResource):
 
     def page(
         self,
-        token=values.unset,
-        include_inactive=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InsightsQuestionnairesPage:
         """
         Retrieve a single page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param include_inactive: Flag indicating whether to include inactive questionnaires or not
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesInstance
         """
@@ -640,21 +648,21 @@ class InsightsQuestionnairesList(ListResource):
 
     async def page_async(
         self,
-        token=values.unset,
-        include_inactive=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InsightsQuestionnairesPage:
         """
         Asynchronously retrieve a single page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param include_inactive: Flag indicating whether to include inactive questionnaires or not
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesInstance
         """
@@ -673,31 +681,31 @@ class InsightsQuestionnairesList(ListResource):
         )
         return InsightsQuestionnairesPage(self._version, response)
 
-    def get_page(self, target_url) -> InsightsQuestionnairesPage:
+    def get_page(self, target_url: str) -> InsightsQuestionnairesPage:
         """
         Retrieve a specific page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsQuestionnairesPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> InsightsQuestionnairesPage:
+    async def get_page_async(self, target_url: str) -> InsightsQuestionnairesPage:
         """
         Asynchronously retrieve a specific page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsQuestionnairesPage(self._version, response)
 
-    def get(self, id) -> InsightsQuestionnairesContext:
+    def get(self, id: str) -> InsightsQuestionnairesContext:
         """
         Constructs a InsightsQuestionnairesContext
 
@@ -705,7 +713,7 @@ class InsightsQuestionnairesList(ListResource):
         """
         return InsightsQuestionnairesContext(self._version, id=id)
 
-    def __call__(self, id) -> InsightsQuestionnairesContext:
+    def __call__(self, id: str) -> InsightsQuestionnairesContext:
         """
         Constructs a InsightsQuestionnairesContext
 

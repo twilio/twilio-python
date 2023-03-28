@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -93,11 +93,13 @@ class NetworkAccessProfileInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, unique_name=values.unset) -> "NetworkAccessProfileInstance":
+    def update(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> "NetworkAccessProfileInstance":
         """
         Update the NetworkAccessProfileInstance
 
-        :param str unique_name: The new unique name of the Network Access Profile.
+        :param unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
         """
@@ -106,12 +108,12 @@ class NetworkAccessProfileInstance(InstanceResource):
         )
 
     async def update_async(
-        self, unique_name=values.unset
+        self, unique_name: Union[str, object] = values.unset
     ) -> "NetworkAccessProfileInstance":
         """
         Asynchronous coroutine to update the NetworkAccessProfileInstance
 
-        :param str unique_name: The new unique name of the Network Access Profile.
+        :param unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
         """
@@ -192,11 +194,13 @@ class NetworkAccessProfileContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, unique_name=values.unset) -> NetworkAccessProfileInstance:
+    def update(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> NetworkAccessProfileInstance:
         """
         Update the NetworkAccessProfileInstance
 
-        :param str unique_name: The new unique name of the Network Access Profile.
+        :param unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
         """
@@ -217,12 +221,12 @@ class NetworkAccessProfileContext(InstanceContext):
         )
 
     async def update_async(
-        self, unique_name=values.unset
+        self, unique_name: Union[str, object] = values.unset
     ) -> NetworkAccessProfileInstance:
         """
         Asynchronous coroutine to update the NetworkAccessProfileInstance
 
-        :param str unique_name: The new unique name of the Network Access Profile.
+        :param unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
         """
@@ -265,11 +269,11 @@ class NetworkAccessProfileContext(InstanceContext):
 
 
 class NetworkAccessProfilePage(Page):
-    def get_instance(self, payload) -> NetworkAccessProfileInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> NetworkAccessProfileInstance:
         """
         Build an instance of NetworkAccessProfileInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return NetworkAccessProfileInstance(self._version, payload)
 
@@ -295,13 +299,15 @@ class NetworkAccessProfileList(ListResource):
         self._uri = "/NetworkAccessProfiles"
 
     def create(
-        self, unique_name=values.unset, networks=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        networks: Union[List[str], object] = values.unset,
     ) -> NetworkAccessProfileInstance:
         """
         Create the NetworkAccessProfileInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param List[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param networks: List of Network SIDs that this Network Access Profile will allow connections to.
 
         :returns: The created NetworkAccessProfileInstance
         """
@@ -321,13 +327,15 @@ class NetworkAccessProfileList(ListResource):
         return NetworkAccessProfileInstance(self._version, payload)
 
     async def create_async(
-        self, unique_name=values.unset, networks=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        networks: Union[List[str], object] = values.unset,
     ) -> NetworkAccessProfileInstance:
         """
         Asynchronously create the NetworkAccessProfileInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param List[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param networks: List of Network SIDs that this Network Access Profile will allow connections to.
 
         :returns: The created NetworkAccessProfileInstance
         """
@@ -346,19 +354,23 @@ class NetworkAccessProfileList(ListResource):
 
         return NetworkAccessProfileInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[NetworkAccessProfileInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[NetworkAccessProfileInstance]:
         """
         Streams NetworkAccessProfileInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -368,7 +380,9 @@ class NetworkAccessProfileList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NetworkAccessProfileInstance]:
         """
         Asynchronously streams NetworkAccessProfileInstance records from the API as a generator stream.
@@ -376,12 +390,12 @@ class NetworkAccessProfileList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -390,18 +404,22 @@ class NetworkAccessProfileList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[NetworkAccessProfileInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[NetworkAccessProfileInstance]:
         """
         Lists NetworkAccessProfileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -413,19 +431,21 @@ class NetworkAccessProfileList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NetworkAccessProfileInstance]:
         """
         Asynchronously lists NetworkAccessProfileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -437,15 +457,18 @@ class NetworkAccessProfileList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> NetworkAccessProfilePage:
         """
         Retrieve a single page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of NetworkAccessProfileInstance
         """
@@ -461,15 +484,18 @@ class NetworkAccessProfileList(ListResource):
         return NetworkAccessProfilePage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> NetworkAccessProfilePage:
         """
         Asynchronously retrieve a single page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of NetworkAccessProfileInstance
         """
@@ -486,31 +512,31 @@ class NetworkAccessProfileList(ListResource):
         )
         return NetworkAccessProfilePage(self._version, response)
 
-    def get_page(self, target_url) -> NetworkAccessProfilePage:
+    def get_page(self, target_url: str) -> NetworkAccessProfilePage:
         """
         Retrieve a specific page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of NetworkAccessProfileInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return NetworkAccessProfilePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> NetworkAccessProfilePage:
+    async def get_page_async(self, target_url: str) -> NetworkAccessProfilePage:
         """
         Asynchronously retrieve a specific page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of NetworkAccessProfileInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return NetworkAccessProfilePage(self._version, response)
 
-    def get(self, sid) -> NetworkAccessProfileContext:
+    def get(self, sid: str) -> NetworkAccessProfileContext:
         """
         Constructs a NetworkAccessProfileContext
 
@@ -518,7 +544,7 @@ class NetworkAccessProfileList(ListResource):
         """
         return NetworkAccessProfileContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> NetworkAccessProfileContext:
+    def __call__(self, sid: str) -> NetworkAccessProfileContext:
         """
         Constructs a NetworkAccessProfileContext
 

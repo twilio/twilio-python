@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -64,13 +64,15 @@ class PlaybackGrantInstance(InstanceResource):
         return self._context
 
     def create(
-        self, ttl=values.unset, access_control_allow_origin=values.unset
+        self,
+        ttl: Union[int, object] = values.unset,
+        access_control_allow_origin: Union[str, object] = values.unset,
     ) -> "PlaybackGrantInstance":
         """
         Create the PlaybackGrantInstance
 
-        :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
-        :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
+        :param ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
+        :param access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
 
         :returns: The created PlaybackGrantInstance
         """
@@ -80,13 +82,15 @@ class PlaybackGrantInstance(InstanceResource):
         )
 
     async def create_async(
-        self, ttl=values.unset, access_control_allow_origin=values.unset
+        self,
+        ttl: Union[int, object] = values.unset,
+        access_control_allow_origin: Union[str, object] = values.unset,
     ) -> "PlaybackGrantInstance":
         """
         Asynchronous coroutine to create the PlaybackGrantInstance
 
-        :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
-        :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
+        :param ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
+        :param access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
 
         :returns: The created PlaybackGrantInstance
         """
@@ -140,13 +144,15 @@ class PlaybackGrantContext(InstanceContext):
         self._uri = "/PlayerStreamers/{sid}/PlaybackGrant".format(**self._solution)
 
     def create(
-        self, ttl=values.unset, access_control_allow_origin=values.unset
+        self,
+        ttl: Union[int, object] = values.unset,
+        access_control_allow_origin: Union[str, object] = values.unset,
     ) -> PlaybackGrantInstance:
         """
         Create the PlaybackGrantInstance
 
-        :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
-        :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
+        :param ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
+        :param access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
 
         :returns: The created PlaybackGrantInstance
         """
@@ -162,13 +168,15 @@ class PlaybackGrantContext(InstanceContext):
         return PlaybackGrantInstance(self._version, payload, sid=self._solution["sid"])
 
     async def create_async(
-        self, ttl=values.unset, access_control_allow_origin=values.unset
+        self,
+        ttl: Union[int, object] = values.unset,
+        access_control_allow_origin: Union[str, object] = values.unset,
     ) -> PlaybackGrantInstance:
         """
         Asynchronous coroutine to create the PlaybackGrantInstance
 
-        :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
-        :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
+        :param ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
+        :param access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
 
         :returns: The created PlaybackGrantInstance
         """

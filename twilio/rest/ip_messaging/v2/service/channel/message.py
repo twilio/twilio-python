@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -106,11 +106,16 @@ class MessageInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    def delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Deletes the MessageInstance
 
-        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -118,11 +123,16 @@ class MessageInstance(InstanceResource):
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    async def delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the MessageInstance
 
-        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -150,24 +160,26 @@ class MessageInstance(InstanceResource):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        body=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        last_updated_by=values.unset,
-        from_=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+        body: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        last_updated_by: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
     ) -> "MessageInstance":
         """
         Update the MessageInstance
 
-        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str body:
-        :param str attributes:
-        :param datetime date_created:
-        :param datetime date_updated:
-        :param str last_updated_by:
-        :param str from_:
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param body:
+        :param attributes:
+        :param date_created:
+        :param date_updated:
+        :param last_updated_by:
+        :param from_:
 
         :returns: The updated MessageInstance
         """
@@ -183,24 +195,26 @@ class MessageInstance(InstanceResource):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        body=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        last_updated_by=values.unset,
-        from_=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+        body: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        last_updated_by: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
     ) -> "MessageInstance":
         """
         Asynchronous coroutine to update the MessageInstance
 
-        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str body:
-        :param str attributes:
-        :param datetime date_created:
-        :param datetime date_updated:
-        :param str last_updated_by:
-        :param str from_:
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param body:
+        :param attributes:
+        :param date_created:
+        :param date_updated:
+        :param last_updated_by:
+        :param from_:
 
         :returns: The updated MessageInstance
         """
@@ -248,11 +262,16 @@ class MessageContext(InstanceContext):
             )
         )
 
-    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    def delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Deletes the MessageInstance
 
-        :param &quot;MessageInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -264,11 +283,16 @@ class MessageContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    async def delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the MessageInstance
 
-        :param &quot;MessageInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -326,24 +350,26 @@ class MessageContext(InstanceContext):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        body=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        last_updated_by=values.unset,
-        from_=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+        body: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        last_updated_by: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Update the MessageInstance
 
-        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str body:
-        :param str attributes:
-        :param datetime date_created:
-        :param datetime date_updated:
-        :param str last_updated_by:
-        :param str from_:
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param body:
+        :param attributes:
+        :param date_created:
+        :param date_updated:
+        :param last_updated_by:
+        :param from_:
 
         :returns: The updated MessageInstance
         """
@@ -377,24 +403,26 @@ class MessageContext(InstanceContext):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        body=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        last_updated_by=values.unset,
-        from_=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+        body: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        last_updated_by: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Asynchronous coroutine to update the MessageInstance
 
-        :param "MessageInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str body:
-        :param str attributes:
-        :param datetime date_created:
-        :param datetime date_updated:
-        :param str last_updated_by:
-        :param str from_:
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param body:
+        :param attributes:
+        :param date_created:
+        :param date_updated:
+        :param last_updated_by:
+        :param from_:
 
         :returns: The updated MessageInstance
         """
@@ -437,11 +465,11 @@ class MessageContext(InstanceContext):
 
 
 class MessagePage(Page):
-    def get_instance(self, payload) -> MessageInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> MessageInstance:
         """
         Build an instance of MessageInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return MessageInstance(
             self._version,
@@ -482,26 +510,28 @@ class MessageList(ListResource):
 
     def create(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        from_=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        last_updated_by=values.unset,
-        body=values.unset,
-        media_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+        from_: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        last_updated_by: Union[str, object] = values.unset,
+        body: Union[str, object] = values.unset,
+        media_sid: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Create the MessageInstance
 
-        :param &quot;MessageInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str from_:
-        :param str attributes:
-        :param datetime date_created:
-        :param datetime date_updated:
-        :param str last_updated_by:
-        :param str body:
-        :param str media_sid:
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param from_:
+        :param attributes:
+        :param date_created:
+        :param date_updated:
+        :param last_updated_by:
+        :param body:
+        :param media_sid:
 
         :returns: The created MessageInstance
         """
@@ -534,26 +564,28 @@ class MessageList(ListResource):
 
     async def create_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        from_=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        last_updated_by=values.unset,
-        body=values.unset,
-        media_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "MessageInstance.WebhookEnabledType", object
+        ] = values.unset,
+        from_: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        last_updated_by: Union[str, object] = values.unset,
+        body: Union[str, object] = values.unset,
+        media_sid: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Asynchronously create the MessageInstance
 
-        :param &quot;MessageInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str from_:
-        :param str attributes:
-        :param datetime date_created:
-        :param datetime date_updated:
-        :param str last_updated_by:
-        :param str body:
-        :param str media_sid:
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param from_:
+        :param attributes:
+        :param date_created:
+        :param date_updated:
+        :param last_updated_by:
+        :param body:
+        :param media_sid:
 
         :returns: The created MessageInstance
         """
@@ -585,7 +617,10 @@ class MessageList(ListResource):
         )
 
     def stream(
-        self, order=values.unset, limit=None, page_size=None
+        self,
+        order: Union["MessageInstance.OrderType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
         """
         Streams MessageInstance records from the API as a generator stream.
@@ -594,12 +629,12 @@ class MessageList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param &quot;MessageInstance.OrderType&quot; order:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -609,7 +644,10 @@ class MessageList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, order=values.unset, limit=None, page_size=None
+        self,
+        order: Union["MessageInstance.OrderType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
         """
         Asynchronously streams MessageInstance records from the API as a generator stream.
@@ -618,12 +656,12 @@ class MessageList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param &quot;MessageInstance.OrderType&quot; order:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -633,7 +671,10 @@ class MessageList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, order=values.unset, limit=None, page_size=None
+        self,
+        order: Union["MessageInstance.OrderType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
         """
         Lists MessageInstance records from the API as a list.
@@ -641,12 +682,12 @@ class MessageList(ListResource):
         memory before returning.
 
         :param &quot;MessageInstance.OrderType&quot; order:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -659,7 +700,10 @@ class MessageList(ListResource):
         )
 
     async def list_async(
-        self, order=values.unset, limit=None, page_size=None
+        self,
+        order: Union["MessageInstance.OrderType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
         """
         Asynchronously lists MessageInstance records from the API as a list.
@@ -667,12 +711,12 @@ class MessageList(ListResource):
         memory before returning.
 
         :param &quot;MessageInstance.OrderType&quot; order:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -686,19 +730,19 @@ class MessageList(ListResource):
 
     def page(
         self,
-        order=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["MessageInstance.OrderType", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> MessagePage:
         """
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param &quot;MessageInstance.OrderType&quot; order:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInstance
         """
@@ -716,19 +760,19 @@ class MessageList(ListResource):
 
     async def page_async(
         self,
-        order=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["MessageInstance.OrderType", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> MessagePage:
         """
         Asynchronously retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param &quot;MessageInstance.OrderType&quot; order:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInstance
         """
@@ -746,31 +790,31 @@ class MessageList(ListResource):
         )
         return MessagePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> MessagePage:
+    def get_page(self, target_url: str) -> MessagePage:
         """
         Retrieve a specific page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MessagePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> MessagePage:
+    async def get_page_async(self, target_url: str) -> MessagePage:
         """
         Asynchronously retrieve a specific page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return MessagePage(self._version, response, self._solution)
 
-    def get(self, sid) -> MessageContext:
+    def get(self, sid: str) -> MessageContext:
         """
         Constructs a MessageContext
 
@@ -783,7 +827,7 @@ class MessageList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> MessageContext:
+    def __call__(self, sid: str) -> MessageContext:
         """
         Constructs a MessageContext
 

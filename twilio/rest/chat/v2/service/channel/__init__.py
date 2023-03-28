@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -107,11 +107,16 @@ class ChannelInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    def delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Deletes the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -119,11 +124,16 @@ class ChannelInstance(InstanceResource):
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    async def delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -151,24 +161,26 @@ class ChannelInstance(InstanceResource):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        created_by=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        created_by: Union[str, object] = values.unset,
     ) -> "ChannelInstance":
         """
         Update the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-        :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-        :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
+        :param attributes: A valid JSON string that contains application-specific data.
+        :param date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+        :param date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+        :param created_by: The `identity` of the User that created the channel. Default is: `system`.
 
         :returns: The updated ChannelInstance
         """
@@ -184,24 +196,26 @@ class ChannelInstance(InstanceResource):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        created_by=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        created_by: Union[str, object] = values.unset,
     ) -> "ChannelInstance":
         """
         Asynchronous coroutine to update the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-        :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-        :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
+        :param attributes: A valid JSON string that contains application-specific data.
+        :param date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+        :param date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+        :param created_by: The `identity` of the User that created the channel. Default is: `system`.
 
         :returns: The updated ChannelInstance
         """
@@ -276,11 +290,16 @@ class ChannelContext(InstanceContext):
         self._messages: Optional[MessageList] = None
         self._webhooks: Optional[WebhookList] = None
 
-    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    def delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Deletes the ChannelInstance
 
-        :param &quot;ChannelInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -292,11 +311,16 @@ class ChannelContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    async def delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the ChannelInstance
 
-        :param &quot;ChannelInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -352,24 +376,26 @@ class ChannelContext(InstanceContext):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        created_by=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        created_by: Union[str, object] = values.unset,
     ) -> ChannelInstance:
         """
         Update the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-        :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-        :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
+        :param attributes: A valid JSON string that contains application-specific data.
+        :param date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+        :param date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+        :param created_by: The `identity` of the User that created the channel. Default is: `system`.
 
         :returns: The updated ChannelInstance
         """
@@ -402,24 +428,26 @@ class ChannelContext(InstanceContext):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        attributes=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        created_by=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        created_by: Union[str, object] = values.unset,
     ) -> ChannelInstance:
         """
         Asynchronous coroutine to update the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-        :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-        :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
+        :param attributes: A valid JSON string that contains application-specific data.
+        :param date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+        :param date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+        :param created_by: The `identity` of the User that created the channel. Default is: `system`.
 
         :returns: The updated ChannelInstance
         """
@@ -513,11 +541,11 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelPage(Page):
-    def get_instance(self, payload) -> ChannelInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ChannelInstance:
         """
         Build an instance of ChannelInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ChannelInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -551,26 +579,28 @@ class ChannelList(ListResource):
 
     def create(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        attributes=values.unset,
-        type=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        created_by=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        created_by: Union[str, object] = values.unset,
     ) -> ChannelInstance:
         """
         Create the ChannelInstance
 
-        :param &quot;ChannelInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param &quot;ChannelInstance.ChannelType&quot; type:
-        :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-        :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
-        :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
+        :param attributes: A valid JSON string that contains application-specific data.
+        :param type:
+        :param date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+        :param date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
+        :param created_by: The `identity` of the User that created the channel. Default is: `system`.
 
         :returns: The created ChannelInstance
         """
@@ -600,26 +630,28 @@ class ChannelList(ListResource):
 
     async def create_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        attributes=values.unset,
-        type=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        created_by=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        created_by: Union[str, object] = values.unset,
     ) -> ChannelInstance:
         """
         Asynchronously create the ChannelInstance
 
-        :param &quot;ChannelInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param &quot;ChannelInstance.ChannelType&quot; type:
-        :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-        :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
-        :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
+        :param attributes: A valid JSON string that contains application-specific data.
+        :param type:
+        :param date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+        :param date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
+        :param created_by: The `identity` of the User that created the channel. Default is: `system`.
 
         :returns: The created ChannelInstance
         """
@@ -648,7 +680,10 @@ class ChannelList(ListResource):
         )
 
     def stream(
-        self, type=values.unset, limit=None, page_size=None
+        self,
+        type: Union[List["ChannelInstance.ChannelType"], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ChannelInstance]:
         """
         Streams ChannelInstance records from the API as a generator stream.
@@ -657,12 +692,12 @@ class ChannelList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param List[&quot;ChannelInstance.ChannelType&quot;] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -672,7 +707,10 @@ class ChannelList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, type=values.unset, limit=None, page_size=None
+        self,
+        type: Union[List["ChannelInstance.ChannelType"], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ChannelInstance]:
         """
         Asynchronously streams ChannelInstance records from the API as a generator stream.
@@ -681,12 +719,12 @@ class ChannelList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param List[&quot;ChannelInstance.ChannelType&quot;] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -696,7 +734,10 @@ class ChannelList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, type=values.unset, limit=None, page_size=None
+        self,
+        type: Union[List["ChannelInstance.ChannelType"], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ChannelInstance]:
         """
         Lists ChannelInstance records from the API as a list.
@@ -704,12 +745,12 @@ class ChannelList(ListResource):
         memory before returning.
 
         :param List[&quot;ChannelInstance.ChannelType&quot;] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -722,7 +763,10 @@ class ChannelList(ListResource):
         )
 
     async def list_async(
-        self, type=values.unset, limit=None, page_size=None
+        self,
+        type: Union[List["ChannelInstance.ChannelType"], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ChannelInstance]:
         """
         Asynchronously lists ChannelInstance records from the API as a list.
@@ -730,12 +774,12 @@ class ChannelList(ListResource):
         memory before returning.
 
         :param List[&quot;ChannelInstance.ChannelType&quot;] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -749,19 +793,19 @@ class ChannelList(ListResource):
 
     def page(
         self,
-        type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        type: Union[List["ChannelInstance.ChannelType"], object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ChannelPage:
         """
         Retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param List[&quot;ChannelInstance.ChannelType&quot;] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ChannelInstance
         """
@@ -779,19 +823,19 @@ class ChannelList(ListResource):
 
     async def page_async(
         self,
-        type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        type: Union[List["ChannelInstance.ChannelType"], object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ChannelPage:
         """
         Asynchronously retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param List[&quot;ChannelInstance.ChannelType&quot;] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ChannelInstance
         """
@@ -809,31 +853,31 @@ class ChannelList(ListResource):
         )
         return ChannelPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ChannelPage:
+    def get_page(self, target_url: str) -> ChannelPage:
         """
         Retrieve a specific page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ChannelInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ChannelPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ChannelPage:
+    async def get_page_async(self, target_url: str) -> ChannelPage:
         """
         Asynchronously retrieve a specific page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ChannelInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ChannelPage(self._version, response, self._solution)
 
-    def get(self, sid) -> ChannelContext:
+    def get(self, sid: str) -> ChannelContext:
         """
         Constructs a ChannelContext
 
@@ -843,7 +887,7 @@ class ChannelList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> ChannelContext:
+    def __call__(self, sid: str) -> ChannelContext:
         """
         Constructs a ChannelContext
 

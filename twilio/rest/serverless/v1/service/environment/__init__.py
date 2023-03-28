@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -294,11 +294,11 @@ class EnvironmentContext(InstanceContext):
 
 
 class EnvironmentPage(Page):
-    def get_instance(self, payload) -> EnvironmentInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> EnvironmentInstance:
         """
         Build an instance of EnvironmentInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return EnvironmentInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -330,12 +330,14 @@ class EnvironmentList(ListResource):
         }
         self._uri = "/Services/{service_sid}/Environments".format(**self._solution)
 
-    def create(self, unique_name, domain_suffix=values.unset) -> EnvironmentInstance:
+    def create(
+        self, unique_name: str, domain_suffix: Union[str, object] = values.unset
+    ) -> EnvironmentInstance:
         """
         Create the EnvironmentInstance
 
-        :param str unique_name: A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
-        :param str domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
+        :param unique_name: A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
+        :param domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
 
         :returns: The created EnvironmentInstance
         """
@@ -357,13 +359,13 @@ class EnvironmentList(ListResource):
         )
 
     async def create_async(
-        self, unique_name, domain_suffix=values.unset
+        self, unique_name: str, domain_suffix: Union[str, object] = values.unset
     ) -> EnvironmentInstance:
         """
         Asynchronously create the EnvironmentInstance
 
-        :param str unique_name: A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
-        :param str domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
+        :param unique_name: A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
+        :param domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
 
         :returns: The created EnvironmentInstance
         """
@@ -384,19 +386,23 @@ class EnvironmentList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[EnvironmentInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[EnvironmentInstance]:
         """
         Streams EnvironmentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -406,7 +412,9 @@ class EnvironmentList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EnvironmentInstance]:
         """
         Asynchronously streams EnvironmentInstance records from the API as a generator stream.
@@ -414,12 +422,12 @@ class EnvironmentList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -428,18 +436,22 @@ class EnvironmentList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[EnvironmentInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[EnvironmentInstance]:
         """
         Lists EnvironmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -450,18 +462,22 @@ class EnvironmentList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[EnvironmentInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[EnvironmentInstance]:
         """
         Asynchronously lists EnvironmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -473,15 +489,18 @@ class EnvironmentList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> EnvironmentPage:
         """
         Retrieve a single page of EnvironmentInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EnvironmentInstance
         """
@@ -497,15 +516,18 @@ class EnvironmentList(ListResource):
         return EnvironmentPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> EnvironmentPage:
         """
         Asynchronously retrieve a single page of EnvironmentInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EnvironmentInstance
         """
@@ -522,31 +544,31 @@ class EnvironmentList(ListResource):
         )
         return EnvironmentPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> EnvironmentPage:
+    def get_page(self, target_url: str) -> EnvironmentPage:
         """
         Retrieve a specific page of EnvironmentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of EnvironmentInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return EnvironmentPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> EnvironmentPage:
+    async def get_page_async(self, target_url: str) -> EnvironmentPage:
         """
         Asynchronously retrieve a specific page of EnvironmentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of EnvironmentInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return EnvironmentPage(self._version, response, self._solution)
 
-    def get(self, sid) -> EnvironmentContext:
+    def get(self, sid: str) -> EnvironmentContext:
         """
         Constructs a EnvironmentContext
 
@@ -556,7 +578,7 @@ class EnvironmentList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> EnvironmentContext:
+    def __call__(self, sid: str) -> EnvironmentContext:
         """
         Constructs a EnvironmentContext
 

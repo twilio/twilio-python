@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -196,11 +196,11 @@ class IpCommandContext(InstanceContext):
 
 
 class IpCommandPage(Page):
-    def get_instance(self, payload) -> IpCommandInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> IpCommandInstance:
         """
         Build an instance of IpCommandInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return IpCommandInstance(self._version, payload)
 
@@ -227,22 +227,22 @@ class IpCommandList(ListResource):
 
     def create(
         self,
-        sim,
-        payload,
-        device_port,
-        payload_type=values.unset,
-        callback_url=values.unset,
-        callback_method=values.unset,
+        sim: str,
+        payload: str,
+        device_port: int,
+        payload_type: Union["IpCommandInstance.PayloadType", object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
     ) -> IpCommandInstance:
         """
         Create the IpCommandInstance
 
-        :param str sim: The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
-        :param str payload: The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
-        :param int device_port: The device port to which the IP Command will be sent.
-        :param &quot;IpCommandInstance.PayloadType&quot; payload_type:
-        :param str callback_url: The URL we should call using the `callback_method` after we have sent the IP Command.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
+        :param sim: The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
+        :param payload: The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
+        :param device_port: The device port to which the IP Command will be sent.
+        :param payload_type:
+        :param callback_url: The URL we should call using the `callback_method` after we have sent the IP Command.
+        :param callback_method: The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
 
         :returns: The created IpCommandInstance
         """
@@ -267,22 +267,22 @@ class IpCommandList(ListResource):
 
     async def create_async(
         self,
-        sim,
-        payload,
-        device_port,
-        payload_type=values.unset,
-        callback_url=values.unset,
-        callback_method=values.unset,
+        sim: str,
+        payload: str,
+        device_port: int,
+        payload_type: Union["IpCommandInstance.PayloadType", object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
     ) -> IpCommandInstance:
         """
         Asynchronously create the IpCommandInstance
 
-        :param str sim: The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
-        :param str payload: The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
-        :param int device_port: The device port to which the IP Command will be sent.
-        :param &quot;IpCommandInstance.PayloadType&quot; payload_type:
-        :param str callback_url: The URL we should call using the `callback_method` after we have sent the IP Command.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
+        :param sim: The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
+        :param payload: The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
+        :param device_port: The device port to which the IP Command will be sent.
+        :param payload_type:
+        :param callback_url: The URL we should call using the `callback_method` after we have sent the IP Command.
+        :param callback_method: The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
 
         :returns: The created IpCommandInstance
         """
@@ -307,12 +307,12 @@ class IpCommandList(ListResource):
 
     def stream(
         self,
-        sim=values.unset,
-        sim_iccid=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        sim_iccid: Union[str, object] = values.unset,
+        status: Union["IpCommandInstance.Status", object] = values.unset,
+        direction: Union["IpCommandInstance.Direction", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[IpCommandInstance]:
         """
         Streams IpCommandInstance records from the API as a generator stream.
@@ -324,12 +324,12 @@ class IpCommandList(ListResource):
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
         :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
         :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -346,12 +346,12 @@ class IpCommandList(ListResource):
 
     async def stream_async(
         self,
-        sim=values.unset,
-        sim_iccid=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        sim_iccid: Union[str, object] = values.unset,
+        status: Union["IpCommandInstance.Status", object] = values.unset,
+        direction: Union["IpCommandInstance.Direction", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[IpCommandInstance]:
         """
         Asynchronously streams IpCommandInstance records from the API as a generator stream.
@@ -363,12 +363,12 @@ class IpCommandList(ListResource):
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
         :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
         :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -385,12 +385,12 @@ class IpCommandList(ListResource):
 
     def list(
         self,
-        sim=values.unset,
-        sim_iccid=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        sim_iccid: Union[str, object] = values.unset,
+        status: Union["IpCommandInstance.Status", object] = values.unset,
+        direction: Union["IpCommandInstance.Direction", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[IpCommandInstance]:
         """
         Lists IpCommandInstance records from the API as a list.
@@ -401,12 +401,12 @@ class IpCommandList(ListResource):
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
         :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
         :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -423,12 +423,12 @@ class IpCommandList(ListResource):
 
     async def list_async(
         self,
-        sim=values.unset,
-        sim_iccid=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        sim_iccid: Union[str, object] = values.unset,
+        status: Union["IpCommandInstance.Status", object] = values.unset,
+        direction: Union["IpCommandInstance.Direction", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[IpCommandInstance]:
         """
         Asynchronously lists IpCommandInstance records from the API as a list.
@@ -439,12 +439,12 @@ class IpCommandList(ListResource):
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
         :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
         :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -461,25 +461,25 @@ class IpCommandList(ListResource):
 
     def page(
         self,
-        sim=values.unset,
-        sim_iccid=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        sim_iccid: Union[str, object] = values.unset,
+        status: Union["IpCommandInstance.Status", object] = values.unset,
+        direction: Union["IpCommandInstance.Direction", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> IpCommandPage:
         """
         Retrieve a single page of IpCommandInstance records from the API.
         Request is executed immediately
 
-        :param str sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
-        :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
-        :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
+        :param sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
+        :param status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpCommandInstance
         """
@@ -500,25 +500,25 @@ class IpCommandList(ListResource):
 
     async def page_async(
         self,
-        sim=values.unset,
-        sim_iccid=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        sim_iccid: Union[str, object] = values.unset,
+        status: Union["IpCommandInstance.Status", object] = values.unset,
+        direction: Union["IpCommandInstance.Direction", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> IpCommandPage:
         """
         Asynchronously retrieve a single page of IpCommandInstance records from the API.
         Request is executed immediately
 
-        :param str sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
-        :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
-        :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
+        :param sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
+        :param status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpCommandInstance
         """
@@ -539,31 +539,31 @@ class IpCommandList(ListResource):
         )
         return IpCommandPage(self._version, response)
 
-    def get_page(self, target_url) -> IpCommandPage:
+    def get_page(self, target_url: str) -> IpCommandPage:
         """
         Retrieve a specific page of IpCommandInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of IpCommandInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return IpCommandPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> IpCommandPage:
+    async def get_page_async(self, target_url: str) -> IpCommandPage:
         """
         Asynchronously retrieve a specific page of IpCommandInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of IpCommandInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return IpCommandPage(self._version, response)
 
-    def get(self, sid) -> IpCommandContext:
+    def get(self, sid: str) -> IpCommandContext:
         """
         Constructs a IpCommandContext
 
@@ -571,7 +571,7 @@ class IpCommandList(ListResource):
         """
         return IpCommandContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> IpCommandContext:
+    def __call__(self, sid: str) -> IpCommandContext:
         """
         Constructs a IpCommandContext
 

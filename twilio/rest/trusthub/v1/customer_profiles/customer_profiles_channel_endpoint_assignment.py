@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -222,12 +222,12 @@ class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
 
 class CustomerProfilesChannelEndpointAssignmentPage(Page):
     def get_instance(
-        self, payload
+        self, payload: Dict[str, Any]
     ) -> CustomerProfilesChannelEndpointAssignmentInstance:
         """
         Build an instance of CustomerProfilesChannelEndpointAssignmentInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CustomerProfilesChannelEndpointAssignmentInstance(
             self._version,
@@ -264,13 +264,13 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         )
 
     def create(
-        self, channel_endpoint_type, channel_endpoint_sid
+        self, channel_endpoint_type: str, channel_endpoint_sid: str
     ) -> CustomerProfilesChannelEndpointAssignmentInstance:
         """
         Create the CustomerProfilesChannelEndpointAssignmentInstance
 
-        :param str channel_endpoint_type: The type of channel endpoint. eg: phone-number
-        :param str channel_endpoint_sid: The SID of an channel endpoint
+        :param channel_endpoint_type: The type of channel endpoint. eg: phone-number
+        :param channel_endpoint_sid: The SID of an channel endpoint
 
         :returns: The created CustomerProfilesChannelEndpointAssignmentInstance
         """
@@ -294,13 +294,13 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         )
 
     async def create_async(
-        self, channel_endpoint_type, channel_endpoint_sid
+        self, channel_endpoint_type: str, channel_endpoint_sid: str
     ) -> CustomerProfilesChannelEndpointAssignmentInstance:
         """
         Asynchronously create the CustomerProfilesChannelEndpointAssignmentInstance
 
-        :param str channel_endpoint_type: The type of channel endpoint. eg: phone-number
-        :param str channel_endpoint_sid: The SID of an channel endpoint
+        :param channel_endpoint_type: The type of channel endpoint. eg: phone-number
+        :param channel_endpoint_sid: The SID of an channel endpoint
 
         :returns: The created CustomerProfilesChannelEndpointAssignmentInstance
         """
@@ -325,10 +325,10 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
     def stream(
         self,
-        channel_endpoint_sid=values.unset,
-        channel_endpoint_sids=values.unset,
-        limit=None,
-        page_size=None,
+        channel_endpoint_sid: Union[str, object] = values.unset,
+        channel_endpoint_sids: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesChannelEndpointAssignmentInstance]:
         """
         Streams CustomerProfilesChannelEndpointAssignmentInstance records from the API as a generator stream.
@@ -338,12 +338,12 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
         :param str channel_endpoint_sid: The SID of an channel endpoint
         :param str channel_endpoint_sids: comma separated list of channel endpoint sids
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -358,10 +358,10 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
     async def stream_async(
         self,
-        channel_endpoint_sid=values.unset,
-        channel_endpoint_sids=values.unset,
-        limit=None,
-        page_size=None,
+        channel_endpoint_sid: Union[str, object] = values.unset,
+        channel_endpoint_sids: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesChannelEndpointAssignmentInstance]:
         """
         Asynchronously streams CustomerProfilesChannelEndpointAssignmentInstance records from the API as a generator stream.
@@ -371,12 +371,12 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
         :param str channel_endpoint_sid: The SID of an channel endpoint
         :param str channel_endpoint_sids: comma separated list of channel endpoint sids
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -391,10 +391,10 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
     def list(
         self,
-        channel_endpoint_sid=values.unset,
-        channel_endpoint_sids=values.unset,
-        limit=None,
-        page_size=None,
+        channel_endpoint_sid: Union[str, object] = values.unset,
+        channel_endpoint_sids: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesChannelEndpointAssignmentInstance]:
         """
         Lists CustomerProfilesChannelEndpointAssignmentInstance records from the API as a list.
@@ -403,12 +403,12 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
         :param str channel_endpoint_sid: The SID of an channel endpoint
         :param str channel_endpoint_sids: comma separated list of channel endpoint sids
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -423,10 +423,10 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
     async def list_async(
         self,
-        channel_endpoint_sid=values.unset,
-        channel_endpoint_sids=values.unset,
-        limit=None,
-        page_size=None,
+        channel_endpoint_sid: Union[str, object] = values.unset,
+        channel_endpoint_sids: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesChannelEndpointAssignmentInstance]:
         """
         Asynchronously lists CustomerProfilesChannelEndpointAssignmentInstance records from the API as a list.
@@ -435,12 +435,12 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
         :param str channel_endpoint_sid: The SID of an channel endpoint
         :param str channel_endpoint_sids: comma separated list of channel endpoint sids
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -455,21 +455,21 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
     def page(
         self,
-        channel_endpoint_sid=values.unset,
-        channel_endpoint_sids=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        channel_endpoint_sid: Union[str, object] = values.unset,
+        channel_endpoint_sids: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CustomerProfilesChannelEndpointAssignmentPage:
         """
         Retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
 
-        :param str channel_endpoint_sid: The SID of an channel endpoint
-        :param str channel_endpoint_sids: comma separated list of channel endpoint sids
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param channel_endpoint_sid: The SID of an channel endpoint
+        :param channel_endpoint_sids: comma separated list of channel endpoint sids
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesChannelEndpointAssignmentInstance
         """
@@ -490,21 +490,21 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
     async def page_async(
         self,
-        channel_endpoint_sid=values.unset,
-        channel_endpoint_sids=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        channel_endpoint_sid: Union[str, object] = values.unset,
+        channel_endpoint_sids: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CustomerProfilesChannelEndpointAssignmentPage:
         """
         Asynchronously retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
 
-        :param str channel_endpoint_sid: The SID of an channel endpoint
-        :param str channel_endpoint_sids: comma separated list of channel endpoint sids
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param channel_endpoint_sid: The SID of an channel endpoint
+        :param channel_endpoint_sids: comma separated list of channel endpoint sids
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesChannelEndpointAssignmentInstance
         """
@@ -525,12 +525,14 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
             self._version, response, self._solution
         )
 
-    def get_page(self, target_url) -> CustomerProfilesChannelEndpointAssignmentPage:
+    def get_page(
+        self, target_url: str
+    ) -> CustomerProfilesChannelEndpointAssignmentPage:
         """
         Retrieve a specific page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesChannelEndpointAssignmentInstance
         """
@@ -540,13 +542,13 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         )
 
     async def get_page_async(
-        self, target_url
+        self, target_url: str
     ) -> CustomerProfilesChannelEndpointAssignmentPage:
         """
         Asynchronously retrieve a specific page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesChannelEndpointAssignmentInstance
         """
@@ -555,7 +557,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
             self._version, response, self._solution
         )
 
-    def get(self, sid) -> CustomerProfilesChannelEndpointAssignmentContext:
+    def get(self, sid: str) -> CustomerProfilesChannelEndpointAssignmentContext:
         """
         Constructs a CustomerProfilesChannelEndpointAssignmentContext
 
@@ -567,7 +569,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> CustomerProfilesChannelEndpointAssignmentContext:
+    def __call__(self, sid: str) -> CustomerProfilesChannelEndpointAssignmentContext:
         """
         Constructs a CustomerProfilesChannelEndpointAssignmentContext
 

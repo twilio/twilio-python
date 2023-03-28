@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -123,11 +123,11 @@ class SyncStreamInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, ttl=values.unset) -> "SyncStreamInstance":
+    def update(self, ttl: Union[int, object] = values.unset) -> "SyncStreamInstance":
         """
         Update the SyncStreamInstance
 
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 
         :returns: The updated SyncStreamInstance
         """
@@ -135,11 +135,13 @@ class SyncStreamInstance(InstanceResource):
             ttl=ttl,
         )
 
-    async def update_async(self, ttl=values.unset) -> "SyncStreamInstance":
+    async def update_async(
+        self, ttl: Union[int, object] = values.unset
+    ) -> "SyncStreamInstance":
         """
         Asynchronous coroutine to update the SyncStreamInstance
 
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 
         :returns: The updated SyncStreamInstance
         """
@@ -248,11 +250,11 @@ class SyncStreamContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, ttl=values.unset) -> SyncStreamInstance:
+    def update(self, ttl: Union[int, object] = values.unset) -> SyncStreamInstance:
         """
         Update the SyncStreamInstance
 
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 
         :returns: The updated SyncStreamInstance
         """
@@ -275,11 +277,13 @@ class SyncStreamContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, ttl=values.unset) -> SyncStreamInstance:
+    async def update_async(
+        self, ttl: Union[int, object] = values.unset
+    ) -> SyncStreamInstance:
         """
         Asynchronous coroutine to update the SyncStreamInstance
 
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 
         :returns: The updated SyncStreamInstance
         """
@@ -326,11 +330,11 @@ class SyncStreamContext(InstanceContext):
 
 
 class SyncStreamPage(Page):
-    def get_instance(self, payload) -> SyncStreamInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SyncStreamInstance:
         """
         Build an instance of SyncStreamInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SyncStreamInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -362,12 +366,16 @@ class SyncStreamList(ListResource):
         }
         self._uri = "/Services/{service_sid}/Streams".format(**self._solution)
 
-    def create(self, unique_name=values.unset, ttl=values.unset) -> SyncStreamInstance:
+    def create(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+    ) -> SyncStreamInstance:
         """
         Create the SyncStreamInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+        :param unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 
         :returns: The created SyncStreamInstance
         """
@@ -389,13 +397,15 @@ class SyncStreamList(ListResource):
         )
 
     async def create_async(
-        self, unique_name=values.unset, ttl=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
     ) -> SyncStreamInstance:
         """
         Asynchronously create the SyncStreamInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+        :param unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 
         :returns: The created SyncStreamInstance
         """
@@ -416,19 +426,23 @@ class SyncStreamList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[SyncStreamInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[SyncStreamInstance]:
         """
         Streams SyncStreamInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -438,7 +452,9 @@ class SyncStreamList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncStreamInstance]:
         """
         Asynchronously streams SyncStreamInstance records from the API as a generator stream.
@@ -446,12 +462,12 @@ class SyncStreamList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -460,18 +476,22 @@ class SyncStreamList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[SyncStreamInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[SyncStreamInstance]:
         """
         Lists SyncStreamInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -482,18 +502,22 @@ class SyncStreamList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[SyncStreamInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[SyncStreamInstance]:
         """
         Asynchronously lists SyncStreamInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -505,15 +529,18 @@ class SyncStreamList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SyncStreamPage:
         """
         Retrieve a single page of SyncStreamInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncStreamInstance
         """
@@ -529,15 +556,18 @@ class SyncStreamList(ListResource):
         return SyncStreamPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SyncStreamPage:
         """
         Asynchronously retrieve a single page of SyncStreamInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncStreamInstance
         """
@@ -554,31 +584,31 @@ class SyncStreamList(ListResource):
         )
         return SyncStreamPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> SyncStreamPage:
+    def get_page(self, target_url: str) -> SyncStreamPage:
         """
         Retrieve a specific page of SyncStreamInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncStreamInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SyncStreamPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> SyncStreamPage:
+    async def get_page_async(self, target_url: str) -> SyncStreamPage:
         """
         Asynchronously retrieve a specific page of SyncStreamInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncStreamInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SyncStreamPage(self._version, response, self._solution)
 
-    def get(self, sid) -> SyncStreamContext:
+    def get(self, sid: str) -> SyncStreamContext:
         """
         Constructs a SyncStreamContext
 
@@ -588,7 +618,7 @@ class SyncStreamList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> SyncStreamContext:
+    def __call__(self, sid: str) -> SyncStreamContext:
         """
         Constructs a SyncStreamContext
 

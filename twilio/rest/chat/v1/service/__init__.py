@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -151,118 +151,118 @@ class ServiceInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        default_service_role_sid=values.unset,
-        default_channel_role_sid=values.unset,
-        default_channel_creator_role_sid=values.unset,
-        read_status_enabled=values.unset,
-        reachability_enabled=values.unset,
-        typing_indicator_timeout=values.unset,
-        consumption_report_interval=values.unset,
-        notifications_new_message_enabled=values.unset,
-        notifications_new_message_template=values.unset,
-        notifications_added_to_channel_enabled=values.unset,
-        notifications_added_to_channel_template=values.unset,
-        notifications_removed_from_channel_enabled=values.unset,
-        notifications_removed_from_channel_template=values.unset,
-        notifications_invited_to_channel_enabled=values.unset,
-        notifications_invited_to_channel_template=values.unset,
-        pre_webhook_url=values.unset,
-        post_webhook_url=values.unset,
-        webhook_method=values.unset,
-        webhook_filters=values.unset,
-        webhooks_on_message_send_url=values.unset,
-        webhooks_on_message_send_method=values.unset,
-        webhooks_on_message_update_url=values.unset,
-        webhooks_on_message_update_method=values.unset,
-        webhooks_on_message_remove_url=values.unset,
-        webhooks_on_message_remove_method=values.unset,
-        webhooks_on_channel_add_url=values.unset,
-        webhooks_on_channel_add_method=values.unset,
-        webhooks_on_channel_destroy_url=values.unset,
-        webhooks_on_channel_destroy_method=values.unset,
-        webhooks_on_channel_update_url=values.unset,
-        webhooks_on_channel_update_method=values.unset,
-        webhooks_on_member_add_url=values.unset,
-        webhooks_on_member_add_method=values.unset,
-        webhooks_on_member_remove_url=values.unset,
-        webhooks_on_member_remove_method=values.unset,
-        webhooks_on_message_sent_url=values.unset,
-        webhooks_on_message_sent_method=values.unset,
-        webhooks_on_message_updated_url=values.unset,
-        webhooks_on_message_updated_method=values.unset,
-        webhooks_on_message_removed_url=values.unset,
-        webhooks_on_message_removed_method=values.unset,
-        webhooks_on_channel_added_url=values.unset,
-        webhooks_on_channel_added_method=values.unset,
-        webhooks_on_channel_destroyed_url=values.unset,
-        webhooks_on_channel_destroyed_method=values.unset,
-        webhooks_on_channel_updated_url=values.unset,
-        webhooks_on_channel_updated_method=values.unset,
-        webhooks_on_member_added_url=values.unset,
-        webhooks_on_member_added_method=values.unset,
-        webhooks_on_member_removed_url=values.unset,
-        webhooks_on_member_removed_method=values.unset,
-        limits_channel_members=values.unset,
-        limits_user_channels=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str default_service_role_sid: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param str default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param str default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param bool read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
-        :param bool reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
-        :param int typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-        :param int consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-        :param bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-        :param bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-        :param bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-        :param bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-        :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param List[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param str webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
-        :param str webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
-        :param str webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
-        :param str webhooks_on_message_update_method: The HTTP method to use when calling the `webhooks.on_message_update.url`.
-        :param str webhooks_on_message_remove_url: The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
-        :param str webhooks_on_message_remove_method: The HTTP method to use when calling the `webhooks.on_message_remove.url`.
-        :param str webhooks_on_channel_add_url: The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
-        :param str webhooks_on_channel_add_method: The HTTP method to use when calling the `webhooks.on_channel_add.url`.
-        :param str webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
-        :param str webhooks_on_channel_destroy_method: The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
-        :param str webhooks_on_channel_update_url: The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
-        :param str webhooks_on_channel_update_method: The HTTP method to use when calling the `webhooks.on_channel_update.url`.
-        :param str webhooks_on_member_add_url: The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
-        :param str webhooks_on_member_add_method: The HTTP method to use when calling the `webhooks.on_member_add.url`.
-        :param str webhooks_on_member_remove_url: The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
-        :param str webhooks_on_member_remove_method: The HTTP method to use when calling the `webhooks.on_member_remove.url`.
-        :param str webhooks_on_message_sent_url: The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
-        :param str webhooks_on_message_sent_method: The URL of the webhook to call in response to the `on_message_sent` event`.
-        :param str webhooks_on_message_updated_url: The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
-        :param str webhooks_on_message_updated_method: The HTTP method to use when calling the `webhooks.on_message_updated.url`.
-        :param str webhooks_on_message_removed_url: The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
-        :param str webhooks_on_message_removed_method: The HTTP method to use when calling the `webhooks.on_message_removed.url`.
-        :param str webhooks_on_channel_added_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
-        :param str webhooks_on_channel_added_method: The URL of the webhook to call in response to the `on_channel_added` event`.
-        :param str webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
-        :param str webhooks_on_channel_destroyed_method: The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
-        :param str webhooks_on_channel_updated_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
-        :param str webhooks_on_channel_updated_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
-        :param str webhooks_on_member_added_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
-        :param str webhooks_on_member_added_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
-        :param str webhooks_on_member_removed_url: The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
-        :param str webhooks_on_member_removed_method: The HTTP method to use when calling the `webhooks.on_member_removed.url`.
-        :param int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-        :param int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param default_service_role_sid: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
+        :param reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
+        :param typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
+        :param consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
+        :param notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+        :param notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+        :param notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+        :param notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+        :param pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+        :param post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+        :param webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
+        :param webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
+        :param webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
+        :param webhooks_on_message_update_method: The HTTP method to use when calling the `webhooks.on_message_update.url`.
+        :param webhooks_on_message_remove_url: The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
+        :param webhooks_on_message_remove_method: The HTTP method to use when calling the `webhooks.on_message_remove.url`.
+        :param webhooks_on_channel_add_url: The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
+        :param webhooks_on_channel_add_method: The HTTP method to use when calling the `webhooks.on_channel_add.url`.
+        :param webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
+        :param webhooks_on_channel_destroy_method: The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
+        :param webhooks_on_channel_update_url: The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
+        :param webhooks_on_channel_update_method: The HTTP method to use when calling the `webhooks.on_channel_update.url`.
+        :param webhooks_on_member_add_url: The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
+        :param webhooks_on_member_add_method: The HTTP method to use when calling the `webhooks.on_member_add.url`.
+        :param webhooks_on_member_remove_url: The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
+        :param webhooks_on_member_remove_method: The HTTP method to use when calling the `webhooks.on_member_remove.url`.
+        :param webhooks_on_message_sent_url: The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
+        :param webhooks_on_message_sent_method: The URL of the webhook to call in response to the `on_message_sent` event`.
+        :param webhooks_on_message_updated_url: The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
+        :param webhooks_on_message_updated_method: The HTTP method to use when calling the `webhooks.on_message_updated.url`.
+        :param webhooks_on_message_removed_url: The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
+        :param webhooks_on_message_removed_method: The HTTP method to use when calling the `webhooks.on_message_removed.url`.
+        :param webhooks_on_channel_added_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
+        :param webhooks_on_channel_added_method: The URL of the webhook to call in response to the `on_channel_added` event`.
+        :param webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
+        :param webhooks_on_channel_destroyed_method: The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
+        :param webhooks_on_channel_updated_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+        :param webhooks_on_channel_updated_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+        :param webhooks_on_member_added_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+        :param webhooks_on_member_added_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+        :param webhooks_on_member_removed_url: The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
+        :param webhooks_on_member_removed_method: The HTTP method to use when calling the `webhooks.on_member_removed.url`.
+        :param limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
+        :param limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
 
         :returns: The updated ServiceInstance
         """
@@ -325,118 +325,118 @@ class ServiceInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        default_service_role_sid=values.unset,
-        default_channel_role_sid=values.unset,
-        default_channel_creator_role_sid=values.unset,
-        read_status_enabled=values.unset,
-        reachability_enabled=values.unset,
-        typing_indicator_timeout=values.unset,
-        consumption_report_interval=values.unset,
-        notifications_new_message_enabled=values.unset,
-        notifications_new_message_template=values.unset,
-        notifications_added_to_channel_enabled=values.unset,
-        notifications_added_to_channel_template=values.unset,
-        notifications_removed_from_channel_enabled=values.unset,
-        notifications_removed_from_channel_template=values.unset,
-        notifications_invited_to_channel_enabled=values.unset,
-        notifications_invited_to_channel_template=values.unset,
-        pre_webhook_url=values.unset,
-        post_webhook_url=values.unset,
-        webhook_method=values.unset,
-        webhook_filters=values.unset,
-        webhooks_on_message_send_url=values.unset,
-        webhooks_on_message_send_method=values.unset,
-        webhooks_on_message_update_url=values.unset,
-        webhooks_on_message_update_method=values.unset,
-        webhooks_on_message_remove_url=values.unset,
-        webhooks_on_message_remove_method=values.unset,
-        webhooks_on_channel_add_url=values.unset,
-        webhooks_on_channel_add_method=values.unset,
-        webhooks_on_channel_destroy_url=values.unset,
-        webhooks_on_channel_destroy_method=values.unset,
-        webhooks_on_channel_update_url=values.unset,
-        webhooks_on_channel_update_method=values.unset,
-        webhooks_on_member_add_url=values.unset,
-        webhooks_on_member_add_method=values.unset,
-        webhooks_on_member_remove_url=values.unset,
-        webhooks_on_member_remove_method=values.unset,
-        webhooks_on_message_sent_url=values.unset,
-        webhooks_on_message_sent_method=values.unset,
-        webhooks_on_message_updated_url=values.unset,
-        webhooks_on_message_updated_method=values.unset,
-        webhooks_on_message_removed_url=values.unset,
-        webhooks_on_message_removed_method=values.unset,
-        webhooks_on_channel_added_url=values.unset,
-        webhooks_on_channel_added_method=values.unset,
-        webhooks_on_channel_destroyed_url=values.unset,
-        webhooks_on_channel_destroyed_method=values.unset,
-        webhooks_on_channel_updated_url=values.unset,
-        webhooks_on_channel_updated_method=values.unset,
-        webhooks_on_member_added_url=values.unset,
-        webhooks_on_member_added_method=values.unset,
-        webhooks_on_member_removed_url=values.unset,
-        webhooks_on_member_removed_method=values.unset,
-        limits_channel_members=values.unset,
-        limits_user_channels=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str default_service_role_sid: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param str default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param str default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param bool read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
-        :param bool reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
-        :param int typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-        :param int consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-        :param bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-        :param bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-        :param bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-        :param bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-        :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param List[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param str webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
-        :param str webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
-        :param str webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
-        :param str webhooks_on_message_update_method: The HTTP method to use when calling the `webhooks.on_message_update.url`.
-        :param str webhooks_on_message_remove_url: The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
-        :param str webhooks_on_message_remove_method: The HTTP method to use when calling the `webhooks.on_message_remove.url`.
-        :param str webhooks_on_channel_add_url: The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
-        :param str webhooks_on_channel_add_method: The HTTP method to use when calling the `webhooks.on_channel_add.url`.
-        :param str webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
-        :param str webhooks_on_channel_destroy_method: The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
-        :param str webhooks_on_channel_update_url: The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
-        :param str webhooks_on_channel_update_method: The HTTP method to use when calling the `webhooks.on_channel_update.url`.
-        :param str webhooks_on_member_add_url: The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
-        :param str webhooks_on_member_add_method: The HTTP method to use when calling the `webhooks.on_member_add.url`.
-        :param str webhooks_on_member_remove_url: The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
-        :param str webhooks_on_member_remove_method: The HTTP method to use when calling the `webhooks.on_member_remove.url`.
-        :param str webhooks_on_message_sent_url: The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
-        :param str webhooks_on_message_sent_method: The URL of the webhook to call in response to the `on_message_sent` event`.
-        :param str webhooks_on_message_updated_url: The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
-        :param str webhooks_on_message_updated_method: The HTTP method to use when calling the `webhooks.on_message_updated.url`.
-        :param str webhooks_on_message_removed_url: The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
-        :param str webhooks_on_message_removed_method: The HTTP method to use when calling the `webhooks.on_message_removed.url`.
-        :param str webhooks_on_channel_added_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
-        :param str webhooks_on_channel_added_method: The URL of the webhook to call in response to the `on_channel_added` event`.
-        :param str webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
-        :param str webhooks_on_channel_destroyed_method: The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
-        :param str webhooks_on_channel_updated_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
-        :param str webhooks_on_channel_updated_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
-        :param str webhooks_on_member_added_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
-        :param str webhooks_on_member_added_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
-        :param str webhooks_on_member_removed_url: The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
-        :param str webhooks_on_member_removed_method: The HTTP method to use when calling the `webhooks.on_member_removed.url`.
-        :param int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-        :param int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param default_service_role_sid: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
+        :param reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
+        :param typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
+        :param consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
+        :param notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+        :param notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+        :param notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+        :param notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+        :param pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+        :param post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+        :param webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
+        :param webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
+        :param webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
+        :param webhooks_on_message_update_method: The HTTP method to use when calling the `webhooks.on_message_update.url`.
+        :param webhooks_on_message_remove_url: The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
+        :param webhooks_on_message_remove_method: The HTTP method to use when calling the `webhooks.on_message_remove.url`.
+        :param webhooks_on_channel_add_url: The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
+        :param webhooks_on_channel_add_method: The HTTP method to use when calling the `webhooks.on_channel_add.url`.
+        :param webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
+        :param webhooks_on_channel_destroy_method: The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
+        :param webhooks_on_channel_update_url: The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
+        :param webhooks_on_channel_update_method: The HTTP method to use when calling the `webhooks.on_channel_update.url`.
+        :param webhooks_on_member_add_url: The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
+        :param webhooks_on_member_add_method: The HTTP method to use when calling the `webhooks.on_member_add.url`.
+        :param webhooks_on_member_remove_url: The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
+        :param webhooks_on_member_remove_method: The HTTP method to use when calling the `webhooks.on_member_remove.url`.
+        :param webhooks_on_message_sent_url: The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
+        :param webhooks_on_message_sent_method: The URL of the webhook to call in response to the `on_message_sent` event`.
+        :param webhooks_on_message_updated_url: The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
+        :param webhooks_on_message_updated_method: The HTTP method to use when calling the `webhooks.on_message_updated.url`.
+        :param webhooks_on_message_removed_url: The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
+        :param webhooks_on_message_removed_method: The HTTP method to use when calling the `webhooks.on_message_removed.url`.
+        :param webhooks_on_channel_added_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
+        :param webhooks_on_channel_added_method: The URL of the webhook to call in response to the `on_channel_added` event`.
+        :param webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
+        :param webhooks_on_channel_destroyed_method: The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
+        :param webhooks_on_channel_updated_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+        :param webhooks_on_channel_updated_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+        :param webhooks_on_member_added_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+        :param webhooks_on_member_added_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+        :param webhooks_on_member_removed_url: The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
+        :param webhooks_on_member_removed_method: The HTTP method to use when calling the `webhooks.on_member_removed.url`.
+        :param limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
+        :param limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
 
         :returns: The updated ServiceInstance
         """
@@ -612,118 +612,118 @@ class ServiceContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        default_service_role_sid=values.unset,
-        default_channel_role_sid=values.unset,
-        default_channel_creator_role_sid=values.unset,
-        read_status_enabled=values.unset,
-        reachability_enabled=values.unset,
-        typing_indicator_timeout=values.unset,
-        consumption_report_interval=values.unset,
-        notifications_new_message_enabled=values.unset,
-        notifications_new_message_template=values.unset,
-        notifications_added_to_channel_enabled=values.unset,
-        notifications_added_to_channel_template=values.unset,
-        notifications_removed_from_channel_enabled=values.unset,
-        notifications_removed_from_channel_template=values.unset,
-        notifications_invited_to_channel_enabled=values.unset,
-        notifications_invited_to_channel_template=values.unset,
-        pre_webhook_url=values.unset,
-        post_webhook_url=values.unset,
-        webhook_method=values.unset,
-        webhook_filters=values.unset,
-        webhooks_on_message_send_url=values.unset,
-        webhooks_on_message_send_method=values.unset,
-        webhooks_on_message_update_url=values.unset,
-        webhooks_on_message_update_method=values.unset,
-        webhooks_on_message_remove_url=values.unset,
-        webhooks_on_message_remove_method=values.unset,
-        webhooks_on_channel_add_url=values.unset,
-        webhooks_on_channel_add_method=values.unset,
-        webhooks_on_channel_destroy_url=values.unset,
-        webhooks_on_channel_destroy_method=values.unset,
-        webhooks_on_channel_update_url=values.unset,
-        webhooks_on_channel_update_method=values.unset,
-        webhooks_on_member_add_url=values.unset,
-        webhooks_on_member_add_method=values.unset,
-        webhooks_on_member_remove_url=values.unset,
-        webhooks_on_member_remove_method=values.unset,
-        webhooks_on_message_sent_url=values.unset,
-        webhooks_on_message_sent_method=values.unset,
-        webhooks_on_message_updated_url=values.unset,
-        webhooks_on_message_updated_method=values.unset,
-        webhooks_on_message_removed_url=values.unset,
-        webhooks_on_message_removed_method=values.unset,
-        webhooks_on_channel_added_url=values.unset,
-        webhooks_on_channel_added_method=values.unset,
-        webhooks_on_channel_destroyed_url=values.unset,
-        webhooks_on_channel_destroyed_method=values.unset,
-        webhooks_on_channel_updated_url=values.unset,
-        webhooks_on_channel_updated_method=values.unset,
-        webhooks_on_member_added_url=values.unset,
-        webhooks_on_member_added_method=values.unset,
-        webhooks_on_member_removed_url=values.unset,
-        webhooks_on_member_removed_method=values.unset,
-        limits_channel_members=values.unset,
-        limits_user_channels=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
     ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str default_service_role_sid: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param str default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param str default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param bool read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
-        :param bool reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
-        :param int typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-        :param int consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-        :param bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-        :param bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-        :param bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-        :param bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-        :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param List[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param str webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
-        :param str webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
-        :param str webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
-        :param str webhooks_on_message_update_method: The HTTP method to use when calling the `webhooks.on_message_update.url`.
-        :param str webhooks_on_message_remove_url: The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
-        :param str webhooks_on_message_remove_method: The HTTP method to use when calling the `webhooks.on_message_remove.url`.
-        :param str webhooks_on_channel_add_url: The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
-        :param str webhooks_on_channel_add_method: The HTTP method to use when calling the `webhooks.on_channel_add.url`.
-        :param str webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
-        :param str webhooks_on_channel_destroy_method: The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
-        :param str webhooks_on_channel_update_url: The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
-        :param str webhooks_on_channel_update_method: The HTTP method to use when calling the `webhooks.on_channel_update.url`.
-        :param str webhooks_on_member_add_url: The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
-        :param str webhooks_on_member_add_method: The HTTP method to use when calling the `webhooks.on_member_add.url`.
-        :param str webhooks_on_member_remove_url: The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
-        :param str webhooks_on_member_remove_method: The HTTP method to use when calling the `webhooks.on_member_remove.url`.
-        :param str webhooks_on_message_sent_url: The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
-        :param str webhooks_on_message_sent_method: The URL of the webhook to call in response to the `on_message_sent` event`.
-        :param str webhooks_on_message_updated_url: The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
-        :param str webhooks_on_message_updated_method: The HTTP method to use when calling the `webhooks.on_message_updated.url`.
-        :param str webhooks_on_message_removed_url: The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
-        :param str webhooks_on_message_removed_method: The HTTP method to use when calling the `webhooks.on_message_removed.url`.
-        :param str webhooks_on_channel_added_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
-        :param str webhooks_on_channel_added_method: The URL of the webhook to call in response to the `on_channel_added` event`.
-        :param str webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
-        :param str webhooks_on_channel_destroyed_method: The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
-        :param str webhooks_on_channel_updated_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
-        :param str webhooks_on_channel_updated_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
-        :param str webhooks_on_member_added_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
-        :param str webhooks_on_member_added_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
-        :param str webhooks_on_member_removed_url: The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
-        :param str webhooks_on_member_removed_method: The HTTP method to use when calling the `webhooks.on_member_removed.url`.
-        :param int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-        :param int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param default_service_role_sid: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
+        :param reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
+        :param typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
+        :param consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
+        :param notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+        :param notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+        :param notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+        :param notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+        :param pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+        :param post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+        :param webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
+        :param webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
+        :param webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
+        :param webhooks_on_message_update_method: The HTTP method to use when calling the `webhooks.on_message_update.url`.
+        :param webhooks_on_message_remove_url: The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
+        :param webhooks_on_message_remove_method: The HTTP method to use when calling the `webhooks.on_message_remove.url`.
+        :param webhooks_on_channel_add_url: The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
+        :param webhooks_on_channel_add_method: The HTTP method to use when calling the `webhooks.on_channel_add.url`.
+        :param webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
+        :param webhooks_on_channel_destroy_method: The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
+        :param webhooks_on_channel_update_url: The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
+        :param webhooks_on_channel_update_method: The HTTP method to use when calling the `webhooks.on_channel_update.url`.
+        :param webhooks_on_member_add_url: The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
+        :param webhooks_on_member_add_method: The HTTP method to use when calling the `webhooks.on_member_add.url`.
+        :param webhooks_on_member_remove_url: The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
+        :param webhooks_on_member_remove_method: The HTTP method to use when calling the `webhooks.on_member_remove.url`.
+        :param webhooks_on_message_sent_url: The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
+        :param webhooks_on_message_sent_method: The URL of the webhook to call in response to the `on_message_sent` event`.
+        :param webhooks_on_message_updated_url: The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
+        :param webhooks_on_message_updated_method: The HTTP method to use when calling the `webhooks.on_message_updated.url`.
+        :param webhooks_on_message_removed_url: The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
+        :param webhooks_on_message_removed_method: The HTTP method to use when calling the `webhooks.on_message_removed.url`.
+        :param webhooks_on_channel_added_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
+        :param webhooks_on_channel_added_method: The URL of the webhook to call in response to the `on_channel_added` event`.
+        :param webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
+        :param webhooks_on_channel_destroyed_method: The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
+        :param webhooks_on_channel_updated_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+        :param webhooks_on_channel_updated_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+        :param webhooks_on_member_added_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+        :param webhooks_on_member_added_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+        :param webhooks_on_member_removed_url: The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
+        :param webhooks_on_member_removed_method: The HTTP method to use when calling the `webhooks.on_member_removed.url`.
+        :param limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
+        :param limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
 
         :returns: The updated ServiceInstance
         """
@@ -796,118 +796,118 @@ class ServiceContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        default_service_role_sid=values.unset,
-        default_channel_role_sid=values.unset,
-        default_channel_creator_role_sid=values.unset,
-        read_status_enabled=values.unset,
-        reachability_enabled=values.unset,
-        typing_indicator_timeout=values.unset,
-        consumption_report_interval=values.unset,
-        notifications_new_message_enabled=values.unset,
-        notifications_new_message_template=values.unset,
-        notifications_added_to_channel_enabled=values.unset,
-        notifications_added_to_channel_template=values.unset,
-        notifications_removed_from_channel_enabled=values.unset,
-        notifications_removed_from_channel_template=values.unset,
-        notifications_invited_to_channel_enabled=values.unset,
-        notifications_invited_to_channel_template=values.unset,
-        pre_webhook_url=values.unset,
-        post_webhook_url=values.unset,
-        webhook_method=values.unset,
-        webhook_filters=values.unset,
-        webhooks_on_message_send_url=values.unset,
-        webhooks_on_message_send_method=values.unset,
-        webhooks_on_message_update_url=values.unset,
-        webhooks_on_message_update_method=values.unset,
-        webhooks_on_message_remove_url=values.unset,
-        webhooks_on_message_remove_method=values.unset,
-        webhooks_on_channel_add_url=values.unset,
-        webhooks_on_channel_add_method=values.unset,
-        webhooks_on_channel_destroy_url=values.unset,
-        webhooks_on_channel_destroy_method=values.unset,
-        webhooks_on_channel_update_url=values.unset,
-        webhooks_on_channel_update_method=values.unset,
-        webhooks_on_member_add_url=values.unset,
-        webhooks_on_member_add_method=values.unset,
-        webhooks_on_member_remove_url=values.unset,
-        webhooks_on_member_remove_method=values.unset,
-        webhooks_on_message_sent_url=values.unset,
-        webhooks_on_message_sent_method=values.unset,
-        webhooks_on_message_updated_url=values.unset,
-        webhooks_on_message_updated_method=values.unset,
-        webhooks_on_message_removed_url=values.unset,
-        webhooks_on_message_removed_method=values.unset,
-        webhooks_on_channel_added_url=values.unset,
-        webhooks_on_channel_added_method=values.unset,
-        webhooks_on_channel_destroyed_url=values.unset,
-        webhooks_on_channel_destroyed_method=values.unset,
-        webhooks_on_channel_updated_url=values.unset,
-        webhooks_on_channel_updated_method=values.unset,
-        webhooks_on_member_added_url=values.unset,
-        webhooks_on_member_added_method=values.unset,
-        webhooks_on_member_removed_url=values.unset,
-        webhooks_on_member_removed_method=values.unset,
-        limits_channel_members=values.unset,
-        limits_user_channels=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
     ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str default_service_role_sid: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param str default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param str default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
-        :param bool read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
-        :param bool reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
-        :param int typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-        :param int consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-        :param bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-        :param bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-        :param bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-        :param bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
-        :param str notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-        :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-        :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param List[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param str webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
-        :param str webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
-        :param str webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
-        :param str webhooks_on_message_update_method: The HTTP method to use when calling the `webhooks.on_message_update.url`.
-        :param str webhooks_on_message_remove_url: The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
-        :param str webhooks_on_message_remove_method: The HTTP method to use when calling the `webhooks.on_message_remove.url`.
-        :param str webhooks_on_channel_add_url: The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
-        :param str webhooks_on_channel_add_method: The HTTP method to use when calling the `webhooks.on_channel_add.url`.
-        :param str webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
-        :param str webhooks_on_channel_destroy_method: The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
-        :param str webhooks_on_channel_update_url: The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
-        :param str webhooks_on_channel_update_method: The HTTP method to use when calling the `webhooks.on_channel_update.url`.
-        :param str webhooks_on_member_add_url: The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
-        :param str webhooks_on_member_add_method: The HTTP method to use when calling the `webhooks.on_member_add.url`.
-        :param str webhooks_on_member_remove_url: The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
-        :param str webhooks_on_member_remove_method: The HTTP method to use when calling the `webhooks.on_member_remove.url`.
-        :param str webhooks_on_message_sent_url: The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
-        :param str webhooks_on_message_sent_method: The URL of the webhook to call in response to the `on_message_sent` event`.
-        :param str webhooks_on_message_updated_url: The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
-        :param str webhooks_on_message_updated_method: The HTTP method to use when calling the `webhooks.on_message_updated.url`.
-        :param str webhooks_on_message_removed_url: The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
-        :param str webhooks_on_message_removed_method: The HTTP method to use when calling the `webhooks.on_message_removed.url`.
-        :param str webhooks_on_channel_added_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
-        :param str webhooks_on_channel_added_method: The URL of the webhook to call in response to the `on_channel_added` event`.
-        :param str webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
-        :param str webhooks_on_channel_destroyed_method: The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
-        :param str webhooks_on_channel_updated_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
-        :param str webhooks_on_channel_updated_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
-        :param str webhooks_on_member_added_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
-        :param str webhooks_on_member_added_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
-        :param str webhooks_on_member_removed_url: The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
-        :param str webhooks_on_member_removed_method: The HTTP method to use when calling the `webhooks.on_member_removed.url`.
-        :param int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-        :param int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param default_service_role_sid: The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
+        :param read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
+        :param reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
+        :param typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
+        :param consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
+        :param notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+        :param notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+        :param notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+        :param notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. Can be: `true` or `false` and the default is `false`.
+        :param notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+        :param pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+        :param post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
+        :param webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
+        :param webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
+        :param webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
+        :param webhooks_on_message_update_method: The HTTP method to use when calling the `webhooks.on_message_update.url`.
+        :param webhooks_on_message_remove_url: The URL of the webhook to call in response to the `on_message_remove` event using the `webhooks.on_message_remove.method` HTTP method.
+        :param webhooks_on_message_remove_method: The HTTP method to use when calling the `webhooks.on_message_remove.url`.
+        :param webhooks_on_channel_add_url: The URL of the webhook to call in response to the `on_channel_add` event using the `webhooks.on_channel_add.method` HTTP method.
+        :param webhooks_on_channel_add_method: The HTTP method to use when calling the `webhooks.on_channel_add.url`.
+        :param webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the `on_channel_destroy` event using the `webhooks.on_channel_destroy.method` HTTP method.
+        :param webhooks_on_channel_destroy_method: The HTTP method to use when calling the `webhooks.on_channel_destroy.url`.
+        :param webhooks_on_channel_update_url: The URL of the webhook to call in response to the `on_channel_update` event using the `webhooks.on_channel_update.method` HTTP method.
+        :param webhooks_on_channel_update_method: The HTTP method to use when calling the `webhooks.on_channel_update.url`.
+        :param webhooks_on_member_add_url: The URL of the webhook to call in response to the `on_member_add` event using the `webhooks.on_member_add.method` HTTP method.
+        :param webhooks_on_member_add_method: The HTTP method to use when calling the `webhooks.on_member_add.url`.
+        :param webhooks_on_member_remove_url: The URL of the webhook to call in response to the `on_member_remove` event using the `webhooks.on_member_remove.method` HTTP method.
+        :param webhooks_on_member_remove_method: The HTTP method to use when calling the `webhooks.on_member_remove.url`.
+        :param webhooks_on_message_sent_url: The URL of the webhook to call in response to the `on_message_sent` event using the `webhooks.on_message_sent.method` HTTP method.
+        :param webhooks_on_message_sent_method: The URL of the webhook to call in response to the `on_message_sent` event`.
+        :param webhooks_on_message_updated_url: The URL of the webhook to call in response to the `on_message_updated` event using the `webhooks.on_message_updated.method` HTTP method.
+        :param webhooks_on_message_updated_method: The HTTP method to use when calling the `webhooks.on_message_updated.url`.
+        :param webhooks_on_message_removed_url: The URL of the webhook to call in response to the `on_message_removed` event using the `webhooks.on_message_removed.method` HTTP method.
+        :param webhooks_on_message_removed_method: The HTTP method to use when calling the `webhooks.on_message_removed.url`.
+        :param webhooks_on_channel_added_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_added.method` HTTP method.
+        :param webhooks_on_channel_added_method: The URL of the webhook to call in response to the `on_channel_added` event`.
+        :param webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the `on_channel_added` event using the `webhooks.on_channel_destroyed.method` HTTP method.
+        :param webhooks_on_channel_destroyed_method: The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`.
+        :param webhooks_on_channel_updated_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+        :param webhooks_on_channel_updated_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+        :param webhooks_on_member_added_url: The URL of the webhook to call in response to the `on_channel_updated` event using the `webhooks.on_channel_updated.method` HTTP method.
+        :param webhooks_on_member_added_method: The HTTP method to use when calling the `webhooks.on_channel_updated.url`.
+        :param webhooks_on_member_removed_url: The URL of the webhook to call in response to the `on_member_removed` event using the `webhooks.on_member_removed.method` HTTP method.
+        :param webhooks_on_member_removed_method: The HTTP method to use when calling the `webhooks.on_member_removed.url`.
+        :param limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
+        :param limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
 
         :returns: The updated ServiceInstance
         """
@@ -1025,11 +1025,11 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
-    def get_instance(self, payload) -> ServiceInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ServiceInstance(self._version, payload)
 
@@ -1054,11 +1054,11 @@ class ServiceList(ListResource):
 
         self._uri = "/Services"
 
-    def create(self, friendly_name) -> ServiceInstance:
+    def create(self, friendly_name: str) -> ServiceInstance:
         """
         Create the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The created ServiceInstance
         """
@@ -1076,11 +1076,11 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    async def create_async(self, friendly_name) -> ServiceInstance:
+    async def create_async(self, friendly_name: str) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The created ServiceInstance
         """
@@ -1098,19 +1098,23 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -1119,19 +1123,23 @@ class ServiceList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -1140,18 +1148,22 @@ class ServiceList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -1162,18 +1174,22 @@ class ServiceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -1185,15 +1201,18 @@ class ServiceList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
@@ -1209,15 +1228,18 @@ class ServiceList(ListResource):
         return ServicePage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
@@ -1234,31 +1256,31 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url) -> ServicePage:
+    def get_page(self, target_url: str) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> ServicePage:
+    async def get_page_async(self, target_url: str) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid) -> ServiceContext:
+    def get(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
 
@@ -1266,7 +1288,7 @@ class ServiceList(ListResource):
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> ServiceContext:
+    def __call__(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
 

@@ -82,7 +82,7 @@ class ArchivedCallList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, date, sid) -> ArchivedCallContext:
+    def get(self, date: date, sid: str) -> ArchivedCallContext:
         """
         Constructs a ArchivedCallContext
 
@@ -91,7 +91,7 @@ class ArchivedCallList(ListResource):
         """
         return ArchivedCallContext(self._version, date=date, sid=sid)
 
-    def __call__(self, date, sid) -> ArchivedCallContext:
+    def __call__(self, date: date, sid: str) -> ArchivedCallContext:
         """
         Constructs a ArchivedCallContext
 

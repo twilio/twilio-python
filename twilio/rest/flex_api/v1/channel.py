@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -209,11 +209,11 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelPage(Page):
-    def get_instance(self, payload) -> ChannelInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ChannelInstance:
         """
         Build an instance of ChannelInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ChannelInstance(self._version, payload)
 
@@ -240,30 +240,30 @@ class ChannelList(ListResource):
 
     def create(
         self,
-        flex_flow_sid,
-        identity,
-        chat_user_friendly_name,
-        chat_friendly_name,
-        target=values.unset,
-        chat_unique_name=values.unset,
-        pre_engagement_data=values.unset,
-        task_sid=values.unset,
-        task_attributes=values.unset,
-        long_lived=values.unset,
+        flex_flow_sid: str,
+        identity: str,
+        chat_user_friendly_name: str,
+        chat_friendly_name: str,
+        target: Union[str, object] = values.unset,
+        chat_unique_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        task_attributes: Union[str, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
     ) -> ChannelInstance:
         """
         Create the ChannelInstance
 
-        :param str flex_flow_sid: The SID of the Flex Flow.
-        :param str identity: The `identity` value that uniquely identifies the new resource's chat User.
-        :param str chat_user_friendly_name: The chat participant's friendly name.
-        :param str chat_friendly_name: The chat channel's friendly name.
-        :param str target: The Target Contact Identity, for example the phone number of an SMS.
-        :param str chat_unique_name: The chat channel's unique name.
-        :param str pre_engagement_data: The pre-engagement data.
-        :param str task_sid: The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
-        :param str task_attributes: The Task attributes to be added for the TaskRouter Task.
-        :param bool long_lived: Whether to create the channel as long-lived.
+        :param flex_flow_sid: The SID of the Flex Flow.
+        :param identity: The `identity` value that uniquely identifies the new resource's chat User.
+        :param chat_user_friendly_name: The chat participant's friendly name.
+        :param chat_friendly_name: The chat channel's friendly name.
+        :param target: The Target Contact Identity, for example the phone number of an SMS.
+        :param chat_unique_name: The chat channel's unique name.
+        :param pre_engagement_data: The pre-engagement data.
+        :param task_sid: The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
+        :param task_attributes: The Task attributes to be added for the TaskRouter Task.
+        :param long_lived: Whether to create the channel as long-lived.
 
         :returns: The created ChannelInstance
         """
@@ -292,30 +292,30 @@ class ChannelList(ListResource):
 
     async def create_async(
         self,
-        flex_flow_sid,
-        identity,
-        chat_user_friendly_name,
-        chat_friendly_name,
-        target=values.unset,
-        chat_unique_name=values.unset,
-        pre_engagement_data=values.unset,
-        task_sid=values.unset,
-        task_attributes=values.unset,
-        long_lived=values.unset,
+        flex_flow_sid: str,
+        identity: str,
+        chat_user_friendly_name: str,
+        chat_friendly_name: str,
+        target: Union[str, object] = values.unset,
+        chat_unique_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        task_attributes: Union[str, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
     ) -> ChannelInstance:
         """
         Asynchronously create the ChannelInstance
 
-        :param str flex_flow_sid: The SID of the Flex Flow.
-        :param str identity: The `identity` value that uniquely identifies the new resource's chat User.
-        :param str chat_user_friendly_name: The chat participant's friendly name.
-        :param str chat_friendly_name: The chat channel's friendly name.
-        :param str target: The Target Contact Identity, for example the phone number of an SMS.
-        :param str chat_unique_name: The chat channel's unique name.
-        :param str pre_engagement_data: The pre-engagement data.
-        :param str task_sid: The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
-        :param str task_attributes: The Task attributes to be added for the TaskRouter Task.
-        :param bool long_lived: Whether to create the channel as long-lived.
+        :param flex_flow_sid: The SID of the Flex Flow.
+        :param identity: The `identity` value that uniquely identifies the new resource's chat User.
+        :param chat_user_friendly_name: The chat participant's friendly name.
+        :param chat_friendly_name: The chat channel's friendly name.
+        :param target: The Target Contact Identity, for example the phone number of an SMS.
+        :param chat_unique_name: The chat channel's unique name.
+        :param pre_engagement_data: The pre-engagement data.
+        :param task_sid: The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
+        :param task_attributes: The Task attributes to be added for the TaskRouter Task.
+        :param long_lived: Whether to create the channel as long-lived.
 
         :returns: The created ChannelInstance
         """
@@ -342,19 +342,23 @@ class ChannelList(ListResource):
 
         return ChannelInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[ChannelInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ChannelInstance]:
         """
         Streams ChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -363,19 +367,23 @@ class ChannelList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[ChannelInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ChannelInstance]:
         """
         Asynchronously streams ChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -384,18 +392,22 @@ class ChannelList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[ChannelInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ChannelInstance]:
         """
         Lists ChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -406,18 +418,22 @@ class ChannelList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[ChannelInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ChannelInstance]:
         """
         Asynchronously lists ChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -429,15 +445,18 @@ class ChannelList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ChannelPage:
         """
         Retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ChannelInstance
         """
@@ -453,15 +472,18 @@ class ChannelList(ListResource):
         return ChannelPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ChannelPage:
         """
         Asynchronously retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ChannelInstance
         """
@@ -478,31 +500,31 @@ class ChannelList(ListResource):
         )
         return ChannelPage(self._version, response)
 
-    def get_page(self, target_url) -> ChannelPage:
+    def get_page(self, target_url: str) -> ChannelPage:
         """
         Retrieve a specific page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ChannelInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ChannelPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> ChannelPage:
+    async def get_page_async(self, target_url: str) -> ChannelPage:
         """
         Asynchronously retrieve a specific page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ChannelInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ChannelPage(self._version, response)
 
-    def get(self, sid) -> ChannelContext:
+    def get(self, sid: str) -> ChannelContext:
         """
         Constructs a ChannelContext
 
@@ -510,7 +532,7 @@ class ChannelList(ListResource):
         """
         return ChannelContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> ChannelContext:
+    def __call__(self, sid: str) -> ChannelContext:
         """
         Constructs a ChannelContext
 

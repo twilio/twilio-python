@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -122,16 +122,16 @@ class ServiceInstance(InstanceResource):
 
     def update(
         self,
-        include_credentials=values.unset,
-        friendly_name=values.unset,
-        ui_editable=values.unset,
+        include_credentials: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        ui_editable: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
-        :param bool include_credentials: Whether to inject Account credentials into a function invocation context.
-        :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
-        :param bool ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
+        :param include_credentials: Whether to inject Account credentials into a function invocation context.
+        :param friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+        :param ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
 
         :returns: The updated ServiceInstance
         """
@@ -143,16 +143,16 @@ class ServiceInstance(InstanceResource):
 
     async def update_async(
         self,
-        include_credentials=values.unset,
-        friendly_name=values.unset,
-        ui_editable=values.unset,
+        include_credentials: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        ui_editable: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param bool include_credentials: Whether to inject Account credentials into a function invocation context.
-        :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
-        :param bool ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
+        :param include_credentials: Whether to inject Account credentials into a function invocation context.
+        :param friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+        :param ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
 
         :returns: The updated ServiceInstance
         """
@@ -285,16 +285,16 @@ class ServiceContext(InstanceContext):
 
     def update(
         self,
-        include_credentials=values.unset,
-        friendly_name=values.unset,
-        ui_editable=values.unset,
+        include_credentials: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        ui_editable: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
-        :param bool include_credentials: Whether to inject Account credentials into a function invocation context.
-        :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
-        :param bool ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
+        :param include_credentials: Whether to inject Account credentials into a function invocation context.
+        :param friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+        :param ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
 
         :returns: The updated ServiceInstance
         """
@@ -316,16 +316,16 @@ class ServiceContext(InstanceContext):
 
     async def update_async(
         self,
-        include_credentials=values.unset,
-        friendly_name=values.unset,
-        ui_editable=values.unset,
+        include_credentials: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        ui_editable: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param bool include_credentials: Whether to inject Account credentials into a function invocation context.
-        :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
-        :param bool ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
+        :param include_credentials: Whether to inject Account credentials into a function invocation context.
+        :param friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+        :param ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
 
         :returns: The updated ServiceInstance
         """
@@ -404,11 +404,11 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
-    def get_instance(self, payload) -> ServiceInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ServiceInstance(self._version, payload)
 
@@ -435,18 +435,18 @@ class ServiceList(ListResource):
 
     def create(
         self,
-        unique_name,
-        friendly_name,
-        include_credentials=values.unset,
-        ui_editable=values.unset,
+        unique_name: str,
+        friendly_name: str,
+        include_credentials: Union[bool, object] = values.unset,
+        ui_editable: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
-        :param str unique_name: A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the `sid` in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique.
-        :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
-        :param bool include_credentials: Whether to inject Account credentials into a function invocation context. The default value is `true`.
-        :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI. The default value is `false`.
+        :param unique_name: A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the `sid` in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique.
+        :param friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+        :param include_credentials: Whether to inject Account credentials into a function invocation context. The default value is `true`.
+        :param ui_editable: Whether the Service's properties and subresources can be edited via the UI. The default value is `false`.
 
         :returns: The created ServiceInstance
         """
@@ -469,18 +469,18 @@ class ServiceList(ListResource):
 
     async def create_async(
         self,
-        unique_name,
-        friendly_name,
-        include_credentials=values.unset,
-        ui_editable=values.unset,
+        unique_name: str,
+        friendly_name: str,
+        include_credentials: Union[bool, object] = values.unset,
+        ui_editable: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
-        :param str unique_name: A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the `sid` in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique.
-        :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
-        :param bool include_credentials: Whether to inject Account credentials into a function invocation context. The default value is `true`.
-        :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI. The default value is `false`.
+        :param unique_name: A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the `sid` in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique.
+        :param friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+        :param include_credentials: Whether to inject Account credentials into a function invocation context. The default value is `true`.
+        :param ui_editable: Whether the Service's properties and subresources can be edited via the UI. The default value is `false`.
 
         :returns: The created ServiceInstance
         """
@@ -501,19 +501,23 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -522,19 +526,23 @@ class ServiceList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -543,18 +551,22 @@ class ServiceList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -565,18 +577,22 @@ class ServiceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -588,15 +604,18 @@ class ServiceList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
@@ -612,15 +631,18 @@ class ServiceList(ListResource):
         return ServicePage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
@@ -637,31 +659,31 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url) -> ServicePage:
+    def get_page(self, target_url: str) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> ServicePage:
+    async def get_page_async(self, target_url: str) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid) -> ServiceContext:
+    def get(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
 
@@ -669,7 +691,7 @@ class ServiceList(ListResource):
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> ServiceContext:
+    def __call__(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
 

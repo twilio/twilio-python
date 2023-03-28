@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -200,11 +200,11 @@ class LogContext(InstanceContext):
 
 
 class LogPage(Page):
-    def get_instance(self, payload) -> LogInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> LogInstance:
         """
         Build an instance of LogInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return LogInstance(
             self._version,
@@ -247,11 +247,11 @@ class LogList(ListResource):
 
     def stream(
         self,
-        function_sid=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        function_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[LogInstance]:
         """
         Streams LogInstance records from the API as a generator stream.
@@ -262,12 +262,12 @@ class LogList(ListResource):
         :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -283,11 +283,11 @@ class LogList(ListResource):
 
     async def stream_async(
         self,
-        function_sid=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        function_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[LogInstance]:
         """
         Asynchronously streams LogInstance records from the API as a generator stream.
@@ -298,12 +298,12 @@ class LogList(ListResource):
         :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -319,11 +319,11 @@ class LogList(ListResource):
 
     def list(
         self,
-        function_sid=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        function_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[LogInstance]:
         """
         Lists LogInstance records from the API as a list.
@@ -333,12 +333,12 @@ class LogList(ListResource):
         :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -354,11 +354,11 @@ class LogList(ListResource):
 
     async def list_async(
         self,
-        function_sid=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        function_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[LogInstance]:
         """
         Asynchronously lists LogInstance records from the API as a list.
@@ -368,12 +368,12 @@ class LogList(ListResource):
         :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -389,23 +389,23 @@ class LogList(ListResource):
 
     def page(
         self,
-        function_sid=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        function_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> LogPage:
         """
         Retrieve a single page of LogInstance records from the API.
         Request is executed immediately
 
-        :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
-        :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
-        :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param function_sid: The SID of the function whose invocation produced the Log resources to read.
+        :param start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
+        :param end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of LogInstance
         """
@@ -425,23 +425,23 @@ class LogList(ListResource):
 
     async def page_async(
         self,
-        function_sid=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        function_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> LogPage:
         """
         Asynchronously retrieve a single page of LogInstance records from the API.
         Request is executed immediately
 
-        :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
-        :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
-        :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param function_sid: The SID of the function whose invocation produced the Log resources to read.
+        :param start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
+        :param end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of LogInstance
         """
@@ -461,31 +461,31 @@ class LogList(ListResource):
         )
         return LogPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> LogPage:
+    def get_page(self, target_url: str) -> LogPage:
         """
         Retrieve a specific page of LogInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of LogInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return LogPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> LogPage:
+    async def get_page_async(self, target_url: str) -> LogPage:
         """
         Asynchronously retrieve a specific page of LogInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of LogInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return LogPage(self._version, response, self._solution)
 
-    def get(self, sid) -> LogContext:
+    def get(self, sid: str) -> LogContext:
         """
         Constructs a LogContext
 
@@ -498,7 +498,7 @@ class LogList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> LogContext:
+    def __call__(self, sid: str) -> LogContext:
         """
         Constructs a LogContext
 

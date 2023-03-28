@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -98,11 +98,13 @@ class RecordingRulesList(ListResource):
             self._version, payload, room_sid=self._solution["room_sid"]
         )
 
-    def update(self, rules=values.unset) -> RecordingRulesInstance:
+    def update(
+        self, rules: Union[object, object] = values.unset
+    ) -> RecordingRulesInstance:
         """
         Update the RecordingRulesInstance
 
-        :param object rules: A JSON-encoded array of recording rules.
+        :param rules: A JSON-encoded array of recording rules.
 
         :returns: The created RecordingRulesInstance
         """
@@ -122,11 +124,13 @@ class RecordingRulesList(ListResource):
             self._version, payload, room_sid=self._solution["room_sid"]
         )
 
-    async def update_async(self, rules=values.unset) -> RecordingRulesInstance:
+    async def update_async(
+        self, rules: Union[object, object] = values.unset
+    ) -> RecordingRulesInstance:
         """
         Asynchronously update the RecordingRulesInstance
 
-        :param object rules: A JSON-encoded array of recording rules.
+        :param rules: A JSON-encoded array of recording rules.
 
         :returns: The created RecordingRulesInstance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -97,11 +97,16 @@ class ConversationInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    def delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Deletes the ConversationInstance
 
-        :param "ConversationInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -109,11 +114,16 @@ class ConversationInstance(InstanceResource):
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    async def delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the ConversationInstance
 
-        :param "ConversationInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -141,30 +151,32 @@ class ConversationInstance(InstanceResource):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        attributes=values.unset,
-        messaging_service_sid=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
-        unique_name=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> "ConversationInstance":
         """
         Update the ConversationInstance
 
-        :param "ConversationInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param "ConversationInstance.State" state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 
         :returns: The updated ConversationInstance
         """
@@ -183,30 +195,32 @@ class ConversationInstance(InstanceResource):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        attributes=values.unset,
-        messaging_service_sid=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
-        unique_name=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> "ConversationInstance":
         """
         Asynchronous coroutine to update the ConversationInstance
 
-        :param "ConversationInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param "ConversationInstance.State" state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 
         :returns: The updated ConversationInstance
         """
@@ -274,11 +288,16 @@ class ConversationContext(InstanceContext):
         self._participants: Optional[ParticipantList] = None
         self._webhooks: Optional[WebhookList] = None
 
-    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    def delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Deletes the ConversationInstance
 
-        :param &quot;ConversationInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -290,11 +309,16 @@ class ConversationContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    async def delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the ConversationInstance
 
-        :param &quot;ConversationInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -348,30 +372,32 @@ class ConversationContext(InstanceContext):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        attributes=values.unset,
-        messaging_service_sid=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
-        unique_name=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> ConversationInstance:
         """
         Update the ConversationInstance
 
-        :param "ConversationInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param "ConversationInstance.State" state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 
         :returns: The updated ConversationInstance
         """
@@ -402,30 +428,32 @@ class ConversationContext(InstanceContext):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        attributes=values.unset,
-        messaging_service_sid=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
-        unique_name=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> ConversationInstance:
         """
         Asynchronous coroutine to update the ConversationInstance
 
-        :param "ConversationInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param "ConversationInstance.State" state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
 
         :returns: The updated ConversationInstance
         """
@@ -501,11 +529,11 @@ class ConversationContext(InstanceContext):
 
 
 class ConversationPage(Page):
-    def get_instance(self, payload) -> ConversationInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ConversationInstance:
         """
         Build an instance of ConversationInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ConversationInstance(self._version, payload)
 
@@ -532,30 +560,32 @@ class ConversationList(ListResource):
 
     def create(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        messaging_service_sid=values.unset,
-        attributes=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
     ) -> ConversationInstance:
         """
         Create the ConversationInstance
 
-        :param &quot;ConversationInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param &quot;ConversationInstance.State&quot; state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 
         :returns: The created ConversationInstance
         """
@@ -585,30 +615,32 @@ class ConversationList(ListResource):
 
     async def create_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        messaging_service_sid=values.unset,
-        attributes=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
     ) -> ConversationInstance:
         """
         Asynchronously create the ConversationInstance
 
-        :param &quot;ConversationInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param &quot;ConversationInstance.State&quot; state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
 
         :returns: The created ConversationInstance
         """
@@ -636,19 +668,23 @@ class ConversationList(ListResource):
 
         return ConversationInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[ConversationInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ConversationInstance]:
         """
         Streams ConversationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -658,7 +694,9 @@ class ConversationList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConversationInstance]:
         """
         Asynchronously streams ConversationInstance records from the API as a generator stream.
@@ -666,12 +704,12 @@ class ConversationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -680,18 +718,22 @@ class ConversationList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[ConversationInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ConversationInstance]:
         """
         Lists ConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -703,19 +745,21 @@ class ConversationList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConversationInstance]:
         """
         Asynchronously lists ConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -727,15 +771,18 @@ class ConversationList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ConversationPage:
         """
         Retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConversationInstance
         """
@@ -751,15 +798,18 @@ class ConversationList(ListResource):
         return ConversationPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ConversationPage:
         """
         Asynchronously retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConversationInstance
         """
@@ -776,31 +826,31 @@ class ConversationList(ListResource):
         )
         return ConversationPage(self._version, response)
 
-    def get_page(self, target_url) -> ConversationPage:
+    def get_page(self, target_url: str) -> ConversationPage:
         """
         Retrieve a specific page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConversationInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ConversationPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> ConversationPage:
+    async def get_page_async(self, target_url: str) -> ConversationPage:
         """
         Asynchronously retrieve a specific page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConversationInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConversationPage(self._version, response)
 
-    def get(self, sid) -> ConversationContext:
+    def get(self, sid: str) -> ConversationContext:
         """
         Constructs a ConversationContext
 
@@ -808,7 +858,7 @@ class ConversationList(ListResource):
         """
         return ConversationContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> ConversationContext:
+    def __call__(self, sid: str) -> ConversationContext:
         """
         Constructs a ConversationContext
 

@@ -13,8 +13,8 @@ r"""
 """
 
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional
+from datetime import date, datetime
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -157,12 +157,16 @@ class RecordingInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status, pause_behavior=values.unset) -> "RecordingInstance":
+    def update(
+        self,
+        status: "RecordingInstance.Status",
+        pause_behavior: Union[str, object] = values.unset,
+    ) -> "RecordingInstance":
         """
         Update the RecordingInstance
 
-        :param "RecordingInstance.Status" status:
-        :param str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+        :param status:
+        :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
         """
@@ -172,13 +176,15 @@ class RecordingInstance(InstanceResource):
         )
 
     async def update_async(
-        self, status, pause_behavior=values.unset
+        self,
+        status: "RecordingInstance.Status",
+        pause_behavior: Union[str, object] = values.unset,
     ) -> "RecordingInstance":
         """
         Asynchronous coroutine to update the RecordingInstance
 
-        :param "RecordingInstance.Status" status:
-        :param str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+        :param status:
+        :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
         """
@@ -287,12 +293,16 @@ class RecordingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status, pause_behavior=values.unset) -> RecordingInstance:
+    def update(
+        self,
+        status: "RecordingInstance.Status",
+        pause_behavior: Union[str, object] = values.unset,
+    ) -> RecordingInstance:
         """
         Update the RecordingInstance
 
-        :param "RecordingInstance.Status" status:
-        :param str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+        :param status:
+        :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
         """
@@ -318,13 +328,15 @@ class RecordingContext(InstanceContext):
         )
 
     async def update_async(
-        self, status, pause_behavior=values.unset
+        self,
+        status: "RecordingInstance.Status",
+        pause_behavior: Union[str, object] = values.unset,
     ) -> RecordingInstance:
         """
         Asynchronous coroutine to update the RecordingInstance
 
-        :param "RecordingInstance.Status" status:
-        :param str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+        :param status:
+        :param pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
         """
@@ -360,11 +372,11 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingPage(Page):
-    def get_instance(self, payload) -> RecordingInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RecordingInstance:
         """
         Build an instance of RecordingInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RecordingInstance(
             self._version,
@@ -405,11 +417,11 @@ class RecordingList(ListResource):
 
     def stream(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
         """
         Streams RecordingInstance records from the API as a generator stream.
@@ -420,12 +432,12 @@ class RecordingList(ListResource):
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -441,11 +453,11 @@ class RecordingList(ListResource):
 
     async def stream_async(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
         """
         Asynchronously streams RecordingInstance records from the API as a generator stream.
@@ -456,12 +468,12 @@ class RecordingList(ListResource):
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -477,11 +489,11 @@ class RecordingList(ListResource):
 
     def list(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
         """
         Lists RecordingInstance records from the API as a list.
@@ -491,12 +503,12 @@ class RecordingList(ListResource):
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -512,11 +524,11 @@ class RecordingList(ListResource):
 
     async def list_async(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
         """
         Asynchronously lists RecordingInstance records from the API as a list.
@@ -526,12 +538,12 @@ class RecordingList(ListResource):
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -547,23 +559,23 @@ class RecordingList(ListResource):
 
     def page(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RecordingPage:
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+        :param date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+        :param date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
         """
@@ -583,23 +595,23 @@ class RecordingList(ListResource):
 
     async def page_async(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RecordingPage:
         """
         Asynchronously retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+        :param date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+        :param date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
         """
@@ -619,31 +631,31 @@ class RecordingList(ListResource):
         )
         return RecordingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> RecordingPage:
+    def get_page(self, target_url: str) -> RecordingPage:
         """
         Retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordingInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RecordingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> RecordingPage:
+    async def get_page_async(self, target_url: str) -> RecordingPage:
         """
         Asynchronously retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordingInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RecordingPage(self._version, response, self._solution)
 
-    def get(self, sid) -> RecordingContext:
+    def get(self, sid: str) -> RecordingContext:
         """
         Constructs a RecordingContext
 
@@ -656,7 +668,7 @@ class RecordingList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> RecordingContext:
+    def __call__(self, sid: str) -> RecordingContext:
         """
         Constructs a RecordingContext
 

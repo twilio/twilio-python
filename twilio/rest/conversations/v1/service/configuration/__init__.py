@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -97,18 +97,18 @@ class ConfigurationInstance(InstanceResource):
 
     def update(
         self,
-        default_conversation_creator_role_sid=values.unset,
-        default_conversation_role_sid=values.unset,
-        default_chat_service_role_sid=values.unset,
-        reachability_enabled=values.unset,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
     ) -> "ConfigurationInstance":
         """
         Update the ConfigurationInstance
 
-        :param str default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param str default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param str default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param bool reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
+        :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
 
         :returns: The updated ConfigurationInstance
         """
@@ -121,18 +121,18 @@ class ConfigurationInstance(InstanceResource):
 
     async def update_async(
         self,
-        default_conversation_creator_role_sid=values.unset,
-        default_conversation_role_sid=values.unset,
-        default_chat_service_role_sid=values.unset,
-        reachability_enabled=values.unset,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
     ) -> "ConfigurationInstance":
         """
         Asynchronous coroutine to update the ConfigurationInstance
 
-        :param str default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param str default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param str default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param bool reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
+        :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
 
         :returns: The updated ConfigurationInstance
         """
@@ -211,18 +211,18 @@ class ConfigurationContext(InstanceContext):
 
     def update(
         self,
-        default_conversation_creator_role_sid=values.unset,
-        default_conversation_role_sid=values.unset,
-        default_chat_service_role_sid=values.unset,
-        reachability_enabled=values.unset,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
     ) -> ConfigurationInstance:
         """
         Update the ConfigurationInstance
 
-        :param str default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param str default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param str default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param bool reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
+        :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
 
         :returns: The updated ConfigurationInstance
         """
@@ -247,18 +247,18 @@ class ConfigurationContext(InstanceContext):
 
     async def update_async(
         self,
-        default_conversation_creator_role_sid=values.unset,
-        default_conversation_role_sid=values.unset,
-        default_chat_service_role_sid=values.unset,
-        reachability_enabled=values.unset,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
     ) -> ConfigurationInstance:
         """
         Asynchronous coroutine to update the ConfigurationInstance
 
-        :param str default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param str default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param str default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :param bool reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
+        :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
 
         :returns: The updated ConfigurationInstance
         """

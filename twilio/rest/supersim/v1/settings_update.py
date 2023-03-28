@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -70,11 +70,11 @@ class SettingsUpdateInstance(InstanceResource):
 
 
 class SettingsUpdatePage(Page):
-    def get_instance(self, payload) -> SettingsUpdateInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SettingsUpdateInstance:
         """
         Build an instance of SettingsUpdateInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SettingsUpdateInstance(self._version, payload)
 
@@ -100,7 +100,11 @@ class SettingsUpdateList(ListResource):
         self._uri = "/SettingsUpdates"
 
     def stream(
-        self, sim=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        sim: Union[str, object] = values.unset,
+        status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SettingsUpdateInstance]:
         """
         Streams SettingsUpdateInstance records from the API as a generator stream.
@@ -110,12 +114,12 @@ class SettingsUpdateList(ListResource):
 
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -125,7 +129,11 @@ class SettingsUpdateList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, sim=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        sim: Union[str, object] = values.unset,
+        status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SettingsUpdateInstance]:
         """
         Asynchronously streams SettingsUpdateInstance records from the API as a generator stream.
@@ -135,12 +143,12 @@ class SettingsUpdateList(ListResource):
 
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -152,7 +160,11 @@ class SettingsUpdateList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, sim=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        sim: Union[str, object] = values.unset,
+        status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SettingsUpdateInstance]:
         """
         Lists SettingsUpdateInstance records from the API as a list.
@@ -161,12 +173,12 @@ class SettingsUpdateList(ListResource):
 
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -180,7 +192,11 @@ class SettingsUpdateList(ListResource):
         )
 
     async def list_async(
-        self, sim=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        sim: Union[str, object] = values.unset,
+        status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SettingsUpdateInstance]:
         """
         Asynchronously lists SettingsUpdateInstance records from the API as a list.
@@ -189,12 +205,12 @@ class SettingsUpdateList(ListResource):
 
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -209,21 +225,21 @@ class SettingsUpdateList(ListResource):
 
     def page(
         self,
-        sim=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SettingsUpdatePage:
         """
         Retrieve a single page of SettingsUpdateInstance records from the API.
         Request is executed immediately
 
-        :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
-        :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
+        :param status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SettingsUpdateInstance
         """
@@ -242,21 +258,21 @@ class SettingsUpdateList(ListResource):
 
     async def page_async(
         self,
-        sim=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SettingsUpdatePage:
         """
         Asynchronously retrieve a single page of SettingsUpdateInstance records from the API.
         Request is executed immediately
 
-        :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
-        :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
+        :param status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SettingsUpdateInstance
         """
@@ -275,24 +291,24 @@ class SettingsUpdateList(ListResource):
         )
         return SettingsUpdatePage(self._version, response)
 
-    def get_page(self, target_url) -> SettingsUpdatePage:
+    def get_page(self, target_url: str) -> SettingsUpdatePage:
         """
         Retrieve a specific page of SettingsUpdateInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SettingsUpdateInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SettingsUpdatePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> SettingsUpdatePage:
+    async def get_page_async(self, target_url: str) -> SettingsUpdatePage:
         """
         Asynchronously retrieve a specific page of SettingsUpdateInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SettingsUpdateInstance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -239,11 +239,11 @@ class CommandContext(InstanceContext):
 
 
 class CommandPage(Page):
-    def get_instance(self, payload) -> CommandInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CommandInstance:
         """
         Build an instance of CommandInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CommandInstance(self._version, payload)
 
@@ -270,24 +270,24 @@ class CommandList(ListResource):
 
     def create(
         self,
-        command,
-        sim=values.unset,
-        callback_method=values.unset,
-        callback_url=values.unset,
-        command_mode=values.unset,
-        include_sid=values.unset,
-        delivery_receipt_requested=values.unset,
+        command: str,
+        sim: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        command_mode: Union["CommandInstance.CommandMode", object] = values.unset,
+        include_sid: Union[str, object] = values.unset,
+        delivery_receipt_requested: Union[bool, object] = values.unset,
     ) -> CommandInstance:
         """
         Create the CommandInstance
 
-        :param str command: The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
-        :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
-        :param str callback_method: The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
-        :param str callback_url: The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
-        :param &quot;CommandInstance.CommandMode&quot; command_mode:
-        :param str include_sid: Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
-        :param bool delivery_receipt_requested: Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
+        :param command: The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
+        :param sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+        :param callback_method: The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
+        :param callback_url: The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
+        :param command_mode:
+        :param include_sid: Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
+        :param delivery_receipt_requested: Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
 
         :returns: The created CommandInstance
         """
@@ -313,24 +313,24 @@ class CommandList(ListResource):
 
     async def create_async(
         self,
-        command,
-        sim=values.unset,
-        callback_method=values.unset,
-        callback_url=values.unset,
-        command_mode=values.unset,
-        include_sid=values.unset,
-        delivery_receipt_requested=values.unset,
+        command: str,
+        sim: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        command_mode: Union["CommandInstance.CommandMode", object] = values.unset,
+        include_sid: Union[str, object] = values.unset,
+        delivery_receipt_requested: Union[bool, object] = values.unset,
     ) -> CommandInstance:
         """
         Asynchronously create the CommandInstance
 
-        :param str command: The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
-        :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
-        :param str callback_method: The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
-        :param str callback_url: The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
-        :param &quot;CommandInstance.CommandMode&quot; command_mode:
-        :param str include_sid: Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
-        :param bool delivery_receipt_requested: Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
+        :param command: The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
+        :param sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+        :param callback_method: The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
+        :param callback_url: The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
+        :param command_mode:
+        :param include_sid: Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
+        :param delivery_receipt_requested: Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
 
         :returns: The created CommandInstance
         """
@@ -356,12 +356,12 @@ class CommandList(ListResource):
 
     def stream(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        transport=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        status: Union["CommandInstance.Status", object] = values.unset,
+        direction: Union["CommandInstance.Direction", object] = values.unset,
+        transport: Union["CommandInstance.Transport", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CommandInstance]:
         """
         Streams CommandInstance records from the API as a generator stream.
@@ -373,12 +373,12 @@ class CommandList(ListResource):
         :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
         :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -395,12 +395,12 @@ class CommandList(ListResource):
 
     async def stream_async(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        transport=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        status: Union["CommandInstance.Status", object] = values.unset,
+        direction: Union["CommandInstance.Direction", object] = values.unset,
+        transport: Union["CommandInstance.Transport", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CommandInstance]:
         """
         Asynchronously streams CommandInstance records from the API as a generator stream.
@@ -412,12 +412,12 @@ class CommandList(ListResource):
         :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
         :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -434,12 +434,12 @@ class CommandList(ListResource):
 
     def list(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        transport=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        status: Union["CommandInstance.Status", object] = values.unset,
+        direction: Union["CommandInstance.Direction", object] = values.unset,
+        transport: Union["CommandInstance.Transport", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CommandInstance]:
         """
         Lists CommandInstance records from the API as a list.
@@ -450,12 +450,12 @@ class CommandList(ListResource):
         :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
         :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -472,12 +472,12 @@ class CommandList(ListResource):
 
     async def list_async(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        transport=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        status: Union["CommandInstance.Status", object] = values.unset,
+        direction: Union["CommandInstance.Direction", object] = values.unset,
+        transport: Union["CommandInstance.Transport", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CommandInstance]:
         """
         Asynchronously lists CommandInstance records from the API as a list.
@@ -488,12 +488,12 @@ class CommandList(ListResource):
         :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
         :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -510,25 +510,25 @@ class CommandList(ListResource):
 
     def page(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        transport=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union["CommandInstance.Status", object] = values.unset,
+        direction: Union["CommandInstance.Direction", object] = values.unset,
+        transport: Union["CommandInstance.Transport", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CommandPage:
         """
         Retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
-        :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
-        :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
-        :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+        :param status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
+        :param direction: Only return Commands with this direction value.
+        :param transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CommandInstance
         """
@@ -549,25 +549,25 @@ class CommandList(ListResource):
 
     async def page_async(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        transport=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union["CommandInstance.Status", object] = values.unset,
+        direction: Union["CommandInstance.Direction", object] = values.unset,
+        transport: Union["CommandInstance.Transport", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CommandPage:
         """
         Asynchronously retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
-        :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
-        :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
-        :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+        :param status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
+        :param direction: Only return Commands with this direction value.
+        :param transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CommandInstance
         """
@@ -588,31 +588,31 @@ class CommandList(ListResource):
         )
         return CommandPage(self._version, response)
 
-    def get_page(self, target_url) -> CommandPage:
+    def get_page(self, target_url: str) -> CommandPage:
         """
         Retrieve a specific page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CommandInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CommandPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> CommandPage:
+    async def get_page_async(self, target_url: str) -> CommandPage:
         """
         Asynchronously retrieve a specific page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CommandInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CommandPage(self._version, response)
 
-    def get(self, sid) -> CommandContext:
+    def get(self, sid: str) -> CommandContext:
         """
         Constructs a CommandContext
 
@@ -620,7 +620,7 @@ class CommandList(ListResource):
         """
         return CommandContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> CommandContext:
+    def __call__(self, sid: str) -> CommandContext:
         """
         Constructs a CommandContext
 

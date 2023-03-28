@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -128,18 +128,18 @@ class DeviceInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        identity=values.unset,
-        deployment_sid=values.unset,
-        enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        deployment_sid: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
     ) -> "DeviceInstance":
         """
         Update the DeviceInstance
 
-        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :param bool enabled:
+        :param friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param enabled:
 
         :returns: The updated DeviceInstance
         """
@@ -152,18 +152,18 @@ class DeviceInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        identity=values.unset,
-        deployment_sid=values.unset,
-        enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        deployment_sid: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
     ) -> "DeviceInstance":
         """
         Asynchronous coroutine to update the DeviceInstance
 
-        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :param bool enabled:
+        :param friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param enabled:
 
         :returns: The updated DeviceInstance
         """
@@ -268,18 +268,18 @@ class DeviceContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        identity=values.unset,
-        deployment_sid=values.unset,
-        enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        deployment_sid: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Update the DeviceInstance
 
-        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :param bool enabled:
+        :param friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param enabled:
 
         :returns: The updated DeviceInstance
         """
@@ -307,18 +307,18 @@ class DeviceContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        identity=values.unset,
-        deployment_sid=values.unset,
-        enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        deployment_sid: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Asynchronous coroutine to update the DeviceInstance
 
-        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :param bool enabled:
+        :param friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param enabled:
 
         :returns: The updated DeviceInstance
         """
@@ -355,11 +355,11 @@ class DeviceContext(InstanceContext):
 
 
 class DevicePage(Page):
-    def get_instance(self, payload) -> DeviceInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> DeviceInstance:
         """
         Build an instance of DeviceInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return DeviceInstance(
             self._version, payload, fleet_sid=self._solution["fleet_sid"]
@@ -393,20 +393,20 @@ class DeviceList(ListResource):
 
     def create(
         self,
-        unique_name=values.unset,
-        friendly_name=values.unset,
-        identity=values.unset,
-        deployment_sid=values.unset,
-        enabled=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        deployment_sid: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Create the DeviceInstance
 
-        :param str unique_name: Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
-        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :param bool enabled:
+        :param unique_name: Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
+        :param friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param enabled:
 
         :returns: The created DeviceInstance
         """
@@ -432,20 +432,20 @@ class DeviceList(ListResource):
 
     async def create_async(
         self,
-        unique_name=values.unset,
-        friendly_name=values.unset,
-        identity=values.unset,
-        deployment_sid=values.unset,
-        enabled=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        deployment_sid: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Asynchronously create the DeviceInstance
 
-        :param str unique_name: Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
-        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :param bool enabled:
+        :param unique_name: Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
+        :param friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param enabled:
 
         :returns: The created DeviceInstance
         """
@@ -470,7 +470,10 @@ class DeviceList(ListResource):
         )
 
     def stream(
-        self, deployment_sid=values.unset, limit=None, page_size=None
+        self,
+        deployment_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DeviceInstance]:
         """
         Streams DeviceInstance records from the API as a generator stream.
@@ -479,12 +482,12 @@ class DeviceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -494,7 +497,10 @@ class DeviceList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, deployment_sid=values.unset, limit=None, page_size=None
+        self,
+        deployment_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DeviceInstance]:
         """
         Asynchronously streams DeviceInstance records from the API as a generator stream.
@@ -503,12 +509,12 @@ class DeviceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -520,7 +526,10 @@ class DeviceList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, deployment_sid=values.unset, limit=None, page_size=None
+        self,
+        deployment_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DeviceInstance]:
         """
         Lists DeviceInstance records from the API as a list.
@@ -528,12 +537,12 @@ class DeviceList(ListResource):
         memory before returning.
 
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -546,7 +555,10 @@ class DeviceList(ListResource):
         )
 
     async def list_async(
-        self, deployment_sid=values.unset, limit=None, page_size=None
+        self,
+        deployment_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DeviceInstance]:
         """
         Asynchronously lists DeviceInstance records from the API as a list.
@@ -554,12 +566,12 @@ class DeviceList(ListResource):
         memory before returning.
 
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -573,19 +585,19 @@ class DeviceList(ListResource):
 
     def page(
         self,
-        deployment_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        deployment_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> DevicePage:
         """
         Retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
 
-        :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceInstance
         """
@@ -603,19 +615,19 @@ class DeviceList(ListResource):
 
     async def page_async(
         self,
-        deployment_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        deployment_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> DevicePage:
         """
         Asynchronously retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
 
-        :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceInstance
         """
@@ -633,31 +645,31 @@ class DeviceList(ListResource):
         )
         return DevicePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> DevicePage:
+    def get_page(self, target_url: str) -> DevicePage:
         """
         Retrieve a specific page of DeviceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DevicePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> DevicePage:
+    async def get_page_async(self, target_url: str) -> DevicePage:
         """
         Asynchronously retrieve a specific page of DeviceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DevicePage(self._version, response, self._solution)
 
-    def get(self, sid) -> DeviceContext:
+    def get(self, sid: str) -> DeviceContext:
         """
         Constructs a DeviceContext
 
@@ -667,7 +679,7 @@ class DeviceList(ListResource):
             self._version, fleet_sid=self._solution["fleet_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> DeviceContext:
+    def __call__(self, sid: str) -> DeviceContext:
         """
         Constructs a DeviceContext
 

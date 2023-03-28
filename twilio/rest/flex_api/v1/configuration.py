@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -193,11 +193,13 @@ class ConfigurationInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, ui_version=values.unset) -> "ConfigurationInstance":
+    def fetch(
+        self, ui_version: Union[str, object] = values.unset
+    ) -> "ConfigurationInstance":
         """
         Fetch the ConfigurationInstance
 
-        :param str ui_version: The Pinned UI version of the Configuration resource to fetch.
+        :param ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
         """
@@ -205,11 +207,13 @@ class ConfigurationInstance(InstanceResource):
             ui_version=ui_version,
         )
 
-    async def fetch_async(self, ui_version=values.unset) -> "ConfigurationInstance":
+    async def fetch_async(
+        self, ui_version: Union[str, object] = values.unset
+    ) -> "ConfigurationInstance":
         """
         Asynchronous coroutine to fetch the ConfigurationInstance
 
-        :param str ui_version: The Pinned UI version of the Configuration resource to fetch.
+        :param ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
         """
@@ -238,11 +242,13 @@ class ConfigurationContext(InstanceContext):
 
         self._uri = "/Configuration"
 
-    def fetch(self, ui_version=values.unset) -> ConfigurationInstance:
+    def fetch(
+        self, ui_version: Union[str, object] = values.unset
+    ) -> ConfigurationInstance:
         """
         Fetch the ConfigurationInstance
 
-        :param str ui_version: The Pinned UI version of the Configuration resource to fetch.
+        :param ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
         """
@@ -260,11 +266,13 @@ class ConfigurationContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self, ui_version=values.unset) -> ConfigurationInstance:
+    async def fetch_async(
+        self, ui_version: Union[str, object] = values.unset
+    ) -> ConfigurationInstance:
         """
         Asynchronous coroutine to fetch the ConfigurationInstance
 
-        :param str ui_version: The Pinned UI version of the Configuration resource to fetch.
+        :param ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
         """

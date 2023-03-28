@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -149,18 +149,18 @@ class BundleInstance(InstanceResource):
 
     def update(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> "BundleInstance":
         """
         Update the BundleInstance
 
-        :param "BundleInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Bundle resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
 
         :returns: The updated BundleInstance
         """
@@ -173,18 +173,18 @@ class BundleInstance(InstanceResource):
 
     async def update_async(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> "BundleInstance":
         """
         Asynchronous coroutine to update the BundleInstance
 
-        :param "BundleInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Bundle resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
 
         :returns: The updated BundleInstance
         """
@@ -318,18 +318,18 @@ class BundleContext(InstanceContext):
 
     def update(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> BundleInstance:
         """
         Update the BundleInstance
 
-        :param "BundleInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Bundle resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
 
         :returns: The updated BundleInstance
         """
@@ -352,18 +352,18 @@ class BundleContext(InstanceContext):
 
     async def update_async(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> BundleInstance:
         """
         Asynchronous coroutine to update the BundleInstance
 
-        :param "BundleInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Bundle resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
 
         :returns: The updated BundleInstance
         """
@@ -443,11 +443,11 @@ class BundleContext(InstanceContext):
 
 
 class BundlePage(Page):
-    def get_instance(self, payload) -> BundleInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> BundleInstance:
         """
         Build an instance of BundleInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return BundleInstance(self._version, payload)
 
@@ -474,24 +474,24 @@ class BundleList(ListResource):
 
     def create(
         self,
-        friendly_name,
-        email,
-        status_callback=values.unset,
-        regulation_sid=values.unset,
-        iso_country=values.unset,
-        end_user_type=values.unset,
-        number_type=values.unset,
+        friendly_name: str,
+        email: str,
+        status_callback: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
+        number_type: Union[str, object] = values.unset,
     ) -> BundleInstance:
         """
         Create the BundleInstance
 
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Bundle resource changes status.
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
-        :param str iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param &quot;BundleInstance.EndUserType&quot; end_user_type:
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
+        :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param end_user_type:
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
 
         :returns: The created BundleInstance
         """
@@ -517,24 +517,24 @@ class BundleList(ListResource):
 
     async def create_async(
         self,
-        friendly_name,
-        email,
-        status_callback=values.unset,
-        regulation_sid=values.unset,
-        iso_country=values.unset,
-        end_user_type=values.unset,
-        number_type=values.unset,
+        friendly_name: str,
+        email: str,
+        status_callback: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
+        number_type: Union[str, object] = values.unset,
     ) -> BundleInstance:
         """
         Asynchronously create the BundleInstance
 
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Bundle resource changes status.
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
-        :param str iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param &quot;BundleInstance.EndUserType&quot; end_user_type:
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
+        :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param end_user_type:
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
 
         :returns: The created BundleInstance
         """
@@ -560,19 +560,19 @@ class BundleList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        regulation_sid=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        has_valid_until_date=values.unset,
-        sort_by=values.unset,
-        sort_direction=values.unset,
-        valid_until_date=values.unset,
-        valid_until_date_before=values.unset,
-        valid_until_date_after=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BundleInstance]:
         """
         Streams BundleInstance records from the API as a generator stream.
@@ -591,12 +591,12 @@ class BundleList(ListResource):
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -620,19 +620,19 @@ class BundleList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        regulation_sid=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        has_valid_until_date=values.unset,
-        sort_by=values.unset,
-        sort_direction=values.unset,
-        valid_until_date=values.unset,
-        valid_until_date_before=values.unset,
-        valid_until_date_after=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BundleInstance]:
         """
         Asynchronously streams BundleInstance records from the API as a generator stream.
@@ -651,12 +651,12 @@ class BundleList(ListResource):
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -680,19 +680,19 @@ class BundleList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        regulation_sid=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        has_valid_until_date=values.unset,
-        sort_by=values.unset,
-        sort_direction=values.unset,
-        valid_until_date=values.unset,
-        valid_until_date_before=values.unset,
-        valid_until_date_after=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BundleInstance]:
         """
         Lists BundleInstance records from the API as a list.
@@ -710,12 +710,12 @@ class BundleList(ListResource):
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -739,19 +739,19 @@ class BundleList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        regulation_sid=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        has_valid_until_date=values.unset,
-        sort_by=values.unset,
-        sort_direction=values.unset,
-        valid_until_date=values.unset,
-        valid_until_date_before=values.unset,
-        valid_until_date_after=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BundleInstance]:
         """
         Asynchronously lists BundleInstance records from the API as a list.
@@ -769,12 +769,12 @@ class BundleList(ListResource):
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -798,39 +798,39 @@ class BundleList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        regulation_sid=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        has_valid_until_date=values.unset,
-        sort_by=values.unset,
-        sort_direction=values.unset,
-        valid_until_date=values.unset,
-        valid_until_date_before=values.unset,
-        valid_until_date_after=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> BundlePage:
         """
         Retrieve a single page of BundleInstance records from the API.
         Request is executed immediately
 
-        :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
-        :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
-        :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
-        :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
-        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
-        :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
-        :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
-        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
+        :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
+        :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
+        :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BundleInstance
         """
@@ -858,39 +858,39 @@ class BundleList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        regulation_sid=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        has_valid_until_date=values.unset,
-        sort_by=values.unset,
-        sort_direction=values.unset,
-        valid_until_date=values.unset,
-        valid_until_date_before=values.unset,
-        valid_until_date_after=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> BundlePage:
         """
         Asynchronously retrieve a single page of BundleInstance records from the API.
         Request is executed immediately
 
-        :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
-        :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
-        :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
-        :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
-        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
-        :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
-        :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
-        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
+        :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
+        :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
+        :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BundleInstance
         """
@@ -918,31 +918,31 @@ class BundleList(ListResource):
         )
         return BundlePage(self._version, response)
 
-    def get_page(self, target_url) -> BundlePage:
+    def get_page(self, target_url: str) -> BundlePage:
         """
         Retrieve a specific page of BundleInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of BundleInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return BundlePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> BundlePage:
+    async def get_page_async(self, target_url: str) -> BundlePage:
         """
         Asynchronously retrieve a specific page of BundleInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of BundleInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return BundlePage(self._version, response)
 
-    def get(self, sid) -> BundleContext:
+    def get(self, sid: str) -> BundleContext:
         """
         Constructs a BundleContext
 
@@ -950,7 +950,7 @@ class BundleList(ListResource):
         """
         return BundleContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> BundleContext:
+    def __call__(self, sid: str) -> BundleContext:
         """
         Constructs a BundleContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -94,11 +94,13 @@ class FeedbackList(ListResource):
             )
         )
 
-    def create(self, outcome=values.unset) -> FeedbackInstance:
+    def create(
+        self, outcome: Union["FeedbackInstance.Outcome", object] = values.unset
+    ) -> FeedbackInstance:
         """
         Create the FeedbackInstance
 
-        :param &quot;FeedbackInstance.Outcome&quot; outcome:
+        :param outcome:
 
         :returns: The created FeedbackInstance
         """
@@ -121,11 +123,13 @@ class FeedbackList(ListResource):
             message_sid=self._solution["message_sid"],
         )
 
-    async def create_async(self, outcome=values.unset) -> FeedbackInstance:
+    async def create_async(
+        self, outcome: Union["FeedbackInstance.Outcome", object] = values.unset
+    ) -> FeedbackInstance:
         """
         Asynchronously create the FeedbackInstance
 
-        :param &quot;FeedbackInstance.Outcome&quot; outcome:
+        :param outcome:
 
         :returns: The created FeedbackInstance
         """

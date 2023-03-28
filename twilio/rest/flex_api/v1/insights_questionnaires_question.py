@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -76,11 +76,11 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, token=values.unset) -> bool:
+    def delete(self, token: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesQuestionInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -88,11 +88,11 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
             token=token,
         )
 
-    async def delete_async(self, token=values.unset) -> bool:
+    async def delete_async(self, token: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesQuestionInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -102,22 +102,22 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
 
     def update(
         self,
-        allow_na,
-        token=values.unset,
-        category_id=values.unset,
-        question=values.unset,
-        description=values.unset,
-        answer_set_id=values.unset,
+        allow_na: bool,
+        token: Union[str, object] = values.unset,
+        category_id: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
     ) -> "InsightsQuestionnairesQuestionInstance":
         """
         Update the InsightsQuestionnairesQuestionInstance
 
-        :param bool allow_na: The flag to enable for disable NA for answer.
-        :param str token: The Token HTTP request header
-        :param str category_id: The ID of the category
-        :param str question: The question.
-        :param str description: The description for the question.
-        :param str answer_set_id: The answer_set for the question.
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param token: The Token HTTP request header
+        :param category_id: The ID of the category
+        :param question: The question.
+        :param description: The description for the question.
+        :param answer_set_id: The answer_set for the question.
 
         :returns: The updated InsightsQuestionnairesQuestionInstance
         """
@@ -132,22 +132,22 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
 
     async def update_async(
         self,
-        allow_na,
-        token=values.unset,
-        category_id=values.unset,
-        question=values.unset,
-        description=values.unset,
-        answer_set_id=values.unset,
+        allow_na: bool,
+        token: Union[str, object] = values.unset,
+        category_id: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
     ) -> "InsightsQuestionnairesQuestionInstance":
         """
         Asynchronous coroutine to update the InsightsQuestionnairesQuestionInstance
 
-        :param bool allow_na: The flag to enable for disable NA for answer.
-        :param str token: The Token HTTP request header
-        :param str category_id: The ID of the category
-        :param str question: The question.
-        :param str description: The description for the question.
-        :param str answer_set_id: The answer_set for the question.
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param token: The Token HTTP request header
+        :param category_id: The ID of the category
+        :param question: The question.
+        :param description: The description for the question.
+        :param answer_set_id: The answer_set for the question.
 
         :returns: The updated InsightsQuestionnairesQuestionInstance
         """
@@ -188,11 +188,11 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         }
         self._uri = "/Insights/QM/Questions/{question_id}".format(**self._solution)
 
-    def delete(self, token=values.unset) -> bool:
+    def delete(self, token: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesQuestionInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -204,11 +204,11 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, token=values.unset) -> bool:
+    async def delete_async(self, token: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesQuestionInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -224,22 +224,22 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
     def update(
         self,
-        allow_na,
-        token=values.unset,
-        category_id=values.unset,
-        question=values.unset,
-        description=values.unset,
-        answer_set_id=values.unset,
+        allow_na: bool,
+        token: Union[str, object] = values.unset,
+        category_id: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
     ) -> InsightsQuestionnairesQuestionInstance:
         """
         Update the InsightsQuestionnairesQuestionInstance
 
-        :param bool allow_na: The flag to enable for disable NA for answer.
-        :param str token: The Token HTTP request header
-        :param str category_id: The ID of the category
-        :param str question: The question.
-        :param str description: The description for the question.
-        :param str answer_set_id: The answer_set for the question.
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param token: The Token HTTP request header
+        :param category_id: The ID of the category
+        :param question: The question.
+        :param description: The description for the question.
+        :param answer_set_id: The answer_set for the question.
 
         :returns: The updated InsightsQuestionnairesQuestionInstance
         """
@@ -268,22 +268,22 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
     async def update_async(
         self,
-        allow_na,
-        token=values.unset,
-        category_id=values.unset,
-        question=values.unset,
-        description=values.unset,
-        answer_set_id=values.unset,
+        allow_na: bool,
+        token: Union[str, object] = values.unset,
+        category_id: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
     ) -> InsightsQuestionnairesQuestionInstance:
         """
         Asynchronous coroutine to update the InsightsQuestionnairesQuestionInstance
 
-        :param bool allow_na: The flag to enable for disable NA for answer.
-        :param str token: The Token HTTP request header
-        :param str category_id: The ID of the category
-        :param str question: The question.
-        :param str description: The description for the question.
-        :param str answer_set_id: The answer_set for the question.
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param token: The Token HTTP request header
+        :param category_id: The ID of the category
+        :param question: The question.
+        :param description: The description for the question.
+        :param answer_set_id: The answer_set for the question.
 
         :returns: The updated InsightsQuestionnairesQuestionInstance
         """
@@ -323,11 +323,13 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
 
 class InsightsQuestionnairesQuestionPage(Page):
-    def get_instance(self, payload) -> InsightsQuestionnairesQuestionInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> InsightsQuestionnairesQuestionInstance:
         """
         Build an instance of InsightsQuestionnairesQuestionInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return InsightsQuestionnairesQuestionInstance(self._version, payload)
 
@@ -354,22 +356,22 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
     def create(
         self,
-        category_id,
-        question,
-        answer_set_id,
-        allow_na,
-        token=values.unset,
-        description=values.unset,
+        category_id: str,
+        question: str,
+        answer_set_id: str,
+        allow_na: bool,
+        token: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
     ) -> InsightsQuestionnairesQuestionInstance:
         """
         Create the InsightsQuestionnairesQuestionInstance
 
-        :param str category_id: The ID of the category
-        :param str question: The question.
-        :param str answer_set_id: The answer_set for the question.
-        :param bool allow_na: The flag to enable for disable NA for answer.
-        :param str token: The Token HTTP request header
-        :param str description: The description for the question.
+        :param category_id: The ID of the category
+        :param question: The question.
+        :param answer_set_id: The answer_set for the question.
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param token: The Token HTTP request header
+        :param description: The description for the question.
 
         :returns: The created InsightsQuestionnairesQuestionInstance
         """
@@ -395,22 +397,22 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
     async def create_async(
         self,
-        category_id,
-        question,
-        answer_set_id,
-        allow_na,
-        token=values.unset,
-        description=values.unset,
+        category_id: str,
+        question: str,
+        answer_set_id: str,
+        allow_na: bool,
+        token: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
     ) -> InsightsQuestionnairesQuestionInstance:
         """
         Asynchronously create the InsightsQuestionnairesQuestionInstance
 
-        :param str category_id: The ID of the category
-        :param str question: The question.
-        :param str answer_set_id: The answer_set for the question.
-        :param bool allow_na: The flag to enable for disable NA for answer.
-        :param str token: The Token HTTP request header
-        :param str description: The description for the question.
+        :param category_id: The ID of the category
+        :param question: The question.
+        :param answer_set_id: The answer_set for the question.
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param token: The Token HTTP request header
+        :param description: The description for the question.
 
         :returns: The created InsightsQuestionnairesQuestionInstance
         """
@@ -435,7 +437,11 @@ class InsightsQuestionnairesQuestionList(ListResource):
         return InsightsQuestionnairesQuestionInstance(self._version, payload)
 
     def stream(
-        self, token=values.unset, category_id=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        category_id: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesQuestionInstance]:
         """
         Streams InsightsQuestionnairesQuestionInstance records from the API as a generator stream.
@@ -445,12 +451,12 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         :param str token: The Token HTTP request header
         :param List[str] category_id: The list of category IDs
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -462,7 +468,11 @@ class InsightsQuestionnairesQuestionList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, token=values.unset, category_id=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        category_id: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesQuestionInstance]:
         """
         Asynchronously streams InsightsQuestionnairesQuestionInstance records from the API as a generator stream.
@@ -472,12 +482,12 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         :param str token: The Token HTTP request header
         :param List[str] category_id: The list of category IDs
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -489,7 +499,11 @@ class InsightsQuestionnairesQuestionList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, token=values.unset, category_id=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        category_id: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesQuestionInstance]:
         """
         Lists InsightsQuestionnairesQuestionInstance records from the API as a list.
@@ -498,12 +512,12 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         :param str token: The Token HTTP request header
         :param List[str] category_id: The list of category IDs
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -517,7 +531,11 @@ class InsightsQuestionnairesQuestionList(ListResource):
         )
 
     async def list_async(
-        self, token=values.unset, category_id=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        category_id: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesQuestionInstance]:
         """
         Asynchronously lists InsightsQuestionnairesQuestionInstance records from the API as a list.
@@ -526,12 +544,12 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         :param str token: The Token HTTP request header
         :param List[str] category_id: The list of category IDs
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -546,21 +564,21 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
     def page(
         self,
-        token=values.unset,
-        category_id=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        category_id: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InsightsQuestionnairesQuestionPage:
         """
         Retrieve a single page of InsightsQuestionnairesQuestionInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param List[str] category_id: The list of category IDs
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param category_id: The list of category IDs
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesQuestionInstance
         """
@@ -579,21 +597,21 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
     async def page_async(
         self,
-        token=values.unset,
-        category_id=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        category_id: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InsightsQuestionnairesQuestionPage:
         """
         Asynchronously retrieve a single page of InsightsQuestionnairesQuestionInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param List[str] category_id: The list of category IDs
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param category_id: The list of category IDs
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesQuestionInstance
         """
@@ -612,31 +630,33 @@ class InsightsQuestionnairesQuestionList(ListResource):
         )
         return InsightsQuestionnairesQuestionPage(self._version, response)
 
-    def get_page(self, target_url) -> InsightsQuestionnairesQuestionPage:
+    def get_page(self, target_url: str) -> InsightsQuestionnairesQuestionPage:
         """
         Retrieve a specific page of InsightsQuestionnairesQuestionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesQuestionInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsQuestionnairesQuestionPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> InsightsQuestionnairesQuestionPage:
+    async def get_page_async(
+        self, target_url: str
+    ) -> InsightsQuestionnairesQuestionPage:
         """
         Asynchronously retrieve a specific page of InsightsQuestionnairesQuestionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesQuestionInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsQuestionnairesQuestionPage(self._version, response)
 
-    def get(self, question_id) -> InsightsQuestionnairesQuestionContext:
+    def get(self, question_id: str) -> InsightsQuestionnairesQuestionContext:
         """
         Constructs a InsightsQuestionnairesQuestionContext
 
@@ -646,7 +666,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
             self._version, question_id=question_id
         )
 
-    def __call__(self, question_id) -> InsightsQuestionnairesQuestionContext:
+    def __call__(self, question_id: str) -> InsightsQuestionnairesQuestionContext:
         """
         Constructs a InsightsQuestionnairesQuestionContext
 

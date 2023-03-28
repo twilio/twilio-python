@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -77,12 +77,12 @@ class AssistantInitiationActionsInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, initiation_actions=values.unset
+        self, initiation_actions: Union[object, object] = values.unset
     ) -> "AssistantInitiationActionsInstance":
         """
         Update the AssistantInitiationActionsInstance
 
-        :param object initiation_actions:
+        :param initiation_actions:
 
         :returns: The updated AssistantInitiationActionsInstance
         """
@@ -91,12 +91,12 @@ class AssistantInitiationActionsInstance(InstanceResource):
         )
 
     async def update_async(
-        self, initiation_actions=values.unset
+        self, initiation_actions: Union[object, object] = values.unset
     ) -> "AssistantInitiationActionsInstance":
         """
         Asynchronous coroutine to update the AssistantInitiationActionsInstance
 
-        :param object initiation_actions:
+        :param initiation_actions:
 
         :returns: The updated AssistantInitiationActionsInstance
         """
@@ -175,12 +175,12 @@ class AssistantInitiationActionsContext(InstanceContext):
         )
 
     def update(
-        self, initiation_actions=values.unset
+        self, initiation_actions: Union[object, object] = values.unset
     ) -> AssistantInitiationActionsInstance:
         """
         Update the AssistantInitiationActionsInstance
 
-        :param object initiation_actions:
+        :param initiation_actions:
 
         :returns: The updated AssistantInitiationActionsInstance
         """
@@ -201,12 +201,12 @@ class AssistantInitiationActionsContext(InstanceContext):
         )
 
     async def update_async(
-        self, initiation_actions=values.unset
+        self, initiation_actions: Union[object, object] = values.unset
     ) -> AssistantInitiationActionsInstance:
         """
         Asynchronous coroutine to update the AssistantInitiationActionsInstance
 
-        :param object initiation_actions:
+        :param initiation_actions:
 
         :returns: The updated AssistantInitiationActionsInstance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -193,11 +193,11 @@ class EventContext(InstanceContext):
 
 
 class EventPage(Page):
-    def get_instance(self, payload) -> EventInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return EventInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -231,19 +231,19 @@ class EventList(ListResource):
 
     def stream(
         self,
-        end_date=values.unset,
-        event_type=values.unset,
-        minutes=values.unset,
-        reservation_sid=values.unset,
-        start_date=values.unset,
-        task_queue_sid=values.unset,
-        task_sid=values.unset,
-        worker_sid=values.unset,
-        workflow_sid=values.unset,
-        task_channel=values.unset,
-        sid=values.unset,
-        limit=None,
-        page_size=None,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EventInstance]:
         """
         Streams EventInstance records from the API as a generator stream.
@@ -262,12 +262,12 @@ class EventList(ListResource):
         :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
         :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
         :param str sid: The SID of the Event resource to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -291,19 +291,19 @@ class EventList(ListResource):
 
     async def stream_async(
         self,
-        end_date=values.unset,
-        event_type=values.unset,
-        minutes=values.unset,
-        reservation_sid=values.unset,
-        start_date=values.unset,
-        task_queue_sid=values.unset,
-        task_sid=values.unset,
-        worker_sid=values.unset,
-        workflow_sid=values.unset,
-        task_channel=values.unset,
-        sid=values.unset,
-        limit=None,
-        page_size=None,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EventInstance]:
         """
         Asynchronously streams EventInstance records from the API as a generator stream.
@@ -322,12 +322,12 @@ class EventList(ListResource):
         :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
         :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
         :param str sid: The SID of the Event resource to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -351,19 +351,19 @@ class EventList(ListResource):
 
     def list(
         self,
-        end_date=values.unset,
-        event_type=values.unset,
-        minutes=values.unset,
-        reservation_sid=values.unset,
-        start_date=values.unset,
-        task_queue_sid=values.unset,
-        task_sid=values.unset,
-        worker_sid=values.unset,
-        workflow_sid=values.unset,
-        task_channel=values.unset,
-        sid=values.unset,
-        limit=None,
-        page_size=None,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EventInstance]:
         """
         Lists EventInstance records from the API as a list.
@@ -381,12 +381,12 @@ class EventList(ListResource):
         :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
         :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
         :param str sid: The SID of the Event resource to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -410,19 +410,19 @@ class EventList(ListResource):
 
     async def list_async(
         self,
-        end_date=values.unset,
-        event_type=values.unset,
-        minutes=values.unset,
-        reservation_sid=values.unset,
-        start_date=values.unset,
-        task_queue_sid=values.unset,
-        task_sid=values.unset,
-        worker_sid=values.unset,
-        workflow_sid=values.unset,
-        task_channel=values.unset,
-        sid=values.unset,
-        limit=None,
-        page_size=None,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EventInstance]:
         """
         Asynchronously lists EventInstance records from the API as a list.
@@ -440,12 +440,12 @@ class EventList(ListResource):
         :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
         :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
         :param str sid: The SID of the Event resource to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -469,39 +469,39 @@ class EventList(ListResource):
 
     def page(
         self,
-        end_date=values.unset,
-        event_type=values.unset,
-        minutes=values.unset,
-        reservation_sid=values.unset,
-        start_date=values.unset,
-        task_queue_sid=values.unset,
-        task_sid=values.unset,
-        worker_sid=values.unset,
-        workflow_sid=values.unset,
-        task_channel=values.unset,
-        sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> EventPage:
         """
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
 
-        :param datetime end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :param str event_type: The type of Events to read. Returns only Events of the type specified.
-        :param int minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
-        :param str reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
-        :param datetime start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
-        :param str task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
-        :param str task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
-        :param str worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
-        :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
-        :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
-        :param str sid: The SID of the Event resource to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param event_type: The type of Events to read. Returns only Events of the type specified.
+        :param minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+        :param reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
+        :param start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
+        :param task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
+        :param task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
+        :param worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
+        :param workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
+        :param task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
+        :param sid: The SID of the Event resource to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
         """
@@ -529,39 +529,39 @@ class EventList(ListResource):
 
     async def page_async(
         self,
-        end_date=values.unset,
-        event_type=values.unset,
-        minutes=values.unset,
-        reservation_sid=values.unset,
-        start_date=values.unset,
-        task_queue_sid=values.unset,
-        task_sid=values.unset,
-        worker_sid=values.unset,
-        workflow_sid=values.unset,
-        task_channel=values.unset,
-        sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> EventPage:
         """
         Asynchronously retrieve a single page of EventInstance records from the API.
         Request is executed immediately
 
-        :param datetime end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :param str event_type: The type of Events to read. Returns only Events of the type specified.
-        :param int minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
-        :param str reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
-        :param datetime start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
-        :param str task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
-        :param str task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
-        :param str worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
-        :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
-        :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
-        :param str sid: The SID of the Event resource to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param event_type: The type of Events to read. Returns only Events of the type specified.
+        :param minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+        :param reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
+        :param start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
+        :param task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
+        :param task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
+        :param worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
+        :param workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
+        :param task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
+        :param sid: The SID of the Event resource to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
         """
@@ -589,31 +589,31 @@ class EventList(ListResource):
         )
         return EventPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> EventPage:
+    def get_page(self, target_url: str) -> EventPage:
         """
         Retrieve a specific page of EventInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return EventPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> EventPage:
+    async def get_page_async(self, target_url: str) -> EventPage:
         """
         Asynchronously retrieve a specific page of EventInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return EventPage(self._version, response, self._solution)
 
-    def get(self, sid) -> EventContext:
+    def get(self, sid: str) -> EventContext:
         """
         Constructs a EventContext
 
@@ -623,7 +623,7 @@ class EventList(ListResource):
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> EventContext:
+    def __call__(self, sid: str) -> EventContext:
         """
         Constructs a EventContext
 

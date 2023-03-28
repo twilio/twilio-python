@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -159,36 +159,36 @@ class DomainInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_status_callback_method=values.unset,
-        voice_status_callback_url=values.unset,
-        voice_url=values.unset,
-        sip_registration=values.unset,
-        domain_name=values.unset,
-        emergency_calling_enabled=values.unset,
-        secure=values.unset,
-        byoc_trunk_sid=values.unset,
-        emergency_caller_sid=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
     ) -> "DomainInstance":
         """
         Update the DomainInstance
 
-        :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
-        :param str voice_method: The HTTP method we should use to call `voice_url`
-        :param str voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-        :param str voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-        :param str voice_url: The URL we should call when the domain receives a call.
-        :param bool sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
-        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-        :param bool secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-        :param str byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-        :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+        :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+        :param voice_method: The HTTP method we should use to call `voice_url`
+        :param voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+        :param voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param voice_url: The URL we should call when the domain receives a call.
+        :param sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+        :param emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+        :param secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+        :param byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+        :param emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The updated DomainInstance
         """
@@ -210,36 +210,36 @@ class DomainInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_status_callback_method=values.unset,
-        voice_status_callback_url=values.unset,
-        voice_url=values.unset,
-        sip_registration=values.unset,
-        domain_name=values.unset,
-        emergency_calling_enabled=values.unset,
-        secure=values.unset,
-        byoc_trunk_sid=values.unset,
-        emergency_caller_sid=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
     ) -> "DomainInstance":
         """
         Asynchronous coroutine to update the DomainInstance
 
-        :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
-        :param str voice_method: The HTTP method we should use to call `voice_url`
-        :param str voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-        :param str voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-        :param str voice_url: The URL we should call when the domain receives a call.
-        :param bool sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
-        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-        :param bool secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-        :param str byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-        :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+        :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+        :param voice_method: The HTTP method we should use to call `voice_url`
+        :param voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+        :param voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param voice_url: The URL we should call when the domain receives a call.
+        :param sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+        :param emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+        :param secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+        :param byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+        :param emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The updated DomainInstance
         """
@@ -382,36 +382,36 @@ class DomainContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_status_callback_method=values.unset,
-        voice_status_callback_url=values.unset,
-        voice_url=values.unset,
-        sip_registration=values.unset,
-        domain_name=values.unset,
-        emergency_calling_enabled=values.unset,
-        secure=values.unset,
-        byoc_trunk_sid=values.unset,
-        emergency_caller_sid=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
     ) -> DomainInstance:
         """
         Update the DomainInstance
 
-        :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
-        :param str voice_method: The HTTP method we should use to call `voice_url`
-        :param str voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-        :param str voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-        :param str voice_url: The URL we should call when the domain receives a call.
-        :param bool sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
-        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-        :param bool secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-        :param str byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-        :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+        :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+        :param voice_method: The HTTP method we should use to call `voice_url`
+        :param voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+        :param voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param voice_url: The URL we should call when the domain receives a call.
+        :param sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+        :param emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+        :param secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+        :param byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+        :param emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The updated DomainInstance
         """
@@ -448,36 +448,36 @@ class DomainContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_status_callback_method=values.unset,
-        voice_status_callback_url=values.unset,
-        voice_url=values.unset,
-        sip_registration=values.unset,
-        domain_name=values.unset,
-        emergency_calling_enabled=values.unset,
-        secure=values.unset,
-        byoc_trunk_sid=values.unset,
-        emergency_caller_sid=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
     ) -> DomainInstance:
         """
         Asynchronous coroutine to update the DomainInstance
 
-        :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
-        :param str voice_method: The HTTP method we should use to call `voice_url`
-        :param str voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-        :param str voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-        :param str voice_url: The URL we should call when the domain receives a call.
-        :param bool sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
-        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-        :param bool secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-        :param str byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-        :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+        :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+        :param voice_method: The HTTP method we should use to call `voice_url`
+        :param voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+        :param voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param voice_url: The URL we should call when the domain receives a call.
+        :param sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+        :param emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+        :param secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+        :param byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+        :param emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The updated DomainInstance
         """
@@ -562,11 +562,11 @@ class DomainContext(InstanceContext):
 
 
 class DomainPage(Page):
-    def get_instance(self, payload) -> DomainInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> DomainInstance:
         """
         Build an instance of DomainInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return DomainInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -600,36 +600,36 @@ class DomainList(ListResource):
 
     def create(
         self,
-        domain_name,
-        friendly_name=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        voice_status_callback_url=values.unset,
-        voice_status_callback_method=values.unset,
-        sip_registration=values.unset,
-        emergency_calling_enabled=values.unset,
-        secure=values.unset,
-        byoc_trunk_sid=values.unset,
-        emergency_caller_sid=values.unset,
+        domain_name: str,
+        friendly_name: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
     ) -> DomainInstance:
         """
         Create the DomainInstance
 
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
-        :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
-        :param str voice_url: The URL we should when the domain receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-        :param str voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-        :param bool sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-        :param bool secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-        :param str byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-        :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+        :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+        :param voice_url: The URL we should when the domain receives a call.
+        :param voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+        :param sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+        :param emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+        :param secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+        :param byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+        :param emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The created DomainInstance
         """
@@ -663,36 +663,36 @@ class DomainList(ListResource):
 
     async def create_async(
         self,
-        domain_name,
-        friendly_name=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        voice_status_callback_url=values.unset,
-        voice_status_callback_method=values.unset,
-        sip_registration=values.unset,
-        emergency_calling_enabled=values.unset,
-        secure=values.unset,
-        byoc_trunk_sid=values.unset,
-        emergency_caller_sid=values.unset,
+        domain_name: str,
+        friendly_name: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
     ) -> DomainInstance:
         """
         Asynchronously create the DomainInstance
 
-        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
-        :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
-        :param str voice_url: The URL we should when the domain receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-        :param str voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-        :param bool sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-        :param bool secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-        :param str byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-        :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+        :param domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+        :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+        :param voice_url: The URL we should when the domain receives a call.
+        :param voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+        :param sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+        :param emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+        :param secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+        :param byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+        :param emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
 
         :returns: The created DomainInstance
         """
@@ -724,19 +724,23 @@ class DomainList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[DomainInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DomainInstance]:
         """
         Streams DomainInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -745,19 +749,23 @@ class DomainList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[DomainInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DomainInstance]:
         """
         Asynchronously streams DomainInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -766,18 +774,22 @@ class DomainList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[DomainInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DomainInstance]:
         """
         Lists DomainInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -788,18 +800,22 @@ class DomainList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[DomainInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DomainInstance]:
         """
         Asynchronously lists DomainInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -811,15 +827,18 @@ class DomainList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> DomainPage:
         """
         Retrieve a single page of DomainInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DomainInstance
         """
@@ -835,15 +854,18 @@ class DomainList(ListResource):
         return DomainPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> DomainPage:
         """
         Asynchronously retrieve a single page of DomainInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DomainInstance
         """
@@ -860,31 +882,31 @@ class DomainList(ListResource):
         )
         return DomainPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> DomainPage:
+    def get_page(self, target_url: str) -> DomainPage:
         """
         Retrieve a specific page of DomainInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DomainInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DomainPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> DomainPage:
+    async def get_page_async(self, target_url: str) -> DomainPage:
         """
         Asynchronously retrieve a specific page of DomainInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DomainInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DomainPage(self._version, response, self._solution)
 
-    def get(self, sid) -> DomainContext:
+    def get(self, sid: str) -> DomainContext:
         """
         Constructs a DomainContext
 
@@ -894,7 +916,7 @@ class DomainList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> DomainContext:
+    def __call__(self, sid: str) -> DomainContext:
         """
         Constructs a DomainContext
 

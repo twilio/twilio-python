@@ -218,7 +218,7 @@ class LinkshorteningMessagingServiceList(ListResource):
         super().__init__(version)
 
     def get(
-        self, domain_sid, messaging_service_sid
+        self, domain_sid: str, messaging_service_sid: str
     ) -> LinkshorteningMessagingServiceContext:
         """
         Constructs a LinkshorteningMessagingServiceContext
@@ -233,7 +233,7 @@ class LinkshorteningMessagingServiceList(ListResource):
         )
 
     def __call__(
-        self, domain_sid, messaging_service_sid
+        self, domain_sid: str, messaging_service_sid: str
     ) -> LinkshorteningMessagingServiceContext:
         """
         Constructs a LinkshorteningMessagingServiceContext

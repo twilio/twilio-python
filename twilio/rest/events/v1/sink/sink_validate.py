@@ -63,11 +63,11 @@ class SinkValidateList(ListResource):
         }
         self._uri = "/Sinks/{sid}/Validate".format(**self._solution)
 
-    def create(self, test_id) -> SinkValidateInstance:
+    def create(self, test_id: str) -> SinkValidateInstance:
         """
         Create the SinkValidateInstance
 
-        :param str test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
+        :param test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
 
         :returns: The created SinkValidateInstance
         """
@@ -85,11 +85,11 @@ class SinkValidateList(ListResource):
 
         return SinkValidateInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def create_async(self, test_id) -> SinkValidateInstance:
+    async def create_async(self, test_id: str) -> SinkValidateInstance:
         """
         Asynchronously create the SinkValidateInstance
 
-        :param str test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
+        :param test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
 
         :returns: The created SinkValidateInstance
         """

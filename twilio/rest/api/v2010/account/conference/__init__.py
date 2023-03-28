@@ -13,8 +13,8 @@ r"""
 """
 
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional
+from datetime import date, datetime
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -131,16 +131,16 @@ class ConferenceInstance(InstanceResource):
 
     def update(
         self,
-        status=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
     ) -> "ConferenceInstance":
         """
         Update the ConferenceInstance
 
-        :param "ConferenceInstance.UpdateStatus" status:
-        :param str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+        :param status:
+        :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 
         :returns: The updated ConferenceInstance
         """
@@ -152,16 +152,16 @@ class ConferenceInstance(InstanceResource):
 
     async def update_async(
         self,
-        status=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
     ) -> "ConferenceInstance":
         """
         Asynchronous coroutine to update the ConferenceInstance
 
-        :param "ConferenceInstance.UpdateStatus" status:
-        :param str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+        :param status:
+        :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 
         :returns: The updated ConferenceInstance
         """
@@ -260,16 +260,16 @@ class ConferenceContext(InstanceContext):
 
     def update(
         self,
-        status=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
     ) -> ConferenceInstance:
         """
         Update the ConferenceInstance
 
-        :param "ConferenceInstance.UpdateStatus" status:
-        :param str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+        :param status:
+        :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 
         :returns: The updated ConferenceInstance
         """
@@ -296,16 +296,16 @@ class ConferenceContext(InstanceContext):
 
     async def update_async(
         self,
-        status=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
     ) -> ConferenceInstance:
         """
         Asynchronous coroutine to update the ConferenceInstance
 
-        :param "ConferenceInstance.UpdateStatus" status:
-        :param str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+        :param status:
+        :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 
         :returns: The updated ConferenceInstance
         """
@@ -367,11 +367,11 @@ class ConferenceContext(InstanceContext):
 
 
 class ConferencePage(Page):
-    def get_instance(self, payload) -> ConferenceInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ConferenceInstance:
         """
         Build an instance of ConferenceInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ConferenceInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -405,16 +405,16 @@ class ConferenceList(ListResource):
 
     def stream(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        date_updated=values.unset,
-        date_updated_before=values.unset,
-        date_updated_after=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
         """
         Streams ConferenceInstance records from the API as a generator stream.
@@ -430,12 +430,12 @@ class ConferenceList(ListResource):
         :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
         :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -456,16 +456,16 @@ class ConferenceList(ListResource):
 
     async def stream_async(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        date_updated=values.unset,
-        date_updated_before=values.unset,
-        date_updated_after=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
         """
         Asynchronously streams ConferenceInstance records from the API as a generator stream.
@@ -481,12 +481,12 @@ class ConferenceList(ListResource):
         :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
         :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -507,16 +507,16 @@ class ConferenceList(ListResource):
 
     def list(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        date_updated=values.unset,
-        date_updated_before=values.unset,
-        date_updated_after=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
         """
         Lists ConferenceInstance records from the API as a list.
@@ -531,12 +531,12 @@ class ConferenceList(ListResource):
         :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
         :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -557,16 +557,16 @@ class ConferenceList(ListResource):
 
     async def list_async(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        date_updated=values.unset,
-        date_updated_before=values.unset,
-        date_updated_after=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
         """
         Asynchronously lists ConferenceInstance records from the API as a list.
@@ -581,12 +581,12 @@ class ConferenceList(ListResource):
         :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
         :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -607,33 +607,33 @@ class ConferenceList(ListResource):
 
     def page(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        date_updated=values.unset,
-        date_updated_before=values.unset,
-        date_updated_after=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ConferencePage:
         """
         Retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param str friendly_name: The string that identifies the Conference resources to read.
-        :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+        :param date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+        :param date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+        :param date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+        :param date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+        :param date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+        :param friendly_name: The string that identifies the Conference resources to read.
+        :param status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceInstance
         """
@@ -658,33 +658,33 @@ class ConferenceList(ListResource):
 
     async def page_async(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        date_updated=values.unset,
-        date_updated_before=values.unset,
-        date_updated_after=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ConferencePage:
         """
         Asynchronously retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param str friendly_name: The string that identifies the Conference resources to read.
-        :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+        :param date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+        :param date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+        :param date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+        :param date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+        :param date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+        :param friendly_name: The string that identifies the Conference resources to read.
+        :param status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceInstance
         """
@@ -709,31 +709,31 @@ class ConferenceList(ListResource):
         )
         return ConferencePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ConferencePage:
+    def get_page(self, target_url: str) -> ConferencePage:
         """
         Retrieve a specific page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConferenceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ConferencePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ConferencePage:
+    async def get_page_async(self, target_url: str) -> ConferencePage:
         """
         Asynchronously retrieve a specific page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConferenceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConferencePage(self._version, response, self._solution)
 
-    def get(self, sid) -> ConferenceContext:
+    def get(self, sid: str) -> ConferenceContext:
         """
         Constructs a ConferenceContext
 
@@ -743,7 +743,7 @@ class ConferenceList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> ConferenceContext:
+    def __call__(self, sid: str) -> ConferenceContext:
         """
         Constructs a ConferenceContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -122,11 +122,13 @@ class PlayerStreamerInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status) -> "PlayerStreamerInstance":
+    def update(
+        self, status: "PlayerStreamerInstance.UpdateStatus"
+    ) -> "PlayerStreamerInstance":
         """
         Update the PlayerStreamerInstance
 
-        :param "PlayerStreamerInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated PlayerStreamerInstance
         """
@@ -134,11 +136,13 @@ class PlayerStreamerInstance(InstanceResource):
             status=status,
         )
 
-    async def update_async(self, status) -> "PlayerStreamerInstance":
+    async def update_async(
+        self, status: "PlayerStreamerInstance.UpdateStatus"
+    ) -> "PlayerStreamerInstance":
         """
         Asynchronous coroutine to update the PlayerStreamerInstance
 
-        :param "PlayerStreamerInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated PlayerStreamerInstance
         """
@@ -219,11 +223,13 @@ class PlayerStreamerContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status) -> PlayerStreamerInstance:
+    def update(
+        self, status: "PlayerStreamerInstance.UpdateStatus"
+    ) -> PlayerStreamerInstance:
         """
         Update the PlayerStreamerInstance
 
-        :param "PlayerStreamerInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated PlayerStreamerInstance
         """
@@ -241,11 +247,13 @@ class PlayerStreamerContext(InstanceContext):
 
         return PlayerStreamerInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, status) -> PlayerStreamerInstance:
+    async def update_async(
+        self, status: "PlayerStreamerInstance.UpdateStatus"
+    ) -> PlayerStreamerInstance:
         """
         Asynchronous coroutine to update the PlayerStreamerInstance
 
-        :param "PlayerStreamerInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated PlayerStreamerInstance
         """
@@ -286,11 +294,11 @@ class PlayerStreamerContext(InstanceContext):
 
 
 class PlayerStreamerPage(Page):
-    def get_instance(self, payload) -> PlayerStreamerInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> PlayerStreamerInstance:
         """
         Build an instance of PlayerStreamerInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return PlayerStreamerInstance(self._version, payload)
 
@@ -317,18 +325,18 @@ class PlayerStreamerList(ListResource):
 
     def create(
         self,
-        video=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        max_duration=values.unset,
+        video: Union[bool, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_duration: Union[int, object] = values.unset,
     ) -> PlayerStreamerInstance:
         """
         Create the PlayerStreamerInstance
 
-        :param bool video: Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
-        :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
-        :param str status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
-        :param int max_duration: The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
+        :param video: Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
+        :param status_callback: The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+        :param status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+        :param max_duration: The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
 
         :returns: The created PlayerStreamerInstance
         """
@@ -351,18 +359,18 @@ class PlayerStreamerList(ListResource):
 
     async def create_async(
         self,
-        video=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        max_duration=values.unset,
+        video: Union[bool, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_duration: Union[int, object] = values.unset,
     ) -> PlayerStreamerInstance:
         """
         Asynchronously create the PlayerStreamerInstance
 
-        :param bool video: Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
-        :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
-        :param str status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
-        :param int max_duration: The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
+        :param video: Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
+        :param status_callback: The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+        :param status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+        :param max_duration: The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
 
         :returns: The created PlayerStreamerInstance
         """
@@ -384,7 +392,11 @@ class PlayerStreamerList(ListResource):
         return PlayerStreamerInstance(self._version, payload)
 
     def stream(
-        self, order=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        order: Union["PlayerStreamerInstance.Order", object] = values.unset,
+        status: Union["PlayerStreamerInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[PlayerStreamerInstance]:
         """
         Streams PlayerStreamerInstance records from the API as a generator stream.
@@ -394,12 +406,12 @@ class PlayerStreamerList(ListResource):
 
         :param &quot;PlayerStreamerInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param &quot;PlayerStreamerInstance.Status&quot; status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -409,7 +421,11 @@ class PlayerStreamerList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, order=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        order: Union["PlayerStreamerInstance.Order", object] = values.unset,
+        status: Union["PlayerStreamerInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[PlayerStreamerInstance]:
         """
         Asynchronously streams PlayerStreamerInstance records from the API as a generator stream.
@@ -419,12 +435,12 @@ class PlayerStreamerList(ListResource):
 
         :param &quot;PlayerStreamerInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param &quot;PlayerStreamerInstance.Status&quot; status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -436,7 +452,11 @@ class PlayerStreamerList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, order=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        order: Union["PlayerStreamerInstance.Order", object] = values.unset,
+        status: Union["PlayerStreamerInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[PlayerStreamerInstance]:
         """
         Lists PlayerStreamerInstance records from the API as a list.
@@ -445,12 +465,12 @@ class PlayerStreamerList(ListResource):
 
         :param &quot;PlayerStreamerInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param &quot;PlayerStreamerInstance.Status&quot; status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -464,7 +484,11 @@ class PlayerStreamerList(ListResource):
         )
 
     async def list_async(
-        self, order=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        order: Union["PlayerStreamerInstance.Order", object] = values.unset,
+        status: Union["PlayerStreamerInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[PlayerStreamerInstance]:
         """
         Asynchronously lists PlayerStreamerInstance records from the API as a list.
@@ -473,12 +497,12 @@ class PlayerStreamerList(ListResource):
 
         :param &quot;PlayerStreamerInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param &quot;PlayerStreamerInstance.Status&quot; status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -493,21 +517,21 @@ class PlayerStreamerList(ListResource):
 
     def page(
         self,
-        order=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["PlayerStreamerInstance.Order", object] = values.unset,
+        status: Union["PlayerStreamerInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> PlayerStreamerPage:
         """
         Retrieve a single page of PlayerStreamerInstance records from the API.
         Request is executed immediately
 
-        :param &quot;PlayerStreamerInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param &quot;PlayerStreamerInstance.Status&quot; status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of PlayerStreamerInstance
         """
@@ -526,21 +550,21 @@ class PlayerStreamerList(ListResource):
 
     async def page_async(
         self,
-        order=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["PlayerStreamerInstance.Order", object] = values.unset,
+        status: Union["PlayerStreamerInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> PlayerStreamerPage:
         """
         Asynchronously retrieve a single page of PlayerStreamerInstance records from the API.
         Request is executed immediately
 
-        :param &quot;PlayerStreamerInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param &quot;PlayerStreamerInstance.Status&quot; status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of PlayerStreamerInstance
         """
@@ -559,31 +583,31 @@ class PlayerStreamerList(ListResource):
         )
         return PlayerStreamerPage(self._version, response)
 
-    def get_page(self, target_url) -> PlayerStreamerPage:
+    def get_page(self, target_url: str) -> PlayerStreamerPage:
         """
         Retrieve a specific page of PlayerStreamerInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of PlayerStreamerInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return PlayerStreamerPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> PlayerStreamerPage:
+    async def get_page_async(self, target_url: str) -> PlayerStreamerPage:
         """
         Asynchronously retrieve a specific page of PlayerStreamerInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of PlayerStreamerInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return PlayerStreamerPage(self._version, response)
 
-    def get(self, sid) -> PlayerStreamerContext:
+    def get(self, sid: str) -> PlayerStreamerContext:
         """
         Constructs a PlayerStreamerContext
 
@@ -591,7 +615,7 @@ class PlayerStreamerList(ListResource):
         """
         return PlayerStreamerContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> PlayerStreamerContext:
+    def __call__(self, sid: str) -> PlayerStreamerContext:
         """
         Constructs a PlayerStreamerContext
 

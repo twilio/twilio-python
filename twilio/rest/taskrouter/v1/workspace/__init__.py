@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -147,24 +147,26 @@ class WorkspaceInstance(InstanceResource):
 
     def update(
         self,
-        default_activity_sid=values.unset,
-        event_callback_url=values.unset,
-        events_filter=values.unset,
-        friendly_name=values.unset,
-        multi_task_enabled=values.unset,
-        timeout_activity_sid=values.unset,
-        prioritize_queue_order=values.unset,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
     ) -> "WorkspaceInstance":
         """
         Update the WorkspaceInstance
 
-        :param str default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
-        :param str event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
-        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :param str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :param "WorkspaceInstance.QueueOrder" prioritize_queue_order:
+        :param default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+        :param event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param prioritize_queue_order:
 
         :returns: The updated WorkspaceInstance
         """
@@ -180,24 +182,26 @@ class WorkspaceInstance(InstanceResource):
 
     async def update_async(
         self,
-        default_activity_sid=values.unset,
-        event_callback_url=values.unset,
-        events_filter=values.unset,
-        friendly_name=values.unset,
-        multi_task_enabled=values.unset,
-        timeout_activity_sid=values.unset,
-        prioritize_queue_order=values.unset,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
     ) -> "WorkspaceInstance":
         """
         Asynchronous coroutine to update the WorkspaceInstance
 
-        :param str default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
-        :param str event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
-        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :param str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :param "WorkspaceInstance.QueueOrder" prioritize_queue_order:
+        :param default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+        :param event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param prioritize_queue_order:
 
         :returns: The updated WorkspaceInstance
         """
@@ -382,24 +386,26 @@ class WorkspaceContext(InstanceContext):
 
     def update(
         self,
-        default_activity_sid=values.unset,
-        event_callback_url=values.unset,
-        events_filter=values.unset,
-        friendly_name=values.unset,
-        multi_task_enabled=values.unset,
-        timeout_activity_sid=values.unset,
-        prioritize_queue_order=values.unset,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
     ) -> WorkspaceInstance:
         """
         Update the WorkspaceInstance
 
-        :param str default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
-        :param str event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
-        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :param str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :param "WorkspaceInstance.QueueOrder" prioritize_queue_order:
+        :param default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+        :param event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param prioritize_queue_order:
 
         :returns: The updated WorkspaceInstance
         """
@@ -425,24 +431,26 @@ class WorkspaceContext(InstanceContext):
 
     async def update_async(
         self,
-        default_activity_sid=values.unset,
-        event_callback_url=values.unset,
-        events_filter=values.unset,
-        friendly_name=values.unset,
-        multi_task_enabled=values.unset,
-        timeout_activity_sid=values.unset,
-        prioritize_queue_order=values.unset,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
     ) -> WorkspaceInstance:
         """
         Asynchronous coroutine to update the WorkspaceInstance
 
-        :param str default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
-        :param str event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
-        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :param str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :param "WorkspaceInstance.QueueOrder" prioritize_queue_order:
+        :param default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+        :param event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param prioritize_queue_order:
 
         :returns: The updated WorkspaceInstance
         """
@@ -597,11 +605,11 @@ class WorkspaceContext(InstanceContext):
 
 
 class WorkspacePage(Page):
-    def get_instance(self, payload) -> WorkspaceInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> WorkspaceInstance:
         """
         Build an instance of WorkspaceInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return WorkspaceInstance(self._version, payload)
 
@@ -628,22 +636,24 @@ class WorkspaceList(ListResource):
 
     def create(
         self,
-        friendly_name,
-        event_callback_url=values.unset,
-        events_filter=values.unset,
-        multi_task_enabled=values.unset,
-        template=values.unset,
-        prioritize_queue_order=values.unset,
+        friendly_name: str,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        template: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
     ) -> WorkspaceInstance:
         """
         Create the WorkspaceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
-        :param str event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :param str template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
-        :param &quot;WorkspaceInstance.QueueOrder&quot; prioritize_queue_order:
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
+        :param event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
+        :param prioritize_queue_order:
 
         :returns: The created WorkspaceInstance
         """
@@ -668,22 +678,24 @@ class WorkspaceList(ListResource):
 
     async def create_async(
         self,
-        friendly_name,
-        event_callback_url=values.unset,
-        events_filter=values.unset,
-        multi_task_enabled=values.unset,
-        template=values.unset,
-        prioritize_queue_order=values.unset,
+        friendly_name: str,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        template: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
     ) -> WorkspaceInstance:
         """
         Asynchronously create the WorkspaceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
-        :param str event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :param str template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
-        :param &quot;WorkspaceInstance.QueueOrder&quot; prioritize_queue_order:
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
+        :param event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
+        :param prioritize_queue_order:
 
         :returns: The created WorkspaceInstance
         """
@@ -707,7 +719,10 @@ class WorkspaceList(ListResource):
         return WorkspaceInstance(self._version, payload)
 
     def stream(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[WorkspaceInstance]:
         """
         Streams WorkspaceInstance records from the API as a generator stream.
@@ -716,12 +731,12 @@ class WorkspaceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -731,7 +746,10 @@ class WorkspaceList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[WorkspaceInstance]:
         """
         Asynchronously streams WorkspaceInstance records from the API as a generator stream.
@@ -740,12 +758,12 @@ class WorkspaceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -757,7 +775,10 @@ class WorkspaceList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[WorkspaceInstance]:
         """
         Lists WorkspaceInstance records from the API as a list.
@@ -765,12 +786,12 @@ class WorkspaceList(ListResource):
         memory before returning.
 
         :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -783,7 +804,10 @@ class WorkspaceList(ListResource):
         )
 
     async def list_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[WorkspaceInstance]:
         """
         Asynchronously lists WorkspaceInstance records from the API as a list.
@@ -791,12 +815,12 @@ class WorkspaceList(ListResource):
         memory before returning.
 
         :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -810,19 +834,19 @@ class WorkspaceList(ListResource):
 
     def page(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> WorkspacePage:
         """
         Retrieve a single page of WorkspaceInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkspaceInstance
         """
@@ -840,19 +864,19 @@ class WorkspaceList(ListResource):
 
     async def page_async(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> WorkspacePage:
         """
         Asynchronously retrieve a single page of WorkspaceInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkspaceInstance
         """
@@ -870,31 +894,31 @@ class WorkspaceList(ListResource):
         )
         return WorkspacePage(self._version, response)
 
-    def get_page(self, target_url) -> WorkspacePage:
+    def get_page(self, target_url: str) -> WorkspacePage:
         """
         Retrieve a specific page of WorkspaceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkspaceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return WorkspacePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> WorkspacePage:
+    async def get_page_async(self, target_url: str) -> WorkspacePage:
         """
         Asynchronously retrieve a specific page of WorkspaceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkspaceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return WorkspacePage(self._version, response)
 
-    def get(self, sid) -> WorkspaceContext:
+    def get(self, sid: str) -> WorkspaceContext:
         """
         Constructs a WorkspaceContext
 
@@ -902,7 +926,7 @@ class WorkspaceList(ListResource):
         """
         return WorkspaceContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> WorkspaceContext:
+    def __call__(self, sid: str) -> WorkspaceContext:
         """
         Constructs a WorkspaceContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -80,11 +80,11 @@ class TokenList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Tokens.json".format(**self._solution)
 
-    def create(self, ttl=values.unset) -> TokenInstance:
+    def create(self, ttl: Union[int, object] = values.unset) -> TokenInstance:
         """
         Create the TokenInstance
 
-        :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
+        :param ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
 
         :returns: The created TokenInstance
         """
@@ -104,11 +104,13 @@ class TokenList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    async def create_async(self, ttl=values.unset) -> TokenInstance:
+    async def create_async(
+        self, ttl: Union[int, object] = values.unset
+    ) -> TokenInstance:
         """
         Asynchronously create the TokenInstance
 
-        :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
+        :param ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
 
         :returns: The created TokenInstance
         """

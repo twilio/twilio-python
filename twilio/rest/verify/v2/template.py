@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -52,11 +52,11 @@ class TemplateInstance(InstanceResource):
 
 
 class TemplatePage(Page):
-    def get_instance(self, payload) -> TemplateInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> TemplateInstance:
         """
         Build an instance of TemplateInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return TemplateInstance(self._version, payload)
 
@@ -82,7 +82,10 @@ class TemplateList(ListResource):
         self._uri = "/Templates"
 
     def stream(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TemplateInstance]:
         """
         Streams TemplateInstance records from the API as a generator stream.
@@ -91,12 +94,12 @@ class TemplateList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: String filter used to query templates with a given friendly name
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -106,7 +109,10 @@ class TemplateList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TemplateInstance]:
         """
         Asynchronously streams TemplateInstance records from the API as a generator stream.
@@ -115,12 +121,12 @@ class TemplateList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: String filter used to query templates with a given friendly name
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -132,7 +138,10 @@ class TemplateList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TemplateInstance]:
         """
         Lists TemplateInstance records from the API as a list.
@@ -140,12 +149,12 @@ class TemplateList(ListResource):
         memory before returning.
 
         :param str friendly_name: String filter used to query templates with a given friendly name
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -158,7 +167,10 @@ class TemplateList(ListResource):
         )
 
     async def list_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TemplateInstance]:
         """
         Asynchronously lists TemplateInstance records from the API as a list.
@@ -166,12 +178,12 @@ class TemplateList(ListResource):
         memory before returning.
 
         :param str friendly_name: String filter used to query templates with a given friendly name
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -185,19 +197,19 @@ class TemplateList(ListResource):
 
     def page(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> TemplatePage:
         """
         Retrieve a single page of TemplateInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: String filter used to query templates with a given friendly name
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: String filter used to query templates with a given friendly name
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TemplateInstance
         """
@@ -215,19 +227,19 @@ class TemplateList(ListResource):
 
     async def page_async(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> TemplatePage:
         """
         Asynchronously retrieve a single page of TemplateInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: String filter used to query templates with a given friendly name
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: String filter used to query templates with a given friendly name
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TemplateInstance
         """
@@ -245,24 +257,24 @@ class TemplateList(ListResource):
         )
         return TemplatePage(self._version, response)
 
-    def get_page(self, target_url) -> TemplatePage:
+    def get_page(self, target_url: str) -> TemplatePage:
         """
         Retrieve a specific page of TemplateInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TemplateInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TemplatePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> TemplatePage:
+    async def get_page_async(self, target_url: str) -> TemplatePage:
         """
         Asynchronously retrieve a specific page of TemplateInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TemplateInstance
         """

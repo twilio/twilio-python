@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -301,11 +301,11 @@ class RoomContext(InstanceContext):
 
 
 class RoomPage(Page):
-    def get_instance(self, payload) -> RoomInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RoomInstance:
         """
         Build an instance of RoomInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RoomInstance(self._version, payload)
 
@@ -332,13 +332,13 @@ class RoomList(ListResource):
 
     def stream(
         self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        limit=None,
-        page_size=None,
+        room_type: Union[List["RoomInstance.RoomType"], object] = values.unset,
+        codec: Union[List["RoomInstance.Codec"], object] = values.unset,
+        room_name: Union[str, object] = values.unset,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RoomInstance]:
         """
         Streams RoomInstance records from the API as a generator stream.
@@ -351,12 +351,12 @@ class RoomList(ListResource):
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -374,13 +374,13 @@ class RoomList(ListResource):
 
     async def stream_async(
         self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        limit=None,
-        page_size=None,
+        room_type: Union[List["RoomInstance.RoomType"], object] = values.unset,
+        codec: Union[List["RoomInstance.Codec"], object] = values.unset,
+        room_name: Union[str, object] = values.unset,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RoomInstance]:
         """
         Asynchronously streams RoomInstance records from the API as a generator stream.
@@ -393,12 +393,12 @@ class RoomList(ListResource):
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -416,13 +416,13 @@ class RoomList(ListResource):
 
     def list(
         self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        limit=None,
-        page_size=None,
+        room_type: Union[List["RoomInstance.RoomType"], object] = values.unset,
+        codec: Union[List["RoomInstance.Codec"], object] = values.unset,
+        room_name: Union[str, object] = values.unset,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RoomInstance]:
         """
         Lists RoomInstance records from the API as a list.
@@ -434,12 +434,12 @@ class RoomList(ListResource):
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -457,13 +457,13 @@ class RoomList(ListResource):
 
     async def list_async(
         self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        limit=None,
-        page_size=None,
+        room_type: Union[List["RoomInstance.RoomType"], object] = values.unset,
+        codec: Union[List["RoomInstance.Codec"], object] = values.unset,
+        room_name: Union[str, object] = values.unset,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RoomInstance]:
         """
         Asynchronously lists RoomInstance records from the API as a list.
@@ -475,12 +475,12 @@ class RoomList(ListResource):
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -498,27 +498,27 @@ class RoomList(ListResource):
 
     def page(
         self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        room_type: Union[List["RoomInstance.RoomType"], object] = values.unset,
+        codec: Union[List["RoomInstance.Codec"], object] = values.unset,
+        room_name: Union[str, object] = values.unset,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RoomPage:
         """
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param List[&quot;RoomInstance.RoomType&quot;] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param List[&quot;RoomInstance.Codec&quot;] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        :param str room_name: Room friendly name.
-        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
-        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param room_name: Room friendly name.
+        :param created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param created_before: Only read rooms that started before this ISO 8601 timestamp.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoomInstance
         """
@@ -540,27 +540,27 @@ class RoomList(ListResource):
 
     async def page_async(
         self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        room_type: Union[List["RoomInstance.RoomType"], object] = values.unset,
+        codec: Union[List["RoomInstance.Codec"], object] = values.unset,
+        room_name: Union[str, object] = values.unset,
+        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RoomPage:
         """
         Asynchronously retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param List[&quot;RoomInstance.RoomType&quot;] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param List[&quot;RoomInstance.Codec&quot;] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        :param str room_name: Room friendly name.
-        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
-        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param room_name: Room friendly name.
+        :param created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param created_before: Only read rooms that started before this ISO 8601 timestamp.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoomInstance
         """
@@ -582,31 +582,31 @@ class RoomList(ListResource):
         )
         return RoomPage(self._version, response)
 
-    def get_page(self, target_url) -> RoomPage:
+    def get_page(self, target_url: str) -> RoomPage:
         """
         Retrieve a specific page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RoomInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RoomPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> RoomPage:
+    async def get_page_async(self, target_url: str) -> RoomPage:
         """
         Asynchronously retrieve a specific page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RoomInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RoomPage(self._version, response)
 
-    def get(self, room_sid) -> RoomContext:
+    def get(self, room_sid: str) -> RoomContext:
         """
         Constructs a RoomContext
 
@@ -614,7 +614,7 @@ class RoomList(ListResource):
         """
         return RoomContext(self._version, room_sid=room_sid)
 
-    def __call__(self, room_sid) -> RoomContext:
+    def __call__(self, room_sid: str) -> RoomContext:
         """
         Constructs a RoomContext
 

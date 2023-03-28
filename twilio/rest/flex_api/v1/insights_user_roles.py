@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -50,11 +50,13 @@ class InsightsUserRolesInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, authorization=values.unset) -> "InsightsUserRolesInstance":
+    def fetch(
+        self, authorization: Union[str, object] = values.unset
+    ) -> "InsightsUserRolesInstance":
         """
         Fetch the InsightsUserRolesInstance
 
-        :param str authorization: The Authorization HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
         """
@@ -63,12 +65,12 @@ class InsightsUserRolesInstance(InstanceResource):
         )
 
     async def fetch_async(
-        self, authorization=values.unset
+        self, authorization: Union[str, object] = values.unset
     ) -> "InsightsUserRolesInstance":
         """
         Asynchronous coroutine to fetch the InsightsUserRolesInstance
 
-        :param str authorization: The Authorization HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
         """
@@ -97,11 +99,13 @@ class InsightsUserRolesContext(InstanceContext):
 
         self._uri = "/Insights/UserRoles"
 
-    def fetch(self, authorization=values.unset) -> InsightsUserRolesInstance:
+    def fetch(
+        self, authorization: Union[str, object] = values.unset
+    ) -> InsightsUserRolesInstance:
         """
         Fetch the InsightsUserRolesInstance
 
-        :param str authorization: The Authorization HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
         """
@@ -120,12 +124,12 @@ class InsightsUserRolesContext(InstanceContext):
         )
 
     async def fetch_async(
-        self, authorization=values.unset
+        self, authorization: Union[str, object] = values.unset
     ) -> InsightsUserRolesInstance:
         """
         Asynchronous coroutine to fetch the InsightsUserRolesInstance
 
-        :param str authorization: The Authorization HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
         """

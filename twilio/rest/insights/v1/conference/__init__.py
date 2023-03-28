@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -291,11 +291,11 @@ class ConferenceContext(InstanceContext):
 
 
 class ConferencePage(Page):
-    def get_instance(self, payload) -> ConferenceInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ConferenceInstance:
         """
         Build an instance of ConferenceInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ConferenceInstance(self._version, payload)
 
@@ -322,18 +322,18 @@ class ConferenceList(ListResource):
 
     def stream(
         self,
-        conference_sid=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        mixer_region=values.unset,
-        tags=values.unset,
-        subaccount=values.unset,
-        detected_issues=values.unset,
-        end_reason=values.unset,
-        limit=None,
-        page_size=None,
+        conference_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        mixer_region: Union[str, object] = values.unset,
+        tags: Union[str, object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        detected_issues: Union[str, object] = values.unset,
+        end_reason: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
         """
         Streams ConferenceInstance records from the API as a generator stream.
@@ -351,12 +351,12 @@ class ConferenceList(ListResource):
         :param str subaccount: Account SID for the subaccount whose resources you wish to retrieve.
         :param str detected_issues: Potential configuration, behavior, or performance issues detected during the conference.
         :param str end_reason: Conference end reason; e.g. last participant left, modified by API, etc.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -379,18 +379,18 @@ class ConferenceList(ListResource):
 
     async def stream_async(
         self,
-        conference_sid=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        mixer_region=values.unset,
-        tags=values.unset,
-        subaccount=values.unset,
-        detected_issues=values.unset,
-        end_reason=values.unset,
-        limit=None,
-        page_size=None,
+        conference_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        mixer_region: Union[str, object] = values.unset,
+        tags: Union[str, object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        detected_issues: Union[str, object] = values.unset,
+        end_reason: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
         """
         Asynchronously streams ConferenceInstance records from the API as a generator stream.
@@ -408,12 +408,12 @@ class ConferenceList(ListResource):
         :param str subaccount: Account SID for the subaccount whose resources you wish to retrieve.
         :param str detected_issues: Potential configuration, behavior, or performance issues detected during the conference.
         :param str end_reason: Conference end reason; e.g. last participant left, modified by API, etc.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -436,18 +436,18 @@ class ConferenceList(ListResource):
 
     def list(
         self,
-        conference_sid=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        mixer_region=values.unset,
-        tags=values.unset,
-        subaccount=values.unset,
-        detected_issues=values.unset,
-        end_reason=values.unset,
-        limit=None,
-        page_size=None,
+        conference_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        mixer_region: Union[str, object] = values.unset,
+        tags: Union[str, object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        detected_issues: Union[str, object] = values.unset,
+        end_reason: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
         """
         Lists ConferenceInstance records from the API as a list.
@@ -464,12 +464,12 @@ class ConferenceList(ListResource):
         :param str subaccount: Account SID for the subaccount whose resources you wish to retrieve.
         :param str detected_issues: Potential configuration, behavior, or performance issues detected during the conference.
         :param str end_reason: Conference end reason; e.g. last participant left, modified by API, etc.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -492,18 +492,18 @@ class ConferenceList(ListResource):
 
     async def list_async(
         self,
-        conference_sid=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        mixer_region=values.unset,
-        tags=values.unset,
-        subaccount=values.unset,
-        detected_issues=values.unset,
-        end_reason=values.unset,
-        limit=None,
-        page_size=None,
+        conference_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        mixer_region: Union[str, object] = values.unset,
+        tags: Union[str, object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        detected_issues: Union[str, object] = values.unset,
+        end_reason: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
         """
         Asynchronously lists ConferenceInstance records from the API as a list.
@@ -520,12 +520,12 @@ class ConferenceList(ListResource):
         :param str subaccount: Account SID for the subaccount whose resources you wish to retrieve.
         :param str detected_issues: Potential configuration, behavior, or performance issues detected during the conference.
         :param str end_reason: Conference end reason; e.g. last participant left, modified by API, etc.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -548,37 +548,37 @@ class ConferenceList(ListResource):
 
     def page(
         self,
-        conference_sid=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        mixer_region=values.unset,
-        tags=values.unset,
-        subaccount=values.unset,
-        detected_issues=values.unset,
-        end_reason=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        conference_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        mixer_region: Union[str, object] = values.unset,
+        tags: Union[str, object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        detected_issues: Union[str, object] = values.unset,
+        end_reason: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ConferencePage:
         """
         Retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param str conference_sid: The SID of the conference.
-        :param str friendly_name: Custom label for the conference resource, up to 64 characters.
-        :param str status: Conference status.
-        :param str created_after: Conferences created after the provided timestamp specified in ISO 8601 format
-        :param str created_before: Conferences created before the provided timestamp specified in ISO 8601 format.
-        :param str mixer_region: Twilio region where the conference media was mixed.
-        :param str tags: Tags applied by Twilio for common potential configuration, quality, or performance issues.
-        :param str subaccount: Account SID for the subaccount whose resources you wish to retrieve.
-        :param str detected_issues: Potential configuration, behavior, or performance issues detected during the conference.
-        :param str end_reason: Conference end reason; e.g. last participant left, modified by API, etc.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param conference_sid: The SID of the conference.
+        :param friendly_name: Custom label for the conference resource, up to 64 characters.
+        :param status: Conference status.
+        :param created_after: Conferences created after the provided timestamp specified in ISO 8601 format
+        :param created_before: Conferences created before the provided timestamp specified in ISO 8601 format.
+        :param mixer_region: Twilio region where the conference media was mixed.
+        :param tags: Tags applied by Twilio for common potential configuration, quality, or performance issues.
+        :param subaccount: Account SID for the subaccount whose resources you wish to retrieve.
+        :param detected_issues: Potential configuration, behavior, or performance issues detected during the conference.
+        :param end_reason: Conference end reason; e.g. last participant left, modified by API, etc.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceInstance
         """
@@ -605,37 +605,37 @@ class ConferenceList(ListResource):
 
     async def page_async(
         self,
-        conference_sid=values.unset,
-        friendly_name=values.unset,
-        status=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        mixer_region=values.unset,
-        tags=values.unset,
-        subaccount=values.unset,
-        detected_issues=values.unset,
-        end_reason=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        conference_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        mixer_region: Union[str, object] = values.unset,
+        tags: Union[str, object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        detected_issues: Union[str, object] = values.unset,
+        end_reason: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ConferencePage:
         """
         Asynchronously retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param str conference_sid: The SID of the conference.
-        :param str friendly_name: Custom label for the conference resource, up to 64 characters.
-        :param str status: Conference status.
-        :param str created_after: Conferences created after the provided timestamp specified in ISO 8601 format
-        :param str created_before: Conferences created before the provided timestamp specified in ISO 8601 format.
-        :param str mixer_region: Twilio region where the conference media was mixed.
-        :param str tags: Tags applied by Twilio for common potential configuration, quality, or performance issues.
-        :param str subaccount: Account SID for the subaccount whose resources you wish to retrieve.
-        :param str detected_issues: Potential configuration, behavior, or performance issues detected during the conference.
-        :param str end_reason: Conference end reason; e.g. last participant left, modified by API, etc.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param conference_sid: The SID of the conference.
+        :param friendly_name: Custom label for the conference resource, up to 64 characters.
+        :param status: Conference status.
+        :param created_after: Conferences created after the provided timestamp specified in ISO 8601 format
+        :param created_before: Conferences created before the provided timestamp specified in ISO 8601 format.
+        :param mixer_region: Twilio region where the conference media was mixed.
+        :param tags: Tags applied by Twilio for common potential configuration, quality, or performance issues.
+        :param subaccount: Account SID for the subaccount whose resources you wish to retrieve.
+        :param detected_issues: Potential configuration, behavior, or performance issues detected during the conference.
+        :param end_reason: Conference end reason; e.g. last participant left, modified by API, etc.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceInstance
         """
@@ -662,31 +662,31 @@ class ConferenceList(ListResource):
         )
         return ConferencePage(self._version, response)
 
-    def get_page(self, target_url) -> ConferencePage:
+    def get_page(self, target_url: str) -> ConferencePage:
         """
         Retrieve a specific page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConferenceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ConferencePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> ConferencePage:
+    async def get_page_async(self, target_url: str) -> ConferencePage:
         """
         Asynchronously retrieve a specific page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConferenceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConferencePage(self._version, response)
 
-    def get(self, conference_sid) -> ConferenceContext:
+    def get(self, conference_sid: str) -> ConferenceContext:
         """
         Constructs a ConferenceContext
 
@@ -694,7 +694,7 @@ class ConferenceList(ListResource):
         """
         return ConferenceContext(self._version, conference_sid=conference_sid)
 
-    def __call__(self, conference_sid) -> ConferenceContext:
+    def __call__(self, conference_sid: str) -> ConferenceContext:
         """
         Constructs a ConferenceContext
 

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -75,22 +75,22 @@ class ValidationRequestList(ListResource):
 
     def create(
         self,
-        phone_number,
-        friendly_name=values.unset,
-        call_delay=values.unset,
-        extension=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
+        phone_number: str,
+        friendly_name: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
     ) -> ValidationRequestInstance:
         """
         Create the ValidationRequestInstance
 
-        :param str phone_number: The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        :param str friendly_name: A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
-        :param int call_delay: The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
-        :param str extension: The digits to dial after connecting the verification call.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
+        :param phone_number: The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+        :param friendly_name: A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
+        :param call_delay: The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
+        :param extension: The digits to dial after connecting the verification call.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
 
         :returns: The created ValidationRequestInstance
         """
@@ -117,22 +117,22 @@ class ValidationRequestList(ListResource):
 
     async def create_async(
         self,
-        phone_number,
-        friendly_name=values.unset,
-        call_delay=values.unset,
-        extension=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
+        phone_number: str,
+        friendly_name: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
     ) -> ValidationRequestInstance:
         """
         Asynchronously create the ValidationRequestInstance
 
-        :param str phone_number: The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        :param str friendly_name: A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
-        :param int call_delay: The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
-        :param str extension: The digits to dial after connecting the verification call.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
+        :param phone_number: The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+        :param friendly_name: A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
+        :param call_delay: The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
+        :param extension: The digits to dial after connecting the verification call.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
 
         :returns: The created ValidationRequestInstance
         """

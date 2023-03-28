@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -119,13 +119,15 @@ class CertificateInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, friendly_name=values.unset, device_sid=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
     ) -> "CertificateInstance":
         """
         Update the CertificateInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
+        :param friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
+        :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
 
         :returns: The updated CertificateInstance
         """
@@ -135,13 +137,15 @@ class CertificateInstance(InstanceResource):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, device_sid=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
     ) -> "CertificateInstance":
         """
         Asynchronous coroutine to update the CertificateInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
+        :param friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
+        :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
 
         :returns: The updated CertificateInstance
         """
@@ -243,13 +247,15 @@ class CertificateContext(InstanceContext):
         )
 
     def update(
-        self, friendly_name=values.unset, device_sid=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
     ) -> CertificateInstance:
         """
         Update the CertificateInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
+        :param friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
+        :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
 
         :returns: The updated CertificateInstance
         """
@@ -274,13 +280,15 @@ class CertificateContext(InstanceContext):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, device_sid=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
     ) -> CertificateInstance:
         """
         Asynchronous coroutine to update the CertificateInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
+        :param friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
+        :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
 
         :returns: The updated CertificateInstance
         """
@@ -315,11 +323,11 @@ class CertificateContext(InstanceContext):
 
 
 class CertificatePage(Page):
-    def get_instance(self, payload) -> CertificateInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CertificateInstance:
         """
         Build an instance of CertificateInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CertificateInstance(
             self._version, payload, fleet_sid=self._solution["fleet_sid"]
@@ -352,14 +360,17 @@ class CertificateList(ListResource):
         self._uri = "/Fleets/{fleet_sid}/Certificates".format(**self._solution)
 
     def create(
-        self, certificate_data, friendly_name=values.unset, device_sid=values.unset
+        self,
+        certificate_data: str,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
     ) -> CertificateInstance:
         """
         Create the CertificateInstance
 
-        :param str certificate_data: Provides a URL encoded representation of the public certificate in PEM format.
-        :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
+        :param certificate_data: Provides a URL encoded representation of the public certificate in PEM format.
+        :param friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
+        :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
 
         :returns: The created CertificateInstance
         """
@@ -382,14 +393,17 @@ class CertificateList(ListResource):
         )
 
     async def create_async(
-        self, certificate_data, friendly_name=values.unset, device_sid=values.unset
+        self,
+        certificate_data: str,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
     ) -> CertificateInstance:
         """
         Asynchronously create the CertificateInstance
 
-        :param str certificate_data: Provides a URL encoded representation of the public certificate in PEM format.
-        :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
+        :param certificate_data: Provides a URL encoded representation of the public certificate in PEM format.
+        :param friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
+        :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
 
         :returns: The created CertificateInstance
         """
@@ -412,7 +426,10 @@ class CertificateList(ListResource):
         )
 
     def stream(
-        self, device_sid=values.unset, limit=None, page_size=None
+        self,
+        device_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CertificateInstance]:
         """
         Streams CertificateInstance records from the API as a generator stream.
@@ -421,12 +438,12 @@ class CertificateList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str device_sid: Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -436,7 +453,10 @@ class CertificateList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, device_sid=values.unset, limit=None, page_size=None
+        self,
+        device_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CertificateInstance]:
         """
         Asynchronously streams CertificateInstance records from the API as a generator stream.
@@ -445,12 +465,12 @@ class CertificateList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str device_sid: Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -462,7 +482,10 @@ class CertificateList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, device_sid=values.unset, limit=None, page_size=None
+        self,
+        device_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CertificateInstance]:
         """
         Lists CertificateInstance records from the API as a list.
@@ -470,12 +493,12 @@ class CertificateList(ListResource):
         memory before returning.
 
         :param str device_sid: Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -488,7 +511,10 @@ class CertificateList(ListResource):
         )
 
     async def list_async(
-        self, device_sid=values.unset, limit=None, page_size=None
+        self,
+        device_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CertificateInstance]:
         """
         Asynchronously lists CertificateInstance records from the API as a list.
@@ -496,12 +522,12 @@ class CertificateList(ListResource):
         memory before returning.
 
         :param str device_sid: Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -515,19 +541,19 @@ class CertificateList(ListResource):
 
     def page(
         self,
-        device_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        device_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CertificatePage:
         """
         Retrieve a single page of CertificateInstance records from the API.
         Request is executed immediately
 
-        :param str device_sid: Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param device_sid: Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CertificateInstance
         """
@@ -545,19 +571,19 @@ class CertificateList(ListResource):
 
     async def page_async(
         self,
-        device_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        device_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CertificatePage:
         """
         Asynchronously retrieve a single page of CertificateInstance records from the API.
         Request is executed immediately
 
-        :param str device_sid: Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param device_sid: Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CertificateInstance
         """
@@ -575,31 +601,31 @@ class CertificateList(ListResource):
         )
         return CertificatePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> CertificatePage:
+    def get_page(self, target_url: str) -> CertificatePage:
         """
         Retrieve a specific page of CertificateInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CertificateInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CertificatePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> CertificatePage:
+    async def get_page_async(self, target_url: str) -> CertificatePage:
         """
         Asynchronously retrieve a specific page of CertificateInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CertificateInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CertificatePage(self._version, response, self._solution)
 
-    def get(self, sid) -> CertificateContext:
+    def get(self, sid: str) -> CertificateContext:
         """
         Constructs a CertificateContext
 
@@ -609,7 +635,7 @@ class CertificateList(ListResource):
             self._version, fleet_sid=self._solution["fleet_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> CertificateContext:
+    def __call__(self, sid: str) -> CertificateContext:
         """
         Constructs a CertificateContext
 

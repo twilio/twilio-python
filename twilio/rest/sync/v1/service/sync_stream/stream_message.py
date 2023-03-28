@@ -76,11 +76,11 @@ class StreamMessageList(ListResource):
             **self._solution
         )
 
-    def create(self, data) -> StreamMessageInstance:
+    def create(self, data: object) -> StreamMessageInstance:
         """
         Create the StreamMessageInstance
 
-        :param object data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
+        :param data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
 
         :returns: The created StreamMessageInstance
         """
@@ -103,11 +103,11 @@ class StreamMessageList(ListResource):
             stream_sid=self._solution["stream_sid"],
         )
 
-    async def create_async(self, data) -> StreamMessageInstance:
+    async def create_async(self, data: object) -> StreamMessageInstance:
         """
         Asynchronously create the StreamMessageInstance
 
-        :param object data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
+        :param data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
 
         :returns: The created StreamMessageInstance
         """

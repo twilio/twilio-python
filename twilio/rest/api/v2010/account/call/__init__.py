@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -183,28 +183,28 @@ class CallInstance(InstanceResource):
 
     def update(
         self,
-        url=values.unset,
-        method=values.unset,
-        status=values.unset,
-        fallback_url=values.unset,
-        fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        twiml=values.unset,
-        time_limit=values.unset,
+        url: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+        status: Union["CallInstance.UpdateStatus", object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
     ) -> "CallInstance":
         """
         Update the CallInstance
 
-        :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-        :param str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param "CallInstance.UpdateStatus" status:
-        :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-        :param str status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
-        :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+        :param method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status:
+        :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+        :param status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
 
         :returns: The updated CallInstance
         """
@@ -222,28 +222,28 @@ class CallInstance(InstanceResource):
 
     async def update_async(
         self,
-        url=values.unset,
-        method=values.unset,
-        status=values.unset,
-        fallback_url=values.unset,
-        fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        twiml=values.unset,
-        time_limit=values.unset,
+        url: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+        status: Union["CallInstance.UpdateStatus", object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
     ) -> "CallInstance":
         """
         Asynchronous coroutine to update the CallInstance
 
-        :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-        :param str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param "CallInstance.UpdateStatus" status:
-        :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-        :param str status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
-        :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+        :param method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status:
+        :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+        :param status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
 
         :returns: The updated CallInstance
         """
@@ -428,28 +428,28 @@ class CallContext(InstanceContext):
 
     def update(
         self,
-        url=values.unset,
-        method=values.unset,
-        status=values.unset,
-        fallback_url=values.unset,
-        fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        twiml=values.unset,
-        time_limit=values.unset,
+        url: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+        status: Union["CallInstance.UpdateStatus", object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
     ) -> CallInstance:
         """
         Update the CallInstance
 
-        :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-        :param str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param "CallInstance.UpdateStatus" status:
-        :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-        :param str status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
-        :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+        :param method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status:
+        :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+        :param status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
 
         :returns: The updated CallInstance
         """
@@ -482,28 +482,28 @@ class CallContext(InstanceContext):
 
     async def update_async(
         self,
-        url=values.unset,
-        method=values.unset,
-        status=values.unset,
-        fallback_url=values.unset,
-        fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        twiml=values.unset,
-        time_limit=values.unset,
+        url: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+        status: Union["CallInstance.UpdateStatus", object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
     ) -> CallInstance:
         """
         Asynchronous coroutine to update the CallInstance
 
-        :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-        :param str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param "CallInstance.UpdateStatus" status:
-        :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-        :param str status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
-        :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+        :param method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status:
+        :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+        :param status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
 
         :returns: The updated CallInstance
         """
@@ -664,11 +664,11 @@ class CallContext(InstanceContext):
 
 
 class CallPage(Page):
-    def get_instance(self, payload) -> CallInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CallInstance:
         """
         Build an instance of CallInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CallInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -704,80 +704,80 @@ class CallList(ListResource):
 
     def create(
         self,
-        to,
-        from_,
-        method=values.unset,
-        fallback_url=values.unset,
-        fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_event=values.unset,
-        status_callback_method=values.unset,
-        send_digits=values.unset,
-        timeout=values.unset,
-        record=values.unset,
-        recording_channels=values.unset,
-        recording_status_callback=values.unset,
-        recording_status_callback_method=values.unset,
-        sip_auth_username=values.unset,
-        sip_auth_password=values.unset,
-        machine_detection=values.unset,
-        machine_detection_timeout=values.unset,
-        recording_status_callback_event=values.unset,
-        trim=values.unset,
-        caller_id=values.unset,
-        machine_detection_speech_threshold=values.unset,
-        machine_detection_speech_end_threshold=values.unset,
-        machine_detection_silence_timeout=values.unset,
-        async_amd=values.unset,
-        async_amd_status_callback=values.unset,
-        async_amd_status_callback_method=values.unset,
-        byoc=values.unset,
-        call_reason=values.unset,
-        call_token=values.unset,
-        recording_track=values.unset,
-        time_limit=values.unset,
-        url=values.unset,
-        twiml=values.unset,
-        application_sid=values.unset,
+        to: str,
+        from_: str,
+        method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        trim: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        async_amd: Union[str, object] = values.unset,
+        async_amd_status_callback: Union[str, object] = values.unset,
+        async_amd_status_callback_method: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        url: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        application_sid: Union[str, object] = values.unset,
     ) -> CallInstance:
         """
         Create the CallInstance
 
-        :param str to: The phone number, SIP address, or client identifier to call.
-        :param str from_: The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number.
-        :param str method: The HTTP method we should use when calling the `url` parameter's value. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-        :param List[str] status_callback_event: The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored.
-        :param str status_callback_method: The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str send_digits: A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`', to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be `ww1234#`. Remember to URL-encode this string, since the '`#`' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored.
-        :param int timeout: The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
-        :param bool record: Whether to record the call. Can be `true` to record the phone call, or `false` to not. The default is `false`. The `recording_url` is sent to the `status_callback` URL.
-        :param str recording_channels: The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
-        :param str recording_status_callback: The URL that we call when the recording is available to be accessed.
-        :param str recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-        :param str sip_auth_username: The username used to authenticate the caller making a SIP call.
-        :param str sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
-        :param str machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
-        :param int machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
-        :param List[str] recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`. Defaults to `completed`. Separate  multiple values with a space.
-        :param str trim: Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
-        :param str caller_id: The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
-        :param int machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
-        :param int machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
-        :param int machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
-        :param str async_amd: Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: `true` or `false`.
-        :param str async_amd_status_callback: The URL that we should call using the `async_amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
-        :param str async_amd_status_callback_method: The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-        :param str byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
-        :param str call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
-        :param str call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
-        :param str recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is generated from Twilio. `both` records the audio that is received and generated by Twilio.
-        :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
-        :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-        :param str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters.
-        :param str application_sid: The SID of the Application resource that will handle the call, if the call will be handled by an application.
+        :param to: The phone number, SIP address, or client identifier to call.
+        :param from_: The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number.
+        :param method: The HTTP method we should use when calling the `url` parameter's value. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+        :param status_callback_event: The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored.
+        :param status_callback_method: The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param send_digits: A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`', to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be `ww1234#`. Remember to URL-encode this string, since the '`#`' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored.
+        :param timeout: The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
+        :param record: Whether to record the call. Can be `true` to record the phone call, or `false` to not. The default is `false`. The `recording_url` is sent to the `status_callback` URL.
+        :param recording_channels: The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
+        :param recording_status_callback: The URL that we call when the recording is available to be accessed.
+        :param recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param sip_auth_username: The username used to authenticate the caller making a SIP call.
+        :param sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
+        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+        :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
+        :param recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`. Defaults to `completed`. Separate  multiple values with a space.
+        :param trim: Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+        :param caller_id: The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
+        :param machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
+        :param machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
+        :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
+        :param async_amd: Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: `true` or `false`.
+        :param async_amd_status_callback: The URL that we should call using the `async_amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
+        :param async_amd_status_callback_method: The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
+        :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
+        :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+        :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is generated from Twilio. `both` records the audio that is received and generated by Twilio.
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+        :param twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters.
+        :param application_sid: The SID of the Application resource that will handle the call, if the call will be handled by an application.
 
         :returns: The created CallInstance
         """
@@ -837,80 +837,80 @@ class CallList(ListResource):
 
     async def create_async(
         self,
-        to,
-        from_,
-        method=values.unset,
-        fallback_url=values.unset,
-        fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_event=values.unset,
-        status_callback_method=values.unset,
-        send_digits=values.unset,
-        timeout=values.unset,
-        record=values.unset,
-        recording_channels=values.unset,
-        recording_status_callback=values.unset,
-        recording_status_callback_method=values.unset,
-        sip_auth_username=values.unset,
-        sip_auth_password=values.unset,
-        machine_detection=values.unset,
-        machine_detection_timeout=values.unset,
-        recording_status_callback_event=values.unset,
-        trim=values.unset,
-        caller_id=values.unset,
-        machine_detection_speech_threshold=values.unset,
-        machine_detection_speech_end_threshold=values.unset,
-        machine_detection_silence_timeout=values.unset,
-        async_amd=values.unset,
-        async_amd_status_callback=values.unset,
-        async_amd_status_callback_method=values.unset,
-        byoc=values.unset,
-        call_reason=values.unset,
-        call_token=values.unset,
-        recording_track=values.unset,
-        time_limit=values.unset,
-        url=values.unset,
-        twiml=values.unset,
-        application_sid=values.unset,
+        to: str,
+        from_: str,
+        method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        trim: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        async_amd: Union[str, object] = values.unset,
+        async_amd_status_callback: Union[str, object] = values.unset,
+        async_amd_status_callback_method: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        url: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        application_sid: Union[str, object] = values.unset,
     ) -> CallInstance:
         """
         Asynchronously create the CallInstance
 
-        :param str to: The phone number, SIP address, or client identifier to call.
-        :param str from_: The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number.
-        :param str method: The HTTP method we should use when calling the `url` parameter's value. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-        :param List[str] status_callback_event: The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored.
-        :param str status_callback_method: The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str send_digits: A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`', to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be `ww1234#`. Remember to URL-encode this string, since the '`#`' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored.
-        :param int timeout: The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
-        :param bool record: Whether to record the call. Can be `true` to record the phone call, or `false` to not. The default is `false`. The `recording_url` is sent to the `status_callback` URL.
-        :param str recording_channels: The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
-        :param str recording_status_callback: The URL that we call when the recording is available to be accessed.
-        :param str recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-        :param str sip_auth_username: The username used to authenticate the caller making a SIP call.
-        :param str sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
-        :param str machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
-        :param int machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
-        :param List[str] recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`. Defaults to `completed`. Separate  multiple values with a space.
-        :param str trim: Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
-        :param str caller_id: The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
-        :param int machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
-        :param int machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
-        :param int machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
-        :param str async_amd: Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: `true` or `false`.
-        :param str async_amd_status_callback: The URL that we should call using the `async_amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
-        :param str async_amd_status_callback_method: The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-        :param str byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
-        :param str call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
-        :param str call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
-        :param str recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is generated from Twilio. `both` records the audio that is received and generated by Twilio.
-        :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
-        :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-        :param str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters.
-        :param str application_sid: The SID of the Application resource that will handle the call, if the call will be handled by an application.
+        :param to: The phone number, SIP address, or client identifier to call.
+        :param from_: The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number.
+        :param method: The HTTP method we should use when calling the `url` parameter's value. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+        :param status_callback_event: The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored.
+        :param status_callback_method: The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :param send_digits: A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`', to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be `ww1234#`. Remember to URL-encode this string, since the '`#`' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored.
+        :param timeout: The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
+        :param record: Whether to record the call. Can be `true` to record the phone call, or `false` to not. The default is `false`. The `recording_url` is sent to the `status_callback` URL.
+        :param recording_channels: The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
+        :param recording_status_callback: The URL that we call when the recording is available to be accessed.
+        :param recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param sip_auth_username: The username used to authenticate the caller making a SIP call.
+        :param sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
+        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+        :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
+        :param recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`. Defaults to `completed`. Separate  multiple values with a space.
+        :param trim: Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+        :param caller_id: The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
+        :param machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
+        :param machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
+        :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
+        :param async_amd: Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: `true` or `false`.
+        :param async_amd_status_callback: The URL that we should call using the `async_amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
+        :param async_amd_status_callback_method: The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
+        :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
+        :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+        :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is generated from Twilio. `both` records the audio that is received and generated by Twilio.
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+        :param twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters.
+        :param application_sid: The SID of the Application resource that will handle the call, if the call will be handled by an application.
 
         :returns: The created CallInstance
         """
@@ -970,18 +970,18 @@ class CallList(ListResource):
 
     def stream(
         self,
-        to=values.unset,
-        from_=values.unset,
-        parent_call_sid=values.unset,
-        status=values.unset,
-        start_time=values.unset,
-        start_time_before=values.unset,
-        start_time_after=values.unset,
-        end_time=values.unset,
-        end_time_before=values.unset,
-        end_time_after=values.unset,
-        limit=None,
-        page_size=None,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        parent_call_sid: Union[str, object] = values.unset,
+        status: Union["CallInstance.Status", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        start_time_before: Union[datetime, object] = values.unset,
+        start_time_after: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        end_time_before: Union[datetime, object] = values.unset,
+        end_time_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CallInstance]:
         """
         Streams CallInstance records from the API as a generator stream.
@@ -999,12 +999,12 @@ class CallList(ListResource):
         :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -1027,18 +1027,18 @@ class CallList(ListResource):
 
     async def stream_async(
         self,
-        to=values.unset,
-        from_=values.unset,
-        parent_call_sid=values.unset,
-        status=values.unset,
-        start_time=values.unset,
-        start_time_before=values.unset,
-        start_time_after=values.unset,
-        end_time=values.unset,
-        end_time_before=values.unset,
-        end_time_after=values.unset,
-        limit=None,
-        page_size=None,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        parent_call_sid: Union[str, object] = values.unset,
+        status: Union["CallInstance.Status", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        start_time_before: Union[datetime, object] = values.unset,
+        start_time_after: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        end_time_before: Union[datetime, object] = values.unset,
+        end_time_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CallInstance]:
         """
         Asynchronously streams CallInstance records from the API as a generator stream.
@@ -1056,12 +1056,12 @@ class CallList(ListResource):
         :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -1084,18 +1084,18 @@ class CallList(ListResource):
 
     def list(
         self,
-        to=values.unset,
-        from_=values.unset,
-        parent_call_sid=values.unset,
-        status=values.unset,
-        start_time=values.unset,
-        start_time_before=values.unset,
-        start_time_after=values.unset,
-        end_time=values.unset,
-        end_time_before=values.unset,
-        end_time_after=values.unset,
-        limit=None,
-        page_size=None,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        parent_call_sid: Union[str, object] = values.unset,
+        status: Union["CallInstance.Status", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        start_time_before: Union[datetime, object] = values.unset,
+        start_time_after: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        end_time_before: Union[datetime, object] = values.unset,
+        end_time_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CallInstance]:
         """
         Lists CallInstance records from the API as a list.
@@ -1112,12 +1112,12 @@ class CallList(ListResource):
         :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -1140,18 +1140,18 @@ class CallList(ListResource):
 
     async def list_async(
         self,
-        to=values.unset,
-        from_=values.unset,
-        parent_call_sid=values.unset,
-        status=values.unset,
-        start_time=values.unset,
-        start_time_before=values.unset,
-        start_time_after=values.unset,
-        end_time=values.unset,
-        end_time_before=values.unset,
-        end_time_after=values.unset,
-        limit=None,
-        page_size=None,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        parent_call_sid: Union[str, object] = values.unset,
+        status: Union["CallInstance.Status", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        start_time_before: Union[datetime, object] = values.unset,
+        start_time_after: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        end_time_before: Union[datetime, object] = values.unset,
+        end_time_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CallInstance]:
         """
         Asynchronously lists CallInstance records from the API as a list.
@@ -1168,12 +1168,12 @@ class CallList(ListResource):
         :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -1196,37 +1196,37 @@ class CallList(ListResource):
 
     def page(
         self,
-        to=values.unset,
-        from_=values.unset,
-        parent_call_sid=values.unset,
-        status=values.unset,
-        start_time=values.unset,
-        start_time_before=values.unset,
-        start_time_after=values.unset,
-        end_time=values.unset,
-        end_time_before=values.unset,
-        end_time_after=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        parent_call_sid: Union[str, object] = values.unset,
+        status: Union["CallInstance.Status", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        start_time_before: Union[datetime, object] = values.unset,
+        start_time_after: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        end_time_before: Union[datetime, object] = values.unset,
+        end_time_after: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CallPage:
         """
         Retrieve a single page of CallInstance records from the API.
         Request is executed immediately
 
-        :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
-        :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
-        :param str parent_call_sid: Only include calls spawned by calls with this SID.
-        :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
-        :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
+        :param from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
+        :param parent_call_sid: Only include calls spawned by calls with this SID.
+        :param status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+        :param start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+        :param start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+        :param start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+        :param end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+        :param end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+        :param end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CallInstance
         """
@@ -1253,37 +1253,37 @@ class CallList(ListResource):
 
     async def page_async(
         self,
-        to=values.unset,
-        from_=values.unset,
-        parent_call_sid=values.unset,
-        status=values.unset,
-        start_time=values.unset,
-        start_time_before=values.unset,
-        start_time_after=values.unset,
-        end_time=values.unset,
-        end_time_before=values.unset,
-        end_time_after=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        parent_call_sid: Union[str, object] = values.unset,
+        status: Union["CallInstance.Status", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        start_time_before: Union[datetime, object] = values.unset,
+        start_time_after: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        end_time_before: Union[datetime, object] = values.unset,
+        end_time_after: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> CallPage:
         """
         Asynchronously retrieve a single page of CallInstance records from the API.
         Request is executed immediately
 
-        :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
-        :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
-        :param str parent_call_sid: Only include calls spawned by calls with this SID.
-        :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
-        :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
+        :param from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
+        :param parent_call_sid: Only include calls spawned by calls with this SID.
+        :param status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+        :param start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+        :param start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+        :param start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+        :param end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+        :param end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+        :param end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CallInstance
         """
@@ -1310,24 +1310,24 @@ class CallList(ListResource):
         )
         return CallPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> CallPage:
+    def get_page(self, target_url: str) -> CallPage:
         """
         Retrieve a specific page of CallInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CallInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CallPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> CallPage:
+    async def get_page_async(self, target_url: str) -> CallPage:
         """
         Asynchronously retrieve a specific page of CallInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CallInstance
         """
@@ -1345,7 +1345,7 @@ class CallList(ListResource):
             )
         return self._feedback_summaries
 
-    def get(self, sid) -> CallContext:
+    def get(self, sid: str) -> CallContext:
         """
         Constructs a CallContext
 
@@ -1355,7 +1355,7 @@ class CallList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> CallContext:
+    def __call__(self, sid: str) -> CallContext:
         """
         Constructs a CallContext
 

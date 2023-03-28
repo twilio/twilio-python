@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -76,11 +77,11 @@ class UsageRecordInstance(InstanceResource):
 
 
 class UsageRecordPage(Page):
-    def get_instance(self, payload) -> UsageRecordInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> UsageRecordInstance:
         """
         Build an instance of UsageRecordInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return UsageRecordInstance(self._version, payload)
 
@@ -107,16 +108,16 @@ class UsageRecordList(ListResource):
 
     def stream(
         self,
-        sim=values.unset,
-        fleet=values.unset,
-        network=values.unset,
-        iso_country=values.unset,
-        group=values.unset,
-        granularity=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UsageRecordInstance]:
         """
         Streams UsageRecordInstance records from the API as a generator stream.
@@ -132,12 +133,12 @@ class UsageRecordList(ListResource):
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -158,16 +159,16 @@ class UsageRecordList(ListResource):
 
     async def stream_async(
         self,
-        sim=values.unset,
-        fleet=values.unset,
-        network=values.unset,
-        iso_country=values.unset,
-        group=values.unset,
-        granularity=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UsageRecordInstance]:
         """
         Asynchronously streams UsageRecordInstance records from the API as a generator stream.
@@ -183,12 +184,12 @@ class UsageRecordList(ListResource):
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -209,16 +210,16 @@ class UsageRecordList(ListResource):
 
     def list(
         self,
-        sim=values.unset,
-        fleet=values.unset,
-        network=values.unset,
-        iso_country=values.unset,
-        group=values.unset,
-        granularity=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UsageRecordInstance]:
         """
         Lists UsageRecordInstance records from the API as a list.
@@ -233,12 +234,12 @@ class UsageRecordList(ListResource):
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -259,16 +260,16 @@ class UsageRecordList(ListResource):
 
     async def list_async(
         self,
-        sim=values.unset,
-        fleet=values.unset,
-        network=values.unset,
-        iso_country=values.unset,
-        group=values.unset,
-        granularity=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UsageRecordInstance]:
         """
         Asynchronously lists UsageRecordInstance records from the API as a list.
@@ -283,12 +284,12 @@ class UsageRecordList(ListResource):
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
         :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
         :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -309,33 +310,33 @@ class UsageRecordList(ListResource):
 
     def page(
         self,
-        sim=values.unset,
-        fleet=values.unset,
-        network=values.unset,
-        iso_country=values.unset,
-        group=values.unset,
-        granularity=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> UsageRecordPage:
         """
         Retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
 
-        :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
-        :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
-        :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
-        :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
-        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
-        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
-        :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+        :param fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
+        :param network: SID of a Network resource. Only show UsageRecords representing usage on this network.
+        :param iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+        :param group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
+        :param end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsageRecordInstance
         """
@@ -360,33 +361,33 @@ class UsageRecordList(ListResource):
 
     async def page_async(
         self,
-        sim=values.unset,
-        fleet=values.unset,
-        network=values.unset,
-        iso_country=values.unset,
-        group=values.unset,
-        granularity=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> UsageRecordPage:
         """
         Asynchronously retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
 
-        :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
-        :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
-        :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
-        :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
-        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
-        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-        :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
-        :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+        :param fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
+        :param network: SID of a Network resource. Only show UsageRecords representing usage on this network.
+        :param iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+        :param group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
+        :param end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsageRecordInstance
         """
@@ -411,24 +412,24 @@ class UsageRecordList(ListResource):
         )
         return UsageRecordPage(self._version, response)
 
-    def get_page(self, target_url) -> UsageRecordPage:
+    def get_page(self, target_url: str) -> UsageRecordPage:
         """
         Retrieve a specific page of UsageRecordInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of UsageRecordInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UsageRecordPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> UsageRecordPage:
+    async def get_page_async(self, target_url: str) -> UsageRecordPage:
         """
         Asynchronously retrieve a specific page of UsageRecordInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of UsageRecordInstance
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -68,12 +68,16 @@ class UsageInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, end=values.unset, start=values.unset) -> "UsageInstance":
+    def fetch(
+        self,
+        end: Union[str, object] = values.unset,
+        start: Union[str, object] = values.unset,
+    ) -> "UsageInstance":
         """
         Fetch the UsageInstance
 
-        :param str end:
-        :param str start:
+        :param end:
+        :param start:
 
         :returns: The fetched UsageInstance
         """
@@ -83,13 +87,15 @@ class UsageInstance(InstanceResource):
         )
 
     async def fetch_async(
-        self, end=values.unset, start=values.unset
+        self,
+        end: Union[str, object] = values.unset,
+        start: Union[str, object] = values.unset,
     ) -> "UsageInstance":
         """
         Asynchronous coroutine to fetch the UsageInstance
 
-        :param str end:
-        :param str start:
+        :param end:
+        :param start:
 
         :returns: The fetched UsageInstance
         """
@@ -124,12 +130,16 @@ class UsageContext(InstanceContext):
         }
         self._uri = "/Sims/{sim_sid}/Usage".format(**self._solution)
 
-    def fetch(self, end=values.unset, start=values.unset) -> UsageInstance:
+    def fetch(
+        self,
+        end: Union[str, object] = values.unset,
+        start: Union[str, object] = values.unset,
+    ) -> UsageInstance:
         """
         Fetch the UsageInstance
 
-        :param str end:
-        :param str start:
+        :param end:
+        :param start:
 
         :returns: The fetched UsageInstance
         """
@@ -149,12 +159,16 @@ class UsageContext(InstanceContext):
             sim_sid=self._solution["sim_sid"],
         )
 
-    async def fetch_async(self, end=values.unset, start=values.unset) -> UsageInstance:
+    async def fetch_async(
+        self,
+        end: Union[str, object] = values.unset,
+        start: Union[str, object] = values.unset,
+    ) -> UsageInstance:
         """
         Asynchronous coroutine to fetch the UsageInstance
 
-        :param str end:
-        :param str start:
+        :param end:
+        :param start:
 
         :returns: The fetched UsageInstance
         """

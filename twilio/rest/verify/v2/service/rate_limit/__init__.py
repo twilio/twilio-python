@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -119,11 +119,13 @@ class RateLimitInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, description=values.unset) -> "RateLimitInstance":
+    def update(
+        self, description: Union[str, object] = values.unset
+    ) -> "RateLimitInstance":
         """
         Update the RateLimitInstance
 
-        :param str description: Description of this Rate Limit
+        :param description: Description of this Rate Limit
 
         :returns: The updated RateLimitInstance
         """
@@ -131,11 +133,13 @@ class RateLimitInstance(InstanceResource):
             description=description,
         )
 
-    async def update_async(self, description=values.unset) -> "RateLimitInstance":
+    async def update_async(
+        self, description: Union[str, object] = values.unset
+    ) -> "RateLimitInstance":
         """
         Asynchronous coroutine to update the RateLimitInstance
 
-        :param str description: Description of this Rate Limit
+        :param description: Description of this Rate Limit
 
         :returns: The updated RateLimitInstance
         """
@@ -244,11 +248,13 @@ class RateLimitContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, description=values.unset) -> RateLimitInstance:
+    def update(
+        self, description: Union[str, object] = values.unset
+    ) -> RateLimitInstance:
         """
         Update the RateLimitInstance
 
-        :param str description: Description of this Rate Limit
+        :param description: Description of this Rate Limit
 
         :returns: The updated RateLimitInstance
         """
@@ -271,11 +277,13 @@ class RateLimitContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, description=values.unset) -> RateLimitInstance:
+    async def update_async(
+        self, description: Union[str, object] = values.unset
+    ) -> RateLimitInstance:
         """
         Asynchronous coroutine to update the RateLimitInstance
 
-        :param str description: Description of this Rate Limit
+        :param description: Description of this Rate Limit
 
         :returns: The updated RateLimitInstance
         """
@@ -322,11 +330,11 @@ class RateLimitContext(InstanceContext):
 
 
 class RateLimitPage(Page):
-    def get_instance(self, payload) -> RateLimitInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RateLimitInstance:
         """
         Build an instance of RateLimitInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RateLimitInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -358,12 +366,14 @@ class RateLimitList(ListResource):
         }
         self._uri = "/Services/{service_sid}/RateLimits".format(**self._solution)
 
-    def create(self, unique_name, description=values.unset) -> RateLimitInstance:
+    def create(
+        self, unique_name: str, description: Union[str, object] = values.unset
+    ) -> RateLimitInstance:
         """
         Create the RateLimitInstance
 
-        :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
-        :param str description: Description of this Rate Limit
+        :param unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
+        :param description: Description of this Rate Limit
 
         :returns: The created RateLimitInstance
         """
@@ -385,13 +395,13 @@ class RateLimitList(ListResource):
         )
 
     async def create_async(
-        self, unique_name, description=values.unset
+        self, unique_name: str, description: Union[str, object] = values.unset
     ) -> RateLimitInstance:
         """
         Asynchronously create the RateLimitInstance
 
-        :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
-        :param str description: Description of this Rate Limit
+        :param unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
+        :param description: Description of this Rate Limit
 
         :returns: The created RateLimitInstance
         """
@@ -412,19 +422,23 @@ class RateLimitList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[RateLimitInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RateLimitInstance]:
         """
         Streams RateLimitInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -433,19 +447,23 @@ class RateLimitList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[RateLimitInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RateLimitInstance]:
         """
         Asynchronously streams RateLimitInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -454,18 +472,22 @@ class RateLimitList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[RateLimitInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RateLimitInstance]:
         """
         Lists RateLimitInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -476,18 +498,22 @@ class RateLimitList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[RateLimitInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RateLimitInstance]:
         """
         Asynchronously lists RateLimitInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -499,15 +525,18 @@ class RateLimitList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RateLimitPage:
         """
         Retrieve a single page of RateLimitInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RateLimitInstance
         """
@@ -523,15 +552,18 @@ class RateLimitList(ListResource):
         return RateLimitPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RateLimitPage:
         """
         Asynchronously retrieve a single page of RateLimitInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RateLimitInstance
         """
@@ -548,31 +580,31 @@ class RateLimitList(ListResource):
         )
         return RateLimitPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> RateLimitPage:
+    def get_page(self, target_url: str) -> RateLimitPage:
         """
         Retrieve a specific page of RateLimitInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RateLimitInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RateLimitPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> RateLimitPage:
+    async def get_page_async(self, target_url: str) -> RateLimitPage:
         """
         Asynchronously retrieve a specific page of RateLimitInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RateLimitInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RateLimitPage(self._version, response, self._solution)
 
-    def get(self, sid) -> RateLimitContext:
+    def get(self, sid: str) -> RateLimitContext:
         """
         Constructs a RateLimitContext
 
@@ -582,7 +614,7 @@ class RateLimitList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> RateLimitContext:
+    def __call__(self, sid: str) -> RateLimitContext:
         """
         Constructs a RateLimitContext
 

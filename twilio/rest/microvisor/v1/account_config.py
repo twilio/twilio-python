@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -100,11 +100,11 @@ class AccountConfigInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, value) -> "AccountConfigInstance":
+    def update(self, value: str) -> "AccountConfigInstance":
         """
         Update the AccountConfigInstance
 
-        :param str value: The config value; up to 4096 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The updated AccountConfigInstance
         """
@@ -112,11 +112,11 @@ class AccountConfigInstance(InstanceResource):
             value=value,
         )
 
-    async def update_async(self, value) -> "AccountConfigInstance":
+    async def update_async(self, value: str) -> "AccountConfigInstance":
         """
         Asynchronous coroutine to update the AccountConfigInstance
 
-        :param str value: The config value; up to 4096 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The updated AccountConfigInstance
         """
@@ -212,11 +212,11 @@ class AccountConfigContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    def update(self, value) -> AccountConfigInstance:
+    def update(self, value: str) -> AccountConfigInstance:
         """
         Update the AccountConfigInstance
 
-        :param str value: The config value; up to 4096 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The updated AccountConfigInstance
         """
@@ -234,11 +234,11 @@ class AccountConfigContext(InstanceContext):
 
         return AccountConfigInstance(self._version, payload, key=self._solution["key"])
 
-    async def update_async(self, value) -> AccountConfigInstance:
+    async def update_async(self, value: str) -> AccountConfigInstance:
         """
         Asynchronous coroutine to update the AccountConfigInstance
 
-        :param str value: The config value; up to 4096 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The updated AccountConfigInstance
         """
@@ -267,11 +267,11 @@ class AccountConfigContext(InstanceContext):
 
 
 class AccountConfigPage(Page):
-    def get_instance(self, payload) -> AccountConfigInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AccountConfigInstance:
         """
         Build an instance of AccountConfigInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AccountConfigInstance(self._version, payload)
 
@@ -296,12 +296,12 @@ class AccountConfigList(ListResource):
 
         self._uri = "/Configs"
 
-    def create(self, key, value) -> AccountConfigInstance:
+    def create(self, key: str, value: str) -> AccountConfigInstance:
         """
         Create the AccountConfigInstance
 
-        :param str key: The config key; up to 100 characters.
-        :param str value: The config value; up to 4096 characters.
+        :param key: The config key; up to 100 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The created AccountConfigInstance
         """
@@ -320,12 +320,12 @@ class AccountConfigList(ListResource):
 
         return AccountConfigInstance(self._version, payload)
 
-    async def create_async(self, key, value) -> AccountConfigInstance:
+    async def create_async(self, key: str, value: str) -> AccountConfigInstance:
         """
         Asynchronously create the AccountConfigInstance
 
-        :param str key: The config key; up to 100 characters.
-        :param str value: The config value; up to 4096 characters.
+        :param key: The config key; up to 100 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The created AccountConfigInstance
         """
@@ -344,19 +344,23 @@ class AccountConfigList(ListResource):
 
         return AccountConfigInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[AccountConfigInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AccountConfigInstance]:
         """
         Streams AccountConfigInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -366,7 +370,9 @@ class AccountConfigList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AccountConfigInstance]:
         """
         Asynchronously streams AccountConfigInstance records from the API as a generator stream.
@@ -374,12 +380,12 @@ class AccountConfigList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -388,18 +394,22 @@ class AccountConfigList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[AccountConfigInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AccountConfigInstance]:
         """
         Lists AccountConfigInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -411,19 +421,21 @@ class AccountConfigList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AccountConfigInstance]:
         """
         Asynchronously lists AccountConfigInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -435,15 +447,18 @@ class AccountConfigList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> AccountConfigPage:
         """
         Retrieve a single page of AccountConfigInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AccountConfigInstance
         """
@@ -459,15 +474,18 @@ class AccountConfigList(ListResource):
         return AccountConfigPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> AccountConfigPage:
         """
         Asynchronously retrieve a single page of AccountConfigInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AccountConfigInstance
         """
@@ -484,31 +502,31 @@ class AccountConfigList(ListResource):
         )
         return AccountConfigPage(self._version, response)
 
-    def get_page(self, target_url) -> AccountConfigPage:
+    def get_page(self, target_url: str) -> AccountConfigPage:
         """
         Retrieve a specific page of AccountConfigInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AccountConfigInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AccountConfigPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> AccountConfigPage:
+    async def get_page_async(self, target_url: str) -> AccountConfigPage:
         """
         Asynchronously retrieve a specific page of AccountConfigInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AccountConfigInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AccountConfigPage(self._version, response)
 
-    def get(self, key) -> AccountConfigContext:
+    def get(self, key: str) -> AccountConfigContext:
         """
         Constructs a AccountConfigContext
 
@@ -516,7 +534,7 @@ class AccountConfigList(ListResource):
         """
         return AccountConfigContext(self._version, key=key)
 
-    def __call__(self, key) -> AccountConfigContext:
+    def __call__(self, key: str) -> AccountConfigContext:
         """
         Constructs a AccountConfigContext
 

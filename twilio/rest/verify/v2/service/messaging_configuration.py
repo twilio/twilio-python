@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -114,11 +114,11 @@ class MessagingConfigurationInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, messaging_service_sid) -> "MessagingConfigurationInstance":
+    def update(self, messaging_service_sid: str) -> "MessagingConfigurationInstance":
         """
         Update the MessagingConfigurationInstance
 
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
 
         :returns: The updated MessagingConfigurationInstance
         """
@@ -127,12 +127,12 @@ class MessagingConfigurationInstance(InstanceResource):
         )
 
     async def update_async(
-        self, messaging_service_sid
+        self, messaging_service_sid: str
     ) -> "MessagingConfigurationInstance":
         """
         Asynchronous coroutine to update the MessagingConfigurationInstance
 
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
 
         :returns: The updated MessagingConfigurationInstance
         """
@@ -234,11 +234,11 @@ class MessagingConfigurationContext(InstanceContext):
             country=self._solution["country"],
         )
 
-    def update(self, messaging_service_sid) -> MessagingConfigurationInstance:
+    def update(self, messaging_service_sid: str) -> MessagingConfigurationInstance:
         """
         Update the MessagingConfigurationInstance
 
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
 
         :returns: The updated MessagingConfigurationInstance
         """
@@ -262,12 +262,12 @@ class MessagingConfigurationContext(InstanceContext):
         )
 
     async def update_async(
-        self, messaging_service_sid
+        self, messaging_service_sid: str
     ) -> MessagingConfigurationInstance:
         """
         Asynchronous coroutine to update the MessagingConfigurationInstance
 
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
 
         :returns: The updated MessagingConfigurationInstance
         """
@@ -301,11 +301,11 @@ class MessagingConfigurationContext(InstanceContext):
 
 
 class MessagingConfigurationPage(Page):
-    def get_instance(self, payload) -> MessagingConfigurationInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> MessagingConfigurationInstance:
         """
         Build an instance of MessagingConfigurationInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return MessagingConfigurationInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -339,12 +339,14 @@ class MessagingConfigurationList(ListResource):
             **self._solution
         )
 
-    def create(self, country, messaging_service_sid) -> MessagingConfigurationInstance:
+    def create(
+        self, country: str, messaging_service_sid: str
+    ) -> MessagingConfigurationInstance:
         """
         Create the MessagingConfigurationInstance
 
-        :param str country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
 
         :returns: The created MessagingConfigurationInstance
         """
@@ -366,13 +368,13 @@ class MessagingConfigurationList(ListResource):
         )
 
     async def create_async(
-        self, country, messaging_service_sid
+        self, country: str, messaging_service_sid: str
     ) -> MessagingConfigurationInstance:
         """
         Asynchronously create the MessagingConfigurationInstance
 
-        :param str country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
 
         :returns: The created MessagingConfigurationInstance
         """
@@ -394,7 +396,9 @@ class MessagingConfigurationList(ListResource):
         )
 
     def stream(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MessagingConfigurationInstance]:
         """
         Streams MessagingConfigurationInstance records from the API as a generator stream.
@@ -402,12 +406,12 @@ class MessagingConfigurationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -417,7 +421,9 @@ class MessagingConfigurationList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MessagingConfigurationInstance]:
         """
         Asynchronously streams MessagingConfigurationInstance records from the API as a generator stream.
@@ -425,12 +431,12 @@ class MessagingConfigurationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -439,18 +445,22 @@ class MessagingConfigurationList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[MessagingConfigurationInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[MessagingConfigurationInstance]:
         """
         Lists MessagingConfigurationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -462,19 +472,21 @@ class MessagingConfigurationList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MessagingConfigurationInstance]:
         """
         Asynchronously lists MessagingConfigurationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -486,15 +498,18 @@ class MessagingConfigurationList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> MessagingConfigurationPage:
         """
         Retrieve a single page of MessagingConfigurationInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessagingConfigurationInstance
         """
@@ -510,15 +525,18 @@ class MessagingConfigurationList(ListResource):
         return MessagingConfigurationPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> MessagingConfigurationPage:
         """
         Asynchronously retrieve a single page of MessagingConfigurationInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessagingConfigurationInstance
         """
@@ -535,31 +553,31 @@ class MessagingConfigurationList(ListResource):
         )
         return MessagingConfigurationPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> MessagingConfigurationPage:
+    def get_page(self, target_url: str) -> MessagingConfigurationPage:
         """
         Retrieve a specific page of MessagingConfigurationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MessagingConfigurationInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MessagingConfigurationPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> MessagingConfigurationPage:
+    async def get_page_async(self, target_url: str) -> MessagingConfigurationPage:
         """
         Asynchronously retrieve a specific page of MessagingConfigurationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MessagingConfigurationInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return MessagingConfigurationPage(self._version, response, self._solution)
 
-    def get(self, country) -> MessagingConfigurationContext:
+    def get(self, country: str) -> MessagingConfigurationContext:
         """
         Constructs a MessagingConfigurationContext
 
@@ -569,7 +587,7 @@ class MessagingConfigurationList(ListResource):
             self._version, service_sid=self._solution["service_sid"], country=country
         )
 
-    def __call__(self, country) -> MessagingConfigurationContext:
+    def __call__(self, country: str) -> MessagingConfigurationContext:
         """
         Constructs a MessagingConfigurationContext
 

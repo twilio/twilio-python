@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -63,11 +63,11 @@ class InteractionChannelInviteInstance(InstanceResource):
 
 
 class InteractionChannelInvitePage(Page):
-    def get_instance(self, payload) -> InteractionChannelInviteInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> InteractionChannelInviteInstance:
         """
         Build an instance of InteractionChannelInviteInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return InteractionChannelInviteInstance(
             self._version,
@@ -108,11 +108,11 @@ class InteractionChannelInviteList(ListResource):
             )
         )
 
-    def create(self, routing) -> InteractionChannelInviteInstance:
+    def create(self, routing: object) -> InteractionChannelInviteInstance:
         """
         Create the InteractionChannelInviteInstance
 
-        :param object routing: The Interaction's routing logic.
+        :param routing: The Interaction's routing logic.
 
         :returns: The created InteractionChannelInviteInstance
         """
@@ -135,11 +135,11 @@ class InteractionChannelInviteList(ListResource):
             channel_sid=self._solution["channel_sid"],
         )
 
-    async def create_async(self, routing) -> InteractionChannelInviteInstance:
+    async def create_async(self, routing: object) -> InteractionChannelInviteInstance:
         """
         Asynchronously create the InteractionChannelInviteInstance
 
-        :param object routing: The Interaction's routing logic.
+        :param routing: The Interaction's routing logic.
 
         :returns: The created InteractionChannelInviteInstance
         """
@@ -163,7 +163,9 @@ class InteractionChannelInviteList(ListResource):
         )
 
     def stream(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InteractionChannelInviteInstance]:
         """
         Streams InteractionChannelInviteInstance records from the API as a generator stream.
@@ -171,12 +173,12 @@ class InteractionChannelInviteList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -186,7 +188,9 @@ class InteractionChannelInviteList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InteractionChannelInviteInstance]:
         """
         Asynchronously streams InteractionChannelInviteInstance records from the API as a generator stream.
@@ -194,12 +198,12 @@ class InteractionChannelInviteList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -209,19 +213,21 @@ class InteractionChannelInviteList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InteractionChannelInviteInstance]:
         """
         Lists InteractionChannelInviteInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -233,19 +239,21 @@ class InteractionChannelInviteList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InteractionChannelInviteInstance]:
         """
         Asynchronously lists InteractionChannelInviteInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -257,15 +265,18 @@ class InteractionChannelInviteList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InteractionChannelInvitePage:
         """
         Retrieve a single page of InteractionChannelInviteInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelInviteInstance
         """
@@ -281,15 +292,18 @@ class InteractionChannelInviteList(ListResource):
         return InteractionChannelInvitePage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InteractionChannelInvitePage:
         """
         Asynchronously retrieve a single page of InteractionChannelInviteInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelInviteInstance
         """
@@ -306,24 +320,24 @@ class InteractionChannelInviteList(ListResource):
         )
         return InteractionChannelInvitePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> InteractionChannelInvitePage:
+    def get_page(self, target_url: str) -> InteractionChannelInvitePage:
         """
         Retrieve a specific page of InteractionChannelInviteInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionChannelInviteInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InteractionChannelInvitePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> InteractionChannelInvitePage:
+    async def get_page_async(self, target_url: str) -> InteractionChannelInvitePage:
         """
         Asynchronously retrieve a specific page of InteractionChannelInviteInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionChannelInviteInstance
         """

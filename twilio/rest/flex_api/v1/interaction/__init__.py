@@ -191,12 +191,12 @@ class InteractionList(ListResource):
 
         self._uri = "/Interactions"
 
-    def create(self, channel, routing) -> InteractionInstance:
+    def create(self, channel: object, routing: object) -> InteractionInstance:
         """
         Create the InteractionInstance
 
-        :param object channel: The Interaction's channel.
-        :param object routing: The Interaction's routing logic.
+        :param channel: The Interaction's channel.
+        :param routing: The Interaction's routing logic.
 
         :returns: The created InteractionInstance
         """
@@ -215,12 +215,14 @@ class InteractionList(ListResource):
 
         return InteractionInstance(self._version, payload)
 
-    async def create_async(self, channel, routing) -> InteractionInstance:
+    async def create_async(
+        self, channel: object, routing: object
+    ) -> InteractionInstance:
         """
         Asynchronously create the InteractionInstance
 
-        :param object channel: The Interaction's channel.
-        :param object routing: The Interaction's routing logic.
+        :param channel: The Interaction's channel.
+        :param routing: The Interaction's routing logic.
 
         :returns: The created InteractionInstance
         """
@@ -239,7 +241,7 @@ class InteractionList(ListResource):
 
         return InteractionInstance(self._version, payload)
 
-    def get(self, sid) -> InteractionContext:
+    def get(self, sid: str) -> InteractionContext:
         """
         Constructs a InteractionContext
 
@@ -247,7 +249,7 @@ class InteractionList(ListResource):
         """
         return InteractionContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> InteractionContext:
+    def __call__(self, sid: str) -> InteractionContext:
         """
         Constructs a InteractionContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -82,13 +82,13 @@ class UserDefinedMessageList(ListResource):
         )
 
     def create(
-        self, content, idempotency_key=values.unset
+        self, content: str, idempotency_key: Union[str, object] = values.unset
     ) -> UserDefinedMessageInstance:
         """
         Create the UserDefinedMessageInstance
 
-        :param str content: The User Defined Message in the form of URL-encoded JSON string.
-        :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param content: The User Defined Message in the form of URL-encoded JSON string.
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 
         :returns: The created UserDefinedMessageInstance
         """
@@ -113,13 +113,13 @@ class UserDefinedMessageList(ListResource):
         )
 
     async def create_async(
-        self, content, idempotency_key=values.unset
+        self, content: str, idempotency_key: Union[str, object] = values.unset
     ) -> UserDefinedMessageInstance:
         """
         Asynchronously create the UserDefinedMessageInstance
 
-        :param str content: The User Defined Message in the form of URL-encoded JSON string.
-        :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param content: The User Defined Message in the form of URL-encoded JSON string.
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 
         :returns: The created UserDefinedMessageInstance
         """

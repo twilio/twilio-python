@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -95,13 +95,15 @@ class PhoneNumberInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "PhoneNumberInstance":
         """
         Update the PhoneNumberInstance
 
-        :param str voice_region: The Inbound Processing Region used for this phone number for voice
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param voice_region: The Inbound Processing Region used for this phone number for voice
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated PhoneNumberInstance
         """
@@ -111,13 +113,15 @@ class PhoneNumberInstance(InstanceResource):
         )
 
     async def update_async(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "PhoneNumberInstance":
         """
         Asynchronous coroutine to update the PhoneNumberInstance
 
-        :param str voice_region: The Inbound Processing Region used for this phone number for voice
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param voice_region: The Inbound Processing Region used for this phone number for voice
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated PhoneNumberInstance
         """
@@ -191,13 +195,15 @@ class PhoneNumberContext(InstanceContext):
         )
 
     def update(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> PhoneNumberInstance:
         """
         Update the PhoneNumberInstance
 
-        :param str voice_region: The Inbound Processing Region used for this phone number for voice
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param voice_region: The Inbound Processing Region used for this phone number for voice
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated PhoneNumberInstance
         """
@@ -219,13 +225,15 @@ class PhoneNumberContext(InstanceContext):
         )
 
     async def update_async(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> PhoneNumberInstance:
         """
         Asynchronous coroutine to update the PhoneNumberInstance
 
-        :param str voice_region: The Inbound Processing Region used for this phone number for voice
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param voice_region: The Inbound Processing Region used for this phone number for voice
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated PhoneNumberInstance
         """
@@ -266,7 +274,7 @@ class PhoneNumberList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, phone_number) -> PhoneNumberContext:
+    def get(self, phone_number: str) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
 
@@ -274,7 +282,7 @@ class PhoneNumberList(ListResource):
         """
         return PhoneNumberContext(self._version, phone_number=phone_number)
 
-    def __call__(self, phone_number) -> PhoneNumberContext:
+    def __call__(self, phone_number: str) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
 

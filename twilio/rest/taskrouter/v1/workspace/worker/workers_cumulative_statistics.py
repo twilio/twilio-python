@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -95,18 +95,18 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
 
     def fetch(
         self,
-        end_date=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
     ) -> "WorkersCumulativeStatisticsInstance":
         """
         Fetch the WorkersCumulativeStatisticsInstance
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersCumulativeStatisticsInstance
         """
@@ -119,18 +119,18 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
 
     async def fetch_async(
         self,
-        end_date=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
     ) -> "WorkersCumulativeStatisticsInstance":
         """
         Asynchronous coroutine to fetch the WorkersCumulativeStatisticsInstance
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersCumulativeStatisticsInstance
         """
@@ -173,18 +173,18 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
 
     def fetch(
         self,
-        end_date=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
     ) -> WorkersCumulativeStatisticsInstance:
         """
         Fetch the WorkersCumulativeStatisticsInstance
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersCumulativeStatisticsInstance
         """
@@ -208,18 +208,18 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
 
     async def fetch_async(
         self,
-        end_date=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
     ) -> WorkersCumulativeStatisticsInstance:
         """
         Asynchronous coroutine to fetch the WorkersCumulativeStatisticsInstance
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersCumulativeStatisticsInstance
         """

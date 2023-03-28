@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -135,13 +135,15 @@ class RatePlanInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, unique_name=values.unset, friendly_name=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "RatePlanInstance":
         """
         Update the RatePlanInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
 
         :returns: The updated RatePlanInstance
         """
@@ -151,13 +153,15 @@ class RatePlanInstance(InstanceResource):
         )
 
     async def update_async(
-        self, unique_name=values.unset, friendly_name=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "RatePlanInstance":
         """
         Asynchronous coroutine to update the RatePlanInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
 
         :returns: The updated RatePlanInstance
         """
@@ -255,13 +259,15 @@ class RatePlanContext(InstanceContext):
         )
 
     def update(
-        self, unique_name=values.unset, friendly_name=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> RatePlanInstance:
         """
         Update the RatePlanInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
 
         :returns: The updated RatePlanInstance
         """
@@ -281,13 +287,15 @@ class RatePlanContext(InstanceContext):
         return RatePlanInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
-        self, unique_name=values.unset, friendly_name=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> RatePlanInstance:
         """
         Asynchronous coroutine to update the RatePlanInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
 
         :returns: The updated RatePlanInstance
         """
@@ -317,11 +325,11 @@ class RatePlanContext(InstanceContext):
 
 
 class RatePlanPage(Page):
-    def get_instance(self, payload) -> RatePlanInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RatePlanInstance:
         """
         Build an instance of RatePlanInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RatePlanInstance(self._version, payload)
 
@@ -348,32 +356,32 @@ class RatePlanList(ListResource):
 
     def create(
         self,
-        unique_name=values.unset,
-        friendly_name=values.unset,
-        data_enabled=values.unset,
-        data_limit=values.unset,
-        data_metering=values.unset,
-        messaging_enabled=values.unset,
-        voice_enabled=values.unset,
-        national_roaming_enabled=values.unset,
-        international_roaming=values.unset,
-        national_roaming_data_limit=values.unset,
-        international_roaming_data_limit=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        data_metering: Union[str, object] = values.unset,
+        messaging_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        national_roaming_enabled: Union[bool, object] = values.unset,
+        international_roaming: Union[List[str], object] = values.unset,
+        national_roaming_data_limit: Union[int, object] = values.unset,
+        international_roaming_data_limit: Union[int, object] = values.unset,
     ) -> RatePlanInstance:
         """
         Create the RatePlanInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param bool data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
-        :param int data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
-        :param str data_metering: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
-        :param bool messaging_enabled: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
-        :param bool voice_enabled: Deprecated.
-        :param bool national_roaming_enabled: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
-        :param List[str] international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
-        :param int national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
-        :param int international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+        :param data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
+        :param data_metering: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
+        :param messaging_enabled: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
+        :param voice_enabled: Deprecated.
+        :param national_roaming_enabled: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
+        :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
+        :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
+        :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
 
         :returns: The created RatePlanInstance
         """
@@ -405,32 +413,32 @@ class RatePlanList(ListResource):
 
     async def create_async(
         self,
-        unique_name=values.unset,
-        friendly_name=values.unset,
-        data_enabled=values.unset,
-        data_limit=values.unset,
-        data_metering=values.unset,
-        messaging_enabled=values.unset,
-        voice_enabled=values.unset,
-        national_roaming_enabled=values.unset,
-        international_roaming=values.unset,
-        national_roaming_data_limit=values.unset,
-        international_roaming_data_limit=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        data_metering: Union[str, object] = values.unset,
+        messaging_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        national_roaming_enabled: Union[bool, object] = values.unset,
+        international_roaming: Union[List[str], object] = values.unset,
+        national_roaming_data_limit: Union[int, object] = values.unset,
+        international_roaming_data_limit: Union[int, object] = values.unset,
     ) -> RatePlanInstance:
         """
         Asynchronously create the RatePlanInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-        :param bool data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
-        :param int data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
-        :param str data_metering: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
-        :param bool messaging_enabled: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
-        :param bool voice_enabled: Deprecated.
-        :param bool national_roaming_enabled: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
-        :param List[str] international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
-        :param int national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
-        :param int international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+        :param data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
+        :param data_metering: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
+        :param messaging_enabled: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
+        :param voice_enabled: Deprecated.
+        :param national_roaming_enabled: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
+        :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
+        :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
+        :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
 
         :returns: The created RatePlanInstance
         """
@@ -460,19 +468,23 @@ class RatePlanList(ListResource):
 
         return RatePlanInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[RatePlanInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RatePlanInstance]:
         """
         Streams RatePlanInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -481,19 +493,23 @@ class RatePlanList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[RatePlanInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RatePlanInstance]:
         """
         Asynchronously streams RatePlanInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -502,18 +518,22 @@ class RatePlanList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[RatePlanInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RatePlanInstance]:
         """
         Lists RatePlanInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -524,18 +544,22 @@ class RatePlanList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[RatePlanInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RatePlanInstance]:
         """
         Asynchronously lists RatePlanInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -547,15 +571,18 @@ class RatePlanList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RatePlanPage:
         """
         Retrieve a single page of RatePlanInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RatePlanInstance
         """
@@ -571,15 +598,18 @@ class RatePlanList(ListResource):
         return RatePlanPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RatePlanPage:
         """
         Asynchronously retrieve a single page of RatePlanInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RatePlanInstance
         """
@@ -596,31 +626,31 @@ class RatePlanList(ListResource):
         )
         return RatePlanPage(self._version, response)
 
-    def get_page(self, target_url) -> RatePlanPage:
+    def get_page(self, target_url: str) -> RatePlanPage:
         """
         Retrieve a specific page of RatePlanInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RatePlanInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RatePlanPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> RatePlanPage:
+    async def get_page_async(self, target_url: str) -> RatePlanPage:
         """
         Asynchronously retrieve a specific page of RatePlanInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RatePlanInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RatePlanPage(self._version, response)
 
-    def get(self, sid) -> RatePlanContext:
+    def get(self, sid: str) -> RatePlanContext:
         """
         Constructs a RatePlanContext
 
@@ -628,7 +658,7 @@ class RatePlanList(ListResource):
         """
         return RatePlanContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> RatePlanContext:
+    def __call__(self, sid: str) -> RatePlanContext:
         """
         Constructs a RatePlanContext
 

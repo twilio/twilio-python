@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -56,11 +56,13 @@ class InsightsSessionInstance(InstanceResource):
             )
         return self._context
 
-    def create(self, authorization=values.unset) -> "InsightsSessionInstance":
+    def create(
+        self, authorization: Union[str, object] = values.unset
+    ) -> "InsightsSessionInstance":
         """
         Create the InsightsSessionInstance
 
-        :param str authorization: The Authorization HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
         """
@@ -69,12 +71,12 @@ class InsightsSessionInstance(InstanceResource):
         )
 
     async def create_async(
-        self, authorization=values.unset
+        self, authorization: Union[str, object] = values.unset
     ) -> "InsightsSessionInstance":
         """
         Asynchronous coroutine to create the InsightsSessionInstance
 
-        :param str authorization: The Authorization HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
         """
@@ -103,11 +105,13 @@ class InsightsSessionContext(InstanceContext):
 
         self._uri = "/Insights/Session"
 
-    def create(self, authorization=values.unset) -> InsightsSessionInstance:
+    def create(
+        self, authorization: Union[str, object] = values.unset
+    ) -> InsightsSessionInstance:
         """
         Create the InsightsSessionInstance
 
-        :param str authorization: The Authorization HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
         """
@@ -121,11 +125,13 @@ class InsightsSessionContext(InstanceContext):
 
         return InsightsSessionInstance(self._version, payload)
 
-    async def create_async(self, authorization=values.unset) -> InsightsSessionInstance:
+    async def create_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> InsightsSessionInstance:
         """
         Asynchronous coroutine to create the InsightsSessionInstance
 
-        :param str authorization: The Authorization HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
         """

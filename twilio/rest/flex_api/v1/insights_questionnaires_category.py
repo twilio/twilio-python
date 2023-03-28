@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -64,11 +64,11 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, token=values.unset) -> bool:
+    def delete(self, token: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesCategoryInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -76,11 +76,11 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
             token=token,
         )
 
-    async def delete_async(self, token=values.unset) -> bool:
+    async def delete_async(self, token: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -89,13 +89,13 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         )
 
     def update(
-        self, name, token=values.unset
+        self, name: str, token: Union[str, object] = values.unset
     ) -> "InsightsQuestionnairesCategoryInstance":
         """
         Update the InsightsQuestionnairesCategoryInstance
 
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
+        :param name: The name of this category.
+        :param token: The Token HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
@@ -105,13 +105,13 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         )
 
     async def update_async(
-        self, name, token=values.unset
+        self, name: str, token: Union[str, object] = values.unset
     ) -> "InsightsQuestionnairesCategoryInstance":
         """
         Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
 
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
+        :param name: The name of this category.
+        :param token: The Token HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
@@ -148,11 +148,11 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         }
         self._uri = "/Insights/QM/Categories/{category_id}".format(**self._solution)
 
-    def delete(self, token=values.unset) -> bool:
+    def delete(self, token: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesCategoryInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -164,11 +164,11 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, token=values.unset) -> bool:
+    async def delete_async(self, token: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -183,13 +183,13 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         )
 
     def update(
-        self, name, token=values.unset
+        self, name: str, token: Union[str, object] = values.unset
     ) -> InsightsQuestionnairesCategoryInstance:
         """
         Update the InsightsQuestionnairesCategoryInstance
 
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
+        :param name: The name of this category.
+        :param token: The Token HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
@@ -213,13 +213,13 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         )
 
     async def update_async(
-        self, name, token=values.unset
+        self, name: str, token: Union[str, object] = values.unset
     ) -> InsightsQuestionnairesCategoryInstance:
         """
         Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
 
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
+        :param name: The name of this category.
+        :param token: The Token HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
@@ -255,11 +255,13 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
 
 
 class InsightsQuestionnairesCategoryPage(Page):
-    def get_instance(self, payload) -> InsightsQuestionnairesCategoryInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Build an instance of InsightsQuestionnairesCategoryInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
 
@@ -285,13 +287,13 @@ class InsightsQuestionnairesCategoryList(ListResource):
         self._uri = "/Insights/QM/Categories"
 
     def create(
-        self, name, token=values.unset
+        self, name: str, token: Union[str, object] = values.unset
     ) -> InsightsQuestionnairesCategoryInstance:
         """
         Create the InsightsQuestionnairesCategoryInstance
 
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
+        :param name: The name of this category.
+        :param token: The Token HTTP request header
 
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
@@ -312,13 +314,13 @@ class InsightsQuestionnairesCategoryList(ListResource):
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
 
     async def create_async(
-        self, name, token=values.unset
+        self, name: str, token: Union[str, object] = values.unset
     ) -> InsightsQuestionnairesCategoryInstance:
         """
         Asynchronously create the InsightsQuestionnairesCategoryInstance
 
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
+        :param name: The name of this category.
+        :param token: The Token HTTP request header
 
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
@@ -339,7 +341,10 @@ class InsightsQuestionnairesCategoryList(ListResource):
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
 
     def stream(
-        self, token=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesCategoryInstance]:
         """
         Streams InsightsQuestionnairesCategoryInstance records from the API as a generator stream.
@@ -348,12 +353,12 @@ class InsightsQuestionnairesCategoryList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str token: The Token HTTP request header
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -363,7 +368,10 @@ class InsightsQuestionnairesCategoryList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, token=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesCategoryInstance]:
         """
         Asynchronously streams InsightsQuestionnairesCategoryInstance records from the API as a generator stream.
@@ -372,12 +380,12 @@ class InsightsQuestionnairesCategoryList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str token: The Token HTTP request header
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -387,7 +395,10 @@ class InsightsQuestionnairesCategoryList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, token=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesCategoryInstance]:
         """
         Lists InsightsQuestionnairesCategoryInstance records from the API as a list.
@@ -395,12 +406,12 @@ class InsightsQuestionnairesCategoryList(ListResource):
         memory before returning.
 
         :param str token: The Token HTTP request header
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -413,7 +424,10 @@ class InsightsQuestionnairesCategoryList(ListResource):
         )
 
     async def list_async(
-        self, token=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesCategoryInstance]:
         """
         Asynchronously lists InsightsQuestionnairesCategoryInstance records from the API as a list.
@@ -421,12 +435,12 @@ class InsightsQuestionnairesCategoryList(ListResource):
         memory before returning.
 
         :param str token: The Token HTTP request header
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -440,19 +454,19 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
     def page(
         self,
-        token=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InsightsQuestionnairesCategoryPage:
         """
         Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
         """
@@ -470,19 +484,19 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
     async def page_async(
         self,
-        token=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InsightsQuestionnairesCategoryPage:
         """
         Asynchronously retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
         """
@@ -500,31 +514,33 @@ class InsightsQuestionnairesCategoryList(ListResource):
         )
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
-    def get_page(self, target_url) -> InsightsQuestionnairesCategoryPage:
+    def get_page(self, target_url: str) -> InsightsQuestionnairesCategoryPage:
         """
         Retrieve a specific page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> InsightsQuestionnairesCategoryPage:
+    async def get_page_async(
+        self, target_url: str
+    ) -> InsightsQuestionnairesCategoryPage:
         """
         Asynchronously retrieve a specific page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
-    def get(self, category_id) -> InsightsQuestionnairesCategoryContext:
+    def get(self, category_id: str) -> InsightsQuestionnairesCategoryContext:
         """
         Constructs a InsightsQuestionnairesCategoryContext
 
@@ -534,7 +550,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
             self._version, category_id=category_id
         )
 
-    def __call__(self, category_id) -> InsightsQuestionnairesCategoryContext:
+    def __call__(self, category_id: str) -> InsightsQuestionnairesCategoryContext:
         """
         Constructs a InsightsQuestionnairesCategoryContext
 

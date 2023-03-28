@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -221,11 +221,11 @@ class AlphaSenderContext(InstanceContext):
 
 
 class AlphaSenderPage(Page):
-    def get_instance(self, payload) -> AlphaSenderInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AlphaSenderInstance:
         """
         Build an instance of AlphaSenderInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AlphaSenderInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -257,11 +257,11 @@ class AlphaSenderList(ListResource):
         }
         self._uri = "/Services/{service_sid}/AlphaSenders".format(**self._solution)
 
-    def create(self, alpha_sender) -> AlphaSenderInstance:
+    def create(self, alpha_sender: str) -> AlphaSenderInstance:
         """
         Create the AlphaSenderInstance
 
-        :param str alpha_sender: The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers.
+        :param alpha_sender: The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers.
 
         :returns: The created AlphaSenderInstance
         """
@@ -281,11 +281,11 @@ class AlphaSenderList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    async def create_async(self, alpha_sender) -> AlphaSenderInstance:
+    async def create_async(self, alpha_sender: str) -> AlphaSenderInstance:
         """
         Asynchronously create the AlphaSenderInstance
 
-        :param str alpha_sender: The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers.
+        :param alpha_sender: The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers.
 
         :returns: The created AlphaSenderInstance
         """
@@ -305,19 +305,23 @@ class AlphaSenderList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[AlphaSenderInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AlphaSenderInstance]:
         """
         Streams AlphaSenderInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -327,7 +331,9 @@ class AlphaSenderList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AlphaSenderInstance]:
         """
         Asynchronously streams AlphaSenderInstance records from the API as a generator stream.
@@ -335,12 +341,12 @@ class AlphaSenderList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -349,18 +355,22 @@ class AlphaSenderList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[AlphaSenderInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AlphaSenderInstance]:
         """
         Lists AlphaSenderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -371,18 +381,22 @@ class AlphaSenderList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[AlphaSenderInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AlphaSenderInstance]:
         """
         Asynchronously lists AlphaSenderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -394,15 +408,18 @@ class AlphaSenderList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> AlphaSenderPage:
         """
         Retrieve a single page of AlphaSenderInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AlphaSenderInstance
         """
@@ -418,15 +435,18 @@ class AlphaSenderList(ListResource):
         return AlphaSenderPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> AlphaSenderPage:
         """
         Asynchronously retrieve a single page of AlphaSenderInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AlphaSenderInstance
         """
@@ -443,31 +463,31 @@ class AlphaSenderList(ListResource):
         )
         return AlphaSenderPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> AlphaSenderPage:
+    def get_page(self, target_url: str) -> AlphaSenderPage:
         """
         Retrieve a specific page of AlphaSenderInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AlphaSenderInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AlphaSenderPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> AlphaSenderPage:
+    async def get_page_async(self, target_url: str) -> AlphaSenderPage:
         """
         Asynchronously retrieve a specific page of AlphaSenderInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AlphaSenderInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AlphaSenderPage(self._version, response, self._solution)
 
-    def get(self, sid) -> AlphaSenderContext:
+    def get(self, sid: str) -> AlphaSenderContext:
         """
         Constructs a AlphaSenderContext
 
@@ -477,7 +497,7 @@ class AlphaSenderList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> AlphaSenderContext:
+    def __call__(self, sid: str) -> AlphaSenderContext:
         """
         Constructs a AlphaSenderContext
 

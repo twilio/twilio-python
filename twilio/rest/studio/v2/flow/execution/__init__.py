@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -127,11 +127,11 @@ class ExecutionInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status) -> "ExecutionInstance":
+    def update(self, status: "ExecutionInstance.Status") -> "ExecutionInstance":
         """
         Update the ExecutionInstance
 
-        :param "ExecutionInstance.Status" status:
+        :param status:
 
         :returns: The updated ExecutionInstance
         """
@@ -139,11 +139,13 @@ class ExecutionInstance(InstanceResource):
             status=status,
         )
 
-    async def update_async(self, status) -> "ExecutionInstance":
+    async def update_async(
+        self, status: "ExecutionInstance.Status"
+    ) -> "ExecutionInstance":
         """
         Asynchronous coroutine to update the ExecutionInstance
 
-        :param "ExecutionInstance.Status" status:
+        :param status:
 
         :returns: The updated ExecutionInstance
         """
@@ -260,11 +262,11 @@ class ExecutionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status) -> ExecutionInstance:
+    def update(self, status: "ExecutionInstance.Status") -> ExecutionInstance:
         """
         Update the ExecutionInstance
 
-        :param "ExecutionInstance.Status" status:
+        :param status:
 
         :returns: The updated ExecutionInstance
         """
@@ -287,11 +289,13 @@ class ExecutionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status) -> ExecutionInstance:
+    async def update_async(
+        self, status: "ExecutionInstance.Status"
+    ) -> ExecutionInstance:
         """
         Asynchronous coroutine to update the ExecutionInstance
 
-        :param "ExecutionInstance.Status" status:
+        :param status:
 
         :returns: The updated ExecutionInstance
         """
@@ -351,11 +355,11 @@ class ExecutionContext(InstanceContext):
 
 
 class ExecutionPage(Page):
-    def get_instance(self, payload) -> ExecutionInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ExecutionInstance:
         """
         Build an instance of ExecutionInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ExecutionInstance(
             self._version, payload, flow_sid=self._solution["flow_sid"]
@@ -387,13 +391,15 @@ class ExecutionList(ListResource):
         }
         self._uri = "/Flows/{flow_sid}/Executions".format(**self._solution)
 
-    def create(self, to, from_, parameters=values.unset) -> ExecutionInstance:
+    def create(
+        self, to: str, from_: str, parameters: Union[object, object] = values.unset
+    ) -> ExecutionInstance:
         """
         Create the ExecutionInstance
 
-        :param str to: The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
-        :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
-        :param object parameters: JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
+        :param to: The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
+        :param from_: The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
+        :param parameters: JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
 
         :returns: The created ExecutionInstance
         """
@@ -416,14 +422,14 @@ class ExecutionList(ListResource):
         )
 
     async def create_async(
-        self, to, from_, parameters=values.unset
+        self, to: str, from_: str, parameters: Union[object, object] = values.unset
     ) -> ExecutionInstance:
         """
         Asynchronously create the ExecutionInstance
 
-        :param str to: The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
-        :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
-        :param object parameters: JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
+        :param to: The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
+        :param from_: The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
+        :param parameters: JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
 
         :returns: The created ExecutionInstance
         """
@@ -447,10 +453,10 @@ class ExecutionList(ListResource):
 
     def stream(
         self,
-        date_created_from=values.unset,
-        date_created_to=values.unset,
-        limit=None,
-        page_size=None,
+        date_created_from: Union[datetime, object] = values.unset,
+        date_created_to: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ExecutionInstance]:
         """
         Streams ExecutionInstance records from the API as a generator stream.
@@ -460,12 +466,12 @@ class ExecutionList(ListResource):
 
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -480,10 +486,10 @@ class ExecutionList(ListResource):
 
     async def stream_async(
         self,
-        date_created_from=values.unset,
-        date_created_to=values.unset,
-        limit=None,
-        page_size=None,
+        date_created_from: Union[datetime, object] = values.unset,
+        date_created_to: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ExecutionInstance]:
         """
         Asynchronously streams ExecutionInstance records from the API as a generator stream.
@@ -493,12 +499,12 @@ class ExecutionList(ListResource):
 
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -513,10 +519,10 @@ class ExecutionList(ListResource):
 
     def list(
         self,
-        date_created_from=values.unset,
-        date_created_to=values.unset,
-        limit=None,
-        page_size=None,
+        date_created_from: Union[datetime, object] = values.unset,
+        date_created_to: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ExecutionInstance]:
         """
         Lists ExecutionInstance records from the API as a list.
@@ -525,12 +531,12 @@ class ExecutionList(ListResource):
 
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -545,10 +551,10 @@ class ExecutionList(ListResource):
 
     async def list_async(
         self,
-        date_created_from=values.unset,
-        date_created_to=values.unset,
-        limit=None,
-        page_size=None,
+        date_created_from: Union[datetime, object] = values.unset,
+        date_created_to: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ExecutionInstance]:
         """
         Asynchronously lists ExecutionInstance records from the API as a list.
@@ -557,12 +563,12 @@ class ExecutionList(ListResource):
 
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -577,21 +583,21 @@ class ExecutionList(ListResource):
 
     def page(
         self,
-        date_created_from=values.unset,
-        date_created_to=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created_from: Union[datetime, object] = values.unset,
+        date_created_to: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ExecutionPage:
         """
         Retrieve a single page of ExecutionInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-        :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
+        :param date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ExecutionInstance
         """
@@ -610,21 +616,21 @@ class ExecutionList(ListResource):
 
     async def page_async(
         self,
-        date_created_from=values.unset,
-        date_created_to=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created_from: Union[datetime, object] = values.unset,
+        date_created_to: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ExecutionPage:
         """
         Asynchronously retrieve a single page of ExecutionInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-        :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
+        :param date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ExecutionInstance
         """
@@ -643,31 +649,31 @@ class ExecutionList(ListResource):
         )
         return ExecutionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ExecutionPage:
+    def get_page(self, target_url: str) -> ExecutionPage:
         """
         Retrieve a specific page of ExecutionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ExecutionInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ExecutionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ExecutionPage:
+    async def get_page_async(self, target_url: str) -> ExecutionPage:
         """
         Asynchronously retrieve a specific page of ExecutionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ExecutionInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ExecutionPage(self._version, response, self._solution)
 
-    def get(self, sid) -> ExecutionContext:
+    def get(self, sid: str) -> ExecutionContext:
         """
         Constructs a ExecutionContext
 
@@ -677,7 +683,7 @@ class ExecutionList(ListResource):
             self._version, flow_sid=self._solution["flow_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> ExecutionContext:
+    def __call__(self, sid: str) -> ExecutionContext:
         """
         Constructs a ExecutionContext
 

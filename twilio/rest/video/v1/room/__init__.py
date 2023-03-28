@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -159,11 +159,11 @@ class RoomInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status) -> "RoomInstance":
+    def update(self, status: "RoomInstance.RoomStatus") -> "RoomInstance":
         """
         Update the RoomInstance
 
-        :param "RoomInstance.RoomStatus" status:
+        :param status:
 
         :returns: The updated RoomInstance
         """
@@ -171,11 +171,11 @@ class RoomInstance(InstanceResource):
             status=status,
         )
 
-    async def update_async(self, status) -> "RoomInstance":
+    async def update_async(self, status: "RoomInstance.RoomStatus") -> "RoomInstance":
         """
         Asynchronous coroutine to update the RoomInstance
 
-        :param "RoomInstance.RoomStatus" status:
+        :param status:
 
         :returns: The updated RoomInstance
         """
@@ -272,11 +272,11 @@ class RoomContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status) -> RoomInstance:
+    def update(self, status: "RoomInstance.RoomStatus") -> RoomInstance:
         """
         Update the RoomInstance
 
-        :param "RoomInstance.RoomStatus" status:
+        :param status:
 
         :returns: The updated RoomInstance
         """
@@ -294,11 +294,11 @@ class RoomContext(InstanceContext):
 
         return RoomInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, status) -> RoomInstance:
+    async def update_async(self, status: "RoomInstance.RoomStatus") -> RoomInstance:
         """
         Asynchronous coroutine to update the RoomInstance
 
-        :param "RoomInstance.RoomStatus" status:
+        :param status:
 
         :returns: The updated RoomInstance
         """
@@ -363,11 +363,11 @@ class RoomContext(InstanceContext):
 
 
 class RoomPage(Page):
-    def get_instance(self, payload) -> RoomInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RoomInstance:
         """
         Build an instance of RoomInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RoomInstance(self._version, payload)
 
@@ -394,40 +394,40 @@ class RoomList(ListResource):
 
     def create(
         self,
-        enable_turn=values.unset,
-        type=values.unset,
-        unique_name=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        max_participants=values.unset,
-        record_participants_on_connect=values.unset,
-        video_codecs=values.unset,
-        media_region=values.unset,
-        recording_rules=values.unset,
-        audio_only=values.unset,
-        max_participant_duration=values.unset,
-        empty_room_timeout=values.unset,
-        unused_room_timeout=values.unset,
-        large_room=values.unset,
+        enable_turn: Union[bool, object] = values.unset,
+        type: Union["RoomInstance.RoomType", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        record_participants_on_connect: Union[bool, object] = values.unset,
+        video_codecs: Union[List["RoomInstance.VideoCodec"], object] = values.unset,
+        media_region: Union[str, object] = values.unset,
+        recording_rules: Union[object, object] = values.unset,
+        audio_only: Union[bool, object] = values.unset,
+        max_participant_duration: Union[int, object] = values.unset,
+        empty_room_timeout: Union[int, object] = values.unset,
+        unused_room_timeout: Union[int, object] = values.unset,
+        large_room: Union[bool, object] = values.unset,
     ) -> RoomInstance:
         """
         Create the RoomInstance
 
-        :param bool enable_turn: Deprecated, now always considered to be true.
-        :param &quot;RoomInstance.RoomType&quot; type:
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
-        :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
-        :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param List[&quot;RoomInstance.VideoCodec&quot;] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
-        :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
-        :param int max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
-        :param int empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
-        :param int unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
-        :param bool large_room: When set to true, indicated that this is the large room.
+        :param enable_turn: Deprecated, now always considered to be true.
+        :param type:
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
+        :param max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
+        :param record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+        :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+        :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+        :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+        :param empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
+        :param unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
+        :param large_room: When set to true, indicated that this is the large room.
 
         :returns: The created RoomInstance
         """
@@ -461,40 +461,40 @@ class RoomList(ListResource):
 
     async def create_async(
         self,
-        enable_turn=values.unset,
-        type=values.unset,
-        unique_name=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        max_participants=values.unset,
-        record_participants_on_connect=values.unset,
-        video_codecs=values.unset,
-        media_region=values.unset,
-        recording_rules=values.unset,
-        audio_only=values.unset,
-        max_participant_duration=values.unset,
-        empty_room_timeout=values.unset,
-        unused_room_timeout=values.unset,
-        large_room=values.unset,
+        enable_turn: Union[bool, object] = values.unset,
+        type: Union["RoomInstance.RoomType", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        record_participants_on_connect: Union[bool, object] = values.unset,
+        video_codecs: Union[List["RoomInstance.VideoCodec"], object] = values.unset,
+        media_region: Union[str, object] = values.unset,
+        recording_rules: Union[object, object] = values.unset,
+        audio_only: Union[bool, object] = values.unset,
+        max_participant_duration: Union[int, object] = values.unset,
+        empty_room_timeout: Union[int, object] = values.unset,
+        unused_room_timeout: Union[int, object] = values.unset,
+        large_room: Union[bool, object] = values.unset,
     ) -> RoomInstance:
         """
         Asynchronously create the RoomInstance
 
-        :param bool enable_turn: Deprecated, now always considered to be true.
-        :param &quot;RoomInstance.RoomType&quot; type:
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
-        :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
-        :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param List[&quot;RoomInstance.VideoCodec&quot;] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
-        :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
-        :param int max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
-        :param int empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
-        :param int unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
-        :param bool large_room: When set to true, indicated that this is the large room.
+        :param enable_turn: Deprecated, now always considered to be true.
+        :param type:
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
+        :param max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
+        :param record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+        :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+        :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+        :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+        :param empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
+        :param unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
+        :param large_room: When set to true, indicated that this is the large room.
 
         :returns: The created RoomInstance
         """
@@ -528,12 +528,12 @@ class RoomList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RoomInstance]:
         """
         Streams RoomInstance records from the API as a generator stream.
@@ -545,12 +545,12 @@ class RoomList(ListResource):
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -567,12 +567,12 @@ class RoomList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RoomInstance]:
         """
         Asynchronously streams RoomInstance records from the API as a generator stream.
@@ -584,12 +584,12 @@ class RoomList(ListResource):
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -606,12 +606,12 @@ class RoomList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RoomInstance]:
         """
         Lists RoomInstance records from the API as a list.
@@ -622,12 +622,12 @@ class RoomList(ListResource):
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -644,12 +644,12 @@ class RoomList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RoomInstance]:
         """
         Asynchronously lists RoomInstance records from the API as a list.
@@ -660,12 +660,12 @@ class RoomList(ListResource):
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -682,25 +682,25 @@ class RoomList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RoomPage:
         """
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
-        :param str unique_name: Read only rooms with the this `unique_name`.
-        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
-        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param unique_name: Read only rooms with the this `unique_name`.
+        :param date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoomInstance
         """
@@ -721,25 +721,25 @@ class RoomList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RoomPage:
         """
         Asynchronously retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
-        :param str unique_name: Read only rooms with the this `unique_name`.
-        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
-        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param unique_name: Read only rooms with the this `unique_name`.
+        :param date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoomInstance
         """
@@ -760,31 +760,31 @@ class RoomList(ListResource):
         )
         return RoomPage(self._version, response)
 
-    def get_page(self, target_url) -> RoomPage:
+    def get_page(self, target_url: str) -> RoomPage:
         """
         Retrieve a specific page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RoomInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RoomPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> RoomPage:
+    async def get_page_async(self, target_url: str) -> RoomPage:
         """
         Asynchronously retrieve a specific page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RoomInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RoomPage(self._version, response)
 
-    def get(self, sid) -> RoomContext:
+    def get(self, sid: str) -> RoomContext:
         """
         Constructs a RoomContext
 
@@ -792,7 +792,7 @@ class RoomList(ListResource):
         """
         return RoomContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> RoomContext:
+    def __call__(self, sid: str) -> RoomContext:
         """
         Constructs a RoomContext
 

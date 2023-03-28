@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -121,11 +121,11 @@ class RoleInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, permission) -> "RoleInstance":
+    def update(self, permission: List[str]) -> "RoleInstance":
         """
         Update the RoleInstance
 
-        :param List[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
+        :param permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
 
         :returns: The updated RoleInstance
         """
@@ -133,11 +133,11 @@ class RoleInstance(InstanceResource):
             permission=permission,
         )
 
-    async def update_async(self, permission) -> "RoleInstance":
+    async def update_async(self, permission: List[str]) -> "RoleInstance":
         """
         Asynchronous coroutine to update the RoleInstance
 
-        :param List[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
+        :param permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
 
         :returns: The updated RoleInstance
         """
@@ -237,11 +237,11 @@ class RoleContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, permission) -> RoleInstance:
+    def update(self, permission: List[str]) -> RoleInstance:
         """
         Update the RoleInstance
 
-        :param List[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
+        :param permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
 
         :returns: The updated RoleInstance
         """
@@ -264,11 +264,11 @@ class RoleContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, permission) -> RoleInstance:
+    async def update_async(self, permission: List[str]) -> RoleInstance:
         """
         Asynchronous coroutine to update the RoleInstance
 
-        :param List[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
+        :param permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
 
         :returns: The updated RoleInstance
         """
@@ -302,11 +302,11 @@ class RoleContext(InstanceContext):
 
 
 class RolePage(Page):
-    def get_instance(self, payload) -> RoleInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RoleInstance:
         """
         Build an instance of RoleInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RoleInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -338,13 +338,15 @@ class RoleList(ListResource):
         }
         self._uri = "/Services/{service_sid}/Roles".format(**self._solution)
 
-    def create(self, friendly_name, type, permission) -> RoleInstance:
+    def create(
+        self, friendly_name: str, type: "RoleInstance.RoleType", permission: List[str]
+    ) -> RoleInstance:
         """
         Create the RoleInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-        :param &quot;RoleInstance.RoleType&quot; type:
-        :param List[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
+        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param type:
+        :param permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
 
         :returns: The created RoleInstance
         """
@@ -366,13 +368,15 @@ class RoleList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    async def create_async(self, friendly_name, type, permission) -> RoleInstance:
+    async def create_async(
+        self, friendly_name: str, type: "RoleInstance.RoleType", permission: List[str]
+    ) -> RoleInstance:
         """
         Asynchronously create the RoleInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-        :param &quot;RoleInstance.RoleType&quot; type:
-        :param List[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
+        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param type:
+        :param permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
 
         :returns: The created RoleInstance
         """
@@ -394,19 +398,23 @@ class RoleList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[RoleInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RoleInstance]:
         """
         Streams RoleInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -415,19 +423,23 @@ class RoleList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[RoleInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RoleInstance]:
         """
         Asynchronously streams RoleInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -436,18 +448,22 @@ class RoleList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[RoleInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RoleInstance]:
         """
         Lists RoleInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -458,18 +474,22 @@ class RoleList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[RoleInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RoleInstance]:
         """
         Asynchronously lists RoleInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -481,15 +501,18 @@ class RoleList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RolePage:
         """
         Retrieve a single page of RoleInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoleInstance
         """
@@ -505,15 +528,18 @@ class RoleList(ListResource):
         return RolePage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> RolePage:
         """
         Asynchronously retrieve a single page of RoleInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoleInstance
         """
@@ -530,31 +556,31 @@ class RoleList(ListResource):
         )
         return RolePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> RolePage:
+    def get_page(self, target_url: str) -> RolePage:
         """
         Retrieve a specific page of RoleInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RoleInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RolePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> RolePage:
+    async def get_page_async(self, target_url: str) -> RolePage:
         """
         Asynchronously retrieve a specific page of RoleInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RoleInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RolePage(self._version, response, self._solution)
 
-    def get(self, sid) -> RoleContext:
+    def get(self, sid: str) -> RoleContext:
         """
         Constructs a RoleContext
 
@@ -564,7 +590,7 @@ class RoleList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> RoleContext:
+    def __call__(self, sid: str) -> RoleContext:
         """
         Constructs a RoleContext
 

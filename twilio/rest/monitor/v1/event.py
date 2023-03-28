@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -177,11 +177,11 @@ class EventContext(InstanceContext):
 
 
 class EventPage(Page):
-    def get_instance(self, payload) -> EventInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return EventInstance(self._version, payload)
 
@@ -208,14 +208,14 @@ class EventList(ListResource):
 
     def stream(
         self,
-        actor_sid=values.unset,
-        event_type=values.unset,
-        resource_sid=values.unset,
-        source_ip_address=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EventInstance]:
         """
         Streams EventInstance records from the API as a generator stream.
@@ -229,12 +229,12 @@ class EventList(ListResource):
         :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
         :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -253,14 +253,14 @@ class EventList(ListResource):
 
     async def stream_async(
         self,
-        actor_sid=values.unset,
-        event_type=values.unset,
-        resource_sid=values.unset,
-        source_ip_address=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EventInstance]:
         """
         Asynchronously streams EventInstance records from the API as a generator stream.
@@ -274,12 +274,12 @@ class EventList(ListResource):
         :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
         :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -298,14 +298,14 @@ class EventList(ListResource):
 
     def list(
         self,
-        actor_sid=values.unset,
-        event_type=values.unset,
-        resource_sid=values.unset,
-        source_ip_address=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EventInstance]:
         """
         Lists EventInstance records from the API as a list.
@@ -318,12 +318,12 @@ class EventList(ListResource):
         :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
         :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -342,14 +342,14 @@ class EventList(ListResource):
 
     async def list_async(
         self,
-        actor_sid=values.unset,
-        event_type=values.unset,
-        resource_sid=values.unset,
-        source_ip_address=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EventInstance]:
         """
         Asynchronously lists EventInstance records from the API as a list.
@@ -362,12 +362,12 @@ class EventList(ListResource):
         :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
         :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -386,29 +386,29 @@ class EventList(ListResource):
 
     def page(
         self,
-        actor_sid=values.unset,
-        event_type=values.unset,
-        resource_sid=values.unset,
-        source_ip_address=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> EventPage:
         """
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
 
-        :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
-        :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
-        :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
-        :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
-        :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+        :param event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+        :param resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+        :param source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+        :param start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
         """
@@ -431,29 +431,29 @@ class EventList(ListResource):
 
     async def page_async(
         self,
-        actor_sid=values.unset,
-        event_type=values.unset,
-        resource_sid=values.unset,
-        source_ip_address=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> EventPage:
         """
         Asynchronously retrieve a single page of EventInstance records from the API.
         Request is executed immediately
 
-        :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
-        :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
-        :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
-        :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
-        :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+        :param event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+        :param resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+        :param source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+        :param start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
         """
@@ -476,31 +476,31 @@ class EventList(ListResource):
         )
         return EventPage(self._version, response)
 
-    def get_page(self, target_url) -> EventPage:
+    def get_page(self, target_url: str) -> EventPage:
         """
         Retrieve a specific page of EventInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return EventPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> EventPage:
+    async def get_page_async(self, target_url: str) -> EventPage:
         """
         Asynchronously retrieve a specific page of EventInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return EventPage(self._version, response)
 
-    def get(self, sid) -> EventContext:
+    def get(self, sid: str) -> EventContext:
         """
         Constructs a EventContext
 
@@ -508,7 +508,7 @@ class EventList(ListResource):
         """
         return EventContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> EventContext:
+    def __call__(self, sid: str) -> EventContext:
         """
         Constructs a EventContext
 

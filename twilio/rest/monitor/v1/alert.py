@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -191,11 +191,11 @@ class AlertContext(InstanceContext):
 
 
 class AlertPage(Page):
-    def get_instance(self, payload) -> AlertInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AlertInstance:
         """
         Build an instance of AlertInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AlertInstance(self._version, payload)
 
@@ -222,11 +222,11 @@ class AlertList(ListResource):
 
     def stream(
         self,
-        log_level=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        log_level: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AlertInstance]:
         """
         Streams AlertInstance records from the API as a generator stream.
@@ -237,12 +237,12 @@ class AlertList(ListResource):
         :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -258,11 +258,11 @@ class AlertList(ListResource):
 
     async def stream_async(
         self,
-        log_level=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        log_level: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AlertInstance]:
         """
         Asynchronously streams AlertInstance records from the API as a generator stream.
@@ -273,12 +273,12 @@ class AlertList(ListResource):
         :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -294,11 +294,11 @@ class AlertList(ListResource):
 
     def list(
         self,
-        log_level=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        log_level: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AlertInstance]:
         """
         Lists AlertInstance records from the API as a list.
@@ -308,12 +308,12 @@ class AlertList(ListResource):
         :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -329,11 +329,11 @@ class AlertList(ListResource):
 
     async def list_async(
         self,
-        log_level=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        limit=None,
-        page_size=None,
+        log_level: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AlertInstance]:
         """
         Asynchronously lists AlertInstance records from the API as a list.
@@ -343,12 +343,12 @@ class AlertList(ListResource):
         :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -364,23 +364,23 @@ class AlertList(ListResource):
 
     def page(
         self,
-        log_level=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        log_level: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> AlertPage:
         """
         Retrieve a single page of AlertInstance records from the API.
         Request is executed immediately
 
-        :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
-        :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-        :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
+        :param start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
+        :param end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AlertInstance
         """
@@ -400,23 +400,23 @@ class AlertList(ListResource):
 
     async def page_async(
         self,
-        log_level=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        log_level: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> AlertPage:
         """
         Asynchronously retrieve a single page of AlertInstance records from the API.
         Request is executed immediately
 
-        :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
-        :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-        :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
+        :param start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
+        :param end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AlertInstance
         """
@@ -436,31 +436,31 @@ class AlertList(ListResource):
         )
         return AlertPage(self._version, response)
 
-    def get_page(self, target_url) -> AlertPage:
+    def get_page(self, target_url: str) -> AlertPage:
         """
         Retrieve a specific page of AlertInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AlertInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AlertPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> AlertPage:
+    async def get_page_async(self, target_url: str) -> AlertPage:
         """
         Asynchronously retrieve a specific page of AlertInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AlertInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AlertPage(self._version, response)
 
-    def get(self, sid) -> AlertContext:
+    def get(self, sid: str) -> AlertContext:
         """
         Constructs a AlertContext
 
@@ -468,7 +468,7 @@ class AlertList(ListResource):
         """
         return AlertContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> AlertContext:
+    def __call__(self, sid: str) -> AlertContext:
         """
         Constructs a AlertContext
 

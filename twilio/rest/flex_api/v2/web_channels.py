@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -58,18 +58,18 @@ class WebChannelsList(ListResource):
 
     def create(
         self,
-        address_sid,
-        chat_friendly_name=values.unset,
-        customer_friendly_name=values.unset,
-        pre_engagement_data=values.unset,
+        address_sid: str,
+        chat_friendly_name: Union[str, object] = values.unset,
+        customer_friendly_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
     ) -> WebChannelsInstance:
         """
         Create the WebChannelsInstance
 
-        :param str address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
-        :param str chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
-        :param str customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
-        :param str pre_engagement_data: The pre-engagement data.
+        :param address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
+        :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
+        :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
+        :param pre_engagement_data: The pre-engagement data.
 
         :returns: The created WebChannelsInstance
         """
@@ -92,18 +92,18 @@ class WebChannelsList(ListResource):
 
     async def create_async(
         self,
-        address_sid,
-        chat_friendly_name=values.unset,
-        customer_friendly_name=values.unset,
-        pre_engagement_data=values.unset,
+        address_sid: str,
+        chat_friendly_name: Union[str, object] = values.unset,
+        customer_friendly_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
     ) -> WebChannelsInstance:
         """
         Asynchronously create the WebChannelsInstance
 
-        :param str address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
-        :param str chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
-        :param str customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
-        :param str pre_engagement_data: The pre-engagement data.
+        :param address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
+        :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
+        :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
+        :param pre_engagement_data: The pre-engagement data.
 
         :returns: The created WebChannelsInstance
         """

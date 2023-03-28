@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -277,11 +277,11 @@ class EngagementContext(InstanceContext):
 
 
 class EngagementPage(Page):
-    def get_instance(self, payload) -> EngagementInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> EngagementInstance:
         """
         Build an instance of EngagementInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return EngagementInstance(
             self._version, payload, flow_sid=self._solution["flow_sid"]
@@ -313,13 +313,15 @@ class EngagementList(ListResource):
         }
         self._uri = "/Flows/{flow_sid}/Engagements".format(**self._solution)
 
-    def create(self, to, from_, parameters=values.unset) -> EngagementInstance:
+    def create(
+        self, to: str, from_: str, parameters: Union[object, object] = values.unset
+    ) -> EngagementInstance:
         """
         Create the EngagementInstance
 
-        :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
-        :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
-        :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
+        :param to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
+        :param from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
+        :param parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
 
         :returns: The created EngagementInstance
         """
@@ -342,14 +344,14 @@ class EngagementList(ListResource):
         )
 
     async def create_async(
-        self, to, from_, parameters=values.unset
+        self, to: str, from_: str, parameters: Union[object, object] = values.unset
     ) -> EngagementInstance:
         """
         Asynchronously create the EngagementInstance
 
-        :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
-        :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
-        :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
+        :param to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
+        :param from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
+        :param parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
 
         :returns: The created EngagementInstance
         """
@@ -371,19 +373,23 @@ class EngagementList(ListResource):
             self._version, payload, flow_sid=self._solution["flow_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[EngagementInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[EngagementInstance]:
         """
         Streams EngagementInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -393,7 +399,9 @@ class EngagementList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[EngagementInstance]:
         """
         Asynchronously streams EngagementInstance records from the API as a generator stream.
@@ -401,12 +409,12 @@ class EngagementList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -415,18 +423,22 @@ class EngagementList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[EngagementInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[EngagementInstance]:
         """
         Lists EngagementInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -437,18 +449,22 @@ class EngagementList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[EngagementInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[EngagementInstance]:
         """
         Asynchronously lists EngagementInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -460,15 +476,18 @@ class EngagementList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> EngagementPage:
         """
         Retrieve a single page of EngagementInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EngagementInstance
         """
@@ -484,15 +503,18 @@ class EngagementList(ListResource):
         return EngagementPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> EngagementPage:
         """
         Asynchronously retrieve a single page of EngagementInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EngagementInstance
         """
@@ -509,31 +531,31 @@ class EngagementList(ListResource):
         )
         return EngagementPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> EngagementPage:
+    def get_page(self, target_url: str) -> EngagementPage:
         """
         Retrieve a specific page of EngagementInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of EngagementInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return EngagementPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> EngagementPage:
+    async def get_page_async(self, target_url: str) -> EngagementPage:
         """
         Asynchronously retrieve a specific page of EngagementInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of EngagementInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return EngagementPage(self._version, response, self._solution)
 
-    def get(self, sid) -> EngagementContext:
+    def get(self, sid: str) -> EngagementContext:
         """
         Constructs a EngagementContext
 
@@ -543,7 +565,7 @@ class EngagementList(ListResource):
             self._version, flow_sid=self._solution["flow_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> EngagementContext:
+    def __call__(self, sid: str) -> EngagementContext:
         """
         Constructs a EngagementContext
 

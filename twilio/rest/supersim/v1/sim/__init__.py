@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -106,22 +106,22 @@ class SimInstance(InstanceResource):
 
     def update(
         self,
-        unique_name=values.unset,
-        status=values.unset,
-        fleet=values.unset,
-        callback_url=values.unset,
-        callback_method=values.unset,
-        account_sid=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status: Union["SimInstance.StatusUpdate", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        account_sid: Union[str, object] = values.unset,
     ) -> "SimInstance":
         """
         Update the SimInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param "SimInstance.StatusUpdate" status:
-        :param str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :param str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :param str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param status:
+        :param fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :param callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
 
         :returns: The updated SimInstance
         """
@@ -136,22 +136,22 @@ class SimInstance(InstanceResource):
 
     async def update_async(
         self,
-        unique_name=values.unset,
-        status=values.unset,
-        fleet=values.unset,
-        callback_url=values.unset,
-        callback_method=values.unset,
-        account_sid=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status: Union["SimInstance.StatusUpdate", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        account_sid: Union[str, object] = values.unset,
     ) -> "SimInstance":
         """
         Asynchronous coroutine to update the SimInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param "SimInstance.StatusUpdate" status:
-        :param str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :param str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :param str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param status:
+        :param fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :param callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
 
         :returns: The updated SimInstance
         """
@@ -247,22 +247,22 @@ class SimContext(InstanceContext):
 
     def update(
         self,
-        unique_name=values.unset,
-        status=values.unset,
-        fleet=values.unset,
-        callback_url=values.unset,
-        callback_method=values.unset,
-        account_sid=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status: Union["SimInstance.StatusUpdate", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        account_sid: Union[str, object] = values.unset,
     ) -> SimInstance:
         """
         Update the SimInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param "SimInstance.StatusUpdate" status:
-        :param str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :param str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :param str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param status:
+        :param fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :param callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
 
         :returns: The updated SimInstance
         """
@@ -287,22 +287,22 @@ class SimContext(InstanceContext):
 
     async def update_async(
         self,
-        unique_name=values.unset,
-        status=values.unset,
-        fleet=values.unset,
-        callback_url=values.unset,
-        callback_method=values.unset,
-        account_sid=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status: Union["SimInstance.StatusUpdate", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        account_sid: Union[str, object] = values.unset,
     ) -> SimInstance:
         """
         Asynchronous coroutine to update the SimInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param "SimInstance.StatusUpdate" status:
-        :param str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :param str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :param str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param status:
+        :param fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :param callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
 
         :returns: The updated SimInstance
         """
@@ -360,11 +360,11 @@ class SimContext(InstanceContext):
 
 
 class SimPage(Page):
-    def get_instance(self, payload) -> SimInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SimInstance:
         """
         Build an instance of SimInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SimInstance(self._version, payload)
 
@@ -389,12 +389,12 @@ class SimList(ListResource):
 
         self._uri = "/Sims"
 
-    def create(self, iccid, registration_code) -> SimInstance:
+    def create(self, iccid: str, registration_code: str) -> SimInstance:
         """
         Create the SimInstance
 
-        :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
-        :param str registration_code: The 10-digit code required to claim the Super SIM for your Account.
+        :param iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
+        :param registration_code: The 10-digit code required to claim the Super SIM for your Account.
 
         :returns: The created SimInstance
         """
@@ -413,12 +413,12 @@ class SimList(ListResource):
 
         return SimInstance(self._version, payload)
 
-    async def create_async(self, iccid, registration_code) -> SimInstance:
+    async def create_async(self, iccid: str, registration_code: str) -> SimInstance:
         """
         Asynchronously create the SimInstance
 
-        :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
-        :param str registration_code: The 10-digit code required to claim the Super SIM for your Account.
+        :param iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
+        :param registration_code: The 10-digit code required to claim the Super SIM for your Account.
 
         :returns: The created SimInstance
         """
@@ -439,11 +439,11 @@ class SimList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        fleet=values.unset,
-        iccid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["SimInstance.Status", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SimInstance]:
         """
         Streams SimInstance records from the API as a generator stream.
@@ -454,12 +454,12 @@ class SimList(ListResource):
         :param &quot;SimInstance.Status&quot; status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -472,11 +472,11 @@ class SimList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        fleet=values.unset,
-        iccid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["SimInstance.Status", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SimInstance]:
         """
         Asynchronously streams SimInstance records from the API as a generator stream.
@@ -487,12 +487,12 @@ class SimList(ListResource):
         :param &quot;SimInstance.Status&quot; status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -505,11 +505,11 @@ class SimList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        fleet=values.unset,
-        iccid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["SimInstance.Status", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SimInstance]:
         """
         Lists SimInstance records from the API as a list.
@@ -519,12 +519,12 @@ class SimList(ListResource):
         :param &quot;SimInstance.Status&quot; status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -540,11 +540,11 @@ class SimList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        fleet=values.unset,
-        iccid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["SimInstance.Status", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SimInstance]:
         """
         Asynchronously lists SimInstance records from the API as a list.
@@ -554,12 +554,12 @@ class SimList(ListResource):
         :param &quot;SimInstance.Status&quot; status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -575,23 +575,23 @@ class SimList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        fleet=values.unset,
-        iccid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["SimInstance.Status", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SimPage:
         """
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
 
-        :param &quot;SimInstance.Status&quot; status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
-        :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
-        :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
+        :param fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
+        :param iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SimInstance
         """
@@ -611,23 +611,23 @@ class SimList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        fleet=values.unset,
-        iccid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["SimInstance.Status", object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SimPage:
         """
         Asynchronously retrieve a single page of SimInstance records from the API.
         Request is executed immediately
 
-        :param &quot;SimInstance.Status&quot; status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
-        :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
-        :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
+        :param fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
+        :param iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SimInstance
         """
@@ -647,31 +647,31 @@ class SimList(ListResource):
         )
         return SimPage(self._version, response)
 
-    def get_page(self, target_url) -> SimPage:
+    def get_page(self, target_url: str) -> SimPage:
         """
         Retrieve a specific page of SimInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SimInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SimPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> SimPage:
+    async def get_page_async(self, target_url: str) -> SimPage:
         """
         Asynchronously retrieve a specific page of SimInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SimInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SimPage(self._version, response)
 
-    def get(self, sid) -> SimContext:
+    def get(self, sid: str) -> SimContext:
         """
         Constructs a SimContext
 
@@ -679,7 +679,7 @@ class SimList(ListResource):
         """
         return SimContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> SimContext:
+    def __call__(self, sid: str) -> SimContext:
         """
         Constructs a SimContext
 

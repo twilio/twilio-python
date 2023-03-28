@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -114,24 +114,24 @@ class FleetInstance(InstanceResource):
 
     def update(
         self,
-        unique_name=values.unset,
-        network_access_profile=values.unset,
-        ip_commands_url=values.unset,
-        ip_commands_method=values.unset,
-        sms_commands_url=values.unset,
-        sms_commands_method=values.unset,
-        data_limit=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
     ) -> "FleetInstance":
         """
         Update the FleetInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-        :param str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 
         :returns: The updated FleetInstance
         """
@@ -147,24 +147,24 @@ class FleetInstance(InstanceResource):
 
     async def update_async(
         self,
-        unique_name=values.unset,
-        network_access_profile=values.unset,
-        ip_commands_url=values.unset,
-        ip_commands_method=values.unset,
-        sms_commands_url=values.unset,
-        sms_commands_method=values.unset,
-        data_limit=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
     ) -> "FleetInstance":
         """
         Asynchronous coroutine to update the FleetInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-        :param str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 
         :returns: The updated FleetInstance
         """
@@ -244,24 +244,24 @@ class FleetContext(InstanceContext):
 
     def update(
         self,
-        unique_name=values.unset,
-        network_access_profile=values.unset,
-        ip_commands_url=values.unset,
-        ip_commands_method=values.unset,
-        sms_commands_url=values.unset,
-        sms_commands_method=values.unset,
-        data_limit=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
     ) -> FleetInstance:
         """
         Update the FleetInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-        :param str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 
         :returns: The updated FleetInstance
         """
@@ -287,24 +287,24 @@ class FleetContext(InstanceContext):
 
     async def update_async(
         self,
-        unique_name=values.unset,
-        network_access_profile=values.unset,
-        ip_commands_url=values.unset,
-        ip_commands_method=values.unset,
-        sms_commands_url=values.unset,
-        sms_commands_method=values.unset,
-        data_limit=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
     ) -> FleetInstance:
         """
         Asynchronous coroutine to update the FleetInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-        :param str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
 
         :returns: The updated FleetInstance
         """
@@ -339,11 +339,11 @@ class FleetContext(InstanceContext):
 
 
 class FleetPage(Page):
-    def get_instance(self, payload) -> FleetInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> FleetInstance:
         """
         Build an instance of FleetInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return FleetInstance(self._version, payload)
 
@@ -370,28 +370,28 @@ class FleetList(ListResource):
 
     def create(
         self,
-        network_access_profile,
-        unique_name=values.unset,
-        data_enabled=values.unset,
-        data_limit=values.unset,
-        ip_commands_url=values.unset,
-        ip_commands_method=values.unset,
-        sms_commands_enabled=values.unset,
-        sms_commands_url=values.unset,
-        sms_commands_method=values.unset,
+        network_access_profile: str,
+        unique_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_enabled: Union[bool, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
     ) -> FleetInstance:
         """
         Create the FleetInstance
 
-        :param str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param bool data_enabled: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
-        :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
-        :param str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param bool sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
-        :param str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param data_enabled: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
 
         :returns: The created FleetInstance
         """
@@ -419,28 +419,28 @@ class FleetList(ListResource):
 
     async def create_async(
         self,
-        network_access_profile,
-        unique_name=values.unset,
-        data_enabled=values.unset,
-        data_limit=values.unset,
-        ip_commands_url=values.unset,
-        ip_commands_method=values.unset,
-        sms_commands_enabled=values.unset,
-        sms_commands_url=values.unset,
-        sms_commands_method=values.unset,
+        network_access_profile: str,
+        unique_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_enabled: Union[bool, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
     ) -> FleetInstance:
         """
         Asynchronously create the FleetInstance
 
-        :param str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param bool data_enabled: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
-        :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
-        :param str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :param bool sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
-        :param str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :param str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param data_enabled: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
 
         :returns: The created FleetInstance
         """
@@ -467,7 +467,10 @@ class FleetList(ListResource):
         return FleetInstance(self._version, payload)
 
     def stream(
-        self, network_access_profile=values.unset, limit=None, page_size=None
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[FleetInstance]:
         """
         Streams FleetInstance records from the API as a generator stream.
@@ -476,12 +479,12 @@ class FleetList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -493,7 +496,10 @@ class FleetList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, network_access_profile=values.unset, limit=None, page_size=None
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[FleetInstance]:
         """
         Asynchronously streams FleetInstance records from the API as a generator stream.
@@ -502,12 +508,12 @@ class FleetList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -519,7 +525,10 @@ class FleetList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, network_access_profile=values.unset, limit=None, page_size=None
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[FleetInstance]:
         """
         Lists FleetInstance records from the API as a list.
@@ -527,12 +536,12 @@ class FleetList(ListResource):
         memory before returning.
 
         :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -545,7 +554,10 @@ class FleetList(ListResource):
         )
 
     async def list_async(
-        self, network_access_profile=values.unset, limit=None, page_size=None
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[FleetInstance]:
         """
         Asynchronously lists FleetInstance records from the API as a list.
@@ -553,12 +565,12 @@ class FleetList(ListResource):
         memory before returning.
 
         :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -572,19 +584,19 @@ class FleetList(ListResource):
 
     def page(
         self,
-        network_access_profile=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> FleetPage:
         """
         Retrieve a single page of FleetInstance records from the API.
         Request is executed immediately
 
-        :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FleetInstance
         """
@@ -602,19 +614,19 @@ class FleetList(ListResource):
 
     async def page_async(
         self,
-        network_access_profile=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> FleetPage:
         """
         Asynchronously retrieve a single page of FleetInstance records from the API.
         Request is executed immediately
 
-        :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FleetInstance
         """
@@ -632,31 +644,31 @@ class FleetList(ListResource):
         )
         return FleetPage(self._version, response)
 
-    def get_page(self, target_url) -> FleetPage:
+    def get_page(self, target_url: str) -> FleetPage:
         """
         Retrieve a specific page of FleetInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FleetInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FleetPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> FleetPage:
+    async def get_page_async(self, target_url: str) -> FleetPage:
         """
         Asynchronously retrieve a specific page of FleetInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FleetInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FleetPage(self._version, response)
 
-    def get(self, sid) -> FleetContext:
+    def get(self, sid: str) -> FleetContext:
         """
         Constructs a FleetContext
 
@@ -664,7 +676,7 @@ class FleetList(ListResource):
         """
         return FleetContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> FleetContext:
+    def __call__(self, sid: str) -> FleetContext:
         """
         Constructs a FleetContext
 

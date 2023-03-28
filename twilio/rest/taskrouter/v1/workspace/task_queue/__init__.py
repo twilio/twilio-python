@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -159,22 +159,22 @@ class TaskQueueInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        target_workers=values.unset,
-        reservation_activity_sid=values.unset,
-        assignment_activity_sid=values.unset,
-        max_reserved_workers=values.unset,
-        task_order=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
     ) -> "TaskQueueInstance":
         """
         Update the TaskQueueInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :param str target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
-        :param int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-        :param "TaskQueueInstance.TaskOrder" task_order:
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :param task_order:
 
         :returns: The updated TaskQueueInstance
         """
@@ -189,22 +189,22 @@ class TaskQueueInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        target_workers=values.unset,
-        reservation_activity_sid=values.unset,
-        assignment_activity_sid=values.unset,
-        max_reserved_workers=values.unset,
-        task_order=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
     ) -> "TaskQueueInstance":
         """
         Asynchronous coroutine to update the TaskQueueInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :param str target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
-        :param int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-        :param "TaskQueueInstance.TaskOrder" task_order:
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :param task_order:
 
         :returns: The updated TaskQueueInstance
         """
@@ -338,22 +338,22 @@ class TaskQueueContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        target_workers=values.unset,
-        reservation_activity_sid=values.unset,
-        assignment_activity_sid=values.unset,
-        max_reserved_workers=values.unset,
-        task_order=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
     ) -> TaskQueueInstance:
         """
         Update the TaskQueueInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :param str target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
-        :param int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-        :param "TaskQueueInstance.TaskOrder" task_order:
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :param task_order:
 
         :returns: The updated TaskQueueInstance
         """
@@ -383,22 +383,22 @@ class TaskQueueContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        target_workers=values.unset,
-        reservation_activity_sid=values.unset,
-        assignment_activity_sid=values.unset,
-        max_reserved_workers=values.unset,
-        task_order=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
     ) -> TaskQueueInstance:
         """
         Asynchronous coroutine to update the TaskQueueInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :param str target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
-        :param int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-        :param "TaskQueueInstance.TaskOrder" task_order:
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :param task_order:
 
         :returns: The updated TaskQueueInstance
         """
@@ -476,11 +476,11 @@ class TaskQueueContext(InstanceContext):
 
 
 class TaskQueuePage(Page):
-    def get_instance(self, payload) -> TaskQueueInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> TaskQueueInstance:
         """
         Build an instance of TaskQueueInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return TaskQueueInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -516,22 +516,22 @@ class TaskQueueList(ListResource):
 
     def create(
         self,
-        friendly_name,
-        target_workers=values.unset,
-        max_reserved_workers=values.unset,
-        task_order=values.unset,
-        reservation_activity_sid=values.unset,
-        assignment_activity_sid=values.unset,
+        friendly_name: str,
+        target_workers: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
     ) -> TaskQueueInstance:
         """
         Create the TaskQueueInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
-        :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-        :param &quot;TaskQueueInstance.TaskOrder&quot; task_order:
-        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+        :param max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+        :param task_order:
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
 
         :returns: The created TaskQueueInstance
         """
@@ -558,22 +558,22 @@ class TaskQueueList(ListResource):
 
     async def create_async(
         self,
-        friendly_name,
-        target_workers=values.unset,
-        max_reserved_workers=values.unset,
-        task_order=values.unset,
-        reservation_activity_sid=values.unset,
-        assignment_activity_sid=values.unset,
+        friendly_name: str,
+        target_workers: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
     ) -> TaskQueueInstance:
         """
         Asynchronously create the TaskQueueInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
-        :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-        :param &quot;TaskQueueInstance.TaskOrder&quot; task_order:
-        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+        :param max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+        :param task_order:
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
 
         :returns: The created TaskQueueInstance
         """
@@ -600,12 +600,12 @@ class TaskQueueList(ListResource):
 
     def stream(
         self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskQueueInstance]:
         """
         Streams TaskQueueInstance records from the API as a generator stream.
@@ -617,12 +617,12 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -639,12 +639,12 @@ class TaskQueueList(ListResource):
 
     async def stream_async(
         self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskQueueInstance]:
         """
         Asynchronously streams TaskQueueInstance records from the API as a generator stream.
@@ -656,12 +656,12 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -678,12 +678,12 @@ class TaskQueueList(ListResource):
 
     def list(
         self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskQueueInstance]:
         """
         Lists TaskQueueInstance records from the API as a list.
@@ -694,12 +694,12 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -716,12 +716,12 @@ class TaskQueueList(ListResource):
 
     async def list_async(
         self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskQueueInstance]:
         """
         Asynchronously lists TaskQueueInstance records from the API as a list.
@@ -732,12 +732,12 @@ class TaskQueueList(ListResource):
         :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
         :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
         :param str ordering: Sorting parameter for TaskQueues
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -754,25 +754,25 @@ class TaskQueueList(ListResource):
 
     def page(
         self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> TaskQueuePage:
         """
         Retrieve a single page of TaskQueueInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
-        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
-        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
-        :param str ordering: Sorting parameter for TaskQueues
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param ordering: Sorting parameter for TaskQueues
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskQueueInstance
         """
@@ -793,25 +793,25 @@ class TaskQueueList(ListResource):
 
     async def page_async(
         self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> TaskQueuePage:
         """
         Asynchronously retrieve a single page of TaskQueueInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
-        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
-        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
-        :param str ordering: Sorting parameter for TaskQueues
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param ordering: Sorting parameter for TaskQueues
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskQueueInstance
         """
@@ -832,24 +832,24 @@ class TaskQueueList(ListResource):
         )
         return TaskQueuePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> TaskQueuePage:
+    def get_page(self, target_url: str) -> TaskQueuePage:
         """
         Retrieve a specific page of TaskQueueInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskQueueInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TaskQueuePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> TaskQueuePage:
+    async def get_page_async(self, target_url: str) -> TaskQueuePage:
         """
         Asynchronously retrieve a specific page of TaskQueueInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskQueueInstance
         """
@@ -867,7 +867,7 @@ class TaskQueueList(ListResource):
             )
         return self._statistics
 
-    def get(self, sid) -> TaskQueueContext:
+    def get(self, sid: str) -> TaskQueueContext:
         """
         Constructs a TaskQueueContext
 
@@ -877,7 +877,7 @@ class TaskQueueList(ListResource):
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> TaskQueueContext:
+    def __call__(self, sid: str) -> TaskQueueContext:
         """
         Constructs a TaskQueueContext
 

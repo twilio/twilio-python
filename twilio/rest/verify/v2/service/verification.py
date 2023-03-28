@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -119,11 +119,11 @@ class VerificationInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status) -> "VerificationInstance":
+    def update(self, status: "VerificationInstance.Status") -> "VerificationInstance":
         """
         Update the VerificationInstance
 
-        :param "VerificationInstance.Status" status:
+        :param status:
 
         :returns: The updated VerificationInstance
         """
@@ -131,11 +131,13 @@ class VerificationInstance(InstanceResource):
             status=status,
         )
 
-    async def update_async(self, status) -> "VerificationInstance":
+    async def update_async(
+        self, status: "VerificationInstance.Status"
+    ) -> "VerificationInstance":
         """
         Asynchronous coroutine to update the VerificationInstance
 
-        :param "VerificationInstance.Status" status:
+        :param status:
 
         :returns: The updated VerificationInstance
         """
@@ -213,11 +215,11 @@ class VerificationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status) -> VerificationInstance:
+    def update(self, status: "VerificationInstance.Status") -> VerificationInstance:
         """
         Update the VerificationInstance
 
-        :param "VerificationInstance.Status" status:
+        :param status:
 
         :returns: The updated VerificationInstance
         """
@@ -240,11 +242,13 @@ class VerificationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status) -> VerificationInstance:
+    async def update_async(
+        self, status: "VerificationInstance.Status"
+    ) -> VerificationInstance:
         """
         Asynchronous coroutine to update the VerificationInstance
 
-        :param "VerificationInstance.Status" status:
+        :param status:
 
         :returns: The updated VerificationInstance
         """
@@ -296,40 +300,40 @@ class VerificationList(ListResource):
 
     def create(
         self,
-        to,
-        channel,
-        custom_friendly_name=values.unset,
-        custom_message=values.unset,
-        send_digits=values.unset,
-        locale=values.unset,
-        custom_code=values.unset,
-        amount=values.unset,
-        payee=values.unset,
-        rate_limits=values.unset,
-        channel_configuration=values.unset,
-        app_hash=values.unset,
-        template_sid=values.unset,
-        template_custom_substitutions=values.unset,
-        device_ip=values.unset,
+        to: str,
+        channel: str,
+        custom_friendly_name: Union[str, object] = values.unset,
+        custom_message: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+        custom_code: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
+        rate_limits: Union[object, object] = values.unset,
+        channel_configuration: Union[object, object] = values.unset,
+        app_hash: Union[str, object] = values.unset,
+        template_sid: Union[str, object] = values.unset,
+        template_custom_substitutions: Union[str, object] = values.unset,
+        device_ip: Union[str, object] = values.unset,
     ) -> VerificationInstance:
         """
         Create the VerificationInstance
 
-        :param str to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        :param str channel: The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`.
-        :param str custom_friendly_name: A custom user defined friendly name that overwrites the existing one in the verification message
-        :param str custom_message: The text of a custom message to use for the verification.
-        :param str send_digits: The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
-        :param str locale: Locale will automatically resolve based on phone number country code for SMS, WhatsApp, and call channel verifications. It will fallback to English or the template’s default translation if the selected translation is not available. This parameter will override the automatic locale resolution. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages).
-        :param str custom_code: A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
-        :param str amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :param str payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :param object rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
-        :param object channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
-        :param str app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
-        :param str template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
-        :param str template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
-        :param str device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+        :param to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param channel: The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`.
+        :param custom_friendly_name: A custom user defined friendly name that overwrites the existing one in the verification message
+        :param custom_message: The text of a custom message to use for the verification.
+        :param send_digits: The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
+        :param locale: Locale will automatically resolve based on phone number country code for SMS, WhatsApp, and call channel verifications. It will fallback to English or the template’s default translation if the selected translation is not available. This parameter will override the automatic locale resolution. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages).
+        :param custom_code: A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
+        :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
+        :param channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
+        :param app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
+        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+        :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
+        :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 
         :returns: The created VerificationInstance
         """
@@ -365,40 +369,40 @@ class VerificationList(ListResource):
 
     async def create_async(
         self,
-        to,
-        channel,
-        custom_friendly_name=values.unset,
-        custom_message=values.unset,
-        send_digits=values.unset,
-        locale=values.unset,
-        custom_code=values.unset,
-        amount=values.unset,
-        payee=values.unset,
-        rate_limits=values.unset,
-        channel_configuration=values.unset,
-        app_hash=values.unset,
-        template_sid=values.unset,
-        template_custom_substitutions=values.unset,
-        device_ip=values.unset,
+        to: str,
+        channel: str,
+        custom_friendly_name: Union[str, object] = values.unset,
+        custom_message: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+        custom_code: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
+        rate_limits: Union[object, object] = values.unset,
+        channel_configuration: Union[object, object] = values.unset,
+        app_hash: Union[str, object] = values.unset,
+        template_sid: Union[str, object] = values.unset,
+        template_custom_substitutions: Union[str, object] = values.unset,
+        device_ip: Union[str, object] = values.unset,
     ) -> VerificationInstance:
         """
         Asynchronously create the VerificationInstance
 
-        :param str to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        :param str channel: The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`.
-        :param str custom_friendly_name: A custom user defined friendly name that overwrites the existing one in the verification message
-        :param str custom_message: The text of a custom message to use for the verification.
-        :param str send_digits: The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
-        :param str locale: Locale will automatically resolve based on phone number country code for SMS, WhatsApp, and call channel verifications. It will fallback to English or the template’s default translation if the selected translation is not available. This parameter will override the automatic locale resolution. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages).
-        :param str custom_code: A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
-        :param str amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :param str payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :param object rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
-        :param object channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
-        :param str app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
-        :param str template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
-        :param str template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
-        :param str device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+        :param to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param channel: The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`.
+        :param custom_friendly_name: A custom user defined friendly name that overwrites the existing one in the verification message
+        :param custom_message: The text of a custom message to use for the verification.
+        :param send_digits: The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
+        :param locale: Locale will automatically resolve based on phone number country code for SMS, WhatsApp, and call channel verifications. It will fallback to English or the template’s default translation if the selected translation is not available. This parameter will override the automatic locale resolution. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages).
+        :param custom_code: A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
+        :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
+        :param channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
+        :param app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
+        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+        :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
+        :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 
         :returns: The created VerificationInstance
         """
@@ -432,7 +436,7 @@ class VerificationList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def get(self, sid) -> VerificationContext:
+    def get(self, sid: str) -> VerificationContext:
         """
         Constructs a VerificationContext
 
@@ -442,7 +446,7 @@ class VerificationList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> VerificationContext:
+    def __call__(self, sid: str) -> VerificationContext:
         """
         Constructs a VerificationContext
 

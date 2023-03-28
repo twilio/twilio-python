@@ -74,11 +74,11 @@ class FlowTestUserInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, test_users) -> "FlowTestUserInstance":
+    def update(self, test_users: List[str]) -> "FlowTestUserInstance":
         """
         Update the FlowTestUserInstance
 
-        :param List[str] test_users: List of test user identities that can test draft versions of the flow.
+        :param test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         """
@@ -86,11 +86,11 @@ class FlowTestUserInstance(InstanceResource):
             test_users=test_users,
         )
 
-    async def update_async(self, test_users) -> "FlowTestUserInstance":
+    async def update_async(self, test_users: List[str]) -> "FlowTestUserInstance":
         """
         Asynchronous coroutine to update the FlowTestUserInstance
 
-        :param List[str] test_users: List of test user identities that can test draft versions of the flow.
+        :param test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         """
@@ -162,11 +162,11 @@ class FlowTestUserContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, test_users) -> FlowTestUserInstance:
+    def update(self, test_users: List[str]) -> FlowTestUserInstance:
         """
         Update the FlowTestUserInstance
 
-        :param List[str] test_users: List of test user identities that can test draft versions of the flow.
+        :param test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         """
@@ -184,11 +184,11 @@ class FlowTestUserContext(InstanceContext):
 
         return FlowTestUserInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, test_users) -> FlowTestUserInstance:
+    async def update_async(self, test_users: List[str]) -> FlowTestUserInstance:
         """
         Asynchronous coroutine to update the FlowTestUserInstance
 
-        :param List[str] test_users: List of test user identities that can test draft versions of the flow.
+        :param test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         """

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -89,18 +89,18 @@ class UserInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        avatar=values.unset,
-        state=values.unset,
-        is_available=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        avatar: Union[str, object] = values.unset,
+        state: Union["UserInstance.StateType", object] = values.unset,
+        is_available: Union[bool, object] = values.unset,
     ) -> "UserInstance":
         """
         Update the UserInstance
 
-        :param str friendly_name: The string that you assigned to describe the User.
-        :param str avatar: The avatar URL which will be shown in Frontline application.
-        :param "UserInstance.StateType" state:
-        :param bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
+        :param friendly_name: The string that you assigned to describe the User.
+        :param avatar: The avatar URL which will be shown in Frontline application.
+        :param state:
+        :param is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance
         """
@@ -113,18 +113,18 @@ class UserInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        avatar=values.unset,
-        state=values.unset,
-        is_available=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        avatar: Union[str, object] = values.unset,
+        state: Union["UserInstance.StateType", object] = values.unset,
+        is_available: Union[bool, object] = values.unset,
     ) -> "UserInstance":
         """
         Asynchronous coroutine to update the UserInstance
 
-        :param str friendly_name: The string that you assigned to describe the User.
-        :param str avatar: The avatar URL which will be shown in Frontline application.
-        :param "UserInstance.StateType" state:
-        :param bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
+        :param friendly_name: The string that you assigned to describe the User.
+        :param avatar: The avatar URL which will be shown in Frontline application.
+        :param state:
+        :param is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance
         """
@@ -201,18 +201,18 @@ class UserContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        avatar=values.unset,
-        state=values.unset,
-        is_available=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        avatar: Union[str, object] = values.unset,
+        state: Union["UserInstance.StateType", object] = values.unset,
+        is_available: Union[bool, object] = values.unset,
     ) -> UserInstance:
         """
         Update the UserInstance
 
-        :param str friendly_name: The string that you assigned to describe the User.
-        :param str avatar: The avatar URL which will be shown in Frontline application.
-        :param "UserInstance.StateType" state:
-        :param bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
+        :param friendly_name: The string that you assigned to describe the User.
+        :param avatar: The avatar URL which will be shown in Frontline application.
+        :param state:
+        :param is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance
         """
@@ -235,18 +235,18 @@ class UserContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        avatar=values.unset,
-        state=values.unset,
-        is_available=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        avatar: Union[str, object] = values.unset,
+        state: Union["UserInstance.StateType", object] = values.unset,
+        is_available: Union[bool, object] = values.unset,
     ) -> UserInstance:
         """
         Asynchronous coroutine to update the UserInstance
 
-        :param str friendly_name: The string that you assigned to describe the User.
-        :param str avatar: The avatar URL which will be shown in Frontline application.
-        :param "UserInstance.StateType" state:
-        :param bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
+        :param friendly_name: The string that you assigned to describe the User.
+        :param avatar: The avatar URL which will be shown in Frontline application.
+        :param state:
+        :param is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance
         """
@@ -287,7 +287,7 @@ class UserList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, sid) -> UserContext:
+    def get(self, sid: str) -> UserContext:
         """
         Constructs a UserContext
 
@@ -295,7 +295,7 @@ class UserList(ListResource):
         """
         return UserContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> UserContext:
+    def __call__(self, sid: str) -> UserContext:
         """
         Constructs a UserContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -234,11 +234,11 @@ class InviteContext(InstanceContext):
 
 
 class InvitePage(Page):
-    def get_instance(self, payload) -> InviteInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> InviteInstance:
         """
         Build an instance of InviteInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return InviteInstance(
             self._version,
@@ -277,12 +277,14 @@ class InviteList(ListResource):
             **self._solution
         )
 
-    def create(self, identity, role_sid=values.unset) -> InviteInstance:
+    def create(
+        self, identity: str, role_sid: Union[str, object] = values.unset
+    ) -> InviteInstance:
         """
         Create the InviteInstance
 
-        :param str identity:
-        :param str role_sid:
+        :param identity:
+        :param role_sid:
 
         :returns: The created InviteInstance
         """
@@ -306,12 +308,14 @@ class InviteList(ListResource):
             channel_sid=self._solution["channel_sid"],
         )
 
-    async def create_async(self, identity, role_sid=values.unset) -> InviteInstance:
+    async def create_async(
+        self, identity: str, role_sid: Union[str, object] = values.unset
+    ) -> InviteInstance:
         """
         Asynchronously create the InviteInstance
 
-        :param str identity:
-        :param str role_sid:
+        :param identity:
+        :param role_sid:
 
         :returns: The created InviteInstance
         """
@@ -336,7 +340,10 @@ class InviteList(ListResource):
         )
 
     def stream(
-        self, identity=values.unset, limit=None, page_size=None
+        self,
+        identity: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InviteInstance]:
         """
         Streams InviteInstance records from the API as a generator stream.
@@ -345,12 +352,12 @@ class InviteList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param List[str] identity:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -360,7 +367,10 @@ class InviteList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, identity=values.unset, limit=None, page_size=None
+        self,
+        identity: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InviteInstance]:
         """
         Asynchronously streams InviteInstance records from the API as a generator stream.
@@ -369,12 +379,12 @@ class InviteList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param List[str] identity:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -384,7 +394,10 @@ class InviteList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, identity=values.unset, limit=None, page_size=None
+        self,
+        identity: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InviteInstance]:
         """
         Lists InviteInstance records from the API as a list.
@@ -392,12 +405,12 @@ class InviteList(ListResource):
         memory before returning.
 
         :param List[str] identity:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -410,7 +423,10 @@ class InviteList(ListResource):
         )
 
     async def list_async(
-        self, identity=values.unset, limit=None, page_size=None
+        self,
+        identity: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InviteInstance]:
         """
         Asynchronously lists InviteInstance records from the API as a list.
@@ -418,12 +434,12 @@ class InviteList(ListResource):
         memory before returning.
 
         :param List[str] identity:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -437,19 +453,19 @@ class InviteList(ListResource):
 
     def page(
         self,
-        identity=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        identity: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InvitePage:
         """
         Retrieve a single page of InviteInstance records from the API.
         Request is executed immediately
 
-        :param List[str] identity:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param identity:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InviteInstance
         """
@@ -467,19 +483,19 @@ class InviteList(ListResource):
 
     async def page_async(
         self,
-        identity=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        identity: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> InvitePage:
         """
         Asynchronously retrieve a single page of InviteInstance records from the API.
         Request is executed immediately
 
-        :param List[str] identity:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param identity:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InviteInstance
         """
@@ -497,31 +513,31 @@ class InviteList(ListResource):
         )
         return InvitePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> InvitePage:
+    def get_page(self, target_url: str) -> InvitePage:
         """
         Retrieve a specific page of InviteInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InviteInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InvitePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> InvitePage:
+    async def get_page_async(self, target_url: str) -> InvitePage:
         """
         Asynchronously retrieve a specific page of InviteInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InviteInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InvitePage(self._version, response, self._solution)
 
-    def get(self, sid) -> InviteContext:
+    def get(self, sid: str) -> InviteContext:
         """
         Constructs a InviteContext
 
@@ -534,7 +550,7 @@ class InviteList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> InviteContext:
+    def __call__(self, sid: str) -> InviteContext:
         """
         Constructs a InviteContext
 

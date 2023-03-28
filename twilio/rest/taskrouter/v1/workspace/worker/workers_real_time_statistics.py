@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -64,11 +64,13 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, task_channel=values.unset) -> "WorkersRealTimeStatisticsInstance":
+    def fetch(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> "WorkersRealTimeStatisticsInstance":
         """
         Fetch the WorkersRealTimeStatisticsInstance
 
-        :param str task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersRealTimeStatisticsInstance
         """
@@ -77,12 +79,12 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
         )
 
     async def fetch_async(
-        self, task_channel=values.unset
+        self, task_channel: Union[str, object] = values.unset
     ) -> "WorkersRealTimeStatisticsInstance":
         """
         Asynchronous coroutine to fetch the WorkersRealTimeStatisticsInstance
 
-        :param str task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersRealTimeStatisticsInstance
         """
@@ -120,11 +122,13 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self, task_channel=values.unset) -> WorkersRealTimeStatisticsInstance:
+    def fetch(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> WorkersRealTimeStatisticsInstance:
         """
         Fetch the WorkersRealTimeStatisticsInstance
 
-        :param str task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersRealTimeStatisticsInstance
         """
@@ -144,12 +148,12 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
         )
 
     async def fetch_async(
-        self, task_channel=values.unset
+        self, task_channel: Union[str, object] = values.unset
     ) -> WorkersRealTimeStatisticsInstance:
         """
         Asynchronous coroutine to fetch the WorkersRealTimeStatisticsInstance
 
-        :param str task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersRealTimeStatisticsInstance
         """

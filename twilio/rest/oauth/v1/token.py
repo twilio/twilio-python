@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -69,26 +69,26 @@ class TokenList(ListResource):
 
     def create(
         self,
-        grant_type,
-        client_sid,
-        client_secret=values.unset,
-        code=values.unset,
-        code_verifier=values.unset,
-        device_code=values.unset,
-        refresh_token=values.unset,
-        device_id=values.unset,
+        grant_type: str,
+        client_sid: str,
+        client_secret: Union[str, object] = values.unset,
+        code: Union[str, object] = values.unset,
+        code_verifier: Union[str, object] = values.unset,
+        device_code: Union[str, object] = values.unset,
+        refresh_token: Union[str, object] = values.unset,
+        device_id: Union[str, object] = values.unset,
     ) -> TokenInstance:
         """
         Create the TokenInstance
 
-        :param str grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
-        :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
-        :param str client_secret: The credential for confidential OAuth App.
-        :param str code: JWT token related to the authorization code grant type.
-        :param str code_verifier: A code which is generation cryptographically.
-        :param str device_code: JWT token related to the device code grant type.
-        :param str refresh_token: JWT token related to the refresh token grant type.
-        :param str device_id: The Id of the device associated with the token (refresh token).
+        :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
+        :param client_sid: A 34 character string that uniquely identifies this OAuth App.
+        :param client_secret: The credential for confidential OAuth App.
+        :param code: JWT token related to the authorization code grant type.
+        :param code_verifier: A code which is generation cryptographically.
+        :param device_code: JWT token related to the device code grant type.
+        :param refresh_token: JWT token related to the refresh token grant type.
+        :param device_id: The Id of the device associated with the token (refresh token).
 
         :returns: The created TokenInstance
         """
@@ -115,26 +115,26 @@ class TokenList(ListResource):
 
     async def create_async(
         self,
-        grant_type,
-        client_sid,
-        client_secret=values.unset,
-        code=values.unset,
-        code_verifier=values.unset,
-        device_code=values.unset,
-        refresh_token=values.unset,
-        device_id=values.unset,
+        grant_type: str,
+        client_sid: str,
+        client_secret: Union[str, object] = values.unset,
+        code: Union[str, object] = values.unset,
+        code_verifier: Union[str, object] = values.unset,
+        device_code: Union[str, object] = values.unset,
+        refresh_token: Union[str, object] = values.unset,
+        device_id: Union[str, object] = values.unset,
     ) -> TokenInstance:
         """
         Asynchronously create the TokenInstance
 
-        :param str grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
-        :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
-        :param str client_secret: The credential for confidential OAuth App.
-        :param str code: JWT token related to the authorization code grant type.
-        :param str code_verifier: A code which is generation cryptographically.
-        :param str device_code: JWT token related to the device code grant type.
-        :param str refresh_token: JWT token related to the refresh token grant type.
-        :param str device_id: The Id of the device associated with the token (refresh token).
+        :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
+        :param client_sid: A 34 character string that uniquely identifies this OAuth App.
+        :param client_secret: The credential for confidential OAuth App.
+        :param code: JWT token related to the authorization code grant type.
+        :param code_verifier: A code which is generation cryptographically.
+        :param device_code: JWT token related to the device code grant type.
+        :param refresh_token: JWT token related to the refresh token grant type.
+        :param device_id: The Id of the device associated with the token (refresh token).
 
         :returns: The created TokenInstance
         """

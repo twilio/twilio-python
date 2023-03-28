@@ -221,7 +221,7 @@ class JobList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, job_sid) -> JobContext:
+    def get(self, job_sid: str) -> JobContext:
         """
         Constructs a JobContext
 
@@ -229,7 +229,7 @@ class JobList(ListResource):
         """
         return JobContext(self._version, job_sid=job_sid)
 
-    def __call__(self, job_sid) -> JobContext:
+    def __call__(self, job_sid: str) -> JobContext:
         """
         Constructs a JobContext
 

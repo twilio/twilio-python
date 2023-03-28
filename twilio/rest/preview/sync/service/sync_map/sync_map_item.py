@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -94,11 +94,11 @@ class SyncMapItemInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, if_match=values.unset) -> bool:
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the SyncMapItemInstance
 
-        :param str if_match: The If-Match HTTP request header
+        :param if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -106,11 +106,11 @@ class SyncMapItemInstance(InstanceResource):
             if_match=if_match,
         )
 
-    async def delete_async(self, if_match=values.unset) -> bool:
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the SyncMapItemInstance
 
-        :param str if_match: The If-Match HTTP request header
+        :param if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -136,12 +136,14 @@ class SyncMapItemInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, data, if_match=values.unset) -> "SyncMapItemInstance":
+    def update(
+        self, data: object, if_match: Union[str, object] = values.unset
+    ) -> "SyncMapItemInstance":
         """
         Update the SyncMapItemInstance
 
-        :param object data:
-        :param str if_match: The If-Match HTTP request header
+        :param data:
+        :param if_match: The If-Match HTTP request header
 
         :returns: The updated SyncMapItemInstance
         """
@@ -150,12 +152,14 @@ class SyncMapItemInstance(InstanceResource):
             if_match=if_match,
         )
 
-    async def update_async(self, data, if_match=values.unset) -> "SyncMapItemInstance":
+    async def update_async(
+        self, data: object, if_match: Union[str, object] = values.unset
+    ) -> "SyncMapItemInstance":
         """
         Asynchronous coroutine to update the SyncMapItemInstance
 
-        :param object data:
-        :param str if_match: The If-Match HTTP request header
+        :param data:
+        :param if_match: The If-Match HTTP request header
 
         :returns: The updated SyncMapItemInstance
         """
@@ -196,11 +200,11 @@ class SyncMapItemContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self, if_match=values.unset) -> bool:
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the SyncMapItemInstance
 
-        :param str if_match: The If-Match HTTP request header
+        :param if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -212,11 +216,11 @@ class SyncMapItemContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, if_match=values.unset) -> bool:
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the SyncMapItemInstance
 
-        :param str if_match: The If-Match HTTP request header
+        :param if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -272,12 +276,14 @@ class SyncMapItemContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    def update(self, data, if_match=values.unset) -> SyncMapItemInstance:
+    def update(
+        self, data: object, if_match: Union[str, object] = values.unset
+    ) -> SyncMapItemInstance:
         """
         Update the SyncMapItemInstance
 
-        :param object data:
-        :param str if_match: The If-Match HTTP request header
+        :param data:
+        :param if_match: The If-Match HTTP request header
 
         :returns: The updated SyncMapItemInstance
         """
@@ -304,12 +310,14 @@ class SyncMapItemContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    async def update_async(self, data, if_match=values.unset) -> SyncMapItemInstance:
+    async def update_async(
+        self, data: object, if_match: Union[str, object] = values.unset
+    ) -> SyncMapItemInstance:
         """
         Asynchronous coroutine to update the SyncMapItemInstance
 
-        :param object data:
-        :param str if_match: The If-Match HTTP request header
+        :param data:
+        :param if_match: The If-Match HTTP request header
 
         :returns: The updated SyncMapItemInstance
         """
@@ -347,11 +355,11 @@ class SyncMapItemContext(InstanceContext):
 
 
 class SyncMapItemPage(Page):
-    def get_instance(self, payload) -> SyncMapItemInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SyncMapItemInstance:
         """
         Build an instance of SyncMapItemInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SyncMapItemInstance(
             self._version,
@@ -390,12 +398,12 @@ class SyncMapItemList(ListResource):
             **self._solution
         )
 
-    def create(self, key, data) -> SyncMapItemInstance:
+    def create(self, key: str, data: object) -> SyncMapItemInstance:
         """
         Create the SyncMapItemInstance
 
-        :param str key:
-        :param object data:
+        :param key:
+        :param data:
 
         :returns: The created SyncMapItemInstance
         """
@@ -419,12 +427,12 @@ class SyncMapItemList(ListResource):
             map_sid=self._solution["map_sid"],
         )
 
-    async def create_async(self, key, data) -> SyncMapItemInstance:
+    async def create_async(self, key: str, data: object) -> SyncMapItemInstance:
         """
         Asynchronously create the SyncMapItemInstance
 
-        :param str key:
-        :param object data:
+        :param key:
+        :param data:
 
         :returns: The created SyncMapItemInstance
         """
@@ -450,11 +458,11 @@ class SyncMapItemList(ListResource):
 
     def stream(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        limit=None,
-        page_size=None,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncMapItemInstance]:
         """
         Streams SyncMapItemInstance records from the API as a generator stream.
@@ -465,12 +473,12 @@ class SyncMapItemList(ListResource):
         :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order:
         :param str from_:
         :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -483,11 +491,11 @@ class SyncMapItemList(ListResource):
 
     async def stream_async(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        limit=None,
-        page_size=None,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncMapItemInstance]:
         """
         Asynchronously streams SyncMapItemInstance records from the API as a generator stream.
@@ -498,12 +506,12 @@ class SyncMapItemList(ListResource):
         :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order:
         :param str from_:
         :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -516,11 +524,11 @@ class SyncMapItemList(ListResource):
 
     def list(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        limit=None,
-        page_size=None,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncMapItemInstance]:
         """
         Lists SyncMapItemInstance records from the API as a list.
@@ -530,12 +538,12 @@ class SyncMapItemList(ListResource):
         :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order:
         :param str from_:
         :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -551,11 +559,11 @@ class SyncMapItemList(ListResource):
 
     async def list_async(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        limit=None,
-        page_size=None,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncMapItemInstance]:
         """
         Asynchronously lists SyncMapItemInstance records from the API as a list.
@@ -565,12 +573,12 @@ class SyncMapItemList(ListResource):
         :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order:
         :param str from_:
         :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -586,23 +594,23 @@ class SyncMapItemList(ListResource):
 
     def page(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SyncMapItemPage:
         """
         Retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order:
-        :param str from_:
-        :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order:
+        :param from_:
+        :param bounds:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapItemInstance
         """
@@ -622,23 +630,23 @@ class SyncMapItemList(ListResource):
 
     async def page_async(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SyncMapItemPage:
         """
         Asynchronously retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order:
-        :param str from_:
-        :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order:
+        :param from_:
+        :param bounds:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapItemInstance
         """
@@ -658,31 +666,31 @@ class SyncMapItemList(ListResource):
         )
         return SyncMapItemPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> SyncMapItemPage:
+    def get_page(self, target_url: str) -> SyncMapItemPage:
         """
         Retrieve a specific page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncMapItemInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SyncMapItemPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> SyncMapItemPage:
+    async def get_page_async(self, target_url: str) -> SyncMapItemPage:
         """
         Asynchronously retrieve a specific page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncMapItemInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SyncMapItemPage(self._version, response, self._solution)
 
-    def get(self, key) -> SyncMapItemContext:
+    def get(self, key: str) -> SyncMapItemContext:
         """
         Constructs a SyncMapItemContext
 
@@ -695,7 +703,7 @@ class SyncMapItemList(ListResource):
             key=key,
         )
 
-    def __call__(self, key) -> SyncMapItemContext:
+    def __call__(self, key: str) -> SyncMapItemContext:
         """
         Constructs a SyncMapItemContext
 

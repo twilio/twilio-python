@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -134,26 +134,26 @@ class AssistantInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        fallback_actions=values.unset,
-        initiation_actions=values.unset,
-        style_sheet=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        log_queries: Union[bool, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_events: Union[str, object] = values.unset,
+        fallback_actions: Union[object, object] = values.unset,
+        initiation_actions: Union[object, object] = values.unset,
+        style_sheet: Union[object, object] = values.unset,
     ) -> "AssistantInstance":
         """
         Update the AssistantInstance
 
-        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param str callback_url: A user-provided URL to send event callbacks to.
-        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
-        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-        :param object style_sheet: The JSON object that holds the style sheet for the assistant
+        :param friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param callback_url: A user-provided URL to send event callbacks to.
+        :param callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :param initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The updated AssistantInstance
         """
@@ -170,26 +170,26 @@ class AssistantInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        fallback_actions=values.unset,
-        initiation_actions=values.unset,
-        style_sheet=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        log_queries: Union[bool, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_events: Union[str, object] = values.unset,
+        fallback_actions: Union[object, object] = values.unset,
+        initiation_actions: Union[object, object] = values.unset,
+        style_sheet: Union[object, object] = values.unset,
     ) -> "AssistantInstance":
         """
         Asynchronous coroutine to update the AssistantInstance
 
-        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param str callback_url: A user-provided URL to send event callbacks to.
-        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
-        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-        :param object style_sheet: The JSON object that holds the style sheet for the assistant
+        :param friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param callback_url: A user-provided URL to send event callbacks to.
+        :param callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :param initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The updated AssistantInstance
         """
@@ -361,26 +361,26 @@ class AssistantContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        fallback_actions=values.unset,
-        initiation_actions=values.unset,
-        style_sheet=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        log_queries: Union[bool, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_events: Union[str, object] = values.unset,
+        fallback_actions: Union[object, object] = values.unset,
+        initiation_actions: Union[object, object] = values.unset,
+        style_sheet: Union[object, object] = values.unset,
     ) -> AssistantInstance:
         """
         Update the AssistantInstance
 
-        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param str callback_url: A user-provided URL to send event callbacks to.
-        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
-        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-        :param object style_sheet: The JSON object that holds the style sheet for the assistant
+        :param friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param callback_url: A user-provided URL to send event callbacks to.
+        :param callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :param initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The updated AssistantInstance
         """
@@ -407,26 +407,26 @@ class AssistantContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        fallback_actions=values.unset,
-        initiation_actions=values.unset,
-        style_sheet=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        log_queries: Union[bool, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_events: Union[str, object] = values.unset,
+        fallback_actions: Union[object, object] = values.unset,
+        initiation_actions: Union[object, object] = values.unset,
+        style_sheet: Union[object, object] = values.unset,
     ) -> AssistantInstance:
         """
         Asynchronous coroutine to update the AssistantInstance
 
-        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param str callback_url: A user-provided URL to send event callbacks to.
-        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
-        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-        :param object style_sheet: The JSON object that holds the style sheet for the assistant
+        :param friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param callback_url: A user-provided URL to send event callbacks to.
+        :param callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :param initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The updated AssistantInstance
         """
@@ -558,11 +558,11 @@ class AssistantContext(InstanceContext):
 
 
 class AssistantPage(Page):
-    def get_instance(self, payload) -> AssistantInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AssistantInstance:
         """
         Build an instance of AssistantInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AssistantInstance(self._version, payload)
 
@@ -589,26 +589,26 @@ class AssistantList(ListResource):
 
     def create(
         self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        fallback_actions=values.unset,
-        initiation_actions=values.unset,
-        style_sheet=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        log_queries: Union[bool, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_events: Union[str, object] = values.unset,
+        fallback_actions: Union[object, object] = values.unset,
+        initiation_actions: Union[object, object] = values.unset,
+        style_sheet: Union[object, object] = values.unset,
     ) -> AssistantInstance:
         """
         Create the AssistantInstance
 
-        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param str callback_url: A user-provided URL to send event callbacks to.
-        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
-        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-        :param object style_sheet: The JSON object that holds the style sheet for the assistant
+        :param friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param callback_url: A user-provided URL to send event callbacks to.
+        :param callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :param initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The created AssistantInstance
         """
@@ -635,26 +635,26 @@ class AssistantList(ListResource):
 
     async def create_async(
         self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        fallback_actions=values.unset,
-        initiation_actions=values.unset,
-        style_sheet=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        log_queries: Union[bool, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        callback_events: Union[str, object] = values.unset,
+        fallback_actions: Union[object, object] = values.unset,
+        initiation_actions: Union[object, object] = values.unset,
+        style_sheet: Union[object, object] = values.unset,
     ) -> AssistantInstance:
         """
         Asynchronously create the AssistantInstance
 
-        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param str callback_url: A user-provided URL to send event callbacks to.
-        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
-        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-        :param object style_sheet: The JSON object that holds the style sheet for the assistant
+        :param friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param callback_url: A user-provided URL to send event callbacks to.
+        :param callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :param initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: The created AssistantInstance
         """
@@ -679,19 +679,23 @@ class AssistantList(ListResource):
 
         return AssistantInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[AssistantInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AssistantInstance]:
         """
         Streams AssistantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -700,19 +704,23 @@ class AssistantList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[AssistantInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AssistantInstance]:
         """
         Asynchronously streams AssistantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -721,18 +729,22 @@ class AssistantList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[AssistantInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AssistantInstance]:
         """
         Lists AssistantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -743,18 +755,22 @@ class AssistantList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[AssistantInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AssistantInstance]:
         """
         Asynchronously lists AssistantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -766,15 +782,18 @@ class AssistantList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> AssistantPage:
         """
         Retrieve a single page of AssistantInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssistantInstance
         """
@@ -790,15 +809,18 @@ class AssistantList(ListResource):
         return AssistantPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> AssistantPage:
         """
         Asynchronously retrieve a single page of AssistantInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssistantInstance
         """
@@ -815,31 +837,31 @@ class AssistantList(ListResource):
         )
         return AssistantPage(self._version, response)
 
-    def get_page(self, target_url) -> AssistantPage:
+    def get_page(self, target_url: str) -> AssistantPage:
         """
         Retrieve a specific page of AssistantInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AssistantInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AssistantPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> AssistantPage:
+    async def get_page_async(self, target_url: str) -> AssistantPage:
         """
         Asynchronously retrieve a specific page of AssistantInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AssistantInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssistantPage(self._version, response)
 
-    def get(self, sid) -> AssistantContext:
+    def get(self, sid: str) -> AssistantContext:
         """
         Constructs a AssistantContext
 
@@ -847,7 +869,7 @@ class AssistantList(ListResource):
         """
         return AssistantContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> AssistantContext:
+    def __call__(self, sid: str) -> AssistantContext:
         """
         Constructs a AssistantContext
 

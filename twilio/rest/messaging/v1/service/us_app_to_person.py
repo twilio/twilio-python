@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -259,11 +259,11 @@ class UsAppToPersonContext(InstanceContext):
 
 
 class UsAppToPersonPage(Page):
-    def get_instance(self, payload) -> UsAppToPersonInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> UsAppToPersonInstance:
         """
         Build an instance of UsAppToPersonInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return UsAppToPersonInstance(
             self._version,
@@ -301,36 +301,36 @@ class UsAppToPersonList(ListResource):
 
     def create(
         self,
-        brand_registration_sid,
-        description,
-        message_flow,
-        message_samples,
-        us_app_to_person_usecase,
-        has_embedded_links,
-        has_embedded_phone,
-        opt_in_message=values.unset,
-        opt_out_message=values.unset,
-        help_message=values.unset,
-        opt_in_keywords=values.unset,
-        opt_out_keywords=values.unset,
-        help_keywords=values.unset,
+        brand_registration_sid: str,
+        description: str,
+        message_flow: str,
+        message_samples: List[str],
+        us_app_to_person_usecase: str,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        opt_in_message: Union[str, object] = values.unset,
+        opt_out_message: Union[str, object] = values.unset,
+        help_message: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        opt_out_keywords: Union[List[str], object] = values.unset,
+        help_keywords: Union[List[str], object] = values.unset,
     ) -> UsAppToPersonInstance:
         """
         Create the UsAppToPersonInstance
 
-        :param str brand_registration_sid: A2P Brand Registration SID
-        :param str description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
-        :param str message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
-        :param List[str] message_samples: Message samples, at least 1 and up to 5 sample messages (at least 2 for sole proprietor), >=20 chars, <=1024 chars each.
-        :param str us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
-        :param bool has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
-        :param bool has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
-        :param str opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
-        :param str opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
-        :param str help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
-        :param List[str] opt_in_keywords: If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
-        :param List[str] opt_out_keywords: End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
-        :param List[str] help_keywords: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+        :param brand_registration_sid: A2P Brand Registration SID
+        :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+        :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+        :param message_samples: Message samples, at least 1 and up to 5 sample messages (at least 2 for sole proprietor), >=20 chars, <=1024 chars each.
+        :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
+        :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
+        :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
+        :param opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+        :param help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+        :param opt_in_keywords: If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
+        :param opt_out_keywords: End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+        :param help_keywords: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 
         :returns: The created UsAppToPersonInstance
         """
@@ -366,36 +366,36 @@ class UsAppToPersonList(ListResource):
 
     async def create_async(
         self,
-        brand_registration_sid,
-        description,
-        message_flow,
-        message_samples,
-        us_app_to_person_usecase,
-        has_embedded_links,
-        has_embedded_phone,
-        opt_in_message=values.unset,
-        opt_out_message=values.unset,
-        help_message=values.unset,
-        opt_in_keywords=values.unset,
-        opt_out_keywords=values.unset,
-        help_keywords=values.unset,
+        brand_registration_sid: str,
+        description: str,
+        message_flow: str,
+        message_samples: List[str],
+        us_app_to_person_usecase: str,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        opt_in_message: Union[str, object] = values.unset,
+        opt_out_message: Union[str, object] = values.unset,
+        help_message: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        opt_out_keywords: Union[List[str], object] = values.unset,
+        help_keywords: Union[List[str], object] = values.unset,
     ) -> UsAppToPersonInstance:
         """
         Asynchronously create the UsAppToPersonInstance
 
-        :param str brand_registration_sid: A2P Brand Registration SID
-        :param str description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
-        :param str message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
-        :param List[str] message_samples: Message samples, at least 1 and up to 5 sample messages (at least 2 for sole proprietor), >=20 chars, <=1024 chars each.
-        :param str us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
-        :param bool has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
-        :param bool has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
-        :param str opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
-        :param str opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
-        :param str help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
-        :param List[str] opt_in_keywords: If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
-        :param List[str] opt_out_keywords: End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
-        :param List[str] help_keywords: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+        :param brand_registration_sid: A2P Brand Registration SID
+        :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+        :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+        :param message_samples: Message samples, at least 1 and up to 5 sample messages (at least 2 for sole proprietor), >=20 chars, <=1024 chars each.
+        :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
+        :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
+        :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
+        :param opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+        :param help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+        :param opt_in_keywords: If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
+        :param opt_out_keywords: End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+        :param help_keywords: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
 
         :returns: The created UsAppToPersonInstance
         """
@@ -429,19 +429,23 @@ class UsAppToPersonList(ListResource):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    def stream(self, limit=None, page_size=None) -> List[UsAppToPersonInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[UsAppToPersonInstance]:
         """
         Streams UsAppToPersonInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -451,7 +455,9 @@ class UsAppToPersonList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UsAppToPersonInstance]:
         """
         Asynchronously streams UsAppToPersonInstance records from the API as a generator stream.
@@ -459,12 +465,12 @@ class UsAppToPersonList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -473,18 +479,22 @@ class UsAppToPersonList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[UsAppToPersonInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[UsAppToPersonInstance]:
         """
         Lists UsAppToPersonInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -496,19 +506,21 @@ class UsAppToPersonList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UsAppToPersonInstance]:
         """
         Asynchronously lists UsAppToPersonInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -520,15 +532,18 @@ class UsAppToPersonList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> UsAppToPersonPage:
         """
         Retrieve a single page of UsAppToPersonInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsAppToPersonInstance
         """
@@ -544,15 +559,18 @@ class UsAppToPersonList(ListResource):
         return UsAppToPersonPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> UsAppToPersonPage:
         """
         Asynchronously retrieve a single page of UsAppToPersonInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsAppToPersonInstance
         """
@@ -569,31 +587,31 @@ class UsAppToPersonList(ListResource):
         )
         return UsAppToPersonPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> UsAppToPersonPage:
+    def get_page(self, target_url: str) -> UsAppToPersonPage:
         """
         Retrieve a specific page of UsAppToPersonInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of UsAppToPersonInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UsAppToPersonPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> UsAppToPersonPage:
+    async def get_page_async(self, target_url: str) -> UsAppToPersonPage:
         """
         Asynchronously retrieve a specific page of UsAppToPersonInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of UsAppToPersonInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return UsAppToPersonPage(self._version, response, self._solution)
 
-    def get(self, sid) -> UsAppToPersonContext:
+    def get(self, sid: str) -> UsAppToPersonContext:
         """
         Constructs a UsAppToPersonContext
 
@@ -605,7 +623,7 @@ class UsAppToPersonList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> UsAppToPersonContext:
+    def __call__(self, sid: str) -> UsAppToPersonContext:
         """
         Constructs a UsAppToPersonContext
 

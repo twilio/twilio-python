@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -106,11 +106,13 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, task_channel=values.unset) -> "TaskQueueRealTimeStatisticsInstance":
+    def fetch(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> "TaskQueueRealTimeStatisticsInstance":
         """
         Fetch the TaskQueueRealTimeStatisticsInstance
 
-        :param str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched TaskQueueRealTimeStatisticsInstance
         """
@@ -119,12 +121,12 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
         )
 
     async def fetch_async(
-        self, task_channel=values.unset
+        self, task_channel: Union[str, object] = values.unset
     ) -> "TaskQueueRealTimeStatisticsInstance":
         """
         Asynchronous coroutine to fetch the TaskQueueRealTimeStatisticsInstance
 
-        :param str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched TaskQueueRealTimeStatisticsInstance
         """
@@ -164,11 +166,13 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self, task_channel=values.unset) -> TaskQueueRealTimeStatisticsInstance:
+    def fetch(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> TaskQueueRealTimeStatisticsInstance:
         """
         Fetch the TaskQueueRealTimeStatisticsInstance
 
-        :param str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched TaskQueueRealTimeStatisticsInstance
         """
@@ -189,12 +193,12 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
         )
 
     async def fetch_async(
-        self, task_channel=values.unset
+        self, task_channel: Union[str, object] = values.unset
     ) -> TaskQueueRealTimeStatisticsInstance:
         """
         Asynchronous coroutine to fetch the TaskQueueRealTimeStatisticsInstance
 
-        :param str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched TaskQueueRealTimeStatisticsInstance
         """

@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from datetime import date
+from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -48,11 +49,13 @@ class DeactivationsInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, date=values.unset) -> "DeactivationsInstance":
+    def fetch(
+        self, date: Union[date, object] = values.unset
+    ) -> "DeactivationsInstance":
         """
         Fetch the DeactivationsInstance
 
-        :param date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
         """
@@ -60,11 +63,13 @@ class DeactivationsInstance(InstanceResource):
             date=date,
         )
 
-    async def fetch_async(self, date=values.unset) -> "DeactivationsInstance":
+    async def fetch_async(
+        self, date: Union[date, object] = values.unset
+    ) -> "DeactivationsInstance":
         """
         Asynchronous coroutine to fetch the DeactivationsInstance
 
-        :param date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
         """
@@ -93,11 +98,11 @@ class DeactivationsContext(InstanceContext):
 
         self._uri = "/Deactivations"
 
-    def fetch(self, date=values.unset) -> DeactivationsInstance:
+    def fetch(self, date: Union[date, object] = values.unset) -> DeactivationsInstance:
         """
         Fetch the DeactivationsInstance
 
-        :param date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
         """
@@ -115,11 +120,13 @@ class DeactivationsContext(InstanceContext):
             payload,
         )
 
-    async def fetch_async(self, date=values.unset) -> DeactivationsInstance:
+    async def fetch_async(
+        self, date: Union[date, object] = values.unset
+    ) -> DeactivationsInstance:
         """
         Asynchronous coroutine to fetch the DeactivationsInstance
 
-        :param date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
         """

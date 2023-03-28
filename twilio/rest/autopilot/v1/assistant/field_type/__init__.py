@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -120,13 +120,15 @@ class FieldTypeInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, friendly_name=values.unset, unique_name=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> "FieldTypeInstance":
         """
         Update the FieldTypeInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
 
         :returns: The updated FieldTypeInstance
         """
@@ -136,13 +138,15 @@ class FieldTypeInstance(InstanceResource):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, unique_name=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> "FieldTypeInstance":
         """
         Asynchronous coroutine to update the FieldTypeInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
 
         :returns: The updated FieldTypeInstance
         """
@@ -255,13 +259,15 @@ class FieldTypeContext(InstanceContext):
         )
 
     def update(
-        self, friendly_name=values.unset, unique_name=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> FieldTypeInstance:
         """
         Update the FieldTypeInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
 
         :returns: The updated FieldTypeInstance
         """
@@ -286,13 +292,15 @@ class FieldTypeContext(InstanceContext):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, unique_name=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> FieldTypeInstance:
         """
         Asynchronous coroutine to update the FieldTypeInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
 
         :returns: The updated FieldTypeInstance
         """
@@ -340,11 +348,11 @@ class FieldTypeContext(InstanceContext):
 
 
 class FieldTypePage(Page):
-    def get_instance(self, payload) -> FieldTypeInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> FieldTypeInstance:
         """
         Build an instance of FieldTypeInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return FieldTypeInstance(
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
@@ -376,12 +384,14 @@ class FieldTypeList(ListResource):
         }
         self._uri = "/Assistants/{assistant_sid}/FieldTypes".format(**self._solution)
 
-    def create(self, unique_name, friendly_name=values.unset) -> FieldTypeInstance:
+    def create(
+        self, unique_name: str, friendly_name: Union[str, object] = values.unset
+    ) -> FieldTypeInstance:
         """
         Create the FieldTypeInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :param friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
 
         :returns: The created FieldTypeInstance
         """
@@ -403,13 +413,13 @@ class FieldTypeList(ListResource):
         )
 
     async def create_async(
-        self, unique_name, friendly_name=values.unset
+        self, unique_name: str, friendly_name: Union[str, object] = values.unset
     ) -> FieldTypeInstance:
         """
         Asynchronously create the FieldTypeInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :param friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
 
         :returns: The created FieldTypeInstance
         """
@@ -430,19 +440,23 @@ class FieldTypeList(ListResource):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[FieldTypeInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FieldTypeInstance]:
         """
         Streams FieldTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -451,19 +465,23 @@ class FieldTypeList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[FieldTypeInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FieldTypeInstance]:
         """
         Asynchronously streams FieldTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -472,18 +490,22 @@ class FieldTypeList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[FieldTypeInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FieldTypeInstance]:
         """
         Lists FieldTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -494,18 +516,22 @@ class FieldTypeList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[FieldTypeInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FieldTypeInstance]:
         """
         Asynchronously lists FieldTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -517,15 +543,18 @@ class FieldTypeList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> FieldTypePage:
         """
         Retrieve a single page of FieldTypeInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FieldTypeInstance
         """
@@ -541,15 +570,18 @@ class FieldTypeList(ListResource):
         return FieldTypePage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> FieldTypePage:
         """
         Asynchronously retrieve a single page of FieldTypeInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FieldTypeInstance
         """
@@ -566,31 +598,31 @@ class FieldTypeList(ListResource):
         )
         return FieldTypePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> FieldTypePage:
+    def get_page(self, target_url: str) -> FieldTypePage:
         """
         Retrieve a specific page of FieldTypeInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FieldTypeInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FieldTypePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> FieldTypePage:
+    async def get_page_async(self, target_url: str) -> FieldTypePage:
         """
         Asynchronously retrieve a specific page of FieldTypeInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FieldTypeInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FieldTypePage(self._version, response, self._solution)
 
-    def get(self, sid) -> FieldTypeContext:
+    def get(self, sid: str) -> FieldTypeContext:
         """
         Constructs a FieldTypeContext
 
@@ -600,7 +632,7 @@ class FieldTypeList(ListResource):
             self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> FieldTypeContext:
+    def __call__(self, sid: str) -> FieldTypeContext:
         """
         Constructs a FieldTypeContext
 

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -75,11 +75,13 @@ class NumberInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, origination_number=values.unset) -> "NumberInstance":
+    def fetch(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> "NumberInstance":
         """
         Fetch the NumberInstance
 
-        :param str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
         """
@@ -87,11 +89,13 @@ class NumberInstance(InstanceResource):
             origination_number=origination_number,
         )
 
-    async def fetch_async(self, origination_number=values.unset) -> "NumberInstance":
+    async def fetch_async(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> "NumberInstance":
         """
         Asynchronous coroutine to fetch the NumberInstance
 
-        :param str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
         """
@@ -125,11 +129,13 @@ class NumberContext(InstanceContext):
         }
         self._uri = "/Trunking/Numbers/{destination_number}".format(**self._solution)
 
-    def fetch(self, origination_number=values.unset) -> NumberInstance:
+    def fetch(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> NumberInstance:
         """
         Fetch the NumberInstance
 
-        :param str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
         """
@@ -148,11 +154,13 @@ class NumberContext(InstanceContext):
             destination_number=self._solution["destination_number"],
         )
 
-    async def fetch_async(self, origination_number=values.unset) -> NumberInstance:
+    async def fetch_async(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> NumberInstance:
         """
         Asynchronous coroutine to fetch the NumberInstance
 
-        :param str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
         """
@@ -193,7 +201,7 @@ class NumberList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, destination_number) -> NumberContext:
+    def get(self, destination_number: str) -> NumberContext:
         """
         Constructs a NumberContext
 
@@ -201,7 +209,7 @@ class NumberList(ListResource):
         """
         return NumberContext(self._version, destination_number=destination_number)
 
-    def __call__(self, destination_number) -> NumberContext:
+    def __call__(self, destination_number: str) -> NumberContext:
         """
         Constructs a NumberContext
 

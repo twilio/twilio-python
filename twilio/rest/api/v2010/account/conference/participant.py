@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -144,34 +144,34 @@ class ParticipantInstance(InstanceResource):
 
     def update(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        hold_url=values.unset,
-        hold_method=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        beep_on_exit=values.unset,
-        end_conference_on_exit=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
     ) -> "ParticipantInstance":
         """
         Update the ParticipantInstance
 
-        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
-        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
-        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
-        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        :param muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
 
         :returns: The updated ParticipantInstance
         """
@@ -192,34 +192,34 @@ class ParticipantInstance(InstanceResource):
 
     async def update_async(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        hold_url=values.unset,
-        hold_method=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        beep_on_exit=values.unset,
-        end_conference_on_exit=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
     ) -> "ParticipantInstance":
         """
         Asynchronous coroutine to update the ParticipantInstance
 
-        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
-        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
-        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
-        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        :param muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
 
         :returns: The updated ParticipantInstance
         """
@@ -340,34 +340,34 @@ class ParticipantContext(InstanceContext):
 
     def update(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        hold_url=values.unset,
-        hold_method=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        beep_on_exit=values.unset,
-        end_conference_on_exit=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Update the ParticipantInstance
 
-        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
-        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
-        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
-        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        :param muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
 
         :returns: The updated ParticipantInstance
         """
@@ -404,34 +404,34 @@ class ParticipantContext(InstanceContext):
 
     async def update_async(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        hold_url=values.unset,
-        hold_method=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        beep_on_exit=values.unset,
-        end_conference_on_exit=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Asynchronous coroutine to update the ParticipantInstance
 
-        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
-        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
-        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
-        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        :param muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
 
         :returns: The updated ParticipantInstance
         """
@@ -477,11 +477,11 @@ class ParticipantContext(InstanceContext):
 
 
 class ParticipantPage(Page):
-    def get_instance(self, payload) -> ParticipantInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ParticipantInstance(
             self._version,
@@ -522,102 +522,104 @@ class ParticipantList(ListResource):
 
     def create(
         self,
-        from_,
-        to,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        status_callback_event=values.unset,
-        label=values.unset,
-        timeout=values.unset,
-        record=values.unset,
-        muted=values.unset,
-        beep=values.unset,
-        start_conference_on_enter=values.unset,
-        end_conference_on_exit=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        early_media=values.unset,
-        max_participants=values.unset,
-        conference_record=values.unset,
-        conference_trim=values.unset,
-        conference_status_callback=values.unset,
-        conference_status_callback_method=values.unset,
-        conference_status_callback_event=values.unset,
-        recording_channels=values.unset,
-        recording_status_callback=values.unset,
-        recording_status_callback_method=values.unset,
-        sip_auth_username=values.unset,
-        sip_auth_password=values.unset,
-        region=values.unset,
-        conference_recording_status_callback=values.unset,
-        conference_recording_status_callback_method=values.unset,
-        recording_status_callback_event=values.unset,
-        conference_recording_status_callback_event=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
-        jitter_buffer_size=values.unset,
-        byoc=values.unset,
-        caller_id=values.unset,
-        call_reason=values.unset,
-        recording_track=values.unset,
-        time_limit=values.unset,
-        machine_detection=values.unset,
-        machine_detection_timeout=values.unset,
-        machine_detection_speech_threshold=values.unset,
-        machine_detection_speech_end_threshold=values.unset,
-        machine_detection_silence_timeout=values.unset,
-        amd_status_callback=values.unset,
-        amd_status_callback_method=values.unset,
+        from_: str,
+        to: str,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        label: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[List[str], object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        conference_recording_status_callback_event: Union[
+            List[str], object
+        ] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        amd_status_callback: Union[str, object] = values.unset,
+        amd_status_callback_method: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Create the ParticipantInstance
 
-        :param str from_: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
-        :param str to: The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
-        :param List[str] status_callback_event: The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`.
-        :param str label: A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant.
-        :param int timeout: The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
-        :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
-        :param bool muted: Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`.
-        :param str beep: Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
-        :param bool start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param str wait_url: The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
-        :param int max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
-        :param str conference_record: Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
-        :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
-        :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
-        :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param List[str] conference_status_callback_event: The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
-        :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
-        :param str recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
-        :param str recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str sip_auth_username: The SIP username used for authentication.
-        :param str sip_auth_password: The SIP password for authentication.
-        :param str region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
-        :param str conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
-        :param str conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param List[str] recording_status_callback_event: The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`.
-        :param List[str] conference_recording_status_callback_event: The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-        :param str jitter_buffer_size: Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant's audio is mixed into the conference. Can be: `off`, `small`, `medium`, and `large`. Default to `large`.
-        :param str byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
-        :param str caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
-        :param str call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
-        :param str recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
-        :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
-        :param str machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
-        :param int machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
-        :param int machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
-        :param int machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
-        :param int machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
-        :param str amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
-        :param str amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param from_: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
+        :param to: The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
+        :param status_callback_event: The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`.
+        :param label: A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant.
+        :param timeout: The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
+        :param record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
+        :param muted: Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`.
+        :param beep: Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+        :param start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param wait_url: The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
+        :param max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+        :param conference_record: Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+        :param conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+        :param conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+        :param conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_status_callback_event: The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
+        :param recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+        :param recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+        :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sip_auth_username: The SIP username used for authentication.
+        :param sip_auth_password: The SIP password for authentication.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+        :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param recording_status_callback_event: The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`.
+        :param conference_recording_status_callback_event: The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        :param jitter_buffer_size: Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant's audio is mixed into the conference. Can be: `off`, `small`, `medium`, and `large`. Default to `large`.
+        :param byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
+        :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
+        :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
+        :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+        :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
+        :param machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
+        :param machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
+        :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
+        :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
+        :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 
         :returns: The created ParticipantInstance
         """
@@ -695,102 +697,104 @@ class ParticipantList(ListResource):
 
     async def create_async(
         self,
-        from_,
-        to,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        status_callback_event=values.unset,
-        label=values.unset,
-        timeout=values.unset,
-        record=values.unset,
-        muted=values.unset,
-        beep=values.unset,
-        start_conference_on_enter=values.unset,
-        end_conference_on_exit=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        early_media=values.unset,
-        max_participants=values.unset,
-        conference_record=values.unset,
-        conference_trim=values.unset,
-        conference_status_callback=values.unset,
-        conference_status_callback_method=values.unset,
-        conference_status_callback_event=values.unset,
-        recording_channels=values.unset,
-        recording_status_callback=values.unset,
-        recording_status_callback_method=values.unset,
-        sip_auth_username=values.unset,
-        sip_auth_password=values.unset,
-        region=values.unset,
-        conference_recording_status_callback=values.unset,
-        conference_recording_status_callback_method=values.unset,
-        recording_status_callback_event=values.unset,
-        conference_recording_status_callback_event=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
-        jitter_buffer_size=values.unset,
-        byoc=values.unset,
-        caller_id=values.unset,
-        call_reason=values.unset,
-        recording_track=values.unset,
-        time_limit=values.unset,
-        machine_detection=values.unset,
-        machine_detection_timeout=values.unset,
-        machine_detection_speech_threshold=values.unset,
-        machine_detection_speech_end_threshold=values.unset,
-        machine_detection_silence_timeout=values.unset,
-        amd_status_callback=values.unset,
-        amd_status_callback_method=values.unset,
+        from_: str,
+        to: str,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        label: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[List[str], object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        conference_recording_status_callback_event: Union[
+            List[str], object
+        ] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        amd_status_callback: Union[str, object] = values.unset,
+        amd_status_callback_method: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Asynchronously create the ParticipantInstance
 
-        :param str from_: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
-        :param str to: The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
-        :param List[str] status_callback_event: The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`.
-        :param str label: A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant.
-        :param int timeout: The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
-        :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
-        :param bool muted: Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`.
-        :param str beep: Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
-        :param bool start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param str wait_url: The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
-        :param int max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
-        :param str conference_record: Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
-        :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
-        :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
-        :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param List[str] conference_status_callback_event: The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
-        :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
-        :param str recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
-        :param str recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str sip_auth_username: The SIP username used for authentication.
-        :param str sip_auth_password: The SIP password for authentication.
-        :param str region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
-        :param str conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
-        :param str conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param List[str] recording_status_callback_event: The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`.
-        :param List[str] conference_recording_status_callback_event: The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-        :param str jitter_buffer_size: Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant's audio is mixed into the conference. Can be: `off`, `small`, `medium`, and `large`. Default to `large`.
-        :param str byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
-        :param str caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
-        :param str call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
-        :param str recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
-        :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
-        :param str machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
-        :param int machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
-        :param int machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
-        :param int machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
-        :param int machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
-        :param str amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
-        :param str amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param from_: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
+        :param to: The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
+        :param status_callback_event: The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`.
+        :param label: A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant.
+        :param timeout: The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
+        :param record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
+        :param muted: Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`.
+        :param beep: Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+        :param start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param wait_url: The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
+        :param max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+        :param conference_record: Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+        :param conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+        :param conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+        :param conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_status_callback_event: The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
+        :param recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+        :param recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+        :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sip_auth_username: The SIP username used for authentication.
+        :param sip_auth_password: The SIP password for authentication.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+        :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param recording_status_callback_event: The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`.
+        :param conference_recording_status_callback_event: The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        :param jitter_buffer_size: Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant's audio is mixed into the conference. Can be: `off`, `small`, `medium`, and `large`. Default to `large`.
+        :param byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
+        :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
+        :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
+        :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+        :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
+        :param machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
+        :param machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
+        :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
+        :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
+        :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 
         :returns: The created ParticipantInstance
         """
@@ -868,11 +872,11 @@ class ParticipantList(ListResource):
 
     def stream(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        coaching=values.unset,
-        limit=None,
-        page_size=None,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
         """
         Streams ParticipantInstance records from the API as a generator stream.
@@ -883,12 +887,12 @@ class ParticipantList(ListResource):
         :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
         :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
         :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -901,11 +905,11 @@ class ParticipantList(ListResource):
 
     async def stream_async(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        coaching=values.unset,
-        limit=None,
-        page_size=None,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
         """
         Asynchronously streams ParticipantInstance records from the API as a generator stream.
@@ -916,12 +920,12 @@ class ParticipantList(ListResource):
         :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
         :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
         :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -934,11 +938,11 @@ class ParticipantList(ListResource):
 
     def list(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        coaching=values.unset,
-        limit=None,
-        page_size=None,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
         """
         Lists ParticipantInstance records from the API as a list.
@@ -948,12 +952,12 @@ class ParticipantList(ListResource):
         :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
         :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
         :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -969,11 +973,11 @@ class ParticipantList(ListResource):
 
     async def list_async(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        coaching=values.unset,
-        limit=None,
-        page_size=None,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
         """
         Asynchronously lists ParticipantInstance records from the API as a list.
@@ -983,12 +987,12 @@ class ParticipantList(ListResource):
         :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
         :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
         :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -1004,23 +1008,23 @@ class ParticipantList(ListResource):
 
     def page(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        coaching=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ParticipantPage:
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
-        :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
-        :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param muted: Whether to return only participants that are muted. Can be: `true` or `false`.
+        :param hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
+        :param coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
         """
@@ -1040,23 +1044,23 @@ class ParticipantList(ListResource):
 
     async def page_async(
         self,
-        muted=values.unset,
-        hold=values.unset,
-        coaching=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ParticipantPage:
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
-        :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
-        :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param muted: Whether to return only participants that are muted. Can be: `true` or `false`.
+        :param hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
+        :param coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
         """
@@ -1076,31 +1080,31 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ParticipantPage:
+    def get_page(self, target_url: str) -> ParticipantPage:
         """
         Retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ParticipantPage:
+    async def get_page_async(self, target_url: str) -> ParticipantPage:
         """
         Asynchronously retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    def get(self, call_sid) -> ParticipantContext:
+    def get(self, call_sid: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
@@ -1113,7 +1117,7 @@ class ParticipantList(ListResource):
             call_sid=call_sid,
         )
 
-    def __call__(self, call_sid) -> ParticipantContext:
+    def __call__(self, call_sid: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -242,11 +242,11 @@ class UserBindingContext(InstanceContext):
 
 
 class UserBindingPage(Page):
-    def get_instance(self, payload) -> UserBindingInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> UserBindingInstance:
         """
         Build an instance of UserBindingInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return UserBindingInstance(
             self._version,
@@ -286,7 +286,12 @@ class UserBindingList(ListResource):
         )
 
     def stream(
-        self, binding_type=values.unset, limit=None, page_size=None
+        self,
+        binding_type: Union[
+            List["UserBindingInstance.BindingType"], object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UserBindingInstance]:
         """
         Streams UserBindingInstance records from the API as a generator stream.
@@ -295,12 +300,12 @@ class UserBindingList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -310,7 +315,12 @@ class UserBindingList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, binding_type=values.unset, limit=None, page_size=None
+        self,
+        binding_type: Union[
+            List["UserBindingInstance.BindingType"], object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UserBindingInstance]:
         """
         Asynchronously streams UserBindingInstance records from the API as a generator stream.
@@ -319,12 +329,12 @@ class UserBindingList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -336,7 +346,12 @@ class UserBindingList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, binding_type=values.unset, limit=None, page_size=None
+        self,
+        binding_type: Union[
+            List["UserBindingInstance.BindingType"], object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UserBindingInstance]:
         """
         Lists UserBindingInstance records from the API as a list.
@@ -344,12 +359,12 @@ class UserBindingList(ListResource):
         memory before returning.
 
         :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -362,7 +377,12 @@ class UserBindingList(ListResource):
         )
 
     async def list_async(
-        self, binding_type=values.unset, limit=None, page_size=None
+        self,
+        binding_type: Union[
+            List["UserBindingInstance.BindingType"], object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[UserBindingInstance]:
         """
         Asynchronously lists UserBindingInstance records from the API as a list.
@@ -370,12 +390,12 @@ class UserBindingList(ListResource):
         memory before returning.
 
         :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -389,19 +409,21 @@ class UserBindingList(ListResource):
 
     def page(
         self,
-        binding_type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        binding_type: Union[
+            List["UserBindingInstance.BindingType"], object
+        ] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> UserBindingPage:
         """
         Retrieve a single page of UserBindingInstance records from the API.
         Request is executed immediately
 
-        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param binding_type:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserBindingInstance
         """
@@ -419,19 +441,21 @@ class UserBindingList(ListResource):
 
     async def page_async(
         self,
-        binding_type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        binding_type: Union[
+            List["UserBindingInstance.BindingType"], object
+        ] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> UserBindingPage:
         """
         Asynchronously retrieve a single page of UserBindingInstance records from the API.
         Request is executed immediately
 
-        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param binding_type:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserBindingInstance
         """
@@ -449,31 +473,31 @@ class UserBindingList(ListResource):
         )
         return UserBindingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> UserBindingPage:
+    def get_page(self, target_url: str) -> UserBindingPage:
         """
         Retrieve a specific page of UserBindingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of UserBindingInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UserBindingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> UserBindingPage:
+    async def get_page_async(self, target_url: str) -> UserBindingPage:
         """
         Asynchronously retrieve a specific page of UserBindingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of UserBindingInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return UserBindingPage(self._version, response, self._solution)
 
-    def get(self, sid) -> UserBindingContext:
+    def get(self, sid: str) -> UserBindingContext:
         """
         Constructs a UserBindingContext
 
@@ -486,7 +510,7 @@ class UserBindingList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> UserBindingContext:
+    def __call__(self, sid: str) -> UserBindingContext:
         """
         Constructs a UserBindingContext
 

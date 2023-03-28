@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -114,38 +114,40 @@ class NewFactorList(ListResource):
 
     def create(
         self,
-        friendly_name,
-        factor_type,
-        binding_alg=values.unset,
-        binding_public_key=values.unset,
-        config_app_id=values.unset,
-        config_notification_platform=values.unset,
-        config_notification_token=values.unset,
-        config_sdk_version=values.unset,
-        binding_secret=values.unset,
-        config_time_step=values.unset,
-        config_skew=values.unset,
-        config_code_length=values.unset,
-        config_alg=values.unset,
-        metadata=values.unset,
+        friendly_name: str,
+        factor_type: "NewFactorInstance.FactorTypes",
+        binding_alg: Union[str, object] = values.unset,
+        binding_public_key: Union[str, object] = values.unset,
+        config_app_id: Union[str, object] = values.unset,
+        config_notification_platform: Union[
+            "NewFactorInstance.NotificationPlatforms", object
+        ] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        binding_secret: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["NewFactorInstance.TotpAlgorithms", object] = values.unset,
+        metadata: Union[object, object] = values.unset,
     ) -> NewFactorInstance:
         """
         Create the NewFactorInstance
 
-        :param str friendly_name: The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
-        :param &quot;NewFactorInstance.FactorTypes&quot; factor_type:
-        :param str binding_alg: The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`
-        :param str binding_public_key: The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when `factor_type` is `push`
-        :param str config_app_id: The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. It can be up to 100 characters long.  Required when `factor_type` is `push`.
-        :param &quot;NewFactorInstance.NotificationPlatforms&quot; config_notification_platform:
-        :param str config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
-        :param str config_sdk_version: The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
-        :param str binding_secret: The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when `factor_type` is `totp`
-        :param int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property `totp.time_step`. Defaults to 30 seconds if not configured.  Used when `factor_type` is `totp`
-        :param int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
-        :param int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
-        :param &quot;NewFactorInstance.TotpAlgorithms&quot; config_alg:
-        :param object metadata: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+        :param friendly_name: The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
+        :param factor_type:
+        :param binding_alg: The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`
+        :param binding_public_key: The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when `factor_type` is `push`
+        :param config_app_id: The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. It can be up to 100 characters long.  Required when `factor_type` is `push`.
+        :param config_notification_platform:
+        :param config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
+        :param config_sdk_version: The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
+        :param binding_secret: The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when `factor_type` is `totp`
+        :param config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property `totp.time_step`. Defaults to 30 seconds if not configured.  Used when `factor_type` is `totp`
+        :param config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
+        :param config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
+        :param config_alg:
+        :param metadata: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The created NewFactorInstance
         """
@@ -183,38 +185,40 @@ class NewFactorList(ListResource):
 
     async def create_async(
         self,
-        friendly_name,
-        factor_type,
-        binding_alg=values.unset,
-        binding_public_key=values.unset,
-        config_app_id=values.unset,
-        config_notification_platform=values.unset,
-        config_notification_token=values.unset,
-        config_sdk_version=values.unset,
-        binding_secret=values.unset,
-        config_time_step=values.unset,
-        config_skew=values.unset,
-        config_code_length=values.unset,
-        config_alg=values.unset,
-        metadata=values.unset,
+        friendly_name: str,
+        factor_type: "NewFactorInstance.FactorTypes",
+        binding_alg: Union[str, object] = values.unset,
+        binding_public_key: Union[str, object] = values.unset,
+        config_app_id: Union[str, object] = values.unset,
+        config_notification_platform: Union[
+            "NewFactorInstance.NotificationPlatforms", object
+        ] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        binding_secret: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["NewFactorInstance.TotpAlgorithms", object] = values.unset,
+        metadata: Union[object, object] = values.unset,
     ) -> NewFactorInstance:
         """
         Asynchronously create the NewFactorInstance
 
-        :param str friendly_name: The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
-        :param &quot;NewFactorInstance.FactorTypes&quot; factor_type:
-        :param str binding_alg: The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`
-        :param str binding_public_key: The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when `factor_type` is `push`
-        :param str config_app_id: The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. It can be up to 100 characters long.  Required when `factor_type` is `push`.
-        :param &quot;NewFactorInstance.NotificationPlatforms&quot; config_notification_platform:
-        :param str config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
-        :param str config_sdk_version: The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
-        :param str binding_secret: The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when `factor_type` is `totp`
-        :param int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property `totp.time_step`. Defaults to 30 seconds if not configured.  Used when `factor_type` is `totp`
-        :param int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
-        :param int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
-        :param &quot;NewFactorInstance.TotpAlgorithms&quot; config_alg:
-        :param object metadata: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+        :param friendly_name: The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
+        :param factor_type:
+        :param binding_alg: The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`
+        :param binding_public_key: The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when `factor_type` is `push`
+        :param config_app_id: The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. It can be up to 100 characters long.  Required when `factor_type` is `push`.
+        :param config_notification_platform:
+        :param config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
+        :param config_sdk_version: The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
+        :param binding_secret: The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when `factor_type` is `totp`
+        :param config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property `totp.time_step`. Defaults to 30 seconds if not configured.  Used when `factor_type` is `totp`
+        :param config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
+        :param config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
+        :param config_alg:
+        :param metadata: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The created NewFactorInstance
         """

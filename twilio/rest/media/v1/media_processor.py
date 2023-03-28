@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -112,11 +112,13 @@ class MediaProcessorInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status) -> "MediaProcessorInstance":
+    def update(
+        self, status: "MediaProcessorInstance.UpdateStatus"
+    ) -> "MediaProcessorInstance":
         """
         Update the MediaProcessorInstance
 
-        :param "MediaProcessorInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated MediaProcessorInstance
         """
@@ -124,11 +126,13 @@ class MediaProcessorInstance(InstanceResource):
             status=status,
         )
 
-    async def update_async(self, status) -> "MediaProcessorInstance":
+    async def update_async(
+        self, status: "MediaProcessorInstance.UpdateStatus"
+    ) -> "MediaProcessorInstance":
         """
         Asynchronous coroutine to update the MediaProcessorInstance
 
-        :param "MediaProcessorInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated MediaProcessorInstance
         """
@@ -200,11 +204,13 @@ class MediaProcessorContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status) -> MediaProcessorInstance:
+    def update(
+        self, status: "MediaProcessorInstance.UpdateStatus"
+    ) -> MediaProcessorInstance:
         """
         Update the MediaProcessorInstance
 
-        :param "MediaProcessorInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated MediaProcessorInstance
         """
@@ -222,11 +228,13 @@ class MediaProcessorContext(InstanceContext):
 
         return MediaProcessorInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, status) -> MediaProcessorInstance:
+    async def update_async(
+        self, status: "MediaProcessorInstance.UpdateStatus"
+    ) -> MediaProcessorInstance:
         """
         Asynchronous coroutine to update the MediaProcessorInstance
 
-        :param "MediaProcessorInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated MediaProcessorInstance
         """
@@ -255,11 +263,11 @@ class MediaProcessorContext(InstanceContext):
 
 
 class MediaProcessorPage(Page):
-    def get_instance(self, payload) -> MediaProcessorInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> MediaProcessorInstance:
         """
         Build an instance of MediaProcessorInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return MediaProcessorInstance(self._version, payload)
 
@@ -286,22 +294,22 @@ class MediaProcessorList(ListResource):
 
     def create(
         self,
-        extension,
-        extension_context,
-        extension_environment=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        max_duration=values.unset,
+        extension: str,
+        extension_context: str,
+        extension_environment: Union[object, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_duration: Union[int, object] = values.unset,
     ) -> MediaProcessorInstance:
         """
         Create the MediaProcessorInstance
 
-        :param str extension: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
-        :param str extension_context: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
-        :param object extension_environment: User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
-        :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
-        :param str status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
-        :param int max_duration: The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
+        :param extension: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
+        :param extension_context: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
+        :param extension_environment: User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
+        :param status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
+        :param status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+        :param max_duration: The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
 
         :returns: The created MediaProcessorInstance
         """
@@ -326,22 +334,22 @@ class MediaProcessorList(ListResource):
 
     async def create_async(
         self,
-        extension,
-        extension_context,
-        extension_environment=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        max_duration=values.unset,
+        extension: str,
+        extension_context: str,
+        extension_environment: Union[object, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_duration: Union[int, object] = values.unset,
     ) -> MediaProcessorInstance:
         """
         Asynchronously create the MediaProcessorInstance
 
-        :param str extension: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
-        :param str extension_context: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
-        :param object extension_environment: User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
-        :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
-        :param str status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
-        :param int max_duration: The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
+        :param extension: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
+        :param extension_context: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
+        :param extension_environment: User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
+        :param status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
+        :param status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+        :param max_duration: The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
 
         :returns: The created MediaProcessorInstance
         """
@@ -365,7 +373,11 @@ class MediaProcessorList(ListResource):
         return MediaProcessorInstance(self._version, payload)
 
     def stream(
-        self, order=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        order: Union["MediaProcessorInstance.Order", object] = values.unset,
+        status: Union["MediaProcessorInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MediaProcessorInstance]:
         """
         Streams MediaProcessorInstance records from the API as a generator stream.
@@ -375,12 +387,12 @@ class MediaProcessorList(ListResource):
 
         :param &quot;MediaProcessorInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param &quot;MediaProcessorInstance.Status&quot; status: Status to filter by, with possible values `started`, `ended` or `failed`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -390,7 +402,11 @@ class MediaProcessorList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, order=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        order: Union["MediaProcessorInstance.Order", object] = values.unset,
+        status: Union["MediaProcessorInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MediaProcessorInstance]:
         """
         Asynchronously streams MediaProcessorInstance records from the API as a generator stream.
@@ -400,12 +416,12 @@ class MediaProcessorList(ListResource):
 
         :param &quot;MediaProcessorInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param &quot;MediaProcessorInstance.Status&quot; status: Status to filter by, with possible values `started`, `ended` or `failed`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -417,7 +433,11 @@ class MediaProcessorList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, order=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        order: Union["MediaProcessorInstance.Order", object] = values.unset,
+        status: Union["MediaProcessorInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MediaProcessorInstance]:
         """
         Lists MediaProcessorInstance records from the API as a list.
@@ -426,12 +446,12 @@ class MediaProcessorList(ListResource):
 
         :param &quot;MediaProcessorInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param &quot;MediaProcessorInstance.Status&quot; status: Status to filter by, with possible values `started`, `ended` or `failed`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -445,7 +465,11 @@ class MediaProcessorList(ListResource):
         )
 
     async def list_async(
-        self, order=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        order: Union["MediaProcessorInstance.Order", object] = values.unset,
+        status: Union["MediaProcessorInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MediaProcessorInstance]:
         """
         Asynchronously lists MediaProcessorInstance records from the API as a list.
@@ -454,12 +478,12 @@ class MediaProcessorList(ListResource):
 
         :param &quot;MediaProcessorInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param &quot;MediaProcessorInstance.Status&quot; status: Status to filter by, with possible values `started`, `ended` or `failed`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -474,21 +498,21 @@ class MediaProcessorList(ListResource):
 
     def page(
         self,
-        order=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["MediaProcessorInstance.Order", object] = values.unset,
+        status: Union["MediaProcessorInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> MediaProcessorPage:
         """
         Retrieve a single page of MediaProcessorInstance records from the API.
         Request is executed immediately
 
-        :param &quot;MediaProcessorInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param &quot;MediaProcessorInstance.Status&quot; status: Status to filter by, with possible values `started`, `ended` or `failed`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param status: Status to filter by, with possible values `started`, `ended` or `failed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MediaProcessorInstance
         """
@@ -507,21 +531,21 @@ class MediaProcessorList(ListResource):
 
     async def page_async(
         self,
-        order=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["MediaProcessorInstance.Order", object] = values.unset,
+        status: Union["MediaProcessorInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> MediaProcessorPage:
         """
         Asynchronously retrieve a single page of MediaProcessorInstance records from the API.
         Request is executed immediately
 
-        :param &quot;MediaProcessorInstance.Order&quot; order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param &quot;MediaProcessorInstance.Status&quot; status: Status to filter by, with possible values `started`, `ended` or `failed`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param status: Status to filter by, with possible values `started`, `ended` or `failed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MediaProcessorInstance
         """
@@ -540,31 +564,31 @@ class MediaProcessorList(ListResource):
         )
         return MediaProcessorPage(self._version, response)
 
-    def get_page(self, target_url) -> MediaProcessorPage:
+    def get_page(self, target_url: str) -> MediaProcessorPage:
         """
         Retrieve a specific page of MediaProcessorInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MediaProcessorInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MediaProcessorPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> MediaProcessorPage:
+    async def get_page_async(self, target_url: str) -> MediaProcessorPage:
         """
         Asynchronously retrieve a specific page of MediaProcessorInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MediaProcessorInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return MediaProcessorPage(self._version, response)
 
-    def get(self, sid) -> MediaProcessorContext:
+    def get(self, sid: str) -> MediaProcessorContext:
         """
         Constructs a MediaProcessorContext
 
@@ -572,7 +596,7 @@ class MediaProcessorList(ListResource):
         """
         return MediaProcessorContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> MediaProcessorContext:
+    def __call__(self, sid: str) -> MediaProcessorContext:
         """
         Constructs a MediaProcessorContext
 

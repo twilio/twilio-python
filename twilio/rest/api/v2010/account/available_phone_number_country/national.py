@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -79,11 +79,11 @@ class NationalInstance(InstanceResource):
 
 
 class NationalPage(Page):
-    def get_instance(self, payload) -> NationalInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> NationalInstance:
         """
         Build an instance of NationalInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return NationalInstance(
             self._version,
@@ -124,26 +124,26 @@ class NationalList(ListResource):
 
     def stream(
         self,
-        area_code=values.unset,
-        contains=values.unset,
-        sms_enabled=values.unset,
-        mms_enabled=values.unset,
-        voice_enabled=values.unset,
-        exclude_all_address_required=values.unset,
-        exclude_local_address_required=values.unset,
-        exclude_foreign_address_required=values.unset,
-        beta=values.unset,
-        near_number=values.unset,
-        near_lat_long=values.unset,
-        distance=values.unset,
-        in_postal_code=values.unset,
-        in_region=values.unset,
-        in_rate_center=values.unset,
-        in_lata=values.unset,
-        in_locality=values.unset,
-        fax_enabled=values.unset,
-        limit=None,
-        page_size=None,
+        area_code: Union[int, object] = values.unset,
+        contains: Union[str, object] = values.unset,
+        sms_enabled: Union[bool, object] = values.unset,
+        mms_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        exclude_all_address_required: Union[bool, object] = values.unset,
+        exclude_local_address_required: Union[bool, object] = values.unset,
+        exclude_foreign_address_required: Union[bool, object] = values.unset,
+        beta: Union[bool, object] = values.unset,
+        near_number: Union[str, object] = values.unset,
+        near_lat_long: Union[str, object] = values.unset,
+        distance: Union[int, object] = values.unset,
+        in_postal_code: Union[str, object] = values.unset,
+        in_region: Union[str, object] = values.unset,
+        in_rate_center: Union[str, object] = values.unset,
+        in_lata: Union[str, object] = values.unset,
+        in_locality: Union[str, object] = values.unset,
+        fax_enabled: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NationalInstance]:
         """
         Streams NationalInstance records from the API as a generator stream.
@@ -169,12 +169,12 @@ class NationalList(ListResource):
         :param str in_lata: Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
         :param str in_locality: Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
         :param bool fax_enabled: Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -205,26 +205,26 @@ class NationalList(ListResource):
 
     async def stream_async(
         self,
-        area_code=values.unset,
-        contains=values.unset,
-        sms_enabled=values.unset,
-        mms_enabled=values.unset,
-        voice_enabled=values.unset,
-        exclude_all_address_required=values.unset,
-        exclude_local_address_required=values.unset,
-        exclude_foreign_address_required=values.unset,
-        beta=values.unset,
-        near_number=values.unset,
-        near_lat_long=values.unset,
-        distance=values.unset,
-        in_postal_code=values.unset,
-        in_region=values.unset,
-        in_rate_center=values.unset,
-        in_lata=values.unset,
-        in_locality=values.unset,
-        fax_enabled=values.unset,
-        limit=None,
-        page_size=None,
+        area_code: Union[int, object] = values.unset,
+        contains: Union[str, object] = values.unset,
+        sms_enabled: Union[bool, object] = values.unset,
+        mms_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        exclude_all_address_required: Union[bool, object] = values.unset,
+        exclude_local_address_required: Union[bool, object] = values.unset,
+        exclude_foreign_address_required: Union[bool, object] = values.unset,
+        beta: Union[bool, object] = values.unset,
+        near_number: Union[str, object] = values.unset,
+        near_lat_long: Union[str, object] = values.unset,
+        distance: Union[int, object] = values.unset,
+        in_postal_code: Union[str, object] = values.unset,
+        in_region: Union[str, object] = values.unset,
+        in_rate_center: Union[str, object] = values.unset,
+        in_lata: Union[str, object] = values.unset,
+        in_locality: Union[str, object] = values.unset,
+        fax_enabled: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NationalInstance]:
         """
         Asynchronously streams NationalInstance records from the API as a generator stream.
@@ -250,12 +250,12 @@ class NationalList(ListResource):
         :param str in_lata: Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
         :param str in_locality: Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
         :param bool fax_enabled: Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -286,26 +286,26 @@ class NationalList(ListResource):
 
     def list(
         self,
-        area_code=values.unset,
-        contains=values.unset,
-        sms_enabled=values.unset,
-        mms_enabled=values.unset,
-        voice_enabled=values.unset,
-        exclude_all_address_required=values.unset,
-        exclude_local_address_required=values.unset,
-        exclude_foreign_address_required=values.unset,
-        beta=values.unset,
-        near_number=values.unset,
-        near_lat_long=values.unset,
-        distance=values.unset,
-        in_postal_code=values.unset,
-        in_region=values.unset,
-        in_rate_center=values.unset,
-        in_lata=values.unset,
-        in_locality=values.unset,
-        fax_enabled=values.unset,
-        limit=None,
-        page_size=None,
+        area_code: Union[int, object] = values.unset,
+        contains: Union[str, object] = values.unset,
+        sms_enabled: Union[bool, object] = values.unset,
+        mms_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        exclude_all_address_required: Union[bool, object] = values.unset,
+        exclude_local_address_required: Union[bool, object] = values.unset,
+        exclude_foreign_address_required: Union[bool, object] = values.unset,
+        beta: Union[bool, object] = values.unset,
+        near_number: Union[str, object] = values.unset,
+        near_lat_long: Union[str, object] = values.unset,
+        distance: Union[int, object] = values.unset,
+        in_postal_code: Union[str, object] = values.unset,
+        in_region: Union[str, object] = values.unset,
+        in_rate_center: Union[str, object] = values.unset,
+        in_lata: Union[str, object] = values.unset,
+        in_locality: Union[str, object] = values.unset,
+        fax_enabled: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NationalInstance]:
         """
         Lists NationalInstance records from the API as a list.
@@ -330,12 +330,12 @@ class NationalList(ListResource):
         :param str in_lata: Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
         :param str in_locality: Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
         :param bool fax_enabled: Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -366,26 +366,26 @@ class NationalList(ListResource):
 
     async def list_async(
         self,
-        area_code=values.unset,
-        contains=values.unset,
-        sms_enabled=values.unset,
-        mms_enabled=values.unset,
-        voice_enabled=values.unset,
-        exclude_all_address_required=values.unset,
-        exclude_local_address_required=values.unset,
-        exclude_foreign_address_required=values.unset,
-        beta=values.unset,
-        near_number=values.unset,
-        near_lat_long=values.unset,
-        distance=values.unset,
-        in_postal_code=values.unset,
-        in_region=values.unset,
-        in_rate_center=values.unset,
-        in_lata=values.unset,
-        in_locality=values.unset,
-        fax_enabled=values.unset,
-        limit=None,
-        page_size=None,
+        area_code: Union[int, object] = values.unset,
+        contains: Union[str, object] = values.unset,
+        sms_enabled: Union[bool, object] = values.unset,
+        mms_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        exclude_all_address_required: Union[bool, object] = values.unset,
+        exclude_local_address_required: Union[bool, object] = values.unset,
+        exclude_foreign_address_required: Union[bool, object] = values.unset,
+        beta: Union[bool, object] = values.unset,
+        near_number: Union[str, object] = values.unset,
+        near_lat_long: Union[str, object] = values.unset,
+        distance: Union[int, object] = values.unset,
+        in_postal_code: Union[str, object] = values.unset,
+        in_region: Union[str, object] = values.unset,
+        in_rate_center: Union[str, object] = values.unset,
+        in_lata: Union[str, object] = values.unset,
+        in_locality: Union[str, object] = values.unset,
+        fax_enabled: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NationalInstance]:
         """
         Asynchronously lists NationalInstance records from the API as a list.
@@ -410,12 +410,12 @@ class NationalList(ListResource):
         :param str in_lata: Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
         :param str in_locality: Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
         :param bool fax_enabled: Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -446,53 +446,53 @@ class NationalList(ListResource):
 
     def page(
         self,
-        area_code=values.unset,
-        contains=values.unset,
-        sms_enabled=values.unset,
-        mms_enabled=values.unset,
-        voice_enabled=values.unset,
-        exclude_all_address_required=values.unset,
-        exclude_local_address_required=values.unset,
-        exclude_foreign_address_required=values.unset,
-        beta=values.unset,
-        near_number=values.unset,
-        near_lat_long=values.unset,
-        distance=values.unset,
-        in_postal_code=values.unset,
-        in_region=values.unset,
-        in_rate_center=values.unset,
-        in_lata=values.unset,
-        in_locality=values.unset,
-        fax_enabled=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        area_code: Union[int, object] = values.unset,
+        contains: Union[str, object] = values.unset,
+        sms_enabled: Union[bool, object] = values.unset,
+        mms_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        exclude_all_address_required: Union[bool, object] = values.unset,
+        exclude_local_address_required: Union[bool, object] = values.unset,
+        exclude_foreign_address_required: Union[bool, object] = values.unset,
+        beta: Union[bool, object] = values.unset,
+        near_number: Union[str, object] = values.unset,
+        near_lat_long: Union[str, object] = values.unset,
+        distance: Union[int, object] = values.unset,
+        in_postal_code: Union[str, object] = values.unset,
+        in_region: Union[str, object] = values.unset,
+        in_rate_center: Union[str, object] = values.unset,
+        in_lata: Union[str, object] = values.unset,
+        in_locality: Union[str, object] = values.unset,
+        fax_enabled: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> NationalPage:
         """
         Retrieve a single page of NationalInstance records from the API.
         Request is executed immediately
 
-        :param int area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-        :param str contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
-        :param bool sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
-        :param bool mms_enabled: Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
-        :param bool voice_enabled: Whether the phone numbers can receive calls. Can be: `true` or `false`.
-        :param bool exclude_all_address_required: Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-        :param bool exclude_local_address_required: Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-        :param bool exclude_foreign_address_required: Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-        :param bool beta: Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-        :param str near_number: Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
-        :param str near_lat_long: Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
-        :param int distance: The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-        :param str in_postal_code: Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
-        :param str in_region: Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
-        :param str in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
-        :param str in_lata: Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
-        :param str in_locality: Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
-        :param bool fax_enabled: Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
+        :param contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
+        :param sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
+        :param mms_enabled: Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
+        :param voice_enabled: Whether the phone numbers can receive calls. Can be: `true` or `false`.
+        :param exclude_all_address_required: Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+        :param exclude_local_address_required: Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+        :param exclude_foreign_address_required: Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+        :param beta: Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param near_number: Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
+        :param near_lat_long: Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
+        :param distance: The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
+        :param in_postal_code: Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
+        :param in_region: Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
+        :param in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
+        :param in_lata: Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
+        :param in_locality: Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
+        :param fax_enabled: Whether the phone numbers can receive faxes. Can be: `true` or `false`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of NationalInstance
         """
@@ -527,53 +527,53 @@ class NationalList(ListResource):
 
     async def page_async(
         self,
-        area_code=values.unset,
-        contains=values.unset,
-        sms_enabled=values.unset,
-        mms_enabled=values.unset,
-        voice_enabled=values.unset,
-        exclude_all_address_required=values.unset,
-        exclude_local_address_required=values.unset,
-        exclude_foreign_address_required=values.unset,
-        beta=values.unset,
-        near_number=values.unset,
-        near_lat_long=values.unset,
-        distance=values.unset,
-        in_postal_code=values.unset,
-        in_region=values.unset,
-        in_rate_center=values.unset,
-        in_lata=values.unset,
-        in_locality=values.unset,
-        fax_enabled=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        area_code: Union[int, object] = values.unset,
+        contains: Union[str, object] = values.unset,
+        sms_enabled: Union[bool, object] = values.unset,
+        mms_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        exclude_all_address_required: Union[bool, object] = values.unset,
+        exclude_local_address_required: Union[bool, object] = values.unset,
+        exclude_foreign_address_required: Union[bool, object] = values.unset,
+        beta: Union[bool, object] = values.unset,
+        near_number: Union[str, object] = values.unset,
+        near_lat_long: Union[str, object] = values.unset,
+        distance: Union[int, object] = values.unset,
+        in_postal_code: Union[str, object] = values.unset,
+        in_region: Union[str, object] = values.unset,
+        in_rate_center: Union[str, object] = values.unset,
+        in_lata: Union[str, object] = values.unset,
+        in_locality: Union[str, object] = values.unset,
+        fax_enabled: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> NationalPage:
         """
         Asynchronously retrieve a single page of NationalInstance records from the API.
         Request is executed immediately
 
-        :param int area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-        :param str contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
-        :param bool sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
-        :param bool mms_enabled: Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
-        :param bool voice_enabled: Whether the phone numbers can receive calls. Can be: `true` or `false`.
-        :param bool exclude_all_address_required: Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-        :param bool exclude_local_address_required: Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-        :param bool exclude_foreign_address_required: Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-        :param bool beta: Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-        :param str near_number: Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
-        :param str near_lat_long: Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
-        :param int distance: The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-        :param str in_postal_code: Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
-        :param str in_region: Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
-        :param str in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
-        :param str in_lata: Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
-        :param str in_locality: Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
-        :param bool fax_enabled: Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
+        :param contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
+        :param sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
+        :param mms_enabled: Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
+        :param voice_enabled: Whether the phone numbers can receive calls. Can be: `true` or `false`.
+        :param exclude_all_address_required: Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+        :param exclude_local_address_required: Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+        :param exclude_foreign_address_required: Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+        :param beta: Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param near_number: Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
+        :param near_lat_long: Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
+        :param distance: The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
+        :param in_postal_code: Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
+        :param in_region: Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
+        :param in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
+        :param in_lata: Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
+        :param in_locality: Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
+        :param fax_enabled: Whether the phone numbers can receive faxes. Can be: `true` or `false`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of NationalInstance
         """
@@ -608,24 +608,24 @@ class NationalList(ListResource):
         )
         return NationalPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> NationalPage:
+    def get_page(self, target_url: str) -> NationalPage:
         """
         Retrieve a specific page of NationalInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of NationalInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return NationalPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> NationalPage:
+    async def get_page_async(self, target_url: str) -> NationalPage:
         """
         Asynchronously retrieve a specific page of NationalInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of NationalInstance
         """

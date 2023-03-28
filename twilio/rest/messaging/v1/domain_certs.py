@@ -116,11 +116,11 @@ class DomainCertsInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, tls_cert) -> "DomainCertsInstance":
+    def update(self, tls_cert: str) -> "DomainCertsInstance":
         """
         Update the DomainCertsInstance
 
-        :param str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
+        :param tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
 
         :returns: The updated DomainCertsInstance
         """
@@ -128,11 +128,11 @@ class DomainCertsInstance(InstanceResource):
             tls_cert=tls_cert,
         )
 
-    async def update_async(self, tls_cert) -> "DomainCertsInstance":
+    async def update_async(self, tls_cert: str) -> "DomainCertsInstance":
         """
         Asynchronous coroutine to update the DomainCertsInstance
 
-        :param str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
+        :param tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
 
         :returns: The updated DomainCertsInstance
         """
@@ -230,11 +230,11 @@ class DomainCertsContext(InstanceContext):
             domain_sid=self._solution["domain_sid"],
         )
 
-    def update(self, tls_cert) -> DomainCertsInstance:
+    def update(self, tls_cert: str) -> DomainCertsInstance:
         """
         Update the DomainCertsInstance
 
-        :param str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
+        :param tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
 
         :returns: The updated DomainCertsInstance
         """
@@ -254,11 +254,11 @@ class DomainCertsContext(InstanceContext):
             self._version, payload, domain_sid=self._solution["domain_sid"]
         )
 
-    async def update_async(self, tls_cert) -> DomainCertsInstance:
+    async def update_async(self, tls_cert: str) -> DomainCertsInstance:
         """
         Asynchronous coroutine to update the DomainCertsInstance
 
-        :param str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
+        :param tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
 
         :returns: The updated DomainCertsInstance
         """
@@ -298,7 +298,7 @@ class DomainCertsList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, domain_sid) -> DomainCertsContext:
+    def get(self, domain_sid: str) -> DomainCertsContext:
         """
         Constructs a DomainCertsContext
 
@@ -306,7 +306,7 @@ class DomainCertsList(ListResource):
         """
         return DomainCertsContext(self._version, domain_sid=domain_sid)
 
-    def __call__(self, domain_sid) -> DomainCertsContext:
+    def __call__(self, domain_sid: str) -> DomainCertsContext:
         """
         Constructs a DomainCertsContext
 

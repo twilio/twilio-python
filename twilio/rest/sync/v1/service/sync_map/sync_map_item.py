@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -98,11 +98,11 @@ class SyncMapItemInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, if_match=values.unset) -> bool:
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the SyncMapItemInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -110,11 +110,11 @@ class SyncMapItemInstance(InstanceResource):
             if_match=if_match,
         )
 
-    async def delete_async(self, if_match=values.unset) -> bool:
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the SyncMapItemInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -142,20 +142,20 @@ class SyncMapItemInstance(InstanceResource):
 
     def update(
         self,
-        if_match=values.unset,
-        data=values.unset,
-        ttl=values.unset,
-        item_ttl=values.unset,
-        collection_ttl=values.unset,
+        if_match: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+        item_ttl: Union[int, object] = values.unset,
+        collection_ttl: Union[int, object] = values.unset,
     ) -> "SyncMapItemInstance":
         """
         Update the SyncMapItemInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
+        :param if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 
         :returns: The updated SyncMapItemInstance
         """
@@ -169,20 +169,20 @@ class SyncMapItemInstance(InstanceResource):
 
     async def update_async(
         self,
-        if_match=values.unset,
-        data=values.unset,
-        ttl=values.unset,
-        item_ttl=values.unset,
-        collection_ttl=values.unset,
+        if_match: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+        item_ttl: Union[int, object] = values.unset,
+        collection_ttl: Union[int, object] = values.unset,
     ) -> "SyncMapItemInstance":
         """
         Asynchronous coroutine to update the SyncMapItemInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
+        :param if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 
         :returns: The updated SyncMapItemInstance
         """
@@ -226,11 +226,11 @@ class SyncMapItemContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self, if_match=values.unset) -> bool:
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the SyncMapItemInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -242,11 +242,11 @@ class SyncMapItemContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, if_match=values.unset) -> bool:
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the SyncMapItemInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -304,20 +304,20 @@ class SyncMapItemContext(InstanceContext):
 
     def update(
         self,
-        if_match=values.unset,
-        data=values.unset,
-        ttl=values.unset,
-        item_ttl=values.unset,
-        collection_ttl=values.unset,
+        if_match: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+        item_ttl: Union[int, object] = values.unset,
+        collection_ttl: Union[int, object] = values.unset,
     ) -> SyncMapItemInstance:
         """
         Update the SyncMapItemInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
+        :param if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 
         :returns: The updated SyncMapItemInstance
         """
@@ -349,20 +349,20 @@ class SyncMapItemContext(InstanceContext):
 
     async def update_async(
         self,
-        if_match=values.unset,
-        data=values.unset,
-        ttl=values.unset,
-        item_ttl=values.unset,
-        collection_ttl=values.unset,
+        if_match: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+        item_ttl: Union[int, object] = values.unset,
+        collection_ttl: Union[int, object] = values.unset,
     ) -> SyncMapItemInstance:
         """
         Asynchronous coroutine to update the SyncMapItemInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
+        :param if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 
         :returns: The updated SyncMapItemInstance
         """
@@ -403,11 +403,11 @@ class SyncMapItemContext(InstanceContext):
 
 
 class SyncMapItemPage(Page):
-    def get_instance(self, payload) -> SyncMapItemInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SyncMapItemInstance:
         """
         Build an instance of SyncMapItemInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SyncMapItemInstance(
             self._version,
@@ -448,20 +448,20 @@ class SyncMapItemList(ListResource):
 
     def create(
         self,
-        key,
-        data,
-        ttl=values.unset,
-        item_ttl=values.unset,
-        collection_ttl=values.unset,
+        key: str,
+        data: object,
+        ttl: Union[int, object] = values.unset,
+        item_ttl: Union[int, object] = values.unset,
+        collection_ttl: Union[int, object] = values.unset,
     ) -> SyncMapItemInstance:
         """
         Create the SyncMapItemInstance
 
-        :param str key: The unique, user-defined key for the Map Item. Can be up to 320 characters long.
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
+        :param key: The unique, user-defined key for the Map Item. Can be up to 320 characters long.
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
 
         :returns: The created SyncMapItemInstance
         """
@@ -490,20 +490,20 @@ class SyncMapItemList(ListResource):
 
     async def create_async(
         self,
-        key,
-        data,
-        ttl=values.unset,
-        item_ttl=values.unset,
-        collection_ttl=values.unset,
+        key: str,
+        data: object,
+        ttl: Union[int, object] = values.unset,
+        item_ttl: Union[int, object] = values.unset,
+        collection_ttl: Union[int, object] = values.unset,
     ) -> SyncMapItemInstance:
         """
         Asynchronously create the SyncMapItemInstance
 
-        :param str key: The unique, user-defined key for the Map Item. Can be up to 320 characters long.
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
+        :param key: The unique, user-defined key for the Map Item. Can be up to 320 characters long.
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
 
         :returns: The created SyncMapItemInstance
         """
@@ -532,11 +532,11 @@ class SyncMapItemList(ListResource):
 
     def stream(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        limit=None,
-        page_size=None,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncMapItemInstance]:
         """
         Streams SyncMapItemInstance records from the API as a generator stream.
@@ -547,12 +547,12 @@ class SyncMapItemList(ListResource):
         :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -565,11 +565,11 @@ class SyncMapItemList(ListResource):
 
     async def stream_async(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        limit=None,
-        page_size=None,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncMapItemInstance]:
         """
         Asynchronously streams SyncMapItemInstance records from the API as a generator stream.
@@ -580,12 +580,12 @@ class SyncMapItemList(ListResource):
         :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -598,11 +598,11 @@ class SyncMapItemList(ListResource):
 
     def list(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        limit=None,
-        page_size=None,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncMapItemInstance]:
         """
         Lists SyncMapItemInstance records from the API as a list.
@@ -612,12 +612,12 @@ class SyncMapItemList(ListResource):
         :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -633,11 +633,11 @@ class SyncMapItemList(ListResource):
 
     async def list_async(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        limit=None,
-        page_size=None,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncMapItemInstance]:
         """
         Asynchronously lists SyncMapItemInstance records from the API as a list.
@@ -647,12 +647,12 @@ class SyncMapItemList(ListResource):
         :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -668,23 +668,23 @@ class SyncMapItemList(ListResource):
 
     def page(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SyncMapItemPage:
         """
         Retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
-        :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
-        :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
+        :param from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
+        :param bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapItemInstance
         """
@@ -704,23 +704,23 @@ class SyncMapItemList(ListResource):
 
     async def page_async(
         self,
-        order=values.unset,
-        from_=values.unset,
-        bounds=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> SyncMapItemPage:
         """
         Asynchronously retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param &quot;SyncMapItemInstance.QueryResultOrder&quot; order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
-        :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
-        :param &quot;SyncMapItemInstance.QueryFromBoundType&quot; bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
+        :param from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
+        :param bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapItemInstance
         """
@@ -740,31 +740,31 @@ class SyncMapItemList(ListResource):
         )
         return SyncMapItemPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> SyncMapItemPage:
+    def get_page(self, target_url: str) -> SyncMapItemPage:
         """
         Retrieve a specific page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncMapItemInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SyncMapItemPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> SyncMapItemPage:
+    async def get_page_async(self, target_url: str) -> SyncMapItemPage:
         """
         Asynchronously retrieve a specific page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncMapItemInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SyncMapItemPage(self._version, response, self._solution)
 
-    def get(self, key) -> SyncMapItemContext:
+    def get(self, key: str) -> SyncMapItemContext:
         """
         Constructs a SyncMapItemContext
 
@@ -777,7 +777,7 @@ class SyncMapItemList(ListResource):
             key=key,
         )
 
-    def __call__(self, key) -> SyncMapItemContext:
+    def __call__(self, key: str) -> SyncMapItemContext:
         """
         Constructs a SyncMapItemContext
 

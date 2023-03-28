@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -150,38 +150,38 @@ class ServiceInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        apn_credential_sid=values.unset,
-        gcm_credential_sid=values.unset,
-        messaging_service_sid=values.unset,
-        facebook_messenger_page_id=values.unset,
-        default_apn_notification_protocol_version=values.unset,
-        default_gcm_notification_protocol_version=values.unset,
-        fcm_credential_sid=values.unset,
-        default_fcm_notification_protocol_version=values.unset,
-        log_enabled=values.unset,
-        alexa_skill_id=values.unset,
-        default_alexa_notification_protocol_version=values.unset,
-        delivery_callback_url=values.unset,
-        delivery_callback_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-        :param str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
-        :param str facebook_messenger_page_id: Deprecated.
-        :param str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-        :param str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
-        :param str alexa_skill_id: Deprecated.
-        :param str default_alexa_notification_protocol_version: Deprecated.
-        :param str delivery_callback_url: URL to send delivery status callback.
-        :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+        :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param facebook_messenger_page_id: Deprecated.
+        :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+        :param default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
+        :param alexa_skill_id: Deprecated.
+        :param default_alexa_notification_protocol_version: Deprecated.
+        :param delivery_callback_url: URL to send delivery status callback.
+        :param delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The updated ServiceInstance
         """
@@ -204,38 +204,38 @@ class ServiceInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        apn_credential_sid=values.unset,
-        gcm_credential_sid=values.unset,
-        messaging_service_sid=values.unset,
-        facebook_messenger_page_id=values.unset,
-        default_apn_notification_protocol_version=values.unset,
-        default_gcm_notification_protocol_version=values.unset,
-        fcm_credential_sid=values.unset,
-        default_fcm_notification_protocol_version=values.unset,
-        log_enabled=values.unset,
-        alexa_skill_id=values.unset,
-        default_alexa_notification_protocol_version=values.unset,
-        delivery_callback_url=values.unset,
-        delivery_callback_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-        :param str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
-        :param str facebook_messenger_page_id: Deprecated.
-        :param str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-        :param str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
-        :param str alexa_skill_id: Deprecated.
-        :param str default_alexa_notification_protocol_version: Deprecated.
-        :param str delivery_callback_url: URL to send delivery status callback.
-        :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+        :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param facebook_messenger_page_id: Deprecated.
+        :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+        :param default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
+        :param alexa_skill_id: Deprecated.
+        :param default_alexa_notification_protocol_version: Deprecated.
+        :param delivery_callback_url: URL to send delivery status callback.
+        :param delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The updated ServiceInstance
         """
@@ -363,38 +363,38 @@ class ServiceContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        apn_credential_sid=values.unset,
-        gcm_credential_sid=values.unset,
-        messaging_service_sid=values.unset,
-        facebook_messenger_page_id=values.unset,
-        default_apn_notification_protocol_version=values.unset,
-        default_gcm_notification_protocol_version=values.unset,
-        fcm_credential_sid=values.unset,
-        default_fcm_notification_protocol_version=values.unset,
-        log_enabled=values.unset,
-        alexa_skill_id=values.unset,
-        default_alexa_notification_protocol_version=values.unset,
-        delivery_callback_url=values.unset,
-        delivery_callback_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-        :param str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
-        :param str facebook_messenger_page_id: Deprecated.
-        :param str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-        :param str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
-        :param str alexa_skill_id: Deprecated.
-        :param str default_alexa_notification_protocol_version: Deprecated.
-        :param str delivery_callback_url: URL to send delivery status callback.
-        :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+        :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param facebook_messenger_page_id: Deprecated.
+        :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+        :param default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
+        :param alexa_skill_id: Deprecated.
+        :param default_alexa_notification_protocol_version: Deprecated.
+        :param delivery_callback_url: URL to send delivery status callback.
+        :param delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The updated ServiceInstance
         """
@@ -427,38 +427,38 @@ class ServiceContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        apn_credential_sid=values.unset,
-        gcm_credential_sid=values.unset,
-        messaging_service_sid=values.unset,
-        facebook_messenger_page_id=values.unset,
-        default_apn_notification_protocol_version=values.unset,
-        default_gcm_notification_protocol_version=values.unset,
-        fcm_credential_sid=values.unset,
-        default_fcm_notification_protocol_version=values.unset,
-        log_enabled=values.unset,
-        alexa_skill_id=values.unset,
-        default_alexa_notification_protocol_version=values.unset,
-        delivery_callback_url=values.unset,
-        delivery_callback_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-        :param str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
-        :param str facebook_messenger_page_id: Deprecated.
-        :param str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-        :param str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
-        :param str alexa_skill_id: Deprecated.
-        :param str default_alexa_notification_protocol_version: Deprecated.
-        :param str delivery_callback_url: URL to send delivery status callback.
-        :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+        :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param facebook_messenger_page_id: Deprecated.
+        :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+        :param default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
+        :param alexa_skill_id: Deprecated.
+        :param default_alexa_notification_protocol_version: Deprecated.
+        :param delivery_callback_url: URL to send delivery status callback.
+        :param delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The updated ServiceInstance
         """
@@ -524,11 +524,11 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
-    def get_instance(self, payload) -> ServiceInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ServiceInstance(self._version, payload)
 
@@ -555,38 +555,38 @@ class ServiceList(ListResource):
 
     def create(
         self,
-        friendly_name=values.unset,
-        apn_credential_sid=values.unset,
-        gcm_credential_sid=values.unset,
-        messaging_service_sid=values.unset,
-        facebook_messenger_page_id=values.unset,
-        default_apn_notification_protocol_version=values.unset,
-        default_gcm_notification_protocol_version=values.unset,
-        fcm_credential_sid=values.unset,
-        default_fcm_notification_protocol_version=values.unset,
-        log_enabled=values.unset,
-        alexa_skill_id=values.unset,
-        default_alexa_notification_protocol_version=values.unset,
-        delivery_callback_url=values.unset,
-        delivery_callback_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-        :param str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
-        :param str facebook_messenger_page_id: Deprecated.
-        :param str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-        :param str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
-        :param str alexa_skill_id: Deprecated.
-        :param str default_alexa_notification_protocol_version: Deprecated.
-        :param str delivery_callback_url: URL to send delivery status callback.
-        :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+        :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param facebook_messenger_page_id: Deprecated.
+        :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+        :param default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
+        :param alexa_skill_id: Deprecated.
+        :param default_alexa_notification_protocol_version: Deprecated.
+        :param delivery_callback_url: URL to send delivery status callback.
+        :param delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The created ServiceInstance
         """
@@ -619,38 +619,38 @@ class ServiceList(ListResource):
 
     async def create_async(
         self,
-        friendly_name=values.unset,
-        apn_credential_sid=values.unset,
-        gcm_credential_sid=values.unset,
-        messaging_service_sid=values.unset,
-        facebook_messenger_page_id=values.unset,
-        default_apn_notification_protocol_version=values.unset,
-        default_gcm_notification_protocol_version=values.unset,
-        fcm_credential_sid=values.unset,
-        default_fcm_notification_protocol_version=values.unset,
-        log_enabled=values.unset,
-        alexa_skill_id=values.unset,
-        default_alexa_notification_protocol_version=values.unset,
-        delivery_callback_url=values.unset,
-        delivery_callback_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-        :param str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
-        :param str facebook_messenger_page_id: Deprecated.
-        :param str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-        :param str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :param bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
-        :param str alexa_skill_id: Deprecated.
-        :param str default_alexa_notification_protocol_version: Deprecated.
-        :param str delivery_callback_url: URL to send delivery status callback.
-        :param bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+        :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param facebook_messenger_page_id: Deprecated.
+        :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+        :param default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :param log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
+        :param alexa_skill_id: Deprecated.
+        :param default_alexa_notification_protocol_version: Deprecated.
+        :param delivery_callback_url: URL to send delivery status callback.
+        :param delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
 
         :returns: The created ServiceInstance
         """
@@ -682,7 +682,10 @@ class ServiceList(ListResource):
         return ServiceInstance(self._version, payload)
 
     def stream(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
@@ -691,12 +694,12 @@ class ServiceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: The string that identifies the Service resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -706,7 +709,10 @@ class ServiceList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
@@ -715,12 +721,12 @@ class ServiceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: The string that identifies the Service resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -732,7 +738,10 @@ class ServiceList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
@@ -740,12 +749,12 @@ class ServiceList(ListResource):
         memory before returning.
 
         :param str friendly_name: The string that identifies the Service resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -758,7 +767,10 @@ class ServiceList(ListResource):
         )
 
     async def list_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
@@ -766,12 +778,12 @@ class ServiceList(ListResource):
         memory before returning.
 
         :param str friendly_name: The string that identifies the Service resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -785,19 +797,19 @@ class ServiceList(ListResource):
 
     def page(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The string that identifies the Service resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The string that identifies the Service resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
@@ -815,19 +827,19 @@ class ServiceList(ListResource):
 
     async def page_async(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = None,
+        page_number: Union[int, object] = None,
+        page_size: Union[int, object] = None,
     ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The string that identifies the Service resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The string that identifies the Service resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
@@ -845,31 +857,31 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url) -> ServicePage:
+    def get_page(self, target_url: str) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> ServicePage:
+    async def get_page_async(self, target_url: str) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid) -> ServiceContext:
+    def get(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
 
@@ -877,7 +889,7 @@ class ServiceList(ListResource):
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> ServiceContext:
+    def __call__(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
 
