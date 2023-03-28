@@ -30,6 +30,10 @@ class VerificationInstance(InstanceResource):
         WHATSAPP = "whatsapp"
         SNA = "sna"
 
+    class Status(object):
+        CANCELED = "canceled"
+        APPROVED = "approved"
+
     """
     :ivar sid: The unique string that we created to identify the Verification resource.
     :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.

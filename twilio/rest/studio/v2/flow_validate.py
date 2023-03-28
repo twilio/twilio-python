@@ -22,6 +22,9 @@ from twilio.base.version import Version
 
 
 class FlowValidateInstance(InstanceResource):
+    class Status(object):
+        DRAFT = "draft"
+        PUBLISHED = "published"
 
     """
     :ivar valid: Boolean if the flow definition is valid.

@@ -23,6 +23,10 @@ from twilio.base.page import Page
 
 
 class InteractionChannelParticipantInstance(InstanceResource):
+    class Status(object):
+        CLOSED = "closed"
+        WRAPUP = "wrapup"
+
     class Type(object):
         SUPERVISOR = "supervisor"
         CUSTOMER = "customer"

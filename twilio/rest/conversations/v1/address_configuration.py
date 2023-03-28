@@ -24,6 +24,20 @@ from twilio.base.page import Page
 
 
 class AddressConfigurationInstance(InstanceResource):
+    class AutoCreationType(object):
+        WEBHOOK = "webhook"
+        STUDIO = "studio"
+        DEFAULT = "default"
+
+    class Method(object):
+        GET = "GET"
+        POST = "POST"
+
+    class Type(object):
+        SMS = "sms"
+        WHATSAPP = "whatsapp"
+        MESSENGER = "messenger"
+        GBM = "gbm"
 
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.

@@ -27,6 +27,14 @@ class SiprecInstance(InstanceResource):
         IN_PROGRESS = "in-progress"
         STOPPED = "stopped"
 
+    class Track(object):
+        INBOUND_TRACK = "inbound_track"
+        OUTBOUND_TRACK = "outbound_track"
+        BOTH_TRACKS = "both_tracks"
+
+    class UpdateStatus(object):
+        STOPPED = "stopped"
+
     """
     :ivar sid: The SID of the Siprec resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.

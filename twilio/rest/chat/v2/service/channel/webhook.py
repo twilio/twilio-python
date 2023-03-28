@@ -24,6 +24,14 @@ from twilio.base.page import Page
 
 
 class WebhookInstance(InstanceResource):
+    class Method(object):
+        GET = "GET"
+        POST = "POST"
+
+    class Type(object):
+        WEBHOOK = "webhook"
+        TRIGGER = "trigger"
+        STUDIO = "studio"
 
     """
     :ivar sid: The unique string that we created to identify the Channel Webhook resource.

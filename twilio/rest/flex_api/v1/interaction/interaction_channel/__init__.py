@@ -35,6 +35,10 @@ class InteractionChannelInstance(InstanceResource):
         FAILED = "failed"
         CLOSED = "closed"
 
+    class Status(object):
+        CLOSED = "closed"
+        WRAPUP = "wrapup"
+
     class Type(object):
         VOICE = "voice"
         SMS = "sms"
