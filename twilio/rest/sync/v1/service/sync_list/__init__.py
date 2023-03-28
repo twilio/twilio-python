@@ -582,9 +582,9 @@ class SyncListList(ListResource):
 
     def page(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> SyncListPage:
         """
         Retrieve a single page of SyncListInstance records from the API.
@@ -609,9 +609,9 @@ class SyncListList(ListResource):
 
     async def page_async(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> SyncListPage:
         """
         Asynchronously retrieve a single page of SyncListInstance records from the API.

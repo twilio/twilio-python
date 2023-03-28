@@ -723,9 +723,9 @@ class CompositionHookList(ListResource):
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> CompositionHookPage:
         """
         Retrieve a single page of CompositionHookInstance records from the API.
@@ -762,9 +762,9 @@ class CompositionHookList(ListResource):
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> CompositionHookPage:
         """
         Asynchronously retrieve a single page of CompositionHookInstance records from the API.

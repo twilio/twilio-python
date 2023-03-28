@@ -448,9 +448,9 @@ class CommandList(ListResource):
         sim: Union[str, object] = values.unset,
         status: Union[str, object] = values.unset,
         direction: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> CommandPage:
         """
         Retrieve a single page of CommandInstance records from the API.
@@ -487,9 +487,9 @@ class CommandList(ListResource):
         sim: Union[str, object] = values.unset,
         status: Union[str, object] = values.unset,
         direction: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> CommandPage:
         """
         Asynchronously retrieve a single page of CommandInstance records from the API.

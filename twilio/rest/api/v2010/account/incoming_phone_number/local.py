@@ -540,9 +540,9 @@ class LocalList(ListResource):
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> LocalPage:
         """
         Retrieve a single page of LocalInstance records from the API.
@@ -579,9 +579,9 @@ class LocalList(ListResource):
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> LocalPage:
         """
         Asynchronously retrieve a single page of LocalInstance records from the API.

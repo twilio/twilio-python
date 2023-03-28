@@ -566,9 +566,9 @@ class InsightsQuestionnairesQuestionList(ListResource):
         self,
         token: Union[str, object] = values.unset,
         category_id: Union[List[str], object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> InsightsQuestionnairesQuestionPage:
         """
         Retrieve a single page of InsightsQuestionnairesQuestionInstance records from the API.
@@ -599,9 +599,9 @@ class InsightsQuestionnairesQuestionList(ListResource):
         self,
         token: Union[str, object] = values.unset,
         category_id: Union[List[str], object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> InsightsQuestionnairesQuestionPage:
         """
         Asynchronously retrieve a single page of InsightsQuestionnairesQuestionInstance records from the API.

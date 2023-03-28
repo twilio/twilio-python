@@ -558,9 +558,9 @@ class ConferenceList(ListResource):
         subaccount: Union[str, object] = values.unset,
         detected_issues: Union[str, object] = values.unset,
         end_reason: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> ConferencePage:
         """
         Retrieve a single page of ConferenceInstance records from the API.
@@ -615,9 +615,9 @@ class ConferenceList(ListResource):
         subaccount: Union[str, object] = values.unset,
         detected_issues: Union[str, object] = values.unset,
         end_reason: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> ConferencePage:
         """
         Asynchronously retrieve a single page of ConferenceInstance records from the API.

@@ -458,9 +458,9 @@ class FieldValueList(ListResource):
     def page(
         self,
         language: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> FieldValuePage:
         """
         Retrieve a single page of FieldValueInstance records from the API.
@@ -488,9 +488,9 @@ class FieldValueList(ListResource):
     async def page_async(
         self,
         language: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> FieldValuePage:
         """
         Asynchronously retrieve a single page of FieldValueInstance records from the API.

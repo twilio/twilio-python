@@ -416,9 +416,9 @@ class BrandVettingList(ListResource):
         vetting_provider: Union[
             "BrandVettingInstance.VettingProvider", object
         ] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> BrandVettingPage:
         """
         Retrieve a single page of BrandVettingInstance records from the API.
@@ -448,9 +448,9 @@ class BrandVettingList(ListResource):
         vetting_provider: Union[
             "BrandVettingInstance.VettingProvider", object
         ] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> BrandVettingPage:
         """
         Asynchronously retrieve a single page of BrandVettingInstance records from the API.

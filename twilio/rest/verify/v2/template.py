@@ -198,9 +198,9 @@ class TemplateList(ListResource):
     def page(
         self,
         friendly_name: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> TemplatePage:
         """
         Retrieve a single page of TemplateInstance records from the API.
@@ -228,9 +228,9 @@ class TemplateList(ListResource):
     async def page_async(
         self,
         friendly_name: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> TemplatePage:
         """
         Asynchronously retrieve a single page of TemplateInstance records from the API.

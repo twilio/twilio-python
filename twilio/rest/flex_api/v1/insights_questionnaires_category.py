@@ -455,9 +455,9 @@ class InsightsQuestionnairesCategoryList(ListResource):
     def page(
         self,
         token: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> InsightsQuestionnairesCategoryPage:
         """
         Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
@@ -485,9 +485,9 @@ class InsightsQuestionnairesCategoryList(ListResource):
     async def page_async(
         self,
         token: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> InsightsQuestionnairesCategoryPage:
         """
         Asynchronously retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.

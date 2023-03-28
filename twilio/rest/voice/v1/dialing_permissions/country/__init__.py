@@ -409,9 +409,9 @@ class CountryList(ListResource):
         low_risk_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> CountryPage:
         """
         Retrieve a single page of CountryInstance records from the API.
@@ -454,9 +454,9 @@ class CountryList(ListResource):
         low_risk_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> CountryPage:
         """
         Asynchronously retrieve a single page of CountryInstance records from the API.

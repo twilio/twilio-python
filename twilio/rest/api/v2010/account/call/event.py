@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -200,9 +200,9 @@ class EventList(ListResource):
 
     def page(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> EventPage:
         """
         Retrieve a single page of EventInstance records from the API.
@@ -227,9 +227,9 @@ class EventList(ListResource):
 
     async def page_async(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> EventPage:
         """
         Asynchronously retrieve a single page of EventInstance records from the API.

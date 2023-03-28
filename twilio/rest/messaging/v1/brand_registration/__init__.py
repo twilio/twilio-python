@@ -509,9 +509,9 @@ class BrandRegistrationList(ListResource):
 
     def page(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> BrandRegistrationPage:
         """
         Retrieve a single page of BrandRegistrationInstance records from the API.
@@ -536,9 +536,9 @@ class BrandRegistrationList(ListResource):
 
     async def page_async(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> BrandRegistrationPage:
         """
         Asynchronously retrieve a single page of BrandRegistrationInstance records from the API.

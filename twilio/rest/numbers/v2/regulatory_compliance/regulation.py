@@ -341,9 +341,9 @@ class RegulationList(ListResource):
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> RegulationPage:
         """
         Retrieve a single page of RegulationInstance records from the API.
@@ -377,9 +377,9 @@ class RegulationList(ListResource):
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> RegulationPage:
         """
         Asynchronously retrieve a single page of RegulationInstance records from the API.

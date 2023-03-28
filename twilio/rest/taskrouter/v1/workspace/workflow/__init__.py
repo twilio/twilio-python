@@ -691,9 +691,9 @@ class WorkflowList(ListResource):
     def page(
         self,
         friendly_name: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> WorkflowPage:
         """
         Retrieve a single page of WorkflowInstance records from the API.
@@ -721,9 +721,9 @@ class WorkflowList(ListResource):
     async def page_async(
         self,
         friendly_name: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> WorkflowPage:
         """
         Asynchronously retrieve a single page of WorkflowInstance records from the API.

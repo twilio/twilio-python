@@ -1011,9 +1011,9 @@ class ParticipantList(ListResource):
         muted: Union[bool, object] = values.unset,
         hold: Union[bool, object] = values.unset,
         coaching: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> ParticipantPage:
         """
         Retrieve a single page of ParticipantInstance records from the API.
@@ -1047,9 +1047,9 @@ class ParticipantList(ListResource):
         muted: Union[bool, object] = values.unset,
         hold: Union[bool, object] = values.unset,
         coaching: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> ParticipantPage:
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.

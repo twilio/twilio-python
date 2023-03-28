@@ -519,9 +519,9 @@ class ModelBuildList(ListResource):
 
     def page(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> ModelBuildPage:
         """
         Retrieve a single page of ModelBuildInstance records from the API.
@@ -546,9 +546,9 @@ class ModelBuildList(ListResource):
 
     async def page_async(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> ModelBuildPage:
         """
         Asynchronously retrieve a single page of ModelBuildInstance records from the API.

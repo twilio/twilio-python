@@ -412,9 +412,9 @@ class UserBindingList(ListResource):
         binding_type: Union[
             List["UserBindingInstance.BindingType"], object
         ] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> UserBindingPage:
         """
         Retrieve a single page of UserBindingInstance records from the API.
@@ -444,9 +444,9 @@ class UserBindingList(ListResource):
         binding_type: Union[
             List["UserBindingInstance.BindingType"], object
         ] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> UserBindingPage:
         """
         Asynchronously retrieve a single page of UserBindingInstance records from the API.

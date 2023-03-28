@@ -465,9 +465,9 @@ class IpCommandList(ListResource):
         sim_iccid: Union[str, object] = values.unset,
         status: Union["IpCommandInstance.Status", object] = values.unset,
         direction: Union["IpCommandInstance.Direction", object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> IpCommandPage:
         """
         Retrieve a single page of IpCommandInstance records from the API.
@@ -504,9 +504,9 @@ class IpCommandList(ListResource):
         sim_iccid: Union[str, object] = values.unset,
         status: Union["IpCommandInstance.Status", object] = values.unset,
         direction: Union["IpCommandInstance.Direction", object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> IpCommandPage:
         """
         Asynchronously retrieve a single page of IpCommandInstance records from the API.

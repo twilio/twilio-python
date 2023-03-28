@@ -464,9 +464,9 @@ class VoipList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> VoipPage:
         """
         Retrieve a single page of VoipInstance records from the API.
@@ -545,9 +545,9 @@ class VoipList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> VoipPage:
         """
         Asynchronously retrieve a single page of VoipInstance records from the API.

@@ -731,9 +731,9 @@ class MemberList(ListResource):
     def page(
         self,
         identity: Union[List[str], object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> MemberPage:
         """
         Retrieve a single page of MemberInstance records from the API.
@@ -761,9 +761,9 @@ class MemberList(ListResource):
     async def page_async(
         self,
         identity: Union[List[str], object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> MemberPage:
         """
         Asynchronously retrieve a single page of MemberInstance records from the API.

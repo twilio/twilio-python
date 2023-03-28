@@ -326,9 +326,9 @@ class NetworkList(ListResource):
         iso_country: Union[str, object] = values.unset,
         mcc: Union[str, object] = values.unset,
         mnc: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> NetworkPage:
         """
         Retrieve a single page of NetworkInstance records from the API.
@@ -362,9 +362,9 @@ class NetworkList(ListResource):
         iso_country: Union[str, object] = values.unset,
         mcc: Union[str, object] = values.unset,
         mnc: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> NetworkPage:
         """
         Asynchronously retrieve a single page of NetworkInstance records from the API.

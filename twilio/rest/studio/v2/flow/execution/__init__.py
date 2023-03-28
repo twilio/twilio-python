@@ -585,9 +585,9 @@ class ExecutionList(ListResource):
         self,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> ExecutionPage:
         """
         Retrieve a single page of ExecutionInstance records from the API.
@@ -618,9 +618,9 @@ class ExecutionList(ListResource):
         self,
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> ExecutionPage:
         """
         Asynchronously retrieve a single page of ExecutionInstance records from the API.

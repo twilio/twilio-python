@@ -821,9 +821,9 @@ class HostedNumberOrderList(ListResource):
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> HostedNumberOrderPage:
         """
         Retrieve a single page of HostedNumberOrderInstance records from the API.
@@ -863,9 +863,9 @@ class HostedNumberOrderList(ListResource):
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> HostedNumberOrderPage:
         """
         Asynchronously retrieve a single page of HostedNumberOrderInstance records from the API.

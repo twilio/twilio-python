@@ -667,9 +667,9 @@ class TrustProductsList(ListResource):
         status: Union["TrustProductsInstance.Status", object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         policy_sid: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> TrustProductsPage:
         """
         Retrieve a single page of TrustProductsInstance records from the API.
@@ -703,9 +703,9 @@ class TrustProductsList(ListResource):
         status: Union["TrustProductsInstance.Status", object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         policy_sid: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> TrustProductsPage:
         """
         Asynchronously retrieve a single page of TrustProductsInstance records from the API.

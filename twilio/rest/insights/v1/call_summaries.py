@@ -522,9 +522,9 @@ class CallSummariesList(ListResource):
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> CallSummariesPage:
         """
         Retrieve a single page of CallSummariesInstance records from the API.
@@ -605,9 +605,9 @@ class CallSummariesList(ListResource):
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> CallSummariesPage:
         """
         Asynchronously retrieve a single page of CallSummariesInstance records from the API.

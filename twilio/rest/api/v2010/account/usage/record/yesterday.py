@@ -599,9 +599,9 @@ class YesterdayList(ListResource):
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> YesterdayPage:
         """
         Retrieve a single page of YesterdayInstance records from the API.
@@ -638,9 +638,9 @@ class YesterdayList(ListResource):
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> YesterdayPage:
         """
         Asynchronously retrieve a single page of YesterdayInstance records from the API.

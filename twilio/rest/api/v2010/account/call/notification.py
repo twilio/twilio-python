@@ -413,9 +413,9 @@ class NotificationList(ListResource):
         message_date: Union[date, object] = values.unset,
         message_date_before: Union[date, object] = values.unset,
         message_date_after: Union[date, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> NotificationPage:
         """
         Retrieve a single page of NotificationInstance records from the API.
@@ -452,9 +452,9 @@ class NotificationList(ListResource):
         message_date: Union[date, object] = values.unset,
         message_date_before: Union[date, object] = values.unset,
         message_date_after: Union[date, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> NotificationPage:
         """
         Asynchronously retrieve a single page of NotificationInstance records from the API.

@@ -739,9 +739,9 @@ class AddressList(ListResource):
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> AddressPage:
         """
         Retrieve a single page of AddressInstance records from the API.
@@ -775,9 +775,9 @@ class AddressList(ListResource):
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> AddressPage:
         """
         Asynchronously retrieve a single page of AddressInstance records from the API.

@@ -809,9 +809,9 @@ class BundleList(ListResource):
         valid_until_date: Union[datetime, object] = values.unset,
         valid_until_date_before: Union[datetime, object] = values.unset,
         valid_until_date_after: Union[datetime, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> BundlePage:
         """
         Retrieve a single page of BundleInstance records from the API.
@@ -869,9 +869,9 @@ class BundleList(ListResource):
         valid_until_date: Union[datetime, object] = values.unset,
         valid_until_date_before: Union[datetime, object] = values.unset,
         valid_until_date_after: Union[datetime, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> BundlePage:
         """
         Asynchronously retrieve a single page of BundleInstance records from the API.

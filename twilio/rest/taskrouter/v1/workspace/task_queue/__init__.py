@@ -758,9 +758,9 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> TaskQueuePage:
         """
         Retrieve a single page of TaskQueueInstance records from the API.
@@ -797,9 +797,9 @@ class TaskQueueList(ListResource):
         evaluate_worker_attributes: Union[str, object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> TaskQueuePage:
         """
         Asynchronously retrieve a single page of TaskQueueInstance records from the API.

@@ -481,9 +481,9 @@ class MessageInteractionList(ListResource):
 
     def page(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> MessageInteractionPage:
         """
         Retrieve a single page of MessageInteractionInstance records from the API.
@@ -508,9 +508,9 @@ class MessageInteractionList(ListResource):
 
     async def page_async(
         self,
-        page_token: Union[str, object] = None,
-        page_number: Union[int, object] = None,
-        page_size: Union[int, object] = None,
+        page_token: Optional[str] = None,
+        page_number: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> MessageInteractionPage:
         """
         Asynchronously retrieve a single page of MessageInteractionInstance records from the API.
