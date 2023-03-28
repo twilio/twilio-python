@@ -35,16 +35,14 @@ class InsightsSettingsCommentInstance(InstanceResource):
         self.comments: Optional[Dict[str, object]] = payload.get("comments")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsSettingsCommentInstance {}>".format(context)
+
+        return "<Twilio.FlexApi.V1.InsightsSettingsCommentInstance>"
 
 
 class InsightsSettingsCommentList(ListResource):

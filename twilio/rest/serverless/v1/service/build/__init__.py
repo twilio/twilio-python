@@ -70,7 +70,11 @@ class BuildInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = { "service_sid": service_sid, "sid": sid or self.sid,  }
+        
+        self._solution = { 
+            "service_sid": service_sid,
+            "sid": sid or self.sid,
+        }
         self._context: Optional[BuildContext] = None
 
     @property

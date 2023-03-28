@@ -177,7 +177,6 @@ class ConfigurationInstance(InstanceResource):
             "flex_ui_status_report"
         )
 
-        self._solution = {}
         self._context: Optional[ConfigurationContext] = None
 
     @property
@@ -224,8 +223,8 @@ class ConfigurationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.ConfigurationInstance {}>".format(context)
+
+        return "<Twilio.FlexApi.V1.ConfigurationInstance>"
 
 
 class ConfigurationContext(InstanceContext):

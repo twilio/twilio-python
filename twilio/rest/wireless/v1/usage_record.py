@@ -43,16 +43,14 @@ class UsageRecordInstance(InstanceResource):
         self.commands: Optional[Dict[str, object]] = payload.get("commands")
         self.data: Optional[Dict[str, object]] = payload.get("data")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.UsageRecordInstance {}>".format(context)
+
+        return "<Twilio.Wireless.V1.UsageRecordInstance>"
 
 
 class UsageRecordPage(Page):

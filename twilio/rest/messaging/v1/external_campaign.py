@@ -43,16 +43,14 @@ class ExternalCampaignInstance(InstanceResource):
             payload.get("date_created")
         )
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.ExternalCampaignInstance {}>".format(context)
+
+        return "<Twilio.Messaging.V1.ExternalCampaignInstance>"
 
 
 class ExternalCampaignList(ListResource):

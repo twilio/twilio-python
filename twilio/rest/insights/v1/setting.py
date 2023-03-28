@@ -38,7 +38,6 @@ class SettingInstance(InstanceResource):
         self.voice_trace: Optional[bool] = payload.get("voice_trace")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
         self._context: Optional[SettingContext] = None
 
     @property
@@ -127,8 +126,8 @@ class SettingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.SettingInstance {}>".format(context)
+
+        return "<Twilio.Insights.V1.SettingInstance>"
 
 
 class SettingContext(InstanceContext):

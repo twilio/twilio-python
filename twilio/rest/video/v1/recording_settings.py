@@ -46,7 +46,6 @@ class RecordingSettingsInstance(InstanceResource):
         self.encryption_enabled: Optional[bool] = payload.get("encryption_enabled")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
         self._context: Optional[RecordingSettingsContext] = None
 
     @property
@@ -147,8 +146,8 @@ class RecordingSettingsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RecordingSettingsInstance {}>".format(context)
+
+        return "<Twilio.Video.V1.RecordingSettingsInstance>"
 
 
 class RecordingSettingsContext(InstanceContext):

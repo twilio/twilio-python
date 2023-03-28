@@ -41,16 +41,14 @@ class InsightsConversationsInstance(InstanceResource):
         )
         self.segments: Optional[List[object]] = payload.get("segments")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsConversationsInstance {}>".format(context)
+
+        return "<Twilio.FlexApi.V1.InsightsConversationsInstance>"
 
 
 class InsightsConversationsPage(Page):

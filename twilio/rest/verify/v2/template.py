@@ -41,16 +41,14 @@ class TemplateInstance(InstanceResource):
         self.channels: Optional[List[str]] = payload.get("channels")
         self.translations: Optional[Dict[str, object]] = payload.get("translations")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.TemplateInstance {}>".format(context)
+
+        return "<Twilio.Verify.V2.TemplateInstance>"
 
 
 class TemplatePage(Page):

@@ -45,16 +45,14 @@ class TokenInstance(InstanceResource):
             payload.get("access_token_expires_at")
         )
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Oauth.V1.TokenInstance {}>".format(context)
+
+        return "<Twilio.Oauth.V1.TokenInstance>"
 
 
 class TokenList(ListResource):

@@ -65,7 +65,6 @@ class OpenidDiscoveryInstance(InstanceResource):
         self.claims_supported: Optional[List[str]] = payload.get("claims_supported")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
         self._context: Optional[OpenidDiscoveryContext] = None
 
     @property
@@ -106,8 +105,8 @@ class OpenidDiscoveryInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Oauth.V1.OpenidDiscoveryInstance {}>".format(context)
+
+        return "<Twilio.Oauth.V1.OpenidDiscoveryInstance>"
 
 
 class OpenidDiscoveryContext(InstanceContext):

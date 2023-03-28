@@ -65,16 +65,14 @@ class UsageRecordInstance(InstanceResource):
         )
         self.billed_unit: Optional[str] = payload.get("billed_unit")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.UsageRecordInstance {}>".format(context)
+
+        return "<Twilio.Supersim.V1.UsageRecordInstance>"
 
 
 class UsageRecordPage(Page):

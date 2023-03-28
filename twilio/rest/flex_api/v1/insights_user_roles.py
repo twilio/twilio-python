@@ -34,7 +34,6 @@ class InsightsUserRolesInstance(InstanceResource):
         self.roles: Optional[List[str]] = payload.get("roles")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
         self._context: Optional[InsightsUserRolesContext] = None
 
     @property
@@ -83,8 +82,8 @@ class InsightsUserRolesInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsUserRolesInstance {}>".format(context)
+
+        return "<Twilio.FlexApi.V1.InsightsUserRolesInstance>"
 
 
 class InsightsUserRolesContext(InstanceContext):

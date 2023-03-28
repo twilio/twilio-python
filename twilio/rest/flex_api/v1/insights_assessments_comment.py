@@ -55,18 +55,14 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
         self.timestamp: Optional[float] = deserialize.decimal(payload.get("timestamp"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance {}>".format(
-            context
-        )
+
+        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance>"
 
 
 class InsightsAssessmentsCommentPage(Page):

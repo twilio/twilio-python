@@ -44,16 +44,14 @@ class DeviceCodeInstance(InstanceResource):
         self.expires_in: Optional[int] = payload.get("expires_in")
         self.interval: Optional[int] = deserialize.integer(payload.get("interval"))
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Oauth.V1.DeviceCodeInstance {}>".format(context)
+
+        return "<Twilio.Oauth.V1.DeviceCodeInstance>"
 
 
 class DeviceCodeList(ListResource):

@@ -51,7 +51,6 @@ class WebhookInstance(InstanceResource):
         self.target: Optional["WebhookInstance.Target"] = payload.get("target")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
         self._context: Optional[WebhookContext] = None
 
     @property
@@ -146,8 +145,8 @@ class WebhookInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.WebhookInstance {}>".format(context)
+
+        return "<Twilio.Conversations.V1.WebhookInstance>"
 
 
 class WebhookContext(InstanceContext):

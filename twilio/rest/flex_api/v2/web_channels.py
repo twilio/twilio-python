@@ -34,16 +34,14 @@ class WebChannelsInstance(InstanceResource):
         self.conversation_sid: Optional[str] = payload.get("conversation_sid")
         self.identity: Optional[str] = payload.get("identity")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V2.WebChannelsInstance {}>".format(context)
+
+        return "<Twilio.FlexApi.V2.WebChannelsInstance>"
 
 
 class WebChannelsList(ListResource):

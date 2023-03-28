@@ -56,16 +56,14 @@ class ContentAndApprovalsInstance(InstanceResource):
             "approval_requests"
         )
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Content.V1.ContentAndApprovalsInstance {}>".format(context)
+
+        return "<Twilio.Content.V1.ContentAndApprovalsInstance>"
 
 
 class ContentAndApprovalsPage(Page):

@@ -58,16 +58,14 @@ class LegacyContentInstance(InstanceResource):
         self.legacy_body: Optional[str] = payload.get("legacy_body")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Content.V1.LegacyContentInstance {}>".format(context)
+
+        return "<Twilio.Content.V1.LegacyContentInstance>"
 
 
 class LegacyContentPage(Page):

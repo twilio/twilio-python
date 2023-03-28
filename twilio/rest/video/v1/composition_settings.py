@@ -46,7 +46,6 @@ class CompositionSettingsInstance(InstanceResource):
         self.encryption_enabled: Optional[bool] = payload.get("encryption_enabled")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {}
         self._context: Optional[CompositionSettingsContext] = None
 
     @property
@@ -147,8 +146,8 @@ class CompositionSettingsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionSettingsInstance {}>".format(context)
+
+        return "<Twilio.Video.V1.CompositionSettingsInstance>"
 
 
 class CompositionSettingsContext(InstanceContext):
