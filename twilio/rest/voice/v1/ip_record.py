@@ -482,9 +482,9 @@ class IpRecordList(ListResource):
 
     def page(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> IpRecordPage:
         """
         Retrieve a single page of IpRecordInstance records from the API.
@@ -509,9 +509,9 @@ class IpRecordList(ListResource):
 
     async def page_async(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> IpRecordPage:
         """
         Asynchronously retrieve a single page of IpRecordInstance records from the API.

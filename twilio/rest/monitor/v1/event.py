@@ -392,9 +392,9 @@ class EventList(ListResource):
         source_ip_address: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> EventPage:
         """
         Retrieve a single page of EventInstance records from the API.
@@ -437,9 +437,9 @@ class EventList(ListResource):
         source_ip_address: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> EventPage:
         """
         Asynchronously retrieve a single page of EventInstance records from the API.

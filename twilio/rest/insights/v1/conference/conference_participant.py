@@ -504,9 +504,9 @@ class ConferenceParticipantList(ListResource):
         participant_sid: Union[str, object] = values.unset,
         label: Union[str, object] = values.unset,
         events: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ConferenceParticipantPage:
         """
         Retrieve a single page of ConferenceParticipantInstance records from the API.
@@ -540,9 +540,9 @@ class ConferenceParticipantList(ListResource):
         participant_sid: Union[str, object] = values.unset,
         label: Union[str, object] = values.unset,
         events: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ConferenceParticipantPage:
         """
         Asynchronously retrieve a single page of ConferenceParticipantInstance records from the API.

@@ -495,9 +495,9 @@ class ParticipantList(ListResource):
 
     def page(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ParticipantPage:
         """
         Retrieve a single page of ParticipantInstance records from the API.
@@ -522,9 +522,9 @@ class ParticipantList(ListResource):
 
     async def page_async(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ParticipantPage:
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.

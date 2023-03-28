@@ -615,9 +615,9 @@ class ConferenceList(ListResource):
         date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ConferencePage:
         """
         Retrieve a single page of ConferenceInstance records from the API.
@@ -666,9 +666,9 @@ class ConferenceList(ListResource):
         date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ConferencePage:
         """
         Asynchronously retrieve a single page of ConferenceInstance records from the API.

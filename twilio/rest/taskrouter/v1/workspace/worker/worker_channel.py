@@ -457,9 +457,9 @@ class WorkerChannelList(ListResource):
 
     def page(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> WorkerChannelPage:
         """
         Retrieve a single page of WorkerChannelInstance records from the API.
@@ -484,9 +484,9 @@ class WorkerChannelList(ListResource):
 
     async def page_async(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> WorkerChannelPage:
         """
         Asynchronously retrieve a single page of WorkerChannelInstance records from the API.

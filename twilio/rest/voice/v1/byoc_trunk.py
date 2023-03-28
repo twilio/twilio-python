@@ -650,9 +650,9 @@ class ByocTrunkList(ListResource):
 
     def page(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ByocTrunkPage:
         """
         Retrieve a single page of ByocTrunkInstance records from the API.
@@ -677,9 +677,9 @@ class ByocTrunkList(ListResource):
 
     async def page_async(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ByocTrunkPage:
         """
         Asynchronously retrieve a single page of ByocTrunkInstance records from the API.

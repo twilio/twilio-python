@@ -238,9 +238,9 @@ class UsageRecordList(ListResource):
         end: Union[datetime, object] = values.unset,
         start: Union[datetime, object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> UsageRecordPage:
         """
         Retrieve a single page of UsageRecordInstance records from the API.
@@ -274,9 +274,9 @@ class UsageRecordList(ListResource):
         end: Union[datetime, object] = values.unset,
         start: Union[datetime, object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> UsageRecordPage:
         """
         Asynchronously retrieve a single page of UsageRecordInstance records from the API.

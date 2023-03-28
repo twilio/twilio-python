@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -485,9 +485,9 @@ class AvailablePhoneNumberCountryList(ListResource):
 
     def page(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AvailablePhoneNumberCountryPage:
         """
         Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
@@ -512,9 +512,9 @@ class AvailablePhoneNumberCountryList(ListResource):
 
     async def page_async(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AvailablePhoneNumberCountryPage:
         """
         Asynchronously retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.

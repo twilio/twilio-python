@@ -392,9 +392,9 @@ class LogList(ListResource):
         function_sid: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> LogPage:
         """
         Retrieve a single page of LogInstance records from the API.
@@ -428,9 +428,9 @@ class LogList(ListResource):
         function_sid: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> LogPage:
         """
         Asynchronously retrieve a single page of LogInstance records from the API.

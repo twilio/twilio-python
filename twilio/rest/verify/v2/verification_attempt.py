@@ -437,9 +437,9 @@ class VerificationAttemptList(ListResource):
         status: Union[
             "VerificationAttemptInstance.ConversionStatus", object
         ] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> VerificationAttemptPage:
         """
         Retrieve a single page of VerificationAttemptInstance records from the API.
@@ -490,9 +490,9 @@ class VerificationAttemptList(ListResource):
         status: Union[
             "VerificationAttemptInstance.ConversionStatus", object
         ] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> VerificationAttemptPage:
         """
         Asynchronously retrieve a single page of VerificationAttemptInstance records from the API.

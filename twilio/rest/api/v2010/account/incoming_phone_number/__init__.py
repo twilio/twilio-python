@@ -1106,9 +1106,9 @@ class IncomingPhoneNumberList(ListResource):
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> IncomingPhoneNumberPage:
         """
         Retrieve a single page of IncomingPhoneNumberInstance records from the API.
@@ -1145,9 +1145,9 @@ class IncomingPhoneNumberList(ListResource):
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> IncomingPhoneNumberPage:
         """
         Asynchronously retrieve a single page of IncomingPhoneNumberInstance records from the API.

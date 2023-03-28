@@ -581,9 +581,9 @@ class OriginationUrlList(ListResource):
 
     def page(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> OriginationUrlPage:
         """
         Retrieve a single page of OriginationUrlInstance records from the API.
@@ -608,9 +608,9 @@ class OriginationUrlList(ListResource):
 
     async def page_async(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> OriginationUrlPage:
         """
         Asynchronously retrieve a single page of OriginationUrlInstance records from the API.

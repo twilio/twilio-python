@@ -350,9 +350,9 @@ class DependentHostedNumberOrderList(ListResource):
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DependentHostedNumberOrderPage:
         """
         Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
@@ -394,9 +394,9 @@ class DependentHostedNumberOrderList(ListResource):
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DependentHostedNumberOrderPage:
         """
         Asynchronously retrieve a single page of DependentHostedNumberOrderInstance records from the API.

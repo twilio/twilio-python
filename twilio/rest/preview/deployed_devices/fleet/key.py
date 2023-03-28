@@ -536,9 +536,9 @@ class KeyList(ListResource):
     def page(
         self,
         device_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> KeyPage:
         """
         Retrieve a single page of KeyInstance records from the API.
@@ -566,9 +566,9 @@ class KeyList(ListResource):
     async def page_async(
         self,
         device_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> KeyPage:
         """
         Asynchronously retrieve a single page of KeyInstance records from the API.

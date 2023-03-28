@@ -553,9 +553,9 @@ class SinkList(ListResource):
         self,
         in_use: Union[bool, object] = values.unset,
         status: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SinkPage:
         """
         Retrieve a single page of SinkInstance records from the API.
@@ -586,9 +586,9 @@ class SinkList(ListResource):
         self,
         in_use: Union[bool, object] = values.unset,
         status: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SinkPage:
         """
         Asynchronously retrieve a single page of SinkInstance records from the API.

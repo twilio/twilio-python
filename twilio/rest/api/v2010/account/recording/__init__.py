@@ -557,9 +557,9 @@ class RecordingList(ListResource):
         call_sid: Union[str, object] = values.unset,
         conference_sid: Union[str, object] = values.unset,
         include_soft_deleted: Union[bool, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RecordingPage:
         """
         Retrieve a single page of RecordingInstance records from the API.
@@ -602,9 +602,9 @@ class RecordingList(ListResource):
         call_sid: Union[str, object] = values.unset,
         conference_sid: Union[str, object] = values.unset,
         include_soft_deleted: Union[bool, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RecordingPage:
         """
         Asynchronously retrieve a single page of RecordingInstance records from the API.

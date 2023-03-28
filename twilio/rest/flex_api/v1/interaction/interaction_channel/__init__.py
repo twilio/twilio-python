@@ -482,9 +482,9 @@ class InteractionChannelList(ListResource):
 
     def page(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> InteractionChannelPage:
         """
         Retrieve a single page of InteractionChannelInstance records from the API.
@@ -509,9 +509,9 @@ class InteractionChannelList(ListResource):
 
     async def page_async(
         self,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> InteractionChannelPage:
         """
         Asynchronously retrieve a single page of InteractionChannelInstance records from the API.

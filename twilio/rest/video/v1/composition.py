@@ -544,9 +544,9 @@ class CompositionList(ListResource):
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         room_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CompositionPage:
         """
         Retrieve a single page of CompositionInstance records from the API.
@@ -583,9 +583,9 @@ class CompositionList(ListResource):
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         room_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CompositionPage:
         """
         Asynchronously retrieve a single page of CompositionInstance records from the API.

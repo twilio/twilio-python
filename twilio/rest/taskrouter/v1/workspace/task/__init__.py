@@ -794,9 +794,9 @@ class TaskList(ListResource):
         evaluate_task_attributes: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskPage:
         """
         Retrieve a single page of TaskInstance records from the API.
@@ -848,9 +848,9 @@ class TaskList(ListResource):
         evaluate_task_attributes: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskPage:
         """
         Asynchronously retrieve a single page of TaskInstance records from the API.

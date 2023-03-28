@@ -242,9 +242,9 @@ class MetricList(ListResource):
         self,
         edge: Union["MetricInstance.TwilioEdge", object] = values.unset,
         direction: Union["MetricInstance.StreamDirection", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MetricPage:
         """
         Retrieve a single page of MetricInstance records from the API.
@@ -275,9 +275,9 @@ class MetricList(ListResource):
         self,
         edge: Union["MetricInstance.TwilioEdge", object] = values.unset,
         direction: Union["MetricInstance.StreamDirection", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MetricPage:
         """
         Asynchronously retrieve a single page of MetricInstance records from the API.

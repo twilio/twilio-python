@@ -468,9 +468,9 @@ class RecordingList(ListResource):
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         media_type: Union["RecordingInstance.Type", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RecordingPage:
         """
         Retrieve a single page of RecordingInstance records from the API.
@@ -513,9 +513,9 @@ class RecordingList(ListResource):
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         media_type: Union["RecordingInstance.Type", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RecordingPage:
         """
         Asynchronously retrieve a single page of RecordingInstance records from the API.

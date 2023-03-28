@@ -509,9 +509,9 @@ class ShortCodeList(ListResource):
         self,
         friendly_name: Union[str, object] = values.unset,
         short_code: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ShortCodePage:
         """
         Retrieve a single page of ShortCodeInstance records from the API.
@@ -542,9 +542,9 @@ class ShortCodeList(ListResource):
         self,
         friendly_name: Union[str, object] = values.unset,
         short_code: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ShortCodePage:
         """
         Asynchronously retrieve a single page of ShortCodeInstance records from the API.

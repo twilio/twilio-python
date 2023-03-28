@@ -519,9 +519,9 @@ class PlayerStreamerList(ListResource):
         self,
         order: Union["PlayerStreamerInstance.Order", object] = values.unset,
         status: Union["PlayerStreamerInstance.Status", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> PlayerStreamerPage:
         """
         Retrieve a single page of PlayerStreamerInstance records from the API.
@@ -552,9 +552,9 @@ class PlayerStreamerList(ListResource):
         self,
         order: Union["PlayerStreamerInstance.Order", object] = values.unset,
         status: Union["PlayerStreamerInstance.Status", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> PlayerStreamerPage:
         """
         Asynchronously retrieve a single page of PlayerStreamerInstance records from the API.

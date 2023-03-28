@@ -523,9 +523,9 @@ class SubscriptionList(ListResource):
     def page(
         self,
         sink_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SubscriptionPage:
         """
         Retrieve a single page of SubscriptionInstance records from the API.
@@ -553,9 +553,9 @@ class SubscriptionList(ListResource):
     async def page_async(
         self,
         sink_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SubscriptionPage:
         """
         Asynchronously retrieve a single page of SubscriptionInstance records from the API.

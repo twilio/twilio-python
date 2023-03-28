@@ -961,9 +961,9 @@ class TriggerList(ListResource):
         recurring: Union["TriggerInstance.Recurring", object] = values.unset,
         trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
         usage_category: Union["TriggerInstance.UsageCategory", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TriggerPage:
         """
         Retrieve a single page of TriggerInstance records from the API.
@@ -997,9 +997,9 @@ class TriggerList(ListResource):
         recurring: Union["TriggerInstance.Recurring", object] = values.unset,
         trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
         usage_category: Union["TriggerInstance.UsageCategory", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TriggerPage:
         """
         Asynchronously retrieve a single page of TriggerInstance records from the API.

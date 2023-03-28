@@ -648,9 +648,9 @@ class ChallengeList(ListResource):
         factor_sid: Union[str, object] = values.unset,
         status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
         order: Union["ChallengeInstance.ListOrders", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ChallengePage:
         """
         Retrieve a single page of ChallengeInstance records from the API.
@@ -684,9 +684,9 @@ class ChallengeList(ListResource):
         factor_sid: Union[str, object] = values.unset,
         status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
         order: Union["ChallengeInstance.ListOrders", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ChallengePage:
         """
         Asynchronously retrieve a single page of ChallengeInstance records from the API.

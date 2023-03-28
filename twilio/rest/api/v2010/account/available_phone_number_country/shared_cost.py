@@ -464,9 +464,9 @@ class SharedCostList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SharedCostPage:
         """
         Retrieve a single page of SharedCostInstance records from the API.
@@ -545,9 +545,9 @@ class SharedCostList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SharedCostPage:
         """
         Asynchronously retrieve a single page of SharedCostInstance records from the API.

@@ -281,9 +281,9 @@ class TaskQueuesStatisticsList(ListResource):
         start_date: Union[datetime, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         split_by_wait_time: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskQueuesStatisticsPage:
         """
         Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
@@ -326,9 +326,9 @@ class TaskQueuesStatisticsList(ListResource):
         start_date: Union[datetime, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         split_by_wait_time: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskQueuesStatisticsPage:
         """
         Asynchronously retrieve a single page of TaskQueuesStatisticsInstance records from the API.

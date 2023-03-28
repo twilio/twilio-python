@@ -459,9 +459,9 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         self,
         channel_endpoint_sid: Union[str, object] = values.unset,
         channel_endpoint_sids: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TrustProductsChannelEndpointAssignmentPage:
         """
         Retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API.
@@ -494,9 +494,9 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         self,
         channel_endpoint_sid: Union[str, object] = values.unset,
         channel_endpoint_sids: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TrustProductsChannelEndpointAssignmentPage:
         """
         Asynchronously retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API.

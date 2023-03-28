@@ -1206,9 +1206,9 @@ class CallList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         end_time_before: Union[datetime, object] = values.unset,
         end_time_after: Union[datetime, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CallPage:
         """
         Retrieve a single page of CallInstance records from the API.
@@ -1263,9 +1263,9 @@ class CallList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         end_time_before: Union[datetime, object] = values.unset,
         end_time_after: Union[datetime, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CallPage:
         """
         Asynchronously retrieve a single page of CallInstance records from the API.

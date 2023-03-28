@@ -427,9 +427,9 @@ class MediaRecordingList(ListResource):
         status: Union["MediaRecordingInstance.Status", object] = values.unset,
         processor_sid: Union[str, object] = values.unset,
         source_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MediaRecordingPage:
         """
         Retrieve a single page of MediaRecordingInstance records from the API.
@@ -466,9 +466,9 @@ class MediaRecordingList(ListResource):
         status: Union["MediaRecordingInstance.Status", object] = values.unset,
         processor_sid: Union[str, object] = values.unset,
         source_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MediaRecordingPage:
         """
         Asynchronously retrieve a single page of MediaRecordingInstance records from the API.

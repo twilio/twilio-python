@@ -480,9 +480,9 @@ class EventList(ListResource):
         workflow_sid: Union[str, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> EventPage:
         """
         Retrieve a single page of EventInstance records from the API.
@@ -540,9 +540,9 @@ class EventList(ListResource):
         workflow_sid: Union[str, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> EventPage:
         """
         Asynchronously retrieve a single page of EventInstance records from the API.

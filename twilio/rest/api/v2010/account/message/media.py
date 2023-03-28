@@ -418,9 +418,9 @@ class MediaList(ListResource):
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MediaPage:
         """
         Retrieve a single page of MediaInstance records from the API.
@@ -454,9 +454,9 @@ class MediaList(ListResource):
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MediaPage:
         """
         Asynchronously retrieve a single page of MediaInstance records from the API.

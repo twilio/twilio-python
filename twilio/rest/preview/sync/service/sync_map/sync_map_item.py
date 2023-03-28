@@ -597,9 +597,9 @@ class SyncMapItemList(ListResource):
         order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
         from_: Union[str, object] = values.unset,
         bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SyncMapItemPage:
         """
         Retrieve a single page of SyncMapItemInstance records from the API.
@@ -633,9 +633,9 @@ class SyncMapItemList(ListResource):
         order: Union["SyncMapItemInstance.QueryResultOrder", object] = values.unset,
         from_: Union[str, object] = values.unset,
         bounds: Union["SyncMapItemInstance.QueryFromBoundType", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SyncMapItemPage:
         """
         Asynchronously retrieve a single page of SyncMapItemInstance records from the API.

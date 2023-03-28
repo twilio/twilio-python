@@ -726,9 +726,9 @@ class MessageList(ListResource):
     def page(
         self,
         order: Union["MessageInstance.OrderType", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MessagePage:
         """
         Retrieve a single page of MessageInstance records from the API.
@@ -756,9 +756,9 @@ class MessageList(ListResource):
     async def page_async(
         self,
         order: Union["MessageInstance.OrderType", object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MessagePage:
         """
         Asynchronously retrieve a single page of MessageInstance records from the API.

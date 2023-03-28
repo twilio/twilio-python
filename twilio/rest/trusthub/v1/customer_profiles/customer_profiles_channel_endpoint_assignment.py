@@ -457,9 +457,9 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         self,
         channel_endpoint_sid: Union[str, object] = values.unset,
         channel_endpoint_sids: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CustomerProfilesChannelEndpointAssignmentPage:
         """
         Retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.
@@ -492,9 +492,9 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         self,
         channel_endpoint_sid: Union[str, object] = values.unset,
         channel_endpoint_sids: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CustomerProfilesChannelEndpointAssignmentPage:
         """
         Asynchronously retrieve a single page of CustomerProfilesChannelEndpointAssignmentInstance records from the API.

@@ -599,9 +599,9 @@ class YearlyList(ListResource):
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> YearlyPage:
         """
         Retrieve a single page of YearlyInstance records from the API.
@@ -638,9 +638,9 @@ class YearlyList(ListResource):
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> YearlyPage:
         """
         Asynchronously retrieve a single page of YearlyInstance records from the API.

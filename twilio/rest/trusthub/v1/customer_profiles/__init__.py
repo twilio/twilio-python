@@ -677,9 +677,9 @@ class CustomerProfilesList(ListResource):
         status: Union["CustomerProfilesInstance.Status", object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         policy_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CustomerProfilesPage:
         """
         Retrieve a single page of CustomerProfilesInstance records from the API.
@@ -713,9 +713,9 @@ class CustomerProfilesList(ListResource):
         status: Union["CustomerProfilesInstance.Status", object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         policy_sid: Union[str, object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CustomerProfilesPage:
         """
         Asynchronously retrieve a single page of CustomerProfilesInstance records from the API.

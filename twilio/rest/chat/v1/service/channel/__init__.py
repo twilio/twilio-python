@@ -642,9 +642,9 @@ class ChannelList(ListResource):
     def page(
         self,
         type: Union[List["ChannelInstance.ChannelType"], object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ChannelPage:
         """
         Retrieve a single page of ChannelInstance records from the API.
@@ -672,9 +672,9 @@ class ChannelList(ListResource):
     async def page_async(
         self,
         type: Union[List["ChannelInstance.ChannelType"], object] = values.unset,
-        page_token: Optional[str] = None,
-        page_number: Optional[int] = None,
-        page_size: Optional[int] = None,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ChannelPage:
         """
         Asynchronously retrieve a single page of ChannelInstance records from the API.
