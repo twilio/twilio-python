@@ -33,6 +33,11 @@ class SimInstance(InstanceResource):
         INACTIVE = "inactive"
         SCHEDULED = "scheduled"
 
+    class StatusUpdate(object):
+        READY = "ready"
+        ACTIVE = "active"
+        INACTIVE = "inactive"
+
     """
     :ivar sid: The unique string that identifies the Sim resource.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.

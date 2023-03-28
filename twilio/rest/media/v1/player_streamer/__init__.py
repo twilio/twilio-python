@@ -41,6 +41,9 @@ class PlayerStreamerInstance(InstanceResource):
         ENDED = "ended"
         FAILED = "failed"
 
+    class UpdateStatus(object):
+        ENDED = "ended"
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PlayerStreamer resource.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

@@ -23,6 +23,30 @@ from twilio.base.version import Version
 
 
 class PaymentInstance(InstanceResource):
+    class BankAccountType(object):
+        CONSUMER_CHECKING = "consumer-checking"
+        CONSUMER_SAVINGS = "consumer-savings"
+        COMMERCIAL_CHECKING = "commercial-checking"
+
+    class Capture(object):
+        PAYMENT_CARD_NUMBER = "payment-card-number"
+        EXPIRATION_DATE = "expiration-date"
+        SECURITY_CODE = "security-code"
+        POSTAL_CODE = "postal-code"
+        BANK_ROUTING_NUMBER = "bank-routing-number"
+        BANK_ACCOUNT_NUMBER = "bank-account-number"
+
+    class PaymentMethod(object):
+        CREDIT_CARD = "credit-card"
+        ACH_DEBIT = "ach-debit"
+
+    class Status(object):
+        COMPLETE = "complete"
+        CANCEL = "cancel"
+
+    class TokenType(object):
+        ONE_TIME = "one-time"
+        REUSABLE = "reusable"
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.

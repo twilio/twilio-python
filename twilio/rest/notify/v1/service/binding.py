@@ -24,6 +24,13 @@ from twilio.base.page import Page
 
 
 class BindingInstance(InstanceResource):
+    class BindingType(object):
+        APN = "apn"
+        GCM = "gcm"
+        SMS = "sms"
+        FCM = "fcm"
+        FACEBOOK_MESSENGER = "facebook-messenger"
+        ALEXA = "alexa"
 
     """
     :ivar sid: The unique string that we created to identify the Binding resource.

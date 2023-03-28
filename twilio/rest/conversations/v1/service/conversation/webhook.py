@@ -24,6 +24,14 @@ from twilio.base.page import Page
 
 
 class WebhookInstance(InstanceResource):
+    class Method(object):
+        GETS = "GETS"
+        POST = "POST"
+
+    class Target(object):
+        WEBHOOK = "webhook"
+        TRIGGER = "trigger"
+        STUDIO = "studio"
 
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.

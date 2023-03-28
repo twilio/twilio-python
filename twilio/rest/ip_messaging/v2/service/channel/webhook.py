@@ -24,17 +24,25 @@ from twilio.base.page import Page
 
 
 class WebhookInstance(InstanceResource):
+    class Method(object):
+        GET = "GET"
+        POST = "POST"
+
+    class Type(object):
+        WEBHOOK = "webhook"
+        TRIGGER = "trigger"
+        STUDIO = "studio"
 
     """
-    :ivar sid:
-    :ivar account_sid:
-    :ivar service_sid:
-    :ivar channel_sid:
-    :ivar type:
-    :ivar url:
-    :ivar configuration:
-    :ivar date_created:
-    :ivar date_updated:
+    :ivar sid: 
+    :ivar account_sid: 
+    :ivar service_sid: 
+    :ivar channel_sid: 
+    :ivar type: 
+    :ivar url: 
+    :ivar configuration: 
+    :ivar date_created: 
+    :ivar date_updated: 
     """
 
     def __init__(

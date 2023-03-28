@@ -24,6 +24,21 @@ from twilio.base.page import Page
 
 
 class ReservationInstance(InstanceResource):
+    class CallStatus(object):
+        INITIATED = "initiated"
+        RINGING = "ringing"
+        ANSWERED = "answered"
+        COMPLETED = "completed"
+
+    class ConferenceEvent(object):
+        START = "start"
+        END = "end"
+        JOIN = "join"
+        LEAVE = "leave"
+        MUTE = "mute"
+        HOLD = "hold"
+        SPEAKER = "speaker"
+
     class Status(object):
         PENDING = "pending"
         ACCEPTED = "accepted"
