@@ -26,11 +26,20 @@ from twilio.rest.api.v2010.account.message.media import MediaList
 
 
 class MessageInstance(InstanceResource):
+    class AddressRetention(object):
+        RETAIN = "retain"
+
+    class ContentRetention(object):
+        RETAIN = "retain"
+
     class Direction(object):
         INBOUND = "inbound"
         OUTBOUND_API = "outbound-api"
         OUTBOUND_CALL = "outbound-call"
         OUTBOUND_REPLY = "outbound-reply"
+
+    class ScheduleType(object):
+        FIXED = "fixed"
 
     class Status(object):
         QUEUED = "queued"
@@ -45,6 +54,9 @@ class MessageInstance(InstanceResource):
         SCHEDULED = "scheduled"
         READ = "read"
         PARTIALLY_DELIVERED = "partially_delivered"
+        CANCELED = "canceled"
+
+    class UpdateStatus(object):
         CANCELED = "canceled"
 
     """

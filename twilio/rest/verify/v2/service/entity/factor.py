@@ -32,6 +32,11 @@ class FactorInstance(InstanceResource):
         PUSH = "push"
         TOTP = "totp"
 
+    class TotpAlgorithms(object):
+        SHA1 = "sha1"
+        SHA256 = "sha256"
+        SHA512 = "sha512"
+
     """
     :ivar sid: A 34 character string that uniquely identifies this Factor.
     :ivar account_sid: The unique SID identifier of the Account.

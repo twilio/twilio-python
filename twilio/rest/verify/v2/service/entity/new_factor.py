@@ -31,6 +31,16 @@ class NewFactorInstance(InstanceResource):
         PUSH = "push"
         TOTP = "totp"
 
+    class NotificationPlatforms(object):
+        APN = "apn"
+        FCM = "fcm"
+        NONE = "none"
+
+    class TotpAlgorithms(object):
+        SHA1 = "sha1"
+        SHA256 = "sha256"
+        SHA512 = "sha512"
+
     """
     :ivar sid: A 34 character string that uniquely identifies this Factor.
     :ivar account_sid: The unique SID identifier of the Account.

@@ -24,6 +24,8 @@ from twilio.base.page import Page
 
 
 class WebChannelInstance(InstanceResource):
+    class ChatStatus(object):
+        INACTIVE = "inactive"
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the WebChannel resource and owns this Workflow.

@@ -36,6 +36,10 @@ from twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items import (
 
 
 class BundleInstance(InstanceResource):
+    class EndUserType(object):
+        INDIVIDUAL = "individual"
+        BUSINESS = "business"
+
     class SortBy(object):
         VALID_UNTIL = "valid-until"
         DATE_UPDATED = "date-updated"

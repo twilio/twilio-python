@@ -48,6 +48,10 @@ class CallInstance(InstanceResource):
         NO_ANSWER = "no-answer"
         CANCELED = "canceled"
 
+    class UpdateStatus(object):
+        CANCELED = "canceled"
+        COMPLETED = "completed"
+
     """
     :ivar sid: The unique string that we created to identify this Call resource.
     :ivar date_created: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

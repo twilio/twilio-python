@@ -33,6 +33,9 @@ class MediaProcessorInstance(InstanceResource):
         STARTED = "started"
         ENDED = "ended"
 
+    class UpdateStatus(object):
+        ENDED = "ended"
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaProcessor resource.
     :ivar sid: The unique string generated to identify the MediaProcessor resource.

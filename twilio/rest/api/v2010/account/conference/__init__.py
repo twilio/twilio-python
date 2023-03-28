@@ -42,6 +42,9 @@ class ConferenceInstance(InstanceResource):
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
 
+    class UpdateStatus(object):
+        COMPLETED = "completed"
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Conference resource.
     :ivar date_created: The date and time in GMT that this resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
