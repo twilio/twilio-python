@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -102,20 +102,20 @@ class VerificationCheckList(ListResource):
 
     def create(
         self,
-        code=values.unset,
-        to=values.unset,
-        verification_sid=values.unset,
-        amount=values.unset,
-        payee=values.unset,
+        code: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
     ) -> VerificationCheckInstance:
         """
         Create the VerificationCheckInstance
 
-        :param str code: The 4-10 character string being verified.
-        :param str to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        :param str verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
-        :param str amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :param str payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param code: The 4-10 character string being verified.
+        :param to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
+        :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 
         :returns: The created VerificationCheckInstance
         """
@@ -141,20 +141,20 @@ class VerificationCheckList(ListResource):
 
     async def create_async(
         self,
-        code=values.unset,
-        to=values.unset,
-        verification_sid=values.unset,
-        amount=values.unset,
-        payee=values.unset,
+        code: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
     ) -> VerificationCheckInstance:
         """
         Asynchronously create the VerificationCheckInstance
 
-        :param str code: The 4-10 character string being verified.
-        :param str to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        :param str verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
-        :param str amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-        :param str payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param code: The 4-10 character string being verified.
+        :param to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
+        :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 
         :returns: The created VerificationCheckInstance
         """

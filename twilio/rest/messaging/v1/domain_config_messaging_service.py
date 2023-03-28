@@ -185,7 +185,7 @@ class DomainConfigMessagingServiceList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, messaging_service_sid) -> DomainConfigMessagingServiceContext:
+    def get(self, messaging_service_sid: str) -> DomainConfigMessagingServiceContext:
         """
         Constructs a DomainConfigMessagingServiceContext
 
@@ -195,7 +195,9 @@ class DomainConfigMessagingServiceList(ListResource):
             self._version, messaging_service_sid=messaging_service_sid
         )
 
-    def __call__(self, messaging_service_sid) -> DomainConfigMessagingServiceContext:
+    def __call__(
+        self, messaging_service_sid: str
+    ) -> DomainConfigMessagingServiceContext:
         """
         Constructs a DomainConfigMessagingServiceContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -186,11 +186,11 @@ class VerificationAttemptContext(InstanceContext):
 
 
 class VerificationAttemptPage(Page):
-    def get_instance(self, payload) -> VerificationAttemptInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> VerificationAttemptInstance:
         """
         Build an instance of VerificationAttemptInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return VerificationAttemptInstance(self._version, payload)
 
@@ -217,16 +217,18 @@ class VerificationAttemptList(ListResource):
 
     def stream(
         self,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        channel_data_to=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        verify_service_sid=values.unset,
-        verification_sid=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[VerificationAttemptInstance]:
         """
         Streams VerificationAttemptInstance records from the API as a generator stream.
@@ -242,12 +244,12 @@ class VerificationAttemptList(ListResource):
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -268,16 +270,18 @@ class VerificationAttemptList(ListResource):
 
     async def stream_async(
         self,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        channel_data_to=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        verify_service_sid=values.unset,
-        verification_sid=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[VerificationAttemptInstance]:
         """
         Asynchronously streams VerificationAttemptInstance records from the API as a generator stream.
@@ -293,12 +297,12 @@ class VerificationAttemptList(ListResource):
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -319,16 +323,18 @@ class VerificationAttemptList(ListResource):
 
     def list(
         self,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        channel_data_to=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        verify_service_sid=values.unset,
-        verification_sid=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[VerificationAttemptInstance]:
         """
         Lists VerificationAttemptInstance records from the API as a list.
@@ -343,12 +349,12 @@ class VerificationAttemptList(ListResource):
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -369,16 +375,18 @@ class VerificationAttemptList(ListResource):
 
     async def list_async(
         self,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        channel_data_to=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        verify_service_sid=values.unset,
-        verification_sid=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[VerificationAttemptInstance]:
         """
         Asynchronously lists VerificationAttemptInstance records from the API as a list.
@@ -393,12 +401,12 @@ class VerificationAttemptList(ListResource):
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -419,33 +427,35 @@ class VerificationAttemptList(ListResource):
 
     def page(
         self,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        channel_data_to=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        verify_service_sid=values.unset,
-        verification_sid=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> VerificationAttemptPage:
         """
         Retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
-        :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
-        :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
-        :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
-        :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
+        :param date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+        :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
+        :param country: Filter used to query Verification Attempts sent to the specified destination country.
+        :param channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+        :param verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+        :param status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of VerificationAttemptInstance
         """
@@ -470,33 +480,35 @@ class VerificationAttemptList(ListResource):
 
     async def page_async(
         self,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        channel_data_to=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        verify_service_sid=values.unset,
-        verification_sid=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> VerificationAttemptPage:
         """
         Asynchronously retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
-        :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
-        :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
-        :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
-        :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
+        :param date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+        :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
+        :param country: Filter used to query Verification Attempts sent to the specified destination country.
+        :param channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+        :param verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+        :param status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of VerificationAttemptInstance
         """
@@ -521,31 +533,31 @@ class VerificationAttemptList(ListResource):
         )
         return VerificationAttemptPage(self._version, response)
 
-    def get_page(self, target_url) -> VerificationAttemptPage:
+    def get_page(self, target_url: str) -> VerificationAttemptPage:
         """
         Retrieve a specific page of VerificationAttemptInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of VerificationAttemptInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return VerificationAttemptPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> VerificationAttemptPage:
+    async def get_page_async(self, target_url: str) -> VerificationAttemptPage:
         """
         Asynchronously retrieve a specific page of VerificationAttemptInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of VerificationAttemptInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return VerificationAttemptPage(self._version, response)
 
-    def get(self, sid) -> VerificationAttemptContext:
+    def get(self, sid: str) -> VerificationAttemptContext:
         """
         Constructs a VerificationAttemptContext
 
@@ -553,7 +565,7 @@ class VerificationAttemptList(ListResource):
         """
         return VerificationAttemptContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> VerificationAttemptContext:
+    def __call__(self, sid: str) -> VerificationAttemptContext:
         """
         Constructs a VerificationAttemptContext
 

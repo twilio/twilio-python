@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -135,13 +135,15 @@ class AccountInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, friendly_name=values.unset, status=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
     ) -> "AccountInstance":
         """
         Update the AccountInstance
 
-        :param str friendly_name: Update the human-readable description of this Account
-        :param "AccountInstance.Status" status:
+        :param friendly_name: Update the human-readable description of this Account
+        :param status:
 
         :returns: The updated AccountInstance
         """
@@ -151,13 +153,15 @@ class AccountInstance(InstanceResource):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, status=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
     ) -> "AccountInstance":
         """
         Asynchronous coroutine to update the AccountInstance
 
-        :param str friendly_name: Update the human-readable description of this Account
-        :param "AccountInstance.Status" status:
+        :param friendly_name: Update the human-readable description of this Account
+        :param status:
 
         :returns: The updated AccountInstance
         """
@@ -424,13 +428,15 @@ class AccountContext(InstanceContext):
         )
 
     def update(
-        self, friendly_name=values.unset, status=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
     ) -> AccountInstance:
         """
         Update the AccountInstance
 
-        :param str friendly_name: Update the human-readable description of this Account
-        :param "AccountInstance.Status" status:
+        :param friendly_name: Update the human-readable description of this Account
+        :param status:
 
         :returns: The updated AccountInstance
         """
@@ -450,13 +456,15 @@ class AccountContext(InstanceContext):
         return AccountInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
-        self, friendly_name=values.unset, status=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
     ) -> AccountInstance:
         """
         Asynchronous coroutine to update the AccountInstance
 
-        :param str friendly_name: Update the human-readable description of this Account
-        :param "AccountInstance.Status" status:
+        :param friendly_name: Update the human-readable description of this Account
+        :param status:
 
         :returns: The updated AccountInstance
         """
@@ -774,11 +782,11 @@ class AccountContext(InstanceContext):
 
 
 class AccountPage(Page):
-    def get_instance(self, payload) -> AccountInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AccountInstance:
         """
         Build an instance of AccountInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AccountInstance(self._version, payload)
 
@@ -803,11 +811,13 @@ class AccountList(ListResource):
 
         self._uri = "/Accounts.json"
 
-    def create(self, friendly_name=values.unset) -> AccountInstance:
+    def create(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> AccountInstance:
         """
         Create the AccountInstance
 
-        :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
+        :param friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
 
         :returns: The created AccountInstance
         """
@@ -825,11 +835,13 @@ class AccountList(ListResource):
 
         return AccountInstance(self._version, payload)
 
-    async def create_async(self, friendly_name=values.unset) -> AccountInstance:
+    async def create_async(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> AccountInstance:
         """
         Asynchronously create the AccountInstance
 
-        :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
+        :param friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
 
         :returns: The created AccountInstance
         """
@@ -849,10 +861,10 @@ class AccountList(ListResource):
 
     def stream(
         self,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AccountInstance]:
         """
         Streams AccountInstance records from the API as a generator stream.
@@ -862,12 +874,12 @@ class AccountList(ListResource):
 
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -880,10 +892,10 @@ class AccountList(ListResource):
 
     async def stream_async(
         self,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AccountInstance]:
         """
         Asynchronously streams AccountInstance records from the API as a generator stream.
@@ -893,12 +905,12 @@ class AccountList(ListResource):
 
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -911,10 +923,10 @@ class AccountList(ListResource):
 
     def list(
         self,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AccountInstance]:
         """
         Lists AccountInstance records from the API as a list.
@@ -923,12 +935,12 @@ class AccountList(ListResource):
 
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -943,10 +955,10 @@ class AccountList(ListResource):
 
     async def list_async(
         self,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AccountInstance]:
         """
         Asynchronously lists AccountInstance records from the API as a list.
@@ -955,12 +967,12 @@ class AccountList(ListResource):
 
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -975,21 +987,21 @@ class AccountList(ListResource):
 
     def page(
         self,
-        friendly_name=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AccountPage:
         """
         Retrieve a single page of AccountInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
-        :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: Only return the Account resources with friendly names that exactly match this name.
+        :param status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AccountInstance
         """
@@ -1008,21 +1020,21 @@ class AccountList(ListResource):
 
     async def page_async(
         self,
-        friendly_name=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["AccountInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AccountPage:
         """
         Asynchronously retrieve a single page of AccountInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
-        :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: Only return the Account resources with friendly names that exactly match this name.
+        :param status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AccountInstance
         """
@@ -1041,31 +1053,31 @@ class AccountList(ListResource):
         )
         return AccountPage(self._version, response)
 
-    def get_page(self, target_url) -> AccountPage:
+    def get_page(self, target_url: str) -> AccountPage:
         """
         Retrieve a specific page of AccountInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AccountInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AccountPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> AccountPage:
+    async def get_page_async(self, target_url: str) -> AccountPage:
         """
         Asynchronously retrieve a specific page of AccountInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AccountInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AccountPage(self._version, response)
 
-    def get(self, sid) -> AccountContext:
+    def get(self, sid: str) -> AccountContext:
         """
         Constructs a AccountContext
 
@@ -1073,7 +1085,7 @@ class AccountList(ListResource):
         """
         return AccountContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> AccountContext:
+    def __call__(self, sid: str) -> AccountContext:
         """
         Constructs a AccountContext
 

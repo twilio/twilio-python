@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -124,13 +124,15 @@ class QueueInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, friendly_name=values.unset, max_size=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        max_size: Union[int, object] = values.unset,
     ) -> "QueueInstance":
         """
         Update the QueueInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+        :param max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
         """
@@ -140,13 +142,15 @@ class QueueInstance(InstanceResource):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, max_size=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        max_size: Union[int, object] = values.unset,
     ) -> "QueueInstance":
         """
         Asynchronous coroutine to update the QueueInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+        :param max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
         """
@@ -257,13 +261,15 @@ class QueueContext(InstanceContext):
         )
 
     def update(
-        self, friendly_name=values.unset, max_size=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        max_size: Union[int, object] = values.unset,
     ) -> QueueInstance:
         """
         Update the QueueInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+        :param max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
         """
@@ -288,13 +294,15 @@ class QueueContext(InstanceContext):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, max_size=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        max_size: Union[int, object] = values.unset,
     ) -> QueueInstance:
         """
         Asynchronous coroutine to update the QueueInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+        :param max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
         """
@@ -342,11 +350,11 @@ class QueueContext(InstanceContext):
 
 
 class QueuePage(Page):
-    def get_instance(self, payload) -> QueueInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> QueueInstance:
         """
         Build an instance of QueueInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return QueueInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -378,12 +386,14 @@ class QueueList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Queues.json".format(**self._solution)
 
-    def create(self, friendly_name, max_size=values.unset) -> QueueInstance:
+    def create(
+        self, friendly_name: str, max_size: Union[int, object] = values.unset
+    ) -> QueueInstance:
         """
         Create the QueueInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+        :param max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The created QueueInstance
         """
@@ -404,12 +414,14 @@ class QueueList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    async def create_async(self, friendly_name, max_size=values.unset) -> QueueInstance:
+    async def create_async(
+        self, friendly_name: str, max_size: Union[int, object] = values.unset
+    ) -> QueueInstance:
         """
         Asynchronously create the QueueInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+        :param max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The created QueueInstance
         """
@@ -430,19 +442,23 @@ class QueueList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[QueueInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[QueueInstance]:
         """
         Streams QueueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -451,19 +467,23 @@ class QueueList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[QueueInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[QueueInstance]:
         """
         Asynchronously streams QueueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -472,18 +492,22 @@ class QueueList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[QueueInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[QueueInstance]:
         """
         Lists QueueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -494,18 +518,22 @@ class QueueList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[QueueInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[QueueInstance]:
         """
         Asynchronously lists QueueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -517,15 +545,18 @@ class QueueList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> QueuePage:
         """
         Retrieve a single page of QueueInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueueInstance
         """
@@ -541,15 +572,18 @@ class QueueList(ListResource):
         return QueuePage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> QueuePage:
         """
         Asynchronously retrieve a single page of QueueInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueueInstance
         """
@@ -566,31 +600,31 @@ class QueueList(ListResource):
         )
         return QueuePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> QueuePage:
+    def get_page(self, target_url: str) -> QueuePage:
         """
         Retrieve a specific page of QueueInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of QueueInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return QueuePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> QueuePage:
+    async def get_page_async(self, target_url: str) -> QueuePage:
         """
         Asynchronously retrieve a specific page of QueueInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of QueueInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return QueuePage(self._version, response, self._solution)
 
-    def get(self, sid) -> QueueContext:
+    def get(self, sid: str) -> QueueContext:
         """
         Constructs a QueueContext
 
@@ -600,7 +634,7 @@ class QueueList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> QueueContext:
+    def __call__(self, sid: str) -> QueueContext:
         """
         Constructs a QueueContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -128,11 +128,13 @@ class ModelBuildInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, unique_name=values.unset) -> "ModelBuildInstance":
+    def update(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> "ModelBuildInstance":
         """
         Update the ModelBuildInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The updated ModelBuildInstance
         """
@@ -140,11 +142,13 @@ class ModelBuildInstance(InstanceResource):
             unique_name=unique_name,
         )
 
-    async def update_async(self, unique_name=values.unset) -> "ModelBuildInstance":
+    async def update_async(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> "ModelBuildInstance":
         """
         Asynchronous coroutine to update the ModelBuildInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The updated ModelBuildInstance
         """
@@ -246,11 +250,13 @@ class ModelBuildContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, unique_name=values.unset) -> ModelBuildInstance:
+    def update(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> ModelBuildInstance:
         """
         Update the ModelBuildInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The updated ModelBuildInstance
         """
@@ -273,11 +279,13 @@ class ModelBuildContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, unique_name=values.unset) -> ModelBuildInstance:
+    async def update_async(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> ModelBuildInstance:
         """
         Asynchronous coroutine to update the ModelBuildInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The updated ModelBuildInstance
         """
@@ -311,11 +319,11 @@ class ModelBuildContext(InstanceContext):
 
 
 class ModelBuildPage(Page):
-    def get_instance(self, payload) -> ModelBuildInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ModelBuildInstance:
         """
         Build an instance of ModelBuildInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ModelBuildInstance(
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
@@ -348,13 +356,15 @@ class ModelBuildList(ListResource):
         self._uri = "/Assistants/{assistant_sid}/ModelBuilds".format(**self._solution)
 
     def create(
-        self, status_callback=values.unset, unique_name=values.unset
+        self,
+        status_callback: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> ModelBuildInstance:
         """
         Create the ModelBuildInstance
 
-        :param str status_callback: The URL we should call using a POST method to send status information to your application.
-        :param str unique_name: An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param status_callback: The URL we should call using a POST method to send status information to your application.
+        :param unique_name: An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The created ModelBuildInstance
         """
@@ -376,13 +386,15 @@ class ModelBuildList(ListResource):
         )
 
     async def create_async(
-        self, status_callback=values.unset, unique_name=values.unset
+        self,
+        status_callback: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
     ) -> ModelBuildInstance:
         """
         Asynchronously create the ModelBuildInstance
 
-        :param str status_callback: The URL we should call using a POST method to send status information to your application.
-        :param str unique_name: An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param status_callback: The URL we should call using a POST method to send status information to your application.
+        :param unique_name: An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 
         :returns: The created ModelBuildInstance
         """
@@ -403,19 +415,23 @@ class ModelBuildList(ListResource):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[ModelBuildInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ModelBuildInstance]:
         """
         Streams ModelBuildInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -425,7 +441,9 @@ class ModelBuildList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ModelBuildInstance]:
         """
         Asynchronously streams ModelBuildInstance records from the API as a generator stream.
@@ -433,12 +451,12 @@ class ModelBuildList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -447,18 +465,22 @@ class ModelBuildList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[ModelBuildInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ModelBuildInstance]:
         """
         Lists ModelBuildInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -469,18 +491,22 @@ class ModelBuildList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[ModelBuildInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ModelBuildInstance]:
         """
         Asynchronously lists ModelBuildInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -492,15 +518,18 @@ class ModelBuildList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ModelBuildPage:
         """
         Retrieve a single page of ModelBuildInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ModelBuildInstance
         """
@@ -516,15 +545,18 @@ class ModelBuildList(ListResource):
         return ModelBuildPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ModelBuildPage:
         """
         Asynchronously retrieve a single page of ModelBuildInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ModelBuildInstance
         """
@@ -541,31 +573,31 @@ class ModelBuildList(ListResource):
         )
         return ModelBuildPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ModelBuildPage:
+    def get_page(self, target_url: str) -> ModelBuildPage:
         """
         Retrieve a specific page of ModelBuildInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ModelBuildInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ModelBuildPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ModelBuildPage:
+    async def get_page_async(self, target_url: str) -> ModelBuildPage:
         """
         Asynchronously retrieve a specific page of ModelBuildInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ModelBuildInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ModelBuildPage(self._version, response, self._solution)
 
-    def get(self, sid) -> ModelBuildContext:
+    def get(self, sid: str) -> ModelBuildContext:
         """
         Constructs a ModelBuildContext
 
@@ -575,7 +607,7 @@ class ModelBuildList(ListResource):
             self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> ModelBuildContext:
+    def __call__(self, sid: str) -> ModelBuildContext:
         """
         Constructs a ModelBuildContext
 

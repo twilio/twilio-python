@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -106,11 +106,13 @@ class PublicKeyInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name=values.unset) -> "PublicKeyInstance":
+    def update(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> "PublicKeyInstance":
         """
         Update the PublicKeyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated PublicKeyInstance
         """
@@ -118,11 +120,13 @@ class PublicKeyInstance(InstanceResource):
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, friendly_name=values.unset) -> "PublicKeyInstance":
+    async def update_async(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> "PublicKeyInstance":
         """
         Asynchronous coroutine to update the PublicKeyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated PublicKeyInstance
         """
@@ -218,11 +222,13 @@ class PublicKeyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name=values.unset) -> PublicKeyInstance:
+    def update(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> PublicKeyInstance:
         """
         Update the PublicKeyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated PublicKeyInstance
         """
@@ -240,11 +246,13 @@ class PublicKeyContext(InstanceContext):
 
         return PublicKeyInstance(self._version, payload, sid=self._solution["sid"])
 
-    async def update_async(self, friendly_name=values.unset) -> PublicKeyInstance:
+    async def update_async(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> PublicKeyInstance:
         """
         Asynchronous coroutine to update the PublicKeyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated PublicKeyInstance
         """
@@ -273,11 +281,11 @@ class PublicKeyContext(InstanceContext):
 
 
 class PublicKeyPage(Page):
-    def get_instance(self, payload) -> PublicKeyInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> PublicKeyInstance:
         """
         Build an instance of PublicKeyInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return PublicKeyInstance(self._version, payload)
 
@@ -303,14 +311,17 @@ class PublicKeyList(ListResource):
         self._uri = "/Credentials/PublicKeys"
 
     def create(
-        self, public_key, friendly_name=values.unset, account_sid=values.unset
+        self,
+        public_key: str,
+        friendly_name: Union[str, object] = values.unset,
+        account_sid: Union[str, object] = values.unset,
     ) -> PublicKeyInstance:
         """
         Create the PublicKeyInstance
 
-        :param str public_key: A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----`
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
+        :param public_key: A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----`
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
 
         :returns: The created PublicKeyInstance
         """
@@ -331,14 +342,17 @@ class PublicKeyList(ListResource):
         return PublicKeyInstance(self._version, payload)
 
     async def create_async(
-        self, public_key, friendly_name=values.unset, account_sid=values.unset
+        self,
+        public_key: str,
+        friendly_name: Union[str, object] = values.unset,
+        account_sid: Union[str, object] = values.unset,
     ) -> PublicKeyInstance:
         """
         Asynchronously create the PublicKeyInstance
 
-        :param str public_key: A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----`
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
+        :param public_key: A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----`
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
 
         :returns: The created PublicKeyInstance
         """
@@ -358,19 +372,23 @@ class PublicKeyList(ListResource):
 
         return PublicKeyInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[PublicKeyInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[PublicKeyInstance]:
         """
         Streams PublicKeyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -379,19 +397,23 @@ class PublicKeyList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[PublicKeyInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[PublicKeyInstance]:
         """
         Asynchronously streams PublicKeyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -400,18 +422,22 @@ class PublicKeyList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[PublicKeyInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[PublicKeyInstance]:
         """
         Lists PublicKeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -422,18 +448,22 @@ class PublicKeyList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[PublicKeyInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[PublicKeyInstance]:
         """
         Asynchronously lists PublicKeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -445,15 +475,18 @@ class PublicKeyList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> PublicKeyPage:
         """
         Retrieve a single page of PublicKeyInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of PublicKeyInstance
         """
@@ -469,15 +502,18 @@ class PublicKeyList(ListResource):
         return PublicKeyPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> PublicKeyPage:
         """
         Asynchronously retrieve a single page of PublicKeyInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of PublicKeyInstance
         """
@@ -494,31 +530,31 @@ class PublicKeyList(ListResource):
         )
         return PublicKeyPage(self._version, response)
 
-    def get_page(self, target_url) -> PublicKeyPage:
+    def get_page(self, target_url: str) -> PublicKeyPage:
         """
         Retrieve a specific page of PublicKeyInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of PublicKeyInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return PublicKeyPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> PublicKeyPage:
+    async def get_page_async(self, target_url: str) -> PublicKeyPage:
         """
         Asynchronously retrieve a specific page of PublicKeyInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of PublicKeyInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return PublicKeyPage(self._version, response)
 
-    def get(self, sid) -> PublicKeyContext:
+    def get(self, sid: str) -> PublicKeyContext:
         """
         Constructs a PublicKeyContext
 
@@ -526,7 +562,7 @@ class PublicKeyList(ListResource):
         """
         return PublicKeyContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> PublicKeyContext:
+    def __call__(self, sid: str) -> PublicKeyContext:
         """
         Constructs a PublicKeyContext
 

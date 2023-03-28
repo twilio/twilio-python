@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -165,11 +165,11 @@ class RegulationContext(InstanceContext):
 
 
 class RegulationPage(Page):
-    def get_instance(self, payload) -> RegulationInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RegulationInstance:
         """
         Build an instance of RegulationInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RegulationInstance(self._version, payload)
 
@@ -196,11 +196,11 @@ class RegulationList(ListResource):
 
     def stream(
         self,
-        end_user_type=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        limit=None,
-        page_size=None,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RegulationInstance]:
         """
         Streams RegulationInstance records from the API as a generator stream.
@@ -211,12 +211,12 @@ class RegulationList(ListResource):
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -232,11 +232,11 @@ class RegulationList(ListResource):
 
     async def stream_async(
         self,
-        end_user_type=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        limit=None,
-        page_size=None,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RegulationInstance]:
         """
         Asynchronously streams RegulationInstance records from the API as a generator stream.
@@ -247,12 +247,12 @@ class RegulationList(ListResource):
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -268,11 +268,11 @@ class RegulationList(ListResource):
 
     def list(
         self,
-        end_user_type=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        limit=None,
-        page_size=None,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RegulationInstance]:
         """
         Lists RegulationInstance records from the API as a list.
@@ -282,12 +282,12 @@ class RegulationList(ListResource):
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -303,11 +303,11 @@ class RegulationList(ListResource):
 
     async def list_async(
         self,
-        end_user_type=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        limit=None,
-        page_size=None,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RegulationInstance]:
         """
         Asynchronously lists RegulationInstance records from the API as a list.
@@ -317,12 +317,12 @@ class RegulationList(ListResource):
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -338,23 +338,23 @@ class RegulationList(ListResource):
 
     def page(
         self,
-        end_user_type=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RegulationPage:
         """
         Retrieve a single page of RegulationInstance records from the API.
         Request is executed immediately
 
-        :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
-        :param str iso_country: The ISO country code of the phone number's country.
-        :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param iso_country: The ISO country code of the phone number's country.
+        :param number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RegulationInstance
         """
@@ -374,23 +374,23 @@ class RegulationList(ListResource):
 
     async def page_async(
         self,
-        end_user_type=values.unset,
-        iso_country=values.unset,
-        number_type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RegulationPage:
         """
         Asynchronously retrieve a single page of RegulationInstance records from the API.
         Request is executed immediately
 
-        :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
-        :param str iso_country: The ISO country code of the phone number's country.
-        :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param iso_country: The ISO country code of the phone number's country.
+        :param number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RegulationInstance
         """
@@ -410,31 +410,31 @@ class RegulationList(ListResource):
         )
         return RegulationPage(self._version, response)
 
-    def get_page(self, target_url) -> RegulationPage:
+    def get_page(self, target_url: str) -> RegulationPage:
         """
         Retrieve a specific page of RegulationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RegulationInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RegulationPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> RegulationPage:
+    async def get_page_async(self, target_url: str) -> RegulationPage:
         """
         Asynchronously retrieve a specific page of RegulationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RegulationInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RegulationPage(self._version, response)
 
-    def get(self, sid) -> RegulationContext:
+    def get(self, sid: str) -> RegulationContext:
         """
         Constructs a RegulationContext
 
@@ -442,7 +442,7 @@ class RegulationList(ListResource):
         """
         return RegulationContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> RegulationContext:
+    def __call__(self, sid: str) -> RegulationContext:
         """
         Constructs a RegulationContext
 

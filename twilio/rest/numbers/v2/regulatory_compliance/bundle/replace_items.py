@@ -97,11 +97,11 @@ class ReplaceItemsList(ListResource):
             **self._solution
         )
 
-    def create(self, from_bundle_sid) -> ReplaceItemsInstance:
+    def create(self, from_bundle_sid: str) -> ReplaceItemsInstance:
         """
         Create the ReplaceItemsInstance
 
-        :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
+        :param from_bundle_sid: The source bundle sid to copy the item assignments from.
 
         :returns: The created ReplaceItemsInstance
         """
@@ -121,11 +121,11 @@ class ReplaceItemsList(ListResource):
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
 
-    async def create_async(self, from_bundle_sid) -> ReplaceItemsInstance:
+    async def create_async(self, from_bundle_sid: str) -> ReplaceItemsInstance:
         """
         Asynchronously create the ReplaceItemsInstance
 
-        :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
+        :param from_bundle_sid: The source bundle sid to copy the item assignments from.
 
         :returns: The created ReplaceItemsInstance
         """

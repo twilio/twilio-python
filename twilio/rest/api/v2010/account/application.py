@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -152,42 +152,42 @@ class ApplicationInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        api_version=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        voice_caller_id_lookup=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_status_callback=values.unset,
-        message_status_callback=values.unset,
-        public_application_connect_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
     ) -> "ApplicationInstance":
         """
         Update the ApplicationInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
-        :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-        :param bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-        :param str sms_url: The URL we should call when the phone number receives an incoming SMS message.
-        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        :param str sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
-        :param str message_status_callback: The URL we should call using a POST method to send message status information to your application.
-        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
+        :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
+        :param voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+        :param voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+        :param sms_url: The URL we should call when the phone number receives an incoming SMS message.
+        :param sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
+        :param message_status_callback: The URL we should call using a POST method to send message status information to your application.
+        :param public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The updated ApplicationInstance
         """
@@ -212,42 +212,42 @@ class ApplicationInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        api_version=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        voice_caller_id_lookup=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_status_callback=values.unset,
-        message_status_callback=values.unset,
-        public_application_connect_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
     ) -> "ApplicationInstance":
         """
         Asynchronous coroutine to update the ApplicationInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
-        :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-        :param bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-        :param str sms_url: The URL we should call when the phone number receives an incoming SMS message.
-        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        :param str sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
-        :param str message_status_callback: The URL we should call using a POST method to send message status information to your application.
-        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
+        :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
+        :param voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+        :param voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+        :param sms_url: The URL we should call when the phone number receives an incoming SMS message.
+        :param sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
+        :param message_status_callback: The URL we should call using a POST method to send message status information to your application.
+        :param public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The updated ApplicationInstance
         """
@@ -366,42 +366,42 @@ class ApplicationContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        api_version=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        voice_caller_id_lookup=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_status_callback=values.unset,
-        message_status_callback=values.unset,
-        public_application_connect_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
     ) -> ApplicationInstance:
         """
         Update the ApplicationInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
-        :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-        :param bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-        :param str sms_url: The URL we should call when the phone number receives an incoming SMS message.
-        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        :param str sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
-        :param str message_status_callback: The URL we should call using a POST method to send message status information to your application.
-        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
+        :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
+        :param voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+        :param voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+        :param sms_url: The URL we should call when the phone number receives an incoming SMS message.
+        :param sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
+        :param message_status_callback: The URL we should call using a POST method to send message status information to your application.
+        :param public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The updated ApplicationInstance
         """
@@ -441,42 +441,42 @@ class ApplicationContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        api_version=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        voice_caller_id_lookup=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_status_callback=values.unset,
-        message_status_callback=values.unset,
-        public_application_connect_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
     ) -> ApplicationInstance:
         """
         Asynchronous coroutine to update the ApplicationInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
-        :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-        :param bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-        :param str sms_url: The URL we should call when the phone number receives an incoming SMS message.
-        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        :param str sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
-        :param str message_status_callback: The URL we should call using a POST method to send message status information to your application.
-        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
+        :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
+        :param voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+        :param voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+        :param sms_url: The URL we should call when the phone number receives an incoming SMS message.
+        :param sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
+        :param message_status_callback: The URL we should call using a POST method to send message status information to your application.
+        :param public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The updated ApplicationInstance
         """
@@ -525,11 +525,11 @@ class ApplicationContext(InstanceContext):
 
 
 class ApplicationPage(Page):
-    def get_instance(self, payload) -> ApplicationInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ApplicationInstance:
         """
         Build an instance of ApplicationInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ApplicationInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -563,42 +563,42 @@ class ApplicationList(ListResource):
 
     def create(
         self,
-        api_version=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        voice_caller_id_lookup=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_status_callback=values.unset,
-        message_status_callback=values.unset,
-        friendly_name=values.unset,
-        public_application_connect_enabled=values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
     ) -> ApplicationInstance:
         """
         Create the ApplicationInstance
 
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
-        :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-        :param bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-        :param str sms_url: The URL we should call when the phone number receives an incoming SMS message.
-        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        :param str sms_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application.
-        :param str message_status_callback: The URL we should call using a POST method to send message status information to your application.
-        :param str friendly_name: A descriptive string that you create to describe the new application. It can be up to 64 characters long.
-        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
+        :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
+        :param voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+        :param voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+        :param sms_url: The URL we should call when the phone number receives an incoming SMS message.
+        :param sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param sms_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application.
+        :param message_status_callback: The URL we should call using a POST method to send message status information to your application.
+        :param friendly_name: A descriptive string that you create to describe the new application. It can be up to 64 characters long.
+        :param public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The created ApplicationInstance
         """
@@ -635,42 +635,42 @@ class ApplicationList(ListResource):
 
     async def create_async(
         self,
-        api_version=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        voice_caller_id_lookup=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
-        sms_status_callback=values.unset,
-        message_status_callback=values.unset,
-        friendly_name=values.unset,
-        public_application_connect_enabled=values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
     ) -> ApplicationInstance:
         """
         Asynchronously create the ApplicationInstance
 
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
-        :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-        :param bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-        :param str sms_url: The URL we should call when the phone number receives an incoming SMS message.
-        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        :param str sms_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application.
-        :param str message_status_callback: The URL we should call using a POST method to send message status information to your application.
-        :param str friendly_name: A descriptive string that you create to describe the new application. It can be up to 64 characters long.
-        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
+        :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
+        :param voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+        :param voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+        :param sms_url: The URL we should call when the phone number receives an incoming SMS message.
+        :param sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param sms_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application.
+        :param message_status_callback: The URL we should call using a POST method to send message status information to your application.
+        :param friendly_name: A descriptive string that you create to describe the new application. It can be up to 64 characters long.
+        :param public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
 
         :returns: The created ApplicationInstance
         """
@@ -706,7 +706,10 @@ class ApplicationList(ListResource):
         )
 
     def stream(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ApplicationInstance]:
         """
         Streams ApplicationInstance records from the API as a generator stream.
@@ -715,12 +718,12 @@ class ApplicationList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: The string that identifies the Application resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -730,7 +733,10 @@ class ApplicationList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ApplicationInstance]:
         """
         Asynchronously streams ApplicationInstance records from the API as a generator stream.
@@ -739,12 +745,12 @@ class ApplicationList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: The string that identifies the Application resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -756,7 +762,10 @@ class ApplicationList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ApplicationInstance]:
         """
         Lists ApplicationInstance records from the API as a list.
@@ -764,12 +773,12 @@ class ApplicationList(ListResource):
         memory before returning.
 
         :param str friendly_name: The string that identifies the Application resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -782,7 +791,10 @@ class ApplicationList(ListResource):
         )
 
     async def list_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ApplicationInstance]:
         """
         Asynchronously lists ApplicationInstance records from the API as a list.
@@ -790,12 +802,12 @@ class ApplicationList(ListResource):
         memory before returning.
 
         :param str friendly_name: The string that identifies the Application resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -809,19 +821,19 @@ class ApplicationList(ListResource):
 
     def page(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ApplicationPage:
         """
         Retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The string that identifies the Application resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The string that identifies the Application resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ApplicationInstance
         """
@@ -839,19 +851,19 @@ class ApplicationList(ListResource):
 
     async def page_async(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ApplicationPage:
         """
         Asynchronously retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The string that identifies the Application resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The string that identifies the Application resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ApplicationInstance
         """
@@ -869,31 +881,31 @@ class ApplicationList(ListResource):
         )
         return ApplicationPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ApplicationPage:
+    def get_page(self, target_url: str) -> ApplicationPage:
         """
         Retrieve a specific page of ApplicationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ApplicationInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ApplicationPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ApplicationPage:
+    async def get_page_async(self, target_url: str) -> ApplicationPage:
         """
         Asynchronously retrieve a specific page of ApplicationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ApplicationInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ApplicationPage(self._version, response, self._solution)
 
-    def get(self, sid) -> ApplicationContext:
+    def get(self, sid: str) -> ApplicationContext:
         """
         Constructs a ApplicationContext
 
@@ -903,7 +915,7 @@ class ApplicationList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> ApplicationContext:
+    def __call__(self, sid: str) -> ApplicationContext:
         """
         Constructs a ApplicationContext
 

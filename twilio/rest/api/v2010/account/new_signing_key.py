@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -76,11 +76,13 @@ class NewSigningKeyList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/SigningKeys.json".format(**self._solution)
 
-    def create(self, friendly_name=values.unset) -> NewSigningKeyInstance:
+    def create(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> NewSigningKeyInstance:
         """
         Create the NewSigningKeyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The created NewSigningKeyInstance
         """
@@ -100,11 +102,13 @@ class NewSigningKeyList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    async def create_async(self, friendly_name=values.unset) -> NewSigningKeyInstance:
+    async def create_async(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> NewSigningKeyInstance:
         """
         Asynchronously create the NewSigningKeyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The created NewSigningKeyInstance
         """

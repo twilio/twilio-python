@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -114,28 +114,32 @@ class AddressConfigurationInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        auto_creation_enabled=values.unset,
-        auto_creation_type=values.unset,
-        auto_creation_conversation_service_sid=values.unset,
-        auto_creation_webhook_url=values.unset,
-        auto_creation_webhook_method=values.unset,
-        auto_creation_webhook_filters=values.unset,
-        auto_creation_studio_flow_sid=values.unset,
-        auto_creation_studio_retry_count=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        auto_creation_enabled: Union[bool, object] = values.unset,
+        auto_creation_type: Union[
+            "AddressConfigurationInstance.AutoCreationType", object
+        ] = values.unset,
+        auto_creation_conversation_service_sid: Union[str, object] = values.unset,
+        auto_creation_webhook_url: Union[str, object] = values.unset,
+        auto_creation_webhook_method: Union[
+            "AddressConfigurationInstance.Method", object
+        ] = values.unset,
+        auto_creation_webhook_filters: Union[List[str], object] = values.unset,
+        auto_creation_studio_flow_sid: Union[str, object] = values.unset,
+        auto_creation_studio_retry_count: Union[int, object] = values.unset,
     ) -> "AddressConfigurationInstance":
         """
         Update the AddressConfigurationInstance
 
-        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param "AddressConfigurationInstance.AutoCreationType" auto_creation_type:
-        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param "AddressConfigurationInstance.Method" auto_creation_webhook_method:
-        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+        :param friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :param auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :param auto_creation_type:
+        :param auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :param auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :param auto_creation_webhook_method:
+        :param auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :param auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance
         """
@@ -153,28 +157,32 @@ class AddressConfigurationInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        auto_creation_enabled=values.unset,
-        auto_creation_type=values.unset,
-        auto_creation_conversation_service_sid=values.unset,
-        auto_creation_webhook_url=values.unset,
-        auto_creation_webhook_method=values.unset,
-        auto_creation_webhook_filters=values.unset,
-        auto_creation_studio_flow_sid=values.unset,
-        auto_creation_studio_retry_count=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        auto_creation_enabled: Union[bool, object] = values.unset,
+        auto_creation_type: Union[
+            "AddressConfigurationInstance.AutoCreationType", object
+        ] = values.unset,
+        auto_creation_conversation_service_sid: Union[str, object] = values.unset,
+        auto_creation_webhook_url: Union[str, object] = values.unset,
+        auto_creation_webhook_method: Union[
+            "AddressConfigurationInstance.Method", object
+        ] = values.unset,
+        auto_creation_webhook_filters: Union[List[str], object] = values.unset,
+        auto_creation_studio_flow_sid: Union[str, object] = values.unset,
+        auto_creation_studio_retry_count: Union[int, object] = values.unset,
     ) -> "AddressConfigurationInstance":
         """
         Asynchronous coroutine to update the AddressConfigurationInstance
 
-        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param "AddressConfigurationInstance.AutoCreationType" auto_creation_type:
-        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param "AddressConfigurationInstance.Method" auto_creation_webhook_method:
-        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+        :param friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :param auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :param auto_creation_type:
+        :param auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :param auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :param auto_creation_webhook_method:
+        :param auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :param auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance
         """
@@ -282,28 +290,32 @@ class AddressConfigurationContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        auto_creation_enabled=values.unset,
-        auto_creation_type=values.unset,
-        auto_creation_conversation_service_sid=values.unset,
-        auto_creation_webhook_url=values.unset,
-        auto_creation_webhook_method=values.unset,
-        auto_creation_webhook_filters=values.unset,
-        auto_creation_studio_flow_sid=values.unset,
-        auto_creation_studio_retry_count=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        auto_creation_enabled: Union[bool, object] = values.unset,
+        auto_creation_type: Union[
+            "AddressConfigurationInstance.AutoCreationType", object
+        ] = values.unset,
+        auto_creation_conversation_service_sid: Union[str, object] = values.unset,
+        auto_creation_webhook_url: Union[str, object] = values.unset,
+        auto_creation_webhook_method: Union[
+            "AddressConfigurationInstance.Method", object
+        ] = values.unset,
+        auto_creation_webhook_filters: Union[List[str], object] = values.unset,
+        auto_creation_studio_flow_sid: Union[str, object] = values.unset,
+        auto_creation_studio_retry_count: Union[int, object] = values.unset,
     ) -> AddressConfigurationInstance:
         """
         Update the AddressConfigurationInstance
 
-        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param "AddressConfigurationInstance.AutoCreationType" auto_creation_type:
-        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param "AddressConfigurationInstance.Method" auto_creation_webhook_method:
-        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+        :param friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :param auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :param auto_creation_type:
+        :param auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :param auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :param auto_creation_webhook_method:
+        :param auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :param auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance
         """
@@ -335,28 +347,32 @@ class AddressConfigurationContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        auto_creation_enabled=values.unset,
-        auto_creation_type=values.unset,
-        auto_creation_conversation_service_sid=values.unset,
-        auto_creation_webhook_url=values.unset,
-        auto_creation_webhook_method=values.unset,
-        auto_creation_webhook_filters=values.unset,
-        auto_creation_studio_flow_sid=values.unset,
-        auto_creation_studio_retry_count=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        auto_creation_enabled: Union[bool, object] = values.unset,
+        auto_creation_type: Union[
+            "AddressConfigurationInstance.AutoCreationType", object
+        ] = values.unset,
+        auto_creation_conversation_service_sid: Union[str, object] = values.unset,
+        auto_creation_webhook_url: Union[str, object] = values.unset,
+        auto_creation_webhook_method: Union[
+            "AddressConfigurationInstance.Method", object
+        ] = values.unset,
+        auto_creation_webhook_filters: Union[List[str], object] = values.unset,
+        auto_creation_studio_flow_sid: Union[str, object] = values.unset,
+        auto_creation_studio_retry_count: Union[int, object] = values.unset,
     ) -> AddressConfigurationInstance:
         """
         Asynchronous coroutine to update the AddressConfigurationInstance
 
-        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param "AddressConfigurationInstance.AutoCreationType" auto_creation_type:
-        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param "AddressConfigurationInstance.Method" auto_creation_webhook_method:
-        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+        :param friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :param auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :param auto_creation_type:
+        :param auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :param auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :param auto_creation_webhook_method:
+        :param auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :param auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance
         """
@@ -399,11 +415,11 @@ class AddressConfigurationContext(InstanceContext):
 
 
 class AddressConfigurationPage(Page):
-    def get_instance(self, payload) -> AddressConfigurationInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AddressConfigurationInstance:
         """
         Build an instance of AddressConfigurationInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AddressConfigurationInstance(self._version, payload)
 
@@ -430,32 +446,36 @@ class AddressConfigurationList(ListResource):
 
     def create(
         self,
-        type,
-        address,
-        friendly_name=values.unset,
-        auto_creation_enabled=values.unset,
-        auto_creation_type=values.unset,
-        auto_creation_conversation_service_sid=values.unset,
-        auto_creation_webhook_url=values.unset,
-        auto_creation_webhook_method=values.unset,
-        auto_creation_webhook_filters=values.unset,
-        auto_creation_studio_flow_sid=values.unset,
-        auto_creation_studio_retry_count=values.unset,
+        type: "AddressConfigurationInstance.Type",
+        address: str,
+        friendly_name: Union[str, object] = values.unset,
+        auto_creation_enabled: Union[bool, object] = values.unset,
+        auto_creation_type: Union[
+            "AddressConfigurationInstance.AutoCreationType", object
+        ] = values.unset,
+        auto_creation_conversation_service_sid: Union[str, object] = values.unset,
+        auto_creation_webhook_url: Union[str, object] = values.unset,
+        auto_creation_webhook_method: Union[
+            "AddressConfigurationInstance.Method", object
+        ] = values.unset,
+        auto_creation_webhook_filters: Union[List[str], object] = values.unset,
+        auto_creation_studio_flow_sid: Union[str, object] = values.unset,
+        auto_creation_studio_retry_count: Union[int, object] = values.unset,
     ) -> AddressConfigurationInstance:
         """
         Create the AddressConfigurationInstance
 
-        :param &quot;AddressConfigurationInstance.Type&quot; type:
-        :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
-        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param &quot;AddressConfigurationInstance.AutoCreationType&quot; auto_creation_type:
-        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param &quot;AddressConfigurationInstance.Method&quot; auto_creation_webhook_method:
-        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+        :param type:
+        :param address: The unique address to be configured. The address can be a whatsapp address or phone number
+        :param friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :param auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :param auto_creation_type:
+        :param auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :param auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :param auto_creation_webhook_method:
+        :param auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :param auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The created AddressConfigurationInstance
         """
@@ -487,32 +507,36 @@ class AddressConfigurationList(ListResource):
 
     async def create_async(
         self,
-        type,
-        address,
-        friendly_name=values.unset,
-        auto_creation_enabled=values.unset,
-        auto_creation_type=values.unset,
-        auto_creation_conversation_service_sid=values.unset,
-        auto_creation_webhook_url=values.unset,
-        auto_creation_webhook_method=values.unset,
-        auto_creation_webhook_filters=values.unset,
-        auto_creation_studio_flow_sid=values.unset,
-        auto_creation_studio_retry_count=values.unset,
+        type: "AddressConfigurationInstance.Type",
+        address: str,
+        friendly_name: Union[str, object] = values.unset,
+        auto_creation_enabled: Union[bool, object] = values.unset,
+        auto_creation_type: Union[
+            "AddressConfigurationInstance.AutoCreationType", object
+        ] = values.unset,
+        auto_creation_conversation_service_sid: Union[str, object] = values.unset,
+        auto_creation_webhook_url: Union[str, object] = values.unset,
+        auto_creation_webhook_method: Union[
+            "AddressConfigurationInstance.Method", object
+        ] = values.unset,
+        auto_creation_webhook_filters: Union[List[str], object] = values.unset,
+        auto_creation_studio_flow_sid: Union[str, object] = values.unset,
+        auto_creation_studio_retry_count: Union[int, object] = values.unset,
     ) -> AddressConfigurationInstance:
         """
         Asynchronously create the AddressConfigurationInstance
 
-        :param &quot;AddressConfigurationInstance.Type&quot; type:
-        :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
-        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param &quot;AddressConfigurationInstance.AutoCreationType&quot; auto_creation_type:
-        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param &quot;AddressConfigurationInstance.Method&quot; auto_creation_webhook_method:
-        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+        :param type:
+        :param address: The unique address to be configured. The address can be a whatsapp address or phone number
+        :param friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :param auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :param auto_creation_type:
+        :param auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :param auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :param auto_creation_webhook_method:
+        :param auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :param auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The created AddressConfigurationInstance
         """
@@ -543,7 +567,10 @@ class AddressConfigurationList(ListResource):
         return AddressConfigurationInstance(self._version, payload)
 
     def stream(
-        self, type=values.unset, limit=None, page_size=None
+        self,
+        type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AddressConfigurationInstance]:
         """
         Streams AddressConfigurationInstance records from the API as a generator stream.
@@ -552,12 +579,12 @@ class AddressConfigurationList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -567,7 +594,10 @@ class AddressConfigurationList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, type=values.unset, limit=None, page_size=None
+        self,
+        type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AddressConfigurationInstance]:
         """
         Asynchronously streams AddressConfigurationInstance records from the API as a generator stream.
@@ -576,12 +606,12 @@ class AddressConfigurationList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -591,7 +621,10 @@ class AddressConfigurationList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, type=values.unset, limit=None, page_size=None
+        self,
+        type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AddressConfigurationInstance]:
         """
         Lists AddressConfigurationInstance records from the API as a list.
@@ -599,12 +632,12 @@ class AddressConfigurationList(ListResource):
         memory before returning.
 
         :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -617,7 +650,10 @@ class AddressConfigurationList(ListResource):
         )
 
     async def list_async(
-        self, type=values.unset, limit=None, page_size=None
+        self,
+        type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AddressConfigurationInstance]:
         """
         Asynchronously lists AddressConfigurationInstance records from the API as a list.
@@ -625,12 +661,12 @@ class AddressConfigurationList(ListResource):
         memory before returning.
 
         :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -644,19 +680,19 @@ class AddressConfigurationList(ListResource):
 
     def page(
         self,
-        type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        type: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AddressConfigurationPage:
         """
         Retrieve a single page of AddressConfigurationInstance records from the API.
         Request is executed immediately
 
-        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddressConfigurationInstance
         """
@@ -674,19 +710,19 @@ class AddressConfigurationList(ListResource):
 
     async def page_async(
         self,
-        type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        type: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AddressConfigurationPage:
         """
         Asynchronously retrieve a single page of AddressConfigurationInstance records from the API.
         Request is executed immediately
 
-        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddressConfigurationInstance
         """
@@ -704,31 +740,31 @@ class AddressConfigurationList(ListResource):
         )
         return AddressConfigurationPage(self._version, response)
 
-    def get_page(self, target_url) -> AddressConfigurationPage:
+    def get_page(self, target_url: str) -> AddressConfigurationPage:
         """
         Retrieve a specific page of AddressConfigurationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AddressConfigurationInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AddressConfigurationPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> AddressConfigurationPage:
+    async def get_page_async(self, target_url: str) -> AddressConfigurationPage:
         """
         Asynchronously retrieve a specific page of AddressConfigurationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AddressConfigurationInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AddressConfigurationPage(self._version, response)
 
-    def get(self, sid) -> AddressConfigurationContext:
+    def get(self, sid: str) -> AddressConfigurationContext:
         """
         Constructs a AddressConfigurationContext
 
@@ -736,7 +772,7 @@ class AddressConfigurationList(ListResource):
         """
         return AddressConfigurationContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> AddressConfigurationContext:
+    def __call__(self, sid: str) -> AddressConfigurationContext:
         """
         Constructs a AddressConfigurationContext
 

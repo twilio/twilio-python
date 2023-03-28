@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -101,13 +101,15 @@ class FeedbackInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, quality_score=values.unset, issue=values.unset
+        self,
+        quality_score: Union[int, object] = values.unset,
+        issue: Union[List["FeedbackInstance.Issues"], object] = values.unset,
     ) -> "FeedbackInstance":
         """
         Update the FeedbackInstance
 
-        :param int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-        :param List["FeedbackInstance.Issues"] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+        :param quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
+        :param issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
 
         :returns: The updated FeedbackInstance
         """
@@ -117,13 +119,15 @@ class FeedbackInstance(InstanceResource):
         )
 
     async def update_async(
-        self, quality_score=values.unset, issue=values.unset
+        self,
+        quality_score: Union[int, object] = values.unset,
+        issue: Union[List["FeedbackInstance.Issues"], object] = values.unset,
     ) -> "FeedbackInstance":
         """
         Asynchronous coroutine to update the FeedbackInstance
 
-        :param int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-        :param List["FeedbackInstance.Issues"] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+        :param quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
+        :param issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
 
         :returns: The updated FeedbackInstance
         """
@@ -203,13 +207,15 @@ class FeedbackContext(InstanceContext):
         )
 
     def update(
-        self, quality_score=values.unset, issue=values.unset
+        self,
+        quality_score: Union[int, object] = values.unset,
+        issue: Union[List["FeedbackInstance.Issues"], object] = values.unset,
     ) -> FeedbackInstance:
         """
         Update the FeedbackInstance
 
-        :param int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-        :param List["FeedbackInstance.Issues"] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+        :param quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
+        :param issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
 
         :returns: The updated FeedbackInstance
         """
@@ -234,13 +240,15 @@ class FeedbackContext(InstanceContext):
         )
 
     async def update_async(
-        self, quality_score=values.unset, issue=values.unset
+        self,
+        quality_score: Union[int, object] = values.unset,
+        issue: Union[List["FeedbackInstance.Issues"], object] = values.unset,
     ) -> FeedbackInstance:
         """
         Asynchronous coroutine to update the FeedbackInstance
 
-        :param int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-        :param List["FeedbackInstance.Issues"] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+        :param quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
+        :param issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
 
         :returns: The updated FeedbackInstance
         """

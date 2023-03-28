@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -80,18 +80,18 @@ class PaymentInstance(InstanceResource):
 
     def update(
         self,
-        idempotency_key,
-        status_callback,
-        capture=values.unset,
-        status=values.unset,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
     ) -> "PaymentInstance":
         """
         Update the PaymentInstance
 
-        :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-        :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :param "PaymentInstance.Capture" capture:
-        :param "PaymentInstance.Status" status:
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+        :param capture:
+        :param status:
 
         :returns: The updated PaymentInstance
         """
@@ -104,18 +104,18 @@ class PaymentInstance(InstanceResource):
 
     async def update_async(
         self,
-        idempotency_key,
-        status_callback,
-        capture=values.unset,
-        status=values.unset,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
     ) -> "PaymentInstance":
         """
         Asynchronous coroutine to update the PaymentInstance
 
-        :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-        :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :param "PaymentInstance.Capture" capture:
-        :param "PaymentInstance.Status" status:
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+        :param capture:
+        :param status:
 
         :returns: The updated PaymentInstance
         """
@@ -162,18 +162,18 @@ class PaymentContext(InstanceContext):
 
     def update(
         self,
-        idempotency_key,
-        status_callback,
-        capture=values.unset,
-        status=values.unset,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
     ) -> PaymentInstance:
         """
         Update the PaymentInstance
 
-        :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-        :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :param "PaymentInstance.Capture" capture:
-        :param "PaymentInstance.Status" status:
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+        :param capture:
+        :param status:
 
         :returns: The updated PaymentInstance
         """
@@ -202,18 +202,18 @@ class PaymentContext(InstanceContext):
 
     async def update_async(
         self,
-        idempotency_key,
-        status_callback,
-        capture=values.unset,
-        status=values.unset,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
     ) -> PaymentInstance:
         """
         Asynchronous coroutine to update the PaymentInstance
 
-        :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-        :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :param "PaymentInstance.Capture" capture:
-        :param "PaymentInstance.Status" status:
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+        :param capture:
+        :param status:
 
         :returns: The updated PaymentInstance
         """
@@ -273,42 +273,44 @@ class PaymentList(ListResource):
 
     def create(
         self,
-        idempotency_key,
-        status_callback,
-        bank_account_type=values.unset,
-        charge_amount=values.unset,
-        currency=values.unset,
-        description=values.unset,
-        input=values.unset,
-        min_postal_code_length=values.unset,
-        parameter=values.unset,
-        payment_connector=values.unset,
-        payment_method=values.unset,
-        postal_code=values.unset,
-        security_code=values.unset,
-        timeout=values.unset,
-        token_type=values.unset,
-        valid_card_types=values.unset,
+        idempotency_key: str,
+        status_callback: str,
+        bank_account_type: Union[
+            "PaymentInstance.BankAccountType", object
+        ] = values.unset,
+        charge_amount: Union[float, object] = values.unset,
+        currency: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        input: Union[str, object] = values.unset,
+        min_postal_code_length: Union[int, object] = values.unset,
+        parameter: Union[object, object] = values.unset,
+        payment_connector: Union[str, object] = values.unset,
+        payment_method: Union["PaymentInstance.PaymentMethod", object] = values.unset,
+        postal_code: Union[bool, object] = values.unset,
+        security_code: Union[bool, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        token_type: Union["PaymentInstance.TokenType", object] = values.unset,
+        valid_card_types: Union[str, object] = values.unset,
     ) -> PaymentInstance:
         """
         Create the PaymentInstance
 
-        :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-        :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
-        :param &quot;PaymentInstance.BankAccountType&quot; bank_account_type:
-        :param float charge_amount: A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
-        :param str currency: The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
-        :param str description: The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
-        :param str input: A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
-        :param int min_postal_code_length: A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
-        :param object parameter: A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
-        :param str payment_connector: This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
-        :param &quot;PaymentInstance.PaymentMethod&quot; payment_method:
-        :param bool postal_code: Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
-        :param bool security_code: Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
-        :param int timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
-        :param &quot;PaymentInstance.TokenType&quot; token_type:
-        :param str valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
+        :param bank_account_type:
+        :param charge_amount: A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
+        :param currency: The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
+        :param description: The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
+        :param input: A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
+        :param min_postal_code_length: A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
+        :param parameter: A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
+        :param payment_connector: This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
+        :param payment_method:
+        :param postal_code: Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
+        :param security_code: Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
+        :param timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
+        :param token_type:
+        :param valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
 
         :returns: The created PaymentInstance
         """
@@ -348,42 +350,44 @@ class PaymentList(ListResource):
 
     async def create_async(
         self,
-        idempotency_key,
-        status_callback,
-        bank_account_type=values.unset,
-        charge_amount=values.unset,
-        currency=values.unset,
-        description=values.unset,
-        input=values.unset,
-        min_postal_code_length=values.unset,
-        parameter=values.unset,
-        payment_connector=values.unset,
-        payment_method=values.unset,
-        postal_code=values.unset,
-        security_code=values.unset,
-        timeout=values.unset,
-        token_type=values.unset,
-        valid_card_types=values.unset,
+        idempotency_key: str,
+        status_callback: str,
+        bank_account_type: Union[
+            "PaymentInstance.BankAccountType", object
+        ] = values.unset,
+        charge_amount: Union[float, object] = values.unset,
+        currency: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        input: Union[str, object] = values.unset,
+        min_postal_code_length: Union[int, object] = values.unset,
+        parameter: Union[object, object] = values.unset,
+        payment_connector: Union[str, object] = values.unset,
+        payment_method: Union["PaymentInstance.PaymentMethod", object] = values.unset,
+        postal_code: Union[bool, object] = values.unset,
+        security_code: Union[bool, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        token_type: Union["PaymentInstance.TokenType", object] = values.unset,
+        valid_card_types: Union[str, object] = values.unset,
     ) -> PaymentInstance:
         """
         Asynchronously create the PaymentInstance
 
-        :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-        :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
-        :param &quot;PaymentInstance.BankAccountType&quot; bank_account_type:
-        :param float charge_amount: A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
-        :param str currency: The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
-        :param str description: The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
-        :param str input: A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
-        :param int min_postal_code_length: A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
-        :param object parameter: A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
-        :param str payment_connector: This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
-        :param &quot;PaymentInstance.PaymentMethod&quot; payment_method:
-        :param bool postal_code: Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
-        :param bool security_code: Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
-        :param int timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
-        :param &quot;PaymentInstance.TokenType&quot; token_type:
-        :param str valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
+        :param bank_account_type:
+        :param charge_amount: A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
+        :param currency: The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
+        :param description: The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
+        :param input: A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
+        :param min_postal_code_length: A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
+        :param parameter: A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
+        :param payment_connector: This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
+        :param payment_method:
+        :param postal_code: Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
+        :param security_code: Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
+        :param timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
+        :param token_type:
+        :param valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
 
         :returns: The created PaymentInstance
         """
@@ -421,7 +425,7 @@ class PaymentList(ListResource):
             call_sid=self._solution["call_sid"],
         )
 
-    def get(self, sid) -> PaymentContext:
+    def get(self, sid: str) -> PaymentContext:
         """
         Constructs a PaymentContext
 
@@ -434,7 +438,7 @@ class PaymentList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> PaymentContext:
+    def __call__(self, sid: str) -> PaymentContext:
         """
         Constructs a PaymentContext
 

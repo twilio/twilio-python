@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -123,13 +123,15 @@ class TaskChannelInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, friendly_name=values.unset, channel_optimized_routing=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        channel_optimized_routing: Union[bool, object] = values.unset,
     ) -> "TaskChannelInstance":
         """
         Update the TaskChannelInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-        :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+        :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+        :param channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The updated TaskChannelInstance
         """
@@ -139,13 +141,15 @@ class TaskChannelInstance(InstanceResource):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, channel_optimized_routing=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        channel_optimized_routing: Union[bool, object] = values.unset,
     ) -> "TaskChannelInstance":
         """
         Asynchronous coroutine to update the TaskChannelInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-        :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+        :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+        :param channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The updated TaskChannelInstance
         """
@@ -249,13 +253,15 @@ class TaskChannelContext(InstanceContext):
         )
 
     def update(
-        self, friendly_name=values.unset, channel_optimized_routing=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        channel_optimized_routing: Union[bool, object] = values.unset,
     ) -> TaskChannelInstance:
         """
         Update the TaskChannelInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-        :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+        :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+        :param channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The updated TaskChannelInstance
         """
@@ -280,13 +286,15 @@ class TaskChannelContext(InstanceContext):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, channel_optimized_routing=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        channel_optimized_routing: Union[bool, object] = values.unset,
     ) -> TaskChannelInstance:
         """
         Asynchronous coroutine to update the TaskChannelInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-        :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+        :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+        :param channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The updated TaskChannelInstance
         """
@@ -321,11 +329,11 @@ class TaskChannelContext(InstanceContext):
 
 
 class TaskChannelPage(Page):
-    def get_instance(self, payload) -> TaskChannelInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> TaskChannelInstance:
         """
         Build an instance of TaskChannelInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return TaskChannelInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -358,14 +366,17 @@ class TaskChannelList(ListResource):
         self._uri = "/Workspaces/{workspace_sid}/TaskChannels".format(**self._solution)
 
     def create(
-        self, friendly_name, unique_name, channel_optimized_routing=values.unset
+        self,
+        friendly_name: str,
+        unique_name: str,
+        channel_optimized_routing: Union[bool, object] = values.unset,
     ) -> TaskChannelInstance:
         """
         Create the TaskChannelInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
-        :param bool channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+        :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
+        :param channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The created TaskChannelInstance
         """
@@ -388,14 +399,17 @@ class TaskChannelList(ListResource):
         )
 
     async def create_async(
-        self, friendly_name, unique_name, channel_optimized_routing=values.unset
+        self,
+        friendly_name: str,
+        unique_name: str,
+        channel_optimized_routing: Union[bool, object] = values.unset,
     ) -> TaskChannelInstance:
         """
         Asynchronously create the TaskChannelInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-        :param str unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
-        :param bool channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+        :param friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+        :param unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
+        :param channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
 
         :returns: The created TaskChannelInstance
         """
@@ -417,19 +431,23 @@ class TaskChannelList(ListResource):
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[TaskChannelInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[TaskChannelInstance]:
         """
         Streams TaskChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -439,7 +457,9 @@ class TaskChannelList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskChannelInstance]:
         """
         Asynchronously streams TaskChannelInstance records from the API as a generator stream.
@@ -447,12 +467,12 @@ class TaskChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -461,18 +481,22 @@ class TaskChannelList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[TaskChannelInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[TaskChannelInstance]:
         """
         Lists TaskChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -483,18 +507,22 @@ class TaskChannelList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[TaskChannelInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[TaskChannelInstance]:
         """
         Asynchronously lists TaskChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -506,15 +534,18 @@ class TaskChannelList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskChannelPage:
         """
         Retrieve a single page of TaskChannelInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskChannelInstance
         """
@@ -530,15 +561,18 @@ class TaskChannelList(ListResource):
         return TaskChannelPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskChannelPage:
         """
         Asynchronously retrieve a single page of TaskChannelInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskChannelInstance
         """
@@ -555,31 +589,31 @@ class TaskChannelList(ListResource):
         )
         return TaskChannelPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> TaskChannelPage:
+    def get_page(self, target_url: str) -> TaskChannelPage:
         """
         Retrieve a specific page of TaskChannelInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskChannelInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TaskChannelPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> TaskChannelPage:
+    async def get_page_async(self, target_url: str) -> TaskChannelPage:
         """
         Asynchronously retrieve a specific page of TaskChannelInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskChannelInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TaskChannelPage(self._version, response, self._solution)
 
-    def get(self, sid) -> TaskChannelContext:
+    def get(self, sid: str) -> TaskChannelContext:
         """
         Constructs a TaskChannelContext
 
@@ -589,7 +623,7 @@ class TaskChannelList(ListResource):
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> TaskChannelContext:
+    def __call__(self, sid: str) -> TaskChannelContext:
         """
         Constructs a TaskChannelContext
 

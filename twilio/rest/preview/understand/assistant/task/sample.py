@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -125,16 +125,16 @@ class SampleInstance(InstanceResource):
 
     def update(
         self,
-        language=values.unset,
-        tagged_text=values.unset,
-        source_channel=values.unset,
+        language: Union[str, object] = values.unset,
+        tagged_text: Union[str, object] = values.unset,
+        source_channel: Union[str, object] = values.unset,
     ) -> "SampleInstance":
         """
         Update the SampleInstance
 
-        :param str language: An ISO language-country string of the sample.
-        :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-        :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        :param language: An ISO language-country string of the sample.
+        :param tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :param source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
 
         :returns: The updated SampleInstance
         """
@@ -146,16 +146,16 @@ class SampleInstance(InstanceResource):
 
     async def update_async(
         self,
-        language=values.unset,
-        tagged_text=values.unset,
-        source_channel=values.unset,
+        language: Union[str, object] = values.unset,
+        tagged_text: Union[str, object] = values.unset,
+        source_channel: Union[str, object] = values.unset,
     ) -> "SampleInstance":
         """
         Asynchronous coroutine to update the SampleInstance
 
-        :param str language: An ISO language-country string of the sample.
-        :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-        :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        :param language: An ISO language-country string of the sample.
+        :param tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :param source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
 
         :returns: The updated SampleInstance
         """
@@ -265,16 +265,16 @@ class SampleContext(InstanceContext):
 
     def update(
         self,
-        language=values.unset,
-        tagged_text=values.unset,
-        source_channel=values.unset,
+        language: Union[str, object] = values.unset,
+        tagged_text: Union[str, object] = values.unset,
+        source_channel: Union[str, object] = values.unset,
     ) -> SampleInstance:
         """
         Update the SampleInstance
 
-        :param str language: An ISO language-country string of the sample.
-        :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-        :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        :param language: An ISO language-country string of the sample.
+        :param tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :param source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
 
         :returns: The updated SampleInstance
         """
@@ -302,16 +302,16 @@ class SampleContext(InstanceContext):
 
     async def update_async(
         self,
-        language=values.unset,
-        tagged_text=values.unset,
-        source_channel=values.unset,
+        language: Union[str, object] = values.unset,
+        tagged_text: Union[str, object] = values.unset,
+        source_channel: Union[str, object] = values.unset,
     ) -> SampleInstance:
         """
         Asynchronous coroutine to update the SampleInstance
 
-        :param str language: An ISO language-country string of the sample.
-        :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-        :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        :param language: An ISO language-country string of the sample.
+        :param tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :param source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
 
         :returns: The updated SampleInstance
         """
@@ -348,11 +348,11 @@ class SampleContext(InstanceContext):
 
 
 class SamplePage(Page):
-    def get_instance(self, payload) -> SampleInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SampleInstance:
         """
         Build an instance of SampleInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SampleInstance(
             self._version,
@@ -392,14 +392,17 @@ class SampleList(ListResource):
         )
 
     def create(
-        self, language, tagged_text, source_channel=values.unset
+        self,
+        language: str,
+        tagged_text: str,
+        source_channel: Union[str, object] = values.unset,
     ) -> SampleInstance:
         """
         Create the SampleInstance
 
-        :param str language: An ISO language-country string of the sample.
-        :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-        :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        :param language: An ISO language-country string of the sample.
+        :param tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :param source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
 
         :returns: The created SampleInstance
         """
@@ -425,14 +428,17 @@ class SampleList(ListResource):
         )
 
     async def create_async(
-        self, language, tagged_text, source_channel=values.unset
+        self,
+        language: str,
+        tagged_text: str,
+        source_channel: Union[str, object] = values.unset,
     ) -> SampleInstance:
         """
         Asynchronously create the SampleInstance
 
-        :param str language: An ISO language-country string of the sample.
-        :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-        :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        :param language: An ISO language-country string of the sample.
+        :param tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :param source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
 
         :returns: The created SampleInstance
         """
@@ -458,7 +464,10 @@ class SampleList(ListResource):
         )
 
     def stream(
-        self, language=values.unset, limit=None, page_size=None
+        self,
+        language: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SampleInstance]:
         """
         Streams SampleInstance records from the API as a generator stream.
@@ -467,12 +476,12 @@ class SampleList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str language: An ISO language-country string of the sample.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -482,7 +491,10 @@ class SampleList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, language=values.unset, limit=None, page_size=None
+        self,
+        language: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SampleInstance]:
         """
         Asynchronously streams SampleInstance records from the API as a generator stream.
@@ -491,12 +503,12 @@ class SampleList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str language: An ISO language-country string of the sample.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -506,7 +518,10 @@ class SampleList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, language=values.unset, limit=None, page_size=None
+        self,
+        language: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SampleInstance]:
         """
         Lists SampleInstance records from the API as a list.
@@ -514,12 +529,12 @@ class SampleList(ListResource):
         memory before returning.
 
         :param str language: An ISO language-country string of the sample.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -532,7 +547,10 @@ class SampleList(ListResource):
         )
 
     async def list_async(
-        self, language=values.unset, limit=None, page_size=None
+        self,
+        language: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SampleInstance]:
         """
         Asynchronously lists SampleInstance records from the API as a list.
@@ -540,12 +558,12 @@ class SampleList(ListResource):
         memory before returning.
 
         :param str language: An ISO language-country string of the sample.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -559,19 +577,19 @@ class SampleList(ListResource):
 
     def page(
         self,
-        language=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        language: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SamplePage:
         """
         Retrieve a single page of SampleInstance records from the API.
         Request is executed immediately
 
-        :param str language: An ISO language-country string of the sample.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param language: An ISO language-country string of the sample.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SampleInstance
         """
@@ -589,19 +607,19 @@ class SampleList(ListResource):
 
     async def page_async(
         self,
-        language=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        language: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SamplePage:
         """
         Asynchronously retrieve a single page of SampleInstance records from the API.
         Request is executed immediately
 
-        :param str language: An ISO language-country string of the sample.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param language: An ISO language-country string of the sample.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SampleInstance
         """
@@ -619,31 +637,31 @@ class SampleList(ListResource):
         )
         return SamplePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> SamplePage:
+    def get_page(self, target_url: str) -> SamplePage:
         """
         Retrieve a specific page of SampleInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SampleInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SamplePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> SamplePage:
+    async def get_page_async(self, target_url: str) -> SamplePage:
         """
         Asynchronously retrieve a specific page of SampleInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SampleInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SamplePage(self._version, response, self._solution)
 
-    def get(self, sid) -> SampleContext:
+    def get(self, sid: str) -> SampleContext:
         """
         Constructs a SampleContext
 
@@ -656,7 +674,7 @@ class SampleList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> SampleContext:
+    def __call__(self, sid: str) -> SampleContext:
         """
         Constructs a SampleContext
 

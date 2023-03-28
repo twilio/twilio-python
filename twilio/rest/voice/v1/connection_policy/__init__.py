@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -111,11 +111,13 @@ class ConnectionPolicyInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name=values.unset) -> "ConnectionPolicyInstance":
+    def update(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> "ConnectionPolicyInstance":
         """
         Update the ConnectionPolicyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated ConnectionPolicyInstance
         """
@@ -124,12 +126,12 @@ class ConnectionPolicyInstance(InstanceResource):
         )
 
     async def update_async(
-        self, friendly_name=values.unset
+        self, friendly_name: Union[str, object] = values.unset
     ) -> "ConnectionPolicyInstance":
         """
         Asynchronous coroutine to update the ConnectionPolicyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated ConnectionPolicyInstance
         """
@@ -234,11 +236,13 @@ class ConnectionPolicyContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name=values.unset) -> ConnectionPolicyInstance:
+    def update(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> ConnectionPolicyInstance:
         """
         Update the ConnectionPolicyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated ConnectionPolicyInstance
         """
@@ -259,12 +263,12 @@ class ConnectionPolicyContext(InstanceContext):
         )
 
     async def update_async(
-        self, friendly_name=values.unset
+        self, friendly_name: Union[str, object] = values.unset
     ) -> ConnectionPolicyInstance:
         """
         Asynchronous coroutine to update the ConnectionPolicyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated ConnectionPolicyInstance
         """
@@ -307,11 +311,11 @@ class ConnectionPolicyContext(InstanceContext):
 
 
 class ConnectionPolicyPage(Page):
-    def get_instance(self, payload) -> ConnectionPolicyInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ConnectionPolicyInstance:
         """
         Build an instance of ConnectionPolicyInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ConnectionPolicyInstance(self._version, payload)
 
@@ -336,11 +340,13 @@ class ConnectionPolicyList(ListResource):
 
         self._uri = "/ConnectionPolicies"
 
-    def create(self, friendly_name=values.unset) -> ConnectionPolicyInstance:
+    def create(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> ConnectionPolicyInstance:
         """
         Create the ConnectionPolicyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The created ConnectionPolicyInstance
         """
@@ -359,12 +365,12 @@ class ConnectionPolicyList(ListResource):
         return ConnectionPolicyInstance(self._version, payload)
 
     async def create_async(
-        self, friendly_name=values.unset
+        self, friendly_name: Union[str, object] = values.unset
     ) -> ConnectionPolicyInstance:
         """
         Asynchronously create the ConnectionPolicyInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The created ConnectionPolicyInstance
         """
@@ -382,19 +388,23 @@ class ConnectionPolicyList(ListResource):
 
         return ConnectionPolicyInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[ConnectionPolicyInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ConnectionPolicyInstance]:
         """
         Streams ConnectionPolicyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -404,7 +414,9 @@ class ConnectionPolicyList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConnectionPolicyInstance]:
         """
         Asynchronously streams ConnectionPolicyInstance records from the API as a generator stream.
@@ -412,12 +424,12 @@ class ConnectionPolicyList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -426,18 +438,22 @@ class ConnectionPolicyList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[ConnectionPolicyInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ConnectionPolicyInstance]:
         """
         Lists ConnectionPolicyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -449,19 +465,21 @@ class ConnectionPolicyList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConnectionPolicyInstance]:
         """
         Asynchronously lists ConnectionPolicyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -473,15 +491,18 @@ class ConnectionPolicyList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ConnectionPolicyPage:
         """
         Retrieve a single page of ConnectionPolicyInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConnectionPolicyInstance
         """
@@ -497,15 +518,18 @@ class ConnectionPolicyList(ListResource):
         return ConnectionPolicyPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ConnectionPolicyPage:
         """
         Asynchronously retrieve a single page of ConnectionPolicyInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConnectionPolicyInstance
         """
@@ -522,31 +546,31 @@ class ConnectionPolicyList(ListResource):
         )
         return ConnectionPolicyPage(self._version, response)
 
-    def get_page(self, target_url) -> ConnectionPolicyPage:
+    def get_page(self, target_url: str) -> ConnectionPolicyPage:
         """
         Retrieve a specific page of ConnectionPolicyInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConnectionPolicyInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ConnectionPolicyPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> ConnectionPolicyPage:
+    async def get_page_async(self, target_url: str) -> ConnectionPolicyPage:
         """
         Asynchronously retrieve a specific page of ConnectionPolicyInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConnectionPolicyInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConnectionPolicyPage(self._version, response)
 
-    def get(self, sid) -> ConnectionPolicyContext:
+    def get(self, sid: str) -> ConnectionPolicyContext:
         """
         Constructs a ConnectionPolicyContext
 
@@ -554,7 +578,7 @@ class ConnectionPolicyList(ListResource):
         """
         return ConnectionPolicyContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> ConnectionPolicyContext:
+    def __call__(self, sid: str) -> ConnectionPolicyContext:
         """
         Constructs a ConnectionPolicyContext
 

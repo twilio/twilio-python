@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -85,16 +85,16 @@ class ExportConfigurationInstance(InstanceResource):
 
     def update(
         self,
-        enabled=values.unset,
-        webhook_url=values.unset,
-        webhook_method=values.unset,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
     ) -> "ExportConfigurationInstance":
         """
         Update the ExportConfigurationInstance
 
-        :param bool enabled: If true, Twilio will automatically generate every day's file when the day is over.
-        :param str webhook_url: Stores the URL destination for the method specified in webhook_method.
-        :param str webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+        :param enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :param webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :param webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
 
         :returns: The updated ExportConfigurationInstance
         """
@@ -106,16 +106,16 @@ class ExportConfigurationInstance(InstanceResource):
 
     async def update_async(
         self,
-        enabled=values.unset,
-        webhook_url=values.unset,
-        webhook_method=values.unset,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
     ) -> "ExportConfigurationInstance":
         """
         Asynchronous coroutine to update the ExportConfigurationInstance
 
-        :param bool enabled: If true, Twilio will automatically generate every day's file when the day is over.
-        :param str webhook_url: Stores the URL destination for the method specified in webhook_method.
-        :param str webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+        :param enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :param webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :param webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
 
         :returns: The updated ExportConfigurationInstance
         """
@@ -191,16 +191,16 @@ class ExportConfigurationContext(InstanceContext):
 
     def update(
         self,
-        enabled=values.unset,
-        webhook_url=values.unset,
-        webhook_method=values.unset,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
     ) -> ExportConfigurationInstance:
         """
         Update the ExportConfigurationInstance
 
-        :param bool enabled: If true, Twilio will automatically generate every day's file when the day is over.
-        :param str webhook_url: Stores the URL destination for the method specified in webhook_method.
-        :param str webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+        :param enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :param webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :param webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
 
         :returns: The updated ExportConfigurationInstance
         """
@@ -224,16 +224,16 @@ class ExportConfigurationContext(InstanceContext):
 
     async def update_async(
         self,
-        enabled=values.unset,
-        webhook_url=values.unset,
-        webhook_method=values.unset,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
     ) -> ExportConfigurationInstance:
         """
         Asynchronous coroutine to update the ExportConfigurationInstance
 
-        :param bool enabled: If true, Twilio will automatically generate every day's file when the day is over.
-        :param str webhook_url: Stores the URL destination for the method specified in webhook_method.
-        :param str webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+        :param enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :param webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :param webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
 
         :returns: The updated ExportConfigurationInstance
         """
@@ -275,7 +275,7 @@ class ExportConfigurationList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, resource_type) -> ExportConfigurationContext:
+    def get(self, resource_type: str) -> ExportConfigurationContext:
         """
         Constructs a ExportConfigurationContext
 
@@ -283,7 +283,7 @@ class ExportConfigurationList(ListResource):
         """
         return ExportConfigurationContext(self._version, resource_type=resource_type)
 
-    def __call__(self, resource_type) -> ExportConfigurationContext:
+    def __call__(self, resource_type: str) -> ExportConfigurationContext:
         """
         Constructs a ExportConfigurationContext
 

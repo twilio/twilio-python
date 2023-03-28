@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -110,11 +110,13 @@ class InsightsSegmentsInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self, token=values.unset) -> "InsightsSegmentsInstance":
+    def fetch(
+        self, token: Union[str, object] = values.unset
+    ) -> "InsightsSegmentsInstance":
         """
         Fetch the InsightsSegmentsInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
         """
@@ -122,11 +124,13 @@ class InsightsSegmentsInstance(InstanceResource):
             token=token,
         )
 
-    async def fetch_async(self, token=values.unset) -> "InsightsSegmentsInstance":
+    async def fetch_async(
+        self, token: Union[str, object] = values.unset
+    ) -> "InsightsSegmentsInstance":
         """
         Asynchronous coroutine to fetch the InsightsSegmentsInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
         """
@@ -160,11 +164,13 @@ class InsightsSegmentsContext(InstanceContext):
         }
         self._uri = "/Insights/Segments/{segment_id}".format(**self._solution)
 
-    def fetch(self, token=values.unset) -> InsightsSegmentsInstance:
+    def fetch(
+        self, token: Union[str, object] = values.unset
+    ) -> InsightsSegmentsInstance:
         """
         Fetch the InsightsSegmentsInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
         """
@@ -183,11 +189,13 @@ class InsightsSegmentsContext(InstanceContext):
             segment_id=self._solution["segment_id"],
         )
 
-    async def fetch_async(self, token=values.unset) -> InsightsSegmentsInstance:
+    async def fetch_async(
+        self, token: Union[str, object] = values.unset
+    ) -> InsightsSegmentsInstance:
         """
         Asynchronous coroutine to fetch the InsightsSegmentsInstance
 
-        :param str token: The Token HTTP request header
+        :param token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
         """
@@ -219,11 +227,11 @@ class InsightsSegmentsContext(InstanceContext):
 
 
 class InsightsSegmentsPage(Page):
-    def get_instance(self, payload) -> InsightsSegmentsInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> InsightsSegmentsInstance:
         """
         Build an instance of InsightsSegmentsInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return InsightsSegmentsInstance(self._version, payload)
 
@@ -250,10 +258,10 @@ class InsightsSegmentsList(ListResource):
 
     def stream(
         self,
-        token=values.unset,
-        reservation_id=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        reservation_id: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsSegmentsInstance]:
         """
         Streams InsightsSegmentsInstance records from the API as a generator stream.
@@ -263,12 +271,12 @@ class InsightsSegmentsList(ListResource):
 
         :param str token: The Token HTTP request header
         :param List[str] reservation_id: The list of reservation Ids
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -281,10 +289,10 @@ class InsightsSegmentsList(ListResource):
 
     async def stream_async(
         self,
-        token=values.unset,
-        reservation_id=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        reservation_id: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsSegmentsInstance]:
         """
         Asynchronously streams InsightsSegmentsInstance records from the API as a generator stream.
@@ -294,12 +302,12 @@ class InsightsSegmentsList(ListResource):
 
         :param str token: The Token HTTP request header
         :param List[str] reservation_id: The list of reservation Ids
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -312,10 +320,10 @@ class InsightsSegmentsList(ListResource):
 
     def list(
         self,
-        token=values.unset,
-        reservation_id=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        reservation_id: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsSegmentsInstance]:
         """
         Lists InsightsSegmentsInstance records from the API as a list.
@@ -324,12 +332,12 @@ class InsightsSegmentsList(ListResource):
 
         :param str token: The Token HTTP request header
         :param List[str] reservation_id: The list of reservation Ids
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -344,10 +352,10 @@ class InsightsSegmentsList(ListResource):
 
     async def list_async(
         self,
-        token=values.unset,
-        reservation_id=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        reservation_id: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsSegmentsInstance]:
         """
         Asynchronously lists InsightsSegmentsInstance records from the API as a list.
@@ -356,12 +364,12 @@ class InsightsSegmentsList(ListResource):
 
         :param str token: The Token HTTP request header
         :param List[str] reservation_id: The list of reservation Ids
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -376,21 +384,21 @@ class InsightsSegmentsList(ListResource):
 
     def page(
         self,
-        token=values.unset,
-        reservation_id=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        reservation_id: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> InsightsSegmentsPage:
         """
         Retrieve a single page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param List[str] reservation_id: The list of reservation Ids
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param reservation_id: The list of reservation Ids
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsSegmentsInstance
         """
@@ -409,21 +417,21 @@ class InsightsSegmentsList(ListResource):
 
     async def page_async(
         self,
-        token=values.unset,
-        reservation_id=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        reservation_id: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> InsightsSegmentsPage:
         """
         Asynchronously retrieve a single page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param List[str] reservation_id: The list of reservation Ids
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param reservation_id: The list of reservation Ids
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsSegmentsInstance
         """
@@ -442,31 +450,31 @@ class InsightsSegmentsList(ListResource):
         )
         return InsightsSegmentsPage(self._version, response)
 
-    def get_page(self, target_url) -> InsightsSegmentsPage:
+    def get_page(self, target_url: str) -> InsightsSegmentsPage:
         """
         Retrieve a specific page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsSegmentsInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsSegmentsPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> InsightsSegmentsPage:
+    async def get_page_async(self, target_url: str) -> InsightsSegmentsPage:
         """
         Asynchronously retrieve a specific page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsSegmentsInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsSegmentsPage(self._version, response)
 
-    def get(self, segment_id) -> InsightsSegmentsContext:
+    def get(self, segment_id: str) -> InsightsSegmentsContext:
         """
         Constructs a InsightsSegmentsContext
 
@@ -474,7 +482,7 @@ class InsightsSegmentsList(ListResource):
         """
         return InsightsSegmentsContext(self._version, segment_id=segment_id)
 
-    def __call__(self, segment_id) -> InsightsSegmentsContext:
+    def __call__(self, segment_id: str) -> InsightsSegmentsContext:
         """
         Constructs a InsightsSegmentsContext
 

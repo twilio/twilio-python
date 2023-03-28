@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -108,22 +108,22 @@ class ShortCodeInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        api_version=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
     ) -> "ShortCodeInstance":
         """
         Update the ShortCodeInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
-        :param str sms_url: The URL we should call when receiving an incoming SMS message to this short code.
-        :param str sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
+        :param sms_url: The URL we should call when receiving an incoming SMS message to this short code.
+        :param sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 
         :returns: The updated ShortCodeInstance
         """
@@ -138,22 +138,22 @@ class ShortCodeInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        api_version=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
     ) -> "ShortCodeInstance":
         """
         Asynchronous coroutine to update the ShortCodeInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
-        :param str sms_url: The URL we should call when receiving an incoming SMS message to this short code.
-        :param str sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
+        :param sms_url: The URL we should call when receiving an incoming SMS message to this short code.
+        :param sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 
         :returns: The updated ShortCodeInstance
         """
@@ -238,22 +238,22 @@ class ShortCodeContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        api_version=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
     ) -> ShortCodeInstance:
         """
         Update the ShortCodeInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
-        :param str sms_url: The URL we should call when receiving an incoming SMS message to this short code.
-        :param str sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
+        :param sms_url: The URL we should call when receiving an incoming SMS message to this short code.
+        :param sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 
         :returns: The updated ShortCodeInstance
         """
@@ -283,22 +283,22 @@ class ShortCodeContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        api_version=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
     ) -> ShortCodeInstance:
         """
         Asynchronous coroutine to update the ShortCodeInstance
 
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
-        :param str sms_url: The URL we should call when receiving an incoming SMS message to this short code.
-        :param str sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
+        :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
+        :param sms_url: The URL we should call when receiving an incoming SMS message to this short code.
+        :param sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+        :param sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 
         :returns: The updated ShortCodeInstance
         """
@@ -337,11 +337,11 @@ class ShortCodeContext(InstanceContext):
 
 
 class ShortCodePage(Page):
-    def get_instance(self, payload) -> ShortCodeInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ShortCodeInstance:
         """
         Build an instance of ShortCodeInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ShortCodeInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -377,10 +377,10 @@ class ShortCodeList(ListResource):
 
     def stream(
         self,
-        friendly_name=values.unset,
-        short_code=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        short_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ShortCodeInstance]:
         """
         Streams ShortCodeInstance records from the API as a generator stream.
@@ -390,12 +390,12 @@ class ShortCodeList(ListResource):
 
         :param str friendly_name: The string that identifies the ShortCode resources to read.
         :param str short_code: Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -410,10 +410,10 @@ class ShortCodeList(ListResource):
 
     async def stream_async(
         self,
-        friendly_name=values.unset,
-        short_code=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        short_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ShortCodeInstance]:
         """
         Asynchronously streams ShortCodeInstance records from the API as a generator stream.
@@ -423,12 +423,12 @@ class ShortCodeList(ListResource):
 
         :param str friendly_name: The string that identifies the ShortCode resources to read.
         :param str short_code: Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -443,10 +443,10 @@ class ShortCodeList(ListResource):
 
     def list(
         self,
-        friendly_name=values.unset,
-        short_code=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        short_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ShortCodeInstance]:
         """
         Lists ShortCodeInstance records from the API as a list.
@@ -455,12 +455,12 @@ class ShortCodeList(ListResource):
 
         :param str friendly_name: The string that identifies the ShortCode resources to read.
         :param str short_code: Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -475,10 +475,10 @@ class ShortCodeList(ListResource):
 
     async def list_async(
         self,
-        friendly_name=values.unset,
-        short_code=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        short_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ShortCodeInstance]:
         """
         Asynchronously lists ShortCodeInstance records from the API as a list.
@@ -487,12 +487,12 @@ class ShortCodeList(ListResource):
 
         :param str friendly_name: The string that identifies the ShortCode resources to read.
         :param str short_code: Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -507,21 +507,21 @@ class ShortCodeList(ListResource):
 
     def page(
         self,
-        friendly_name=values.unset,
-        short_code=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        short_code: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ShortCodePage:
         """
         Retrieve a single page of ShortCodeInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The string that identifies the ShortCode resources to read.
-        :param str short_code: Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The string that identifies the ShortCode resources to read.
+        :param short_code: Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ShortCodeInstance
         """
@@ -540,21 +540,21 @@ class ShortCodeList(ListResource):
 
     async def page_async(
         self,
-        friendly_name=values.unset,
-        short_code=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        short_code: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ShortCodePage:
         """
         Asynchronously retrieve a single page of ShortCodeInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The string that identifies the ShortCode resources to read.
-        :param str short_code: Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The string that identifies the ShortCode resources to read.
+        :param short_code: Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ShortCodeInstance
         """
@@ -573,31 +573,31 @@ class ShortCodeList(ListResource):
         )
         return ShortCodePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ShortCodePage:
+    def get_page(self, target_url: str) -> ShortCodePage:
         """
         Retrieve a specific page of ShortCodeInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ShortCodeInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ShortCodePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ShortCodePage:
+    async def get_page_async(self, target_url: str) -> ShortCodePage:
         """
         Asynchronously retrieve a specific page of ShortCodeInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ShortCodeInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ShortCodePage(self._version, response, self._solution)
 
-    def get(self, sid) -> ShortCodeContext:
+    def get(self, sid: str) -> ShortCodeContext:
         """
         Constructs a ShortCodeContext
 
@@ -607,7 +607,7 @@ class ShortCodeList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> ShortCodeContext:
+    def __call__(self, sid: str) -> ShortCodeContext:
         """
         Constructs a ShortCodeContext
 

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -114,13 +114,15 @@ class SyncListPermissionInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, read, write, manage) -> "SyncListPermissionInstance":
+    def update(
+        self, read: bool, write: bool, manage: bool
+    ) -> "SyncListPermissionInstance":
         """
         Update the SyncListPermissionInstance
 
-        :param bool read: Boolean flag specifying whether the identity can read the Sync List.
-        :param bool write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-        :param bool manage: Boolean flag specifying whether the identity can delete the Sync List.
+        :param read: Boolean flag specifying whether the identity can read the Sync List.
+        :param write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
+        :param manage: Boolean flag specifying whether the identity can delete the Sync List.
 
         :returns: The updated SyncListPermissionInstance
         """
@@ -130,13 +132,15 @@ class SyncListPermissionInstance(InstanceResource):
             manage=manage,
         )
 
-    async def update_async(self, read, write, manage) -> "SyncListPermissionInstance":
+    async def update_async(
+        self, read: bool, write: bool, manage: bool
+    ) -> "SyncListPermissionInstance":
         """
         Asynchronous coroutine to update the SyncListPermissionInstance
 
-        :param bool read: Boolean flag specifying whether the identity can read the Sync List.
-        :param bool write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-        :param bool manage: Boolean flag specifying whether the identity can delete the Sync List.
+        :param read: Boolean flag specifying whether the identity can read the Sync List.
+        :param write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
+        :param manage: Boolean flag specifying whether the identity can delete the Sync List.
 
         :returns: The updated SyncListPermissionInstance
         """
@@ -248,13 +252,15 @@ class SyncListPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    def update(self, read, write, manage) -> SyncListPermissionInstance:
+    def update(
+        self, read: bool, write: bool, manage: bool
+    ) -> SyncListPermissionInstance:
         """
         Update the SyncListPermissionInstance
 
-        :param bool read: Boolean flag specifying whether the identity can read the Sync List.
-        :param bool write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-        :param bool manage: Boolean flag specifying whether the identity can delete the Sync List.
+        :param read: Boolean flag specifying whether the identity can read the Sync List.
+        :param write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
+        :param manage: Boolean flag specifying whether the identity can delete the Sync List.
 
         :returns: The updated SyncListPermissionInstance
         """
@@ -280,13 +286,15 @@ class SyncListPermissionContext(InstanceContext):
             identity=self._solution["identity"],
         )
 
-    async def update_async(self, read, write, manage) -> SyncListPermissionInstance:
+    async def update_async(
+        self, read: bool, write: bool, manage: bool
+    ) -> SyncListPermissionInstance:
         """
         Asynchronous coroutine to update the SyncListPermissionInstance
 
-        :param bool read: Boolean flag specifying whether the identity can read the Sync List.
-        :param bool write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-        :param bool manage: Boolean flag specifying whether the identity can delete the Sync List.
+        :param read: Boolean flag specifying whether the identity can read the Sync List.
+        :param write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
+        :param manage: Boolean flag specifying whether the identity can delete the Sync List.
 
         :returns: The updated SyncListPermissionInstance
         """
@@ -323,11 +331,11 @@ class SyncListPermissionContext(InstanceContext):
 
 
 class SyncListPermissionPage(Page):
-    def get_instance(self, payload) -> SyncListPermissionInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SyncListPermissionInstance:
         """
         Build an instance of SyncListPermissionInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SyncListPermissionInstance(
             self._version,
@@ -366,19 +374,23 @@ class SyncListPermissionList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None) -> List[SyncListPermissionInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[SyncListPermissionInstance]:
         """
         Streams SyncListPermissionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -388,7 +400,9 @@ class SyncListPermissionList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncListPermissionInstance]:
         """
         Asynchronously streams SyncListPermissionInstance records from the API as a generator stream.
@@ -396,12 +410,12 @@ class SyncListPermissionList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -410,18 +424,22 @@ class SyncListPermissionList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[SyncListPermissionInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[SyncListPermissionInstance]:
         """
         Lists SyncListPermissionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -433,19 +451,21 @@ class SyncListPermissionList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SyncListPermissionInstance]:
         """
         Asynchronously lists SyncListPermissionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -457,15 +477,18 @@ class SyncListPermissionList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SyncListPermissionPage:
         """
         Retrieve a single page of SyncListPermissionInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListPermissionInstance
         """
@@ -481,15 +504,18 @@ class SyncListPermissionList(ListResource):
         return SyncListPermissionPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SyncListPermissionPage:
         """
         Asynchronously retrieve a single page of SyncListPermissionInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListPermissionInstance
         """
@@ -506,31 +532,31 @@ class SyncListPermissionList(ListResource):
         )
         return SyncListPermissionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> SyncListPermissionPage:
+    def get_page(self, target_url: str) -> SyncListPermissionPage:
         """
         Retrieve a specific page of SyncListPermissionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncListPermissionInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SyncListPermissionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> SyncListPermissionPage:
+    async def get_page_async(self, target_url: str) -> SyncListPermissionPage:
         """
         Asynchronously retrieve a specific page of SyncListPermissionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncListPermissionInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SyncListPermissionPage(self._version, response, self._solution)
 
-    def get(self, identity) -> SyncListPermissionContext:
+    def get(self, identity: str) -> SyncListPermissionContext:
         """
         Constructs a SyncListPermissionContext
 
@@ -543,7 +569,7 @@ class SyncListPermissionList(ListResource):
             identity=identity,
         )
 
-    def __call__(self, identity) -> SyncListPermissionContext:
+    def __call__(self, identity: str) -> SyncListPermissionContext:
         """
         Constructs a SyncListPermissionContext
 

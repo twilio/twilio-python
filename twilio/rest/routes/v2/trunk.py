@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -95,13 +95,15 @@ class TrunkInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "TrunkInstance":
         """
         Update the TrunkInstance
 
-        :param str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated TrunkInstance
         """
@@ -111,13 +113,15 @@ class TrunkInstance(InstanceResource):
         )
 
     async def update_async(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "TrunkInstance":
         """
         Asynchronous coroutine to update the TrunkInstance
 
-        :param str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated TrunkInstance
         """
@@ -191,13 +195,15 @@ class TrunkContext(InstanceContext):
         )
 
     def update(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> TrunkInstance:
         """
         Update the TrunkInstance
 
-        :param str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated TrunkInstance
         """
@@ -219,13 +225,15 @@ class TrunkContext(InstanceContext):
         )
 
     async def update_async(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> TrunkInstance:
         """
         Asynchronous coroutine to update the TrunkInstance
 
-        :param str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated TrunkInstance
         """
@@ -266,7 +274,7 @@ class TrunkList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, sip_trunk_domain) -> TrunkContext:
+    def get(self, sip_trunk_domain: str) -> TrunkContext:
         """
         Constructs a TrunkContext
 
@@ -274,7 +282,7 @@ class TrunkList(ListResource):
         """
         return TrunkContext(self._version, sip_trunk_domain=sip_trunk_domain)
 
-    def __call__(self, sip_trunk_domain) -> TrunkContext:
+    def __call__(self, sip_trunk_domain: str) -> TrunkContext:
         """
         Constructs a TrunkContext
 

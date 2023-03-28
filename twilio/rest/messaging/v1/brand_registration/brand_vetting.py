@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -189,11 +189,11 @@ class BrandVettingContext(InstanceContext):
 
 
 class BrandVettingPage(Page):
-    def get_instance(self, payload) -> BrandVettingInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> BrandVettingInstance:
         """
         Build an instance of BrandVettingInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return BrandVettingInstance(
             self._version, payload, brand_sid=self._solution["brand_sid"]
@@ -227,12 +227,16 @@ class BrandVettingList(ListResource):
             **self._solution
         )
 
-    def create(self, vetting_provider, vetting_id=values.unset) -> BrandVettingInstance:
+    def create(
+        self,
+        vetting_provider: "BrandVettingInstance.VettingProvider",
+        vetting_id: Union[str, object] = values.unset,
+    ) -> BrandVettingInstance:
         """
         Create the BrandVettingInstance
 
-        :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider:
-        :param str vetting_id: The unique ID of the vetting
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
 
         :returns: The created BrandVettingInstance
         """
@@ -254,13 +258,15 @@ class BrandVettingList(ListResource):
         )
 
     async def create_async(
-        self, vetting_provider, vetting_id=values.unset
+        self,
+        vetting_provider: "BrandVettingInstance.VettingProvider",
+        vetting_id: Union[str, object] = values.unset,
     ) -> BrandVettingInstance:
         """
         Asynchronously create the BrandVettingInstance
 
-        :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider:
-        :param str vetting_id: The unique ID of the vetting
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
 
         :returns: The created BrandVettingInstance
         """
@@ -282,7 +288,12 @@ class BrandVettingList(ListResource):
         )
 
     def stream(
-        self, vetting_provider=values.unset, limit=None, page_size=None
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BrandVettingInstance]:
         """
         Streams BrandVettingInstance records from the API as a generator stream.
@@ -291,12 +302,12 @@ class BrandVettingList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -308,7 +319,12 @@ class BrandVettingList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, vetting_provider=values.unset, limit=None, page_size=None
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BrandVettingInstance]:
         """
         Asynchronously streams BrandVettingInstance records from the API as a generator stream.
@@ -317,12 +333,12 @@ class BrandVettingList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -334,7 +350,12 @@ class BrandVettingList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, vetting_provider=values.unset, limit=None, page_size=None
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BrandVettingInstance]:
         """
         Lists BrandVettingInstance records from the API as a list.
@@ -342,12 +363,12 @@ class BrandVettingList(ListResource):
         memory before returning.
 
         :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -360,7 +381,12 @@ class BrandVettingList(ListResource):
         )
 
     async def list_async(
-        self, vetting_provider=values.unset, limit=None, page_size=None
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BrandVettingInstance]:
         """
         Asynchronously lists BrandVettingInstance records from the API as a list.
@@ -368,12 +394,12 @@ class BrandVettingList(ListResource):
         memory before returning.
 
         :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -387,19 +413,21 @@ class BrandVettingList(ListResource):
 
     def page(
         self,
-        vetting_provider=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> BrandVettingPage:
         """
         Retrieve a single page of BrandVettingInstance records from the API.
         Request is executed immediately
 
-        :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param vetting_provider: The third-party provider of the vettings to read
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BrandVettingInstance
         """
@@ -417,19 +445,21 @@ class BrandVettingList(ListResource):
 
     async def page_async(
         self,
-        vetting_provider=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> BrandVettingPage:
         """
         Asynchronously retrieve a single page of BrandVettingInstance records from the API.
         Request is executed immediately
 
-        :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param vetting_provider: The third-party provider of the vettings to read
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BrandVettingInstance
         """
@@ -447,31 +477,31 @@ class BrandVettingList(ListResource):
         )
         return BrandVettingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> BrandVettingPage:
+    def get_page(self, target_url: str) -> BrandVettingPage:
         """
         Retrieve a specific page of BrandVettingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of BrandVettingInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return BrandVettingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> BrandVettingPage:
+    async def get_page_async(self, target_url: str) -> BrandVettingPage:
         """
         Asynchronously retrieve a specific page of BrandVettingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of BrandVettingInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return BrandVettingPage(self._version, response, self._solution)
 
-    def get(self, brand_vetting_sid) -> BrandVettingContext:
+    def get(self, brand_vetting_sid: str) -> BrandVettingContext:
         """
         Constructs a BrandVettingContext
 
@@ -483,7 +513,7 @@ class BrandVettingList(ListResource):
             brand_vetting_sid=brand_vetting_sid,
         )
 
-    def __call__(self, brand_vetting_sid) -> BrandVettingContext:
+    def __call__(self, brand_vetting_sid: str) -> BrandVettingContext:
         """
         Constructs a BrandVettingContext
 

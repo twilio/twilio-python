@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -107,13 +107,15 @@ class WebChannelInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, chat_status=values.unset, post_engagement_data=values.unset
+        self,
+        chat_status: Union["WebChannelInstance.ChatStatus", object] = values.unset,
+        post_engagement_data: Union[str, object] = values.unset,
     ) -> "WebChannelInstance":
         """
         Update the WebChannelInstance
 
-        :param "WebChannelInstance.ChatStatus" chat_status:
-        :param str post_engagement_data: The post-engagement data.
+        :param chat_status:
+        :param post_engagement_data: The post-engagement data.
 
         :returns: The updated WebChannelInstance
         """
@@ -123,13 +125,15 @@ class WebChannelInstance(InstanceResource):
         )
 
     async def update_async(
-        self, chat_status=values.unset, post_engagement_data=values.unset
+        self,
+        chat_status: Union["WebChannelInstance.ChatStatus", object] = values.unset,
+        post_engagement_data: Union[str, object] = values.unset,
     ) -> "WebChannelInstance":
         """
         Asynchronous coroutine to update the WebChannelInstance
 
-        :param "WebChannelInstance.ChatStatus" chat_status:
-        :param str post_engagement_data: The post-engagement data.
+        :param chat_status:
+        :param post_engagement_data: The post-engagement data.
 
         :returns: The updated WebChannelInstance
         """
@@ -227,13 +231,15 @@ class WebChannelContext(InstanceContext):
         )
 
     def update(
-        self, chat_status=values.unset, post_engagement_data=values.unset
+        self,
+        chat_status: Union["WebChannelInstance.ChatStatus", object] = values.unset,
+        post_engagement_data: Union[str, object] = values.unset,
     ) -> WebChannelInstance:
         """
         Update the WebChannelInstance
 
-        :param "WebChannelInstance.ChatStatus" chat_status:
-        :param str post_engagement_data: The post-engagement data.
+        :param chat_status:
+        :param post_engagement_data: The post-engagement data.
 
         :returns: The updated WebChannelInstance
         """
@@ -253,13 +259,15 @@ class WebChannelContext(InstanceContext):
         return WebChannelInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
-        self, chat_status=values.unset, post_engagement_data=values.unset
+        self,
+        chat_status: Union["WebChannelInstance.ChatStatus", object] = values.unset,
+        post_engagement_data: Union[str, object] = values.unset,
     ) -> WebChannelInstance:
         """
         Asynchronous coroutine to update the WebChannelInstance
 
-        :param "WebChannelInstance.ChatStatus" chat_status:
-        :param str post_engagement_data: The post-engagement data.
+        :param chat_status:
+        :param post_engagement_data: The post-engagement data.
 
         :returns: The updated WebChannelInstance
         """
@@ -289,11 +297,11 @@ class WebChannelContext(InstanceContext):
 
 
 class WebChannelPage(Page):
-    def get_instance(self, payload) -> WebChannelInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> WebChannelInstance:
         """
         Build an instance of WebChannelInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return WebChannelInstance(self._version, payload)
 
@@ -320,22 +328,22 @@ class WebChannelList(ListResource):
 
     def create(
         self,
-        flex_flow_sid,
-        identity,
-        customer_friendly_name,
-        chat_friendly_name,
-        chat_unique_name=values.unset,
-        pre_engagement_data=values.unset,
+        flex_flow_sid: str,
+        identity: str,
+        customer_friendly_name: str,
+        chat_friendly_name: str,
+        chat_unique_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
     ) -> WebChannelInstance:
         """
         Create the WebChannelInstance
 
-        :param str flex_flow_sid: The SID of the Flex Flow.
-        :param str identity: The chat identity.
-        :param str customer_friendly_name: The chat participant's friendly name.
-        :param str chat_friendly_name: The chat channel's friendly name.
-        :param str chat_unique_name: The chat channel's unique name.
-        :param str pre_engagement_data: The pre-engagement data.
+        :param flex_flow_sid: The SID of the Flex Flow.
+        :param identity: The chat identity.
+        :param customer_friendly_name: The chat participant's friendly name.
+        :param chat_friendly_name: The chat channel's friendly name.
+        :param chat_unique_name: The chat channel's unique name.
+        :param pre_engagement_data: The pre-engagement data.
 
         :returns: The created WebChannelInstance
         """
@@ -360,22 +368,22 @@ class WebChannelList(ListResource):
 
     async def create_async(
         self,
-        flex_flow_sid,
-        identity,
-        customer_friendly_name,
-        chat_friendly_name,
-        chat_unique_name=values.unset,
-        pre_engagement_data=values.unset,
+        flex_flow_sid: str,
+        identity: str,
+        customer_friendly_name: str,
+        chat_friendly_name: str,
+        chat_unique_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
     ) -> WebChannelInstance:
         """
         Asynchronously create the WebChannelInstance
 
-        :param str flex_flow_sid: The SID of the Flex Flow.
-        :param str identity: The chat identity.
-        :param str customer_friendly_name: The chat participant's friendly name.
-        :param str chat_friendly_name: The chat channel's friendly name.
-        :param str chat_unique_name: The chat channel's unique name.
-        :param str pre_engagement_data: The pre-engagement data.
+        :param flex_flow_sid: The SID of the Flex Flow.
+        :param identity: The chat identity.
+        :param customer_friendly_name: The chat participant's friendly name.
+        :param chat_friendly_name: The chat channel's friendly name.
+        :param chat_unique_name: The chat channel's unique name.
+        :param pre_engagement_data: The pre-engagement data.
 
         :returns: The created WebChannelInstance
         """
@@ -398,19 +406,23 @@ class WebChannelList(ListResource):
 
         return WebChannelInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[WebChannelInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[WebChannelInstance]:
         """
         Streams WebChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -420,7 +432,9 @@ class WebChannelList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[WebChannelInstance]:
         """
         Asynchronously streams WebChannelInstance records from the API as a generator stream.
@@ -428,12 +442,12 @@ class WebChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -442,18 +456,22 @@ class WebChannelList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[WebChannelInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[WebChannelInstance]:
         """
         Lists WebChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -464,18 +482,22 @@ class WebChannelList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[WebChannelInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[WebChannelInstance]:
         """
         Asynchronously lists WebChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -487,15 +509,18 @@ class WebChannelList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> WebChannelPage:
         """
         Retrieve a single page of WebChannelInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WebChannelInstance
         """
@@ -511,15 +536,18 @@ class WebChannelList(ListResource):
         return WebChannelPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> WebChannelPage:
         """
         Asynchronously retrieve a single page of WebChannelInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WebChannelInstance
         """
@@ -536,31 +564,31 @@ class WebChannelList(ListResource):
         )
         return WebChannelPage(self._version, response)
 
-    def get_page(self, target_url) -> WebChannelPage:
+    def get_page(self, target_url: str) -> WebChannelPage:
         """
         Retrieve a specific page of WebChannelInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of WebChannelInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return WebChannelPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> WebChannelPage:
+    async def get_page_async(self, target_url: str) -> WebChannelPage:
         """
         Asynchronously retrieve a specific page of WebChannelInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of WebChannelInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return WebChannelPage(self._version, response)
 
-    def get(self, sid) -> WebChannelContext:
+    def get(self, sid: str) -> WebChannelContext:
         """
         Constructs a WebChannelContext
 
@@ -568,7 +596,7 @@ class WebChannelList(ListResource):
         """
         return WebChannelContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> WebChannelContext:
+    def __call__(self, sid: str) -> WebChannelContext:
         """
         Constructs a WebChannelContext
 

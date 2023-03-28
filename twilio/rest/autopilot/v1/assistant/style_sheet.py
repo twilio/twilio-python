@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -76,11 +76,13 @@ class StyleSheetInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, style_sheet=values.unset) -> "StyleSheetInstance":
+    def update(
+        self, style_sheet: Union[object, object] = values.unset
+    ) -> "StyleSheetInstance":
         """
         Update the StyleSheetInstance
 
-        :param object style_sheet: The JSON string that describes the style sheet object.
+        :param style_sheet: The JSON string that describes the style sheet object.
 
         :returns: The updated StyleSheetInstance
         """
@@ -88,11 +90,13 @@ class StyleSheetInstance(InstanceResource):
             style_sheet=style_sheet,
         )
 
-    async def update_async(self, style_sheet=values.unset) -> "StyleSheetInstance":
+    async def update_async(
+        self, style_sheet: Union[object, object] = values.unset
+    ) -> "StyleSheetInstance":
         """
         Asynchronous coroutine to update the StyleSheetInstance
 
-        :param object style_sheet: The JSON string that describes the style sheet object.
+        :param style_sheet: The JSON string that describes the style sheet object.
 
         :returns: The updated StyleSheetInstance
         """
@@ -164,11 +168,13 @@ class StyleSheetContext(InstanceContext):
             assistant_sid=self._solution["assistant_sid"],
         )
 
-    def update(self, style_sheet=values.unset) -> StyleSheetInstance:
+    def update(
+        self, style_sheet: Union[object, object] = values.unset
+    ) -> StyleSheetInstance:
         """
         Update the StyleSheetInstance
 
-        :param object style_sheet: The JSON string that describes the style sheet object.
+        :param style_sheet: The JSON string that describes the style sheet object.
 
         :returns: The updated StyleSheetInstance
         """
@@ -188,11 +194,13 @@ class StyleSheetContext(InstanceContext):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    async def update_async(self, style_sheet=values.unset) -> StyleSheetInstance:
+    async def update_async(
+        self, style_sheet: Union[object, object] = values.unset
+    ) -> StyleSheetInstance:
         """
         Asynchronous coroutine to update the StyleSheetInstance
 
-        :param object style_sheet: The JSON string that describes the style sheet object.
+        :param style_sheet: The JSON string that describes the style sheet object.
 
         :returns: The updated StyleSheetInstance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -104,16 +104,18 @@ class ChannelInstance(InstanceResource):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        type=values.unset,
-        messaging_service_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
     ) -> "ChannelInstance":
         """
         Update the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param "ChannelInstance.ChannelType" type:
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param type:
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
 
         :returns: The updated ChannelInstance
         """
@@ -125,16 +127,18 @@ class ChannelInstance(InstanceResource):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        type=values.unset,
-        messaging_service_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
     ) -> "ChannelInstance":
         """
         Asynchronous coroutine to update the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param "ChannelInstance.ChannelType" type:
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param type:
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
 
         :returns: The updated ChannelInstance
         """
@@ -174,16 +178,18 @@ class ChannelContext(InstanceContext):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        type=values.unset,
-        messaging_service_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
     ) -> ChannelInstance:
         """
         Update the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param "ChannelInstance.ChannelType" type:
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param type:
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
 
         :returns: The updated ChannelInstance
         """
@@ -212,16 +218,18 @@ class ChannelContext(InstanceContext):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        type=values.unset,
-        messaging_service_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
     ) -> ChannelInstance:
         """
         Asynchronous coroutine to update the ChannelInstance
 
-        :param "ChannelInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param "ChannelInstance.ChannelType" type:
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param type:
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
 
         :returns: The updated ChannelInstance
         """
@@ -268,7 +276,7 @@ class ChannelList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, service_sid, sid) -> ChannelContext:
+    def get(self, service_sid: str, sid: str) -> ChannelContext:
         """
         Constructs a ChannelContext
 
@@ -277,7 +285,7 @@ class ChannelList(ListResource):
         """
         return ChannelContext(self._version, service_sid=service_sid, sid=sid)
 
-    def __call__(self, service_sid, sid) -> ChannelContext:
+    def __call__(self, service_sid: str, sid: str) -> ChannelContext:
         """
         Constructs a ChannelContext
 

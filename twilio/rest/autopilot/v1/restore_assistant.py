@@ -83,11 +83,11 @@ class RestoreAssistantList(ListResource):
 
         self._uri = "/Assistants/Restore"
 
-    def update(self, assistant) -> RestoreAssistantInstance:
+    def update(self, assistant: str) -> RestoreAssistantInstance:
         """
         Update the RestoreAssistantInstance
 
-        :param str assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
+        :param assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
 
         :returns: The created RestoreAssistantInstance
         """
@@ -105,11 +105,11 @@ class RestoreAssistantList(ListResource):
 
         return RestoreAssistantInstance(self._version, payload)
 
-    async def update_async(self, assistant) -> RestoreAssistantInstance:
+    async def update_async(self, assistant: str) -> RestoreAssistantInstance:
         """
         Asynchronously update the RestoreAssistantInstance
 
-        :param str assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
+        :param assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
 
         :returns: The created RestoreAssistantInstance
         """

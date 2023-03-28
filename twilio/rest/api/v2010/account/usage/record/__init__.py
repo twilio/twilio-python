@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import date
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -409,11 +409,11 @@ class RecordInstance(InstanceResource):
 
 
 class RecordPage(Page):
-    def get_instance(self, payload) -> RecordInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RecordInstance:
         """
         Build an instance of RecordInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RecordInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -458,12 +458,12 @@ class RecordList(ListResource):
 
     def stream(
         self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        limit=None,
-        page_size=None,
+        category: Union["RecordInstance.Category", object] = values.unset,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        include_subaccounts: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordInstance]:
         """
         Streams RecordInstance records from the API as a generator stream.
@@ -475,12 +475,12 @@ class RecordList(ListResource):
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -497,12 +497,12 @@ class RecordList(ListResource):
 
     async def stream_async(
         self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        limit=None,
-        page_size=None,
+        category: Union["RecordInstance.Category", object] = values.unset,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        include_subaccounts: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordInstance]:
         """
         Asynchronously streams RecordInstance records from the API as a generator stream.
@@ -514,12 +514,12 @@ class RecordList(ListResource):
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -536,12 +536,12 @@ class RecordList(ListResource):
 
     def list(
         self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        limit=None,
-        page_size=None,
+        category: Union["RecordInstance.Category", object] = values.unset,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        include_subaccounts: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordInstance]:
         """
         Lists RecordInstance records from the API as a list.
@@ -552,12 +552,12 @@ class RecordList(ListResource):
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -574,12 +574,12 @@ class RecordList(ListResource):
 
     async def list_async(
         self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        limit=None,
-        page_size=None,
+        category: Union["RecordInstance.Category", object] = values.unset,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        include_subaccounts: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordInstance]:
         """
         Asynchronously lists RecordInstance records from the API as a list.
@@ -590,12 +590,12 @@ class RecordList(ListResource):
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
         :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -612,25 +612,25 @@ class RecordList(ListResource):
 
     def page(
         self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        category: Union["RecordInstance.Category", object] = values.unset,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        include_subaccounts: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RecordPage:
         """
         Retrieve a single page of RecordInstance records from the API.
         Request is executed immediately
 
-        :param &quot;RecordInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+        :param end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+        :param include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordInstance
         """
@@ -651,25 +651,25 @@ class RecordList(ListResource):
 
     async def page_async(
         self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        category: Union["RecordInstance.Category", object] = values.unset,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        include_subaccounts: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RecordPage:
         """
         Asynchronously retrieve a single page of RecordInstance records from the API.
         Request is executed immediately
 
-        :param &quot;RecordInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+        :param end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+        :param include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordInstance
         """
@@ -690,24 +690,24 @@ class RecordList(ListResource):
         )
         return RecordPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> RecordPage:
+    def get_page(self, target_url: str) -> RecordPage:
         """
         Retrieve a specific page of RecordInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RecordPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> RecordPage:
+    async def get_page_async(self, target_url: str) -> RecordPage:
         """
         Asynchronously retrieve a specific page of RecordInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordInstance
         """

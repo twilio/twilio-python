@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -90,36 +90,36 @@ class NotificationInstance(InstanceResource):
 
     def update(
         self,
-        log_enabled=values.unset,
-        new_message_enabled=values.unset,
-        new_message_template=values.unset,
-        new_message_sound=values.unset,
-        new_message_badge_count_enabled=values.unset,
-        added_to_conversation_enabled=values.unset,
-        added_to_conversation_template=values.unset,
-        added_to_conversation_sound=values.unset,
-        removed_from_conversation_enabled=values.unset,
-        removed_from_conversation_template=values.unset,
-        removed_from_conversation_sound=values.unset,
-        new_message_with_media_enabled=values.unset,
-        new_message_with_media_template=values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
     ) -> "NotificationInstance":
         """
         Update the NotificationInstance
 
-        :param bool log_enabled: Weather the notification logging is enabled.
-        :param bool new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
-        :param str new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param str new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param bool new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
-        :param bool added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
-        :param str added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param str added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param bool removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
-        :param str removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param str removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param bool new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
-        :param str new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
+        :param log_enabled: Weather the notification logging is enabled.
+        :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
+        :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
+        :param added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
+        :param added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+        :param removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+        :param new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
 
         :returns: The updated NotificationInstance
         """
@@ -141,36 +141,36 @@ class NotificationInstance(InstanceResource):
 
     async def update_async(
         self,
-        log_enabled=values.unset,
-        new_message_enabled=values.unset,
-        new_message_template=values.unset,
-        new_message_sound=values.unset,
-        new_message_badge_count_enabled=values.unset,
-        added_to_conversation_enabled=values.unset,
-        added_to_conversation_template=values.unset,
-        added_to_conversation_sound=values.unset,
-        removed_from_conversation_enabled=values.unset,
-        removed_from_conversation_template=values.unset,
-        removed_from_conversation_sound=values.unset,
-        new_message_with_media_enabled=values.unset,
-        new_message_with_media_template=values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
     ) -> "NotificationInstance":
         """
         Asynchronous coroutine to update the NotificationInstance
 
-        :param bool log_enabled: Weather the notification logging is enabled.
-        :param bool new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
-        :param str new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param str new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param bool new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
-        :param bool added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
-        :param str added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param str added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param bool removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
-        :param str removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param str removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param bool new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
-        :param str new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
+        :param log_enabled: Weather the notification logging is enabled.
+        :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
+        :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
+        :param added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
+        :param added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+        :param removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+        :param new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
 
         :returns: The updated NotificationInstance
         """
@@ -258,36 +258,36 @@ class NotificationContext(InstanceContext):
 
     def update(
         self,
-        log_enabled=values.unset,
-        new_message_enabled=values.unset,
-        new_message_template=values.unset,
-        new_message_sound=values.unset,
-        new_message_badge_count_enabled=values.unset,
-        added_to_conversation_enabled=values.unset,
-        added_to_conversation_template=values.unset,
-        added_to_conversation_sound=values.unset,
-        removed_from_conversation_enabled=values.unset,
-        removed_from_conversation_template=values.unset,
-        removed_from_conversation_sound=values.unset,
-        new_message_with_media_enabled=values.unset,
-        new_message_with_media_template=values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
     ) -> NotificationInstance:
         """
         Update the NotificationInstance
 
-        :param bool log_enabled: Weather the notification logging is enabled.
-        :param bool new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
-        :param str new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param str new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param bool new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
-        :param bool added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
-        :param str added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param str added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param bool removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
-        :param str removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param str removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param bool new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
-        :param str new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
+        :param log_enabled: Weather the notification logging is enabled.
+        :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
+        :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
+        :param added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
+        :param added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+        :param removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+        :param new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
 
         :returns: The updated NotificationInstance
         """
@@ -321,36 +321,36 @@ class NotificationContext(InstanceContext):
 
     async def update_async(
         self,
-        log_enabled=values.unset,
-        new_message_enabled=values.unset,
-        new_message_template=values.unset,
-        new_message_sound=values.unset,
-        new_message_badge_count_enabled=values.unset,
-        added_to_conversation_enabled=values.unset,
-        added_to_conversation_template=values.unset,
-        added_to_conversation_sound=values.unset,
-        removed_from_conversation_enabled=values.unset,
-        removed_from_conversation_template=values.unset,
-        removed_from_conversation_sound=values.unset,
-        new_message_with_media_enabled=values.unset,
-        new_message_with_media_template=values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
     ) -> NotificationInstance:
         """
         Asynchronous coroutine to update the NotificationInstance
 
-        :param bool log_enabled: Weather the notification logging is enabled.
-        :param bool new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
-        :param str new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param str new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param bool new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
-        :param bool added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
-        :param str added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param str added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param bool removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
-        :param str removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param str removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param bool new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
-        :param str new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
+        :param log_enabled: Weather the notification logging is enabled.
+        :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
+        :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
+        :param added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
+        :param added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+        :param removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+        :param new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
 
         :returns: The updated NotificationInstance
         """

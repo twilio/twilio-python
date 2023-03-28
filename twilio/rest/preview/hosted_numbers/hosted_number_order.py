@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -168,30 +168,32 @@ class HostedNumberOrderInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        email=values.unset,
-        cc_emails=values.unset,
-        status=values.unset,
-        verification_code=values.unset,
-        verification_type=values.unset,
-        verification_document_sid=values.unset,
-        extension=values.unset,
-        call_delay=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
     ) -> "HostedNumberOrderInstance":
         """
         Update the HostedNumberOrderInstance
 
-        :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
-        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param str email: Email of the owner of this phone number that is being hosted.
-        :param List[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :param "HostedNumberOrderInstance.Status" status:
-        :param str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :param "HostedNumberOrderInstance.VerificationType" verification_type:
-        :param str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
-        :param str extension: Digits to dial after connecting the verification call.
-        :param int call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param email: Email of the owner of this phone number that is being hosted.
+        :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param status:
+        :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param extension: Digits to dial after connecting the verification call.
+        :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
 
         :returns: The updated HostedNumberOrderInstance
         """
@@ -210,30 +212,32 @@ class HostedNumberOrderInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        email=values.unset,
-        cc_emails=values.unset,
-        status=values.unset,
-        verification_code=values.unset,
-        verification_type=values.unset,
-        verification_document_sid=values.unset,
-        extension=values.unset,
-        call_delay=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
     ) -> "HostedNumberOrderInstance":
         """
         Asynchronous coroutine to update the HostedNumberOrderInstance
 
-        :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
-        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param str email: Email of the owner of this phone number that is being hosted.
-        :param List[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :param "HostedNumberOrderInstance.Status" status:
-        :param str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :param "HostedNumberOrderInstance.VerificationType" verification_type:
-        :param str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
-        :param str extension: Digits to dial after connecting the verification call.
-        :param int call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param email: Email of the owner of this phone number that is being hosted.
+        :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param status:
+        :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param extension: Digits to dial after connecting the verification call.
+        :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
 
         :returns: The updated HostedNumberOrderInstance
         """
@@ -342,30 +346,32 @@ class HostedNumberOrderContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        email=values.unset,
-        cc_emails=values.unset,
-        status=values.unset,
-        verification_code=values.unset,
-        verification_type=values.unset,
-        verification_document_sid=values.unset,
-        extension=values.unset,
-        call_delay=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
     ) -> HostedNumberOrderInstance:
         """
         Update the HostedNumberOrderInstance
 
-        :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
-        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param str email: Email of the owner of this phone number that is being hosted.
-        :param List[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :param "HostedNumberOrderInstance.Status" status:
-        :param str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :param "HostedNumberOrderInstance.VerificationType" verification_type:
-        :param str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
-        :param str extension: Digits to dial after connecting the verification call.
-        :param int call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param email: Email of the owner of this phone number that is being hosted.
+        :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param status:
+        :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param extension: Digits to dial after connecting the verification call.
+        :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
 
         :returns: The updated HostedNumberOrderInstance
         """
@@ -396,30 +402,32 @@ class HostedNumberOrderContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        email=values.unset,
-        cc_emails=values.unset,
-        status=values.unset,
-        verification_code=values.unset,
-        verification_type=values.unset,
-        verification_document_sid=values.unset,
-        extension=values.unset,
-        call_delay=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
     ) -> HostedNumberOrderInstance:
         """
         Asynchronous coroutine to update the HostedNumberOrderInstance
 
-        :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
-        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param str email: Email of the owner of this phone number that is being hosted.
-        :param List[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :param "HostedNumberOrderInstance.Status" status:
-        :param str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :param "HostedNumberOrderInstance.VerificationType" verification_type:
-        :param str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
-        :param str extension: Digits to dial after connecting the verification call.
-        :param int call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param email: Email of the owner of this phone number that is being hosted.
+        :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param status:
+        :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param extension: Digits to dial after connecting the verification call.
+        :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
 
         :returns: The updated HostedNumberOrderInstance
         """
@@ -461,11 +469,11 @@ class HostedNumberOrderContext(InstanceContext):
 
 
 class HostedNumberOrderPage(Page):
-    def get_instance(self, payload) -> HostedNumberOrderInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> HostedNumberOrderInstance:
         """
         Build an instance of HostedNumberOrderInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return HostedNumberOrderInstance(self._version, payload)
 
@@ -492,44 +500,46 @@ class HostedNumberOrderList(ListResource):
 
     def create(
         self,
-        phone_number,
-        sms_capability,
-        account_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        cc_emails=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
-        status_callback_url=values.unset,
-        status_callback_method=values.unset,
-        sms_application_sid=values.unset,
-        address_sid=values.unset,
-        email=values.unset,
-        verification_type=values.unset,
-        verification_document_sid=values.unset,
+        phone_number: str,
+        sms_capability: bool,
+        account_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
     ) -> HostedNumberOrderInstance:
         """
         Create the HostedNumberOrderInstance
 
-        :param str phone_number: The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
-        :param bool sms_capability: Used to specify that the SMS capability will be hosted on Twilio's platform.
-        :param str account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
-        :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
-        :param str unique_name: Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param List[str] cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
-        :param str sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
-        :param str sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
-        :param str sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
-        :param str sms_fallback_method: The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource.
-        :param str status_callback_url: Optional. The Status Callback URL attached to the IncomingPhoneNumber resource.
-        :param str status_callback_method: Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
-        :param str sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-        :param str address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
-        :param str email: Optional. Email of the owner of this phone number that is being hosted.
-        :param &quot;HostedNumberOrderInstance.VerificationType&quot; verification_type:
-        :param str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param phone_number: The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
+        :param sms_capability: Used to specify that the SMS capability will be hosted on Twilio's platform.
+        :param account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
+        :param sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_fallback_method: The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource.
+        :param status_callback_url: Optional. The Status Callback URL attached to the IncomingPhoneNumber resource.
+        :param status_callback_method: Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
+        :param sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
+        :param address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
+        :param email: Optional. Email of the owner of this phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
 
         :returns: The created HostedNumberOrderInstance
         """
@@ -565,44 +575,46 @@ class HostedNumberOrderList(ListResource):
 
     async def create_async(
         self,
-        phone_number,
-        sms_capability,
-        account_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        cc_emails=values.unset,
-        sms_url=values.unset,
-        sms_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_fallback_method=values.unset,
-        status_callback_url=values.unset,
-        status_callback_method=values.unset,
-        sms_application_sid=values.unset,
-        address_sid=values.unset,
-        email=values.unset,
-        verification_type=values.unset,
-        verification_document_sid=values.unset,
+        phone_number: str,
+        sms_capability: bool,
+        account_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
     ) -> HostedNumberOrderInstance:
         """
         Asynchronously create the HostedNumberOrderInstance
 
-        :param str phone_number: The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
-        :param bool sms_capability: Used to specify that the SMS capability will be hosted on Twilio's platform.
-        :param str account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
-        :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
-        :param str unique_name: Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param List[str] cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
-        :param str sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
-        :param str sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
-        :param str sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
-        :param str sms_fallback_method: The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource.
-        :param str status_callback_url: Optional. The Status Callback URL attached to the IncomingPhoneNumber resource.
-        :param str status_callback_method: Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
-        :param str sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-        :param str address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
-        :param str email: Optional. Email of the owner of this phone number that is being hosted.
-        :param &quot;HostedNumberOrderInstance.VerificationType&quot; verification_type:
-        :param str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param phone_number: The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
+        :param sms_capability: Used to specify that the SMS capability will be hosted on Twilio's platform.
+        :param account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
+        :param sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_fallback_method: The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource.
+        :param status_callback_url: Optional. The Status Callback URL attached to the IncomingPhoneNumber resource.
+        :param status_callback_method: Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
+        :param sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
+        :param address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
+        :param email: Optional. Email of the owner of this phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
 
         :returns: The created HostedNumberOrderInstance
         """
@@ -638,13 +650,13 @@ class HostedNumberOrderList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[HostedNumberOrderInstance]:
         """
         Streams HostedNumberOrderInstance records from the API as a generator stream.
@@ -657,12 +669,12 @@ class HostedNumberOrderList(ListResource):
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -680,13 +692,13 @@ class HostedNumberOrderList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[HostedNumberOrderInstance]:
         """
         Asynchronously streams HostedNumberOrderInstance records from the API as a generator stream.
@@ -699,12 +711,12 @@ class HostedNumberOrderList(ListResource):
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -722,13 +734,13 @@ class HostedNumberOrderList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[HostedNumberOrderInstance]:
         """
         Lists HostedNumberOrderInstance records from the API as a list.
@@ -740,12 +752,12 @@ class HostedNumberOrderList(ListResource):
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -763,13 +775,13 @@ class HostedNumberOrderList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[HostedNumberOrderInstance]:
         """
         Asynchronously lists HostedNumberOrderInstance records from the API as a list.
@@ -781,12 +793,12 @@ class HostedNumberOrderList(ListResource):
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -804,27 +816,27 @@ class HostedNumberOrderList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> HostedNumberOrderPage:
         """
         Retrieve a single page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
-        :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
-        :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
-        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of HostedNumberOrderInstance
         """
@@ -846,27 +858,27 @@ class HostedNumberOrderList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> HostedNumberOrderPage:
         """
         Asynchronously retrieve a single page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
-        :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
-        :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
-        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of HostedNumberOrderInstance
         """
@@ -888,31 +900,31 @@ class HostedNumberOrderList(ListResource):
         )
         return HostedNumberOrderPage(self._version, response)
 
-    def get_page(self, target_url) -> HostedNumberOrderPage:
+    def get_page(self, target_url: str) -> HostedNumberOrderPage:
         """
         Retrieve a specific page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of HostedNumberOrderInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return HostedNumberOrderPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> HostedNumberOrderPage:
+    async def get_page_async(self, target_url: str) -> HostedNumberOrderPage:
         """
         Asynchronously retrieve a specific page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of HostedNumberOrderInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return HostedNumberOrderPage(self._version, response)
 
-    def get(self, sid) -> HostedNumberOrderContext:
+    def get(self, sid: str) -> HostedNumberOrderContext:
         """
         Constructs a HostedNumberOrderContext
 
@@ -920,7 +932,7 @@ class HostedNumberOrderList(ListResource):
         """
         return HostedNumberOrderContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> HostedNumberOrderContext:
+    def __call__(self, sid: str) -> HostedNumberOrderContext:
         """
         Constructs a HostedNumberOrderContext
 

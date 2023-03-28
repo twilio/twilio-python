@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -80,11 +80,13 @@ class InteractionChannelParticipantInstance(InstanceResource):
             )
         return self._context
 
-    def update(self, status) -> "InteractionChannelParticipantInstance":
+    def update(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> "InteractionChannelParticipantInstance":
         """
         Update the InteractionChannelParticipantInstance
 
-        :param "InteractionChannelParticipantInstance.Status" status:
+        :param status:
 
         :returns: The updated InteractionChannelParticipantInstance
         """
@@ -92,11 +94,13 @@ class InteractionChannelParticipantInstance(InstanceResource):
             status=status,
         )
 
-    async def update_async(self, status) -> "InteractionChannelParticipantInstance":
+    async def update_async(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> "InteractionChannelParticipantInstance":
         """
         Asynchronous coroutine to update the InteractionChannelParticipantInstance
 
-        :param "InteractionChannelParticipantInstance.Status" status:
+        :param status:
 
         :returns: The updated InteractionChannelParticipantInstance
         """
@@ -140,11 +144,13 @@ class InteractionChannelParticipantContext(InstanceContext):
             **self._solution
         )
 
-    def update(self, status) -> InteractionChannelParticipantInstance:
+    def update(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> InteractionChannelParticipantInstance:
         """
         Update the InteractionChannelParticipantInstance
 
-        :param "InteractionChannelParticipantInstance.Status" status:
+        :param status:
 
         :returns: The updated InteractionChannelParticipantInstance
         """
@@ -168,11 +174,13 @@ class InteractionChannelParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status) -> InteractionChannelParticipantInstance:
+    async def update_async(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> InteractionChannelParticipantInstance:
         """
         Asynchronous coroutine to update the InteractionChannelParticipantInstance
 
-        :param "InteractionChannelParticipantInstance.Status" status:
+        :param status:
 
         :returns: The updated InteractionChannelParticipantInstance
         """
@@ -209,11 +217,13 @@ class InteractionChannelParticipantContext(InstanceContext):
 
 
 class InteractionChannelParticipantPage(Page):
-    def get_instance(self, payload) -> InteractionChannelParticipantInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> InteractionChannelParticipantInstance:
         """
         Build an instance of InteractionChannelParticipantInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return InteractionChannelParticipantInstance(
             self._version,
@@ -252,12 +262,16 @@ class InteractionChannelParticipantList(ListResource):
             **self._solution
         )
 
-    def create(self, type, media_properties) -> InteractionChannelParticipantInstance:
+    def create(
+        self,
+        type: "InteractionChannelParticipantInstance.Type",
+        media_properties: object,
+    ) -> InteractionChannelParticipantInstance:
         """
         Create the InteractionChannelParticipantInstance
 
-        :param &quot;InteractionChannelParticipantInstance.Type&quot; type:
-        :param object media_properties: JSON representing the Media Properties for the new Participant.
+        :param type:
+        :param media_properties: JSON representing the Media Properties for the new Participant.
 
         :returns: The created InteractionChannelParticipantInstance
         """
@@ -282,13 +296,15 @@ class InteractionChannelParticipantList(ListResource):
         )
 
     async def create_async(
-        self, type, media_properties
+        self,
+        type: "InteractionChannelParticipantInstance.Type",
+        media_properties: object,
     ) -> InteractionChannelParticipantInstance:
         """
         Asynchronously create the InteractionChannelParticipantInstance
 
-        :param &quot;InteractionChannelParticipantInstance.Type&quot; type:
-        :param object media_properties: JSON representing the Media Properties for the new Participant.
+        :param type:
+        :param media_properties: JSON representing the Media Properties for the new Participant.
 
         :returns: The created InteractionChannelParticipantInstance
         """
@@ -313,7 +329,9 @@ class InteractionChannelParticipantList(ListResource):
         )
 
     def stream(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InteractionChannelParticipantInstance]:
         """
         Streams InteractionChannelParticipantInstance records from the API as a generator stream.
@@ -321,12 +339,12 @@ class InteractionChannelParticipantList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -336,7 +354,9 @@ class InteractionChannelParticipantList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InteractionChannelParticipantInstance]:
         """
         Asynchronously streams InteractionChannelParticipantInstance records from the API as a generator stream.
@@ -344,12 +364,12 @@ class InteractionChannelParticipantList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -359,19 +379,21 @@ class InteractionChannelParticipantList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InteractionChannelParticipantInstance]:
         """
         Lists InteractionChannelParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -383,19 +405,21 @@ class InteractionChannelParticipantList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InteractionChannelParticipantInstance]:
         """
         Asynchronously lists InteractionChannelParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -407,15 +431,18 @@ class InteractionChannelParticipantList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> InteractionChannelParticipantPage:
         """
         Retrieve a single page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelParticipantInstance
         """
@@ -433,15 +460,18 @@ class InteractionChannelParticipantList(ListResource):
         )
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> InteractionChannelParticipantPage:
         """
         Asynchronously retrieve a single page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelParticipantInstance
         """
@@ -460,12 +490,12 @@ class InteractionChannelParticipantList(ListResource):
             self._version, response, self._solution
         )
 
-    def get_page(self, target_url) -> InteractionChannelParticipantPage:
+    def get_page(self, target_url: str) -> InteractionChannelParticipantPage:
         """
         Retrieve a specific page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionChannelParticipantInstance
         """
@@ -474,12 +504,14 @@ class InteractionChannelParticipantList(ListResource):
             self._version, response, self._solution
         )
 
-    async def get_page_async(self, target_url) -> InteractionChannelParticipantPage:
+    async def get_page_async(
+        self, target_url: str
+    ) -> InteractionChannelParticipantPage:
         """
         Asynchronously retrieve a specific page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionChannelParticipantInstance
         """
@@ -488,7 +520,7 @@ class InteractionChannelParticipantList(ListResource):
             self._version, response, self._solution
         )
 
-    def get(self, sid) -> InteractionChannelParticipantContext:
+    def get(self, sid: str) -> InteractionChannelParticipantContext:
         """
         Constructs a InteractionChannelParticipantContext
 
@@ -501,7 +533,7 @@ class InteractionChannelParticipantList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> InteractionChannelParticipantContext:
+    def __call__(self, sid: str) -> InteractionChannelParticipantContext:
         """
         Constructs a InteractionChannelParticipantContext
 

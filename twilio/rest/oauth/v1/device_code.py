@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -66,13 +66,18 @@ class DeviceCodeList(ListResource):
 
         self._uri = "/device/code"
 
-    def create(self, client_sid, scopes, audiences=values.unset) -> DeviceCodeInstance:
+    def create(
+        self,
+        client_sid: str,
+        scopes: List[str],
+        audiences: Union[List[str], object] = values.unset,
+    ) -> DeviceCodeInstance:
         """
         Create the DeviceCodeInstance
 
-        :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
-        :param List[str] scopes: An Array of scopes for authorization request
-        :param List[str] audiences: An array of intended audiences for token requests
+        :param client_sid: A 34 character string that uniquely identifies this OAuth App.
+        :param scopes: An Array of scopes for authorization request
+        :param audiences: An array of intended audiences for token requests
 
         :returns: The created DeviceCodeInstance
         """
@@ -93,14 +98,17 @@ class DeviceCodeList(ListResource):
         return DeviceCodeInstance(self._version, payload)
 
     async def create_async(
-        self, client_sid, scopes, audiences=values.unset
+        self,
+        client_sid: str,
+        scopes: List[str],
+        audiences: Union[List[str], object] = values.unset,
     ) -> DeviceCodeInstance:
         """
         Asynchronously create the DeviceCodeInstance
 
-        :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
-        :param List[str] scopes: An Array of scopes for authorization request
-        :param List[str] audiences: An array of intended audiences for token requests
+        :param client_sid: A 34 character string that uniquely identifies this OAuth App.
+        :param scopes: An Array of scopes for authorization request
+        :param audiences: An array of intended audiences for token requests
 
         :returns: The created DeviceCodeInstance
         """

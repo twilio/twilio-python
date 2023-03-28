@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -132,18 +132,18 @@ class FlowInstance(InstanceResource):
 
     def update(
         self,
-        status,
-        friendly_name=values.unset,
-        definition=values.unset,
-        commit_message=values.unset,
+        status: "FlowInstance.Status",
+        friendly_name: Union[str, object] = values.unset,
+        definition: Union[object, object] = values.unset,
+        commit_message: Union[str, object] = values.unset,
     ) -> "FlowInstance":
         """
         Update the FlowInstance
 
-        :param "FlowInstance.Status" status:
-        :param str friendly_name: The string that you assigned to describe the Flow.
-        :param object definition: JSON representation of flow definition.
-        :param str commit_message: Description of change made in the revision.
+        :param status:
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
 
         :returns: The updated FlowInstance
         """
@@ -156,18 +156,18 @@ class FlowInstance(InstanceResource):
 
     async def update_async(
         self,
-        status,
-        friendly_name=values.unset,
-        definition=values.unset,
-        commit_message=values.unset,
+        status: "FlowInstance.Status",
+        friendly_name: Union[str, object] = values.unset,
+        definition: Union[object, object] = values.unset,
+        commit_message: Union[str, object] = values.unset,
     ) -> "FlowInstance":
         """
         Asynchronous coroutine to update the FlowInstance
 
-        :param "FlowInstance.Status" status:
-        :param str friendly_name: The string that you assigned to describe the Flow.
-        :param object definition: JSON representation of flow definition.
-        :param str commit_message: Description of change made in the revision.
+        :param status:
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
 
         :returns: The updated FlowInstance
         """
@@ -293,18 +293,18 @@ class FlowContext(InstanceContext):
 
     def update(
         self,
-        status,
-        friendly_name=values.unset,
-        definition=values.unset,
-        commit_message=values.unset,
+        status: "FlowInstance.Status",
+        friendly_name: Union[str, object] = values.unset,
+        definition: Union[object, object] = values.unset,
+        commit_message: Union[str, object] = values.unset,
     ) -> FlowInstance:
         """
         Update the FlowInstance
 
-        :param "FlowInstance.Status" status:
-        :param str friendly_name: The string that you assigned to describe the Flow.
-        :param object definition: JSON representation of flow definition.
-        :param str commit_message: Description of change made in the revision.
+        :param status:
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
 
         :returns: The updated FlowInstance
         """
@@ -327,18 +327,18 @@ class FlowContext(InstanceContext):
 
     async def update_async(
         self,
-        status,
-        friendly_name=values.unset,
-        definition=values.unset,
-        commit_message=values.unset,
+        status: "FlowInstance.Status",
+        friendly_name: Union[str, object] = values.unset,
+        definition: Union[object, object] = values.unset,
+        commit_message: Union[str, object] = values.unset,
     ) -> FlowInstance:
         """
         Asynchronous coroutine to update the FlowInstance
 
-        :param "FlowInstance.Status" status:
-        :param str friendly_name: The string that you assigned to describe the Flow.
-        :param object definition: JSON representation of flow definition.
-        :param str commit_message: Description of change made in the revision.
+        :param status:
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
 
         :returns: The updated FlowInstance
         """
@@ -406,11 +406,11 @@ class FlowContext(InstanceContext):
 
 
 class FlowPage(Page):
-    def get_instance(self, payload) -> FlowInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> FlowInstance:
         """
         Build an instance of FlowInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return FlowInstance(self._version, payload)
 
@@ -436,15 +436,19 @@ class FlowList(ListResource):
         self._uri = "/Flows"
 
     def create(
-        self, friendly_name, status, definition, commit_message=values.unset
+        self,
+        friendly_name: str,
+        status: "FlowInstance.Status",
+        definition: object,
+        commit_message: Union[str, object] = values.unset,
     ) -> FlowInstance:
         """
         Create the FlowInstance
 
-        :param str friendly_name: The string that you assigned to describe the Flow.
-        :param &quot;FlowInstance.Status&quot; status:
-        :param object definition: JSON representation of flow definition.
-        :param str commit_message: Description of change made in the revision.
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param status:
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
 
         :returns: The created FlowInstance
         """
@@ -466,15 +470,19 @@ class FlowList(ListResource):
         return FlowInstance(self._version, payload)
 
     async def create_async(
-        self, friendly_name, status, definition, commit_message=values.unset
+        self,
+        friendly_name: str,
+        status: "FlowInstance.Status",
+        definition: object,
+        commit_message: Union[str, object] = values.unset,
     ) -> FlowInstance:
         """
         Asynchronously create the FlowInstance
 
-        :param str friendly_name: The string that you assigned to describe the Flow.
-        :param &quot;FlowInstance.Status&quot; status:
-        :param object definition: JSON representation of flow definition.
-        :param str commit_message: Description of change made in the revision.
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param status:
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
 
         :returns: The created FlowInstance
         """
@@ -495,19 +503,23 @@ class FlowList(ListResource):
 
         return FlowInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[FlowInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FlowInstance]:
         """
         Streams FlowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -516,19 +528,23 @@ class FlowList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[FlowInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FlowInstance]:
         """
         Asynchronously streams FlowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -537,18 +553,22 @@ class FlowList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[FlowInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FlowInstance]:
         """
         Lists FlowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -559,18 +579,22 @@ class FlowList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[FlowInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FlowInstance]:
         """
         Asynchronously lists FlowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -582,15 +606,18 @@ class FlowList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> FlowPage:
         """
         Retrieve a single page of FlowInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlowInstance
         """
@@ -606,15 +633,18 @@ class FlowList(ListResource):
         return FlowPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> FlowPage:
         """
         Asynchronously retrieve a single page of FlowInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlowInstance
         """
@@ -631,31 +661,31 @@ class FlowList(ListResource):
         )
         return FlowPage(self._version, response)
 
-    def get_page(self, target_url) -> FlowPage:
+    def get_page(self, target_url: str) -> FlowPage:
         """
         Retrieve a specific page of FlowInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FlowInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FlowPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> FlowPage:
+    async def get_page_async(self, target_url: str) -> FlowPage:
         """
         Asynchronously retrieve a specific page of FlowInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FlowInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FlowPage(self._version, response)
 
-    def get(self, sid) -> FlowContext:
+    def get(self, sid: str) -> FlowContext:
         """
         Constructs a FlowContext
 
@@ -663,7 +693,7 @@ class FlowList(ListResource):
         """
         return FlowContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> FlowContext:
+    def __call__(self, sid: str) -> FlowContext:
         """
         Constructs a FlowContext
 

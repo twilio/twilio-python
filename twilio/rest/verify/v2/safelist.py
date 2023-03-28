@@ -207,11 +207,11 @@ class SafelistList(ListResource):
 
         self._uri = "/SafeList/Numbers"
 
-    def create(self, phone_number) -> SafelistInstance:
+    def create(self, phone_number: str) -> SafelistInstance:
         """
         Create the SafelistInstance
 
-        :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
         :returns: The created SafelistInstance
         """
@@ -229,11 +229,11 @@ class SafelistList(ListResource):
 
         return SafelistInstance(self._version, payload)
 
-    async def create_async(self, phone_number) -> SafelistInstance:
+    async def create_async(self, phone_number: str) -> SafelistInstance:
         """
         Asynchronously create the SafelistInstance
 
-        :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
         :returns: The created SafelistInstance
         """
@@ -251,7 +251,7 @@ class SafelistList(ListResource):
 
         return SafelistInstance(self._version, payload)
 
-    def get(self, phone_number) -> SafelistContext:
+    def get(self, phone_number: str) -> SafelistContext:
         """
         Constructs a SafelistContext
 
@@ -259,7 +259,7 @@ class SafelistList(ListResource):
         """
         return SafelistContext(self._version, phone_number=phone_number)
 
-    def __call__(self, phone_number) -> SafelistContext:
+    def __call__(self, phone_number: str) -> SafelistContext:
         """
         Constructs a SafelistContext
 

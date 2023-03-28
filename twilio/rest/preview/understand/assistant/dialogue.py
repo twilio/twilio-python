@@ -181,7 +181,7 @@ class DialogueList(ListResource):
             "assistant_sid": assistant_sid,
         }
 
-    def get(self, sid) -> DialogueContext:
+    def get(self, sid: str) -> DialogueContext:
         """
         Constructs a DialogueContext
 
@@ -191,7 +191,7 @@ class DialogueList(ListResource):
             self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> DialogueContext:
+    def __call__(self, sid: str) -> DialogueContext:
         """
         Constructs a DialogueContext
 

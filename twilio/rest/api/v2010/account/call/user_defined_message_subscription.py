@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -184,14 +184,17 @@ class UserDefinedMessageSubscriptionList(ListResource):
         )
 
     def create(
-        self, callback, idempotency_key=values.unset, method=values.unset
+        self,
+        callback: str,
+        idempotency_key: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
     ) -> UserDefinedMessageSubscriptionInstance:
         """
         Create the UserDefinedMessageSubscriptionInstance
 
-        :param str callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
-        :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
-        :param str method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
+        :param callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         """
@@ -217,14 +220,17 @@ class UserDefinedMessageSubscriptionList(ListResource):
         )
 
     async def create_async(
-        self, callback, idempotency_key=values.unset, method=values.unset
+        self,
+        callback: str,
+        idempotency_key: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
     ) -> UserDefinedMessageSubscriptionInstance:
         """
         Asynchronously create the UserDefinedMessageSubscriptionInstance
 
-        :param str callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
-        :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
-        :param str method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
+        :param callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         """
@@ -249,7 +255,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
             call_sid=self._solution["call_sid"],
         )
 
-    def get(self, sid) -> UserDefinedMessageSubscriptionContext:
+    def get(self, sid: str) -> UserDefinedMessageSubscriptionContext:
         """
         Constructs a UserDefinedMessageSubscriptionContext
 
@@ -262,7 +268,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> UserDefinedMessageSubscriptionContext:
+    def __call__(self, sid: str) -> UserDefinedMessageSubscriptionContext:
         """
         Constructs a UserDefinedMessageSubscriptionContext
 

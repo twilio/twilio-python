@@ -13,8 +13,8 @@ r"""
 """
 
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional
+from datetime import date, datetime
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -208,11 +208,11 @@ class NotificationContext(InstanceContext):
 
 
 class NotificationPage(Page):
-    def get_instance(self, payload) -> NotificationInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> NotificationInstance:
         """
         Build an instance of NotificationInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return NotificationInstance(
             self._version,
@@ -255,12 +255,12 @@ class NotificationList(ListResource):
 
     def stream(
         self,
-        log=values.unset,
-        message_date=values.unset,
-        message_date_before=values.unset,
-        message_date_after=values.unset,
-        limit=None,
-        page_size=None,
+        log: Union[int, object] = values.unset,
+        message_date: Union[date, object] = values.unset,
+        message_date_before: Union[date, object] = values.unset,
+        message_date_after: Union[date, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NotificationInstance]:
         """
         Streams NotificationInstance records from the API as a generator stream.
@@ -272,12 +272,12 @@ class NotificationList(ListResource):
         :param date message_date: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
         :param date message_date_before: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
         :param date message_date_after: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -294,12 +294,12 @@ class NotificationList(ListResource):
 
     async def stream_async(
         self,
-        log=values.unset,
-        message_date=values.unset,
-        message_date_before=values.unset,
-        message_date_after=values.unset,
-        limit=None,
-        page_size=None,
+        log: Union[int, object] = values.unset,
+        message_date: Union[date, object] = values.unset,
+        message_date_before: Union[date, object] = values.unset,
+        message_date_after: Union[date, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NotificationInstance]:
         """
         Asynchronously streams NotificationInstance records from the API as a generator stream.
@@ -311,12 +311,12 @@ class NotificationList(ListResource):
         :param date message_date: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
         :param date message_date_before: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
         :param date message_date_after: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -333,12 +333,12 @@ class NotificationList(ListResource):
 
     def list(
         self,
-        log=values.unset,
-        message_date=values.unset,
-        message_date_before=values.unset,
-        message_date_after=values.unset,
-        limit=None,
-        page_size=None,
+        log: Union[int, object] = values.unset,
+        message_date: Union[date, object] = values.unset,
+        message_date_before: Union[date, object] = values.unset,
+        message_date_after: Union[date, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NotificationInstance]:
         """
         Lists NotificationInstance records from the API as a list.
@@ -349,12 +349,12 @@ class NotificationList(ListResource):
         :param date message_date: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
         :param date message_date_before: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
         :param date message_date_after: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -371,12 +371,12 @@ class NotificationList(ListResource):
 
     async def list_async(
         self,
-        log=values.unset,
-        message_date=values.unset,
-        message_date_before=values.unset,
-        message_date_after=values.unset,
-        limit=None,
-        page_size=None,
+        log: Union[int, object] = values.unset,
+        message_date: Union[date, object] = values.unset,
+        message_date_before: Union[date, object] = values.unset,
+        message_date_after: Union[date, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[NotificationInstance]:
         """
         Asynchronously lists NotificationInstance records from the API as a list.
@@ -387,12 +387,12 @@ class NotificationList(ListResource):
         :param date message_date: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
         :param date message_date_before: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
         :param date message_date_after: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -409,25 +409,25 @@ class NotificationList(ListResource):
 
     def page(
         self,
-        log=values.unset,
-        message_date=values.unset,
-        message_date_before=values.unset,
-        message_date_after=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        log: Union[int, object] = values.unset,
+        message_date: Union[date, object] = values.unset,
+        message_date_before: Union[date, object] = values.unset,
+        message_date_after: Union[date, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> NotificationPage:
         """
         Retrieve a single page of NotificationInstance records from the API.
         Request is executed immediately
 
-        :param int log: Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
-        :param date message_date: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param date message_date_before: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param date message_date_after: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param log: Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
+        :param message_date: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+        :param message_date_before: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+        :param message_date_after: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of NotificationInstance
         """
@@ -448,25 +448,25 @@ class NotificationList(ListResource):
 
     async def page_async(
         self,
-        log=values.unset,
-        message_date=values.unset,
-        message_date_before=values.unset,
-        message_date_after=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        log: Union[int, object] = values.unset,
+        message_date: Union[date, object] = values.unset,
+        message_date_before: Union[date, object] = values.unset,
+        message_date_after: Union[date, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> NotificationPage:
         """
         Asynchronously retrieve a single page of NotificationInstance records from the API.
         Request is executed immediately
 
-        :param int log: Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
-        :param date message_date: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param date message_date_before: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param date message_date_after: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param log: Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
+        :param message_date: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+        :param message_date_before: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+        :param message_date_after: Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of NotificationInstance
         """
@@ -487,31 +487,31 @@ class NotificationList(ListResource):
         )
         return NotificationPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> NotificationPage:
+    def get_page(self, target_url: str) -> NotificationPage:
         """
         Retrieve a specific page of NotificationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of NotificationInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return NotificationPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> NotificationPage:
+    async def get_page_async(self, target_url: str) -> NotificationPage:
         """
         Asynchronously retrieve a specific page of NotificationInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of NotificationInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return NotificationPage(self._version, response, self._solution)
 
-    def get(self, sid) -> NotificationContext:
+    def get(self, sid: str) -> NotificationContext:
         """
         Constructs a NotificationContext
 
@@ -524,7 +524,7 @@ class NotificationList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> NotificationContext:
+    def __call__(self, sid: str) -> NotificationContext:
         """
         Constructs a NotificationContext
 

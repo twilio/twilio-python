@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import date, datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -269,20 +269,20 @@ class FeedbackSummaryList(ListResource):
 
     def create(
         self,
-        start_date,
-        end_date,
-        include_subaccounts=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
+        start_date: date,
+        end_date: date,
+        include_subaccounts: Union[bool, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
     ) -> FeedbackSummaryInstance:
         """
         Create the FeedbackSummaryInstance
 
-        :param date start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
-        :param date end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
-        :param bool include_subaccounts: Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
-        :param str status_callback: The URL that we will request when the feedback summary is complete.
-        :param str status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
+        :param start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
+        :param end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
+        :param include_subaccounts: Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
+        :param status_callback: The URL that we will request when the feedback summary is complete.
+        :param status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
 
         :returns: The created FeedbackSummaryInstance
         """
@@ -308,20 +308,20 @@ class FeedbackSummaryList(ListResource):
 
     async def create_async(
         self,
-        start_date,
-        end_date,
-        include_subaccounts=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
+        start_date: date,
+        end_date: date,
+        include_subaccounts: Union[bool, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
     ) -> FeedbackSummaryInstance:
         """
         Asynchronously create the FeedbackSummaryInstance
 
-        :param date start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
-        :param date end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
-        :param bool include_subaccounts: Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
-        :param str status_callback: The URL that we will request when the feedback summary is complete.
-        :param str status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
+        :param start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
+        :param end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
+        :param include_subaccounts: Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
+        :param status_callback: The URL that we will request when the feedback summary is complete.
+        :param status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
 
         :returns: The created FeedbackSummaryInstance
         """
@@ -345,7 +345,7 @@ class FeedbackSummaryList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def get(self, sid) -> FeedbackSummaryContext:
+    def get(self, sid: str) -> FeedbackSummaryContext:
         """
         Constructs a FeedbackSummaryContext
 
@@ -355,7 +355,7 @@ class FeedbackSummaryList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> FeedbackSummaryContext:
+    def __call__(self, sid: str) -> FeedbackSummaryContext:
         """
         Constructs a FeedbackSummaryContext
 

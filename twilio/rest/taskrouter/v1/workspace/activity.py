@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -118,11 +118,13 @@ class ActivityInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name=values.unset) -> "ActivityInstance":
+    def update(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> "ActivityInstance":
         """
         Update the ActivityInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+        :param friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
 
         :returns: The updated ActivityInstance
         """
@@ -130,11 +132,13 @@ class ActivityInstance(InstanceResource):
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, friendly_name=values.unset) -> "ActivityInstance":
+    async def update_async(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> "ActivityInstance":
         """
         Asynchronous coroutine to update the ActivityInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+        :param friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
 
         :returns: The updated ActivityInstance
         """
@@ -236,11 +240,13 @@ class ActivityContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name=values.unset) -> ActivityInstance:
+    def update(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> ActivityInstance:
         """
         Update the ActivityInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+        :param friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
 
         :returns: The updated ActivityInstance
         """
@@ -263,11 +269,13 @@ class ActivityContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name=values.unset) -> ActivityInstance:
+    async def update_async(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> ActivityInstance:
         """
         Asynchronous coroutine to update the ActivityInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+        :param friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
 
         :returns: The updated ActivityInstance
         """
@@ -301,11 +309,11 @@ class ActivityContext(InstanceContext):
 
 
 class ActivityPage(Page):
-    def get_instance(self, payload) -> ActivityInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ActivityInstance:
         """
         Build an instance of ActivityInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ActivityInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -337,12 +345,14 @@ class ActivityList(ListResource):
         }
         self._uri = "/Workspaces/{workspace_sid}/Activities".format(**self._solution)
 
-    def create(self, friendly_name, available=values.unset) -> ActivityInstance:
+    def create(
+        self, friendly_name: str, available: Union[bool, object] = values.unset
+    ) -> ActivityInstance:
         """
         Create the ActivityInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
-        :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
+        :param friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+        :param available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
 
         :returns: The created ActivityInstance
         """
@@ -364,13 +374,13 @@ class ActivityList(ListResource):
         )
 
     async def create_async(
-        self, friendly_name, available=values.unset
+        self, friendly_name: str, available: Union[bool, object] = values.unset
     ) -> ActivityInstance:
         """
         Asynchronously create the ActivityInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
-        :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
+        :param friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+        :param available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
 
         :returns: The created ActivityInstance
         """
@@ -393,10 +403,10 @@ class ActivityList(ListResource):
 
     def stream(
         self,
-        friendly_name=values.unset,
-        available=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ActivityInstance]:
         """
         Streams ActivityInstance records from the API as a generator stream.
@@ -406,12 +416,12 @@ class ActivityList(ListResource):
 
         :param str friendly_name: The `friendly_name` of the Activity resources to read.
         :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -426,10 +436,10 @@ class ActivityList(ListResource):
 
     async def stream_async(
         self,
-        friendly_name=values.unset,
-        available=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ActivityInstance]:
         """
         Asynchronously streams ActivityInstance records from the API as a generator stream.
@@ -439,12 +449,12 @@ class ActivityList(ListResource):
 
         :param str friendly_name: The `friendly_name` of the Activity resources to read.
         :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -459,10 +469,10 @@ class ActivityList(ListResource):
 
     def list(
         self,
-        friendly_name=values.unset,
-        available=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ActivityInstance]:
         """
         Lists ActivityInstance records from the API as a list.
@@ -471,12 +481,12 @@ class ActivityList(ListResource):
 
         :param str friendly_name: The `friendly_name` of the Activity resources to read.
         :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -491,10 +501,10 @@ class ActivityList(ListResource):
 
     async def list_async(
         self,
-        friendly_name=values.unset,
-        available=values.unset,
-        limit=None,
-        page_size=None,
+        friendly_name: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ActivityInstance]:
         """
         Asynchronously lists ActivityInstance records from the API as a list.
@@ -503,12 +513,12 @@ class ActivityList(ListResource):
 
         :param str friendly_name: The `friendly_name` of the Activity resources to read.
         :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -523,21 +533,21 @@ class ActivityList(ListResource):
 
     def page(
         self,
-        friendly_name=values.unset,
-        available=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ActivityPage:
         """
         Retrieve a single page of ActivityInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The `friendly_name` of the Activity resources to read.
-        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The `friendly_name` of the Activity resources to read.
+        :param available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ActivityInstance
         """
@@ -556,21 +566,21 @@ class ActivityList(ListResource):
 
     async def page_async(
         self,
-        friendly_name=values.unset,
-        available=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ActivityPage:
         """
         Asynchronously retrieve a single page of ActivityInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The `friendly_name` of the Activity resources to read.
-        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The `friendly_name` of the Activity resources to read.
+        :param available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ActivityInstance
         """
@@ -589,31 +599,31 @@ class ActivityList(ListResource):
         )
         return ActivityPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ActivityPage:
+    def get_page(self, target_url: str) -> ActivityPage:
         """
         Retrieve a specific page of ActivityInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ActivityInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ActivityPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ActivityPage:
+    async def get_page_async(self, target_url: str) -> ActivityPage:
         """
         Asynchronously retrieve a specific page of ActivityInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ActivityInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ActivityPage(self._version, response, self._solution)
 
-    def get(self, sid) -> ActivityContext:
+    def get(self, sid: str) -> ActivityContext:
         """
         Constructs a ActivityContext
 
@@ -623,7 +633,7 @@ class ActivityList(ListResource):
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> ActivityContext:
+    def __call__(self, sid: str) -> ActivityContext:
         """
         Constructs a ActivityContext
 

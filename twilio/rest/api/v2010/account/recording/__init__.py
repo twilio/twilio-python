@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -145,11 +145,13 @@ class RecordingInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
-    def fetch(self, include_soft_deleted=values.unset) -> "RecordingInstance":
+    def fetch(
+        self, include_soft_deleted: Union[bool, object] = values.unset
+    ) -> "RecordingInstance":
         """
         Fetch the RecordingInstance
 
-        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
+        :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         """
@@ -158,12 +160,12 @@ class RecordingInstance(InstanceResource):
         )
 
     async def fetch_async(
-        self, include_soft_deleted=values.unset
+        self, include_soft_deleted: Union[bool, object] = values.unset
     ) -> "RecordingInstance":
         """
         Asynchronous coroutine to fetch the RecordingInstance
 
-        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
+        :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         """
@@ -242,11 +244,13 @@ class RecordingContext(InstanceContext):
             uri=self._uri,
         )
 
-    def fetch(self, include_soft_deleted=values.unset) -> RecordingInstance:
+    def fetch(
+        self, include_soft_deleted: Union[bool, object] = values.unset
+    ) -> RecordingInstance:
         """
         Fetch the RecordingInstance
 
-        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
+        :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         """
@@ -266,11 +270,13 @@ class RecordingContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self, include_soft_deleted=values.unset) -> RecordingInstance:
+    async def fetch_async(
+        self, include_soft_deleted: Union[bool, object] = values.unset
+    ) -> RecordingInstance:
         """
         Asynchronous coroutine to fetch the RecordingInstance
 
-        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
+        :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         """
@@ -329,11 +335,11 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingPage(Page):
-    def get_instance(self, payload) -> RecordingInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RecordingInstance:
         """
         Build an instance of RecordingInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RecordingInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -367,14 +373,14 @@ class RecordingList(ListResource):
 
     def stream(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        call_sid=values.unset,
-        conference_sid=values.unset,
-        include_soft_deleted=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        call_sid: Union[str, object] = values.unset,
+        conference_sid: Union[str, object] = values.unset,
+        include_soft_deleted: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
         """
         Streams RecordingInstance records from the API as a generator stream.
@@ -388,12 +394,12 @@ class RecordingList(ListResource):
         :param str call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
         :param str conference_sid: The Conference SID that identifies the conference associated with the recording to read.
         :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -412,14 +418,14 @@ class RecordingList(ListResource):
 
     async def stream_async(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        call_sid=values.unset,
-        conference_sid=values.unset,
-        include_soft_deleted=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        call_sid: Union[str, object] = values.unset,
+        conference_sid: Union[str, object] = values.unset,
+        include_soft_deleted: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
         """
         Asynchronously streams RecordingInstance records from the API as a generator stream.
@@ -433,12 +439,12 @@ class RecordingList(ListResource):
         :param str call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
         :param str conference_sid: The Conference SID that identifies the conference associated with the recording to read.
         :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -457,14 +463,14 @@ class RecordingList(ListResource):
 
     def list(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        call_sid=values.unset,
-        conference_sid=values.unset,
-        include_soft_deleted=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        call_sid: Union[str, object] = values.unset,
+        conference_sid: Union[str, object] = values.unset,
+        include_soft_deleted: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
         """
         Lists RecordingInstance records from the API as a list.
@@ -477,12 +483,12 @@ class RecordingList(ListResource):
         :param str call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
         :param str conference_sid: The Conference SID that identifies the conference associated with the recording to read.
         :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -501,14 +507,14 @@ class RecordingList(ListResource):
 
     async def list_async(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        call_sid=values.unset,
-        conference_sid=values.unset,
-        include_soft_deleted=values.unset,
-        limit=None,
-        page_size=None,
+        date_created: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        call_sid: Union[str, object] = values.unset,
+        conference_sid: Union[str, object] = values.unset,
+        include_soft_deleted: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
         """
         Asynchronously lists RecordingInstance records from the API as a list.
@@ -521,12 +527,12 @@ class RecordingList(ListResource):
         :param str call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
         :param str conference_sid: The Conference SID that identifies the conference associated with the recording to read.
         :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -545,29 +551,29 @@ class RecordingList(ListResource):
 
     def page(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        call_sid=values.unset,
-        conference_sid=values.unset,
-        include_soft_deleted=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        call_sid: Union[str, object] = values.unset,
+        conference_sid: Union[str, object] = values.unset,
+        include_soft_deleted: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RecordingPage:
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-        :param datetime date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-        :param datetime date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-        :param str call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
-        :param str conference_sid: The Conference SID that identifies the conference associated with the recording to read.
-        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+        :param date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+        :param date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+        :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
+        :param conference_sid: The Conference SID that identifies the conference associated with the recording to read.
+        :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
         """
@@ -590,29 +596,29 @@ class RecordingList(ListResource):
 
     async def page_async(
         self,
-        date_created=values.unset,
-        date_created_before=values.unset,
-        date_created_after=values.unset,
-        call_sid=values.unset,
-        conference_sid=values.unset,
-        include_soft_deleted=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        call_sid: Union[str, object] = values.unset,
+        conference_sid: Union[str, object] = values.unset,
+        include_soft_deleted: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RecordingPage:
         """
         Asynchronously retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-        :param datetime date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-        :param datetime date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-        :param str call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
-        :param str conference_sid: The Conference SID that identifies the conference associated with the recording to read.
-        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+        :param date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+        :param date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+        :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
+        :param conference_sid: The Conference SID that identifies the conference associated with the recording to read.
+        :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
         """
@@ -635,31 +641,31 @@ class RecordingList(ListResource):
         )
         return RecordingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> RecordingPage:
+    def get_page(self, target_url: str) -> RecordingPage:
         """
         Retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordingInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RecordingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> RecordingPage:
+    async def get_page_async(self, target_url: str) -> RecordingPage:
         """
         Asynchronously retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordingInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RecordingPage(self._version, response, self._solution)
 
-    def get(self, sid) -> RecordingContext:
+    def get(self, sid: str) -> RecordingContext:
         """
         Constructs a RecordingContext
 
@@ -669,7 +675,7 @@ class RecordingList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> RecordingContext:
+    def __call__(self, sid: str) -> RecordingContext:
         """
         Constructs a RecordingContext
 

@@ -58,11 +58,11 @@ class BulkCountryUpdateList(ListResource):
 
         self._uri = "/DialingPermissions/BulkCountryUpdates"
 
-    def create(self, update_request) -> BulkCountryUpdateInstance:
+    def create(self, update_request: str) -> BulkCountryUpdateInstance:
         """
         Create the BulkCountryUpdateInstance
 
-        :param str update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
+        :param update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
 
         :returns: The created BulkCountryUpdateInstance
         """
@@ -80,11 +80,11 @@ class BulkCountryUpdateList(ListResource):
 
         return BulkCountryUpdateInstance(self._version, payload)
 
-    async def create_async(self, update_request) -> BulkCountryUpdateInstance:
+    async def create_async(self, update_request: str) -> BulkCountryUpdateInstance:
         """
         Asynchronously create the BulkCountryUpdateInstance
 
-        :param str update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
+        :param update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
 
         :returns: The created BulkCountryUpdateInstance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -152,11 +152,11 @@ class LocalInstance(InstanceResource):
 
 
 class LocalPage(Page):
-    def get_instance(self, payload) -> LocalInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> LocalInstance:
         """
         Build an instance of LocalInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return LocalInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -192,56 +192,58 @@ class LocalList(ListResource):
 
     def create(
         self,
-        phone_number,
-        api_version=values.unset,
-        friendly_name=values.unset,
-        sms_application_sid=values.unset,
-        sms_fallback_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_method=values.unset,
-        sms_url=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        voice_application_sid=values.unset,
-        voice_caller_id_lookup=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_url=values.unset,
-        identity_sid=values.unset,
-        address_sid=values.unset,
-        emergency_status=values.unset,
-        emergency_address_sid=values.unset,
-        trunk_sid=values.unset,
-        voice_receive_mode=values.unset,
-        bundle_sid=values.unset,
+        phone_number: str,
+        api_version: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_application_sid: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        identity_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        emergency_status: Union["LocalInstance.EmergencyStatus", object] = values.unset,
+        emergency_address_sid: Union[str, object] = values.unset,
+        trunk_sid: Union[str, object] = values.unset,
+        voice_receive_mode: Union[
+            "LocalInstance.VoiceReceiveMode", object
+        ] = values.unset,
+        bundle_sid: Union[str, object] = values.unset,
     ) -> LocalInstance:
         """
         Create the LocalInstance
 
-        :param str phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
-        :param str api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
-        :param str friendly_name: A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
-        :param str sms_application_sid: The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
-        :param str sms_fallback_method: The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str sms_fallback_url: The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
-        :param str sms_method: The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str sms_url: The URL we should call when the new phone number receives an incoming SMS message.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str voice_application_sid: The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
-        :param bool voice_caller_id_lookup: Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
-        :param str voice_fallback_method: The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :param str voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-        :param str identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
-        :param str address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-        :param &quot;LocalInstance.EmergencyStatus&quot; emergency_status:
-        :param str emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
-        :param str trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :param &quot;LocalInstance.VoiceReceiveMode&quot; voice_receive_mode:
-        :param str bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+        :param phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+        :param api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+        :param friendly_name: A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
+        :param sms_application_sid: The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
+        :param sms_fallback_method: The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+        :param sms_method: The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sms_url: The URL we should call when the new phone number receives an incoming SMS message.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_application_sid: The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+        :param voice_caller_id_lookup: Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+        :param voice_fallback_method: The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+        :param identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
+        :param address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+        :param emergency_status:
+        :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
+        :param trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+        :param voice_receive_mode:
+        :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 
         :returns: The created LocalInstance
         """
@@ -285,56 +287,58 @@ class LocalList(ListResource):
 
     async def create_async(
         self,
-        phone_number,
-        api_version=values.unset,
-        friendly_name=values.unset,
-        sms_application_sid=values.unset,
-        sms_fallback_method=values.unset,
-        sms_fallback_url=values.unset,
-        sms_method=values.unset,
-        sms_url=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        voice_application_sid=values.unset,
-        voice_caller_id_lookup=values.unset,
-        voice_fallback_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_method=values.unset,
-        voice_url=values.unset,
-        identity_sid=values.unset,
-        address_sid=values.unset,
-        emergency_status=values.unset,
-        emergency_address_sid=values.unset,
-        trunk_sid=values.unset,
-        voice_receive_mode=values.unset,
-        bundle_sid=values.unset,
+        phone_number: str,
+        api_version: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_application_sid: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        identity_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        emergency_status: Union["LocalInstance.EmergencyStatus", object] = values.unset,
+        emergency_address_sid: Union[str, object] = values.unset,
+        trunk_sid: Union[str, object] = values.unset,
+        voice_receive_mode: Union[
+            "LocalInstance.VoiceReceiveMode", object
+        ] = values.unset,
+        bundle_sid: Union[str, object] = values.unset,
     ) -> LocalInstance:
         """
         Asynchronously create the LocalInstance
 
-        :param str phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
-        :param str api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
-        :param str friendly_name: A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
-        :param str sms_application_sid: The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
-        :param str sms_fallback_method: The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str sms_fallback_url: The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
-        :param str sms_method: The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str sms_url: The URL we should call when the new phone number receives an incoming SMS message.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str voice_application_sid: The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
-        :param bool voice_caller_id_lookup: Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
-        :param str voice_fallback_method: The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :param str voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-        :param str identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
-        :param str address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-        :param &quot;LocalInstance.EmergencyStatus&quot; emergency_status:
-        :param str emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
-        :param str trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :param &quot;LocalInstance.VoiceReceiveMode&quot; voice_receive_mode:
-        :param str bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+        :param phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+        :param api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+        :param friendly_name: A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
+        :param sms_application_sid: The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
+        :param sms_fallback_method: The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+        :param sms_method: The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sms_url: The URL we should call when the new phone number receives an incoming SMS message.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_application_sid: The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+        :param voice_caller_id_lookup: Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+        :param voice_fallback_method: The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+        :param identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
+        :param address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+        :param emergency_status:
+        :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
+        :param trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+        :param voice_receive_mode:
+        :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 
         :returns: The created LocalInstance
         """
@@ -378,12 +382,12 @@ class LocalList(ListResource):
 
     def stream(
         self,
-        beta=values.unset,
-        friendly_name=values.unset,
-        phone_number=values.unset,
-        origin=values.unset,
-        limit=None,
-        page_size=None,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[LocalInstance]:
         """
         Streams LocalInstance records from the API as a generator stream.
@@ -395,12 +399,12 @@ class LocalList(ListResource):
         :param str friendly_name: A string that identifies the resources to read.
         :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
         :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -417,12 +421,12 @@ class LocalList(ListResource):
 
     async def stream_async(
         self,
-        beta=values.unset,
-        friendly_name=values.unset,
-        phone_number=values.unset,
-        origin=values.unset,
-        limit=None,
-        page_size=None,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[LocalInstance]:
         """
         Asynchronously streams LocalInstance records from the API as a generator stream.
@@ -434,12 +438,12 @@ class LocalList(ListResource):
         :param str friendly_name: A string that identifies the resources to read.
         :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
         :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -456,12 +460,12 @@ class LocalList(ListResource):
 
     def list(
         self,
-        beta=values.unset,
-        friendly_name=values.unset,
-        phone_number=values.unset,
-        origin=values.unset,
-        limit=None,
-        page_size=None,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[LocalInstance]:
         """
         Lists LocalInstance records from the API as a list.
@@ -472,12 +476,12 @@ class LocalList(ListResource):
         :param str friendly_name: A string that identifies the resources to read.
         :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
         :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -494,12 +498,12 @@ class LocalList(ListResource):
 
     async def list_async(
         self,
-        beta=values.unset,
-        friendly_name=values.unset,
-        phone_number=values.unset,
-        origin=values.unset,
-        limit=None,
-        page_size=None,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[LocalInstance]:
         """
         Asynchronously lists LocalInstance records from the API as a list.
@@ -510,12 +514,12 @@ class LocalList(ListResource):
         :param str friendly_name: A string that identifies the resources to read.
         :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
         :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -532,25 +536,25 @@ class LocalList(ListResource):
 
     def page(
         self,
-        beta=values.unset,
-        friendly_name=values.unset,
-        phone_number=values.unset,
-        origin=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> LocalPage:
         """
         Retrieve a single page of LocalInstance records from the API.
         Request is executed immediately
 
-        :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-        :param str friendly_name: A string that identifies the resources to read.
-        :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
-        :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param friendly_name: A string that identifies the resources to read.
+        :param phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of LocalInstance
         """
@@ -571,25 +575,25 @@ class LocalList(ListResource):
 
     async def page_async(
         self,
-        beta=values.unset,
-        friendly_name=values.unset,
-        phone_number=values.unset,
-        origin=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> LocalPage:
         """
         Asynchronously retrieve a single page of LocalInstance records from the API.
         Request is executed immediately
 
-        :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-        :param str friendly_name: A string that identifies the resources to read.
-        :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
-        :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param friendly_name: A string that identifies the resources to read.
+        :param phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of LocalInstance
         """
@@ -610,24 +614,24 @@ class LocalList(ListResource):
         )
         return LocalPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> LocalPage:
+    def get_page(self, target_url: str) -> LocalPage:
         """
         Retrieve a specific page of LocalInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of LocalInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return LocalPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> LocalPage:
+    async def get_page_async(self, target_url: str) -> LocalPage:
         """
         Asynchronously retrieve a specific page of LocalInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of LocalInstance
         """

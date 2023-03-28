@@ -13,8 +13,8 @@ r"""
 """
 
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional
+from datetime import date, datetime
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -233,11 +233,11 @@ class BindingContext(InstanceContext):
 
 
 class BindingPage(Page):
-    def get_instance(self, payload) -> BindingInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> BindingInstance:
         """
         Build an instance of BindingInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return BindingInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -271,24 +271,24 @@ class BindingList(ListResource):
 
     def create(
         self,
-        identity,
-        binding_type,
-        address,
-        tag=values.unset,
-        notification_protocol_version=values.unset,
-        credential_sid=values.unset,
-        endpoint=values.unset,
+        identity: str,
+        binding_type: "BindingInstance.BindingType",
+        address: str,
+        tag: Union[List[str], object] = values.unset,
+        notification_protocol_version: Union[str, object] = values.unset,
+        credential_sid: Union[str, object] = values.unset,
+        endpoint: Union[str, object] = values.unset,
     ) -> BindingInstance:
         """
         Create the BindingInstance
 
-        :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
-        :param &quot;BindingInstance.BindingType&quot; binding_type:
-        :param str address: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
-        :param List[str] tag: A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
-        :param str notification_protocol_version: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\\\"3\\\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
-        :param str credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings.
-        :param str endpoint: Deprecated.
+        :param identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
+        :param binding_type:
+        :param address: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
+        :param tag: A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
+        :param notification_protocol_version: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\\\"3\\\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
+        :param credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings.
+        :param endpoint: Deprecated.
 
         :returns: The created BindingInstance
         """
@@ -316,24 +316,24 @@ class BindingList(ListResource):
 
     async def create_async(
         self,
-        identity,
-        binding_type,
-        address,
-        tag=values.unset,
-        notification_protocol_version=values.unset,
-        credential_sid=values.unset,
-        endpoint=values.unset,
+        identity: str,
+        binding_type: "BindingInstance.BindingType",
+        address: str,
+        tag: Union[List[str], object] = values.unset,
+        notification_protocol_version: Union[str, object] = values.unset,
+        credential_sid: Union[str, object] = values.unset,
+        endpoint: Union[str, object] = values.unset,
     ) -> BindingInstance:
         """
         Asynchronously create the BindingInstance
 
-        :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
-        :param &quot;BindingInstance.BindingType&quot; binding_type:
-        :param str address: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
-        :param List[str] tag: A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
-        :param str notification_protocol_version: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\\\"3\\\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
-        :param str credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings.
-        :param str endpoint: Deprecated.
+        :param identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
+        :param binding_type:
+        :param address: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
+        :param tag: A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
+        :param notification_protocol_version: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\\\"3\\\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
+        :param credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings.
+        :param endpoint: Deprecated.
 
         :returns: The created BindingInstance
         """
@@ -361,12 +361,12 @@ class BindingList(ListResource):
 
     def stream(
         self,
-        start_date=values.unset,
-        end_date=values.unset,
-        identity=values.unset,
-        tag=values.unset,
-        limit=None,
-        page_size=None,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BindingInstance]:
         """
         Streams BindingInstance records from the API as a generator stream.
@@ -378,12 +378,12 @@ class BindingList(ListResource):
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
         :param List[str] identity: The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
         :param List[str] tag: Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -400,12 +400,12 @@ class BindingList(ListResource):
 
     async def stream_async(
         self,
-        start_date=values.unset,
-        end_date=values.unset,
-        identity=values.unset,
-        tag=values.unset,
-        limit=None,
-        page_size=None,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BindingInstance]:
         """
         Asynchronously streams BindingInstance records from the API as a generator stream.
@@ -417,12 +417,12 @@ class BindingList(ListResource):
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
         :param List[str] identity: The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
         :param List[str] tag: Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -439,12 +439,12 @@ class BindingList(ListResource):
 
     def list(
         self,
-        start_date=values.unset,
-        end_date=values.unset,
-        identity=values.unset,
-        tag=values.unset,
-        limit=None,
-        page_size=None,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BindingInstance]:
         """
         Lists BindingInstance records from the API as a list.
@@ -455,12 +455,12 @@ class BindingList(ListResource):
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
         :param List[str] identity: The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
         :param List[str] tag: Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -477,12 +477,12 @@ class BindingList(ListResource):
 
     async def list_async(
         self,
-        start_date=values.unset,
-        end_date=values.unset,
-        identity=values.unset,
-        tag=values.unset,
-        limit=None,
-        page_size=None,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[BindingInstance]:
         """
         Asynchronously lists BindingInstance records from the API as a list.
@@ -493,12 +493,12 @@ class BindingList(ListResource):
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
         :param List[str] identity: The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
         :param List[str] tag: Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -515,25 +515,25 @@ class BindingList(ListResource):
 
     def page(
         self,
-        start_date=values.unset,
-        end_date=values.unset,
-        identity=values.unset,
-        tag=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> BindingPage:
         """
         Retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
 
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
-        :param List[str] identity: The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
-        :param List[str] tag: Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
+        :param end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
+        :param identity: The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
+        :param tag: Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BindingInstance
         """
@@ -554,25 +554,25 @@ class BindingList(ListResource):
 
     async def page_async(
         self,
-        start_date=values.unset,
-        end_date=values.unset,
-        identity=values.unset,
-        tag=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        start_date: Union[date, object] = values.unset,
+        end_date: Union[date, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> BindingPage:
         """
         Asynchronously retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
 
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
-        :param List[str] identity: The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
-        :param List[str] tag: Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
+        :param end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
+        :param identity: The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
+        :param tag: Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BindingInstance
         """
@@ -593,31 +593,31 @@ class BindingList(ListResource):
         )
         return BindingPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> BindingPage:
+    def get_page(self, target_url: str) -> BindingPage:
         """
         Retrieve a specific page of BindingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of BindingInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return BindingPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> BindingPage:
+    async def get_page_async(self, target_url: str) -> BindingPage:
         """
         Asynchronously retrieve a specific page of BindingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of BindingInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return BindingPage(self._version, response, self._solution)
 
-    def get(self, sid) -> BindingContext:
+    def get(self, sid: str) -> BindingContext:
         """
         Constructs a BindingContext
 
@@ -627,7 +627,7 @@ class BindingList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> BindingContext:
+    def __call__(self, sid: str) -> BindingContext:
         """
         Constructs a BindingContext
 

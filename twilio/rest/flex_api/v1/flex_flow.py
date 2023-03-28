@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -140,44 +140,46 @@ class FlexFlowInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        chat_service_sid=values.unset,
-        channel_type=values.unset,
-        contact_identity=values.unset,
-        enabled=values.unset,
-        integration_type=values.unset,
-        integration_flow_sid=values.unset,
-        integration_url=values.unset,
-        integration_workspace_sid=values.unset,
-        integration_workflow_sid=values.unset,
-        integration_channel=values.unset,
-        integration_timeout=values.unset,
-        integration_priority=values.unset,
-        integration_creation_on_message=values.unset,
-        long_lived=values.unset,
-        janitor_enabled=values.unset,
-        integration_retry_count=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
     ) -> "FlexFlowInstance":
         """
         Update the FlexFlowInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
-        :param str chat_service_sid: The SID of the chat service.
-        :param "FlexFlowInstance.ChannelType" channel_type:
-        :param str contact_identity: The channel contact's Identity.
-        :param bool enabled: Whether the new Flex Flow is enabled.
-        :param "FlexFlowInstance.IntegrationType" integration_type:
-        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
-        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
-        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
-        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The updated FlexFlowInstance
         """
@@ -203,44 +205,46 @@ class FlexFlowInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        chat_service_sid=values.unset,
-        channel_type=values.unset,
-        contact_identity=values.unset,
-        enabled=values.unset,
-        integration_type=values.unset,
-        integration_flow_sid=values.unset,
-        integration_url=values.unset,
-        integration_workspace_sid=values.unset,
-        integration_workflow_sid=values.unset,
-        integration_channel=values.unset,
-        integration_timeout=values.unset,
-        integration_priority=values.unset,
-        integration_creation_on_message=values.unset,
-        long_lived=values.unset,
-        janitor_enabled=values.unset,
-        integration_retry_count=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
     ) -> "FlexFlowInstance":
         """
         Asynchronous coroutine to update the FlexFlowInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
-        :param str chat_service_sid: The SID of the chat service.
-        :param "FlexFlowInstance.ChannelType" channel_type:
-        :param str contact_identity: The channel contact's Identity.
-        :param bool enabled: Whether the new Flex Flow is enabled.
-        :param "FlexFlowInstance.IntegrationType" integration_type:
-        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
-        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
-        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
-        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The updated FlexFlowInstance
         """
@@ -354,44 +358,46 @@ class FlexFlowContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        chat_service_sid=values.unset,
-        channel_type=values.unset,
-        contact_identity=values.unset,
-        enabled=values.unset,
-        integration_type=values.unset,
-        integration_flow_sid=values.unset,
-        integration_url=values.unset,
-        integration_workspace_sid=values.unset,
-        integration_workflow_sid=values.unset,
-        integration_channel=values.unset,
-        integration_timeout=values.unset,
-        integration_priority=values.unset,
-        integration_creation_on_message=values.unset,
-        long_lived=values.unset,
-        janitor_enabled=values.unset,
-        integration_retry_count=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
     ) -> FlexFlowInstance:
         """
         Update the FlexFlowInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
-        :param str chat_service_sid: The SID of the chat service.
-        :param "FlexFlowInstance.ChannelType" channel_type:
-        :param str contact_identity: The channel contact's Identity.
-        :param bool enabled: Whether the new Flex Flow is enabled.
-        :param "FlexFlowInstance.IntegrationType" integration_type:
-        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
-        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
-        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
-        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The updated FlexFlowInstance
         """
@@ -427,44 +433,46 @@ class FlexFlowContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        chat_service_sid=values.unset,
-        channel_type=values.unset,
-        contact_identity=values.unset,
-        enabled=values.unset,
-        integration_type=values.unset,
-        integration_flow_sid=values.unset,
-        integration_url=values.unset,
-        integration_workspace_sid=values.unset,
-        integration_workflow_sid=values.unset,
-        integration_channel=values.unset,
-        integration_timeout=values.unset,
-        integration_priority=values.unset,
-        integration_creation_on_message=values.unset,
-        long_lived=values.unset,
-        janitor_enabled=values.unset,
-        integration_retry_count=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
     ) -> FlexFlowInstance:
         """
         Asynchronous coroutine to update the FlexFlowInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
-        :param str chat_service_sid: The SID of the chat service.
-        :param "FlexFlowInstance.ChannelType" channel_type:
-        :param str contact_identity: The channel contact's Identity.
-        :param bool enabled: Whether the new Flex Flow is enabled.
-        :param "FlexFlowInstance.IntegrationType" integration_type:
-        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
-        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
-        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
-        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The updated FlexFlowInstance
         """
@@ -509,11 +517,11 @@ class FlexFlowContext(InstanceContext):
 
 
 class FlexFlowPage(Page):
-    def get_instance(self, payload) -> FlexFlowInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> FlexFlowInstance:
         """
         Build an instance of FlexFlowInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return FlexFlowInstance(self._version, payload)
 
@@ -540,44 +548,46 @@ class FlexFlowList(ListResource):
 
     def create(
         self,
-        friendly_name,
-        chat_service_sid,
-        channel_type,
-        contact_identity=values.unset,
-        enabled=values.unset,
-        integration_type=values.unset,
-        integration_flow_sid=values.unset,
-        integration_url=values.unset,
-        integration_workspace_sid=values.unset,
-        integration_workflow_sid=values.unset,
-        integration_channel=values.unset,
-        integration_timeout=values.unset,
-        integration_priority=values.unset,
-        integration_creation_on_message=values.unset,
-        long_lived=values.unset,
-        janitor_enabled=values.unset,
-        integration_retry_count=values.unset,
+        friendly_name: str,
+        chat_service_sid: str,
+        channel_type: "FlexFlowInstance.ChannelType",
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
     ) -> FlexFlowInstance:
         """
         Create the FlexFlowInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
-        :param str chat_service_sid: The SID of the chat service.
-        :param &quot;FlexFlowInstance.ChannelType&quot; channel_type:
-        :param str contact_identity: The channel contact's Identity.
-        :param bool enabled: Whether the new Flex Flow is enabled.
-        :param &quot;FlexFlowInstance.IntegrationType&quot; integration_type:
-        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
-        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
-        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
-        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The created FlexFlowInstance
         """
@@ -613,44 +623,46 @@ class FlexFlowList(ListResource):
 
     async def create_async(
         self,
-        friendly_name,
-        chat_service_sid,
-        channel_type,
-        contact_identity=values.unset,
-        enabled=values.unset,
-        integration_type=values.unset,
-        integration_flow_sid=values.unset,
-        integration_url=values.unset,
-        integration_workspace_sid=values.unset,
-        integration_workflow_sid=values.unset,
-        integration_channel=values.unset,
-        integration_timeout=values.unset,
-        integration_priority=values.unset,
-        integration_creation_on_message=values.unset,
-        long_lived=values.unset,
-        janitor_enabled=values.unset,
-        integration_retry_count=values.unset,
+        friendly_name: str,
+        chat_service_sid: str,
+        channel_type: "FlexFlowInstance.ChannelType",
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
     ) -> FlexFlowInstance:
         """
         Asynchronously create the FlexFlowInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
-        :param str chat_service_sid: The SID of the chat service.
-        :param &quot;FlexFlowInstance.ChannelType&quot; channel_type:
-        :param str contact_identity: The channel contact's Identity.
-        :param bool enabled: Whether the new Flex Flow is enabled.
-        :param &quot;FlexFlowInstance.IntegrationType&quot; integration_type:
-        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
-        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
-        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
-        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 
         :returns: The created FlexFlowInstance
         """
@@ -685,7 +697,10 @@ class FlexFlowList(ListResource):
         return FlexFlowInstance(self._version, payload)
 
     def stream(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[FlexFlowInstance]:
         """
         Streams FlexFlowInstance records from the API as a generator stream.
@@ -694,12 +709,12 @@ class FlexFlowList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -709,7 +724,10 @@ class FlexFlowList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[FlexFlowInstance]:
         """
         Asynchronously streams FlexFlowInstance records from the API as a generator stream.
@@ -718,12 +736,12 @@ class FlexFlowList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -735,7 +753,10 @@ class FlexFlowList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[FlexFlowInstance]:
         """
         Lists FlexFlowInstance records from the API as a list.
@@ -743,12 +764,12 @@ class FlexFlowList(ListResource):
         memory before returning.
 
         :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -761,7 +782,10 @@ class FlexFlowList(ListResource):
         )
 
     async def list_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[FlexFlowInstance]:
         """
         Asynchronously lists FlexFlowInstance records from the API as a list.
@@ -769,12 +793,12 @@ class FlexFlowList(ListResource):
         memory before returning.
 
         :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -788,19 +812,19 @@ class FlexFlowList(ListResource):
 
     def page(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> FlexFlowPage:
         """
         Retrieve a single page of FlexFlowInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlexFlowInstance
         """
@@ -818,19 +842,19 @@ class FlexFlowList(ListResource):
 
     async def page_async(
         self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> FlexFlowPage:
         """
         Asynchronously retrieve a single page of FlexFlowInstance records from the API.
         Request is executed immediately
 
-        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlexFlowInstance
         """
@@ -848,31 +872,31 @@ class FlexFlowList(ListResource):
         )
         return FlexFlowPage(self._version, response)
 
-    def get_page(self, target_url) -> FlexFlowPage:
+    def get_page(self, target_url: str) -> FlexFlowPage:
         """
         Retrieve a specific page of FlexFlowInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FlexFlowInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FlexFlowPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> FlexFlowPage:
+    async def get_page_async(self, target_url: str) -> FlexFlowPage:
         """
         Asynchronously retrieve a specific page of FlexFlowInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FlexFlowInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FlexFlowPage(self._version, response)
 
-    def get(self, sid) -> FlexFlowContext:
+    def get(self, sid: str) -> FlexFlowContext:
         """
         Constructs a FlexFlowContext
 
@@ -880,7 +904,7 @@ class FlexFlowList(ListResource):
         """
         return FlexFlowContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> FlexFlowContext:
+    def __call__(self, sid: str) -> FlexFlowContext:
         """
         Constructs a FlexFlowContext
 

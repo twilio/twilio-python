@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -98,16 +98,16 @@ class DeviceInstance(InstanceResource):
 
     def update(
         self,
-        unique_name=values.unset,
-        target_app=values.unset,
-        logging_enabled=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        target_app: Union[str, object] = values.unset,
+        logging_enabled: Union[bool, object] = values.unset,
     ) -> "DeviceInstance":
         """
         Update the DeviceInstance
 
-        :param str unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
-        :param str target_app: The SID or unique name of the App to be targeted to the Device.
-        :param bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
+        :param target_app: The SID or unique name of the App to be targeted to the Device.
+        :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
 
         :returns: The updated DeviceInstance
         """
@@ -119,16 +119,16 @@ class DeviceInstance(InstanceResource):
 
     async def update_async(
         self,
-        unique_name=values.unset,
-        target_app=values.unset,
-        logging_enabled=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        target_app: Union[str, object] = values.unset,
+        logging_enabled: Union[bool, object] = values.unset,
     ) -> "DeviceInstance":
         """
         Asynchronous coroutine to update the DeviceInstance
 
-        :param str unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
-        :param str target_app: The SID or unique name of the App to be targeted to the Device.
-        :param bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
+        :param target_app: The SID or unique name of the App to be targeted to the Device.
+        :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
 
         :returns: The updated DeviceInstance
         """
@@ -221,16 +221,16 @@ class DeviceContext(InstanceContext):
 
     def update(
         self,
-        unique_name=values.unset,
-        target_app=values.unset,
-        logging_enabled=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        target_app: Union[str, object] = values.unset,
+        logging_enabled: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Update the DeviceInstance
 
-        :param str unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
-        :param str target_app: The SID or unique name of the App to be targeted to the Device.
-        :param bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
+        :param target_app: The SID or unique name of the App to be targeted to the Device.
+        :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
 
         :returns: The updated DeviceInstance
         """
@@ -252,16 +252,16 @@ class DeviceContext(InstanceContext):
 
     async def update_async(
         self,
-        unique_name=values.unset,
-        target_app=values.unset,
-        logging_enabled=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        target_app: Union[str, object] = values.unset,
+        logging_enabled: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Asynchronous coroutine to update the DeviceInstance
 
-        :param str unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
-        :param str target_app: The SID or unique name of the App to be targeted to the Device.
-        :param bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
+        :param target_app: The SID or unique name of the App to be targeted to the Device.
+        :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
 
         :returns: The updated DeviceInstance
         """
@@ -316,11 +316,11 @@ class DeviceContext(InstanceContext):
 
 
 class DevicePage(Page):
-    def get_instance(self, payload) -> DeviceInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> DeviceInstance:
         """
         Build an instance of DeviceInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return DeviceInstance(self._version, payload)
 
@@ -345,19 +345,23 @@ class DeviceList(ListResource):
 
         self._uri = "/Devices"
 
-    def stream(self, limit=None, page_size=None) -> List[DeviceInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DeviceInstance]:
         """
         Streams DeviceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -366,19 +370,23 @@ class DeviceList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[DeviceInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DeviceInstance]:
         """
         Asynchronously streams DeviceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -387,18 +395,22 @@ class DeviceList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[DeviceInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DeviceInstance]:
         """
         Lists DeviceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -409,18 +421,22 @@ class DeviceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[DeviceInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DeviceInstance]:
         """
         Asynchronously lists DeviceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -432,15 +448,18 @@ class DeviceList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DevicePage:
         """
         Retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceInstance
         """
@@ -456,15 +475,18 @@ class DeviceList(ListResource):
         return DevicePage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DevicePage:
         """
         Asynchronously retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceInstance
         """
@@ -481,31 +503,31 @@ class DeviceList(ListResource):
         )
         return DevicePage(self._version, response)
 
-    def get_page(self, target_url) -> DevicePage:
+    def get_page(self, target_url: str) -> DevicePage:
         """
         Retrieve a specific page of DeviceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DevicePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> DevicePage:
+    async def get_page_async(self, target_url: str) -> DevicePage:
         """
         Asynchronously retrieve a specific page of DeviceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DevicePage(self._version, response)
 
-    def get(self, sid) -> DeviceContext:
+    def get(self, sid: str) -> DeviceContext:
         """
         Constructs a DeviceContext
 
@@ -513,7 +535,7 @@ class DeviceList(ListResource):
         """
         return DeviceContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> DeviceContext:
+    def __call__(self, sid: str) -> DeviceContext:
         """
         Constructs a DeviceContext
 

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -85,15 +85,19 @@ class AssessmentsInstance(InstanceResource):
         return self._context
 
     def update(
-        self, offset, answer_text, answer_id, token=values.unset
+        self,
+        offset: float,
+        answer_text: str,
+        answer_id: str,
+        token: Union[str, object] = values.unset,
     ) -> "AssessmentsInstance":
         """
         Update the AssessmentsInstance
 
-        :param float offset: The offset of the conversation
-        :param str answer_text: The answer text selected by user
-        :param str answer_id: The id of the answer selected by user
-        :param str token: The Token HTTP request header
+        :param offset: The offset of the conversation
+        :param answer_text: The answer text selected by user
+        :param answer_id: The id of the answer selected by user
+        :param token: The Token HTTP request header
 
         :returns: The updated AssessmentsInstance
         """
@@ -105,15 +109,19 @@ class AssessmentsInstance(InstanceResource):
         )
 
     async def update_async(
-        self, offset, answer_text, answer_id, token=values.unset
+        self,
+        offset: float,
+        answer_text: str,
+        answer_id: str,
+        token: Union[str, object] = values.unset,
     ) -> "AssessmentsInstance":
         """
         Asynchronous coroutine to update the AssessmentsInstance
 
-        :param float offset: The offset of the conversation
-        :param str answer_text: The answer text selected by user
-        :param str answer_id: The id of the answer selected by user
-        :param str token: The Token HTTP request header
+        :param offset: The offset of the conversation
+        :param answer_text: The answer text selected by user
+        :param answer_id: The id of the answer selected by user
+        :param token: The Token HTTP request header
 
         :returns: The updated AssessmentsInstance
         """
@@ -151,15 +159,19 @@ class AssessmentsContext(InstanceContext):
         self._uri = "/Insights/QM/Assessments/{assessment_id}".format(**self._solution)
 
     def update(
-        self, offset, answer_text, answer_id, token=values.unset
+        self,
+        offset: float,
+        answer_text: str,
+        answer_id: str,
+        token: Union[str, object] = values.unset,
     ) -> AssessmentsInstance:
         """
         Update the AssessmentsInstance
 
-        :param float offset: The offset of the conversation
-        :param str answer_text: The answer text selected by user
-        :param str answer_id: The id of the answer selected by user
-        :param str token: The Token HTTP request header
+        :param offset: The offset of the conversation
+        :param answer_text: The answer text selected by user
+        :param answer_id: The id of the answer selected by user
+        :param token: The Token HTTP request header
 
         :returns: The updated AssessmentsInstance
         """
@@ -185,15 +197,19 @@ class AssessmentsContext(InstanceContext):
         )
 
     async def update_async(
-        self, offset, answer_text, answer_id, token=values.unset
+        self,
+        offset: float,
+        answer_text: str,
+        answer_id: str,
+        token: Union[str, object] = values.unset,
     ) -> AssessmentsInstance:
         """
         Asynchronous coroutine to update the AssessmentsInstance
 
-        :param float offset: The offset of the conversation
-        :param str answer_text: The answer text selected by user
-        :param str answer_id: The id of the answer selected by user
-        :param str token: The Token HTTP request header
+        :param offset: The offset of the conversation
+        :param answer_text: The answer text selected by user
+        :param answer_id: The id of the answer selected by user
+        :param token: The Token HTTP request header
 
         :returns: The updated AssessmentsInstance
         """
@@ -229,11 +245,11 @@ class AssessmentsContext(InstanceContext):
 
 
 class AssessmentsPage(Page):
-    def get_instance(self, payload) -> AssessmentsInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AssessmentsInstance:
         """
         Build an instance of AssessmentsInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AssessmentsInstance(self._version, payload)
 
@@ -260,36 +276,36 @@ class AssessmentsList(ListResource):
 
     def create(
         self,
-        category_id,
-        category_name,
-        segment_id,
-        user_name,
-        user_email,
-        agent_id,
-        offset,
-        metric_id,
-        metric_name,
-        answer_text,
-        answer_id,
-        questionnaire_id,
-        token=values.unset,
+        category_id: str,
+        category_name: str,
+        segment_id: str,
+        user_name: str,
+        user_email: str,
+        agent_id: str,
+        offset: float,
+        metric_id: str,
+        metric_name: str,
+        answer_text: str,
+        answer_id: str,
+        questionnaire_id: str,
+        token: Union[str, object] = values.unset,
     ) -> AssessmentsInstance:
         """
         Create the AssessmentsInstance
 
-        :param str category_id: The id of the category
-        :param str category_name: The name of the category
-        :param str segment_id: Segment Id of the conversation
-        :param str user_name: Name of the user assessing conversation
-        :param str user_email: Email of the user assessing conversation
-        :param str agent_id: The id of the Agent
-        :param float offset: The offset of the conversation.
-        :param str metric_id: The question Id selected for assessment
-        :param str metric_name: The question name of the assessment
-        :param str answer_text: The answer text selected by user
-        :param str answer_id: The id of the answer selected by user
-        :param str questionnaire_id: Questionnaire Id of the associated question
-        :param str token: The Token HTTP request header
+        :param category_id: The id of the category
+        :param category_name: The name of the category
+        :param segment_id: Segment Id of the conversation
+        :param user_name: Name of the user assessing conversation
+        :param user_email: Email of the user assessing conversation
+        :param agent_id: The id of the Agent
+        :param offset: The offset of the conversation.
+        :param metric_id: The question Id selected for assessment
+        :param metric_name: The question name of the assessment
+        :param answer_text: The answer text selected by user
+        :param answer_id: The id of the answer selected by user
+        :param questionnaire_id: Questionnaire Id of the associated question
+        :param token: The Token HTTP request header
 
         :returns: The created AssessmentsInstance
         """
@@ -322,36 +338,36 @@ class AssessmentsList(ListResource):
 
     async def create_async(
         self,
-        category_id,
-        category_name,
-        segment_id,
-        user_name,
-        user_email,
-        agent_id,
-        offset,
-        metric_id,
-        metric_name,
-        answer_text,
-        answer_id,
-        questionnaire_id,
-        token=values.unset,
+        category_id: str,
+        category_name: str,
+        segment_id: str,
+        user_name: str,
+        user_email: str,
+        agent_id: str,
+        offset: float,
+        metric_id: str,
+        metric_name: str,
+        answer_text: str,
+        answer_id: str,
+        questionnaire_id: str,
+        token: Union[str, object] = values.unset,
     ) -> AssessmentsInstance:
         """
         Asynchronously create the AssessmentsInstance
 
-        :param str category_id: The id of the category
-        :param str category_name: The name of the category
-        :param str segment_id: Segment Id of the conversation
-        :param str user_name: Name of the user assessing conversation
-        :param str user_email: Email of the user assessing conversation
-        :param str agent_id: The id of the Agent
-        :param float offset: The offset of the conversation.
-        :param str metric_id: The question Id selected for assessment
-        :param str metric_name: The question name of the assessment
-        :param str answer_text: The answer text selected by user
-        :param str answer_id: The id of the answer selected by user
-        :param str questionnaire_id: Questionnaire Id of the associated question
-        :param str token: The Token HTTP request header
+        :param category_id: The id of the category
+        :param category_name: The name of the category
+        :param segment_id: Segment Id of the conversation
+        :param user_name: Name of the user assessing conversation
+        :param user_email: Email of the user assessing conversation
+        :param agent_id: The id of the Agent
+        :param offset: The offset of the conversation.
+        :param metric_id: The question Id selected for assessment
+        :param metric_name: The question name of the assessment
+        :param answer_text: The answer text selected by user
+        :param answer_id: The id of the answer selected by user
+        :param questionnaire_id: Questionnaire Id of the associated question
+        :param token: The Token HTTP request header
 
         :returns: The created AssessmentsInstance
         """
@@ -383,7 +399,11 @@ class AssessmentsList(ListResource):
         return AssessmentsInstance(self._version, payload)
 
     def stream(
-        self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AssessmentsInstance]:
         """
         Streams AssessmentsInstance records from the API as a generator stream.
@@ -393,12 +413,12 @@ class AssessmentsList(ListResource):
 
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -410,7 +430,11 @@ class AssessmentsList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AssessmentsInstance]:
         """
         Asynchronously streams AssessmentsInstance records from the API as a generator stream.
@@ -420,12 +444,12 @@ class AssessmentsList(ListResource):
 
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -437,7 +461,11 @@ class AssessmentsList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AssessmentsInstance]:
         """
         Lists AssessmentsInstance records from the API as a list.
@@ -446,12 +474,12 @@ class AssessmentsList(ListResource):
 
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -465,7 +493,11 @@ class AssessmentsList(ListResource):
         )
 
     async def list_async(
-        self, token=values.unset, segment_id=values.unset, limit=None, page_size=None
+        self,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AssessmentsInstance]:
         """
         Asynchronously lists AssessmentsInstance records from the API as a list.
@@ -474,12 +506,12 @@ class AssessmentsList(ListResource):
 
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -494,21 +526,21 @@ class AssessmentsList(ListResource):
 
     def page(
         self,
-        token=values.unset,
-        segment_id=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AssessmentsPage:
         """
         Retrieve a single page of AssessmentsInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param str segment_id: The id of the segment.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param segment_id: The id of the segment.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssessmentsInstance
         """
@@ -527,21 +559,21 @@ class AssessmentsList(ListResource):
 
     async def page_async(
         self,
-        token=values.unset,
-        segment_id=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AssessmentsPage:
         """
         Asynchronously retrieve a single page of AssessmentsInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param str segment_id: The id of the segment.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param segment_id: The id of the segment.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssessmentsInstance
         """
@@ -560,31 +592,31 @@ class AssessmentsList(ListResource):
         )
         return AssessmentsPage(self._version, response)
 
-    def get_page(self, target_url) -> AssessmentsPage:
+    def get_page(self, target_url: str) -> AssessmentsPage:
         """
         Retrieve a specific page of AssessmentsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AssessmentsInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AssessmentsPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> AssessmentsPage:
+    async def get_page_async(self, target_url: str) -> AssessmentsPage:
         """
         Asynchronously retrieve a specific page of AssessmentsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AssessmentsInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssessmentsPage(self._version, response)
 
-    def get(self, assessment_id) -> AssessmentsContext:
+    def get(self, assessment_id: str) -> AssessmentsContext:
         """
         Constructs a AssessmentsContext
 
@@ -592,7 +624,7 @@ class AssessmentsList(ListResource):
         """
         return AssessmentsContext(self._version, assessment_id=assessment_id)
 
-    def __call__(self, assessment_id) -> AssessmentsContext:
+    def __call__(self, assessment_id: str) -> AssessmentsContext:
         """
         Constructs a AssessmentsContext
 

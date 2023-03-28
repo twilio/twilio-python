@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -125,11 +125,13 @@ class DependentHostedNumberOrderInstance(InstanceResource):
 
 
 class DependentHostedNumberOrderPage(Page):
-    def get_instance(self, payload) -> DependentHostedNumberOrderInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> DependentHostedNumberOrderInstance:
         """
         Build an instance of DependentHostedNumberOrderInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return DependentHostedNumberOrderInstance(
             self._version,
@@ -167,13 +169,15 @@ class DependentHostedNumberOrderList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DependentHostedNumberOrderInstance]:
         """
         Streams DependentHostedNumberOrderInstance records from the API as a generator stream.
@@ -186,12 +190,12 @@ class DependentHostedNumberOrderList(ListResource):
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -209,13 +213,15 @@ class DependentHostedNumberOrderList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DependentHostedNumberOrderInstance]:
         """
         Asynchronously streams DependentHostedNumberOrderInstance records from the API as a generator stream.
@@ -228,12 +234,12 @@ class DependentHostedNumberOrderList(ListResource):
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -251,13 +257,15 @@ class DependentHostedNumberOrderList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DependentHostedNumberOrderInstance]:
         """
         Lists DependentHostedNumberOrderInstance records from the API as a list.
@@ -269,12 +277,12 @@ class DependentHostedNumberOrderList(ListResource):
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -292,13 +300,15 @@ class DependentHostedNumberOrderList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DependentHostedNumberOrderInstance]:
         """
         Asynchronously lists DependentHostedNumberOrderInstance records from the API as a list.
@@ -310,12 +320,12 @@ class DependentHostedNumberOrderList(ListResource):
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -333,27 +343,29 @@ class DependentHostedNumberOrderList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DependentHostedNumberOrderPage:
         """
         Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-        :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
-        :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
-        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DependentHostedNumberOrderInstance
         """
@@ -375,27 +387,29 @@ class DependentHostedNumberOrderList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        phone_number=values.unset,
-        incoming_phone_number_sid=values.unset,
-        friendly_name=values.unset,
-        unique_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DependentHostedNumberOrderPage:
         """
         Asynchronously retrieve a single page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-        :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
-        :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
-        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DependentHostedNumberOrderInstance
         """
@@ -417,24 +431,24 @@ class DependentHostedNumberOrderList(ListResource):
         )
         return DependentHostedNumberOrderPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> DependentHostedNumberOrderPage:
+    def get_page(self, target_url: str) -> DependentHostedNumberOrderPage:
         """
         Retrieve a specific page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DependentHostedNumberOrderInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DependentHostedNumberOrderPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> DependentHostedNumberOrderPage:
+    async def get_page_async(self, target_url: str) -> DependentHostedNumberOrderPage:
         """
         Asynchronously retrieve a specific page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DependentHostedNumberOrderInstance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -116,22 +116,22 @@ class CredentialInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        certificate=values.unset,
-        private_key=values.unset,
-        sandbox=values.unset,
-        api_key=values.unset,
-        secret=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        certificate: Union[str, object] = values.unset,
+        private_key: Union[str, object] = values.unset,
+        sandbox: Union[bool, object] = values.unset,
+        api_key: Union[str, object] = values.unset,
+        secret: Union[str, object] = values.unset,
     ) -> "CredentialInstance":
         """
         Update the CredentialInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
-        :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :param str api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-        :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
+        :param private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
+        :param sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+        :param secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The updated CredentialInstance
         """
@@ -146,22 +146,22 @@ class CredentialInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        certificate=values.unset,
-        private_key=values.unset,
-        sandbox=values.unset,
-        api_key=values.unset,
-        secret=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        certificate: Union[str, object] = values.unset,
+        private_key: Union[str, object] = values.unset,
+        sandbox: Union[bool, object] = values.unset,
+        api_key: Union[str, object] = values.unset,
+        secret: Union[str, object] = values.unset,
     ) -> "CredentialInstance":
         """
         Asynchronous coroutine to update the CredentialInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
-        :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :param str api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-        :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
+        :param private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
+        :param sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+        :param secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The updated CredentialInstance
         """
@@ -264,22 +264,22 @@ class CredentialContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        certificate=values.unset,
-        private_key=values.unset,
-        sandbox=values.unset,
-        api_key=values.unset,
-        secret=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        certificate: Union[str, object] = values.unset,
+        private_key: Union[str, object] = values.unset,
+        sandbox: Union[bool, object] = values.unset,
+        api_key: Union[str, object] = values.unset,
+        secret: Union[str, object] = values.unset,
     ) -> CredentialInstance:
         """
         Update the CredentialInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
-        :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :param str api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-        :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
+        :param private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
+        :param sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+        :param secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The updated CredentialInstance
         """
@@ -304,22 +304,22 @@ class CredentialContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        certificate=values.unset,
-        private_key=values.unset,
-        sandbox=values.unset,
-        api_key=values.unset,
-        secret=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        certificate: Union[str, object] = values.unset,
+        private_key: Union[str, object] = values.unset,
+        sandbox: Union[bool, object] = values.unset,
+        api_key: Union[str, object] = values.unset,
+        secret: Union[str, object] = values.unset,
     ) -> CredentialInstance:
         """
         Asynchronous coroutine to update the CredentialInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
-        :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :param str api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-        :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
+        :param private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
+        :param sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+        :param secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The updated CredentialInstance
         """
@@ -353,11 +353,11 @@ class CredentialContext(InstanceContext):
 
 
 class CredentialPage(Page):
-    def get_instance(self, payload) -> CredentialInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CredentialInstance:
         """
         Build an instance of CredentialInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CredentialInstance(self._version, payload)
 
@@ -384,24 +384,24 @@ class CredentialList(ListResource):
 
     def create(
         self,
-        type,
-        friendly_name=values.unset,
-        certificate=values.unset,
-        private_key=values.unset,
-        sandbox=values.unset,
-        api_key=values.unset,
-        secret=values.unset,
+        type: "CredentialInstance.PushService",
+        friendly_name: Union[str, object] = values.unset,
+        certificate: Union[str, object] = values.unset,
+        private_key: Union[str, object] = values.unset,
+        sandbox: Union[bool, object] = values.unset,
+        api_key: Union[str, object] = values.unset,
+        secret: Union[str, object] = values.unset,
     ) -> CredentialInstance:
         """
         Create the CredentialInstance
 
-        :param &quot;CredentialInstance.PushService&quot; type:
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-        :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
-        :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :param str api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-        :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+        :param type:
+        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
+        :param private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
+        :param sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+        :param secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The created CredentialInstance
         """
@@ -427,24 +427,24 @@ class CredentialList(ListResource):
 
     async def create_async(
         self,
-        type,
-        friendly_name=values.unset,
-        certificate=values.unset,
-        private_key=values.unset,
-        sandbox=values.unset,
-        api_key=values.unset,
-        secret=values.unset,
+        type: "CredentialInstance.PushService",
+        friendly_name: Union[str, object] = values.unset,
+        certificate: Union[str, object] = values.unset,
+        private_key: Union[str, object] = values.unset,
+        sandbox: Union[bool, object] = values.unset,
+        api_key: Union[str, object] = values.unset,
+        secret: Union[str, object] = values.unset,
     ) -> CredentialInstance:
         """
         Asynchronously create the CredentialInstance
 
-        :param &quot;CredentialInstance.PushService&quot; type:
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-        :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
-        :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :param str api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-        :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+        :param type:
+        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
+        :param private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
+        :param sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+        :param secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
 
         :returns: The created CredentialInstance
         """
@@ -468,19 +468,23 @@ class CredentialList(ListResource):
 
         return CredentialInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[CredentialInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[CredentialInstance]:
         """
         Streams CredentialInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -490,7 +494,9 @@ class CredentialList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CredentialInstance]:
         """
         Asynchronously streams CredentialInstance records from the API as a generator stream.
@@ -498,12 +504,12 @@ class CredentialList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -512,18 +518,22 @@ class CredentialList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[CredentialInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[CredentialInstance]:
         """
         Lists CredentialInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -534,18 +544,22 @@ class CredentialList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[CredentialInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[CredentialInstance]:
         """
         Asynchronously lists CredentialInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -557,15 +571,18 @@ class CredentialList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CredentialPage:
         """
         Retrieve a single page of CredentialInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialInstance
         """
@@ -581,15 +598,18 @@ class CredentialList(ListResource):
         return CredentialPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CredentialPage:
         """
         Asynchronously retrieve a single page of CredentialInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialInstance
         """
@@ -606,31 +626,31 @@ class CredentialList(ListResource):
         )
         return CredentialPage(self._version, response)
 
-    def get_page(self, target_url) -> CredentialPage:
+    def get_page(self, target_url: str) -> CredentialPage:
         """
         Retrieve a specific page of CredentialInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CredentialPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> CredentialPage:
+    async def get_page_async(self, target_url: str) -> CredentialPage:
         """
         Asynchronously retrieve a specific page of CredentialInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CredentialPage(self._version, response)
 
-    def get(self, sid) -> CredentialContext:
+    def get(self, sid: str) -> CredentialContext:
         """
         Constructs a CredentialContext
 
@@ -638,7 +658,7 @@ class CredentialList(ListResource):
         """
         return CredentialContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> CredentialContext:
+    def __call__(self, sid: str) -> CredentialContext:
         """
         Constructs a CredentialContext
 

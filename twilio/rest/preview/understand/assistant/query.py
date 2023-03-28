@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -126,12 +126,16 @@ class QueryInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, sample_sid=values.unset, status=values.unset) -> "QueryInstance":
+    def update(
+        self,
+        sample_sid: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+    ) -> "QueryInstance":
         """
         Update the QueryInstance
 
-        :param str sample_sid: An optional reference to the Sample created from this query.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param sample_sid: An optional reference to the Sample created from this query.
+        :param status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: The updated QueryInstance
         """
@@ -141,13 +145,15 @@ class QueryInstance(InstanceResource):
         )
 
     async def update_async(
-        self, sample_sid=values.unset, status=values.unset
+        self,
+        sample_sid: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
     ) -> "QueryInstance":
         """
         Asynchronous coroutine to update the QueryInstance
 
-        :param str sample_sid: An optional reference to the Sample created from this query.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param sample_sid: An optional reference to the Sample created from this query.
+        :param status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: The updated QueryInstance
         """
@@ -248,12 +254,16 @@ class QueryContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, sample_sid=values.unset, status=values.unset) -> QueryInstance:
+    def update(
+        self,
+        sample_sid: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+    ) -> QueryInstance:
         """
         Update the QueryInstance
 
-        :param str sample_sid: An optional reference to the Sample created from this query.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param sample_sid: An optional reference to the Sample created from this query.
+        :param status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: The updated QueryInstance
         """
@@ -278,13 +288,15 @@ class QueryContext(InstanceContext):
         )
 
     async def update_async(
-        self, sample_sid=values.unset, status=values.unset
+        self,
+        sample_sid: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
     ) -> QueryInstance:
         """
         Asynchronous coroutine to update the QueryInstance
 
-        :param str sample_sid: An optional reference to the Sample created from this query.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param sample_sid: An optional reference to the Sample created from this query.
+        :param status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: The updated QueryInstance
         """
@@ -319,11 +331,11 @@ class QueryContext(InstanceContext):
 
 
 class QueryPage(Page):
-    def get_instance(self, payload) -> QueryInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> QueryInstance:
         """
         Build an instance of QueryInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return QueryInstance(
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
@@ -357,20 +369,20 @@ class QueryList(ListResource):
 
     def create(
         self,
-        language,
-        query,
-        tasks=values.unset,
-        model_build=values.unset,
-        field=values.unset,
+        language: str,
+        query: str,
+        tasks: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        field: Union[str, object] = values.unset,
     ) -> QueryInstance:
         """
         Create the QueryInstance
 
-        :param str language: An ISO language-country string of the sample.
-        :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
-        :param str tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
+        :param language: An ISO language-country string of the sample.
+        :param query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
+        :param tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
+        :param model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
 
         :returns: The created QueryInstance
         """
@@ -396,20 +408,20 @@ class QueryList(ListResource):
 
     async def create_async(
         self,
-        language,
-        query,
-        tasks=values.unset,
-        model_build=values.unset,
-        field=values.unset,
+        language: str,
+        query: str,
+        tasks: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        field: Union[str, object] = values.unset,
     ) -> QueryInstance:
         """
         Asynchronously create the QueryInstance
 
-        :param str language: An ISO language-country string of the sample.
-        :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
-        :param str tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
+        :param language: An ISO language-country string of the sample.
+        :param query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
+        :param tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
+        :param model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
 
         :returns: The created QueryInstance
         """
@@ -435,11 +447,11 @@ class QueryList(ListResource):
 
     def stream(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[QueryInstance]:
         """
         Streams QueryInstance records from the API as a generator stream.
@@ -450,12 +462,12 @@ class QueryList(ListResource):
         :param str language: An ISO language-country string of the sample.
         :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
         :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -471,11 +483,11 @@ class QueryList(ListResource):
 
     async def stream_async(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[QueryInstance]:
         """
         Asynchronously streams QueryInstance records from the API as a generator stream.
@@ -486,12 +498,12 @@ class QueryList(ListResource):
         :param str language: An ISO language-country string of the sample.
         :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
         :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -507,11 +519,11 @@ class QueryList(ListResource):
 
     def list(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[QueryInstance]:
         """
         Lists QueryInstance records from the API as a list.
@@ -521,12 +533,12 @@ class QueryList(ListResource):
         :param str language: An ISO language-country string of the sample.
         :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
         :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -542,11 +554,11 @@ class QueryList(ListResource):
 
     async def list_async(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[QueryInstance]:
         """
         Asynchronously lists QueryInstance records from the API as a list.
@@ -556,12 +568,12 @@ class QueryList(ListResource):
         :param str language: An ISO language-country string of the sample.
         :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
         :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -577,23 +589,23 @@ class QueryList(ListResource):
 
     def page(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> QueryPage:
         """
         Retrieve a single page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param str language: An ISO language-country string of the sample.
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param language: An ISO language-country string of the sample.
+        :param model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueryInstance
         """
@@ -613,23 +625,23 @@ class QueryList(ListResource):
 
     async def page_async(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> QueryPage:
         """
         Asynchronously retrieve a single page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param str language: An ISO language-country string of the sample.
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param language: An ISO language-country string of the sample.
+        :param model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueryInstance
         """
@@ -649,31 +661,31 @@ class QueryList(ListResource):
         )
         return QueryPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> QueryPage:
+    def get_page(self, target_url: str) -> QueryPage:
         """
         Retrieve a specific page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of QueryInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return QueryPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> QueryPage:
+    async def get_page_async(self, target_url: str) -> QueryPage:
         """
         Asynchronously retrieve a specific page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of QueryInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return QueryPage(self._version, response, self._solution)
 
-    def get(self, sid) -> QueryContext:
+    def get(self, sid: str) -> QueryContext:
         """
         Constructs a QueryContext
 
@@ -683,7 +695,7 @@ class QueryList(ListResource):
             self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> QueryContext:
+    def __call__(self, sid: str) -> QueryContext:
         """
         Constructs a QueryContext
 

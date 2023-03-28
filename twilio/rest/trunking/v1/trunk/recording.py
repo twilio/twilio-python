@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -82,12 +82,16 @@ class RecordingInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, mode=values.unset, trim=values.unset) -> "RecordingInstance":
+    def update(
+        self,
+        mode: Union["RecordingInstance.RecordingMode", object] = values.unset,
+        trim: Union["RecordingInstance.RecordingTrim", object] = values.unset,
+    ) -> "RecordingInstance":
         """
         Update the RecordingInstance
 
-        :param "RecordingInstance.RecordingMode" mode:
-        :param "RecordingInstance.RecordingTrim" trim:
+        :param mode:
+        :param trim:
 
         :returns: The updated RecordingInstance
         """
@@ -97,13 +101,15 @@ class RecordingInstance(InstanceResource):
         )
 
     async def update_async(
-        self, mode=values.unset, trim=values.unset
+        self,
+        mode: Union["RecordingInstance.RecordingMode", object] = values.unset,
+        trim: Union["RecordingInstance.RecordingTrim", object] = values.unset,
     ) -> "RecordingInstance":
         """
         Asynchronous coroutine to update the RecordingInstance
 
-        :param "RecordingInstance.RecordingMode" mode:
-        :param "RecordingInstance.RecordingTrim" trim:
+        :param mode:
+        :param trim:
 
         :returns: The updated RecordingInstance
         """
@@ -176,12 +182,16 @@ class RecordingContext(InstanceContext):
             trunk_sid=self._solution["trunk_sid"],
         )
 
-    def update(self, mode=values.unset, trim=values.unset) -> RecordingInstance:
+    def update(
+        self,
+        mode: Union["RecordingInstance.RecordingMode", object] = values.unset,
+        trim: Union["RecordingInstance.RecordingTrim", object] = values.unset,
+    ) -> RecordingInstance:
         """
         Update the RecordingInstance
 
-        :param "RecordingInstance.RecordingMode" mode:
-        :param "RecordingInstance.RecordingTrim" trim:
+        :param mode:
+        :param trim:
 
         :returns: The updated RecordingInstance
         """
@@ -203,13 +213,15 @@ class RecordingContext(InstanceContext):
         )
 
     async def update_async(
-        self, mode=values.unset, trim=values.unset
+        self,
+        mode: Union["RecordingInstance.RecordingMode", object] = values.unset,
+        trim: Union["RecordingInstance.RecordingTrim", object] = values.unset,
     ) -> RecordingInstance:
         """
         Asynchronous coroutine to update the RecordingInstance
 
-        :param "RecordingInstance.RecordingMode" mode:
-        :param "RecordingInstance.RecordingTrim" trim:
+        :param mode:
+        :param trim:
 
         :returns: The updated RecordingInstance
         """

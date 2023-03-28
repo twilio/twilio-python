@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -66,11 +66,13 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
 
 
 class InsightsAssessmentsCommentPage(Page):
-    def get_instance(self, payload) -> InsightsAssessmentsCommentInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> InsightsAssessmentsCommentInstance:
         """
         Build an instance of InsightsAssessmentsCommentInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return InsightsAssessmentsCommentInstance(self._version, payload)
 
@@ -97,28 +99,28 @@ class InsightsAssessmentsCommentList(ListResource):
 
     def create(
         self,
-        category_id,
-        category_name,
-        comment,
-        segment_id,
-        user_name,
-        user_email,
-        agent_id,
-        offset,
-        token=values.unset,
+        category_id: str,
+        category_name: str,
+        comment: str,
+        segment_id: str,
+        user_name: str,
+        user_email: str,
+        agent_id: str,
+        offset: float,
+        token: Union[str, object] = values.unset,
     ) -> InsightsAssessmentsCommentInstance:
         """
         Create the InsightsAssessmentsCommentInstance
 
-        :param str category_id: The ID of the category
-        :param str category_name: The name of the category
-        :param str comment: The Assessment comment.
-        :param str segment_id: The id of the segment.
-        :param str user_name: The name of the user.
-        :param str user_email: The email id of the user.
-        :param str agent_id: The id of the agent.
-        :param float offset: The offset
-        :param str token: The Token HTTP request header
+        :param category_id: The ID of the category
+        :param category_name: The name of the category
+        :param comment: The Assessment comment.
+        :param segment_id: The id of the segment.
+        :param user_name: The name of the user.
+        :param user_email: The email id of the user.
+        :param agent_id: The id of the agent.
+        :param offset: The offset
+        :param token: The Token HTTP request header
 
         :returns: The created InsightsAssessmentsCommentInstance
         """
@@ -147,28 +149,28 @@ class InsightsAssessmentsCommentList(ListResource):
 
     async def create_async(
         self,
-        category_id,
-        category_name,
-        comment,
-        segment_id,
-        user_name,
-        user_email,
-        agent_id,
-        offset,
-        token=values.unset,
+        category_id: str,
+        category_name: str,
+        comment: str,
+        segment_id: str,
+        user_name: str,
+        user_email: str,
+        agent_id: str,
+        offset: float,
+        token: Union[str, object] = values.unset,
     ) -> InsightsAssessmentsCommentInstance:
         """
         Asynchronously create the InsightsAssessmentsCommentInstance
 
-        :param str category_id: The ID of the category
-        :param str category_name: The name of the category
-        :param str comment: The Assessment comment.
-        :param str segment_id: The id of the segment.
-        :param str user_name: The name of the user.
-        :param str user_email: The email id of the user.
-        :param str agent_id: The id of the agent.
-        :param float offset: The offset
-        :param str token: The Token HTTP request header
+        :param category_id: The ID of the category
+        :param category_name: The name of the category
+        :param comment: The Assessment comment.
+        :param segment_id: The id of the segment.
+        :param user_name: The name of the user.
+        :param user_email: The email id of the user.
+        :param agent_id: The id of the agent.
+        :param offset: The offset
+        :param token: The Token HTTP request header
 
         :returns: The created InsightsAssessmentsCommentInstance
         """
@@ -197,11 +199,11 @@ class InsightsAssessmentsCommentList(ListResource):
 
     def stream(
         self,
-        token=values.unset,
-        segment_id=values.unset,
-        agent_id=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsAssessmentsCommentInstance]:
         """
         Streams InsightsAssessmentsCommentInstance records from the API as a generator stream.
@@ -212,12 +214,12 @@ class InsightsAssessmentsCommentList(ListResource):
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -233,11 +235,11 @@ class InsightsAssessmentsCommentList(ListResource):
 
     async def stream_async(
         self,
-        token=values.unset,
-        segment_id=values.unset,
-        agent_id=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsAssessmentsCommentInstance]:
         """
         Asynchronously streams InsightsAssessmentsCommentInstance records from the API as a generator stream.
@@ -248,12 +250,12 @@ class InsightsAssessmentsCommentList(ListResource):
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -269,11 +271,11 @@ class InsightsAssessmentsCommentList(ListResource):
 
     def list(
         self,
-        token=values.unset,
-        segment_id=values.unset,
-        agent_id=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsAssessmentsCommentInstance]:
         """
         Lists InsightsAssessmentsCommentInstance records from the API as a list.
@@ -283,12 +285,12 @@ class InsightsAssessmentsCommentList(ListResource):
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -304,11 +306,11 @@ class InsightsAssessmentsCommentList(ListResource):
 
     async def list_async(
         self,
-        token=values.unset,
-        segment_id=values.unset,
-        agent_id=values.unset,
-        limit=None,
-        page_size=None,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[InsightsAssessmentsCommentInstance]:
         """
         Asynchronously lists InsightsAssessmentsCommentInstance records from the API as a list.
@@ -318,12 +320,12 @@ class InsightsAssessmentsCommentList(ListResource):
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -339,23 +341,23 @@ class InsightsAssessmentsCommentList(ListResource):
 
     def page(
         self,
-        token=values.unset,
-        segment_id=values.unset,
-        agent_id=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> InsightsAssessmentsCommentPage:
         """
         Retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param str segment_id: The id of the segment.
-        :param str agent_id: The id of the agent.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param segment_id: The id of the segment.
+        :param agent_id: The id of the agent.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsAssessmentsCommentInstance
         """
@@ -375,23 +377,23 @@ class InsightsAssessmentsCommentList(ListResource):
 
     async def page_async(
         self,
-        token=values.unset,
-        segment_id=values.unset,
-        agent_id=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> InsightsAssessmentsCommentPage:
         """
         Asynchronously retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
 
-        :param str token: The Token HTTP request header
-        :param str segment_id: The id of the segment.
-        :param str agent_id: The id of the agent.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param token: The Token HTTP request header
+        :param segment_id: The id of the segment.
+        :param agent_id: The id of the agent.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InsightsAssessmentsCommentInstance
         """
@@ -411,24 +413,24 @@ class InsightsAssessmentsCommentList(ListResource):
         )
         return InsightsAssessmentsCommentPage(self._version, response)
 
-    def get_page(self, target_url) -> InsightsAssessmentsCommentPage:
+    def get_page(self, target_url: str) -> InsightsAssessmentsCommentPage:
         """
         Retrieve a specific page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsAssessmentsCommentInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return InsightsAssessmentsCommentPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> InsightsAssessmentsCommentPage:
+    async def get_page_async(self, target_url: str) -> InsightsAssessmentsCommentPage:
         """
         Asynchronously retrieve a specific page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of InsightsAssessmentsCommentInstance
         """

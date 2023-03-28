@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from datetime import datetime
+from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -72,20 +73,20 @@ class TaskQueueStatisticsInstance(InstanceResource):
 
     def fetch(
         self,
-        end_date=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
     ) -> "TaskQueueStatisticsInstance":
         """
         Fetch the TaskQueueStatisticsInstance
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
 
         :returns: The fetched TaskQueueStatisticsInstance
         """
@@ -99,20 +100,20 @@ class TaskQueueStatisticsInstance(InstanceResource):
 
     async def fetch_async(
         self,
-        end_date=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
     ) -> "TaskQueueStatisticsInstance":
         """
         Asynchronous coroutine to fetch the TaskQueueStatisticsInstance
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
 
         :returns: The fetched TaskQueueStatisticsInstance
         """
@@ -158,20 +159,20 @@ class TaskQueueStatisticsContext(InstanceContext):
 
     def fetch(
         self,
-        end_date=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
     ) -> TaskQueueStatisticsInstance:
         """
         Fetch the TaskQueueStatisticsInstance
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
 
         :returns: The fetched TaskQueueStatisticsInstance
         """
@@ -197,20 +198,20 @@ class TaskQueueStatisticsContext(InstanceContext):
 
     async def fetch_async(
         self,
-        end_date=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
     ) -> TaskQueueStatisticsInstance:
         """
         Asynchronous coroutine to fetch the TaskQueueStatisticsInstance
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
 
         :returns: The fetched TaskQueueStatisticsInstance
         """

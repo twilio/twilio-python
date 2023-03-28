@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -107,24 +107,24 @@ class AuthorizationDocumentInstance(InstanceResource):
 
     def update(
         self,
-        hosted_number_order_sids=values.unset,
-        address_sid=values.unset,
-        email=values.unset,
-        cc_emails=values.unset,
-        status=values.unset,
-        contact_title=values.unset,
-        contact_phone_number=values.unset,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
     ) -> "AuthorizationDocumentInstance":
         """
         Update the AuthorizationDocumentInstance
 
-        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-        :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-        :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :param "AuthorizationDocumentInstance.Status" status:
-        :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-        :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param status:
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
 
         :returns: The updated AuthorizationDocumentInstance
         """
@@ -140,24 +140,24 @@ class AuthorizationDocumentInstance(InstanceResource):
 
     async def update_async(
         self,
-        hosted_number_order_sids=values.unset,
-        address_sid=values.unset,
-        email=values.unset,
-        cc_emails=values.unset,
-        status=values.unset,
-        contact_title=values.unset,
-        contact_phone_number=values.unset,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
     ) -> "AuthorizationDocumentInstance":
         """
         Asynchronous coroutine to update the AuthorizationDocumentInstance
 
-        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-        :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-        :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :param "AuthorizationDocumentInstance.Status" status:
-        :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-        :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param status:
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
 
         :returns: The updated AuthorizationDocumentInstance
         """
@@ -250,24 +250,24 @@ class AuthorizationDocumentContext(InstanceContext):
 
     def update(
         self,
-        hosted_number_order_sids=values.unset,
-        address_sid=values.unset,
-        email=values.unset,
-        cc_emails=values.unset,
-        status=values.unset,
-        contact_title=values.unset,
-        contact_phone_number=values.unset,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
     ) -> AuthorizationDocumentInstance:
         """
         Update the AuthorizationDocumentInstance
 
-        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-        :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-        :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :param "AuthorizationDocumentInstance.Status" status:
-        :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-        :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param status:
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
 
         :returns: The updated AuthorizationDocumentInstance
         """
@@ -297,24 +297,24 @@ class AuthorizationDocumentContext(InstanceContext):
 
     async def update_async(
         self,
-        hosted_number_order_sids=values.unset,
-        address_sid=values.unset,
-        email=values.unset,
-        cc_emails=values.unset,
-        status=values.unset,
-        contact_title=values.unset,
-        contact_phone_number=values.unset,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
     ) -> AuthorizationDocumentInstance:
         """
         Asynchronous coroutine to update the AuthorizationDocumentInstance
 
-        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-        :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-        :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :param "AuthorizationDocumentInstance.Status" status:
-        :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-        :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param status:
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
 
         :returns: The updated AuthorizationDocumentInstance
         """
@@ -367,11 +367,11 @@ class AuthorizationDocumentContext(InstanceContext):
 
 
 class AuthorizationDocumentPage(Page):
-    def get_instance(self, payload) -> AuthorizationDocumentInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AuthorizationDocumentInstance:
         """
         Build an instance of AuthorizationDocumentInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AuthorizationDocumentInstance(self._version, payload)
 
@@ -398,22 +398,22 @@ class AuthorizationDocumentList(ListResource):
 
     def create(
         self,
-        hosted_number_order_sids,
-        address_sid,
-        email,
-        contact_title,
-        contact_phone_number,
-        cc_emails=values.unset,
+        hosted_number_order_sids: List[str],
+        address_sid: str,
+        email: str,
+        contact_title: str,
+        contact_phone_number: str,
+        cc_emails: Union[List[str], object] = values.unset,
     ) -> AuthorizationDocumentInstance:
         """
         Create the AuthorizationDocumentInstance
 
-        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-        :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-        :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-        :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
-        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
 
         :returns: The created AuthorizationDocumentInstance
         """
@@ -440,22 +440,22 @@ class AuthorizationDocumentList(ListResource):
 
     async def create_async(
         self,
-        hosted_number_order_sids,
-        address_sid,
-        email,
-        contact_title,
-        contact_phone_number,
-        cc_emails=values.unset,
+        hosted_number_order_sids: List[str],
+        address_sid: str,
+        email: str,
+        contact_title: str,
+        contact_phone_number: str,
+        cc_emails: Union[List[str], object] = values.unset,
     ) -> AuthorizationDocumentInstance:
         """
         Asynchronously create the AuthorizationDocumentInstance
 
-        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-        :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-        :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-        :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
-        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
 
         :returns: The created AuthorizationDocumentInstance
         """
@@ -481,7 +481,11 @@ class AuthorizationDocumentList(ListResource):
         return AuthorizationDocumentInstance(self._version, payload)
 
     def stream(
-        self, email=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AuthorizationDocumentInstance]:
         """
         Streams AuthorizationDocumentInstance records from the API as a generator stream.
@@ -491,12 +495,12 @@ class AuthorizationDocumentList(ListResource):
 
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
         :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -506,7 +510,11 @@ class AuthorizationDocumentList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, email=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AuthorizationDocumentInstance]:
         """
         Asynchronously streams AuthorizationDocumentInstance records from the API as a generator stream.
@@ -516,12 +524,12 @@ class AuthorizationDocumentList(ListResource):
 
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
         :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -533,7 +541,11 @@ class AuthorizationDocumentList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, email=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AuthorizationDocumentInstance]:
         """
         Lists AuthorizationDocumentInstance records from the API as a list.
@@ -542,12 +554,12 @@ class AuthorizationDocumentList(ListResource):
 
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
         :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -561,7 +573,11 @@ class AuthorizationDocumentList(ListResource):
         )
 
     async def list_async(
-        self, email=values.unset, status=values.unset, limit=None, page_size=None
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AuthorizationDocumentInstance]:
         """
         Asynchronously lists AuthorizationDocumentInstance records from the API as a list.
@@ -570,12 +586,12 @@ class AuthorizationDocumentList(ListResource):
 
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
         :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -590,21 +606,21 @@ class AuthorizationDocumentList(ListResource):
 
     def page(
         self,
-        email=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AuthorizationDocumentPage:
         """
         Retrieve a single page of AuthorizationDocumentInstance records from the API.
         Request is executed immediately
 
-        :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AuthorizationDocumentInstance
         """
@@ -623,21 +639,21 @@ class AuthorizationDocumentList(ListResource):
 
     async def page_async(
         self,
-        email=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AuthorizationDocumentPage:
         """
         Asynchronously retrieve a single page of AuthorizationDocumentInstance records from the API.
         Request is executed immediately
 
-        :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AuthorizationDocumentInstance
         """
@@ -656,31 +672,31 @@ class AuthorizationDocumentList(ListResource):
         )
         return AuthorizationDocumentPage(self._version, response)
 
-    def get_page(self, target_url) -> AuthorizationDocumentPage:
+    def get_page(self, target_url: str) -> AuthorizationDocumentPage:
         """
         Retrieve a specific page of AuthorizationDocumentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AuthorizationDocumentInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AuthorizationDocumentPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> AuthorizationDocumentPage:
+    async def get_page_async(self, target_url: str) -> AuthorizationDocumentPage:
         """
         Asynchronously retrieve a specific page of AuthorizationDocumentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AuthorizationDocumentInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AuthorizationDocumentPage(self._version, response)
 
-    def get(self, sid) -> AuthorizationDocumentContext:
+    def get(self, sid: str) -> AuthorizationDocumentContext:
         """
         Constructs a AuthorizationDocumentContext
 
@@ -688,7 +704,7 @@ class AuthorizationDocumentList(ListResource):
         """
         return AuthorizationDocumentContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> AuthorizationDocumentContext:
+    def __call__(self, sid: str) -> AuthorizationDocumentContext:
         """
         Constructs a AuthorizationDocumentContext
 

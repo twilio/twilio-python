@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -219,11 +219,13 @@ class TrustProductsEntityAssignmentsContext(InstanceContext):
 
 
 class TrustProductsEntityAssignmentsPage(Page):
-    def get_instance(self, payload) -> TrustProductsEntityAssignmentsInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> TrustProductsEntityAssignmentsInstance:
         """
         Build an instance of TrustProductsEntityAssignmentsInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return TrustProductsEntityAssignmentsInstance(
             self._version,
@@ -259,11 +261,11 @@ class TrustProductsEntityAssignmentsList(ListResource):
             **self._solution
         )
 
-    def create(self, object_sid) -> TrustProductsEntityAssignmentsInstance:
+    def create(self, object_sid: str) -> TrustProductsEntityAssignmentsInstance:
         """
         Create the TrustProductsEntityAssignmentsInstance
 
-        :param str object_sid: The SID of an object bag that holds information of the different items.
+        :param object_sid: The SID of an object bag that holds information of the different items.
 
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
@@ -285,11 +287,13 @@ class TrustProductsEntityAssignmentsList(ListResource):
             trust_product_sid=self._solution["trust_product_sid"],
         )
 
-    async def create_async(self, object_sid) -> TrustProductsEntityAssignmentsInstance:
+    async def create_async(
+        self, object_sid: str
+    ) -> TrustProductsEntityAssignmentsInstance:
         """
         Asynchronously create the TrustProductsEntityAssignmentsInstance
 
-        :param str object_sid: The SID of an object bag that holds information of the different items.
+        :param object_sid: The SID of an object bag that holds information of the different items.
 
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
@@ -312,7 +316,9 @@ class TrustProductsEntityAssignmentsList(ListResource):
         )
 
     def stream(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TrustProductsEntityAssignmentsInstance]:
         """
         Streams TrustProductsEntityAssignmentsInstance records from the API as a generator stream.
@@ -320,12 +326,12 @@ class TrustProductsEntityAssignmentsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -335,7 +341,9 @@ class TrustProductsEntityAssignmentsList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TrustProductsEntityAssignmentsInstance]:
         """
         Asynchronously streams TrustProductsEntityAssignmentsInstance records from the API as a generator stream.
@@ -343,12 +351,12 @@ class TrustProductsEntityAssignmentsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -358,19 +366,21 @@ class TrustProductsEntityAssignmentsList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TrustProductsEntityAssignmentsInstance]:
         """
         Lists TrustProductsEntityAssignmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -382,19 +392,21 @@ class TrustProductsEntityAssignmentsList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TrustProductsEntityAssignmentsInstance]:
         """
         Asynchronously lists TrustProductsEntityAssignmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -406,15 +418,18 @@ class TrustProductsEntityAssignmentsList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TrustProductsEntityAssignmentsPage:
         """
         Retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
         """
@@ -432,15 +447,18 @@ class TrustProductsEntityAssignmentsList(ListResource):
         )
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TrustProductsEntityAssignmentsPage:
         """
         Asynchronously retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
         """
@@ -459,12 +477,12 @@ class TrustProductsEntityAssignmentsList(ListResource):
             self._version, response, self._solution
         )
 
-    def get_page(self, target_url) -> TrustProductsEntityAssignmentsPage:
+    def get_page(self, target_url: str) -> TrustProductsEntityAssignmentsPage:
         """
         Retrieve a specific page of TrustProductsEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
         """
@@ -473,12 +491,14 @@ class TrustProductsEntityAssignmentsList(ListResource):
             self._version, response, self._solution
         )
 
-    async def get_page_async(self, target_url) -> TrustProductsEntityAssignmentsPage:
+    async def get_page_async(
+        self, target_url: str
+    ) -> TrustProductsEntityAssignmentsPage:
         """
         Asynchronously retrieve a specific page of TrustProductsEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
         """
@@ -487,7 +507,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
             self._version, response, self._solution
         )
 
-    def get(self, sid) -> TrustProductsEntityAssignmentsContext:
+    def get(self, sid: str) -> TrustProductsEntityAssignmentsContext:
         """
         Constructs a TrustProductsEntityAssignmentsContext
 
@@ -499,7 +519,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> TrustProductsEntityAssignmentsContext:
+    def __call__(self, sid: str) -> TrustProductsEntityAssignmentsContext:
         """
         Constructs a TrustProductsEntityAssignmentsContext
 

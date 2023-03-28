@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -130,14 +130,17 @@ class DocumentInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, if_match=values.unset, data=values.unset, ttl=values.unset
+        self,
+        if_match: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
     ) -> "DocumentInstance":
         """
         Update the DocumentInstance
 
-        :param str if_match: The If-Match HTTP request header
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+        :param if_match: The If-Match HTTP request header
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
 
         :returns: The updated DocumentInstance
         """
@@ -148,14 +151,17 @@ class DocumentInstance(InstanceResource):
         )
 
     async def update_async(
-        self, if_match=values.unset, data=values.unset, ttl=values.unset
+        self,
+        if_match: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
     ) -> "DocumentInstance":
         """
         Asynchronous coroutine to update the DocumentInstance
 
-        :param str if_match: The If-Match HTTP request header
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+        :param if_match: The If-Match HTTP request header
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
 
         :returns: The updated DocumentInstance
         """
@@ -267,14 +273,17 @@ class DocumentContext(InstanceContext):
         )
 
     def update(
-        self, if_match=values.unset, data=values.unset, ttl=values.unset
+        self,
+        if_match: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
     ) -> DocumentInstance:
         """
         Update the DocumentInstance
 
-        :param str if_match: The If-Match HTTP request header
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+        :param if_match: The If-Match HTTP request header
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
 
         :returns: The updated DocumentInstance
         """
@@ -302,14 +311,17 @@ class DocumentContext(InstanceContext):
         )
 
     async def update_async(
-        self, if_match=values.unset, data=values.unset, ttl=values.unset
+        self,
+        if_match: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
     ) -> DocumentInstance:
         """
         Asynchronous coroutine to update the DocumentInstance
 
-        :param str if_match: The If-Match HTTP request header
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+        :param if_match: The If-Match HTTP request header
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
 
         :returns: The updated DocumentInstance
         """
@@ -360,11 +372,11 @@ class DocumentContext(InstanceContext):
 
 
 class DocumentPage(Page):
-    def get_instance(self, payload) -> DocumentInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> DocumentInstance:
         """
         Build an instance of DocumentInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return DocumentInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -397,14 +409,17 @@ class DocumentList(ListResource):
         self._uri = "/Services/{service_sid}/Documents".format(**self._solution)
 
     def create(
-        self, unique_name=values.unset, data=values.unset, ttl=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
     ) -> DocumentInstance:
         """
         Create the DocumentInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the Sync Document
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
+        :param unique_name: An application-defined string that uniquely identifies the Sync Document
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
 
         :returns: The created DocumentInstance
         """
@@ -427,14 +442,17 @@ class DocumentList(ListResource):
         )
 
     async def create_async(
-        self, unique_name=values.unset, data=values.unset, ttl=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
     ) -> DocumentInstance:
         """
         Asynchronously create the DocumentInstance
 
-        :param str unique_name: An application-defined string that uniquely identifies the Sync Document
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
+        :param unique_name: An application-defined string that uniquely identifies the Sync Document
+        :param data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :param ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
 
         :returns: The created DocumentInstance
         """
@@ -456,19 +474,23 @@ class DocumentList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[DocumentInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DocumentInstance]:
         """
         Streams DocumentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -477,19 +499,23 @@ class DocumentList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[DocumentInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DocumentInstance]:
         """
         Asynchronously streams DocumentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -498,18 +524,22 @@ class DocumentList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[DocumentInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DocumentInstance]:
         """
         Lists DocumentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -520,18 +550,22 @@ class DocumentList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[DocumentInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DocumentInstance]:
         """
         Asynchronously lists DocumentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -543,15 +577,18 @@ class DocumentList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DocumentPage:
         """
         Retrieve a single page of DocumentInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DocumentInstance
         """
@@ -567,15 +604,18 @@ class DocumentList(ListResource):
         return DocumentPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DocumentPage:
         """
         Asynchronously retrieve a single page of DocumentInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DocumentInstance
         """
@@ -592,31 +632,31 @@ class DocumentList(ListResource):
         )
         return DocumentPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> DocumentPage:
+    def get_page(self, target_url: str) -> DocumentPage:
         """
         Retrieve a specific page of DocumentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DocumentInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DocumentPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> DocumentPage:
+    async def get_page_async(self, target_url: str) -> DocumentPage:
         """
         Asynchronously retrieve a specific page of DocumentInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DocumentInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DocumentPage(self._version, response, self._solution)
 
-    def get(self, sid) -> DocumentContext:
+    def get(self, sid: str) -> DocumentContext:
         """
         Constructs a DocumentContext
 
@@ -626,7 +666,7 @@ class DocumentList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> DocumentContext:
+    def __call__(self, sid: str) -> DocumentContext:
         """
         Constructs a DocumentContext
 

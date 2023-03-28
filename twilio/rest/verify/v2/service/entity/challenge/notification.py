@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -99,11 +99,11 @@ class NotificationList(ListResource):
             **self._solution
         )
 
-    def create(self, ttl=values.unset) -> NotificationInstance:
+    def create(self, ttl: Union[int, object] = values.unset) -> NotificationInstance:
         """
         Create the NotificationInstance
 
-        :param int ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
+        :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
 
         :returns: The created NotificationInstance
         """
@@ -127,11 +127,13 @@ class NotificationList(ListResource):
             challenge_sid=self._solution["challenge_sid"],
         )
 
-    async def create_async(self, ttl=values.unset) -> NotificationInstance:
+    async def create_async(
+        self, ttl: Union[int, object] = values.unset
+    ) -> NotificationInstance:
         """
         Asynchronously create the NotificationInstance
 
-        :param int ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
+        :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
 
         :returns: The created NotificationInstance
         """

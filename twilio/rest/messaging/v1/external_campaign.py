@@ -65,12 +65,14 @@ class ExternalCampaignList(ListResource):
 
         self._uri = "/Services/PreregisteredUsa2p"
 
-    def create(self, campaign_id, messaging_service_sid) -> ExternalCampaignInstance:
+    def create(
+        self, campaign_id: str, messaging_service_sid: str
+    ) -> ExternalCampaignInstance:
         """
         Create the ExternalCampaignInstance
 
-        :param str campaign_id: ID of the preregistered campaign.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+        :param campaign_id: ID of the preregistered campaign.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
 
         :returns: The created ExternalCampaignInstance
         """
@@ -90,13 +92,13 @@ class ExternalCampaignList(ListResource):
         return ExternalCampaignInstance(self._version, payload)
 
     async def create_async(
-        self, campaign_id, messaging_service_sid
+        self, campaign_id: str, messaging_service_sid: str
     ) -> ExternalCampaignInstance:
         """
         Asynchronously create the ExternalCampaignInstance
 
-        :param str campaign_id: ID of the preregistered campaign.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+        :param campaign_id: ID of the preregistered campaign.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
 
         :returns: The created ExternalCampaignInstance
         """

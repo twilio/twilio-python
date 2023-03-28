@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -77,12 +77,12 @@ class AssistantFallbackActionsInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, fallback_actions=values.unset
+        self, fallback_actions: Union[object, object] = values.unset
     ) -> "AssistantFallbackActionsInstance":
         """
         Update the AssistantFallbackActionsInstance
 
-        :param object fallback_actions:
+        :param fallback_actions:
 
         :returns: The updated AssistantFallbackActionsInstance
         """
@@ -91,12 +91,12 @@ class AssistantFallbackActionsInstance(InstanceResource):
         )
 
     async def update_async(
-        self, fallback_actions=values.unset
+        self, fallback_actions: Union[object, object] = values.unset
     ) -> "AssistantFallbackActionsInstance":
         """
         Asynchronous coroutine to update the AssistantFallbackActionsInstance
 
-        :param object fallback_actions:
+        :param fallback_actions:
 
         :returns: The updated AssistantFallbackActionsInstance
         """
@@ -172,11 +172,13 @@ class AssistantFallbackActionsContext(InstanceContext):
             assistant_sid=self._solution["assistant_sid"],
         )
 
-    def update(self, fallback_actions=values.unset) -> AssistantFallbackActionsInstance:
+    def update(
+        self, fallback_actions: Union[object, object] = values.unset
+    ) -> AssistantFallbackActionsInstance:
         """
         Update the AssistantFallbackActionsInstance
 
-        :param object fallback_actions:
+        :param fallback_actions:
 
         :returns: The updated AssistantFallbackActionsInstance
         """
@@ -197,12 +199,12 @@ class AssistantFallbackActionsContext(InstanceContext):
         )
 
     async def update_async(
-        self, fallback_actions=values.unset
+        self, fallback_actions: Union[object, object] = values.unset
     ) -> AssistantFallbackActionsInstance:
         """
         Asynchronous coroutine to update the AssistantFallbackActionsInstance
 
-        :param object fallback_actions:
+        :param fallback_actions:
 
         :returns: The updated AssistantFallbackActionsInstance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -117,11 +117,11 @@ class AssetInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name) -> "AssetInstance":
+    def update(self, friendly_name: str) -> "AssetInstance":
         """
         Update the AssetInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+        :param friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The updated AssetInstance
         """
@@ -129,11 +129,11 @@ class AssetInstance(InstanceResource):
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, friendly_name) -> "AssetInstance":
+    async def update_async(self, friendly_name: str) -> "AssetInstance":
         """
         Asynchronous coroutine to update the AssetInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+        :param friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The updated AssetInstance
         """
@@ -242,11 +242,11 @@ class AssetContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name) -> AssetInstance:
+    def update(self, friendly_name: str) -> AssetInstance:
         """
         Update the AssetInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+        :param friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The updated AssetInstance
         """
@@ -269,11 +269,11 @@ class AssetContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name) -> AssetInstance:
+    async def update_async(self, friendly_name: str) -> AssetInstance:
         """
         Asynchronous coroutine to update the AssetInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+        :param friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The updated AssetInstance
         """
@@ -320,11 +320,11 @@ class AssetContext(InstanceContext):
 
 
 class AssetPage(Page):
-    def get_instance(self, payload) -> AssetInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AssetInstance:
         """
         Build an instance of AssetInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AssetInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -356,11 +356,11 @@ class AssetList(ListResource):
         }
         self._uri = "/Services/{service_sid}/Assets".format(**self._solution)
 
-    def create(self, friendly_name) -> AssetInstance:
+    def create(self, friendly_name: str) -> AssetInstance:
         """
         Create the AssetInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+        :param friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The created AssetInstance
         """
@@ -380,11 +380,11 @@ class AssetList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    async def create_async(self, friendly_name) -> AssetInstance:
+    async def create_async(self, friendly_name: str) -> AssetInstance:
         """
         Asynchronously create the AssetInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+        :param friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
 
         :returns: The created AssetInstance
         """
@@ -404,19 +404,23 @@ class AssetList(ListResource):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[AssetInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AssetInstance]:
         """
         Streams AssetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -425,19 +429,23 @@ class AssetList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[AssetInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AssetInstance]:
         """
         Asynchronously streams AssetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -446,18 +454,22 @@ class AssetList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[AssetInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AssetInstance]:
         """
         Lists AssetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -468,18 +480,22 @@ class AssetList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[AssetInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[AssetInstance]:
         """
         Asynchronously lists AssetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -491,15 +507,18 @@ class AssetList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AssetPage:
         """
         Retrieve a single page of AssetInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetInstance
         """
@@ -515,15 +534,18 @@ class AssetList(ListResource):
         return AssetPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AssetPage:
         """
         Asynchronously retrieve a single page of AssetInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetInstance
         """
@@ -540,31 +562,31 @@ class AssetList(ListResource):
         )
         return AssetPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> AssetPage:
+    def get_page(self, target_url: str) -> AssetPage:
         """
         Retrieve a specific page of AssetInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AssetInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AssetPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> AssetPage:
+    async def get_page_async(self, target_url: str) -> AssetPage:
         """
         Asynchronously retrieve a specific page of AssetInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AssetInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssetPage(self._version, response, self._solution)
 
-    def get(self, sid) -> AssetContext:
+    def get(self, sid: str) -> AssetContext:
         """
         Constructs a AssetContext
 
@@ -574,7 +596,7 @@ class AssetList(ListResource):
             self._version, service_sid=self._solution["service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> AssetContext:
+    def __call__(self, sid: str) -> AssetContext:
         """
         Constructs a AssetContext
 

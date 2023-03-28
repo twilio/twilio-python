@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -95,13 +95,15 @@ class SipDomainInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "SipDomainInstance":
         """
         Update the SipDomainInstance
 
-        :param str voice_region:
-        :param str friendly_name:
+        :param voice_region:
+        :param friendly_name:
 
         :returns: The updated SipDomainInstance
         """
@@ -111,13 +113,15 @@ class SipDomainInstance(InstanceResource):
         )
 
     async def update_async(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "SipDomainInstance":
         """
         Asynchronous coroutine to update the SipDomainInstance
 
-        :param str voice_region:
-        :param str friendly_name:
+        :param voice_region:
+        :param friendly_name:
 
         :returns: The updated SipDomainInstance
         """
@@ -191,13 +195,15 @@ class SipDomainContext(InstanceContext):
         )
 
     def update(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> SipDomainInstance:
         """
         Update the SipDomainInstance
 
-        :param str voice_region:
-        :param str friendly_name:
+        :param voice_region:
+        :param friendly_name:
 
         :returns: The updated SipDomainInstance
         """
@@ -219,13 +225,15 @@ class SipDomainContext(InstanceContext):
         )
 
     async def update_async(
-        self, voice_region=values.unset, friendly_name=values.unset
+        self,
+        voice_region: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> SipDomainInstance:
         """
         Asynchronous coroutine to update the SipDomainInstance
 
-        :param str voice_region:
-        :param str friendly_name:
+        :param voice_region:
+        :param friendly_name:
 
         :returns: The updated SipDomainInstance
         """
@@ -266,7 +274,7 @@ class SipDomainList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, sip_domain) -> SipDomainContext:
+    def get(self, sip_domain: str) -> SipDomainContext:
         """
         Constructs a SipDomainContext
 
@@ -274,7 +282,7 @@ class SipDomainList(ListResource):
         """
         return SipDomainContext(self._version, sip_domain=sip_domain)
 
-    def __call__(self, sip_domain) -> SipDomainContext:
+    def __call__(self, sip_domain: str) -> SipDomainContext:
         """
         Constructs a SipDomainContext
 

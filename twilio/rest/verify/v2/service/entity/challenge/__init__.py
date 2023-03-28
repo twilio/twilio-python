@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -151,13 +151,15 @@ class ChallengeInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, auth_payload=values.unset, metadata=values.unset
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
     ) -> "ChallengeInstance":
         """
         Update the ChallengeInstance
 
-        :param str auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
-        :param object metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+        :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The updated ChallengeInstance
         """
@@ -167,13 +169,15 @@ class ChallengeInstance(InstanceResource):
         )
 
     async def update_async(
-        self, auth_payload=values.unset, metadata=values.unset
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
     ) -> "ChallengeInstance":
         """
         Asynchronous coroutine to update the ChallengeInstance
 
-        :param str auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
-        :param object metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+        :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The updated ChallengeInstance
         """
@@ -268,13 +272,15 @@ class ChallengeContext(InstanceContext):
         )
 
     def update(
-        self, auth_payload=values.unset, metadata=values.unset
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
     ) -> ChallengeInstance:
         """
         Update the ChallengeInstance
 
-        :param str auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
-        :param object metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+        :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The updated ChallengeInstance
         """
@@ -300,13 +306,15 @@ class ChallengeContext(InstanceContext):
         )
 
     async def update_async(
-        self, auth_payload=values.unset, metadata=values.unset
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
     ) -> ChallengeInstance:
         """
         Asynchronous coroutine to update the ChallengeInstance
 
-        :param str auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
-        :param object metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+        :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The updated ChallengeInstance
         """
@@ -356,11 +364,11 @@ class ChallengeContext(InstanceContext):
 
 
 class ChallengePage(Page):
-    def get_instance(self, payload) -> ChallengeInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ChallengeInstance:
         """
         Build an instance of ChallengeInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ChallengeInstance(
             self._version,
@@ -401,22 +409,22 @@ class ChallengeList(ListResource):
 
     def create(
         self,
-        factor_sid,
-        expiration_date=values.unset,
-        details_message=values.unset,
-        details_fields=values.unset,
-        hidden_details=values.unset,
-        auth_payload=values.unset,
+        factor_sid: str,
+        expiration_date: Union[datetime, object] = values.unset,
+        details_message: Union[str, object] = values.unset,
+        details_fields: Union[List[object], object] = values.unset,
+        hidden_details: Union[object, object] = values.unset,
+        auth_payload: Union[str, object] = values.unset,
     ) -> ChallengeInstance:
         """
         Create the ChallengeInstance
 
-        :param str factor_sid: The unique SID identifier of the Factor.
-        :param datetime expiration_date: The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
-        :param str details_message: Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
-        :param List[object] details_fields: A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
-        :param object hidden_details: Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
-        :param str auth_payload: Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
+        :param factor_sid: The unique SID identifier of the Factor.
+        :param expiration_date: The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
+        :param details_message: Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
+        :param details_fields: A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
+        :param hidden_details: Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
+        :param auth_payload: Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
 
         :returns: The created ChallengeInstance
         """
@@ -448,22 +456,22 @@ class ChallengeList(ListResource):
 
     async def create_async(
         self,
-        factor_sid,
-        expiration_date=values.unset,
-        details_message=values.unset,
-        details_fields=values.unset,
-        hidden_details=values.unset,
-        auth_payload=values.unset,
+        factor_sid: str,
+        expiration_date: Union[datetime, object] = values.unset,
+        details_message: Union[str, object] = values.unset,
+        details_fields: Union[List[object], object] = values.unset,
+        hidden_details: Union[object, object] = values.unset,
+        auth_payload: Union[str, object] = values.unset,
     ) -> ChallengeInstance:
         """
         Asynchronously create the ChallengeInstance
 
-        :param str factor_sid: The unique SID identifier of the Factor.
-        :param datetime expiration_date: The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
-        :param str details_message: Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
-        :param List[object] details_fields: A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
-        :param object hidden_details: Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
-        :param str auth_payload: Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
+        :param factor_sid: The unique SID identifier of the Factor.
+        :param expiration_date: The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
+        :param details_message: Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
+        :param details_fields: A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
+        :param hidden_details: Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
+        :param auth_payload: Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
 
         :returns: The created ChallengeInstance
         """
@@ -495,11 +503,11 @@ class ChallengeList(ListResource):
 
     def stream(
         self,
-        factor_sid=values.unset,
-        status=values.unset,
-        order=values.unset,
-        limit=None,
-        page_size=None,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ChallengeInstance]:
         """
         Streams ChallengeInstance records from the API as a generator stream.
@@ -510,12 +518,12 @@ class ChallengeList(ListResource):
         :param str factor_sid: The unique SID identifier of the Factor.
         :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -531,11 +539,11 @@ class ChallengeList(ListResource):
 
     async def stream_async(
         self,
-        factor_sid=values.unset,
-        status=values.unset,
-        order=values.unset,
-        limit=None,
-        page_size=None,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ChallengeInstance]:
         """
         Asynchronously streams ChallengeInstance records from the API as a generator stream.
@@ -546,12 +554,12 @@ class ChallengeList(ListResource):
         :param str factor_sid: The unique SID identifier of the Factor.
         :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -567,11 +575,11 @@ class ChallengeList(ListResource):
 
     def list(
         self,
-        factor_sid=values.unset,
-        status=values.unset,
-        order=values.unset,
-        limit=None,
-        page_size=None,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ChallengeInstance]:
         """
         Lists ChallengeInstance records from the API as a list.
@@ -581,12 +589,12 @@ class ChallengeList(ListResource):
         :param str factor_sid: The unique SID identifier of the Factor.
         :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -602,11 +610,11 @@ class ChallengeList(ListResource):
 
     async def list_async(
         self,
-        factor_sid=values.unset,
-        status=values.unset,
-        order=values.unset,
-        limit=None,
-        page_size=None,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ChallengeInstance]:
         """
         Asynchronously lists ChallengeInstance records from the API as a list.
@@ -616,12 +624,12 @@ class ChallengeList(ListResource):
         :param str factor_sid: The unique SID identifier of the Factor.
         :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -637,23 +645,23 @@ class ChallengeList(ListResource):
 
     def page(
         self,
-        factor_sid=values.unset,
-        status=values.unset,
-        order=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ChallengePage:
         """
         Retrieve a single page of ChallengeInstance records from the API.
         Request is executed immediately
 
-        :param str factor_sid: The unique SID identifier of the Factor.
-        :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
-        :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param factor_sid: The unique SID identifier of the Factor.
+        :param status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ChallengeInstance
         """
@@ -673,23 +681,23 @@ class ChallengeList(ListResource):
 
     async def page_async(
         self,
-        factor_sid=values.unset,
-        status=values.unset,
-        order=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ChallengePage:
         """
         Asynchronously retrieve a single page of ChallengeInstance records from the API.
         Request is executed immediately
 
-        :param str factor_sid: The unique SID identifier of the Factor.
-        :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
-        :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param factor_sid: The unique SID identifier of the Factor.
+        :param status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ChallengeInstance
         """
@@ -709,31 +717,31 @@ class ChallengeList(ListResource):
         )
         return ChallengePage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ChallengePage:
+    def get_page(self, target_url: str) -> ChallengePage:
         """
         Retrieve a specific page of ChallengeInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ChallengeInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ChallengePage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ChallengePage:
+    async def get_page_async(self, target_url: str) -> ChallengePage:
         """
         Asynchronously retrieve a specific page of ChallengeInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ChallengeInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ChallengePage(self._version, response, self._solution)
 
-    def get(self, sid) -> ChallengeContext:
+    def get(self, sid: str) -> ChallengeContext:
         """
         Constructs a ChallengeContext
 
@@ -746,7 +754,7 @@ class ChallengeList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> ChallengeContext:
+    def __call__(self, sid: str) -> ChallengeContext:
         """
         Constructs a ChallengeContext
 

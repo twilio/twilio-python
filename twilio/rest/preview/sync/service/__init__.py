@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -121,18 +121,18 @@ class ServiceInstance(InstanceResource):
 
     def update(
         self,
-        webhook_url=values.unset,
-        friendly_name=values.unset,
-        reachability_webhooks_enabled=values.unset,
-        acl_enabled=values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reachability_webhooks_enabled: Union[bool, object] = values.unset,
+        acl_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Update the ServiceInstance
 
-        :param str webhook_url:
-        :param str friendly_name:
-        :param bool reachability_webhooks_enabled:
-        :param bool acl_enabled:
+        :param webhook_url:
+        :param friendly_name:
+        :param reachability_webhooks_enabled:
+        :param acl_enabled:
 
         :returns: The updated ServiceInstance
         """
@@ -145,18 +145,18 @@ class ServiceInstance(InstanceResource):
 
     async def update_async(
         self,
-        webhook_url=values.unset,
-        friendly_name=values.unset,
-        reachability_webhooks_enabled=values.unset,
-        acl_enabled=values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reachability_webhooks_enabled: Union[bool, object] = values.unset,
+        acl_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param str webhook_url:
-        :param str friendly_name:
-        :param bool reachability_webhooks_enabled:
-        :param bool acl_enabled:
+        :param webhook_url:
+        :param friendly_name:
+        :param reachability_webhooks_enabled:
+        :param acl_enabled:
 
         :returns: The updated ServiceInstance
         """
@@ -282,18 +282,18 @@ class ServiceContext(InstanceContext):
 
     def update(
         self,
-        webhook_url=values.unset,
-        friendly_name=values.unset,
-        reachability_webhooks_enabled=values.unset,
-        acl_enabled=values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reachability_webhooks_enabled: Union[bool, object] = values.unset,
+        acl_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Update the ServiceInstance
 
-        :param str webhook_url:
-        :param str friendly_name:
-        :param bool reachability_webhooks_enabled:
-        :param bool acl_enabled:
+        :param webhook_url:
+        :param friendly_name:
+        :param reachability_webhooks_enabled:
+        :param acl_enabled:
 
         :returns: The updated ServiceInstance
         """
@@ -316,18 +316,18 @@ class ServiceContext(InstanceContext):
 
     async def update_async(
         self,
-        webhook_url=values.unset,
-        friendly_name=values.unset,
-        reachability_webhooks_enabled=values.unset,
-        acl_enabled=values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reachability_webhooks_enabled: Union[bool, object] = values.unset,
+        acl_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param str webhook_url:
-        :param str friendly_name:
-        :param bool reachability_webhooks_enabled:
-        :param bool acl_enabled:
+        :param webhook_url:
+        :param friendly_name:
+        :param reachability_webhooks_enabled:
+        :param acl_enabled:
 
         :returns: The updated ServiceInstance
         """
@@ -395,11 +395,11 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
-    def get_instance(self, payload) -> ServiceInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ServiceInstance(self._version, payload)
 
@@ -426,18 +426,18 @@ class ServiceList(ListResource):
 
     def create(
         self,
-        friendly_name=values.unset,
-        webhook_url=values.unset,
-        reachability_webhooks_enabled=values.unset,
-        acl_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        reachability_webhooks_enabled: Union[bool, object] = values.unset,
+        acl_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
-        :param str friendly_name:
-        :param str webhook_url:
-        :param bool reachability_webhooks_enabled:
-        :param bool acl_enabled:
+        :param friendly_name:
+        :param webhook_url:
+        :param reachability_webhooks_enabled:
+        :param acl_enabled:
 
         :returns: The created ServiceInstance
         """
@@ -460,18 +460,18 @@ class ServiceList(ListResource):
 
     async def create_async(
         self,
-        friendly_name=values.unset,
-        webhook_url=values.unset,
-        reachability_webhooks_enabled=values.unset,
-        acl_enabled=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        reachability_webhooks_enabled: Union[bool, object] = values.unset,
+        acl_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
-        :param str friendly_name:
-        :param str webhook_url:
-        :param bool reachability_webhooks_enabled:
-        :param bool acl_enabled:
+        :param friendly_name:
+        :param webhook_url:
+        :param reachability_webhooks_enabled:
+        :param acl_enabled:
 
         :returns: The created ServiceInstance
         """
@@ -492,19 +492,23 @@ class ServiceList(ListResource):
 
         return ServiceInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -513,19 +517,23 @@ class ServiceList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -534,18 +542,22 @@ class ServiceList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -556,18 +568,22 @@ class ServiceList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[ServiceInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ServiceInstance]:
         """
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -579,15 +595,18 @@ class ServiceList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ServicePage:
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
@@ -603,15 +622,18 @@ class ServiceList(ListResource):
         return ServicePage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ServicePage:
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
@@ -628,31 +650,31 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response)
 
-    def get_page(self, target_url) -> ServicePage:
+    def get_page(self, target_url: str) -> ServicePage:
         """
         Retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
-    async def get_page_async(self, target_url) -> ServicePage:
+    async def get_page_async(self, target_url: str) -> ServicePage:
         """
         Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
 
-    def get(self, sid) -> ServiceContext:
+    def get(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
 
@@ -660,7 +682,7 @@ class ServiceList(ListResource):
         """
         return ServiceContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> ServiceContext:
+    def __call__(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
 

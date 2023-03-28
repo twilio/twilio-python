@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -106,11 +106,11 @@ class DeviceSecretInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, value) -> "DeviceSecretInstance":
+    def update(self, value: str) -> "DeviceSecretInstance":
         """
         Update the DeviceSecretInstance
 
-        :param str value: The secret value; up to 4096 characters.
+        :param value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
         """
@@ -118,11 +118,11 @@ class DeviceSecretInstance(InstanceResource):
             value=value,
         )
 
-    async def update_async(self, value) -> "DeviceSecretInstance":
+    async def update_async(self, value: str) -> "DeviceSecretInstance":
         """
         Asynchronous coroutine to update the DeviceSecretInstance
 
-        :param str value: The secret value; up to 4096 characters.
+        :param value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
         """
@@ -222,11 +222,11 @@ class DeviceSecretContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    def update(self, value) -> DeviceSecretInstance:
+    def update(self, value: str) -> DeviceSecretInstance:
         """
         Update the DeviceSecretInstance
 
-        :param str value: The secret value; up to 4096 characters.
+        :param value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
         """
@@ -249,11 +249,11 @@ class DeviceSecretContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    async def update_async(self, value) -> DeviceSecretInstance:
+    async def update_async(self, value: str) -> DeviceSecretInstance:
         """
         Asynchronous coroutine to update the DeviceSecretInstance
 
-        :param str value: The secret value; up to 4096 characters.
+        :param value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
         """
@@ -287,11 +287,11 @@ class DeviceSecretContext(InstanceContext):
 
 
 class DeviceSecretPage(Page):
-    def get_instance(self, payload) -> DeviceSecretInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> DeviceSecretInstance:
         """
         Build an instance of DeviceSecretInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return DeviceSecretInstance(
             self._version, payload, device_sid=self._solution["device_sid"]
@@ -323,12 +323,12 @@ class DeviceSecretList(ListResource):
         }
         self._uri = "/Devices/{device_sid}/Secrets".format(**self._solution)
 
-    def create(self, key, value) -> DeviceSecretInstance:
+    def create(self, key: str, value: str) -> DeviceSecretInstance:
         """
         Create the DeviceSecretInstance
 
-        :param str key: The secret key; up to 100 characters.
-        :param str value: The secret value; up to 4096 characters.
+        :param key: The secret key; up to 100 characters.
+        :param value: The secret value; up to 4096 characters.
 
         :returns: The created DeviceSecretInstance
         """
@@ -349,12 +349,12 @@ class DeviceSecretList(ListResource):
             self._version, payload, device_sid=self._solution["device_sid"]
         )
 
-    async def create_async(self, key, value) -> DeviceSecretInstance:
+    async def create_async(self, key: str, value: str) -> DeviceSecretInstance:
         """
         Asynchronously create the DeviceSecretInstance
 
-        :param str key: The secret key; up to 100 characters.
-        :param str value: The secret value; up to 4096 characters.
+        :param key: The secret key; up to 100 characters.
+        :param value: The secret value; up to 4096 characters.
 
         :returns: The created DeviceSecretInstance
         """
@@ -375,19 +375,23 @@ class DeviceSecretList(ListResource):
             self._version, payload, device_sid=self._solution["device_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[DeviceSecretInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DeviceSecretInstance]:
         """
         Streams DeviceSecretInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -397,7 +401,9 @@ class DeviceSecretList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DeviceSecretInstance]:
         """
         Asynchronously streams DeviceSecretInstance records from the API as a generator stream.
@@ -405,12 +411,12 @@ class DeviceSecretList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -419,18 +425,22 @@ class DeviceSecretList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[DeviceSecretInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DeviceSecretInstance]:
         """
         Lists DeviceSecretInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -442,19 +452,21 @@ class DeviceSecretList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DeviceSecretInstance]:
         """
         Asynchronously lists DeviceSecretInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -466,15 +478,18 @@ class DeviceSecretList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DeviceSecretPage:
         """
         Retrieve a single page of DeviceSecretInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceSecretInstance
         """
@@ -490,15 +505,18 @@ class DeviceSecretList(ListResource):
         return DeviceSecretPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DeviceSecretPage:
         """
         Asynchronously retrieve a single page of DeviceSecretInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceSecretInstance
         """
@@ -515,31 +533,31 @@ class DeviceSecretList(ListResource):
         )
         return DeviceSecretPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> DeviceSecretPage:
+    def get_page(self, target_url: str) -> DeviceSecretPage:
         """
         Retrieve a specific page of DeviceSecretInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceSecretInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DeviceSecretPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> DeviceSecretPage:
+    async def get_page_async(self, target_url: str) -> DeviceSecretPage:
         """
         Asynchronously retrieve a specific page of DeviceSecretInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceSecretInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DeviceSecretPage(self._version, response, self._solution)
 
-    def get(self, key) -> DeviceSecretContext:
+    def get(self, key: str) -> DeviceSecretContext:
         """
         Constructs a DeviceSecretContext
 
@@ -549,7 +567,7 @@ class DeviceSecretList(ListResource):
             self._version, device_sid=self._solution["device_sid"], key=key
         )
 
-    def __call__(self, key) -> DeviceSecretContext:
+    def __call__(self, key: str) -> DeviceSecretContext:
         """
         Constructs a DeviceSecretContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -123,22 +123,22 @@ class WebhookInstance(InstanceResource):
 
     def update(
         self,
-        configuration_url=values.unset,
-        configuration_method=values.unset,
-        configuration_filters=values.unset,
-        configuration_triggers=values.unset,
-        configuration_flow_sid=values.unset,
-        configuration_retry_count=values.unset,
+        configuration_url: Union[str, object] = values.unset,
+        configuration_method: Union["WebhookInstance.Method", object] = values.unset,
+        configuration_filters: Union[List[str], object] = values.unset,
+        configuration_triggers: Union[List[str], object] = values.unset,
+        configuration_flow_sid: Union[str, object] = values.unset,
+        configuration_retry_count: Union[int, object] = values.unset,
     ) -> "WebhookInstance":
         """
         Update the WebhookInstance
 
-        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :param "WebhookInstance.Method" configuration_method:
-        :param List[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-        :param List[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
-        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+        :param configuration_url: The URL of the webhook to call using the `configuration.method`.
+        :param configuration_method:
+        :param configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+        :param configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+        :param configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
+        :param configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
 
         :returns: The updated WebhookInstance
         """
@@ -153,22 +153,22 @@ class WebhookInstance(InstanceResource):
 
     async def update_async(
         self,
-        configuration_url=values.unset,
-        configuration_method=values.unset,
-        configuration_filters=values.unset,
-        configuration_triggers=values.unset,
-        configuration_flow_sid=values.unset,
-        configuration_retry_count=values.unset,
+        configuration_url: Union[str, object] = values.unset,
+        configuration_method: Union["WebhookInstance.Method", object] = values.unset,
+        configuration_filters: Union[List[str], object] = values.unset,
+        configuration_triggers: Union[List[str], object] = values.unset,
+        configuration_flow_sid: Union[str, object] = values.unset,
+        configuration_retry_count: Union[int, object] = values.unset,
     ) -> "WebhookInstance":
         """
         Asynchronous coroutine to update the WebhookInstance
 
-        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :param "WebhookInstance.Method" configuration_method:
-        :param List[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-        :param List[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
-        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+        :param configuration_url: The URL of the webhook to call using the `configuration.method`.
+        :param configuration_method:
+        :param configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+        :param configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+        :param configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
+        :param configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
 
         :returns: The updated WebhookInstance
         """
@@ -283,22 +283,22 @@ class WebhookContext(InstanceContext):
 
     def update(
         self,
-        configuration_url=values.unset,
-        configuration_method=values.unset,
-        configuration_filters=values.unset,
-        configuration_triggers=values.unset,
-        configuration_flow_sid=values.unset,
-        configuration_retry_count=values.unset,
+        configuration_url: Union[str, object] = values.unset,
+        configuration_method: Union["WebhookInstance.Method", object] = values.unset,
+        configuration_filters: Union[List[str], object] = values.unset,
+        configuration_triggers: Union[List[str], object] = values.unset,
+        configuration_flow_sid: Union[str, object] = values.unset,
+        configuration_retry_count: Union[int, object] = values.unset,
     ) -> WebhookInstance:
         """
         Update the WebhookInstance
 
-        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :param "WebhookInstance.Method" configuration_method:
-        :param List[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-        :param List[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
-        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+        :param configuration_url: The URL of the webhook to call using the `configuration.method`.
+        :param configuration_method:
+        :param configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+        :param configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+        :param configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
+        :param configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
 
         :returns: The updated WebhookInstance
         """
@@ -333,22 +333,22 @@ class WebhookContext(InstanceContext):
 
     async def update_async(
         self,
-        configuration_url=values.unset,
-        configuration_method=values.unset,
-        configuration_filters=values.unset,
-        configuration_triggers=values.unset,
-        configuration_flow_sid=values.unset,
-        configuration_retry_count=values.unset,
+        configuration_url: Union[str, object] = values.unset,
+        configuration_method: Union["WebhookInstance.Method", object] = values.unset,
+        configuration_filters: Union[List[str], object] = values.unset,
+        configuration_triggers: Union[List[str], object] = values.unset,
+        configuration_flow_sid: Union[str, object] = values.unset,
+        configuration_retry_count: Union[int, object] = values.unset,
     ) -> WebhookInstance:
         """
         Asynchronous coroutine to update the WebhookInstance
 
-        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :param "WebhookInstance.Method" configuration_method:
-        :param List[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-        :param List[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
-        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+        :param configuration_url: The URL of the webhook to call using the `configuration.method`.
+        :param configuration_method:
+        :param configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+        :param configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+        :param configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
+        :param configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
 
         :returns: The updated WebhookInstance
         """
@@ -392,11 +392,11 @@ class WebhookContext(InstanceContext):
 
 
 class WebhookPage(Page):
-    def get_instance(self, payload) -> WebhookInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> WebhookInstance:
         """
         Build an instance of WebhookInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return WebhookInstance(
             self._version,
@@ -437,24 +437,24 @@ class WebhookList(ListResource):
 
     def create(
         self,
-        type,
-        configuration_url=values.unset,
-        configuration_method=values.unset,
-        configuration_filters=values.unset,
-        configuration_triggers=values.unset,
-        configuration_flow_sid=values.unset,
-        configuration_retry_count=values.unset,
+        type: "WebhookInstance.Type",
+        configuration_url: Union[str, object] = values.unset,
+        configuration_method: Union["WebhookInstance.Method", object] = values.unset,
+        configuration_filters: Union[List[str], object] = values.unset,
+        configuration_triggers: Union[List[str], object] = values.unset,
+        configuration_flow_sid: Union[str, object] = values.unset,
+        configuration_retry_count: Union[int, object] = values.unset,
     ) -> WebhookInstance:
         """
         Create the WebhookInstance
 
-        :param &quot;WebhookInstance.Type&quot; type:
-        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :param &quot;WebhookInstance.Method&quot; configuration_method:
-        :param List[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-        :param List[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
-        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+        :param type:
+        :param configuration_url: The URL of the webhook to call using the `configuration.method`.
+        :param configuration_method:
+        :param configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+        :param configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+        :param configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
+        :param configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
 
         :returns: The created WebhookInstance
         """
@@ -489,24 +489,24 @@ class WebhookList(ListResource):
 
     async def create_async(
         self,
-        type,
-        configuration_url=values.unset,
-        configuration_method=values.unset,
-        configuration_filters=values.unset,
-        configuration_triggers=values.unset,
-        configuration_flow_sid=values.unset,
-        configuration_retry_count=values.unset,
+        type: "WebhookInstance.Type",
+        configuration_url: Union[str, object] = values.unset,
+        configuration_method: Union["WebhookInstance.Method", object] = values.unset,
+        configuration_filters: Union[List[str], object] = values.unset,
+        configuration_triggers: Union[List[str], object] = values.unset,
+        configuration_flow_sid: Union[str, object] = values.unset,
+        configuration_retry_count: Union[int, object] = values.unset,
     ) -> WebhookInstance:
         """
         Asynchronously create the WebhookInstance
 
-        :param &quot;WebhookInstance.Type&quot; type:
-        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :param &quot;WebhookInstance.Method&quot; configuration_method:
-        :param List[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-        :param List[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
-        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+        :param type:
+        :param configuration_url: The URL of the webhook to call using the `configuration.method`.
+        :param configuration_method:
+        :param configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+        :param configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+        :param configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
+        :param configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
 
         :returns: The created WebhookInstance
         """
@@ -539,19 +539,23 @@ class WebhookList(ListResource):
             channel_sid=self._solution["channel_sid"],
         )
 
-    def stream(self, limit=None, page_size=None) -> List[WebhookInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[WebhookInstance]:
         """
         Streams WebhookInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -560,19 +564,23 @@ class WebhookList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[WebhookInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[WebhookInstance]:
         """
         Asynchronously streams WebhookInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -581,18 +589,22 @@ class WebhookList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[WebhookInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[WebhookInstance]:
         """
         Lists WebhookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -603,18 +615,22 @@ class WebhookList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[WebhookInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[WebhookInstance]:
         """
         Asynchronously lists WebhookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -626,15 +642,18 @@ class WebhookList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> WebhookPage:
         """
         Retrieve a single page of WebhookInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WebhookInstance
         """
@@ -650,15 +669,18 @@ class WebhookList(ListResource):
         return WebhookPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> WebhookPage:
         """
         Asynchronously retrieve a single page of WebhookInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WebhookInstance
         """
@@ -675,31 +697,31 @@ class WebhookList(ListResource):
         )
         return WebhookPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> WebhookPage:
+    def get_page(self, target_url: str) -> WebhookPage:
         """
         Retrieve a specific page of WebhookInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of WebhookInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return WebhookPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> WebhookPage:
+    async def get_page_async(self, target_url: str) -> WebhookPage:
         """
         Asynchronously retrieve a specific page of WebhookInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of WebhookInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return WebhookPage(self._version, response, self._solution)
 
-    def get(self, sid) -> WebhookContext:
+    def get(self, sid: str) -> WebhookContext:
         """
         Constructs a WebhookContext
 
@@ -712,7 +734,7 @@ class WebhookList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> WebhookContext:
+    def __call__(self, sid: str) -> WebhookContext:
         """
         Constructs a WebhookContext
 

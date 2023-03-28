@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -96,11 +96,16 @@ class UserInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    def delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Deletes the UserInstance
 
-        :param "UserInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -108,11 +113,16 @@ class UserInstance(InstanceResource):
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    async def delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the UserInstance
 
-        :param "UserInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -140,18 +150,20 @@ class UserInstance(InstanceResource):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        role_sid: Union[str, object] = values.unset,
     ) -> "UserInstance":
         """
         Update the UserInstance
 
-        :param "UserInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 
         :returns: The updated UserInstance
         """
@@ -164,18 +176,20 @@ class UserInstance(InstanceResource):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        role_sid: Union[str, object] = values.unset,
     ) -> "UserInstance":
         """
         Asynchronous coroutine to update the UserInstance
 
-        :param "UserInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 
         :returns: The updated UserInstance
         """
@@ -223,11 +237,16 @@ class UserContext(InstanceContext):
 
         self._user_conversations: Optional[UserConversationList] = None
 
-    def delete(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    def delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Deletes the UserInstance
 
-        :param &quot;UserInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -239,11 +258,16 @@ class UserContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset) -> bool:
+    async def delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the UserInstance
 
-        :param &quot;UserInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -299,18 +323,20 @@ class UserContext(InstanceContext):
 
     def update(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        role_sid: Union[str, object] = values.unset,
     ) -> UserInstance:
         """
         Update the UserInstance
 
-        :param "UserInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 
         :returns: The updated UserInstance
         """
@@ -340,18 +366,20 @@ class UserContext(InstanceContext):
 
     async def update_async(
         self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        role_sid: Union[str, object] = values.unset,
     ) -> UserInstance:
         """
         Asynchronous coroutine to update the UserInstance
 
-        :param "UserInstance.WebhookEnabledType" x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 
         :returns: The updated UserInstance
         """
@@ -403,11 +431,11 @@ class UserContext(InstanceContext):
 
 
 class UserPage(Page):
-    def get_instance(self, payload) -> UserInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> UserInstance:
         """
         Build an instance of UserInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return UserInstance(
             self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
@@ -441,20 +469,22 @@ class UserList(ListResource):
 
     def create(
         self,
-        identity,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
+        identity: str,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        role_sid: Union[str, object] = values.unset,
     ) -> UserInstance:
         """
         Create the UserInstance
 
-        :param str identity: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
-        :param &quot;UserInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+        :param identity: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 
         :returns: The created UserInstance
         """
@@ -481,20 +511,22 @@ class UserList(ListResource):
 
     async def create_async(
         self,
-        identity,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
+        identity: str,
+        x_twilio_webhook_enabled: Union[
+            "UserInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        role_sid: Union[str, object] = values.unset,
     ) -> UserInstance:
         """
         Asynchronously create the UserInstance
 
-        :param str identity: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
-        :param &quot;UserInstance.WebhookEnabledType&quot; x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+        :param identity: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
 
         :returns: The created UserInstance
         """
@@ -519,19 +551,23 @@ class UserList(ListResource):
             self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[UserInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[UserInstance]:
         """
         Streams UserInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -540,19 +576,23 @@ class UserList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[UserInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[UserInstance]:
         """
         Asynchronously streams UserInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -561,18 +601,22 @@ class UserList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[UserInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[UserInstance]:
         """
         Lists UserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -583,18 +627,22 @@ class UserList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[UserInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[UserInstance]:
         """
         Asynchronously lists UserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -606,15 +654,18 @@ class UserList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> UserPage:
         """
         Retrieve a single page of UserInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
         """
@@ -630,15 +681,18 @@ class UserList(ListResource):
         return UserPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> UserPage:
         """
         Asynchronously retrieve a single page of UserInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
         """
@@ -655,31 +709,31 @@ class UserList(ListResource):
         )
         return UserPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> UserPage:
+    def get_page(self, target_url: str) -> UserPage:
         """
         Retrieve a specific page of UserInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of UserInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return UserPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> UserPage:
+    async def get_page_async(self, target_url: str) -> UserPage:
         """
         Asynchronously retrieve a specific page of UserInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of UserInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return UserPage(self._version, response, self._solution)
 
-    def get(self, sid) -> UserContext:
+    def get(self, sid: str) -> UserContext:
         """
         Constructs a UserContext
 
@@ -689,7 +743,7 @@ class UserList(ListResource):
             self._version, chat_service_sid=self._solution["chat_service_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> UserContext:
+    def __call__(self, sid: str) -> UserContext:
         """
         Constructs a UserContext
 

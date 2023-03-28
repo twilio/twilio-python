@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -76,11 +76,13 @@ class DefaultsInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, defaults=values.unset) -> "DefaultsInstance":
+    def update(
+        self, defaults: Union[object, object] = values.unset
+    ) -> "DefaultsInstance":
         """
         Update the DefaultsInstance
 
-        :param object defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
+        :param defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 
         :returns: The updated DefaultsInstance
         """
@@ -88,11 +90,13 @@ class DefaultsInstance(InstanceResource):
             defaults=defaults,
         )
 
-    async def update_async(self, defaults=values.unset) -> "DefaultsInstance":
+    async def update_async(
+        self, defaults: Union[object, object] = values.unset
+    ) -> "DefaultsInstance":
         """
         Asynchronous coroutine to update the DefaultsInstance
 
-        :param object defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
+        :param defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 
         :returns: The updated DefaultsInstance
         """
@@ -164,11 +168,13 @@ class DefaultsContext(InstanceContext):
             assistant_sid=self._solution["assistant_sid"],
         )
 
-    def update(self, defaults=values.unset) -> DefaultsInstance:
+    def update(
+        self, defaults: Union[object, object] = values.unset
+    ) -> DefaultsInstance:
         """
         Update the DefaultsInstance
 
-        :param object defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
+        :param defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 
         :returns: The updated DefaultsInstance
         """
@@ -188,11 +194,13 @@ class DefaultsContext(InstanceContext):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    async def update_async(self, defaults=values.unset) -> DefaultsInstance:
+    async def update_async(
+        self, defaults: Union[object, object] = values.unset
+    ) -> DefaultsInstance:
         """
         Asynchronous coroutine to update the DefaultsInstance
 
-        :param object defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
+        :param defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 
         :returns: The updated DefaultsInstance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -128,12 +128,16 @@ class QueryInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, sample_sid=values.unset, status=values.unset) -> "QueryInstance":
+    def update(
+        self,
+        sample_sid: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+    ) -> "QueryInstance":
         """
         Update the QueryInstance
 
-        :param str sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
-        :param str status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
+        :param status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
 
         :returns: The updated QueryInstance
         """
@@ -143,13 +147,15 @@ class QueryInstance(InstanceResource):
         )
 
     async def update_async(
-        self, sample_sid=values.unset, status=values.unset
+        self,
+        sample_sid: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
     ) -> "QueryInstance":
         """
         Asynchronous coroutine to update the QueryInstance
 
-        :param str sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
-        :param str status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
+        :param status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
 
         :returns: The updated QueryInstance
         """
@@ -250,12 +256,16 @@ class QueryContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, sample_sid=values.unset, status=values.unset) -> QueryInstance:
+    def update(
+        self,
+        sample_sid: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+    ) -> QueryInstance:
         """
         Update the QueryInstance
 
-        :param str sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
-        :param str status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
+        :param status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
 
         :returns: The updated QueryInstance
         """
@@ -280,13 +290,15 @@ class QueryContext(InstanceContext):
         )
 
     async def update_async(
-        self, sample_sid=values.unset, status=values.unset
+        self,
+        sample_sid: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
     ) -> QueryInstance:
         """
         Asynchronous coroutine to update the QueryInstance
 
-        :param str sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
-        :param str status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
+        :param status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
 
         :returns: The updated QueryInstance
         """
@@ -321,11 +333,11 @@ class QueryContext(InstanceContext):
 
 
 class QueryPage(Page):
-    def get_instance(self, payload) -> QueryInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> QueryInstance:
         """
         Build an instance of QueryInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return QueryInstance(
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
@@ -358,15 +370,19 @@ class QueryList(ListResource):
         self._uri = "/Assistants/{assistant_sid}/Queries".format(**self._solution)
 
     def create(
-        self, language, query, tasks=values.unset, model_build=values.unset
+        self,
+        language: str,
+        query: str,
+        tasks: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
     ) -> QueryInstance:
         """
         Create the QueryInstance
 
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
-        :param str query: The end-user's natural language input. It can be up to 2048 characters long.
-        :param str tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
+        :param query: The end-user's natural language input. It can be up to 2048 characters long.
+        :param tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
+        :param model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
 
         :returns: The created QueryInstance
         """
@@ -390,15 +406,19 @@ class QueryList(ListResource):
         )
 
     async def create_async(
-        self, language, query, tasks=values.unset, model_build=values.unset
+        self,
+        language: str,
+        query: str,
+        tasks: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
     ) -> QueryInstance:
         """
         Asynchronously create the QueryInstance
 
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
-        :param str query: The end-user's natural language input. It can be up to 2048 characters long.
-        :param str tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
+        :param query: The end-user's natural language input. It can be up to 2048 characters long.
+        :param tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
+        :param model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
 
         :returns: The created QueryInstance
         """
@@ -423,12 +443,12 @@ class QueryList(ListResource):
 
     def stream(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        limit=None,
-        page_size=None,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        dialogue_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[QueryInstance]:
         """
         Streams QueryInstance records from the API as a generator stream.
@@ -440,12 +460,12 @@ class QueryList(ListResource):
         :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
         :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
         :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -462,12 +482,12 @@ class QueryList(ListResource):
 
     async def stream_async(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        limit=None,
-        page_size=None,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        dialogue_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[QueryInstance]:
         """
         Asynchronously streams QueryInstance records from the API as a generator stream.
@@ -479,12 +499,12 @@ class QueryList(ListResource):
         :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
         :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
         :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -501,12 +521,12 @@ class QueryList(ListResource):
 
     def list(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        limit=None,
-        page_size=None,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        dialogue_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[QueryInstance]:
         """
         Lists QueryInstance records from the API as a list.
@@ -517,12 +537,12 @@ class QueryList(ListResource):
         :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
         :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
         :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -539,12 +559,12 @@ class QueryList(ListResource):
 
     async def list_async(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        limit=None,
-        page_size=None,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        dialogue_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[QueryInstance]:
         """
         Asynchronously lists QueryInstance records from the API as a list.
@@ -555,12 +575,12 @@ class QueryList(ListResource):
         :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
         :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
         :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -577,25 +597,25 @@ class QueryList(ListResource):
 
     def page(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        dialogue_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> QueryPage:
         """
         Retrieve a single page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
-        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
+        :param model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueryInstance
         """
@@ -616,25 +636,25 @@ class QueryList(ListResource):
 
     async def page_async(
         self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        language: Union[str, object] = values.unset,
+        model_build: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        dialogue_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> QueryPage:
         """
         Asynchronously retrieve a single page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
-        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
+        :param model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueryInstance
         """
@@ -655,31 +675,31 @@ class QueryList(ListResource):
         )
         return QueryPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> QueryPage:
+    def get_page(self, target_url: str) -> QueryPage:
         """
         Retrieve a specific page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of QueryInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return QueryPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> QueryPage:
+    async def get_page_async(self, target_url: str) -> QueryPage:
         """
         Asynchronously retrieve a specific page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of QueryInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return QueryPage(self._version, response, self._solution)
 
-    def get(self, sid) -> QueryContext:
+    def get(self, sid: str) -> QueryContext:
         """
         Constructs a QueryContext
 
@@ -689,7 +709,7 @@ class QueryList(ListResource):
             self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> QueryContext:
+    def __call__(self, sid: str) -> QueryContext:
         """
         Constructs a QueryContext
 

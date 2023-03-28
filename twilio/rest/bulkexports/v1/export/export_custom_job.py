@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -70,11 +70,11 @@ class ExportCustomJobInstance(InstanceResource):
 
 
 class ExportCustomJobPage(Page):
-    def get_instance(self, payload) -> ExportCustomJobInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ExportCustomJobInstance:
         """
         Build an instance of ExportCustomJobInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ExportCustomJobInstance(
             self._version, payload, resource_type=self._solution["resource_type"]
@@ -108,22 +108,22 @@ class ExportCustomJobList(ListResource):
 
     def create(
         self,
-        start_day,
-        end_day,
-        friendly_name,
-        webhook_url=values.unset,
-        webhook_method=values.unset,
-        email=values.unset,
+        start_day: str,
+        end_day: str,
+        friendly_name: str,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> ExportCustomJobInstance:
         """
         Create the ExportCustomJobInstance
 
-        :param str start_day: The start day for the custom export specified as a string in the format of yyyy-mm-dd
-        :param str end_day: The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
-        :param str friendly_name: The friendly name specified when creating the job
-        :param str webhook_url: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job's status manually.
-        :param str webhook_method: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
-        :param str email: The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.
+        :param start_day: The start day for the custom export specified as a string in the format of yyyy-mm-dd
+        :param end_day: The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
+        :param friendly_name: The friendly name specified when creating the job
+        :param webhook_url: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job's status manually.
+        :param webhook_method: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+        :param email: The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.
 
         :returns: The created ExportCustomJobInstance
         """
@@ -150,22 +150,22 @@ class ExportCustomJobList(ListResource):
 
     async def create_async(
         self,
-        start_day,
-        end_day,
-        friendly_name,
-        webhook_url=values.unset,
-        webhook_method=values.unset,
-        email=values.unset,
+        start_day: str,
+        end_day: str,
+        friendly_name: str,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> ExportCustomJobInstance:
         """
         Asynchronously create the ExportCustomJobInstance
 
-        :param str start_day: The start day for the custom export specified as a string in the format of yyyy-mm-dd
-        :param str end_day: The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
-        :param str friendly_name: The friendly name specified when creating the job
-        :param str webhook_url: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job's status manually.
-        :param str webhook_method: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
-        :param str email: The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.
+        :param start_day: The start day for the custom export specified as a string in the format of yyyy-mm-dd
+        :param end_day: The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
+        :param friendly_name: The friendly name specified when creating the job
+        :param webhook_url: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job's status manually.
+        :param webhook_method: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+        :param email: The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.
 
         :returns: The created ExportCustomJobInstance
         """
@@ -190,19 +190,23 @@ class ExportCustomJobList(ListResource):
             self._version, payload, resource_type=self._solution["resource_type"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[ExportCustomJobInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ExportCustomJobInstance]:
         """
         Streams ExportCustomJobInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -212,7 +216,9 @@ class ExportCustomJobList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ExportCustomJobInstance]:
         """
         Asynchronously streams ExportCustomJobInstance records from the API as a generator stream.
@@ -220,12 +226,12 @@ class ExportCustomJobList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -234,18 +240,22 @@ class ExportCustomJobList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[ExportCustomJobInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ExportCustomJobInstance]:
         """
         Lists ExportCustomJobInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -257,19 +267,21 @@ class ExportCustomJobList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ExportCustomJobInstance]:
         """
         Asynchronously lists ExportCustomJobInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -281,15 +293,18 @@ class ExportCustomJobList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ExportCustomJobPage:
         """
         Retrieve a single page of ExportCustomJobInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ExportCustomJobInstance
         """
@@ -305,15 +320,18 @@ class ExportCustomJobList(ListResource):
         return ExportCustomJobPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ExportCustomJobPage:
         """
         Asynchronously retrieve a single page of ExportCustomJobInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ExportCustomJobInstance
         """
@@ -330,24 +348,24 @@ class ExportCustomJobList(ListResource):
         )
         return ExportCustomJobPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ExportCustomJobPage:
+    def get_page(self, target_url: str) -> ExportCustomJobPage:
         """
         Retrieve a specific page of ExportCustomJobInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ExportCustomJobInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ExportCustomJobPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ExportCustomJobPage:
+    async def get_page_async(self, target_url: str) -> ExportCustomJobPage:
         """
         Asynchronously retrieve a specific page of ExportCustomJobInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ExportCustomJobInstance
         """

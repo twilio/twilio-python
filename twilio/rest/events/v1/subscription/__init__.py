@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -112,13 +112,15 @@ class SubscriptionInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, description=values.unset, sink_sid=values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        sink_sid: Union[str, object] = values.unset,
     ) -> "SubscriptionInstance":
         """
         Update the SubscriptionInstance
 
-        :param str description: A human readable description for the Subscription.
-        :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+        :param description: A human readable description for the Subscription.
+        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
         """
@@ -128,13 +130,15 @@ class SubscriptionInstance(InstanceResource):
         )
 
     async def update_async(
-        self, description=values.unset, sink_sid=values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        sink_sid: Union[str, object] = values.unset,
     ) -> "SubscriptionInstance":
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
-        :param str description: A human readable description for the Subscription.
-        :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+        :param description: A human readable description for the Subscription.
+        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
         """
@@ -241,13 +245,15 @@ class SubscriptionContext(InstanceContext):
         )
 
     def update(
-        self, description=values.unset, sink_sid=values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        sink_sid: Union[str, object] = values.unset,
     ) -> SubscriptionInstance:
         """
         Update the SubscriptionInstance
 
-        :param str description: A human readable description for the Subscription.
-        :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+        :param description: A human readable description for the Subscription.
+        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
         """
@@ -267,13 +273,15 @@ class SubscriptionContext(InstanceContext):
         return SubscriptionInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
-        self, description=values.unset, sink_sid=values.unset
+        self,
+        description: Union[str, object] = values.unset,
+        sink_sid: Union[str, object] = values.unset,
     ) -> SubscriptionInstance:
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
-        :param str description: A human readable description for the Subscription.
-        :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+        :param description: A human readable description for the Subscription.
+        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
         """
@@ -315,11 +323,11 @@ class SubscriptionContext(InstanceContext):
 
 
 class SubscriptionPage(Page):
-    def get_instance(self, payload) -> SubscriptionInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SubscriptionInstance:
         """
         Build an instance of SubscriptionInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SubscriptionInstance(self._version, payload)
 
@@ -344,13 +352,15 @@ class SubscriptionList(ListResource):
 
         self._uri = "/Subscriptions"
 
-    def create(self, description, sink_sid, types) -> SubscriptionInstance:
+    def create(
+        self, description: str, sink_sid: str, types: List[object]
+    ) -> SubscriptionInstance:
         """
         Create the SubscriptionInstance
 
-        :param str description: A human readable description for the Subscription **This value should not contain PII.**
-        :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        :param List[object] types: An array of objects containing the subscribed Event Types
+        :param description: A human readable description for the Subscription **This value should not contain PII.**
+        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+        :param types: An array of objects containing the subscribed Event Types
 
         :returns: The created SubscriptionInstance
         """
@@ -370,13 +380,15 @@ class SubscriptionList(ListResource):
 
         return SubscriptionInstance(self._version, payload)
 
-    async def create_async(self, description, sink_sid, types) -> SubscriptionInstance:
+    async def create_async(
+        self, description: str, sink_sid: str, types: List[object]
+    ) -> SubscriptionInstance:
         """
         Asynchronously create the SubscriptionInstance
 
-        :param str description: A human readable description for the Subscription **This value should not contain PII.**
-        :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        :param List[object] types: An array of objects containing the subscribed Event Types
+        :param description: A human readable description for the Subscription **This value should not contain PII.**
+        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+        :param types: An array of objects containing the subscribed Event Types
 
         :returns: The created SubscriptionInstance
         """
@@ -397,7 +409,10 @@ class SubscriptionList(ListResource):
         return SubscriptionInstance(self._version, payload)
 
     def stream(
-        self, sink_sid=values.unset, limit=None, page_size=None
+        self,
+        sink_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SubscriptionInstance]:
         """
         Streams SubscriptionInstance records from the API as a generator stream.
@@ -406,12 +421,12 @@ class SubscriptionList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str sink_sid: The SID of the sink that the list of Subscriptions should be filtered by.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -421,7 +436,10 @@ class SubscriptionList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, sink_sid=values.unset, limit=None, page_size=None
+        self,
+        sink_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SubscriptionInstance]:
         """
         Asynchronously streams SubscriptionInstance records from the API as a generator stream.
@@ -430,12 +448,12 @@ class SubscriptionList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str sink_sid: The SID of the sink that the list of Subscriptions should be filtered by.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -445,7 +463,10 @@ class SubscriptionList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, sink_sid=values.unset, limit=None, page_size=None
+        self,
+        sink_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SubscriptionInstance]:
         """
         Lists SubscriptionInstance records from the API as a list.
@@ -453,12 +474,12 @@ class SubscriptionList(ListResource):
         memory before returning.
 
         :param str sink_sid: The SID of the sink that the list of Subscriptions should be filtered by.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -471,7 +492,10 @@ class SubscriptionList(ListResource):
         )
 
     async def list_async(
-        self, sink_sid=values.unset, limit=None, page_size=None
+        self,
+        sink_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SubscriptionInstance]:
         """
         Asynchronously lists SubscriptionInstance records from the API as a list.
@@ -479,12 +503,12 @@ class SubscriptionList(ListResource):
         memory before returning.
 
         :param str sink_sid: The SID of the sink that the list of Subscriptions should be filtered by.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -498,19 +522,19 @@ class SubscriptionList(ListResource):
 
     def page(
         self,
-        sink_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sink_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SubscriptionPage:
         """
         Retrieve a single page of SubscriptionInstance records from the API.
         Request is executed immediately
 
-        :param str sink_sid: The SID of the sink that the list of Subscriptions should be filtered by.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sink_sid: The SID of the sink that the list of Subscriptions should be filtered by.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscriptionInstance
         """
@@ -528,19 +552,19 @@ class SubscriptionList(ListResource):
 
     async def page_async(
         self,
-        sink_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sink_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SubscriptionPage:
         """
         Asynchronously retrieve a single page of SubscriptionInstance records from the API.
         Request is executed immediately
 
-        :param str sink_sid: The SID of the sink that the list of Subscriptions should be filtered by.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sink_sid: The SID of the sink that the list of Subscriptions should be filtered by.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscriptionInstance
         """
@@ -558,31 +582,31 @@ class SubscriptionList(ListResource):
         )
         return SubscriptionPage(self._version, response)
 
-    def get_page(self, target_url) -> SubscriptionPage:
+    def get_page(self, target_url: str) -> SubscriptionPage:
         """
         Retrieve a specific page of SubscriptionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SubscriptionInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SubscriptionPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> SubscriptionPage:
+    async def get_page_async(self, target_url: str) -> SubscriptionPage:
         """
         Asynchronously retrieve a specific page of SubscriptionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SubscriptionInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SubscriptionPage(self._version, response)
 
-    def get(self, sid) -> SubscriptionContext:
+    def get(self, sid: str) -> SubscriptionContext:
         """
         Constructs a SubscriptionContext
 
@@ -590,7 +614,7 @@ class SubscriptionList(ListResource):
         """
         return SubscriptionContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> SubscriptionContext:
+    def __call__(self, sid: str) -> SubscriptionContext:
         """
         Constructs a SubscriptionContext
 

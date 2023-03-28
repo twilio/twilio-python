@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -108,11 +108,11 @@ class DeviceConfigInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, value) -> "DeviceConfigInstance":
+    def update(self, value: str) -> "DeviceConfigInstance":
         """
         Update the DeviceConfigInstance
 
-        :param str value: The config value; up to 4096 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The updated DeviceConfigInstance
         """
@@ -120,11 +120,11 @@ class DeviceConfigInstance(InstanceResource):
             value=value,
         )
 
-    async def update_async(self, value) -> "DeviceConfigInstance":
+    async def update_async(self, value: str) -> "DeviceConfigInstance":
         """
         Asynchronous coroutine to update the DeviceConfigInstance
 
-        :param str value: The config value; up to 4096 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The updated DeviceConfigInstance
         """
@@ -224,11 +224,11 @@ class DeviceConfigContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    def update(self, value) -> DeviceConfigInstance:
+    def update(self, value: str) -> DeviceConfigInstance:
         """
         Update the DeviceConfigInstance
 
-        :param str value: The config value; up to 4096 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The updated DeviceConfigInstance
         """
@@ -251,11 +251,11 @@ class DeviceConfigContext(InstanceContext):
             key=self._solution["key"],
         )
 
-    async def update_async(self, value) -> DeviceConfigInstance:
+    async def update_async(self, value: str) -> DeviceConfigInstance:
         """
         Asynchronous coroutine to update the DeviceConfigInstance
 
-        :param str value: The config value; up to 4096 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The updated DeviceConfigInstance
         """
@@ -289,11 +289,11 @@ class DeviceConfigContext(InstanceContext):
 
 
 class DeviceConfigPage(Page):
-    def get_instance(self, payload) -> DeviceConfigInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> DeviceConfigInstance:
         """
         Build an instance of DeviceConfigInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return DeviceConfigInstance(
             self._version, payload, device_sid=self._solution["device_sid"]
@@ -325,12 +325,12 @@ class DeviceConfigList(ListResource):
         }
         self._uri = "/Devices/{device_sid}/Configs".format(**self._solution)
 
-    def create(self, key, value) -> DeviceConfigInstance:
+    def create(self, key: str, value: str) -> DeviceConfigInstance:
         """
         Create the DeviceConfigInstance
 
-        :param str key: The config key; up to 100 characters.
-        :param str value: The config value; up to 4096 characters.
+        :param key: The config key; up to 100 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The created DeviceConfigInstance
         """
@@ -351,12 +351,12 @@ class DeviceConfigList(ListResource):
             self._version, payload, device_sid=self._solution["device_sid"]
         )
 
-    async def create_async(self, key, value) -> DeviceConfigInstance:
+    async def create_async(self, key: str, value: str) -> DeviceConfigInstance:
         """
         Asynchronously create the DeviceConfigInstance
 
-        :param str key: The config key; up to 100 characters.
-        :param str value: The config value; up to 4096 characters.
+        :param key: The config key; up to 100 characters.
+        :param value: The config value; up to 4096 characters.
 
         :returns: The created DeviceConfigInstance
         """
@@ -377,19 +377,23 @@ class DeviceConfigList(ListResource):
             self._version, payload, device_sid=self._solution["device_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[DeviceConfigInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DeviceConfigInstance]:
         """
         Streams DeviceConfigInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -399,7 +403,9 @@ class DeviceConfigList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DeviceConfigInstance]:
         """
         Asynchronously streams DeviceConfigInstance records from the API as a generator stream.
@@ -407,12 +413,12 @@ class DeviceConfigList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -421,18 +427,22 @@ class DeviceConfigList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[DeviceConfigInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[DeviceConfigInstance]:
         """
         Lists DeviceConfigInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -444,19 +454,21 @@ class DeviceConfigList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[DeviceConfigInstance]:
         """
         Asynchronously lists DeviceConfigInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -468,15 +480,18 @@ class DeviceConfigList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DeviceConfigPage:
         """
         Retrieve a single page of DeviceConfigInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceConfigInstance
         """
@@ -492,15 +507,18 @@ class DeviceConfigList(ListResource):
         return DeviceConfigPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> DeviceConfigPage:
         """
         Asynchronously retrieve a single page of DeviceConfigInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceConfigInstance
         """
@@ -517,31 +535,31 @@ class DeviceConfigList(ListResource):
         )
         return DeviceConfigPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> DeviceConfigPage:
+    def get_page(self, target_url: str) -> DeviceConfigPage:
         """
         Retrieve a specific page of DeviceConfigInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceConfigInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return DeviceConfigPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> DeviceConfigPage:
+    async def get_page_async(self, target_url: str) -> DeviceConfigPage:
         """
         Asynchronously retrieve a specific page of DeviceConfigInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceConfigInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return DeviceConfigPage(self._version, response, self._solution)
 
-    def get(self, key) -> DeviceConfigContext:
+    def get(self, key: str) -> DeviceConfigContext:
         """
         Constructs a DeviceConfigContext
 
@@ -551,7 +569,7 @@ class DeviceConfigList(ListResource):
             self._version, device_sid=self._solution["device_sid"], key=key
         )
 
-    def __call__(self, key) -> DeviceConfigContext:
+    def __call__(self, key: str) -> DeviceConfigContext:
         """
         Constructs a DeviceConfigContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -114,11 +114,13 @@ class OutgoingCallerIdInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name=values.unset) -> "OutgoingCallerIdInstance":
+    def update(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> "OutgoingCallerIdInstance":
         """
         Update the OutgoingCallerIdInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated OutgoingCallerIdInstance
         """
@@ -127,12 +129,12 @@ class OutgoingCallerIdInstance(InstanceResource):
         )
 
     async def update_async(
-        self, friendly_name=values.unset
+        self, friendly_name: Union[str, object] = values.unset
     ) -> "OutgoingCallerIdInstance":
         """
         Asynchronous coroutine to update the OutgoingCallerIdInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated OutgoingCallerIdInstance
         """
@@ -234,11 +236,13 @@ class OutgoingCallerIdContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name=values.unset) -> OutgoingCallerIdInstance:
+    def update(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> OutgoingCallerIdInstance:
         """
         Update the OutgoingCallerIdInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated OutgoingCallerIdInstance
         """
@@ -262,12 +266,12 @@ class OutgoingCallerIdContext(InstanceContext):
         )
 
     async def update_async(
-        self, friendly_name=values.unset
+        self, friendly_name: Union[str, object] = values.unset
     ) -> OutgoingCallerIdInstance:
         """
         Asynchronous coroutine to update the OutgoingCallerIdInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated OutgoingCallerIdInstance
         """
@@ -301,11 +305,11 @@ class OutgoingCallerIdContext(InstanceContext):
 
 
 class OutgoingCallerIdPage(Page):
-    def get_instance(self, payload) -> OutgoingCallerIdInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> OutgoingCallerIdInstance:
         """
         Build an instance of OutgoingCallerIdInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return OutgoingCallerIdInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -341,10 +345,10 @@ class OutgoingCallerIdList(ListResource):
 
     def stream(
         self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
+        phone_number: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[OutgoingCallerIdInstance]:
         """
         Streams OutgoingCallerIdInstance records from the API as a generator stream.
@@ -354,12 +358,12 @@ class OutgoingCallerIdList(ListResource):
 
         :param str phone_number: The phone number of the OutgoingCallerId resources to read.
         :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -374,10 +378,10 @@ class OutgoingCallerIdList(ListResource):
 
     async def stream_async(
         self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
+        phone_number: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[OutgoingCallerIdInstance]:
         """
         Asynchronously streams OutgoingCallerIdInstance records from the API as a generator stream.
@@ -387,12 +391,12 @@ class OutgoingCallerIdList(ListResource):
 
         :param str phone_number: The phone number of the OutgoingCallerId resources to read.
         :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -407,10 +411,10 @@ class OutgoingCallerIdList(ListResource):
 
     def list(
         self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
+        phone_number: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[OutgoingCallerIdInstance]:
         """
         Lists OutgoingCallerIdInstance records from the API as a list.
@@ -419,12 +423,12 @@ class OutgoingCallerIdList(ListResource):
 
         :param str phone_number: The phone number of the OutgoingCallerId resources to read.
         :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -439,10 +443,10 @@ class OutgoingCallerIdList(ListResource):
 
     async def list_async(
         self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
+        phone_number: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[OutgoingCallerIdInstance]:
         """
         Asynchronously lists OutgoingCallerIdInstance records from the API as a list.
@@ -451,12 +455,12 @@ class OutgoingCallerIdList(ListResource):
 
         :param str phone_number: The phone number of the OutgoingCallerId resources to read.
         :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -471,21 +475,21 @@ class OutgoingCallerIdList(ListResource):
 
     def page(
         self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        phone_number: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> OutgoingCallerIdPage:
         """
         Retrieve a single page of OutgoingCallerIdInstance records from the API.
         Request is executed immediately
 
-        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
-        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param phone_number: The phone number of the OutgoingCallerId resources to read.
+        :param friendly_name: The string that identifies the OutgoingCallerId resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of OutgoingCallerIdInstance
         """
@@ -504,21 +508,21 @@ class OutgoingCallerIdList(ListResource):
 
     async def page_async(
         self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        phone_number: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> OutgoingCallerIdPage:
         """
         Asynchronously retrieve a single page of OutgoingCallerIdInstance records from the API.
         Request is executed immediately
 
-        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
-        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param phone_number: The phone number of the OutgoingCallerId resources to read.
+        :param friendly_name: The string that identifies the OutgoingCallerId resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of OutgoingCallerIdInstance
         """
@@ -537,31 +541,31 @@ class OutgoingCallerIdList(ListResource):
         )
         return OutgoingCallerIdPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> OutgoingCallerIdPage:
+    def get_page(self, target_url: str) -> OutgoingCallerIdPage:
         """
         Retrieve a specific page of OutgoingCallerIdInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of OutgoingCallerIdInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return OutgoingCallerIdPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> OutgoingCallerIdPage:
+    async def get_page_async(self, target_url: str) -> OutgoingCallerIdPage:
         """
         Asynchronously retrieve a specific page of OutgoingCallerIdInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of OutgoingCallerIdInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return OutgoingCallerIdPage(self._version, response, self._solution)
 
-    def get(self, sid) -> OutgoingCallerIdContext:
+    def get(self, sid: str) -> OutgoingCallerIdContext:
         """
         Constructs a OutgoingCallerIdContext
 
@@ -571,7 +575,7 @@ class OutgoingCallerIdList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> OutgoingCallerIdContext:
+    def __call__(self, sid: str) -> OutgoingCallerIdContext:
         """
         Constructs a OutgoingCallerIdContext
 

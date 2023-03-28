@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -173,11 +173,11 @@ class CommandContext(InstanceContext):
 
 
 class CommandPage(Page):
-    def get_instance(self, payload) -> CommandInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CommandInstance:
         """
         Build an instance of CommandInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CommandInstance(self._version, payload)
 
@@ -204,24 +204,24 @@ class CommandList(ListResource):
 
     def create(
         self,
-        command,
-        device=values.unset,
-        sim=values.unset,
-        callback_method=values.unset,
-        callback_url=values.unset,
-        command_mode=values.unset,
-        include_sid=values.unset,
+        command: str,
+        device: Union[str, object] = values.unset,
+        sim: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        command_mode: Union[str, object] = values.unset,
+        include_sid: Union[str, object] = values.unset,
     ) -> CommandInstance:
         """
         Create the CommandInstance
 
-        :param str command:
-        :param str device:
-        :param str sim:
-        :param str callback_method:
-        :param str callback_url:
-        :param str command_mode:
-        :param str include_sid:
+        :param command:
+        :param device:
+        :param sim:
+        :param callback_method:
+        :param callback_url:
+        :param command_mode:
+        :param include_sid:
 
         :returns: The created CommandInstance
         """
@@ -247,24 +247,24 @@ class CommandList(ListResource):
 
     async def create_async(
         self,
-        command,
-        device=values.unset,
-        sim=values.unset,
-        callback_method=values.unset,
-        callback_url=values.unset,
-        command_mode=values.unset,
-        include_sid=values.unset,
+        command: str,
+        device: Union[str, object] = values.unset,
+        sim: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        command_mode: Union[str, object] = values.unset,
+        include_sid: Union[str, object] = values.unset,
     ) -> CommandInstance:
         """
         Asynchronously create the CommandInstance
 
-        :param str command:
-        :param str device:
-        :param str sim:
-        :param str callback_method:
-        :param str callback_url:
-        :param str command_mode:
-        :param str include_sid:
+        :param command:
+        :param device:
+        :param sim:
+        :param callback_method:
+        :param callback_url:
+        :param command_mode:
+        :param include_sid:
 
         :returns: The created CommandInstance
         """
@@ -290,12 +290,12 @@ class CommandList(ListResource):
 
     def stream(
         self,
-        device=values.unset,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        device: Union[str, object] = values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CommandInstance]:
         """
         Streams CommandInstance records from the API as a generator stream.
@@ -307,12 +307,12 @@ class CommandList(ListResource):
         :param str sim:
         :param str status:
         :param str direction:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -329,12 +329,12 @@ class CommandList(ListResource):
 
     async def stream_async(
         self,
-        device=values.unset,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        device: Union[str, object] = values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CommandInstance]:
         """
         Asynchronously streams CommandInstance records from the API as a generator stream.
@@ -346,12 +346,12 @@ class CommandList(ListResource):
         :param str sim:
         :param str status:
         :param str direction:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -368,12 +368,12 @@ class CommandList(ListResource):
 
     def list(
         self,
-        device=values.unset,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        device: Union[str, object] = values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CommandInstance]:
         """
         Lists CommandInstance records from the API as a list.
@@ -384,12 +384,12 @@ class CommandList(ListResource):
         :param str sim:
         :param str status:
         :param str direction:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -406,12 +406,12 @@ class CommandList(ListResource):
 
     async def list_async(
         self,
-        device=values.unset,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        device: Union[str, object] = values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CommandInstance]:
         """
         Asynchronously lists CommandInstance records from the API as a list.
@@ -422,12 +422,12 @@ class CommandList(ListResource):
         :param str sim:
         :param str status:
         :param str direction:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -444,25 +444,25 @@ class CommandList(ListResource):
 
     def page(
         self,
-        device=values.unset,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        device: Union[str, object] = values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CommandPage:
         """
         Retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param str device:
-        :param str sim:
-        :param str status:
-        :param str direction:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param device:
+        :param sim:
+        :param status:
+        :param direction:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CommandInstance
         """
@@ -483,25 +483,25 @@ class CommandList(ListResource):
 
     async def page_async(
         self,
-        device=values.unset,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        device: Union[str, object] = values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CommandPage:
         """
         Asynchronously retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param str device:
-        :param str sim:
-        :param str status:
-        :param str direction:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param device:
+        :param sim:
+        :param status:
+        :param direction:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CommandInstance
         """
@@ -522,31 +522,31 @@ class CommandList(ListResource):
         )
         return CommandPage(self._version, response)
 
-    def get_page(self, target_url) -> CommandPage:
+    def get_page(self, target_url: str) -> CommandPage:
         """
         Retrieve a specific page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CommandInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CommandPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> CommandPage:
+    async def get_page_async(self, target_url: str) -> CommandPage:
         """
         Asynchronously retrieve a specific page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CommandInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CommandPage(self._version, response)
 
-    def get(self, sid) -> CommandContext:
+    def get(self, sid: str) -> CommandContext:
         """
         Constructs a CommandContext
 
@@ -554,7 +554,7 @@ class CommandList(ListResource):
         """
         return CommandContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> CommandContext:
+    def __call__(self, sid: str) -> CommandContext:
         """
         Constructs a CommandContext
 

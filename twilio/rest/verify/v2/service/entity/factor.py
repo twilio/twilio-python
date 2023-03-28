@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -140,28 +140,28 @@ class FactorInstance(InstanceResource):
 
     def update(
         self,
-        auth_payload=values.unset,
-        friendly_name=values.unset,
-        config_notification_token=values.unset,
-        config_sdk_version=values.unset,
-        config_time_step=values.unset,
-        config_skew=values.unset,
-        config_code_length=values.unset,
-        config_alg=values.unset,
-        config_notification_platform=values.unset,
+        auth_payload: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["FactorInstance.TotpAlgorithms", object] = values.unset,
+        config_notification_platform: Union[str, object] = values.unset,
     ) -> "FactorInstance":
         """
         Update the FactorInstance
 
-        :param str auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
-        :param str friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
-        :param str config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
-        :param str config_sdk_version: The Verify Push SDK version used to configure the factor
-        :param int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
-        :param int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
-        :param int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
-        :param "FactorInstance.TotpAlgorithms" config_alg:
-        :param str config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
+        :param auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
+        :param friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
+        :param config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
+        :param config_sdk_version: The Verify Push SDK version used to configure the factor
+        :param config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
+        :param config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
+        :param config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
+        :param config_alg:
+        :param config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
 
         :returns: The updated FactorInstance
         """
@@ -179,28 +179,28 @@ class FactorInstance(InstanceResource):
 
     async def update_async(
         self,
-        auth_payload=values.unset,
-        friendly_name=values.unset,
-        config_notification_token=values.unset,
-        config_sdk_version=values.unset,
-        config_time_step=values.unset,
-        config_skew=values.unset,
-        config_code_length=values.unset,
-        config_alg=values.unset,
-        config_notification_platform=values.unset,
+        auth_payload: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["FactorInstance.TotpAlgorithms", object] = values.unset,
+        config_notification_platform: Union[str, object] = values.unset,
     ) -> "FactorInstance":
         """
         Asynchronous coroutine to update the FactorInstance
 
-        :param str auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
-        :param str friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
-        :param str config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
-        :param str config_sdk_version: The Verify Push SDK version used to configure the factor
-        :param int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
-        :param int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
-        :param int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
-        :param "FactorInstance.TotpAlgorithms" config_alg:
-        :param str config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
+        :param auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
+        :param friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
+        :param config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
+        :param config_sdk_version: The Verify Push SDK version used to configure the factor
+        :param config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
+        :param config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
+        :param config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
+        :param config_alg:
+        :param config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
 
         :returns: The updated FactorInstance
         """
@@ -316,28 +316,28 @@ class FactorContext(InstanceContext):
 
     def update(
         self,
-        auth_payload=values.unset,
-        friendly_name=values.unset,
-        config_notification_token=values.unset,
-        config_sdk_version=values.unset,
-        config_time_step=values.unset,
-        config_skew=values.unset,
-        config_code_length=values.unset,
-        config_alg=values.unset,
-        config_notification_platform=values.unset,
+        auth_payload: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["FactorInstance.TotpAlgorithms", object] = values.unset,
+        config_notification_platform: Union[str, object] = values.unset,
     ) -> FactorInstance:
         """
         Update the FactorInstance
 
-        :param str auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
-        :param str friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
-        :param str config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
-        :param str config_sdk_version: The Verify Push SDK version used to configure the factor
-        :param int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
-        :param int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
-        :param int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
-        :param "FactorInstance.TotpAlgorithms" config_alg:
-        :param str config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
+        :param auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
+        :param friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
+        :param config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
+        :param config_sdk_version: The Verify Push SDK version used to configure the factor
+        :param config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
+        :param config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
+        :param config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
+        :param config_alg:
+        :param config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
 
         :returns: The updated FactorInstance
         """
@@ -371,28 +371,28 @@ class FactorContext(InstanceContext):
 
     async def update_async(
         self,
-        auth_payload=values.unset,
-        friendly_name=values.unset,
-        config_notification_token=values.unset,
-        config_sdk_version=values.unset,
-        config_time_step=values.unset,
-        config_skew=values.unset,
-        config_code_length=values.unset,
-        config_alg=values.unset,
-        config_notification_platform=values.unset,
+        auth_payload: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["FactorInstance.TotpAlgorithms", object] = values.unset,
+        config_notification_platform: Union[str, object] = values.unset,
     ) -> FactorInstance:
         """
         Asynchronous coroutine to update the FactorInstance
 
-        :param str auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
-        :param str friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
-        :param str config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
-        :param str config_sdk_version: The Verify Push SDK version used to configure the factor
-        :param int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
-        :param int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
-        :param int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
-        :param "FactorInstance.TotpAlgorithms" config_alg:
-        :param str config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
+        :param auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
+        :param friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
+        :param config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
+        :param config_sdk_version: The Verify Push SDK version used to configure the factor
+        :param config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
+        :param config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
+        :param config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
+        :param config_alg:
+        :param config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
 
         :returns: The updated FactorInstance
         """
@@ -435,11 +435,11 @@ class FactorContext(InstanceContext):
 
 
 class FactorPage(Page):
-    def get_instance(self, payload) -> FactorInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> FactorInstance:
         """
         Build an instance of FactorInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return FactorInstance(
             self._version,
@@ -478,19 +478,23 @@ class FactorList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None) -> List[FactorInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FactorInstance]:
         """
         Streams FactorInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -499,19 +503,23 @@ class FactorList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[FactorInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FactorInstance]:
         """
         Asynchronously streams FactorInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -520,18 +528,22 @@ class FactorList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[FactorInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FactorInstance]:
         """
         Lists FactorInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -542,18 +554,22 @@ class FactorList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[FactorInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FactorInstance]:
         """
         Asynchronously lists FactorInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -565,15 +581,18 @@ class FactorList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> FactorPage:
         """
         Retrieve a single page of FactorInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FactorInstance
         """
@@ -589,15 +608,18 @@ class FactorList(ListResource):
         return FactorPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> FactorPage:
         """
         Asynchronously retrieve a single page of FactorInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FactorInstance
         """
@@ -614,31 +636,31 @@ class FactorList(ListResource):
         )
         return FactorPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> FactorPage:
+    def get_page(self, target_url: str) -> FactorPage:
         """
         Retrieve a specific page of FactorInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FactorInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FactorPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> FactorPage:
+    async def get_page_async(self, target_url: str) -> FactorPage:
         """
         Asynchronously retrieve a specific page of FactorInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FactorInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FactorPage(self._version, response, self._solution)
 
-    def get(self, sid) -> FactorContext:
+    def get(self, sid: str) -> FactorContext:
         """
         Constructs a FactorContext
 
@@ -651,7 +673,7 @@ class FactorList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> FactorContext:
+    def __call__(self, sid: str) -> FactorContext:
         """
         Constructs a FactorContext
 

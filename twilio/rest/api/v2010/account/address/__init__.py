@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -137,28 +137,28 @@ class AddressInstance(InstanceResource):
 
     def update(
         self,
-        friendly_name=values.unset,
-        customer_name=values.unset,
-        street=values.unset,
-        city=values.unset,
-        region=values.unset,
-        postal_code=values.unset,
-        emergency_enabled=values.unset,
-        auto_correct_address=values.unset,
-        street_secondary=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
     ) -> "AddressInstance":
         """
         Update the AddressInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
-        :param str customer_name: The name to associate with the address.
-        :param str street: The number and street address of the address.
-        :param str city: The city of the address.
-        :param str region: The state or region of the address.
-        :param str postal_code: The postal code of the address.
-        :param bool emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
-        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-        :param str street_secondary: The additional number and street address of the address.
+        :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :param customer_name: The name to associate with the address.
+        :param street: The number and street address of the address.
+        :param city: The city of the address.
+        :param region: The state or region of the address.
+        :param postal_code: The postal code of the address.
+        :param emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
 
         :returns: The updated AddressInstance
         """
@@ -176,28 +176,28 @@ class AddressInstance(InstanceResource):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        customer_name=values.unset,
-        street=values.unset,
-        city=values.unset,
-        region=values.unset,
-        postal_code=values.unset,
-        emergency_enabled=values.unset,
-        auto_correct_address=values.unset,
-        street_secondary=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
     ) -> "AddressInstance":
         """
         Asynchronous coroutine to update the AddressInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
-        :param str customer_name: The name to associate with the address.
-        :param str street: The number and street address of the address.
-        :param str city: The city of the address.
-        :param str region: The state or region of the address.
-        :param str postal_code: The postal code of the address.
-        :param bool emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
-        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-        :param str street_secondary: The additional number and street address of the address.
+        :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :param customer_name: The name to associate with the address.
+        :param street: The number and street address of the address.
+        :param city: The city of the address.
+        :param region: The state or region of the address.
+        :param postal_code: The postal code of the address.
+        :param emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
 
         :returns: The updated AddressInstance
         """
@@ -318,28 +318,28 @@ class AddressContext(InstanceContext):
 
     def update(
         self,
-        friendly_name=values.unset,
-        customer_name=values.unset,
-        street=values.unset,
-        city=values.unset,
-        region=values.unset,
-        postal_code=values.unset,
-        emergency_enabled=values.unset,
-        auto_correct_address=values.unset,
-        street_secondary=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
     ) -> AddressInstance:
         """
         Update the AddressInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
-        :param str customer_name: The name to associate with the address.
-        :param str street: The number and street address of the address.
-        :param str city: The city of the address.
-        :param str region: The state or region of the address.
-        :param str postal_code: The postal code of the address.
-        :param bool emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
-        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-        :param str street_secondary: The additional number and street address of the address.
+        :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :param customer_name: The name to associate with the address.
+        :param street: The number and street address of the address.
+        :param city: The city of the address.
+        :param region: The state or region of the address.
+        :param postal_code: The postal code of the address.
+        :param emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
 
         :returns: The updated AddressInstance
         """
@@ -372,28 +372,28 @@ class AddressContext(InstanceContext):
 
     async def update_async(
         self,
-        friendly_name=values.unset,
-        customer_name=values.unset,
-        street=values.unset,
-        city=values.unset,
-        region=values.unset,
-        postal_code=values.unset,
-        emergency_enabled=values.unset,
-        auto_correct_address=values.unset,
-        street_secondary=values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
     ) -> AddressInstance:
         """
         Asynchronous coroutine to update the AddressInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
-        :param str customer_name: The name to associate with the address.
-        :param str street: The number and street address of the address.
-        :param str city: The city of the address.
-        :param str region: The state or region of the address.
-        :param str postal_code: The postal code of the address.
-        :param bool emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
-        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-        :param str street_secondary: The additional number and street address of the address.
+        :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :param customer_name: The name to associate with the address.
+        :param street: The number and street address of the address.
+        :param city: The city of the address.
+        :param region: The state or region of the address.
+        :param postal_code: The postal code of the address.
+        :param emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
 
         :returns: The updated AddressInstance
         """
@@ -448,11 +448,11 @@ class AddressContext(InstanceContext):
 
 
 class AddressPage(Page):
-    def get_instance(self, payload) -> AddressInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> AddressInstance:
         """
         Build an instance of AddressInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AddressInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -486,30 +486,30 @@ class AddressList(ListResource):
 
     def create(
         self,
-        customer_name,
-        street,
-        city,
-        region,
-        postal_code,
-        iso_country,
-        friendly_name=values.unset,
-        emergency_enabled=values.unset,
-        auto_correct_address=values.unset,
-        street_secondary=values.unset,
+        customer_name: str,
+        street: str,
+        city: str,
+        region: str,
+        postal_code: str,
+        iso_country: str,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
     ) -> AddressInstance:
         """
         Create the AddressInstance
 
-        :param str customer_name: The name to associate with the new address.
-        :param str street: The number and street address of the new address.
-        :param str city: The city of the new address.
-        :param str region: The state or region of the new address.
-        :param str postal_code: The postal code of the new address.
-        :param str iso_country: The ISO country code of the new address.
-        :param str friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
-        :param bool emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
-        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-        :param str street_secondary: The additional number and street address of the address.
+        :param customer_name: The name to associate with the new address.
+        :param street: The number and street address of the new address.
+        :param city: The city of the new address.
+        :param region: The state or region of the new address.
+        :param postal_code: The postal code of the new address.
+        :param iso_country: The ISO country code of the new address.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+        :param emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
 
         :returns: The created AddressInstance
         """
@@ -540,30 +540,30 @@ class AddressList(ListResource):
 
     async def create_async(
         self,
-        customer_name,
-        street,
-        city,
-        region,
-        postal_code,
-        iso_country,
-        friendly_name=values.unset,
-        emergency_enabled=values.unset,
-        auto_correct_address=values.unset,
-        street_secondary=values.unset,
+        customer_name: str,
+        street: str,
+        city: str,
+        region: str,
+        postal_code: str,
+        iso_country: str,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
     ) -> AddressInstance:
         """
         Asynchronously create the AddressInstance
 
-        :param str customer_name: The name to associate with the new address.
-        :param str street: The number and street address of the new address.
-        :param str city: The city of the new address.
-        :param str region: The state or region of the new address.
-        :param str postal_code: The postal code of the new address.
-        :param str iso_country: The ISO country code of the new address.
-        :param str friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
-        :param bool emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
-        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-        :param str street_secondary: The additional number and street address of the address.
+        :param customer_name: The name to associate with the new address.
+        :param street: The number and street address of the new address.
+        :param city: The city of the new address.
+        :param region: The state or region of the new address.
+        :param postal_code: The postal code of the new address.
+        :param iso_country: The ISO country code of the new address.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+        :param emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
 
         :returns: The created AddressInstance
         """
@@ -594,11 +594,11 @@ class AddressList(ListResource):
 
     def stream(
         self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        limit=None,
-        page_size=None,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AddressInstance]:
         """
         Streams AddressInstance records from the API as a generator stream.
@@ -609,12 +609,12 @@ class AddressList(ListResource):
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
         :param str iso_country: The ISO country code of the Address resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -630,11 +630,11 @@ class AddressList(ListResource):
 
     async def stream_async(
         self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        limit=None,
-        page_size=None,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AddressInstance]:
         """
         Asynchronously streams AddressInstance records from the API as a generator stream.
@@ -645,12 +645,12 @@ class AddressList(ListResource):
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
         :param str iso_country: The ISO country code of the Address resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -666,11 +666,11 @@ class AddressList(ListResource):
 
     def list(
         self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        limit=None,
-        page_size=None,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AddressInstance]:
         """
         Lists AddressInstance records from the API as a list.
@@ -680,12 +680,12 @@ class AddressList(ListResource):
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
         :param str iso_country: The ISO country code of the Address resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -701,11 +701,11 @@ class AddressList(ListResource):
 
     async def list_async(
         self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        limit=None,
-        page_size=None,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AddressInstance]:
         """
         Asynchronously lists AddressInstance records from the API as a list.
@@ -715,12 +715,12 @@ class AddressList(ListResource):
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
         :param str iso_country: The ISO country code of the Address resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -736,23 +736,23 @@ class AddressList(ListResource):
 
     def page(
         self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AddressPage:
         """
         Retrieve a single page of AddressInstance records from the API.
         Request is executed immediately
 
-        :param str customer_name: The `customer_name` of the Address resources to read.
-        :param str friendly_name: The string that identifies the Address resources to read.
-        :param str iso_country: The ISO country code of the Address resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param customer_name: The `customer_name` of the Address resources to read.
+        :param friendly_name: The string that identifies the Address resources to read.
+        :param iso_country: The ISO country code of the Address resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddressInstance
         """
@@ -772,23 +772,23 @@ class AddressList(ListResource):
 
     async def page_async(
         self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AddressPage:
         """
         Asynchronously retrieve a single page of AddressInstance records from the API.
         Request is executed immediately
 
-        :param str customer_name: The `customer_name` of the Address resources to read.
-        :param str friendly_name: The string that identifies the Address resources to read.
-        :param str iso_country: The ISO country code of the Address resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param customer_name: The `customer_name` of the Address resources to read.
+        :param friendly_name: The string that identifies the Address resources to read.
+        :param iso_country: The ISO country code of the Address resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddressInstance
         """
@@ -808,31 +808,31 @@ class AddressList(ListResource):
         )
         return AddressPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> AddressPage:
+    def get_page(self, target_url: str) -> AddressPage:
         """
         Retrieve a specific page of AddressInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AddressInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return AddressPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> AddressPage:
+    async def get_page_async(self, target_url: str) -> AddressPage:
         """
         Asynchronously retrieve a specific page of AddressInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AddressInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AddressPage(self._version, response, self._solution)
 
-    def get(self, sid) -> AddressContext:
+    def get(self, sid: str) -> AddressContext:
         """
         Constructs a AddressContext
 
@@ -842,7 +842,7 @@ class AddressList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> AddressContext:
+    def __call__(self, sid: str) -> AddressContext:
         """
         Constructs a AddressContext
 

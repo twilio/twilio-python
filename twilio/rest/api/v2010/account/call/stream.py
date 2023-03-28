@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -81,11 +81,11 @@ class StreamInstance(InstanceResource):
             )
         return self._context
 
-    def update(self, status) -> "StreamInstance":
+    def update(self, status: "StreamInstance.UpdateStatus") -> "StreamInstance":
         """
         Update the StreamInstance
 
-        :param "StreamInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated StreamInstance
         """
@@ -93,11 +93,13 @@ class StreamInstance(InstanceResource):
             status=status,
         )
 
-    async def update_async(self, status) -> "StreamInstance":
+    async def update_async(
+        self, status: "StreamInstance.UpdateStatus"
+    ) -> "StreamInstance":
         """
         Asynchronous coroutine to update the StreamInstance
 
-        :param "StreamInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated StreamInstance
         """
@@ -139,11 +141,11 @@ class StreamContext(InstanceContext):
             )
         )
 
-    def update(self, status) -> StreamInstance:
+    def update(self, status: "StreamInstance.UpdateStatus") -> StreamInstance:
         """
         Update the StreamInstance
 
-        :param "StreamInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated StreamInstance
         """
@@ -167,11 +169,13 @@ class StreamContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status) -> StreamInstance:
+    async def update_async(
+        self, status: "StreamInstance.UpdateStatus"
+    ) -> StreamInstance:
         """
         Asynchronous coroutine to update the StreamInstance
 
-        :param "StreamInstance.UpdateStatus" status:
+        :param status:
 
         :returns: The updated StreamInstance
         """
@@ -228,416 +232,416 @@ class StreamList(ListResource):
 
     def create(
         self,
-        url,
-        name=values.unset,
-        track=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        parameter1_name=values.unset,
-        parameter1_value=values.unset,
-        parameter2_name=values.unset,
-        parameter2_value=values.unset,
-        parameter3_name=values.unset,
-        parameter3_value=values.unset,
-        parameter4_name=values.unset,
-        parameter4_value=values.unset,
-        parameter5_name=values.unset,
-        parameter5_value=values.unset,
-        parameter6_name=values.unset,
-        parameter6_value=values.unset,
-        parameter7_name=values.unset,
-        parameter7_value=values.unset,
-        parameter8_name=values.unset,
-        parameter8_value=values.unset,
-        parameter9_name=values.unset,
-        parameter9_value=values.unset,
-        parameter10_name=values.unset,
-        parameter10_value=values.unset,
-        parameter11_name=values.unset,
-        parameter11_value=values.unset,
-        parameter12_name=values.unset,
-        parameter12_value=values.unset,
-        parameter13_name=values.unset,
-        parameter13_value=values.unset,
-        parameter14_name=values.unset,
-        parameter14_value=values.unset,
-        parameter15_name=values.unset,
-        parameter15_value=values.unset,
-        parameter16_name=values.unset,
-        parameter16_value=values.unset,
-        parameter17_name=values.unset,
-        parameter17_value=values.unset,
-        parameter18_name=values.unset,
-        parameter18_value=values.unset,
-        parameter19_name=values.unset,
-        parameter19_value=values.unset,
-        parameter20_name=values.unset,
-        parameter20_value=values.unset,
-        parameter21_name=values.unset,
-        parameter21_value=values.unset,
-        parameter22_name=values.unset,
-        parameter22_value=values.unset,
-        parameter23_name=values.unset,
-        parameter23_value=values.unset,
-        parameter24_name=values.unset,
-        parameter24_value=values.unset,
-        parameter25_name=values.unset,
-        parameter25_value=values.unset,
-        parameter26_name=values.unset,
-        parameter26_value=values.unset,
-        parameter27_name=values.unset,
-        parameter27_value=values.unset,
-        parameter28_name=values.unset,
-        parameter28_value=values.unset,
-        parameter29_name=values.unset,
-        parameter29_value=values.unset,
-        parameter30_name=values.unset,
-        parameter30_value=values.unset,
-        parameter31_name=values.unset,
-        parameter31_value=values.unset,
-        parameter32_name=values.unset,
-        parameter32_value=values.unset,
-        parameter33_name=values.unset,
-        parameter33_value=values.unset,
-        parameter34_name=values.unset,
-        parameter34_value=values.unset,
-        parameter35_name=values.unset,
-        parameter35_value=values.unset,
-        parameter36_name=values.unset,
-        parameter36_value=values.unset,
-        parameter37_name=values.unset,
-        parameter37_value=values.unset,
-        parameter38_name=values.unset,
-        parameter38_value=values.unset,
-        parameter39_name=values.unset,
-        parameter39_value=values.unset,
-        parameter40_name=values.unset,
-        parameter40_value=values.unset,
-        parameter41_name=values.unset,
-        parameter41_value=values.unset,
-        parameter42_name=values.unset,
-        parameter42_value=values.unset,
-        parameter43_name=values.unset,
-        parameter43_value=values.unset,
-        parameter44_name=values.unset,
-        parameter44_value=values.unset,
-        parameter45_name=values.unset,
-        parameter45_value=values.unset,
-        parameter46_name=values.unset,
-        parameter46_value=values.unset,
-        parameter47_name=values.unset,
-        parameter47_value=values.unset,
-        parameter48_name=values.unset,
-        parameter48_value=values.unset,
-        parameter49_name=values.unset,
-        parameter49_value=values.unset,
-        parameter50_name=values.unset,
-        parameter50_value=values.unset,
-        parameter51_name=values.unset,
-        parameter51_value=values.unset,
-        parameter52_name=values.unset,
-        parameter52_value=values.unset,
-        parameter53_name=values.unset,
-        parameter53_value=values.unset,
-        parameter54_name=values.unset,
-        parameter54_value=values.unset,
-        parameter55_name=values.unset,
-        parameter55_value=values.unset,
-        parameter56_name=values.unset,
-        parameter56_value=values.unset,
-        parameter57_name=values.unset,
-        parameter57_value=values.unset,
-        parameter58_name=values.unset,
-        parameter58_value=values.unset,
-        parameter59_name=values.unset,
-        parameter59_value=values.unset,
-        parameter60_name=values.unset,
-        parameter60_value=values.unset,
-        parameter61_name=values.unset,
-        parameter61_value=values.unset,
-        parameter62_name=values.unset,
-        parameter62_value=values.unset,
-        parameter63_name=values.unset,
-        parameter63_value=values.unset,
-        parameter64_name=values.unset,
-        parameter64_value=values.unset,
-        parameter65_name=values.unset,
-        parameter65_value=values.unset,
-        parameter66_name=values.unset,
-        parameter66_value=values.unset,
-        parameter67_name=values.unset,
-        parameter67_value=values.unset,
-        parameter68_name=values.unset,
-        parameter68_value=values.unset,
-        parameter69_name=values.unset,
-        parameter69_value=values.unset,
-        parameter70_name=values.unset,
-        parameter70_value=values.unset,
-        parameter71_name=values.unset,
-        parameter71_value=values.unset,
-        parameter72_name=values.unset,
-        parameter72_value=values.unset,
-        parameter73_name=values.unset,
-        parameter73_value=values.unset,
-        parameter74_name=values.unset,
-        parameter74_value=values.unset,
-        parameter75_name=values.unset,
-        parameter75_value=values.unset,
-        parameter76_name=values.unset,
-        parameter76_value=values.unset,
-        parameter77_name=values.unset,
-        parameter77_value=values.unset,
-        parameter78_name=values.unset,
-        parameter78_value=values.unset,
-        parameter79_name=values.unset,
-        parameter79_value=values.unset,
-        parameter80_name=values.unset,
-        parameter80_value=values.unset,
-        parameter81_name=values.unset,
-        parameter81_value=values.unset,
-        parameter82_name=values.unset,
-        parameter82_value=values.unset,
-        parameter83_name=values.unset,
-        parameter83_value=values.unset,
-        parameter84_name=values.unset,
-        parameter84_value=values.unset,
-        parameter85_name=values.unset,
-        parameter85_value=values.unset,
-        parameter86_name=values.unset,
-        parameter86_value=values.unset,
-        parameter87_name=values.unset,
-        parameter87_value=values.unset,
-        parameter88_name=values.unset,
-        parameter88_value=values.unset,
-        parameter89_name=values.unset,
-        parameter89_value=values.unset,
-        parameter90_name=values.unset,
-        parameter90_value=values.unset,
-        parameter91_name=values.unset,
-        parameter91_value=values.unset,
-        parameter92_name=values.unset,
-        parameter92_value=values.unset,
-        parameter93_name=values.unset,
-        parameter93_value=values.unset,
-        parameter94_name=values.unset,
-        parameter94_value=values.unset,
-        parameter95_name=values.unset,
-        parameter95_value=values.unset,
-        parameter96_name=values.unset,
-        parameter96_value=values.unset,
-        parameter97_name=values.unset,
-        parameter97_value=values.unset,
-        parameter98_name=values.unset,
-        parameter98_value=values.unset,
-        parameter99_name=values.unset,
-        parameter99_value=values.unset,
+        url: str,
+        name: Union[str, object] = values.unset,
+        track: Union["StreamInstance.Track", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        parameter1_name: Union[str, object] = values.unset,
+        parameter1_value: Union[str, object] = values.unset,
+        parameter2_name: Union[str, object] = values.unset,
+        parameter2_value: Union[str, object] = values.unset,
+        parameter3_name: Union[str, object] = values.unset,
+        parameter3_value: Union[str, object] = values.unset,
+        parameter4_name: Union[str, object] = values.unset,
+        parameter4_value: Union[str, object] = values.unset,
+        parameter5_name: Union[str, object] = values.unset,
+        parameter5_value: Union[str, object] = values.unset,
+        parameter6_name: Union[str, object] = values.unset,
+        parameter6_value: Union[str, object] = values.unset,
+        parameter7_name: Union[str, object] = values.unset,
+        parameter7_value: Union[str, object] = values.unset,
+        parameter8_name: Union[str, object] = values.unset,
+        parameter8_value: Union[str, object] = values.unset,
+        parameter9_name: Union[str, object] = values.unset,
+        parameter9_value: Union[str, object] = values.unset,
+        parameter10_name: Union[str, object] = values.unset,
+        parameter10_value: Union[str, object] = values.unset,
+        parameter11_name: Union[str, object] = values.unset,
+        parameter11_value: Union[str, object] = values.unset,
+        parameter12_name: Union[str, object] = values.unset,
+        parameter12_value: Union[str, object] = values.unset,
+        parameter13_name: Union[str, object] = values.unset,
+        parameter13_value: Union[str, object] = values.unset,
+        parameter14_name: Union[str, object] = values.unset,
+        parameter14_value: Union[str, object] = values.unset,
+        parameter15_name: Union[str, object] = values.unset,
+        parameter15_value: Union[str, object] = values.unset,
+        parameter16_name: Union[str, object] = values.unset,
+        parameter16_value: Union[str, object] = values.unset,
+        parameter17_name: Union[str, object] = values.unset,
+        parameter17_value: Union[str, object] = values.unset,
+        parameter18_name: Union[str, object] = values.unset,
+        parameter18_value: Union[str, object] = values.unset,
+        parameter19_name: Union[str, object] = values.unset,
+        parameter19_value: Union[str, object] = values.unset,
+        parameter20_name: Union[str, object] = values.unset,
+        parameter20_value: Union[str, object] = values.unset,
+        parameter21_name: Union[str, object] = values.unset,
+        parameter21_value: Union[str, object] = values.unset,
+        parameter22_name: Union[str, object] = values.unset,
+        parameter22_value: Union[str, object] = values.unset,
+        parameter23_name: Union[str, object] = values.unset,
+        parameter23_value: Union[str, object] = values.unset,
+        parameter24_name: Union[str, object] = values.unset,
+        parameter24_value: Union[str, object] = values.unset,
+        parameter25_name: Union[str, object] = values.unset,
+        parameter25_value: Union[str, object] = values.unset,
+        parameter26_name: Union[str, object] = values.unset,
+        parameter26_value: Union[str, object] = values.unset,
+        parameter27_name: Union[str, object] = values.unset,
+        parameter27_value: Union[str, object] = values.unset,
+        parameter28_name: Union[str, object] = values.unset,
+        parameter28_value: Union[str, object] = values.unset,
+        parameter29_name: Union[str, object] = values.unset,
+        parameter29_value: Union[str, object] = values.unset,
+        parameter30_name: Union[str, object] = values.unset,
+        parameter30_value: Union[str, object] = values.unset,
+        parameter31_name: Union[str, object] = values.unset,
+        parameter31_value: Union[str, object] = values.unset,
+        parameter32_name: Union[str, object] = values.unset,
+        parameter32_value: Union[str, object] = values.unset,
+        parameter33_name: Union[str, object] = values.unset,
+        parameter33_value: Union[str, object] = values.unset,
+        parameter34_name: Union[str, object] = values.unset,
+        parameter34_value: Union[str, object] = values.unset,
+        parameter35_name: Union[str, object] = values.unset,
+        parameter35_value: Union[str, object] = values.unset,
+        parameter36_name: Union[str, object] = values.unset,
+        parameter36_value: Union[str, object] = values.unset,
+        parameter37_name: Union[str, object] = values.unset,
+        parameter37_value: Union[str, object] = values.unset,
+        parameter38_name: Union[str, object] = values.unset,
+        parameter38_value: Union[str, object] = values.unset,
+        parameter39_name: Union[str, object] = values.unset,
+        parameter39_value: Union[str, object] = values.unset,
+        parameter40_name: Union[str, object] = values.unset,
+        parameter40_value: Union[str, object] = values.unset,
+        parameter41_name: Union[str, object] = values.unset,
+        parameter41_value: Union[str, object] = values.unset,
+        parameter42_name: Union[str, object] = values.unset,
+        parameter42_value: Union[str, object] = values.unset,
+        parameter43_name: Union[str, object] = values.unset,
+        parameter43_value: Union[str, object] = values.unset,
+        parameter44_name: Union[str, object] = values.unset,
+        parameter44_value: Union[str, object] = values.unset,
+        parameter45_name: Union[str, object] = values.unset,
+        parameter45_value: Union[str, object] = values.unset,
+        parameter46_name: Union[str, object] = values.unset,
+        parameter46_value: Union[str, object] = values.unset,
+        parameter47_name: Union[str, object] = values.unset,
+        parameter47_value: Union[str, object] = values.unset,
+        parameter48_name: Union[str, object] = values.unset,
+        parameter48_value: Union[str, object] = values.unset,
+        parameter49_name: Union[str, object] = values.unset,
+        parameter49_value: Union[str, object] = values.unset,
+        parameter50_name: Union[str, object] = values.unset,
+        parameter50_value: Union[str, object] = values.unset,
+        parameter51_name: Union[str, object] = values.unset,
+        parameter51_value: Union[str, object] = values.unset,
+        parameter52_name: Union[str, object] = values.unset,
+        parameter52_value: Union[str, object] = values.unset,
+        parameter53_name: Union[str, object] = values.unset,
+        parameter53_value: Union[str, object] = values.unset,
+        parameter54_name: Union[str, object] = values.unset,
+        parameter54_value: Union[str, object] = values.unset,
+        parameter55_name: Union[str, object] = values.unset,
+        parameter55_value: Union[str, object] = values.unset,
+        parameter56_name: Union[str, object] = values.unset,
+        parameter56_value: Union[str, object] = values.unset,
+        parameter57_name: Union[str, object] = values.unset,
+        parameter57_value: Union[str, object] = values.unset,
+        parameter58_name: Union[str, object] = values.unset,
+        parameter58_value: Union[str, object] = values.unset,
+        parameter59_name: Union[str, object] = values.unset,
+        parameter59_value: Union[str, object] = values.unset,
+        parameter60_name: Union[str, object] = values.unset,
+        parameter60_value: Union[str, object] = values.unset,
+        parameter61_name: Union[str, object] = values.unset,
+        parameter61_value: Union[str, object] = values.unset,
+        parameter62_name: Union[str, object] = values.unset,
+        parameter62_value: Union[str, object] = values.unset,
+        parameter63_name: Union[str, object] = values.unset,
+        parameter63_value: Union[str, object] = values.unset,
+        parameter64_name: Union[str, object] = values.unset,
+        parameter64_value: Union[str, object] = values.unset,
+        parameter65_name: Union[str, object] = values.unset,
+        parameter65_value: Union[str, object] = values.unset,
+        parameter66_name: Union[str, object] = values.unset,
+        parameter66_value: Union[str, object] = values.unset,
+        parameter67_name: Union[str, object] = values.unset,
+        parameter67_value: Union[str, object] = values.unset,
+        parameter68_name: Union[str, object] = values.unset,
+        parameter68_value: Union[str, object] = values.unset,
+        parameter69_name: Union[str, object] = values.unset,
+        parameter69_value: Union[str, object] = values.unset,
+        parameter70_name: Union[str, object] = values.unset,
+        parameter70_value: Union[str, object] = values.unset,
+        parameter71_name: Union[str, object] = values.unset,
+        parameter71_value: Union[str, object] = values.unset,
+        parameter72_name: Union[str, object] = values.unset,
+        parameter72_value: Union[str, object] = values.unset,
+        parameter73_name: Union[str, object] = values.unset,
+        parameter73_value: Union[str, object] = values.unset,
+        parameter74_name: Union[str, object] = values.unset,
+        parameter74_value: Union[str, object] = values.unset,
+        parameter75_name: Union[str, object] = values.unset,
+        parameter75_value: Union[str, object] = values.unset,
+        parameter76_name: Union[str, object] = values.unset,
+        parameter76_value: Union[str, object] = values.unset,
+        parameter77_name: Union[str, object] = values.unset,
+        parameter77_value: Union[str, object] = values.unset,
+        parameter78_name: Union[str, object] = values.unset,
+        parameter78_value: Union[str, object] = values.unset,
+        parameter79_name: Union[str, object] = values.unset,
+        parameter79_value: Union[str, object] = values.unset,
+        parameter80_name: Union[str, object] = values.unset,
+        parameter80_value: Union[str, object] = values.unset,
+        parameter81_name: Union[str, object] = values.unset,
+        parameter81_value: Union[str, object] = values.unset,
+        parameter82_name: Union[str, object] = values.unset,
+        parameter82_value: Union[str, object] = values.unset,
+        parameter83_name: Union[str, object] = values.unset,
+        parameter83_value: Union[str, object] = values.unset,
+        parameter84_name: Union[str, object] = values.unset,
+        parameter84_value: Union[str, object] = values.unset,
+        parameter85_name: Union[str, object] = values.unset,
+        parameter85_value: Union[str, object] = values.unset,
+        parameter86_name: Union[str, object] = values.unset,
+        parameter86_value: Union[str, object] = values.unset,
+        parameter87_name: Union[str, object] = values.unset,
+        parameter87_value: Union[str, object] = values.unset,
+        parameter88_name: Union[str, object] = values.unset,
+        parameter88_value: Union[str, object] = values.unset,
+        parameter89_name: Union[str, object] = values.unset,
+        parameter89_value: Union[str, object] = values.unset,
+        parameter90_name: Union[str, object] = values.unset,
+        parameter90_value: Union[str, object] = values.unset,
+        parameter91_name: Union[str, object] = values.unset,
+        parameter91_value: Union[str, object] = values.unset,
+        parameter92_name: Union[str, object] = values.unset,
+        parameter92_value: Union[str, object] = values.unset,
+        parameter93_name: Union[str, object] = values.unset,
+        parameter93_value: Union[str, object] = values.unset,
+        parameter94_name: Union[str, object] = values.unset,
+        parameter94_value: Union[str, object] = values.unset,
+        parameter95_name: Union[str, object] = values.unset,
+        parameter95_value: Union[str, object] = values.unset,
+        parameter96_name: Union[str, object] = values.unset,
+        parameter96_value: Union[str, object] = values.unset,
+        parameter97_name: Union[str, object] = values.unset,
+        parameter97_value: Union[str, object] = values.unset,
+        parameter98_name: Union[str, object] = values.unset,
+        parameter98_value: Union[str, object] = values.unset,
+        parameter99_name: Union[str, object] = values.unset,
+        parameter99_value: Union[str, object] = values.unset,
     ) -> StreamInstance:
         """
         Create the StreamInstance
 
-        :param str url: Relative or absolute url where WebSocket connection will be established.
-        :param str name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
-        :param &quot;StreamInstance.Track&quot; track:
-        :param str status_callback: Absolute URL of the status callback.
-        :param str status_callback_method: The http method for the status_callback (one of GET, POST).
-        :param str parameter1_name: Parameter name
-        :param str parameter1_value: Parameter value
-        :param str parameter2_name: Parameter name
-        :param str parameter2_value: Parameter value
-        :param str parameter3_name: Parameter name
-        :param str parameter3_value: Parameter value
-        :param str parameter4_name: Parameter name
-        :param str parameter4_value: Parameter value
-        :param str parameter5_name: Parameter name
-        :param str parameter5_value: Parameter value
-        :param str parameter6_name: Parameter name
-        :param str parameter6_value: Parameter value
-        :param str parameter7_name: Parameter name
-        :param str parameter7_value: Parameter value
-        :param str parameter8_name: Parameter name
-        :param str parameter8_value: Parameter value
-        :param str parameter9_name: Parameter name
-        :param str parameter9_value: Parameter value
-        :param str parameter10_name: Parameter name
-        :param str parameter10_value: Parameter value
-        :param str parameter11_name: Parameter name
-        :param str parameter11_value: Parameter value
-        :param str parameter12_name: Parameter name
-        :param str parameter12_value: Parameter value
-        :param str parameter13_name: Parameter name
-        :param str parameter13_value: Parameter value
-        :param str parameter14_name: Parameter name
-        :param str parameter14_value: Parameter value
-        :param str parameter15_name: Parameter name
-        :param str parameter15_value: Parameter value
-        :param str parameter16_name: Parameter name
-        :param str parameter16_value: Parameter value
-        :param str parameter17_name: Parameter name
-        :param str parameter17_value: Parameter value
-        :param str parameter18_name: Parameter name
-        :param str parameter18_value: Parameter value
-        :param str parameter19_name: Parameter name
-        :param str parameter19_value: Parameter value
-        :param str parameter20_name: Parameter name
-        :param str parameter20_value: Parameter value
-        :param str parameter21_name: Parameter name
-        :param str parameter21_value: Parameter value
-        :param str parameter22_name: Parameter name
-        :param str parameter22_value: Parameter value
-        :param str parameter23_name: Parameter name
-        :param str parameter23_value: Parameter value
-        :param str parameter24_name: Parameter name
-        :param str parameter24_value: Parameter value
-        :param str parameter25_name: Parameter name
-        :param str parameter25_value: Parameter value
-        :param str parameter26_name: Parameter name
-        :param str parameter26_value: Parameter value
-        :param str parameter27_name: Parameter name
-        :param str parameter27_value: Parameter value
-        :param str parameter28_name: Parameter name
-        :param str parameter28_value: Parameter value
-        :param str parameter29_name: Parameter name
-        :param str parameter29_value: Parameter value
-        :param str parameter30_name: Parameter name
-        :param str parameter30_value: Parameter value
-        :param str parameter31_name: Parameter name
-        :param str parameter31_value: Parameter value
-        :param str parameter32_name: Parameter name
-        :param str parameter32_value: Parameter value
-        :param str parameter33_name: Parameter name
-        :param str parameter33_value: Parameter value
-        :param str parameter34_name: Parameter name
-        :param str parameter34_value: Parameter value
-        :param str parameter35_name: Parameter name
-        :param str parameter35_value: Parameter value
-        :param str parameter36_name: Parameter name
-        :param str parameter36_value: Parameter value
-        :param str parameter37_name: Parameter name
-        :param str parameter37_value: Parameter value
-        :param str parameter38_name: Parameter name
-        :param str parameter38_value: Parameter value
-        :param str parameter39_name: Parameter name
-        :param str parameter39_value: Parameter value
-        :param str parameter40_name: Parameter name
-        :param str parameter40_value: Parameter value
-        :param str parameter41_name: Parameter name
-        :param str parameter41_value: Parameter value
-        :param str parameter42_name: Parameter name
-        :param str parameter42_value: Parameter value
-        :param str parameter43_name: Parameter name
-        :param str parameter43_value: Parameter value
-        :param str parameter44_name: Parameter name
-        :param str parameter44_value: Parameter value
-        :param str parameter45_name: Parameter name
-        :param str parameter45_value: Parameter value
-        :param str parameter46_name: Parameter name
-        :param str parameter46_value: Parameter value
-        :param str parameter47_name: Parameter name
-        :param str parameter47_value: Parameter value
-        :param str parameter48_name: Parameter name
-        :param str parameter48_value: Parameter value
-        :param str parameter49_name: Parameter name
-        :param str parameter49_value: Parameter value
-        :param str parameter50_name: Parameter name
-        :param str parameter50_value: Parameter value
-        :param str parameter51_name: Parameter name
-        :param str parameter51_value: Parameter value
-        :param str parameter52_name: Parameter name
-        :param str parameter52_value: Parameter value
-        :param str parameter53_name: Parameter name
-        :param str parameter53_value: Parameter value
-        :param str parameter54_name: Parameter name
-        :param str parameter54_value: Parameter value
-        :param str parameter55_name: Parameter name
-        :param str parameter55_value: Parameter value
-        :param str parameter56_name: Parameter name
-        :param str parameter56_value: Parameter value
-        :param str parameter57_name: Parameter name
-        :param str parameter57_value: Parameter value
-        :param str parameter58_name: Parameter name
-        :param str parameter58_value: Parameter value
-        :param str parameter59_name: Parameter name
-        :param str parameter59_value: Parameter value
-        :param str parameter60_name: Parameter name
-        :param str parameter60_value: Parameter value
-        :param str parameter61_name: Parameter name
-        :param str parameter61_value: Parameter value
-        :param str parameter62_name: Parameter name
-        :param str parameter62_value: Parameter value
-        :param str parameter63_name: Parameter name
-        :param str parameter63_value: Parameter value
-        :param str parameter64_name: Parameter name
-        :param str parameter64_value: Parameter value
-        :param str parameter65_name: Parameter name
-        :param str parameter65_value: Parameter value
-        :param str parameter66_name: Parameter name
-        :param str parameter66_value: Parameter value
-        :param str parameter67_name: Parameter name
-        :param str parameter67_value: Parameter value
-        :param str parameter68_name: Parameter name
-        :param str parameter68_value: Parameter value
-        :param str parameter69_name: Parameter name
-        :param str parameter69_value: Parameter value
-        :param str parameter70_name: Parameter name
-        :param str parameter70_value: Parameter value
-        :param str parameter71_name: Parameter name
-        :param str parameter71_value: Parameter value
-        :param str parameter72_name: Parameter name
-        :param str parameter72_value: Parameter value
-        :param str parameter73_name: Parameter name
-        :param str parameter73_value: Parameter value
-        :param str parameter74_name: Parameter name
-        :param str parameter74_value: Parameter value
-        :param str parameter75_name: Parameter name
-        :param str parameter75_value: Parameter value
-        :param str parameter76_name: Parameter name
-        :param str parameter76_value: Parameter value
-        :param str parameter77_name: Parameter name
-        :param str parameter77_value: Parameter value
-        :param str parameter78_name: Parameter name
-        :param str parameter78_value: Parameter value
-        :param str parameter79_name: Parameter name
-        :param str parameter79_value: Parameter value
-        :param str parameter80_name: Parameter name
-        :param str parameter80_value: Parameter value
-        :param str parameter81_name: Parameter name
-        :param str parameter81_value: Parameter value
-        :param str parameter82_name: Parameter name
-        :param str parameter82_value: Parameter value
-        :param str parameter83_name: Parameter name
-        :param str parameter83_value: Parameter value
-        :param str parameter84_name: Parameter name
-        :param str parameter84_value: Parameter value
-        :param str parameter85_name: Parameter name
-        :param str parameter85_value: Parameter value
-        :param str parameter86_name: Parameter name
-        :param str parameter86_value: Parameter value
-        :param str parameter87_name: Parameter name
-        :param str parameter87_value: Parameter value
-        :param str parameter88_name: Parameter name
-        :param str parameter88_value: Parameter value
-        :param str parameter89_name: Parameter name
-        :param str parameter89_value: Parameter value
-        :param str parameter90_name: Parameter name
-        :param str parameter90_value: Parameter value
-        :param str parameter91_name: Parameter name
-        :param str parameter91_value: Parameter value
-        :param str parameter92_name: Parameter name
-        :param str parameter92_value: Parameter value
-        :param str parameter93_name: Parameter name
-        :param str parameter93_value: Parameter value
-        :param str parameter94_name: Parameter name
-        :param str parameter94_value: Parameter value
-        :param str parameter95_name: Parameter name
-        :param str parameter95_value: Parameter value
-        :param str parameter96_name: Parameter name
-        :param str parameter96_value: Parameter value
-        :param str parameter97_name: Parameter name
-        :param str parameter97_value: Parameter value
-        :param str parameter98_name: Parameter name
-        :param str parameter98_value: Parameter value
-        :param str parameter99_name: Parameter name
-        :param str parameter99_value: Parameter value
+        :param url: Relative or absolute url where WebSocket connection will be established.
+        :param name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+        :param track:
+        :param status_callback: Absolute URL of the status callback.
+        :param status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param parameter1_name: Parameter name
+        :param parameter1_value: Parameter value
+        :param parameter2_name: Parameter name
+        :param parameter2_value: Parameter value
+        :param parameter3_name: Parameter name
+        :param parameter3_value: Parameter value
+        :param parameter4_name: Parameter name
+        :param parameter4_value: Parameter value
+        :param parameter5_name: Parameter name
+        :param parameter5_value: Parameter value
+        :param parameter6_name: Parameter name
+        :param parameter6_value: Parameter value
+        :param parameter7_name: Parameter name
+        :param parameter7_value: Parameter value
+        :param parameter8_name: Parameter name
+        :param parameter8_value: Parameter value
+        :param parameter9_name: Parameter name
+        :param parameter9_value: Parameter value
+        :param parameter10_name: Parameter name
+        :param parameter10_value: Parameter value
+        :param parameter11_name: Parameter name
+        :param parameter11_value: Parameter value
+        :param parameter12_name: Parameter name
+        :param parameter12_value: Parameter value
+        :param parameter13_name: Parameter name
+        :param parameter13_value: Parameter value
+        :param parameter14_name: Parameter name
+        :param parameter14_value: Parameter value
+        :param parameter15_name: Parameter name
+        :param parameter15_value: Parameter value
+        :param parameter16_name: Parameter name
+        :param parameter16_value: Parameter value
+        :param parameter17_name: Parameter name
+        :param parameter17_value: Parameter value
+        :param parameter18_name: Parameter name
+        :param parameter18_value: Parameter value
+        :param parameter19_name: Parameter name
+        :param parameter19_value: Parameter value
+        :param parameter20_name: Parameter name
+        :param parameter20_value: Parameter value
+        :param parameter21_name: Parameter name
+        :param parameter21_value: Parameter value
+        :param parameter22_name: Parameter name
+        :param parameter22_value: Parameter value
+        :param parameter23_name: Parameter name
+        :param parameter23_value: Parameter value
+        :param parameter24_name: Parameter name
+        :param parameter24_value: Parameter value
+        :param parameter25_name: Parameter name
+        :param parameter25_value: Parameter value
+        :param parameter26_name: Parameter name
+        :param parameter26_value: Parameter value
+        :param parameter27_name: Parameter name
+        :param parameter27_value: Parameter value
+        :param parameter28_name: Parameter name
+        :param parameter28_value: Parameter value
+        :param parameter29_name: Parameter name
+        :param parameter29_value: Parameter value
+        :param parameter30_name: Parameter name
+        :param parameter30_value: Parameter value
+        :param parameter31_name: Parameter name
+        :param parameter31_value: Parameter value
+        :param parameter32_name: Parameter name
+        :param parameter32_value: Parameter value
+        :param parameter33_name: Parameter name
+        :param parameter33_value: Parameter value
+        :param parameter34_name: Parameter name
+        :param parameter34_value: Parameter value
+        :param parameter35_name: Parameter name
+        :param parameter35_value: Parameter value
+        :param parameter36_name: Parameter name
+        :param parameter36_value: Parameter value
+        :param parameter37_name: Parameter name
+        :param parameter37_value: Parameter value
+        :param parameter38_name: Parameter name
+        :param parameter38_value: Parameter value
+        :param parameter39_name: Parameter name
+        :param parameter39_value: Parameter value
+        :param parameter40_name: Parameter name
+        :param parameter40_value: Parameter value
+        :param parameter41_name: Parameter name
+        :param parameter41_value: Parameter value
+        :param parameter42_name: Parameter name
+        :param parameter42_value: Parameter value
+        :param parameter43_name: Parameter name
+        :param parameter43_value: Parameter value
+        :param parameter44_name: Parameter name
+        :param parameter44_value: Parameter value
+        :param parameter45_name: Parameter name
+        :param parameter45_value: Parameter value
+        :param parameter46_name: Parameter name
+        :param parameter46_value: Parameter value
+        :param parameter47_name: Parameter name
+        :param parameter47_value: Parameter value
+        :param parameter48_name: Parameter name
+        :param parameter48_value: Parameter value
+        :param parameter49_name: Parameter name
+        :param parameter49_value: Parameter value
+        :param parameter50_name: Parameter name
+        :param parameter50_value: Parameter value
+        :param parameter51_name: Parameter name
+        :param parameter51_value: Parameter value
+        :param parameter52_name: Parameter name
+        :param parameter52_value: Parameter value
+        :param parameter53_name: Parameter name
+        :param parameter53_value: Parameter value
+        :param parameter54_name: Parameter name
+        :param parameter54_value: Parameter value
+        :param parameter55_name: Parameter name
+        :param parameter55_value: Parameter value
+        :param parameter56_name: Parameter name
+        :param parameter56_value: Parameter value
+        :param parameter57_name: Parameter name
+        :param parameter57_value: Parameter value
+        :param parameter58_name: Parameter name
+        :param parameter58_value: Parameter value
+        :param parameter59_name: Parameter name
+        :param parameter59_value: Parameter value
+        :param parameter60_name: Parameter name
+        :param parameter60_value: Parameter value
+        :param parameter61_name: Parameter name
+        :param parameter61_value: Parameter value
+        :param parameter62_name: Parameter name
+        :param parameter62_value: Parameter value
+        :param parameter63_name: Parameter name
+        :param parameter63_value: Parameter value
+        :param parameter64_name: Parameter name
+        :param parameter64_value: Parameter value
+        :param parameter65_name: Parameter name
+        :param parameter65_value: Parameter value
+        :param parameter66_name: Parameter name
+        :param parameter66_value: Parameter value
+        :param parameter67_name: Parameter name
+        :param parameter67_value: Parameter value
+        :param parameter68_name: Parameter name
+        :param parameter68_value: Parameter value
+        :param parameter69_name: Parameter name
+        :param parameter69_value: Parameter value
+        :param parameter70_name: Parameter name
+        :param parameter70_value: Parameter value
+        :param parameter71_name: Parameter name
+        :param parameter71_value: Parameter value
+        :param parameter72_name: Parameter name
+        :param parameter72_value: Parameter value
+        :param parameter73_name: Parameter name
+        :param parameter73_value: Parameter value
+        :param parameter74_name: Parameter name
+        :param parameter74_value: Parameter value
+        :param parameter75_name: Parameter name
+        :param parameter75_value: Parameter value
+        :param parameter76_name: Parameter name
+        :param parameter76_value: Parameter value
+        :param parameter77_name: Parameter name
+        :param parameter77_value: Parameter value
+        :param parameter78_name: Parameter name
+        :param parameter78_value: Parameter value
+        :param parameter79_name: Parameter name
+        :param parameter79_value: Parameter value
+        :param parameter80_name: Parameter name
+        :param parameter80_value: Parameter value
+        :param parameter81_name: Parameter name
+        :param parameter81_value: Parameter value
+        :param parameter82_name: Parameter name
+        :param parameter82_value: Parameter value
+        :param parameter83_name: Parameter name
+        :param parameter83_value: Parameter value
+        :param parameter84_name: Parameter name
+        :param parameter84_value: Parameter value
+        :param parameter85_name: Parameter name
+        :param parameter85_value: Parameter value
+        :param parameter86_name: Parameter name
+        :param parameter86_value: Parameter value
+        :param parameter87_name: Parameter name
+        :param parameter87_value: Parameter value
+        :param parameter88_name: Parameter name
+        :param parameter88_value: Parameter value
+        :param parameter89_name: Parameter name
+        :param parameter89_value: Parameter value
+        :param parameter90_name: Parameter name
+        :param parameter90_value: Parameter value
+        :param parameter91_name: Parameter name
+        :param parameter91_value: Parameter value
+        :param parameter92_name: Parameter name
+        :param parameter92_value: Parameter value
+        :param parameter93_name: Parameter name
+        :param parameter93_value: Parameter value
+        :param parameter94_name: Parameter name
+        :param parameter94_value: Parameter value
+        :param parameter95_name: Parameter name
+        :param parameter95_value: Parameter value
+        :param parameter96_name: Parameter name
+        :param parameter96_value: Parameter value
+        :param parameter97_name: Parameter name
+        :param parameter97_value: Parameter value
+        :param parameter98_name: Parameter name
+        :param parameter98_value: Parameter value
+        :param parameter99_name: Parameter name
+        :param parameter99_value: Parameter value
 
         :returns: The created StreamInstance
         """
@@ -864,416 +868,416 @@ class StreamList(ListResource):
 
     async def create_async(
         self,
-        url,
-        name=values.unset,
-        track=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        parameter1_name=values.unset,
-        parameter1_value=values.unset,
-        parameter2_name=values.unset,
-        parameter2_value=values.unset,
-        parameter3_name=values.unset,
-        parameter3_value=values.unset,
-        parameter4_name=values.unset,
-        parameter4_value=values.unset,
-        parameter5_name=values.unset,
-        parameter5_value=values.unset,
-        parameter6_name=values.unset,
-        parameter6_value=values.unset,
-        parameter7_name=values.unset,
-        parameter7_value=values.unset,
-        parameter8_name=values.unset,
-        parameter8_value=values.unset,
-        parameter9_name=values.unset,
-        parameter9_value=values.unset,
-        parameter10_name=values.unset,
-        parameter10_value=values.unset,
-        parameter11_name=values.unset,
-        parameter11_value=values.unset,
-        parameter12_name=values.unset,
-        parameter12_value=values.unset,
-        parameter13_name=values.unset,
-        parameter13_value=values.unset,
-        parameter14_name=values.unset,
-        parameter14_value=values.unset,
-        parameter15_name=values.unset,
-        parameter15_value=values.unset,
-        parameter16_name=values.unset,
-        parameter16_value=values.unset,
-        parameter17_name=values.unset,
-        parameter17_value=values.unset,
-        parameter18_name=values.unset,
-        parameter18_value=values.unset,
-        parameter19_name=values.unset,
-        parameter19_value=values.unset,
-        parameter20_name=values.unset,
-        parameter20_value=values.unset,
-        parameter21_name=values.unset,
-        parameter21_value=values.unset,
-        parameter22_name=values.unset,
-        parameter22_value=values.unset,
-        parameter23_name=values.unset,
-        parameter23_value=values.unset,
-        parameter24_name=values.unset,
-        parameter24_value=values.unset,
-        parameter25_name=values.unset,
-        parameter25_value=values.unset,
-        parameter26_name=values.unset,
-        parameter26_value=values.unset,
-        parameter27_name=values.unset,
-        parameter27_value=values.unset,
-        parameter28_name=values.unset,
-        parameter28_value=values.unset,
-        parameter29_name=values.unset,
-        parameter29_value=values.unset,
-        parameter30_name=values.unset,
-        parameter30_value=values.unset,
-        parameter31_name=values.unset,
-        parameter31_value=values.unset,
-        parameter32_name=values.unset,
-        parameter32_value=values.unset,
-        parameter33_name=values.unset,
-        parameter33_value=values.unset,
-        parameter34_name=values.unset,
-        parameter34_value=values.unset,
-        parameter35_name=values.unset,
-        parameter35_value=values.unset,
-        parameter36_name=values.unset,
-        parameter36_value=values.unset,
-        parameter37_name=values.unset,
-        parameter37_value=values.unset,
-        parameter38_name=values.unset,
-        parameter38_value=values.unset,
-        parameter39_name=values.unset,
-        parameter39_value=values.unset,
-        parameter40_name=values.unset,
-        parameter40_value=values.unset,
-        parameter41_name=values.unset,
-        parameter41_value=values.unset,
-        parameter42_name=values.unset,
-        parameter42_value=values.unset,
-        parameter43_name=values.unset,
-        parameter43_value=values.unset,
-        parameter44_name=values.unset,
-        parameter44_value=values.unset,
-        parameter45_name=values.unset,
-        parameter45_value=values.unset,
-        parameter46_name=values.unset,
-        parameter46_value=values.unset,
-        parameter47_name=values.unset,
-        parameter47_value=values.unset,
-        parameter48_name=values.unset,
-        parameter48_value=values.unset,
-        parameter49_name=values.unset,
-        parameter49_value=values.unset,
-        parameter50_name=values.unset,
-        parameter50_value=values.unset,
-        parameter51_name=values.unset,
-        parameter51_value=values.unset,
-        parameter52_name=values.unset,
-        parameter52_value=values.unset,
-        parameter53_name=values.unset,
-        parameter53_value=values.unset,
-        parameter54_name=values.unset,
-        parameter54_value=values.unset,
-        parameter55_name=values.unset,
-        parameter55_value=values.unset,
-        parameter56_name=values.unset,
-        parameter56_value=values.unset,
-        parameter57_name=values.unset,
-        parameter57_value=values.unset,
-        parameter58_name=values.unset,
-        parameter58_value=values.unset,
-        parameter59_name=values.unset,
-        parameter59_value=values.unset,
-        parameter60_name=values.unset,
-        parameter60_value=values.unset,
-        parameter61_name=values.unset,
-        parameter61_value=values.unset,
-        parameter62_name=values.unset,
-        parameter62_value=values.unset,
-        parameter63_name=values.unset,
-        parameter63_value=values.unset,
-        parameter64_name=values.unset,
-        parameter64_value=values.unset,
-        parameter65_name=values.unset,
-        parameter65_value=values.unset,
-        parameter66_name=values.unset,
-        parameter66_value=values.unset,
-        parameter67_name=values.unset,
-        parameter67_value=values.unset,
-        parameter68_name=values.unset,
-        parameter68_value=values.unset,
-        parameter69_name=values.unset,
-        parameter69_value=values.unset,
-        parameter70_name=values.unset,
-        parameter70_value=values.unset,
-        parameter71_name=values.unset,
-        parameter71_value=values.unset,
-        parameter72_name=values.unset,
-        parameter72_value=values.unset,
-        parameter73_name=values.unset,
-        parameter73_value=values.unset,
-        parameter74_name=values.unset,
-        parameter74_value=values.unset,
-        parameter75_name=values.unset,
-        parameter75_value=values.unset,
-        parameter76_name=values.unset,
-        parameter76_value=values.unset,
-        parameter77_name=values.unset,
-        parameter77_value=values.unset,
-        parameter78_name=values.unset,
-        parameter78_value=values.unset,
-        parameter79_name=values.unset,
-        parameter79_value=values.unset,
-        parameter80_name=values.unset,
-        parameter80_value=values.unset,
-        parameter81_name=values.unset,
-        parameter81_value=values.unset,
-        parameter82_name=values.unset,
-        parameter82_value=values.unset,
-        parameter83_name=values.unset,
-        parameter83_value=values.unset,
-        parameter84_name=values.unset,
-        parameter84_value=values.unset,
-        parameter85_name=values.unset,
-        parameter85_value=values.unset,
-        parameter86_name=values.unset,
-        parameter86_value=values.unset,
-        parameter87_name=values.unset,
-        parameter87_value=values.unset,
-        parameter88_name=values.unset,
-        parameter88_value=values.unset,
-        parameter89_name=values.unset,
-        parameter89_value=values.unset,
-        parameter90_name=values.unset,
-        parameter90_value=values.unset,
-        parameter91_name=values.unset,
-        parameter91_value=values.unset,
-        parameter92_name=values.unset,
-        parameter92_value=values.unset,
-        parameter93_name=values.unset,
-        parameter93_value=values.unset,
-        parameter94_name=values.unset,
-        parameter94_value=values.unset,
-        parameter95_name=values.unset,
-        parameter95_value=values.unset,
-        parameter96_name=values.unset,
-        parameter96_value=values.unset,
-        parameter97_name=values.unset,
-        parameter97_value=values.unset,
-        parameter98_name=values.unset,
-        parameter98_value=values.unset,
-        parameter99_name=values.unset,
-        parameter99_value=values.unset,
+        url: str,
+        name: Union[str, object] = values.unset,
+        track: Union["StreamInstance.Track", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        parameter1_name: Union[str, object] = values.unset,
+        parameter1_value: Union[str, object] = values.unset,
+        parameter2_name: Union[str, object] = values.unset,
+        parameter2_value: Union[str, object] = values.unset,
+        parameter3_name: Union[str, object] = values.unset,
+        parameter3_value: Union[str, object] = values.unset,
+        parameter4_name: Union[str, object] = values.unset,
+        parameter4_value: Union[str, object] = values.unset,
+        parameter5_name: Union[str, object] = values.unset,
+        parameter5_value: Union[str, object] = values.unset,
+        parameter6_name: Union[str, object] = values.unset,
+        parameter6_value: Union[str, object] = values.unset,
+        parameter7_name: Union[str, object] = values.unset,
+        parameter7_value: Union[str, object] = values.unset,
+        parameter8_name: Union[str, object] = values.unset,
+        parameter8_value: Union[str, object] = values.unset,
+        parameter9_name: Union[str, object] = values.unset,
+        parameter9_value: Union[str, object] = values.unset,
+        parameter10_name: Union[str, object] = values.unset,
+        parameter10_value: Union[str, object] = values.unset,
+        parameter11_name: Union[str, object] = values.unset,
+        parameter11_value: Union[str, object] = values.unset,
+        parameter12_name: Union[str, object] = values.unset,
+        parameter12_value: Union[str, object] = values.unset,
+        parameter13_name: Union[str, object] = values.unset,
+        parameter13_value: Union[str, object] = values.unset,
+        parameter14_name: Union[str, object] = values.unset,
+        parameter14_value: Union[str, object] = values.unset,
+        parameter15_name: Union[str, object] = values.unset,
+        parameter15_value: Union[str, object] = values.unset,
+        parameter16_name: Union[str, object] = values.unset,
+        parameter16_value: Union[str, object] = values.unset,
+        parameter17_name: Union[str, object] = values.unset,
+        parameter17_value: Union[str, object] = values.unset,
+        parameter18_name: Union[str, object] = values.unset,
+        parameter18_value: Union[str, object] = values.unset,
+        parameter19_name: Union[str, object] = values.unset,
+        parameter19_value: Union[str, object] = values.unset,
+        parameter20_name: Union[str, object] = values.unset,
+        parameter20_value: Union[str, object] = values.unset,
+        parameter21_name: Union[str, object] = values.unset,
+        parameter21_value: Union[str, object] = values.unset,
+        parameter22_name: Union[str, object] = values.unset,
+        parameter22_value: Union[str, object] = values.unset,
+        parameter23_name: Union[str, object] = values.unset,
+        parameter23_value: Union[str, object] = values.unset,
+        parameter24_name: Union[str, object] = values.unset,
+        parameter24_value: Union[str, object] = values.unset,
+        parameter25_name: Union[str, object] = values.unset,
+        parameter25_value: Union[str, object] = values.unset,
+        parameter26_name: Union[str, object] = values.unset,
+        parameter26_value: Union[str, object] = values.unset,
+        parameter27_name: Union[str, object] = values.unset,
+        parameter27_value: Union[str, object] = values.unset,
+        parameter28_name: Union[str, object] = values.unset,
+        parameter28_value: Union[str, object] = values.unset,
+        parameter29_name: Union[str, object] = values.unset,
+        parameter29_value: Union[str, object] = values.unset,
+        parameter30_name: Union[str, object] = values.unset,
+        parameter30_value: Union[str, object] = values.unset,
+        parameter31_name: Union[str, object] = values.unset,
+        parameter31_value: Union[str, object] = values.unset,
+        parameter32_name: Union[str, object] = values.unset,
+        parameter32_value: Union[str, object] = values.unset,
+        parameter33_name: Union[str, object] = values.unset,
+        parameter33_value: Union[str, object] = values.unset,
+        parameter34_name: Union[str, object] = values.unset,
+        parameter34_value: Union[str, object] = values.unset,
+        parameter35_name: Union[str, object] = values.unset,
+        parameter35_value: Union[str, object] = values.unset,
+        parameter36_name: Union[str, object] = values.unset,
+        parameter36_value: Union[str, object] = values.unset,
+        parameter37_name: Union[str, object] = values.unset,
+        parameter37_value: Union[str, object] = values.unset,
+        parameter38_name: Union[str, object] = values.unset,
+        parameter38_value: Union[str, object] = values.unset,
+        parameter39_name: Union[str, object] = values.unset,
+        parameter39_value: Union[str, object] = values.unset,
+        parameter40_name: Union[str, object] = values.unset,
+        parameter40_value: Union[str, object] = values.unset,
+        parameter41_name: Union[str, object] = values.unset,
+        parameter41_value: Union[str, object] = values.unset,
+        parameter42_name: Union[str, object] = values.unset,
+        parameter42_value: Union[str, object] = values.unset,
+        parameter43_name: Union[str, object] = values.unset,
+        parameter43_value: Union[str, object] = values.unset,
+        parameter44_name: Union[str, object] = values.unset,
+        parameter44_value: Union[str, object] = values.unset,
+        parameter45_name: Union[str, object] = values.unset,
+        parameter45_value: Union[str, object] = values.unset,
+        parameter46_name: Union[str, object] = values.unset,
+        parameter46_value: Union[str, object] = values.unset,
+        parameter47_name: Union[str, object] = values.unset,
+        parameter47_value: Union[str, object] = values.unset,
+        parameter48_name: Union[str, object] = values.unset,
+        parameter48_value: Union[str, object] = values.unset,
+        parameter49_name: Union[str, object] = values.unset,
+        parameter49_value: Union[str, object] = values.unset,
+        parameter50_name: Union[str, object] = values.unset,
+        parameter50_value: Union[str, object] = values.unset,
+        parameter51_name: Union[str, object] = values.unset,
+        parameter51_value: Union[str, object] = values.unset,
+        parameter52_name: Union[str, object] = values.unset,
+        parameter52_value: Union[str, object] = values.unset,
+        parameter53_name: Union[str, object] = values.unset,
+        parameter53_value: Union[str, object] = values.unset,
+        parameter54_name: Union[str, object] = values.unset,
+        parameter54_value: Union[str, object] = values.unset,
+        parameter55_name: Union[str, object] = values.unset,
+        parameter55_value: Union[str, object] = values.unset,
+        parameter56_name: Union[str, object] = values.unset,
+        parameter56_value: Union[str, object] = values.unset,
+        parameter57_name: Union[str, object] = values.unset,
+        parameter57_value: Union[str, object] = values.unset,
+        parameter58_name: Union[str, object] = values.unset,
+        parameter58_value: Union[str, object] = values.unset,
+        parameter59_name: Union[str, object] = values.unset,
+        parameter59_value: Union[str, object] = values.unset,
+        parameter60_name: Union[str, object] = values.unset,
+        parameter60_value: Union[str, object] = values.unset,
+        parameter61_name: Union[str, object] = values.unset,
+        parameter61_value: Union[str, object] = values.unset,
+        parameter62_name: Union[str, object] = values.unset,
+        parameter62_value: Union[str, object] = values.unset,
+        parameter63_name: Union[str, object] = values.unset,
+        parameter63_value: Union[str, object] = values.unset,
+        parameter64_name: Union[str, object] = values.unset,
+        parameter64_value: Union[str, object] = values.unset,
+        parameter65_name: Union[str, object] = values.unset,
+        parameter65_value: Union[str, object] = values.unset,
+        parameter66_name: Union[str, object] = values.unset,
+        parameter66_value: Union[str, object] = values.unset,
+        parameter67_name: Union[str, object] = values.unset,
+        parameter67_value: Union[str, object] = values.unset,
+        parameter68_name: Union[str, object] = values.unset,
+        parameter68_value: Union[str, object] = values.unset,
+        parameter69_name: Union[str, object] = values.unset,
+        parameter69_value: Union[str, object] = values.unset,
+        parameter70_name: Union[str, object] = values.unset,
+        parameter70_value: Union[str, object] = values.unset,
+        parameter71_name: Union[str, object] = values.unset,
+        parameter71_value: Union[str, object] = values.unset,
+        parameter72_name: Union[str, object] = values.unset,
+        parameter72_value: Union[str, object] = values.unset,
+        parameter73_name: Union[str, object] = values.unset,
+        parameter73_value: Union[str, object] = values.unset,
+        parameter74_name: Union[str, object] = values.unset,
+        parameter74_value: Union[str, object] = values.unset,
+        parameter75_name: Union[str, object] = values.unset,
+        parameter75_value: Union[str, object] = values.unset,
+        parameter76_name: Union[str, object] = values.unset,
+        parameter76_value: Union[str, object] = values.unset,
+        parameter77_name: Union[str, object] = values.unset,
+        parameter77_value: Union[str, object] = values.unset,
+        parameter78_name: Union[str, object] = values.unset,
+        parameter78_value: Union[str, object] = values.unset,
+        parameter79_name: Union[str, object] = values.unset,
+        parameter79_value: Union[str, object] = values.unset,
+        parameter80_name: Union[str, object] = values.unset,
+        parameter80_value: Union[str, object] = values.unset,
+        parameter81_name: Union[str, object] = values.unset,
+        parameter81_value: Union[str, object] = values.unset,
+        parameter82_name: Union[str, object] = values.unset,
+        parameter82_value: Union[str, object] = values.unset,
+        parameter83_name: Union[str, object] = values.unset,
+        parameter83_value: Union[str, object] = values.unset,
+        parameter84_name: Union[str, object] = values.unset,
+        parameter84_value: Union[str, object] = values.unset,
+        parameter85_name: Union[str, object] = values.unset,
+        parameter85_value: Union[str, object] = values.unset,
+        parameter86_name: Union[str, object] = values.unset,
+        parameter86_value: Union[str, object] = values.unset,
+        parameter87_name: Union[str, object] = values.unset,
+        parameter87_value: Union[str, object] = values.unset,
+        parameter88_name: Union[str, object] = values.unset,
+        parameter88_value: Union[str, object] = values.unset,
+        parameter89_name: Union[str, object] = values.unset,
+        parameter89_value: Union[str, object] = values.unset,
+        parameter90_name: Union[str, object] = values.unset,
+        parameter90_value: Union[str, object] = values.unset,
+        parameter91_name: Union[str, object] = values.unset,
+        parameter91_value: Union[str, object] = values.unset,
+        parameter92_name: Union[str, object] = values.unset,
+        parameter92_value: Union[str, object] = values.unset,
+        parameter93_name: Union[str, object] = values.unset,
+        parameter93_value: Union[str, object] = values.unset,
+        parameter94_name: Union[str, object] = values.unset,
+        parameter94_value: Union[str, object] = values.unset,
+        parameter95_name: Union[str, object] = values.unset,
+        parameter95_value: Union[str, object] = values.unset,
+        parameter96_name: Union[str, object] = values.unset,
+        parameter96_value: Union[str, object] = values.unset,
+        parameter97_name: Union[str, object] = values.unset,
+        parameter97_value: Union[str, object] = values.unset,
+        parameter98_name: Union[str, object] = values.unset,
+        parameter98_value: Union[str, object] = values.unset,
+        parameter99_name: Union[str, object] = values.unset,
+        parameter99_value: Union[str, object] = values.unset,
     ) -> StreamInstance:
         """
         Asynchronously create the StreamInstance
 
-        :param str url: Relative or absolute url where WebSocket connection will be established.
-        :param str name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
-        :param &quot;StreamInstance.Track&quot; track:
-        :param str status_callback: Absolute URL of the status callback.
-        :param str status_callback_method: The http method for the status_callback (one of GET, POST).
-        :param str parameter1_name: Parameter name
-        :param str parameter1_value: Parameter value
-        :param str parameter2_name: Parameter name
-        :param str parameter2_value: Parameter value
-        :param str parameter3_name: Parameter name
-        :param str parameter3_value: Parameter value
-        :param str parameter4_name: Parameter name
-        :param str parameter4_value: Parameter value
-        :param str parameter5_name: Parameter name
-        :param str parameter5_value: Parameter value
-        :param str parameter6_name: Parameter name
-        :param str parameter6_value: Parameter value
-        :param str parameter7_name: Parameter name
-        :param str parameter7_value: Parameter value
-        :param str parameter8_name: Parameter name
-        :param str parameter8_value: Parameter value
-        :param str parameter9_name: Parameter name
-        :param str parameter9_value: Parameter value
-        :param str parameter10_name: Parameter name
-        :param str parameter10_value: Parameter value
-        :param str parameter11_name: Parameter name
-        :param str parameter11_value: Parameter value
-        :param str parameter12_name: Parameter name
-        :param str parameter12_value: Parameter value
-        :param str parameter13_name: Parameter name
-        :param str parameter13_value: Parameter value
-        :param str parameter14_name: Parameter name
-        :param str parameter14_value: Parameter value
-        :param str parameter15_name: Parameter name
-        :param str parameter15_value: Parameter value
-        :param str parameter16_name: Parameter name
-        :param str parameter16_value: Parameter value
-        :param str parameter17_name: Parameter name
-        :param str parameter17_value: Parameter value
-        :param str parameter18_name: Parameter name
-        :param str parameter18_value: Parameter value
-        :param str parameter19_name: Parameter name
-        :param str parameter19_value: Parameter value
-        :param str parameter20_name: Parameter name
-        :param str parameter20_value: Parameter value
-        :param str parameter21_name: Parameter name
-        :param str parameter21_value: Parameter value
-        :param str parameter22_name: Parameter name
-        :param str parameter22_value: Parameter value
-        :param str parameter23_name: Parameter name
-        :param str parameter23_value: Parameter value
-        :param str parameter24_name: Parameter name
-        :param str parameter24_value: Parameter value
-        :param str parameter25_name: Parameter name
-        :param str parameter25_value: Parameter value
-        :param str parameter26_name: Parameter name
-        :param str parameter26_value: Parameter value
-        :param str parameter27_name: Parameter name
-        :param str parameter27_value: Parameter value
-        :param str parameter28_name: Parameter name
-        :param str parameter28_value: Parameter value
-        :param str parameter29_name: Parameter name
-        :param str parameter29_value: Parameter value
-        :param str parameter30_name: Parameter name
-        :param str parameter30_value: Parameter value
-        :param str parameter31_name: Parameter name
-        :param str parameter31_value: Parameter value
-        :param str parameter32_name: Parameter name
-        :param str parameter32_value: Parameter value
-        :param str parameter33_name: Parameter name
-        :param str parameter33_value: Parameter value
-        :param str parameter34_name: Parameter name
-        :param str parameter34_value: Parameter value
-        :param str parameter35_name: Parameter name
-        :param str parameter35_value: Parameter value
-        :param str parameter36_name: Parameter name
-        :param str parameter36_value: Parameter value
-        :param str parameter37_name: Parameter name
-        :param str parameter37_value: Parameter value
-        :param str parameter38_name: Parameter name
-        :param str parameter38_value: Parameter value
-        :param str parameter39_name: Parameter name
-        :param str parameter39_value: Parameter value
-        :param str parameter40_name: Parameter name
-        :param str parameter40_value: Parameter value
-        :param str parameter41_name: Parameter name
-        :param str parameter41_value: Parameter value
-        :param str parameter42_name: Parameter name
-        :param str parameter42_value: Parameter value
-        :param str parameter43_name: Parameter name
-        :param str parameter43_value: Parameter value
-        :param str parameter44_name: Parameter name
-        :param str parameter44_value: Parameter value
-        :param str parameter45_name: Parameter name
-        :param str parameter45_value: Parameter value
-        :param str parameter46_name: Parameter name
-        :param str parameter46_value: Parameter value
-        :param str parameter47_name: Parameter name
-        :param str parameter47_value: Parameter value
-        :param str parameter48_name: Parameter name
-        :param str parameter48_value: Parameter value
-        :param str parameter49_name: Parameter name
-        :param str parameter49_value: Parameter value
-        :param str parameter50_name: Parameter name
-        :param str parameter50_value: Parameter value
-        :param str parameter51_name: Parameter name
-        :param str parameter51_value: Parameter value
-        :param str parameter52_name: Parameter name
-        :param str parameter52_value: Parameter value
-        :param str parameter53_name: Parameter name
-        :param str parameter53_value: Parameter value
-        :param str parameter54_name: Parameter name
-        :param str parameter54_value: Parameter value
-        :param str parameter55_name: Parameter name
-        :param str parameter55_value: Parameter value
-        :param str parameter56_name: Parameter name
-        :param str parameter56_value: Parameter value
-        :param str parameter57_name: Parameter name
-        :param str parameter57_value: Parameter value
-        :param str parameter58_name: Parameter name
-        :param str parameter58_value: Parameter value
-        :param str parameter59_name: Parameter name
-        :param str parameter59_value: Parameter value
-        :param str parameter60_name: Parameter name
-        :param str parameter60_value: Parameter value
-        :param str parameter61_name: Parameter name
-        :param str parameter61_value: Parameter value
-        :param str parameter62_name: Parameter name
-        :param str parameter62_value: Parameter value
-        :param str parameter63_name: Parameter name
-        :param str parameter63_value: Parameter value
-        :param str parameter64_name: Parameter name
-        :param str parameter64_value: Parameter value
-        :param str parameter65_name: Parameter name
-        :param str parameter65_value: Parameter value
-        :param str parameter66_name: Parameter name
-        :param str parameter66_value: Parameter value
-        :param str parameter67_name: Parameter name
-        :param str parameter67_value: Parameter value
-        :param str parameter68_name: Parameter name
-        :param str parameter68_value: Parameter value
-        :param str parameter69_name: Parameter name
-        :param str parameter69_value: Parameter value
-        :param str parameter70_name: Parameter name
-        :param str parameter70_value: Parameter value
-        :param str parameter71_name: Parameter name
-        :param str parameter71_value: Parameter value
-        :param str parameter72_name: Parameter name
-        :param str parameter72_value: Parameter value
-        :param str parameter73_name: Parameter name
-        :param str parameter73_value: Parameter value
-        :param str parameter74_name: Parameter name
-        :param str parameter74_value: Parameter value
-        :param str parameter75_name: Parameter name
-        :param str parameter75_value: Parameter value
-        :param str parameter76_name: Parameter name
-        :param str parameter76_value: Parameter value
-        :param str parameter77_name: Parameter name
-        :param str parameter77_value: Parameter value
-        :param str parameter78_name: Parameter name
-        :param str parameter78_value: Parameter value
-        :param str parameter79_name: Parameter name
-        :param str parameter79_value: Parameter value
-        :param str parameter80_name: Parameter name
-        :param str parameter80_value: Parameter value
-        :param str parameter81_name: Parameter name
-        :param str parameter81_value: Parameter value
-        :param str parameter82_name: Parameter name
-        :param str parameter82_value: Parameter value
-        :param str parameter83_name: Parameter name
-        :param str parameter83_value: Parameter value
-        :param str parameter84_name: Parameter name
-        :param str parameter84_value: Parameter value
-        :param str parameter85_name: Parameter name
-        :param str parameter85_value: Parameter value
-        :param str parameter86_name: Parameter name
-        :param str parameter86_value: Parameter value
-        :param str parameter87_name: Parameter name
-        :param str parameter87_value: Parameter value
-        :param str parameter88_name: Parameter name
-        :param str parameter88_value: Parameter value
-        :param str parameter89_name: Parameter name
-        :param str parameter89_value: Parameter value
-        :param str parameter90_name: Parameter name
-        :param str parameter90_value: Parameter value
-        :param str parameter91_name: Parameter name
-        :param str parameter91_value: Parameter value
-        :param str parameter92_name: Parameter name
-        :param str parameter92_value: Parameter value
-        :param str parameter93_name: Parameter name
-        :param str parameter93_value: Parameter value
-        :param str parameter94_name: Parameter name
-        :param str parameter94_value: Parameter value
-        :param str parameter95_name: Parameter name
-        :param str parameter95_value: Parameter value
-        :param str parameter96_name: Parameter name
-        :param str parameter96_value: Parameter value
-        :param str parameter97_name: Parameter name
-        :param str parameter97_value: Parameter value
-        :param str parameter98_name: Parameter name
-        :param str parameter98_value: Parameter value
-        :param str parameter99_name: Parameter name
-        :param str parameter99_value: Parameter value
+        :param url: Relative or absolute url where WebSocket connection will be established.
+        :param name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+        :param track:
+        :param status_callback: Absolute URL of the status callback.
+        :param status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param parameter1_name: Parameter name
+        :param parameter1_value: Parameter value
+        :param parameter2_name: Parameter name
+        :param parameter2_value: Parameter value
+        :param parameter3_name: Parameter name
+        :param parameter3_value: Parameter value
+        :param parameter4_name: Parameter name
+        :param parameter4_value: Parameter value
+        :param parameter5_name: Parameter name
+        :param parameter5_value: Parameter value
+        :param parameter6_name: Parameter name
+        :param parameter6_value: Parameter value
+        :param parameter7_name: Parameter name
+        :param parameter7_value: Parameter value
+        :param parameter8_name: Parameter name
+        :param parameter8_value: Parameter value
+        :param parameter9_name: Parameter name
+        :param parameter9_value: Parameter value
+        :param parameter10_name: Parameter name
+        :param parameter10_value: Parameter value
+        :param parameter11_name: Parameter name
+        :param parameter11_value: Parameter value
+        :param parameter12_name: Parameter name
+        :param parameter12_value: Parameter value
+        :param parameter13_name: Parameter name
+        :param parameter13_value: Parameter value
+        :param parameter14_name: Parameter name
+        :param parameter14_value: Parameter value
+        :param parameter15_name: Parameter name
+        :param parameter15_value: Parameter value
+        :param parameter16_name: Parameter name
+        :param parameter16_value: Parameter value
+        :param parameter17_name: Parameter name
+        :param parameter17_value: Parameter value
+        :param parameter18_name: Parameter name
+        :param parameter18_value: Parameter value
+        :param parameter19_name: Parameter name
+        :param parameter19_value: Parameter value
+        :param parameter20_name: Parameter name
+        :param parameter20_value: Parameter value
+        :param parameter21_name: Parameter name
+        :param parameter21_value: Parameter value
+        :param parameter22_name: Parameter name
+        :param parameter22_value: Parameter value
+        :param parameter23_name: Parameter name
+        :param parameter23_value: Parameter value
+        :param parameter24_name: Parameter name
+        :param parameter24_value: Parameter value
+        :param parameter25_name: Parameter name
+        :param parameter25_value: Parameter value
+        :param parameter26_name: Parameter name
+        :param parameter26_value: Parameter value
+        :param parameter27_name: Parameter name
+        :param parameter27_value: Parameter value
+        :param parameter28_name: Parameter name
+        :param parameter28_value: Parameter value
+        :param parameter29_name: Parameter name
+        :param parameter29_value: Parameter value
+        :param parameter30_name: Parameter name
+        :param parameter30_value: Parameter value
+        :param parameter31_name: Parameter name
+        :param parameter31_value: Parameter value
+        :param parameter32_name: Parameter name
+        :param parameter32_value: Parameter value
+        :param parameter33_name: Parameter name
+        :param parameter33_value: Parameter value
+        :param parameter34_name: Parameter name
+        :param parameter34_value: Parameter value
+        :param parameter35_name: Parameter name
+        :param parameter35_value: Parameter value
+        :param parameter36_name: Parameter name
+        :param parameter36_value: Parameter value
+        :param parameter37_name: Parameter name
+        :param parameter37_value: Parameter value
+        :param parameter38_name: Parameter name
+        :param parameter38_value: Parameter value
+        :param parameter39_name: Parameter name
+        :param parameter39_value: Parameter value
+        :param parameter40_name: Parameter name
+        :param parameter40_value: Parameter value
+        :param parameter41_name: Parameter name
+        :param parameter41_value: Parameter value
+        :param parameter42_name: Parameter name
+        :param parameter42_value: Parameter value
+        :param parameter43_name: Parameter name
+        :param parameter43_value: Parameter value
+        :param parameter44_name: Parameter name
+        :param parameter44_value: Parameter value
+        :param parameter45_name: Parameter name
+        :param parameter45_value: Parameter value
+        :param parameter46_name: Parameter name
+        :param parameter46_value: Parameter value
+        :param parameter47_name: Parameter name
+        :param parameter47_value: Parameter value
+        :param parameter48_name: Parameter name
+        :param parameter48_value: Parameter value
+        :param parameter49_name: Parameter name
+        :param parameter49_value: Parameter value
+        :param parameter50_name: Parameter name
+        :param parameter50_value: Parameter value
+        :param parameter51_name: Parameter name
+        :param parameter51_value: Parameter value
+        :param parameter52_name: Parameter name
+        :param parameter52_value: Parameter value
+        :param parameter53_name: Parameter name
+        :param parameter53_value: Parameter value
+        :param parameter54_name: Parameter name
+        :param parameter54_value: Parameter value
+        :param parameter55_name: Parameter name
+        :param parameter55_value: Parameter value
+        :param parameter56_name: Parameter name
+        :param parameter56_value: Parameter value
+        :param parameter57_name: Parameter name
+        :param parameter57_value: Parameter value
+        :param parameter58_name: Parameter name
+        :param parameter58_value: Parameter value
+        :param parameter59_name: Parameter name
+        :param parameter59_value: Parameter value
+        :param parameter60_name: Parameter name
+        :param parameter60_value: Parameter value
+        :param parameter61_name: Parameter name
+        :param parameter61_value: Parameter value
+        :param parameter62_name: Parameter name
+        :param parameter62_value: Parameter value
+        :param parameter63_name: Parameter name
+        :param parameter63_value: Parameter value
+        :param parameter64_name: Parameter name
+        :param parameter64_value: Parameter value
+        :param parameter65_name: Parameter name
+        :param parameter65_value: Parameter value
+        :param parameter66_name: Parameter name
+        :param parameter66_value: Parameter value
+        :param parameter67_name: Parameter name
+        :param parameter67_value: Parameter value
+        :param parameter68_name: Parameter name
+        :param parameter68_value: Parameter value
+        :param parameter69_name: Parameter name
+        :param parameter69_value: Parameter value
+        :param parameter70_name: Parameter name
+        :param parameter70_value: Parameter value
+        :param parameter71_name: Parameter name
+        :param parameter71_value: Parameter value
+        :param parameter72_name: Parameter name
+        :param parameter72_value: Parameter value
+        :param parameter73_name: Parameter name
+        :param parameter73_value: Parameter value
+        :param parameter74_name: Parameter name
+        :param parameter74_value: Parameter value
+        :param parameter75_name: Parameter name
+        :param parameter75_value: Parameter value
+        :param parameter76_name: Parameter name
+        :param parameter76_value: Parameter value
+        :param parameter77_name: Parameter name
+        :param parameter77_value: Parameter value
+        :param parameter78_name: Parameter name
+        :param parameter78_value: Parameter value
+        :param parameter79_name: Parameter name
+        :param parameter79_value: Parameter value
+        :param parameter80_name: Parameter name
+        :param parameter80_value: Parameter value
+        :param parameter81_name: Parameter name
+        :param parameter81_value: Parameter value
+        :param parameter82_name: Parameter name
+        :param parameter82_value: Parameter value
+        :param parameter83_name: Parameter name
+        :param parameter83_value: Parameter value
+        :param parameter84_name: Parameter name
+        :param parameter84_value: Parameter value
+        :param parameter85_name: Parameter name
+        :param parameter85_value: Parameter value
+        :param parameter86_name: Parameter name
+        :param parameter86_value: Parameter value
+        :param parameter87_name: Parameter name
+        :param parameter87_value: Parameter value
+        :param parameter88_name: Parameter name
+        :param parameter88_value: Parameter value
+        :param parameter89_name: Parameter name
+        :param parameter89_value: Parameter value
+        :param parameter90_name: Parameter name
+        :param parameter90_value: Parameter value
+        :param parameter91_name: Parameter name
+        :param parameter91_value: Parameter value
+        :param parameter92_name: Parameter name
+        :param parameter92_value: Parameter value
+        :param parameter93_name: Parameter name
+        :param parameter93_value: Parameter value
+        :param parameter94_name: Parameter name
+        :param parameter94_value: Parameter value
+        :param parameter95_name: Parameter name
+        :param parameter95_value: Parameter value
+        :param parameter96_name: Parameter name
+        :param parameter96_value: Parameter value
+        :param parameter97_name: Parameter name
+        :param parameter97_value: Parameter value
+        :param parameter98_name: Parameter name
+        :param parameter98_value: Parameter value
+        :param parameter99_name: Parameter name
+        :param parameter99_value: Parameter value
 
         :returns: The created StreamInstance
         """
@@ -1498,7 +1502,7 @@ class StreamList(ListResource):
             call_sid=self._solution["call_sid"],
         )
 
-    def get(self, sid) -> StreamContext:
+    def get(self, sid: str) -> StreamContext:
         """
         Constructs a StreamContext
 
@@ -1511,7 +1515,7 @@ class StreamList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> StreamContext:
+    def __call__(self, sid: str) -> StreamContext:
         """
         Constructs a StreamContext
 

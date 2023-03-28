@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -261,11 +261,11 @@ class MessageInteractionContext(InstanceContext):
 
 
 class MessageInteractionPage(Page):
-    def get_instance(self, payload) -> MessageInteractionInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> MessageInteractionInstance:
         """
         Build an instance of MessageInteractionInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return MessageInteractionInstance(
             self._version,
@@ -310,13 +310,15 @@ class MessageInteractionList(ListResource):
         )
 
     def create(
-        self, body=values.unset, media_url=values.unset
+        self,
+        body: Union[str, object] = values.unset,
+        media_url: Union[List[str], object] = values.unset,
     ) -> MessageInteractionInstance:
         """
         Create the MessageInteractionInstance
 
-        :param str body: The message to send to the participant
-        :param List[str] media_url: Reserved. Not currently supported.
+        :param body: The message to send to the participant
+        :param media_url: Reserved. Not currently supported.
 
         :returns: The created MessageInteractionInstance
         """
@@ -342,13 +344,15 @@ class MessageInteractionList(ListResource):
         )
 
     async def create_async(
-        self, body=values.unset, media_url=values.unset
+        self,
+        body: Union[str, object] = values.unset,
+        media_url: Union[List[str], object] = values.unset,
     ) -> MessageInteractionInstance:
         """
         Asynchronously create the MessageInteractionInstance
 
-        :param str body: The message to send to the participant
-        :param List[str] media_url: Reserved. Not currently supported.
+        :param body: The message to send to the participant
+        :param media_url: Reserved. Not currently supported.
 
         :returns: The created MessageInteractionInstance
         """
@@ -373,19 +377,23 @@ class MessageInteractionList(ListResource):
             participant_sid=self._solution["participant_sid"],
         )
 
-    def stream(self, limit=None, page_size=None) -> List[MessageInteractionInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[MessageInteractionInstance]:
         """
         Streams MessageInteractionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -395,7 +403,9 @@ class MessageInteractionList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MessageInteractionInstance]:
         """
         Asynchronously streams MessageInteractionInstance records from the API as a generator stream.
@@ -403,12 +413,12 @@ class MessageInteractionList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -417,18 +427,22 @@ class MessageInteractionList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[MessageInteractionInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[MessageInteractionInstance]:
         """
         Lists MessageInteractionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -440,19 +454,21 @@ class MessageInteractionList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MessageInteractionInstance]:
         """
         Asynchronously lists MessageInteractionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -464,15 +480,18 @@ class MessageInteractionList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MessageInteractionPage:
         """
         Retrieve a single page of MessageInteractionInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInteractionInstance
         """
@@ -488,15 +507,18 @@ class MessageInteractionList(ListResource):
         return MessageInteractionPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MessageInteractionPage:
         """
         Asynchronously retrieve a single page of MessageInteractionInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInteractionInstance
         """
@@ -513,31 +535,31 @@ class MessageInteractionList(ListResource):
         )
         return MessageInteractionPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> MessageInteractionPage:
+    def get_page(self, target_url: str) -> MessageInteractionPage:
         """
         Retrieve a specific page of MessageInteractionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInteractionInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MessageInteractionPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> MessageInteractionPage:
+    async def get_page_async(self, target_url: str) -> MessageInteractionPage:
         """
         Asynchronously retrieve a specific page of MessageInteractionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInteractionInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return MessageInteractionPage(self._version, response, self._solution)
 
-    def get(self, sid) -> MessageInteractionContext:
+    def get(self, sid: str) -> MessageInteractionContext:
         """
         Constructs a MessageInteractionContext
 
@@ -551,7 +573,7 @@ class MessageInteractionList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> MessageInteractionContext:
+    def __call__(self, sid: str) -> MessageInteractionContext:
         """
         Constructs a MessageInteractionContext
 

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -78,11 +78,11 @@ class MetricInstance(InstanceResource):
 
 
 class MetricPage(Page):
-    def get_instance(self, payload) -> MetricInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> MetricInstance:
         """
         Build an instance of MetricInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return MetricInstance(
             self._version, payload, call_sid=self._solution["call_sid"]
@@ -115,7 +115,11 @@ class MetricList(ListResource):
         self._uri = "/Voice/{call_sid}/Metrics".format(**self._solution)
 
     def stream(
-        self, edge=values.unset, direction=values.unset, limit=None, page_size=None
+        self,
+        edge: Union["MetricInstance.TwilioEdge", object] = values.unset,
+        direction: Union["MetricInstance.StreamDirection", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MetricInstance]:
         """
         Streams MetricInstance records from the API as a generator stream.
@@ -125,12 +129,12 @@ class MetricList(ListResource):
 
         :param &quot;MetricInstance.TwilioEdge&quot; edge:
         :param &quot;MetricInstance.StreamDirection&quot; direction:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -140,7 +144,11 @@ class MetricList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, edge=values.unset, direction=values.unset, limit=None, page_size=None
+        self,
+        edge: Union["MetricInstance.TwilioEdge", object] = values.unset,
+        direction: Union["MetricInstance.StreamDirection", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MetricInstance]:
         """
         Asynchronously streams MetricInstance records from the API as a generator stream.
@@ -150,12 +158,12 @@ class MetricList(ListResource):
 
         :param &quot;MetricInstance.TwilioEdge&quot; edge:
         :param &quot;MetricInstance.StreamDirection&quot; direction:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -167,7 +175,11 @@ class MetricList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, edge=values.unset, direction=values.unset, limit=None, page_size=None
+        self,
+        edge: Union["MetricInstance.TwilioEdge", object] = values.unset,
+        direction: Union["MetricInstance.StreamDirection", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MetricInstance]:
         """
         Lists MetricInstance records from the API as a list.
@@ -176,12 +188,12 @@ class MetricList(ListResource):
 
         :param &quot;MetricInstance.TwilioEdge&quot; edge:
         :param &quot;MetricInstance.StreamDirection&quot; direction:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -195,7 +207,11 @@ class MetricList(ListResource):
         )
 
     async def list_async(
-        self, edge=values.unset, direction=values.unset, limit=None, page_size=None
+        self,
+        edge: Union["MetricInstance.TwilioEdge", object] = values.unset,
+        direction: Union["MetricInstance.StreamDirection", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[MetricInstance]:
         """
         Asynchronously lists MetricInstance records from the API as a list.
@@ -204,12 +220,12 @@ class MetricList(ListResource):
 
         :param &quot;MetricInstance.TwilioEdge&quot; edge:
         :param &quot;MetricInstance.StreamDirection&quot; direction:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -224,21 +240,21 @@ class MetricList(ListResource):
 
     def page(
         self,
-        edge=values.unset,
-        direction=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        edge: Union["MetricInstance.TwilioEdge", object] = values.unset,
+        direction: Union["MetricInstance.StreamDirection", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MetricPage:
         """
         Retrieve a single page of MetricInstance records from the API.
         Request is executed immediately
 
-        :param &quot;MetricInstance.TwilioEdge&quot; edge:
-        :param &quot;MetricInstance.StreamDirection&quot; direction:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param edge:
+        :param direction:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MetricInstance
         """
@@ -257,21 +273,21 @@ class MetricList(ListResource):
 
     async def page_async(
         self,
-        edge=values.unset,
-        direction=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        edge: Union["MetricInstance.TwilioEdge", object] = values.unset,
+        direction: Union["MetricInstance.StreamDirection", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MetricPage:
         """
         Asynchronously retrieve a single page of MetricInstance records from the API.
         Request is executed immediately
 
-        :param &quot;MetricInstance.TwilioEdge&quot; edge:
-        :param &quot;MetricInstance.StreamDirection&quot; direction:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param edge:
+        :param direction:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MetricInstance
         """
@@ -290,24 +306,24 @@ class MetricList(ListResource):
         )
         return MetricPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> MetricPage:
+    def get_page(self, target_url: str) -> MetricPage:
         """
         Retrieve a specific page of MetricInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MetricInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MetricPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> MetricPage:
+    async def get_page_async(self, target_url: str) -> MetricPage:
         """
         Asynchronously retrieve a specific page of MetricInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MetricInstance
         """

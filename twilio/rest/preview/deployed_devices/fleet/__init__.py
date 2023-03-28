@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -119,13 +119,15 @@ class FleetInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, friendly_name=values.unset, default_deployment_sid=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_deployment_sid: Union[str, object] = values.unset,
     ) -> "FleetInstance":
         """
         Update the FleetInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
-        :param str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
+        :param friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :param default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
 
         :returns: The updated FleetInstance
         """
@@ -135,13 +137,15 @@ class FleetInstance(InstanceResource):
         )
 
     async def update_async(
-        self, friendly_name=values.unset, default_deployment_sid=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_deployment_sid: Union[str, object] = values.unset,
     ) -> "FleetInstance":
         """
         Asynchronous coroutine to update the FleetInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
-        :param str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
+        :param friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :param default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
 
         :returns: The updated FleetInstance
         """
@@ -272,13 +276,15 @@ class FleetContext(InstanceContext):
         )
 
     def update(
-        self, friendly_name=values.unset, default_deployment_sid=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_deployment_sid: Union[str, object] = values.unset,
     ) -> FleetInstance:
         """
         Update the FleetInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
-        :param str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
+        :param friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :param default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
 
         :returns: The updated FleetInstance
         """
@@ -298,13 +304,15 @@ class FleetContext(InstanceContext):
         return FleetInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
-        self, friendly_name=values.unset, default_deployment_sid=values.unset
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_deployment_sid: Union[str, object] = values.unset,
     ) -> FleetInstance:
         """
         Asynchronous coroutine to update the FleetInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
-        :param str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
+        :param friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :param default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
 
         :returns: The updated FleetInstance
         """
@@ -382,11 +390,11 @@ class FleetContext(InstanceContext):
 
 
 class FleetPage(Page):
-    def get_instance(self, payload) -> FleetInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> FleetInstance:
         """
         Build an instance of FleetInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return FleetInstance(self._version, payload)
 
@@ -411,11 +419,11 @@ class FleetList(ListResource):
 
         self._uri = "/Fleets"
 
-    def create(self, friendly_name=values.unset) -> FleetInstance:
+    def create(self, friendly_name: Union[str, object] = values.unset) -> FleetInstance:
         """
         Create the FleetInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :param friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
 
         :returns: The created FleetInstance
         """
@@ -433,11 +441,13 @@ class FleetList(ListResource):
 
         return FleetInstance(self._version, payload)
 
-    async def create_async(self, friendly_name=values.unset) -> FleetInstance:
+    async def create_async(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> FleetInstance:
         """
         Asynchronously create the FleetInstance
 
-        :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :param friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
 
         :returns: The created FleetInstance
         """
@@ -455,19 +465,23 @@ class FleetList(ListResource):
 
         return FleetInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[FleetInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FleetInstance]:
         """
         Streams FleetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -476,19 +490,23 @@ class FleetList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[FleetInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FleetInstance]:
         """
         Asynchronously streams FleetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -497,18 +515,22 @@ class FleetList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[FleetInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FleetInstance]:
         """
         Lists FleetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -519,18 +541,22 @@ class FleetList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[FleetInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[FleetInstance]:
         """
         Asynchronously lists FleetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -542,15 +568,18 @@ class FleetList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> FleetPage:
         """
         Retrieve a single page of FleetInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FleetInstance
         """
@@ -566,15 +595,18 @@ class FleetList(ListResource):
         return FleetPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> FleetPage:
         """
         Asynchronously retrieve a single page of FleetInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of FleetInstance
         """
@@ -591,31 +623,31 @@ class FleetList(ListResource):
         )
         return FleetPage(self._version, response)
 
-    def get_page(self, target_url) -> FleetPage:
+    def get_page(self, target_url: str) -> FleetPage:
         """
         Retrieve a specific page of FleetInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FleetInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return FleetPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> FleetPage:
+    async def get_page_async(self, target_url: str) -> FleetPage:
         """
         Asynchronously retrieve a specific page of FleetInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of FleetInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return FleetPage(self._version, response)
 
-    def get(self, sid) -> FleetContext:
+    def get(self, sid: str) -> FleetContext:
         """
         Constructs a FleetContext
 
@@ -623,7 +655,7 @@ class FleetList(ListResource):
         """
         return FleetContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> FleetContext:
+    def __call__(self, sid: str) -> FleetContext:
         """
         Constructs a FleetContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -253,11 +253,11 @@ class CompositionContext(InstanceContext):
 
 
 class CompositionPage(Page):
-    def get_instance(self, payload) -> CompositionInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CompositionInstance:
         """
         Build an instance of CompositionInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CompositionInstance(self._version, payload)
 
@@ -284,28 +284,28 @@ class CompositionList(ListResource):
 
     def create(
         self,
-        room_sid,
-        video_layout=values.unset,
-        audio_sources=values.unset,
-        audio_sources_excluded=values.unset,
-        resolution=values.unset,
-        format=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        trim=values.unset,
+        room_sid: str,
+        video_layout: Union[object, object] = values.unset,
+        audio_sources: Union[List[str], object] = values.unset,
+        audio_sources_excluded: Union[List[str], object] = values.unset,
+        resolution: Union[str, object] = values.unset,
+        format: Union["CompositionInstance.Format", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        trim: Union[bool, object] = values.unset,
     ) -> CompositionInstance:
         """
         Create the CompositionInstance
 
-        :param str room_sid: The SID of the Group Room with the media tracks to be used as composition sources.
-        :param object video_layout: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-        :param List[str] audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-        :param List[str] audio_sources_excluded: An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
-        :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param &quot;CompositionInstance.Format&quot; format:
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param bool trim: Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :param room_sid: The SID of the Group Room with the media tracks to be used as composition sources.
+        :param video_layout: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+        :param audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+        :param audio_sources_excluded: An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+        :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :param format:
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+        :param trim: Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 
         :returns: The created CompositionInstance
         """
@@ -335,28 +335,28 @@ class CompositionList(ListResource):
 
     async def create_async(
         self,
-        room_sid,
-        video_layout=values.unset,
-        audio_sources=values.unset,
-        audio_sources_excluded=values.unset,
-        resolution=values.unset,
-        format=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        trim=values.unset,
+        room_sid: str,
+        video_layout: Union[object, object] = values.unset,
+        audio_sources: Union[List[str], object] = values.unset,
+        audio_sources_excluded: Union[List[str], object] = values.unset,
+        resolution: Union[str, object] = values.unset,
+        format: Union["CompositionInstance.Format", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        trim: Union[bool, object] = values.unset,
     ) -> CompositionInstance:
         """
         Asynchronously create the CompositionInstance
 
-        :param str room_sid: The SID of the Group Room with the media tracks to be used as composition sources.
-        :param object video_layout: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-        :param List[str] audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-        :param List[str] audio_sources_excluded: An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
-        :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param &quot;CompositionInstance.Format&quot; format:
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param bool trim: Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :param room_sid: The SID of the Group Room with the media tracks to be used as composition sources.
+        :param video_layout: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+        :param audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+        :param audio_sources_excluded: An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+        :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :param format:
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+        :param trim: Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 
         :returns: The created CompositionInstance
         """
@@ -386,12 +386,12 @@ class CompositionList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        room_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["CompositionInstance.Status", object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        room_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CompositionInstance]:
         """
         Streams CompositionInstance records from the API as a generator stream.
@@ -403,12 +403,12 @@ class CompositionList(ListResource):
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -425,12 +425,12 @@ class CompositionList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        room_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["CompositionInstance.Status", object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        room_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CompositionInstance]:
         """
         Asynchronously streams CompositionInstance records from the API as a generator stream.
@@ -442,12 +442,12 @@ class CompositionList(ListResource):
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -464,12 +464,12 @@ class CompositionList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        room_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["CompositionInstance.Status", object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        room_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CompositionInstance]:
         """
         Lists CompositionInstance records from the API as a list.
@@ -480,12 +480,12 @@ class CompositionList(ListResource):
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -502,12 +502,12 @@ class CompositionList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        room_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["CompositionInstance.Status", object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        room_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CompositionInstance]:
         """
         Asynchronously lists CompositionInstance records from the API as a list.
@@ -518,12 +518,12 @@ class CompositionList(ListResource):
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
         :param str room_sid: Read only Composition resources with this Room SID.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -540,25 +540,25 @@ class CompositionList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        room_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["CompositionInstance.Status", object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        room_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CompositionPage:
         """
         Retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
 
-        :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
-        :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
-        :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
-        :param str room_sid: Read only Composition resources with this Room SID.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
+        :param date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
+        :param date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
+        :param room_sid: Read only Composition resources with this Room SID.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CompositionInstance
         """
@@ -579,25 +579,25 @@ class CompositionList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        room_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["CompositionInstance.Status", object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        room_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CompositionPage:
         """
         Asynchronously retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
 
-        :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
-        :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
-        :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
-        :param str room_sid: Read only Composition resources with this Room SID.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
+        :param date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
+        :param date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
+        :param room_sid: Read only Composition resources with this Room SID.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CompositionInstance
         """
@@ -618,31 +618,31 @@ class CompositionList(ListResource):
         )
         return CompositionPage(self._version, response)
 
-    def get_page(self, target_url) -> CompositionPage:
+    def get_page(self, target_url: str) -> CompositionPage:
         """
         Retrieve a specific page of CompositionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CompositionInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CompositionPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> CompositionPage:
+    async def get_page_async(self, target_url: str) -> CompositionPage:
         """
         Asynchronously retrieve a specific page of CompositionInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CompositionInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CompositionPage(self._version, response)
 
-    def get(self, sid) -> CompositionContext:
+    def get(self, sid: str) -> CompositionContext:
         """
         Constructs a CompositionContext
 
@@ -650,7 +650,7 @@ class CompositionList(ListResource):
         """
         return CompositionContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> CompositionContext:
+    def __call__(self, sid: str) -> CompositionContext:
         """
         Constructs a CompositionContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -117,11 +117,13 @@ class ParticipantInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, status=values.unset) -> "ParticipantInstance":
+    def update(
+        self, status: Union["ParticipantInstance.Status", object] = values.unset
+    ) -> "ParticipantInstance":
         """
         Update the ParticipantInstance
 
-        :param "ParticipantInstance.Status" status:
+        :param status:
 
         :returns: The updated ParticipantInstance
         """
@@ -129,11 +131,13 @@ class ParticipantInstance(InstanceResource):
             status=status,
         )
 
-    async def update_async(self, status=values.unset) -> "ParticipantInstance":
+    async def update_async(
+        self, status: Union["ParticipantInstance.Status", object] = values.unset
+    ) -> "ParticipantInstance":
         """
         Asynchronous coroutine to update the ParticipantInstance
 
-        :param "ParticipantInstance.Status" status:
+        :param status:
 
         :returns: The updated ParticipantInstance
         """
@@ -242,11 +246,13 @@ class ParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status=values.unset) -> ParticipantInstance:
+    def update(
+        self, status: Union["ParticipantInstance.Status", object] = values.unset
+    ) -> ParticipantInstance:
         """
         Update the ParticipantInstance
 
-        :param "ParticipantInstance.Status" status:
+        :param status:
 
         :returns: The updated ParticipantInstance
         """
@@ -269,11 +275,13 @@ class ParticipantContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, status=values.unset) -> ParticipantInstance:
+    async def update_async(
+        self, status: Union["ParticipantInstance.Status", object] = values.unset
+    ) -> ParticipantInstance:
         """
         Asynchronous coroutine to update the ParticipantInstance
 
-        :param "ParticipantInstance.Status" status:
+        :param status:
 
         :returns: The updated ParticipantInstance
         """
@@ -359,11 +367,11 @@ class ParticipantContext(InstanceContext):
 
 
 class ParticipantPage(Page):
-    def get_instance(self, payload) -> ParticipantInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ParticipantInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
@@ -397,12 +405,12 @@ class ParticipantList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        identity=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["ParticipantInstance.Status", object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
         """
         Streams ParticipantInstance records from the API as a generator stream.
@@ -414,12 +422,12 @@ class ParticipantList(ListResource):
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -436,12 +444,12 @@ class ParticipantList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        identity=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["ParticipantInstance.Status", object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
         """
         Asynchronously streams ParticipantInstance records from the API as a generator stream.
@@ -453,12 +461,12 @@ class ParticipantList(ListResource):
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -475,12 +483,12 @@ class ParticipantList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        identity=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["ParticipantInstance.Status", object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
         """
         Lists ParticipantInstance records from the API as a list.
@@ -491,12 +499,12 @@ class ParticipantList(ListResource):
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -513,12 +521,12 @@ class ParticipantList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        identity=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["ParticipantInstance.Status", object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
         """
         Asynchronously lists ParticipantInstance records from the API as a list.
@@ -529,12 +537,12 @@ class ParticipantList(ListResource):
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -551,25 +559,25 @@ class ParticipantList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        identity=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["ParticipantInstance.Status", object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ParticipantPage:
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
-        :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
-        :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
+        :param date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+        :param date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
         """
@@ -590,25 +598,25 @@ class ParticipantList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        identity=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["ParticipantInstance.Status", object] = values.unset,
+        identity: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ParticipantPage:
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
-        :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
-        :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
+        :param date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+        :param date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
         """
@@ -629,31 +637,31 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ParticipantPage:
+    def get_page(self, target_url: str) -> ParticipantPage:
         """
         Retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ParticipantPage:
+    async def get_page_async(self, target_url: str) -> ParticipantPage:
         """
         Asynchronously retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
-    def get(self, sid) -> ParticipantContext:
+    def get(self, sid: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 
@@ -663,7 +671,7 @@ class ParticipantList(ListResource):
             self._version, room_sid=self._solution["room_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> ParticipantContext:
+    def __call__(self, sid: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
 

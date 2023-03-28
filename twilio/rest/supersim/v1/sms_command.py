@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -181,11 +181,11 @@ class SmsCommandContext(InstanceContext):
 
 
 class SmsCommandPage(Page):
-    def get_instance(self, payload) -> SmsCommandInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> SmsCommandInstance:
         """
         Build an instance of SmsCommandInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return SmsCommandInstance(self._version, payload)
 
@@ -211,15 +211,19 @@ class SmsCommandList(ListResource):
         self._uri = "/SmsCommands"
 
     def create(
-        self, sim, payload, callback_method=values.unset, callback_url=values.unset
+        self,
+        sim: str,
+        payload: str,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
     ) -> SmsCommandInstance:
         """
         Create the SmsCommandInstance
 
-        :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
-        :param str payload: The message body of the SMS Command.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :param str callback_url: The URL we should call using the `callback_method` after we have sent the command.
+        :param sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
+        :param payload: The message body of the SMS Command.
+        :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param callback_url: The URL we should call using the `callback_method` after we have sent the command.
 
         :returns: The created SmsCommandInstance
         """
@@ -241,15 +245,19 @@ class SmsCommandList(ListResource):
         return SmsCommandInstance(self._version, payload)
 
     async def create_async(
-        self, sim, payload, callback_method=values.unset, callback_url=values.unset
+        self,
+        sim: str,
+        payload: str,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
     ) -> SmsCommandInstance:
         """
         Asynchronously create the SmsCommandInstance
 
-        :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
-        :param str payload: The message body of the SMS Command.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :param str callback_url: The URL we should call using the `callback_method` after we have sent the command.
+        :param sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
+        :param payload: The message body of the SMS Command.
+        :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param callback_url: The URL we should call using the `callback_method` after we have sent the command.
 
         :returns: The created SmsCommandInstance
         """
@@ -272,11 +280,11 @@ class SmsCommandList(ListResource):
 
     def stream(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        status: Union["SmsCommandInstance.Status", object] = values.unset,
+        direction: Union["SmsCommandInstance.Direction", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SmsCommandInstance]:
         """
         Streams SmsCommandInstance records from the API as a generator stream.
@@ -287,12 +295,12 @@ class SmsCommandList(ListResource):
         :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
         :param &quot;SmsCommandInstance.Status&quot; status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
         :param &quot;SmsCommandInstance.Direction&quot; direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -305,11 +313,11 @@ class SmsCommandList(ListResource):
 
     async def stream_async(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        status: Union["SmsCommandInstance.Status", object] = values.unset,
+        direction: Union["SmsCommandInstance.Direction", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SmsCommandInstance]:
         """
         Asynchronously streams SmsCommandInstance records from the API as a generator stream.
@@ -320,12 +328,12 @@ class SmsCommandList(ListResource):
         :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
         :param &quot;SmsCommandInstance.Status&quot; status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
         :param &quot;SmsCommandInstance.Direction&quot; direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -338,11 +346,11 @@ class SmsCommandList(ListResource):
 
     def list(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        status: Union["SmsCommandInstance.Status", object] = values.unset,
+        direction: Union["SmsCommandInstance.Direction", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SmsCommandInstance]:
         """
         Lists SmsCommandInstance records from the API as a list.
@@ -352,12 +360,12 @@ class SmsCommandList(ListResource):
         :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
         :param &quot;SmsCommandInstance.Status&quot; status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
         :param &quot;SmsCommandInstance.Direction&quot; direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -373,11 +381,11 @@ class SmsCommandList(ListResource):
 
     async def list_async(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        limit=None,
-        page_size=None,
+        sim: Union[str, object] = values.unset,
+        status: Union["SmsCommandInstance.Status", object] = values.unset,
+        direction: Union["SmsCommandInstance.Direction", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[SmsCommandInstance]:
         """
         Asynchronously lists SmsCommandInstance records from the API as a list.
@@ -387,12 +395,12 @@ class SmsCommandList(ListResource):
         :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
         :param &quot;SmsCommandInstance.Status&quot; status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
         :param &quot;SmsCommandInstance.Direction&quot; direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -408,23 +416,23 @@ class SmsCommandList(ListResource):
 
     def page(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union["SmsCommandInstance.Status", object] = values.unset,
+        direction: Union["SmsCommandInstance.Direction", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SmsCommandPage:
         """
         Retrieve a single page of SmsCommandInstance records from the API.
         Request is executed immediately
 
-        :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
-        :param &quot;SmsCommandInstance.Status&quot; status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
-        :param &quot;SmsCommandInstance.Direction&quot; direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
+        :param status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
+        :param direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SmsCommandInstance
         """
@@ -444,23 +452,23 @@ class SmsCommandList(ListResource):
 
     async def page_async(
         self,
-        sim=values.unset,
-        status=values.unset,
-        direction=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        sim: Union[str, object] = values.unset,
+        status: Union["SmsCommandInstance.Status", object] = values.unset,
+        direction: Union["SmsCommandInstance.Direction", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> SmsCommandPage:
         """
         Asynchronously retrieve a single page of SmsCommandInstance records from the API.
         Request is executed immediately
 
-        :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
-        :param &quot;SmsCommandInstance.Status&quot; status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
-        :param &quot;SmsCommandInstance.Direction&quot; direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
+        :param status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
+        :param direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SmsCommandInstance
         """
@@ -480,31 +488,31 @@ class SmsCommandList(ListResource):
         )
         return SmsCommandPage(self._version, response)
 
-    def get_page(self, target_url) -> SmsCommandPage:
+    def get_page(self, target_url: str) -> SmsCommandPage:
         """
         Retrieve a specific page of SmsCommandInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SmsCommandInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return SmsCommandPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> SmsCommandPage:
+    async def get_page_async(self, target_url: str) -> SmsCommandPage:
         """
         Asynchronously retrieve a specific page of SmsCommandInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of SmsCommandInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return SmsCommandPage(self._version, response)
 
-    def get(self, sid) -> SmsCommandContext:
+    def get(self, sid: str) -> SmsCommandContext:
         """
         Constructs a SmsCommandContext
 
@@ -512,7 +520,7 @@ class SmsCommandList(ListResource):
         """
         return SmsCommandContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> SmsCommandContext:
+    def __call__(self, sid: str) -> SmsCommandContext:
         """
         Constructs a SmsCommandContext
 

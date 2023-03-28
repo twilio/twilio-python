@@ -167,7 +167,7 @@ class NumberList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, number) -> NumberContext:
+    def get(self, number: str) -> NumberContext:
         """
         Constructs a NumberContext
 
@@ -175,7 +175,7 @@ class NumberList(ListResource):
         """
         return NumberContext(self._version, number=number)
 
-    def __call__(self, number) -> NumberContext:
+    def __call__(self, number: str) -> NumberContext:
         """
         Constructs a NumberContext
 

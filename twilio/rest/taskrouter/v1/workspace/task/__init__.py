@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -124,11 +124,11 @@ class TaskInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, if_match=values.unset) -> bool:
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the TaskInstance
 
-        :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -136,11 +136,11 @@ class TaskInstance(InstanceResource):
             if_match=if_match,
         )
 
-    async def delete_async(self, if_match=values.unset) -> bool:
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the TaskInstance
 
-        :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -168,22 +168,22 @@ class TaskInstance(InstanceResource):
 
     def update(
         self,
-        if_match=values.unset,
-        attributes=values.unset,
-        assignment_status=values.unset,
-        reason=values.unset,
-        priority=values.unset,
-        task_channel=values.unset,
+        if_match: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        assignment_status: Union["TaskInstance.Status", object] = values.unset,
+        reason: Union[str, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
     ) -> "TaskInstance":
         """
         Update the TaskInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param str attributes: The JSON string that describes the custom attributes of the task.
-        :param "TaskInstance.Status" assignment_status:
-        :param str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
-        :param int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
-        :param str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param attributes: The JSON string that describes the custom attributes of the task.
+        :param assignment_status:
+        :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
+        :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
+        :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The updated TaskInstance
         """
@@ -198,22 +198,22 @@ class TaskInstance(InstanceResource):
 
     async def update_async(
         self,
-        if_match=values.unset,
-        attributes=values.unset,
-        assignment_status=values.unset,
-        reason=values.unset,
-        priority=values.unset,
-        task_channel=values.unset,
+        if_match: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        assignment_status: Union["TaskInstance.Status", object] = values.unset,
+        reason: Union[str, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
     ) -> "TaskInstance":
         """
         Asynchronous coroutine to update the TaskInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param str attributes: The JSON string that describes the custom attributes of the task.
-        :param "TaskInstance.Status" assignment_status:
-        :param str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
-        :param int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
-        :param str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param attributes: The JSON string that describes the custom attributes of the task.
+        :param assignment_status:
+        :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
+        :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
+        :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The updated TaskInstance
         """
@@ -263,11 +263,11 @@ class TaskContext(InstanceContext):
 
         self._reservations: Optional[ReservationList] = None
 
-    def delete(self, if_match=values.unset) -> bool:
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the TaskInstance
 
-        :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -279,11 +279,11 @@ class TaskContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, if_match=values.unset) -> bool:
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the TaskInstance
 
-        :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -339,22 +339,22 @@ class TaskContext(InstanceContext):
 
     def update(
         self,
-        if_match=values.unset,
-        attributes=values.unset,
-        assignment_status=values.unset,
-        reason=values.unset,
-        priority=values.unset,
-        task_channel=values.unset,
+        if_match: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        assignment_status: Union["TaskInstance.Status", object] = values.unset,
+        reason: Union[str, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
     ) -> TaskInstance:
         """
         Update the TaskInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param str attributes: The JSON string that describes the custom attributes of the task.
-        :param "TaskInstance.Status" assignment_status:
-        :param str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
-        :param int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
-        :param str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param attributes: The JSON string that describes the custom attributes of the task.
+        :param assignment_status:
+        :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
+        :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
+        :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The updated TaskInstance
         """
@@ -386,22 +386,22 @@ class TaskContext(InstanceContext):
 
     async def update_async(
         self,
-        if_match=values.unset,
-        attributes=values.unset,
-        assignment_status=values.unset,
-        reason=values.unset,
-        priority=values.unset,
-        task_channel=values.unset,
+        if_match: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        assignment_status: Union["TaskInstance.Status", object] = values.unset,
+        reason: Union[str, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
     ) -> TaskInstance:
         """
         Asynchronous coroutine to update the TaskInstance
 
-        :param str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param str attributes: The JSON string that describes the custom attributes of the task.
-        :param "TaskInstance.Status" assignment_status:
-        :param str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
-        :param int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
-        :param str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param attributes: The JSON string that describes the custom attributes of the task.
+        :param assignment_status:
+        :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
+        :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
+        :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The updated TaskInstance
         """
@@ -455,11 +455,11 @@ class TaskContext(InstanceContext):
 
 
 class TaskPage(Page):
-    def get_instance(self, payload) -> TaskInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> TaskInstance:
         """
         Build an instance of TaskInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return TaskInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -493,20 +493,20 @@ class TaskList(ListResource):
 
     def create(
         self,
-        timeout=values.unset,
-        priority=values.unset,
-        task_channel=values.unset,
-        workflow_sid=values.unset,
-        attributes=values.unset,
+        timeout: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
     ) -> TaskInstance:
         """
         Create the TaskInstance
 
-        :param int timeout: The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
-        :param int priority: The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
-        :param str task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
-        :param str workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
-        :param str attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
+        :param timeout: The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
+        :param priority: The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
+        :param task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
+        :param workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
+        :param attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
 
         :returns: The created TaskInstance
         """
@@ -532,20 +532,20 @@ class TaskList(ListResource):
 
     async def create_async(
         self,
-        timeout=values.unset,
-        priority=values.unset,
-        task_channel=values.unset,
-        workflow_sid=values.unset,
-        attributes=values.unset,
+        timeout: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
     ) -> TaskInstance:
         """
         Asynchronously create the TaskInstance
 
-        :param int timeout: The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
-        :param int priority: The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
-        :param str task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
-        :param str workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
-        :param str attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
+        :param timeout: The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
+        :param priority: The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
+        :param task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
+        :param workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
+        :param attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
 
         :returns: The created TaskInstance
         """
@@ -571,17 +571,17 @@ class TaskList(ListResource):
 
     def stream(
         self,
-        priority=values.unset,
-        assignment_status=values.unset,
-        workflow_sid=values.unset,
-        workflow_name=values.unset,
-        task_queue_sid=values.unset,
-        task_queue_name=values.unset,
-        evaluate_task_attributes=values.unset,
-        ordering=values.unset,
-        has_addons=values.unset,
-        limit=None,
-        page_size=None,
+        priority: Union[int, object] = values.unset,
+        assignment_status: Union[List[str], object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        workflow_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        evaluate_task_attributes: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        has_addons: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskInstance]:
         """
         Streams TaskInstance records from the API as a generator stream.
@@ -598,12 +598,12 @@ class TaskList(ListResource):
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
         :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -625,17 +625,17 @@ class TaskList(ListResource):
 
     async def stream_async(
         self,
-        priority=values.unset,
-        assignment_status=values.unset,
-        workflow_sid=values.unset,
-        workflow_name=values.unset,
-        task_queue_sid=values.unset,
-        task_queue_name=values.unset,
-        evaluate_task_attributes=values.unset,
-        ordering=values.unset,
-        has_addons=values.unset,
-        limit=None,
-        page_size=None,
+        priority: Union[int, object] = values.unset,
+        assignment_status: Union[List[str], object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        workflow_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        evaluate_task_attributes: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        has_addons: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskInstance]:
         """
         Asynchronously streams TaskInstance records from the API as a generator stream.
@@ -652,12 +652,12 @@ class TaskList(ListResource):
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
         :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -679,17 +679,17 @@ class TaskList(ListResource):
 
     def list(
         self,
-        priority=values.unset,
-        assignment_status=values.unset,
-        workflow_sid=values.unset,
-        workflow_name=values.unset,
-        task_queue_sid=values.unset,
-        task_queue_name=values.unset,
-        evaluate_task_attributes=values.unset,
-        ordering=values.unset,
-        has_addons=values.unset,
-        limit=None,
-        page_size=None,
+        priority: Union[int, object] = values.unset,
+        assignment_status: Union[List[str], object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        workflow_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        evaluate_task_attributes: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        has_addons: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskInstance]:
         """
         Lists TaskInstance records from the API as a list.
@@ -705,12 +705,12 @@ class TaskList(ListResource):
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
         :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -732,17 +732,17 @@ class TaskList(ListResource):
 
     async def list_async(
         self,
-        priority=values.unset,
-        assignment_status=values.unset,
-        workflow_sid=values.unset,
-        workflow_name=values.unset,
-        task_queue_sid=values.unset,
-        task_queue_name=values.unset,
-        evaluate_task_attributes=values.unset,
-        ordering=values.unset,
-        has_addons=values.unset,
-        limit=None,
-        page_size=None,
+        priority: Union[int, object] = values.unset,
+        assignment_status: Union[List[str], object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        workflow_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        evaluate_task_attributes: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        has_addons: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskInstance]:
         """
         Asynchronously lists TaskInstance records from the API as a list.
@@ -758,12 +758,12 @@ class TaskList(ListResource):
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
         :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -785,35 +785,35 @@ class TaskList(ListResource):
 
     def page(
         self,
-        priority=values.unset,
-        assignment_status=values.unset,
-        workflow_sid=values.unset,
-        workflow_name=values.unset,
-        task_queue_sid=values.unset,
-        task_queue_name=values.unset,
-        evaluate_task_attributes=values.unset,
-        ordering=values.unset,
-        has_addons=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        priority: Union[int, object] = values.unset,
+        assignment_status: Union[List[str], object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        workflow_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        evaluate_task_attributes: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        has_addons: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskPage:
         """
         Retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
 
-        :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
-        :param List[str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
-        :param str workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
-        :param str workflow_name: The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
-        :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
-        :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
-        :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
-        :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
+        :param assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
+        :param workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
+        :param workflow_name: The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
+        :param task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
+        :param task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
+        :param evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+        :param ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+        :param has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskInstance
         """
@@ -839,35 +839,35 @@ class TaskList(ListResource):
 
     async def page_async(
         self,
-        priority=values.unset,
-        assignment_status=values.unset,
-        workflow_sid=values.unset,
-        workflow_name=values.unset,
-        task_queue_sid=values.unset,
-        task_queue_name=values.unset,
-        evaluate_task_attributes=values.unset,
-        ordering=values.unset,
-        has_addons=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        priority: Union[int, object] = values.unset,
+        assignment_status: Union[List[str], object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        workflow_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        evaluate_task_attributes: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        has_addons: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskPage:
         """
         Asynchronously retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
 
-        :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
-        :param List[str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
-        :param str workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
-        :param str workflow_name: The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
-        :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
-        :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
-        :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
-        :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
+        :param assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
+        :param workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
+        :param workflow_name: The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
+        :param task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
+        :param task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
+        :param evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+        :param ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+        :param has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskInstance
         """
@@ -893,31 +893,31 @@ class TaskList(ListResource):
         )
         return TaskPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> TaskPage:
+    def get_page(self, target_url: str) -> TaskPage:
         """
         Retrieve a specific page of TaskInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TaskPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> TaskPage:
+    async def get_page_async(self, target_url: str) -> TaskPage:
         """
         Asynchronously retrieve a specific page of TaskInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TaskPage(self._version, response, self._solution)
 
-    def get(self, sid) -> TaskContext:
+    def get(self, sid: str) -> TaskContext:
         """
         Constructs a TaskContext
 
@@ -927,7 +927,7 @@ class TaskList(ListResource):
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> TaskContext:
+    def __call__(self, sid: str) -> TaskContext:
         """
         Constructs a TaskContext
 

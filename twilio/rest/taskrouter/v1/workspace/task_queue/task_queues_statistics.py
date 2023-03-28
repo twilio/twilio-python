@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -56,11 +57,11 @@ class TaskQueuesStatisticsInstance(InstanceResource):
 
 
 class TaskQueuesStatisticsPage(Page):
-    def get_instance(self, payload) -> TaskQueuesStatisticsInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> TaskQueuesStatisticsInstance:
         """
         Build an instance of TaskQueuesStatisticsInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return TaskQueuesStatisticsInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -96,14 +97,14 @@ class TaskQueuesStatisticsList(ListResource):
 
     def stream(
         self,
-        end_date=values.unset,
-        friendly_name=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
-        limit=None,
-        page_size=None,
+        end_date: Union[datetime, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskQueuesStatisticsInstance]:
         """
         Streams TaskQueuesStatisticsInstance records from the API as a generator stream.
@@ -117,12 +118,12 @@ class TaskQueuesStatisticsList(ListResource):
         :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -141,14 +142,14 @@ class TaskQueuesStatisticsList(ListResource):
 
     async def stream_async(
         self,
-        end_date=values.unset,
-        friendly_name=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
-        limit=None,
-        page_size=None,
+        end_date: Union[datetime, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskQueuesStatisticsInstance]:
         """
         Asynchronously streams TaskQueuesStatisticsInstance records from the API as a generator stream.
@@ -162,12 +163,12 @@ class TaskQueuesStatisticsList(ListResource):
         :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -186,14 +187,14 @@ class TaskQueuesStatisticsList(ListResource):
 
     def list(
         self,
-        end_date=values.unset,
-        friendly_name=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
-        limit=None,
-        page_size=None,
+        end_date: Union[datetime, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskQueuesStatisticsInstance]:
         """
         Lists TaskQueuesStatisticsInstance records from the API as a list.
@@ -206,12 +207,12 @@ class TaskQueuesStatisticsList(ListResource):
         :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -230,14 +231,14 @@ class TaskQueuesStatisticsList(ListResource):
 
     async def list_async(
         self,
-        end_date=values.unset,
-        friendly_name=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
-        limit=None,
-        page_size=None,
+        end_date: Union[datetime, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TaskQueuesStatisticsInstance]:
         """
         Asynchronously lists TaskQueuesStatisticsInstance records from the API as a list.
@@ -250,12 +251,12 @@ class TaskQueuesStatisticsList(ListResource):
         :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
         :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -274,29 +275,29 @@ class TaskQueuesStatisticsList(ListResource):
 
     def page(
         self,
-        end_date=values.unset,
-        friendly_name=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskQueuesStatisticsPage:
         """
         Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :param str friendly_name: The `friendly_name` of the TaskQueue statistics to read.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param friendly_name: The `friendly_name` of the TaskQueue statistics to read.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskQueuesStatisticsInstance
         """
@@ -319,29 +320,29 @@ class TaskQueuesStatisticsList(ListResource):
 
     async def page_async(
         self,
-        end_date=values.unset,
-        friendly_name=values.unset,
-        minutes=values.unset,
-        start_date=values.unset,
-        task_channel=values.unset,
-        split_by_wait_time=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TaskQueuesStatisticsPage:
         """
         Asynchronously retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
 
-        :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :param str friendly_name: The `friendly_name` of the TaskQueue statistics to read.
-        :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-        :param datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :param str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param friendly_name: The `friendly_name` of the TaskQueue statistics to read.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskQueuesStatisticsInstance
         """
@@ -364,24 +365,24 @@ class TaskQueuesStatisticsList(ListResource):
         )
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> TaskQueuesStatisticsPage:
+    def get_page(self, target_url: str) -> TaskQueuesStatisticsPage:
         """
         Retrieve a specific page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskQueuesStatisticsInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> TaskQueuesStatisticsPage:
+    async def get_page_async(self, target_url: str) -> TaskQueuesStatisticsPage:
         """
         Asynchronously retrieve a specific page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskQueuesStatisticsInstance
         """

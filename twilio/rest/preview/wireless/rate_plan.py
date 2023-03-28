@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -127,13 +127,15 @@ class RatePlanInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, unique_name=values.unset, friendly_name=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "RatePlanInstance":
         """
         Update the RatePlanInstance
 
-        :param str unique_name:
-        :param str friendly_name:
+        :param unique_name:
+        :param friendly_name:
 
         :returns: The updated RatePlanInstance
         """
@@ -143,13 +145,15 @@ class RatePlanInstance(InstanceResource):
         )
 
     async def update_async(
-        self, unique_name=values.unset, friendly_name=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> "RatePlanInstance":
         """
         Asynchronous coroutine to update the RatePlanInstance
 
-        :param str unique_name:
-        :param str friendly_name:
+        :param unique_name:
+        :param friendly_name:
 
         :returns: The updated RatePlanInstance
         """
@@ -247,13 +251,15 @@ class RatePlanContext(InstanceContext):
         )
 
     def update(
-        self, unique_name=values.unset, friendly_name=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> RatePlanInstance:
         """
         Update the RatePlanInstance
 
-        :param str unique_name:
-        :param str friendly_name:
+        :param unique_name:
+        :param friendly_name:
 
         :returns: The updated RatePlanInstance
         """
@@ -273,13 +279,15 @@ class RatePlanContext(InstanceContext):
         return RatePlanInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
-        self, unique_name=values.unset, friendly_name=values.unset
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
     ) -> RatePlanInstance:
         """
         Asynchronous coroutine to update the RatePlanInstance
 
-        :param str unique_name:
-        :param str friendly_name:
+        :param unique_name:
+        :param friendly_name:
 
         :returns: The updated RatePlanInstance
         """
@@ -309,11 +317,11 @@ class RatePlanContext(InstanceContext):
 
 
 class RatePlanPage(Page):
-    def get_instance(self, payload) -> RatePlanInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> RatePlanInstance:
         """
         Build an instance of RatePlanInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return RatePlanInstance(self._version, payload)
 
@@ -340,30 +348,30 @@ class RatePlanList(ListResource):
 
     def create(
         self,
-        unique_name=values.unset,
-        friendly_name=values.unset,
-        data_enabled=values.unset,
-        data_limit=values.unset,
-        data_metering=values.unset,
-        messaging_enabled=values.unset,
-        voice_enabled=values.unset,
-        commands_enabled=values.unset,
-        national_roaming_enabled=values.unset,
-        international_roaming=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        data_metering: Union[str, object] = values.unset,
+        messaging_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        commands_enabled: Union[bool, object] = values.unset,
+        national_roaming_enabled: Union[bool, object] = values.unset,
+        international_roaming: Union[List[str], object] = values.unset,
     ) -> RatePlanInstance:
         """
         Create the RatePlanInstance
 
-        :param str unique_name:
-        :param str friendly_name:
-        :param bool data_enabled:
-        :param int data_limit:
-        :param str data_metering:
-        :param bool messaging_enabled:
-        :param bool voice_enabled:
-        :param bool commands_enabled:
-        :param bool national_roaming_enabled:
-        :param List[str] international_roaming:
+        :param unique_name:
+        :param friendly_name:
+        :param data_enabled:
+        :param data_limit:
+        :param data_metering:
+        :param messaging_enabled:
+        :param voice_enabled:
+        :param commands_enabled:
+        :param national_roaming_enabled:
+        :param international_roaming:
 
         :returns: The created RatePlanInstance
         """
@@ -394,30 +402,30 @@ class RatePlanList(ListResource):
 
     async def create_async(
         self,
-        unique_name=values.unset,
-        friendly_name=values.unset,
-        data_enabled=values.unset,
-        data_limit=values.unset,
-        data_metering=values.unset,
-        messaging_enabled=values.unset,
-        voice_enabled=values.unset,
-        commands_enabled=values.unset,
-        national_roaming_enabled=values.unset,
-        international_roaming=values.unset,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        data_metering: Union[str, object] = values.unset,
+        messaging_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        commands_enabled: Union[bool, object] = values.unset,
+        national_roaming_enabled: Union[bool, object] = values.unset,
+        international_roaming: Union[List[str], object] = values.unset,
     ) -> RatePlanInstance:
         """
         Asynchronously create the RatePlanInstance
 
-        :param str unique_name:
-        :param str friendly_name:
-        :param bool data_enabled:
-        :param int data_limit:
-        :param str data_metering:
-        :param bool messaging_enabled:
-        :param bool voice_enabled:
-        :param bool commands_enabled:
-        :param bool national_roaming_enabled:
-        :param List[str] international_roaming:
+        :param unique_name:
+        :param friendly_name:
+        :param data_enabled:
+        :param data_limit:
+        :param data_metering:
+        :param messaging_enabled:
+        :param voice_enabled:
+        :param commands_enabled:
+        :param national_roaming_enabled:
+        :param international_roaming:
 
         :returns: The created RatePlanInstance
         """
@@ -446,19 +454,23 @@ class RatePlanList(ListResource):
 
         return RatePlanInstance(self._version, payload)
 
-    def stream(self, limit=None, page_size=None) -> List[RatePlanInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RatePlanInstance]:
         """
         Streams RatePlanInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -467,19 +479,23 @@ class RatePlanList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[RatePlanInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RatePlanInstance]:
         """
         Asynchronously streams RatePlanInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -488,18 +504,22 @@ class RatePlanList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[RatePlanInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RatePlanInstance]:
         """
         Lists RatePlanInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -510,18 +530,22 @@ class RatePlanList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[RatePlanInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[RatePlanInstance]:
         """
         Asynchronously lists RatePlanInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -533,15 +557,18 @@ class RatePlanList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RatePlanPage:
         """
         Retrieve a single page of RatePlanInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RatePlanInstance
         """
@@ -557,15 +584,18 @@ class RatePlanList(ListResource):
         return RatePlanPage(self._version, response)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> RatePlanPage:
         """
         Asynchronously retrieve a single page of RatePlanInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RatePlanInstance
         """
@@ -582,31 +612,31 @@ class RatePlanList(ListResource):
         )
         return RatePlanPage(self._version, response)
 
-    def get_page(self, target_url) -> RatePlanPage:
+    def get_page(self, target_url: str) -> RatePlanPage:
         """
         Retrieve a specific page of RatePlanInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RatePlanInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return RatePlanPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> RatePlanPage:
+    async def get_page_async(self, target_url: str) -> RatePlanPage:
         """
         Asynchronously retrieve a specific page of RatePlanInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of RatePlanInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return RatePlanPage(self._version, response)
 
-    def get(self, sid) -> RatePlanContext:
+    def get(self, sid: str) -> RatePlanContext:
         """
         Constructs a RatePlanContext
 
@@ -614,7 +644,7 @@ class RatePlanList(ListResource):
         """
         return RatePlanContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> RatePlanContext:
+    def __call__(self, sid: str) -> RatePlanContext:
         """
         Constructs a RatePlanContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -127,16 +127,16 @@ class IpAddressInstance(InstanceResource):
 
     def update(
         self,
-        ip_address=values.unset,
-        friendly_name=values.unset,
-        cidr_prefix_length=values.unset,
+        ip_address: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        cidr_prefix_length: Union[int, object] = values.unset,
     ) -> "IpAddressInstance":
         """
         Update the IpAddressInstance
 
-        :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
-        :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+        :param ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+        :param cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance
         """
@@ -148,16 +148,16 @@ class IpAddressInstance(InstanceResource):
 
     async def update_async(
         self,
-        ip_address=values.unset,
-        friendly_name=values.unset,
-        cidr_prefix_length=values.unset,
+        ip_address: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        cidr_prefix_length: Union[int, object] = values.unset,
     ) -> "IpAddressInstance":
         """
         Asynchronous coroutine to update the IpAddressInstance
 
-        :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
-        :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+        :param ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+        :param cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance
         """
@@ -273,16 +273,16 @@ class IpAddressContext(InstanceContext):
 
     def update(
         self,
-        ip_address=values.unset,
-        friendly_name=values.unset,
-        cidr_prefix_length=values.unset,
+        ip_address: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        cidr_prefix_length: Union[int, object] = values.unset,
     ) -> IpAddressInstance:
         """
         Update the IpAddressInstance
 
-        :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
-        :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+        :param ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+        :param cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance
         """
@@ -310,16 +310,16 @@ class IpAddressContext(InstanceContext):
 
     async def update_async(
         self,
-        ip_address=values.unset,
-        friendly_name=values.unset,
-        cidr_prefix_length=values.unset,
+        ip_address: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        cidr_prefix_length: Union[int, object] = values.unset,
     ) -> IpAddressInstance:
         """
         Asynchronous coroutine to update the IpAddressInstance
 
-        :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
-        :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+        :param ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+        :param cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance
         """
@@ -356,11 +356,11 @@ class IpAddressContext(InstanceContext):
 
 
 class IpAddressPage(Page):
-    def get_instance(self, payload) -> IpAddressInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> IpAddressInstance:
         """
         Build an instance of IpAddressInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return IpAddressInstance(
             self._version,
@@ -402,14 +402,17 @@ class IpAddressList(ListResource):
         )
 
     def create(
-        self, friendly_name, ip_address, cidr_prefix_length=values.unset
+        self,
+        friendly_name: str,
+        ip_address: str,
+        cidr_prefix_length: Union[int, object] = values.unset,
     ) -> IpAddressInstance:
         """
         Create the IpAddressInstance
 
-        :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
-        :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+        :param friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+        :param ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The created IpAddressInstance
         """
@@ -435,14 +438,17 @@ class IpAddressList(ListResource):
         )
 
     async def create_async(
-        self, friendly_name, ip_address, cidr_prefix_length=values.unset
+        self,
+        friendly_name: str,
+        ip_address: str,
+        cidr_prefix_length: Union[int, object] = values.unset,
     ) -> IpAddressInstance:
         """
         Asynchronously create the IpAddressInstance
 
-        :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
-        :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+        :param friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+        :param ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The created IpAddressInstance
         """
@@ -467,19 +473,23 @@ class IpAddressList(ListResource):
             ip_access_control_list_sid=self._solution["ip_access_control_list_sid"],
         )
 
-    def stream(self, limit=None, page_size=None) -> List[IpAddressInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[IpAddressInstance]:
         """
         Streams IpAddressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -488,19 +498,23 @@ class IpAddressList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[IpAddressInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[IpAddressInstance]:
         """
         Asynchronously streams IpAddressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -509,18 +523,22 @@ class IpAddressList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[IpAddressInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[IpAddressInstance]:
         """
         Lists IpAddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -531,18 +549,22 @@ class IpAddressList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[IpAddressInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[IpAddressInstance]:
         """
         Asynchronously lists IpAddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -554,15 +576,18 @@ class IpAddressList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> IpAddressPage:
         """
         Retrieve a single page of IpAddressInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAddressInstance
         """
@@ -578,15 +603,18 @@ class IpAddressList(ListResource):
         return IpAddressPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> IpAddressPage:
         """
         Asynchronously retrieve a single page of IpAddressInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAddressInstance
         """
@@ -603,31 +631,31 @@ class IpAddressList(ListResource):
         )
         return IpAddressPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> IpAddressPage:
+    def get_page(self, target_url: str) -> IpAddressPage:
         """
         Retrieve a specific page of IpAddressInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAddressInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return IpAddressPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> IpAddressPage:
+    async def get_page_async(self, target_url: str) -> IpAddressPage:
         """
         Asynchronously retrieve a specific page of IpAddressInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAddressInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return IpAddressPage(self._version, response, self._solution)
 
-    def get(self, sid) -> IpAddressContext:
+    def get(self, sid: str) -> IpAddressContext:
         """
         Constructs a IpAddressContext
 
@@ -640,7 +668,7 @@ class IpAddressList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> IpAddressContext:
+    def __call__(self, sid: str) -> IpAddressContext:
         """
         Constructs a IpAddressContext
 

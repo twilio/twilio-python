@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -106,11 +106,11 @@ class WorkerInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, if_match=values.unset) -> bool:
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the WorkerInstance
 
-        :param str if_match: The If-Match HTTP request header
+        :param if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -118,11 +118,11 @@ class WorkerInstance(InstanceResource):
             if_match=if_match,
         )
 
-    async def delete_async(self, if_match=values.unset) -> bool:
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the WorkerInstance
 
-        :param str if_match: The If-Match HTTP request header
+        :param if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -150,20 +150,20 @@ class WorkerInstance(InstanceResource):
 
     def update(
         self,
-        if_match=values.unset,
-        activity_sid=values.unset,
-        attributes=values.unset,
-        friendly_name=values.unset,
-        reject_pending_reservations=values.unset,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
     ) -> "WorkerInstance":
         """
         Update the WorkerInstance
 
-        :param str if_match: The If-Match HTTP request header
-        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
-        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param if_match: The If-Match HTTP request header
+        :param activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 
         :returns: The updated WorkerInstance
         """
@@ -177,20 +177,20 @@ class WorkerInstance(InstanceResource):
 
     async def update_async(
         self,
-        if_match=values.unset,
-        activity_sid=values.unset,
-        attributes=values.unset,
-        friendly_name=values.unset,
-        reject_pending_reservations=values.unset,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
     ) -> "WorkerInstance":
         """
         Asynchronous coroutine to update the WorkerInstance
 
-        :param str if_match: The If-Match HTTP request header
-        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
-        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param if_match: The If-Match HTTP request header
+        :param activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 
         :returns: The updated WorkerInstance
         """
@@ -255,11 +255,11 @@ class WorkerContext(InstanceContext):
         self._worker_channels: Optional[WorkerChannelList] = None
         self._statistics: Optional[WorkerStatisticsList] = None
 
-    def delete(self, if_match=values.unset) -> bool:
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the WorkerInstance
 
-        :param str if_match: The If-Match HTTP request header
+        :param if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -271,11 +271,11 @@ class WorkerContext(InstanceContext):
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, if_match=values.unset) -> bool:
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the WorkerInstance
 
-        :param str if_match: The If-Match HTTP request header
+        :param if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
@@ -331,20 +331,20 @@ class WorkerContext(InstanceContext):
 
     def update(
         self,
-        if_match=values.unset,
-        activity_sid=values.unset,
-        attributes=values.unset,
-        friendly_name=values.unset,
-        reject_pending_reservations=values.unset,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
     ) -> WorkerInstance:
         """
         Update the WorkerInstance
 
-        :param str if_match: The If-Match HTTP request header
-        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
-        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param if_match: The If-Match HTTP request header
+        :param activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 
         :returns: The updated WorkerInstance
         """
@@ -375,20 +375,20 @@ class WorkerContext(InstanceContext):
 
     async def update_async(
         self,
-        if_match=values.unset,
-        activity_sid=values.unset,
-        attributes=values.unset,
-        friendly_name=values.unset,
-        reject_pending_reservations=values.unset,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
     ) -> WorkerInstance:
         """
         Asynchronous coroutine to update the WorkerInstance
 
-        :param str if_match: The If-Match HTTP request header
-        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
-        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        :param if_match: The If-Match HTTP request header
+        :param activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 
         :returns: The updated WorkerInstance
         """
@@ -467,11 +467,11 @@ class WorkerContext(InstanceContext):
 
 
 class WorkerPage(Page):
-    def get_instance(self, payload) -> WorkerInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> WorkerInstance:
         """
         Build an instance of WorkerInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return WorkerInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
@@ -508,14 +508,17 @@ class WorkerList(ListResource):
         self._statistics: Optional[WorkersStatisticsList] = None
 
     def create(
-        self, friendly_name, activity_sid=values.unset, attributes=values.unset
+        self,
+        friendly_name: str,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
     ) -> WorkerInstance:
         """
         Create the WorkerInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
-        :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
-        :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+        :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+        :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
 
         :returns: The created WorkerInstance
         """
@@ -538,14 +541,17 @@ class WorkerList(ListResource):
         )
 
     async def create_async(
-        self, friendly_name, activity_sid=values.unset, attributes=values.unset
+        self,
+        friendly_name: str,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
     ) -> WorkerInstance:
         """
         Asynchronously create the WorkerInstance
 
-        :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
-        :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
-        :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+        :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+        :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
 
         :returns: The created WorkerInstance
         """
@@ -569,16 +575,16 @@ class WorkerList(ListResource):
 
     def stream(
         self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[WorkerInstance]:
         """
         Streams WorkerInstance records from the API as a generator stream.
@@ -594,12 +600,12 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -620,16 +626,16 @@ class WorkerList(ListResource):
 
     async def stream_async(
         self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[WorkerInstance]:
         """
         Asynchronously streams WorkerInstance records from the API as a generator stream.
@@ -645,12 +651,12 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -671,16 +677,16 @@ class WorkerList(ListResource):
 
     def list(
         self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[WorkerInstance]:
         """
         Lists WorkerInstance records from the API as a list.
@@ -695,12 +701,12 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -721,16 +727,16 @@ class WorkerList(ListResource):
 
     async def list_async(
         self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[WorkerInstance]:
         """
         Asynchronously lists WorkerInstance records from the API as a list.
@@ -745,12 +751,12 @@ class WorkerList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -771,33 +777,33 @@ class WorkerList(ListResource):
 
     def page(
         self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> WorkerPage:
         """
         Retrieve a single page of WorkerInstance records from the API.
         Request is executed immediately
 
-        :param str activity_name: The `activity_name` of the Worker resources to read.
-        :param str activity_sid: The `activity_sid` of the Worker resources to read.
-        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
-        :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
-        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
-        :param str ordering: Sorting parameter for Workers
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param activity_name: The `activity_name` of the Worker resources to read.
+        :param activity_sid: The `activity_sid` of the Worker resources to read.
+        :param available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param friendly_name: The `friendly_name` of the Worker resources to read.
+        :param target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param ordering: Sorting parameter for Workers
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkerInstance
         """
@@ -822,33 +828,33 @@ class WorkerList(ListResource):
 
     async def page_async(
         self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> WorkerPage:
         """
         Asynchronously retrieve a single page of WorkerInstance records from the API.
         Request is executed immediately
 
-        :param str activity_name: The `activity_name` of the Worker resources to read.
-        :param str activity_sid: The `activity_sid` of the Worker resources to read.
-        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
-        :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
-        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
-        :param str ordering: Sorting parameter for Workers
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param activity_name: The `activity_name` of the Worker resources to read.
+        :param activity_sid: The `activity_sid` of the Worker resources to read.
+        :param available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param friendly_name: The `friendly_name` of the Worker resources to read.
+        :param target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param ordering: Sorting parameter for Workers
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkerInstance
         """
@@ -873,24 +879,24 @@ class WorkerList(ListResource):
         )
         return WorkerPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> WorkerPage:
+    def get_page(self, target_url: str) -> WorkerPage:
         """
         Retrieve a specific page of WorkerInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkerInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return WorkerPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> WorkerPage:
+    async def get_page_async(self, target_url: str) -> WorkerPage:
         """
         Asynchronously retrieve a specific page of WorkerInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkerInstance
         """
@@ -930,7 +936,7 @@ class WorkerList(ListResource):
             )
         return self._statistics
 
-    def get(self, sid) -> WorkerContext:
+    def get(self, sid: str) -> WorkerContext:
         """
         Constructs a WorkerContext
 
@@ -940,7 +946,7 @@ class WorkerList(ListResource):
             self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> WorkerContext:
+    def __call__(self, sid: str) -> WorkerContext:
         """
         Constructs a WorkerContext
 

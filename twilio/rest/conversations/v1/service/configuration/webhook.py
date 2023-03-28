@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -89,18 +89,18 @@ class WebhookInstance(InstanceResource):
 
     def update(
         self,
-        pre_webhook_url=values.unset,
-        post_webhook_url=values.unset,
-        filters=values.unset,
-        method=values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
     ) -> "WebhookInstance":
         """
         Update the WebhookInstance
 
-        :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
-        :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param List[str] filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
-        :param str method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
+        :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+        :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
+        :param filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+        :param method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
 
         :returns: The updated WebhookInstance
         """
@@ -113,18 +113,18 @@ class WebhookInstance(InstanceResource):
 
     async def update_async(
         self,
-        pre_webhook_url=values.unset,
-        post_webhook_url=values.unset,
-        filters=values.unset,
-        method=values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
     ) -> "WebhookInstance":
         """
         Asynchronous coroutine to update the WebhookInstance
 
-        :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
-        :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param List[str] filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
-        :param str method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
+        :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+        :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
+        :param filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+        :param method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
 
         :returns: The updated WebhookInstance
         """
@@ -203,18 +203,18 @@ class WebhookContext(InstanceContext):
 
     def update(
         self,
-        pre_webhook_url=values.unset,
-        post_webhook_url=values.unset,
-        filters=values.unset,
-        method=values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
     ) -> WebhookInstance:
         """
         Update the WebhookInstance
 
-        :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
-        :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param List[str] filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
-        :param str method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
+        :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+        :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
+        :param filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+        :param method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
 
         :returns: The updated WebhookInstance
         """
@@ -239,18 +239,18 @@ class WebhookContext(InstanceContext):
 
     async def update_async(
         self,
-        pre_webhook_url=values.unset,
-        post_webhook_url=values.unset,
-        filters=values.unset,
-        method=values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
     ) -> WebhookInstance:
         """
         Asynchronous coroutine to update the WebhookInstance
 
-        :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
-        :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param List[str] filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
-        :param str method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
+        :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+        :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
+        :param filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+        :param method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
 
         :returns: The updated WebhookInstance
         """

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -226,11 +226,13 @@ class AuthRegistrationsCredentialListMappingContext(InstanceContext):
 
 
 class AuthRegistrationsCredentialListMappingPage(Page):
-    def get_instance(self, payload) -> AuthRegistrationsCredentialListMappingInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> AuthRegistrationsCredentialListMappingInstance:
         """
         Build an instance of AuthRegistrationsCredentialListMappingInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return AuthRegistrationsCredentialListMappingInstance(
             self._version,
@@ -270,12 +272,12 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         )
 
     def create(
-        self, credential_list_sid
+        self, credential_list_sid: str
     ) -> AuthRegistrationsCredentialListMappingInstance:
         """
         Create the AuthRegistrationsCredentialListMappingInstance
 
-        :param str credential_list_sid: The SID of the CredentialList resource to map to the SIP domain.
+        :param credential_list_sid: The SID of the CredentialList resource to map to the SIP domain.
 
         :returns: The created AuthRegistrationsCredentialListMappingInstance
         """
@@ -299,12 +301,12 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         )
 
     async def create_async(
-        self, credential_list_sid
+        self, credential_list_sid: str
     ) -> AuthRegistrationsCredentialListMappingInstance:
         """
         Asynchronously create the AuthRegistrationsCredentialListMappingInstance
 
-        :param str credential_list_sid: The SID of the CredentialList resource to map to the SIP domain.
+        :param credential_list_sid: The SID of the CredentialList resource to map to the SIP domain.
 
         :returns: The created AuthRegistrationsCredentialListMappingInstance
         """
@@ -328,7 +330,9 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         )
 
     def stream(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AuthRegistrationsCredentialListMappingInstance]:
         """
         Streams AuthRegistrationsCredentialListMappingInstance records from the API as a generator stream.
@@ -336,12 +340,12 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -351,7 +355,9 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AuthRegistrationsCredentialListMappingInstance]:
         """
         Asynchronously streams AuthRegistrationsCredentialListMappingInstance records from the API as a generator stream.
@@ -359,12 +365,12 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -374,19 +380,21 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         return await self._version.stream_async(page, limits["limit"])
 
     def list(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AuthRegistrationsCredentialListMappingInstance]:
         """
         Lists AuthRegistrationsCredentialListMappingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -398,19 +406,21 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[AuthRegistrationsCredentialListMappingInstance]:
         """
         Asynchronously lists AuthRegistrationsCredentialListMappingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -422,15 +432,18 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AuthRegistrationsCredentialListMappingPage:
         """
         Retrieve a single page of AuthRegistrationsCredentialListMappingInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AuthRegistrationsCredentialListMappingInstance
         """
@@ -448,15 +461,18 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         )
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> AuthRegistrationsCredentialListMappingPage:
         """
         Asynchronously retrieve a single page of AuthRegistrationsCredentialListMappingInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AuthRegistrationsCredentialListMappingInstance
         """
@@ -475,12 +491,12 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             self._version, response, self._solution
         )
 
-    def get_page(self, target_url) -> AuthRegistrationsCredentialListMappingPage:
+    def get_page(self, target_url: str) -> AuthRegistrationsCredentialListMappingPage:
         """
         Retrieve a specific page of AuthRegistrationsCredentialListMappingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AuthRegistrationsCredentialListMappingInstance
         """
@@ -490,13 +506,13 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         )
 
     async def get_page_async(
-        self, target_url
+        self, target_url: str
     ) -> AuthRegistrationsCredentialListMappingPage:
         """
         Asynchronously retrieve a specific page of AuthRegistrationsCredentialListMappingInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of AuthRegistrationsCredentialListMappingInstance
         """
@@ -505,7 +521,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             self._version, response, self._solution
         )
 
-    def get(self, sid) -> AuthRegistrationsCredentialListMappingContext:
+    def get(self, sid: str) -> AuthRegistrationsCredentialListMappingContext:
         """
         Constructs a AuthRegistrationsCredentialListMappingContext
 
@@ -518,7 +534,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
             sid=sid,
         )
 
-    def __call__(self, sid) -> AuthRegistrationsCredentialListMappingContext:
+    def __call__(self, sid: str) -> AuthRegistrationsCredentialListMappingContext:
         """
         Constructs a AuthRegistrationsCredentialListMappingContext
 

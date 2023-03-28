@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -137,18 +137,18 @@ class TrustProductsInstance(InstanceResource):
 
     def update(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> "TrustProductsInstance":
         """
         Update the TrustProductsInstance
 
-        :param "TrustProductsInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated TrustProductsInstance
         """
@@ -161,18 +161,18 @@ class TrustProductsInstance(InstanceResource):
 
     async def update_async(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> "TrustProductsInstance":
         """
         Asynchronous coroutine to update the TrustProductsInstance
 
-        :param "TrustProductsInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated TrustProductsInstance
         """
@@ -304,18 +304,18 @@ class TrustProductsContext(InstanceContext):
 
     def update(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> TrustProductsInstance:
         """
         Update the TrustProductsInstance
 
-        :param "TrustProductsInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated TrustProductsInstance
         """
@@ -338,18 +338,18 @@ class TrustProductsContext(InstanceContext):
 
     async def update_async(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> TrustProductsInstance:
         """
         Asynchronous coroutine to update the TrustProductsInstance
 
-        :param "TrustProductsInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated TrustProductsInstance
         """
@@ -423,11 +423,11 @@ class TrustProductsContext(InstanceContext):
 
 
 class TrustProductsPage(Page):
-    def get_instance(self, payload) -> TrustProductsInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> TrustProductsInstance:
         """
         Build an instance of TrustProductsInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return TrustProductsInstance(self._version, payload)
 
@@ -453,15 +453,19 @@ class TrustProductsList(ListResource):
         self._uri = "/TrustProducts"
 
     def create(
-        self, friendly_name, email, policy_sid, status_callback=values.unset
+        self,
+        friendly_name: str,
+        email: str,
+        policy_sid: str,
+        status_callback: Union[str, object] = values.unset,
     ) -> TrustProductsInstance:
         """
         Create the TrustProductsInstance
 
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created TrustProductsInstance
         """
@@ -483,15 +487,19 @@ class TrustProductsList(ListResource):
         return TrustProductsInstance(self._version, payload)
 
     async def create_async(
-        self, friendly_name, email, policy_sid, status_callback=values.unset
+        self,
+        friendly_name: str,
+        email: str,
+        policy_sid: str,
+        status_callback: Union[str, object] = values.unset,
     ) -> TrustProductsInstance:
         """
         Asynchronously create the TrustProductsInstance
 
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created TrustProductsInstance
         """
@@ -514,11 +522,11 @@ class TrustProductsList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TrustProductsInstance]:
         """
         Streams TrustProductsInstance records from the API as a generator stream.
@@ -529,12 +537,12 @@ class TrustProductsList(ListResource):
         :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -550,11 +558,11 @@ class TrustProductsList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TrustProductsInstance]:
         """
         Asynchronously streams TrustProductsInstance records from the API as a generator stream.
@@ -565,12 +573,12 @@ class TrustProductsList(ListResource):
         :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -586,11 +594,11 @@ class TrustProductsList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TrustProductsInstance]:
         """
         Lists TrustProductsInstance records from the API as a list.
@@ -600,12 +608,12 @@ class TrustProductsList(ListResource):
         :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -621,11 +629,11 @@ class TrustProductsList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[TrustProductsInstance]:
         """
         Asynchronously lists TrustProductsInstance records from the API as a list.
@@ -635,12 +643,12 @@ class TrustProductsList(ListResource):
         :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -656,23 +664,23 @@ class TrustProductsList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TrustProductsPage:
         """
         Retrieve a single page of TrustProductsInstance records from the API.
         Request is executed immediately
 
-        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The verification status of the Customer-Profile resource.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsInstance
         """
@@ -692,23 +700,23 @@ class TrustProductsList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["TrustProductsInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> TrustProductsPage:
         """
         Asynchronously retrieve a single page of TrustProductsInstance records from the API.
         Request is executed immediately
 
-        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The verification status of the Customer-Profile resource.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsInstance
         """
@@ -728,31 +736,31 @@ class TrustProductsList(ListResource):
         )
         return TrustProductsPage(self._version, response)
 
-    def get_page(self, target_url) -> TrustProductsPage:
+    def get_page(self, target_url: str) -> TrustProductsPage:
         """
         Retrieve a specific page of TrustProductsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return TrustProductsPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> TrustProductsPage:
+    async def get_page_async(self, target_url: str) -> TrustProductsPage:
         """
         Asynchronously retrieve a specific page of TrustProductsInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TrustProductsPage(self._version, response)
 
-    def get(self, sid) -> TrustProductsContext:
+    def get(self, sid: str) -> TrustProductsContext:
         """
         Constructs a TrustProductsContext
 
@@ -760,7 +768,7 @@ class TrustProductsList(ListResource):
         """
         return TrustProductsContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> TrustProductsContext:
+    def __call__(self, sid: str) -> TrustProductsContext:
         """
         Constructs a TrustProductsContext
 

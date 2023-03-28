@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -137,18 +137,18 @@ class CustomerProfilesInstance(InstanceResource):
 
     def update(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> "CustomerProfilesInstance":
         """
         Update the CustomerProfilesInstance
 
-        :param "CustomerProfilesInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated CustomerProfilesInstance
         """
@@ -161,18 +161,18 @@ class CustomerProfilesInstance(InstanceResource):
 
     async def update_async(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> "CustomerProfilesInstance":
         """
         Asynchronous coroutine to update the CustomerProfilesInstance
 
-        :param "CustomerProfilesInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated CustomerProfilesInstance
         """
@@ -308,18 +308,18 @@ class CustomerProfilesContext(InstanceContext):
 
     def update(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> CustomerProfilesInstance:
         """
         Update the CustomerProfilesInstance
 
-        :param "CustomerProfilesInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated CustomerProfilesInstance
         """
@@ -344,18 +344,18 @@ class CustomerProfilesContext(InstanceContext):
 
     async def update_async(
         self,
-        status=values.unset,
-        status_callback=values.unset,
-        friendly_name=values.unset,
-        email=values.unset,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
     ) -> CustomerProfilesInstance:
         """
         Asynchronous coroutine to update the CustomerProfilesInstance
 
-        :param "CustomerProfilesInstance.Status" status:
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
 
         :returns: The updated CustomerProfilesInstance
         """
@@ -433,11 +433,11 @@ class CustomerProfilesContext(InstanceContext):
 
 
 class CustomerProfilesPage(Page):
-    def get_instance(self, payload) -> CustomerProfilesInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CustomerProfilesInstance:
         """
         Build an instance of CustomerProfilesInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CustomerProfilesInstance(self._version, payload)
 
@@ -463,15 +463,19 @@ class CustomerProfilesList(ListResource):
         self._uri = "/CustomerProfiles"
 
     def create(
-        self, friendly_name, email, policy_sid, status_callback=values.unset
+        self,
+        friendly_name: str,
+        email: str,
+        policy_sid: str,
+        status_callback: Union[str, object] = values.unset,
     ) -> CustomerProfilesInstance:
         """
         Create the CustomerProfilesInstance
 
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created CustomerProfilesInstance
         """
@@ -493,15 +497,19 @@ class CustomerProfilesList(ListResource):
         return CustomerProfilesInstance(self._version, payload)
 
     async def create_async(
-        self, friendly_name, email, policy_sid, status_callback=values.unset
+        self,
+        friendly_name: str,
+        email: str,
+        policy_sid: str,
+        status_callback: Union[str, object] = values.unset,
     ) -> CustomerProfilesInstance:
         """
         Asynchronously create the CustomerProfilesInstance
 
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created CustomerProfilesInstance
         """
@@ -524,11 +532,11 @@ class CustomerProfilesList(ListResource):
 
     def stream(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesInstance]:
         """
         Streams CustomerProfilesInstance records from the API as a generator stream.
@@ -539,12 +547,12 @@ class CustomerProfilesList(ListResource):
         :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -560,11 +568,11 @@ class CustomerProfilesList(ListResource):
 
     async def stream_async(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesInstance]:
         """
         Asynchronously streams CustomerProfilesInstance records from the API as a generator stream.
@@ -575,12 +583,12 @@ class CustomerProfilesList(ListResource):
         :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -596,11 +604,11 @@ class CustomerProfilesList(ListResource):
 
     def list(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesInstance]:
         """
         Lists CustomerProfilesInstance records from the API as a list.
@@ -610,12 +618,12 @@ class CustomerProfilesList(ListResource):
         :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -631,11 +639,11 @@ class CustomerProfilesList(ListResource):
 
     async def list_async(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CustomerProfilesInstance]:
         """
         Asynchronously lists CustomerProfilesInstance records from the API as a list.
@@ -645,12 +653,12 @@ class CustomerProfilesList(ListResource):
         :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -666,23 +674,23 @@ class CustomerProfilesList(ListResource):
 
     def page(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CustomerProfilesPage:
         """
         Retrieve a single page of CustomerProfilesInstance records from the API.
         Request is executed immediately
 
-        :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The verification status of the Customer-Profile resource.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesInstance
         """
@@ -702,23 +710,23 @@ class CustomerProfilesList(ListResource):
 
     async def page_async(
         self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        status: Union["CustomerProfilesInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        policy_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CustomerProfilesPage:
         """
         Asynchronously retrieve a single page of CustomerProfilesInstance records from the API.
         Request is executed immediately
 
-        :param &quot;CustomerProfilesInstance.Status&quot; status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param status: The verification status of the Customer-Profile resource.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesInstance
         """
@@ -738,31 +746,31 @@ class CustomerProfilesList(ListResource):
         )
         return CustomerProfilesPage(self._version, response)
 
-    def get_page(self, target_url) -> CustomerProfilesPage:
+    def get_page(self, target_url: str) -> CustomerProfilesPage:
         """
         Retrieve a specific page of CustomerProfilesInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CustomerProfilesPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> CustomerProfilesPage:
+    async def get_page_async(self, target_url: str) -> CustomerProfilesPage:
         """
         Asynchronously retrieve a specific page of CustomerProfilesInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CustomerProfilesPage(self._version, response)
 
-    def get(self, sid) -> CustomerProfilesContext:
+    def get(self, sid: str) -> CustomerProfilesContext:
         """
         Constructs a CustomerProfilesContext
 
@@ -770,7 +778,7 @@ class CustomerProfilesList(ListResource):
         """
         return CustomerProfilesContext(self._version, sid=sid)
 
-    def __call__(self, sid) -> CustomerProfilesContext:
+    def __call__(self, sid: str) -> CustomerProfilesContext:
         """
         Constructs a CustomerProfilesContext
 

@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -117,11 +117,11 @@ class CredentialListInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, friendly_name) -> "CredentialListInstance":
+    def update(self, friendly_name: str) -> "CredentialListInstance":
         """
         Update the CredentialListInstance
 
-        :param str friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
+        :param friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
 
         :returns: The updated CredentialListInstance
         """
@@ -129,11 +129,11 @@ class CredentialListInstance(InstanceResource):
             friendly_name=friendly_name,
         )
 
-    async def update_async(self, friendly_name) -> "CredentialListInstance":
+    async def update_async(self, friendly_name: str) -> "CredentialListInstance":
         """
         Asynchronous coroutine to update the CredentialListInstance
 
-        :param str friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
+        :param friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
 
         :returns: The updated CredentialListInstance
         """
@@ -244,11 +244,11 @@ class CredentialListContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, friendly_name) -> CredentialListInstance:
+    def update(self, friendly_name: str) -> CredentialListInstance:
         """
         Update the CredentialListInstance
 
-        :param str friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
+        :param friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
 
         :returns: The updated CredentialListInstance
         """
@@ -271,11 +271,11 @@ class CredentialListContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name) -> CredentialListInstance:
+    async def update_async(self, friendly_name: str) -> CredentialListInstance:
         """
         Asynchronous coroutine to update the CredentialListInstance
 
-        :param str friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
+        :param friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
 
         :returns: The updated CredentialListInstance
         """
@@ -322,11 +322,11 @@ class CredentialListContext(InstanceContext):
 
 
 class CredentialListPage(Page):
-    def get_instance(self, payload) -> CredentialListInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CredentialListInstance:
         """
         Build an instance of CredentialListInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CredentialListInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -360,11 +360,11 @@ class CredentialListList(ListResource):
             **self._solution
         )
 
-    def create(self, friendly_name) -> CredentialListInstance:
+    def create(self, friendly_name: str) -> CredentialListInstance:
         """
         Create the CredentialListInstance
 
-        :param str friendly_name: A human readable descriptive text that describes the CredentialList, up to 64 characters long.
+        :param friendly_name: A human readable descriptive text that describes the CredentialList, up to 64 characters long.
 
         :returns: The created CredentialListInstance
         """
@@ -384,11 +384,11 @@ class CredentialListList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    async def create_async(self, friendly_name) -> CredentialListInstance:
+    async def create_async(self, friendly_name: str) -> CredentialListInstance:
         """
         Asynchronously create the CredentialListInstance
 
-        :param str friendly_name: A human readable descriptive text that describes the CredentialList, up to 64 characters long.
+        :param friendly_name: A human readable descriptive text that describes the CredentialList, up to 64 characters long.
 
         :returns: The created CredentialListInstance
         """
@@ -408,19 +408,23 @@ class CredentialListList(ListResource):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def stream(self, limit=None, page_size=None) -> List[CredentialListInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[CredentialListInstance]:
         """
         Streams CredentialListInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -430,7 +434,9 @@ class CredentialListList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CredentialListInstance]:
         """
         Asynchronously streams CredentialListInstance records from the API as a generator stream.
@@ -438,12 +444,12 @@ class CredentialListList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -452,18 +458,22 @@ class CredentialListList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[CredentialListInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[CredentialListInstance]:
         """
         Lists CredentialListInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -475,19 +485,21 @@ class CredentialListList(ListResource):
         )
 
     async def list_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CredentialListInstance]:
         """
         Asynchronously lists CredentialListInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -499,15 +511,18 @@ class CredentialListList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CredentialListPage:
         """
         Retrieve a single page of CredentialListInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialListInstance
         """
@@ -523,15 +538,18 @@ class CredentialListList(ListResource):
         return CredentialListPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CredentialListPage:
         """
         Asynchronously retrieve a single page of CredentialListInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialListInstance
         """
@@ -548,31 +566,31 @@ class CredentialListList(ListResource):
         )
         return CredentialListPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> CredentialListPage:
+    def get_page(self, target_url: str) -> CredentialListPage:
         """
         Retrieve a specific page of CredentialListInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialListInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CredentialListPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> CredentialListPage:
+    async def get_page_async(self, target_url: str) -> CredentialListPage:
         """
         Asynchronously retrieve a specific page of CredentialListInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialListInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CredentialListPage(self._version, response, self._solution)
 
-    def get(self, sid) -> CredentialListContext:
+    def get(self, sid: str) -> CredentialListContext:
         """
         Constructs a CredentialListContext
 
@@ -582,7 +600,7 @@ class CredentialListList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> CredentialListContext:
+    def __call__(self, sid: str) -> CredentialListContext:
         """
         Constructs a CredentialListContext
 

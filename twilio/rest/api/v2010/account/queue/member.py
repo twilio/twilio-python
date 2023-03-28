@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -95,12 +95,14 @@ class MemberInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
-    def update(self, url, method=values.unset) -> "MemberInstance":
+    def update(
+        self, url: str, method: Union[str, object] = values.unset
+    ) -> "MemberInstance":
         """
         Update the MemberInstance
 
-        :param str url: The absolute URL of the Queue resource.
-        :param str method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
+        :param url: The absolute URL of the Queue resource.
+        :param method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
 
         :returns: The updated MemberInstance
         """
@@ -109,12 +111,14 @@ class MemberInstance(InstanceResource):
             method=method,
         )
 
-    async def update_async(self, url, method=values.unset) -> "MemberInstance":
+    async def update_async(
+        self, url: str, method: Union[str, object] = values.unset
+    ) -> "MemberInstance":
         """
         Asynchronous coroutine to update the MemberInstance
 
-        :param str url: The absolute URL of the Queue resource.
-        :param str method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
+        :param url: The absolute URL of the Queue resource.
+        :param method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
 
         :returns: The updated MemberInstance
         """
@@ -201,12 +205,14 @@ class MemberContext(InstanceContext):
             call_sid=self._solution["call_sid"],
         )
 
-    def update(self, url, method=values.unset) -> MemberInstance:
+    def update(
+        self, url: str, method: Union[str, object] = values.unset
+    ) -> MemberInstance:
         """
         Update the MemberInstance
 
-        :param str url: The absolute URL of the Queue resource.
-        :param str method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
+        :param url: The absolute URL of the Queue resource.
+        :param method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
 
         :returns: The updated MemberInstance
         """
@@ -231,12 +237,14 @@ class MemberContext(InstanceContext):
             call_sid=self._solution["call_sid"],
         )
 
-    async def update_async(self, url, method=values.unset) -> MemberInstance:
+    async def update_async(
+        self, url: str, method: Union[str, object] = values.unset
+    ) -> MemberInstance:
         """
         Asynchronous coroutine to update the MemberInstance
 
-        :param str url: The absolute URL of the Queue resource.
-        :param str method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
+        :param url: The absolute URL of the Queue resource.
+        :param method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
 
         :returns: The updated MemberInstance
         """
@@ -272,11 +280,11 @@ class MemberContext(InstanceContext):
 
 
 class MemberPage(Page):
-    def get_instance(self, payload) -> MemberInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> MemberInstance:
         """
         Build an instance of MemberInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return MemberInstance(
             self._version,
@@ -315,19 +323,23 @@ class MemberList(ListResource):
             **self._solution
         )
 
-    def stream(self, limit=None, page_size=None) -> List[MemberInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[MemberInstance]:
         """
         Streams MemberInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -336,19 +348,23 @@ class MemberList(ListResource):
 
         return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[MemberInstance]:
+    async def stream_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[MemberInstance]:
         """
         Asynchronously streams MemberInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -357,18 +373,22 @@ class MemberList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[MemberInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[MemberInstance]:
         """
         Lists MemberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -379,18 +399,22 @@ class MemberList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[MemberInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[MemberInstance]:
         """
         Asynchronously lists MemberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -402,15 +426,18 @@ class MemberList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MemberPage:
         """
         Retrieve a single page of MemberInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MemberInstance
         """
@@ -426,15 +453,18 @@ class MemberList(ListResource):
         return MemberPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> MemberPage:
         """
         Asynchronously retrieve a single page of MemberInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MemberInstance
         """
@@ -451,31 +481,31 @@ class MemberList(ListResource):
         )
         return MemberPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> MemberPage:
+    def get_page(self, target_url: str) -> MemberPage:
         """
         Retrieve a specific page of MemberInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MemberInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return MemberPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> MemberPage:
+    async def get_page_async(self, target_url: str) -> MemberPage:
         """
         Asynchronously retrieve a specific page of MemberInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of MemberInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return MemberPage(self._version, response, self._solution)
 
-    def get(self, call_sid) -> MemberContext:
+    def get(self, call_sid: str) -> MemberContext:
         """
         Constructs a MemberContext
 
@@ -488,7 +518,7 @@ class MemberList(ListResource):
             call_sid=call_sid,
         )
 
-    def __call__(self, call_sid) -> MemberContext:
+    def __call__(self, call_sid: str) -> MemberContext:
         """
         Constructs a MemberContext
 

@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -130,26 +130,28 @@ class ConnectAppInstance(InstanceResource):
 
     def update(
         self,
-        authorize_redirect_url=values.unset,
-        company_name=values.unset,
-        deauthorize_callback_method=values.unset,
-        deauthorize_callback_url=values.unset,
-        description=values.unset,
-        friendly_name=values.unset,
-        homepage_url=values.unset,
-        permissions=values.unset,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
     ) -> "ConnectAppInstance":
         """
         Update the ConnectAppInstance
 
-        :param str authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
-        :param str company_name: The company name to set for the Connect App.
-        :param str deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
-        :param str deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
-        :param str description: A description of the Connect App.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :param List["ConnectAppInstance.Permission"] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+        :param authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :param company_name: The company name to set for the Connect App.
+        :param deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :param deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :param description: A description of the Connect App.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param homepage_url: A public URL where users can obtain more information about this Connect App.
+        :param permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
 
         :returns: The updated ConnectAppInstance
         """
@@ -166,26 +168,28 @@ class ConnectAppInstance(InstanceResource):
 
     async def update_async(
         self,
-        authorize_redirect_url=values.unset,
-        company_name=values.unset,
-        deauthorize_callback_method=values.unset,
-        deauthorize_callback_url=values.unset,
-        description=values.unset,
-        friendly_name=values.unset,
-        homepage_url=values.unset,
-        permissions=values.unset,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
     ) -> "ConnectAppInstance":
         """
         Asynchronous coroutine to update the ConnectAppInstance
 
-        :param str authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
-        :param str company_name: The company name to set for the Connect App.
-        :param str deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
-        :param str deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
-        :param str description: A description of the Connect App.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :param List["ConnectAppInstance.Permission"] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+        :param authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :param company_name: The company name to set for the Connect App.
+        :param deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :param deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :param description: A description of the Connect App.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param homepage_url: A public URL where users can obtain more information about this Connect App.
+        :param permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
 
         :returns: The updated ConnectAppInstance
         """
@@ -296,26 +300,28 @@ class ConnectAppContext(InstanceContext):
 
     def update(
         self,
-        authorize_redirect_url=values.unset,
-        company_name=values.unset,
-        deauthorize_callback_method=values.unset,
-        deauthorize_callback_url=values.unset,
-        description=values.unset,
-        friendly_name=values.unset,
-        homepage_url=values.unset,
-        permissions=values.unset,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
     ) -> ConnectAppInstance:
         """
         Update the ConnectAppInstance
 
-        :param str authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
-        :param str company_name: The company name to set for the Connect App.
-        :param str deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
-        :param str deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
-        :param str description: A description of the Connect App.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :param List["ConnectAppInstance.Permission"] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+        :param authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :param company_name: The company name to set for the Connect App.
+        :param deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :param deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :param description: A description of the Connect App.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param homepage_url: A public URL where users can obtain more information about this Connect App.
+        :param permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
 
         :returns: The updated ConnectAppInstance
         """
@@ -347,26 +353,28 @@ class ConnectAppContext(InstanceContext):
 
     async def update_async(
         self,
-        authorize_redirect_url=values.unset,
-        company_name=values.unset,
-        deauthorize_callback_method=values.unset,
-        deauthorize_callback_url=values.unset,
-        description=values.unset,
-        friendly_name=values.unset,
-        homepage_url=values.unset,
-        permissions=values.unset,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
     ) -> ConnectAppInstance:
         """
         Asynchronous coroutine to update the ConnectAppInstance
 
-        :param str authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
-        :param str company_name: The company name to set for the Connect App.
-        :param str deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
-        :param str deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
-        :param str description: A description of the Connect App.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :param List["ConnectAppInstance.Permission"] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+        :param authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :param company_name: The company name to set for the Connect App.
+        :param deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :param deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :param description: A description of the Connect App.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param homepage_url: A public URL where users can obtain more information about this Connect App.
+        :param permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
 
         :returns: The updated ConnectAppInstance
         """
@@ -407,11 +415,11 @@ class ConnectAppContext(InstanceContext):
 
 
 class ConnectAppPage(Page):
-    def get_instance(self, payload) -> ConnectAppInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> ConnectAppInstance:
         """
         Build an instance of ConnectAppInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return ConnectAppInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -443,19 +451,23 @@ class ConnectAppList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/ConnectApps.json".format(**self._solution)
 
-    def stream(self, limit=None, page_size=None) -> List[ConnectAppInstance]:
+    def stream(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ConnectAppInstance]:
         """
         Streams ConnectAppInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -465,7 +477,9 @@ class ConnectAppList(ListResource):
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
-        self, limit=None, page_size=None
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[ConnectAppInstance]:
         """
         Asynchronously streams ConnectAppInstance records from the API as a generator stream.
@@ -473,12 +487,12 @@ class ConnectAppList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -487,18 +501,22 @@ class ConnectAppList(ListResource):
 
         return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, limit=None, page_size=None) -> List[ConnectAppInstance]:
+    def list(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ConnectAppInstance]:
         """
         Lists ConnectAppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -509,18 +527,22 @@ class ConnectAppList(ListResource):
             )
         )
 
-    async def list_async(self, limit=None, page_size=None) -> List[ConnectAppInstance]:
+    async def list_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ConnectAppInstance]:
         """
         Asynchronously lists ConnectAppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -532,15 +554,18 @@ class ConnectAppList(ListResource):
         )
 
     def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ConnectAppPage:
         """
         Retrieve a single page of ConnectAppInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConnectAppInstance
         """
@@ -556,15 +581,18 @@ class ConnectAppList(ListResource):
         return ConnectAppPage(self._version, response, self._solution)
 
     async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> ConnectAppPage:
         """
         Asynchronously retrieve a single page of ConnectAppInstance records from the API.
         Request is executed immediately
 
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConnectAppInstance
         """
@@ -581,31 +609,31 @@ class ConnectAppList(ListResource):
         )
         return ConnectAppPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> ConnectAppPage:
+    def get_page(self, target_url: str) -> ConnectAppPage:
         """
         Retrieve a specific page of ConnectAppInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConnectAppInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return ConnectAppPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> ConnectAppPage:
+    async def get_page_async(self, target_url: str) -> ConnectAppPage:
         """
         Asynchronously retrieve a specific page of ConnectAppInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of ConnectAppInstance
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConnectAppPage(self._version, response, self._solution)
 
-    def get(self, sid) -> ConnectAppContext:
+    def get(self, sid: str) -> ConnectAppContext:
         """
         Constructs a ConnectAppContext
 
@@ -615,7 +643,7 @@ class ConnectAppList(ListResource):
             self._version, account_sid=self._solution["account_sid"], sid=sid
         )
 
-    def __call__(self, sid) -> ConnectAppContext:
+    def __call__(self, sid: str) -> ConnectAppContext:
         """
         Constructs a ConnectAppContext
 

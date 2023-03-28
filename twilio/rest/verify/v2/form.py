@@ -166,7 +166,7 @@ class FormList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, form_type) -> FormContext:
+    def get(self, form_type: "FormInstance.FormTypes") -> FormContext:
         """
         Constructs a FormContext
 
@@ -174,7 +174,7 @@ class FormList(ListResource):
         """
         return FormContext(self._version, form_type=form_type)
 
-    def __call__(self, form_type) -> FormContext:
+    def __call__(self, form_type: "FormInstance.FormTypes") -> FormContext:
         """
         Constructs a FormContext
 

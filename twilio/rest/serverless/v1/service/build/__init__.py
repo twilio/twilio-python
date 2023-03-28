@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -253,11 +253,11 @@ class BuildContext(InstanceContext):
 
 class BuildPage(Page):
 
-    def get_instance(self, payload) -> BuildInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> BuildInstance:
         """
         Build an instance of BuildInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return BuildInstance(self._version, payload, service_sid=self._solution["service_sid"])
 
@@ -294,14 +294,14 @@ class BuildList(ListResource):
     
     
     
-    def create(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset) -> BuildInstance:
+    def create(self, asset_versions: Union[List[str], object]=values.unset, function_versions: Union[List[str], object]=values.unset, dependencies: Union[str, object]=values.unset, runtime: Union[str, object]=values.unset) -> BuildInstance:
         """
         Create the BuildInstance
 
-        :param List[str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
-        :param List[str] function_versions: The list of the Function Version resource SIDs to include in the Build.
-        :param str dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
-        :param str runtime: The Runtime version that will be used to run the Build resource when it is deployed.
+        :param asset_versions: The list of Asset Version resource SIDs to include in the Build.
+        :param function_versions: The list of the Function Version resource SIDs to include in the Build.
+        :param dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+        :param runtime: The Runtime version that will be used to run the Build resource when it is deployed.
         
         :returns: The created BuildInstance
         """
@@ -316,14 +316,14 @@ class BuildList(ListResource):
 
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
-    async def create_async(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset) -> BuildInstance:
+    async def create_async(self, asset_versions: Union[List[str], object]=values.unset, function_versions: Union[List[str], object]=values.unset, dependencies: Union[str, object]=values.unset, runtime: Union[str, object]=values.unset) -> BuildInstance:
         """
         Asynchronously create the BuildInstance
 
-        :param List[str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
-        :param List[str] function_versions: The list of the Function Version resource SIDs to include in the Build.
-        :param str dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
-        :param str runtime: The Runtime version that will be used to run the Build resource when it is deployed.
+        :param asset_versions: The list of Asset Version resource SIDs to include in the Build.
+        :param function_versions: The list of the Function Version resource SIDs to include in the Build.
+        :param dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+        :param runtime: The Runtime version that will be used to run the Build resource when it is deployed.
         
         :returns: The created BuildInstance
         """
@@ -339,19 +339,23 @@ class BuildList(ListResource):
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
-    def stream(self, limit=None, page_size=None) -> List[BuildInstance]:
+    def stream(self, 
+        
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[BuildInstance]:
         """
         Streams BuildInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -362,19 +366,23 @@ class BuildList(ListResource):
 
         return self._version.stream(page, limits['limit'])
 
-    async def stream_async(self, limit=None, page_size=None) -> List[BuildInstance]:
+    async def stream_async(self, 
+        
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[BuildInstance]:
         """
         Asynchronously streams BuildInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -385,18 +393,22 @@ class BuildList(ListResource):
 
         return await self._version.stream_async(page, limits['limit'])
 
-    def list(self, limit=None, page_size=None) -> List[BuildInstance]:
+    def list(self, 
+        
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[BuildInstance]:
         """
         Lists BuildInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -405,18 +417,22 @@ class BuildList(ListResource):
             page_size=page_size,
         ))
 
-    async def list_async(self, limit=None, page_size=None) -> List[BuildInstance]:
+    async def list_async(self, 
+        
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[BuildInstance]:
         """
         Asynchronously lists BuildInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -425,14 +441,19 @@ class BuildList(ListResource):
             page_size=page_size,
         ))
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset) -> BuildPage:
+    def page(self, 
+        
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> BuildPage:
         """
         Retrieve a single page of BuildInstance records from the API.
         Request is executed immediately
         
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BuildInstance
         """
@@ -445,14 +466,19 @@ class BuildList(ListResource):
         response = self._version.page(method='GET', uri=self._uri, params=data)
         return BuildPage(self._version, response, self._solution)
 
-    async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset) -> BuildPage:
+    async def page_async(self, 
+        
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> BuildPage:
         """
         Asynchronously retrieve a single page of BuildInstance records from the API.
         Request is executed immediately
         
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BuildInstance
         """
@@ -465,12 +491,12 @@ class BuildList(ListResource):
         response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return BuildPage(self._version, response, self._solution)
 
-    def get_page(self, target_url) -> BuildPage:
+    def get_page(self, target_url: str) -> BuildPage:
         """
         Retrieve a specific page of BuildInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of BuildInstance
         """
@@ -480,12 +506,12 @@ class BuildList(ListResource):
         )
         return BuildPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url) -> BuildPage:
+    async def get_page_async(self, target_url: str) -> BuildPage:
         """
         Asynchronously retrieve a specific page of BuildInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of BuildInstance
         """
@@ -499,7 +525,7 @@ class BuildList(ListResource):
 
 
 
-    def get(self, sid) -> BuildContext:
+    def get(self, sid: str) -> BuildContext:
         """
         Constructs a BuildContext
         
@@ -507,7 +533,7 @@ class BuildList(ListResource):
         """
         return BuildContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
-    def __call__(self, sid) -> BuildContext:
+    def __call__(self, sid: str) -> BuildContext:
         """
         Constructs a BuildContext
         

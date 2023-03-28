@@ -14,7 +14,7 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -141,11 +141,11 @@ class CallSummariesInstance(InstanceResource):
 
 
 class CallSummariesPage(Page):
-    def get_instance(self, payload) -> CallSummariesInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CallSummariesInstance:
         """
         Build an instance of CallSummariesInstance
 
-        :param dict payload: Payload response from the API
+        :param payload: Payload response from the API
         """
         return CallSummariesInstance(self._version, payload)
 
@@ -172,26 +172,28 @@ class CallSummariesList(ListResource):
 
     def stream(
         self,
-        from_=values.unset,
-        to=values.unset,
-        from_carrier=values.unset,
-        to_carrier=values.unset,
-        from_country_code=values.unset,
-        to_country_code=values.unset,
-        branded=values.unset,
-        verified_caller=values.unset,
-        has_tag=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        call_type=values.unset,
-        call_state=values.unset,
-        direction=values.unset,
-        processing_state=values.unset,
-        sort_by=values.unset,
-        subaccount=values.unset,
-        abnormal_session=values.unset,
-        limit=None,
-        page_size=None,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        branded: Union[bool, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
         """
         Streams CallSummariesInstance records from the API as a generator stream.
@@ -217,12 +219,12 @@ class CallSummariesList(ListResource):
         :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -253,26 +255,28 @@ class CallSummariesList(ListResource):
 
     async def stream_async(
         self,
-        from_=values.unset,
-        to=values.unset,
-        from_carrier=values.unset,
-        to_carrier=values.unset,
-        from_country_code=values.unset,
-        to_country_code=values.unset,
-        branded=values.unset,
-        verified_caller=values.unset,
-        has_tag=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        call_type=values.unset,
-        call_state=values.unset,
-        direction=values.unset,
-        processing_state=values.unset,
-        sort_by=values.unset,
-        subaccount=values.unset,
-        abnormal_session=values.unset,
-        limit=None,
-        page_size=None,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        branded: Union[bool, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
         """
         Asynchronously streams CallSummariesInstance records from the API as a generator stream.
@@ -298,12 +302,12 @@ class CallSummariesList(ListResource):
         :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -334,26 +338,28 @@ class CallSummariesList(ListResource):
 
     def list(
         self,
-        from_=values.unset,
-        to=values.unset,
-        from_carrier=values.unset,
-        to_carrier=values.unset,
-        from_country_code=values.unset,
-        to_country_code=values.unset,
-        branded=values.unset,
-        verified_caller=values.unset,
-        has_tag=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        call_type=values.unset,
-        call_state=values.unset,
-        direction=values.unset,
-        processing_state=values.unset,
-        sort_by=values.unset,
-        subaccount=values.unset,
-        abnormal_session=values.unset,
-        limit=None,
-        page_size=None,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        branded: Union[bool, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
         """
         Lists CallSummariesInstance records from the API as a list.
@@ -378,12 +384,12 @@ class CallSummariesList(ListResource):
         :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -414,26 +420,28 @@ class CallSummariesList(ListResource):
 
     async def list_async(
         self,
-        from_=values.unset,
-        to=values.unset,
-        from_carrier=values.unset,
-        to_carrier=values.unset,
-        from_country_code=values.unset,
-        to_country_code=values.unset,
-        branded=values.unset,
-        verified_caller=values.unset,
-        has_tag=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        call_type=values.unset,
-        call_state=values.unset,
-        direction=values.unset,
-        processing_state=values.unset,
-        sort_by=values.unset,
-        subaccount=values.unset,
-        abnormal_session=values.unset,
-        limit=None,
-        page_size=None,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        branded: Union[bool, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
         """
         Asynchronously lists CallSummariesInstance records from the API as a list.
@@ -458,12 +466,12 @@ class CallSummariesList(ListResource):
         :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         """
@@ -494,53 +502,55 @@ class CallSummariesList(ListResource):
 
     def page(
         self,
-        from_=values.unset,
-        to=values.unset,
-        from_carrier=values.unset,
-        to_carrier=values.unset,
-        from_country_code=values.unset,
-        to_country_code=values.unset,
-        branded=values.unset,
-        verified_caller=values.unset,
-        has_tag=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        call_type=values.unset,
-        call_state=values.unset,
-        direction=values.unset,
-        processing_state=values.unset,
-        sort_by=values.unset,
-        subaccount=values.unset,
-        abnormal_session=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        branded: Union[bool, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CallSummariesPage:
         """
         Retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param from_:
+        :param to:
+        :param from_carrier:
+        :param to_carrier:
+        :param from_country_code:
+        :param to_country_code:
+        :param branded:
+        :param verified_caller:
+        :param has_tag:
+        :param start_time:
+        :param end_time:
+        :param call_type:
+        :param call_state:
+        :param direction:
+        :param processing_state:
+        :param sort_by:
+        :param subaccount:
+        :param abnormal_session:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CallSummariesInstance
         """
@@ -575,53 +585,55 @@ class CallSummariesList(ListResource):
 
     async def page_async(
         self,
-        from_=values.unset,
-        to=values.unset,
-        from_carrier=values.unset,
-        to_carrier=values.unset,
-        from_country_code=values.unset,
-        to_country_code=values.unset,
-        branded=values.unset,
-        verified_caller=values.unset,
-        has_tag=values.unset,
-        start_time=values.unset,
-        end_time=values.unset,
-        call_type=values.unset,
-        call_state=values.unset,
-        direction=values.unset,
-        processing_state=values.unset,
-        sort_by=values.unset,
-        subaccount=values.unset,
-        abnormal_session=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        branded: Union[bool, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
     ) -> CallSummariesPage:
         """
         Asynchronously retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
+        :param from_:
+        :param to:
+        :param from_carrier:
+        :param to_carrier:
+        :param from_country_code:
+        :param to_country_code:
+        :param branded:
+        :param verified_caller:
+        :param has_tag:
+        :param start_time:
+        :param end_time:
+        :param call_type:
+        :param call_state:
+        :param direction:
+        :param processing_state:
+        :param sort_by:
+        :param subaccount:
+        :param abnormal_session:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of CallSummariesInstance
         """
@@ -656,24 +668,24 @@ class CallSummariesList(ListResource):
         )
         return CallSummariesPage(self._version, response)
 
-    def get_page(self, target_url) -> CallSummariesPage:
+    def get_page(self, target_url: str) -> CallSummariesPage:
         """
         Retrieve a specific page of CallSummariesInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CallSummariesInstance
         """
         response = self._version.domain.twilio.request("GET", target_url)
         return CallSummariesPage(self._version, response)
 
-    async def get_page_async(self, target_url) -> CallSummariesPage:
+    async def get_page_async(self, target_url: str) -> CallSummariesPage:
         """
         Asynchronously retrieve a specific page of CallSummariesInstance records from the API.
         Request is executed immediately
 
-        :param str target_url: API-generated URL for the requested results page
+        :param target_url: API-generated URL for the requested results page
 
         :returns: Page of CallSummariesInstance
         """

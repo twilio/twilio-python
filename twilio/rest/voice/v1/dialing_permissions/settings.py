@@ -13,7 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -71,12 +71,12 @@ class SettingsInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self, dialing_permissions_inheritance=values.unset
+        self, dialing_permissions_inheritance: Union[bool, object] = values.unset
     ) -> "SettingsInstance":
         """
         Update the SettingsInstance
 
-        :param bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
+        :param dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
 
         :returns: The updated SettingsInstance
         """
@@ -85,12 +85,12 @@ class SettingsInstance(InstanceResource):
         )
 
     async def update_async(
-        self, dialing_permissions_inheritance=values.unset
+        self, dialing_permissions_inheritance: Union[bool, object] = values.unset
     ) -> "SettingsInstance":
         """
         Asynchronous coroutine to update the SettingsInstance
 
-        :param bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
+        :param dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
 
         :returns: The updated SettingsInstance
         """
@@ -155,11 +155,13 @@ class SettingsContext(InstanceContext):
             payload,
         )
 
-    def update(self, dialing_permissions_inheritance=values.unset) -> SettingsInstance:
+    def update(
+        self, dialing_permissions_inheritance: Union[bool, object] = values.unset
+    ) -> SettingsInstance:
         """
         Update the SettingsInstance
 
-        :param bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
+        :param dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
 
         :returns: The updated SettingsInstance
         """
@@ -178,12 +180,12 @@ class SettingsContext(InstanceContext):
         return SettingsInstance(self._version, payload)
 
     async def update_async(
-        self, dialing_permissions_inheritance=values.unset
+        self, dialing_permissions_inheritance: Union[bool, object] = values.unset
     ) -> SettingsInstance:
         """
         Asynchronous coroutine to update the SettingsInstance
 
-        :param bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
+        :param dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
 
         :returns: The updated SettingsInstance
         """

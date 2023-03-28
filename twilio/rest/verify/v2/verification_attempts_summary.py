@@ -13,7 +13,8 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
+from datetime import datetime
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -71,22 +72,24 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
 
     def fetch(
         self,
-        verify_service_sid=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        destination_prefix=values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
     ) -> "VerificationAttemptsSummaryInstance":
         """
         Fetch the VerificationAttemptsSummaryInstance
 
-        :param str verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param "VerificationAttemptsSummaryInstance.Channels" channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
-        :param str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+        :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
         """
@@ -101,22 +104,24 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
 
     async def fetch_async(
         self,
-        verify_service_sid=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        destination_prefix=values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
     ) -> "VerificationAttemptsSummaryInstance":
         """
         Asynchronous coroutine to fetch the VerificationAttemptsSummaryInstance
 
-        :param str verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param "VerificationAttemptsSummaryInstance.Channels" channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
-        :param str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+        :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
         """
@@ -152,22 +157,24 @@ class VerificationAttemptsSummaryContext(InstanceContext):
 
     def fetch(
         self,
-        verify_service_sid=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        destination_prefix=values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
     ) -> VerificationAttemptsSummaryInstance:
         """
         Fetch the VerificationAttemptsSummaryInstance
 
-        :param str verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param "VerificationAttemptsSummaryInstance.Channels" channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
-        :param str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+        :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
         """
@@ -192,22 +199,24 @@ class VerificationAttemptsSummaryContext(InstanceContext):
 
     async def fetch_async(
         self,
-        verify_service_sid=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        country=values.unset,
-        channel=values.unset,
-        destination_prefix=values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
     ) -> VerificationAttemptsSummaryInstance:
         """
         Asynchronous coroutine to fetch the VerificationAttemptsSummaryInstance
 
-        :param str verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param "VerificationAttemptsSummaryInstance.Channels" channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
-        :param str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+        :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
         """

@@ -220,7 +220,7 @@ class ExportList(ListResource):
             self._jobs = JobList(self._version)
         return self._jobs
 
-    def get(self, resource_type) -> ExportContext:
+    def get(self, resource_type: str) -> ExportContext:
         """
         Constructs a ExportContext
 
@@ -228,7 +228,7 @@ class ExportList(ListResource):
         """
         return ExportContext(self._version, resource_type=resource_type)
 
-    def __call__(self, resource_type) -> ExportContext:
+    def __call__(self, resource_type: str) -> ExportContext:
         """
         Constructs a ExportContext
 
