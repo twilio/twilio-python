@@ -8,6 +8,7 @@ from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
 from twilio.rest.flex_api.v1.insights_assessments_comment import (
     InsightsAssessmentsCommentList,
 )
+from twilio.rest.flex_api.v1.insights_conversations import InsightsConversationsList
 from twilio.rest.flex_api.v1.insights_questionnaires import InsightsQuestionnairesList
 from twilio.rest.flex_api.v1.insights_questionnaires_category import (
     InsightsQuestionnairesCategoryList,
@@ -74,6 +75,15 @@ class FlexApi(FlexApiBase):
             stacklevel=2,
         )
         return self.v1.insights_assessments_comment
+
+    @property
+    def insights_conversations(self) -> InsightsConversationsList:
+        warn(
+            "insights_conversations is deprecated. Use v1.insights_conversations instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return self.v1.insights_conversations
 
     @property
     def insights_questionnaires(self) -> InsightsQuestionnairesList:
