@@ -51,12 +51,6 @@ source code") for `twilio-python`, and then run:
 
 You may need to run the above commands with `sudo`.
 
-### Installing Release Candidates
-
-Or, if you're wanting to install the latest release candidate use:
-
-    pip install twilio --pre
-
 ## Getting Started
 
 Getting started with the Twilio API couldn't be easier. Create a
