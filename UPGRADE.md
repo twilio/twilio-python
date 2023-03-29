@@ -62,6 +62,10 @@ posted here._
 
     New: `client.taskrouter.v1.workspaces('WS...').workers.real_time_statistics()`
 
+- **Internal refactor of `instance._properties`**
+  - Instance properties moved out of the generic `_properties` dict ([#696](https://github.com/twilio/twilio-python/pull/696))
+  - This is an implementation detail that should not be depended upon
+
 ## [2021-09-22] 6.x.x to 7.x.x
 
 ### Overview
