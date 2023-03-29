@@ -4,7 +4,7 @@ on:
     branches: [ '*' ]
     tags: [ '*' ]
   pull_request:
-    branches: [ '8.0.0-rc' ]
+    branches: [ main ]
   schedule:
     # Run automatically at 8AM PST Monday-Friday
     - cron: '0 15 * * 1-5'
@@ -46,7 +46,7 @@ jobs:
           TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
           TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
-        run: make cluster-test 
+        run: make cluster-test
 
       - name: Verify docs generation
         run: make docs
