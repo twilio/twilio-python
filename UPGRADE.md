@@ -3,7 +3,7 @@
 _`MAJOR` version bumps will have upgrade notes
 posted here._
 
-## [2023-03-22] 7.x.x to 8.x.x
+## [2023-04-05] 7.x.x to 8.x.x
 
 - **Supported Python versions updated**
   - Dropped support for Python 3.6 ([#632](https://github.com/twilio/twilio-python/pull/632))
