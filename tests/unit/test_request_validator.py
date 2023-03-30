@@ -9,7 +9,6 @@ from twilio.request_validator import RequestValidator
 
 
 class ValidationTest(unittest.TestCase):
-
     def setUp(self):
         if not settings.configured:
             settings.configure()
@@ -26,10 +25,12 @@ class ValidationTest(unittest.TestCase):
             "Caller": "+14158675309",
         }
         self.expected = "RSOYDt4T1cUTdK1PDd93/VVr8B8="
-        self.body = "{\"property\": \"value\", \"boolean\": true}"
-        self.bodyHash = "0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
+        self.body = '{"property": "value", "boolean": true}'
+        self.bodyHash = (
+            "0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
+        )
         self.uriWithBody = self.uri + "&bodySHA256=" + self.bodyHash
-        self.duplicate_expected = 'IK+Dwps556ElfBT0I3Rgjkr1wJU='
+        self.duplicate_expected = "IK+Dwps556ElfBT0I3Rgjkr1wJU="
 
     def test_compute_signature(self):
         expected = self.expected
@@ -44,19 +45,24 @@ class ValidationTest(unittest.TestCase):
 
     def test_compute_signature_duplicate_multi_dict(self):
         expected = self.duplicate_expected
-        params = MultiDict([
-            ("Sid", "CA123"),
-            ("SidAccount", "AC123"),
-            ("Digits", "5678"),  # Ensure keys are sorted.
-            ("Digits", "1234"),  # Ensure values are sorted.
-            ("Digits", "1234"),  # Ensure duplicates are removed.
-        ])
+        params = MultiDict(
+            [
+                ("Sid", "CA123"),
+                ("SidAccount", "AC123"),
+                ("Digits", "5678"),  # Ensure keys are sorted.
+                ("Digits", "1234"),  # Ensure values are sorted.
+                ("Digits", "1234"),  # Ensure duplicates are removed.
+            ]
+        )
         signature = self.validator.compute_signature(self.uri, params)
         assert signature == expected
 
     def test_compute_signature_duplicate_query_dict(self):
         expected = self.duplicate_expected
-        params = QueryDict('Sid=CA123&SidAccount=AC123&Digits=5678&Digits=1234&Digits=1234', encoding='utf-8')
+        params = QueryDict(
+            "Sid=CA123&SidAccount=AC123&Digits=5678&Digits=1234&Digits=1234",
+            encoding="utf-8",
+        )
         signature = self.validator.compute_signature(self.uri, params)
         assert signature == expected
 
@@ -83,5 +89,7 @@ class ValidationTest(unittest.TestCase):
 
     def test_validation_of_body_succeeds(self):
         uri = self.uriWithBody
-        is_valid = self.validator.validate(uri, self.body, "a9nBmqA0ju/hNViExpshrM61xv4=")
+        is_valid = self.validator.validate(
+            uri, self.body, "a9nBmqA0ju/hNViExpshrM61xv4="
+        )
         assert is_valid

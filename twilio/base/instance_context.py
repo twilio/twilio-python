@@ -1,8 +1,6 @@
-class InstanceContext(object):
-    def __init__(self, version):
-        """
-        :param Version version:
-        """
-        self._version = version
-        """ :type: Version """
+from twilio.base.version import Version
 
+
+class InstanceContext(object):
+    def __init__(self, version: Version):
+        self._version = version

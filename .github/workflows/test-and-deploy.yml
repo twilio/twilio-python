@@ -13,17 +13,11 @@ on:
 jobs:
   test:
     name: Test
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       matrix:
         python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11' ]
-        os: [ubuntu-latest]
-        # Need to pin ubuntu version for python 3.6 (see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877)
-        # Change this to use ubuntu-latest for all python versions after deprecating python 3.6
-        include:
-          - python-version: '3.6'
-            os: 'ubuntu-20.04'
-    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout twilio-python
         uses: actions/checkout@v3
@@ -42,6 +36,17 @@ jobs:
 
       - name: Run the tests
         run: make test-with-coverage
+
+      - name: Run Cluster Tests
+        if: (!github.event.pull_request.head.repo.fork)
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
+          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+        run: make cluster-test
 
       - name: Verify docs generation
         run: make docs

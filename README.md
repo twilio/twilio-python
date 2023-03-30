@@ -23,7 +23,6 @@ Please consult the [official migration guide](https://www.twilio.com/docs/librar
 
 This library supports the following Python implementations:
 
-* Python 3.6
 * Python 3.7
 * Python 3.8
 * Python 3.9
@@ -59,15 +58,26 @@ Getting started with the Twilio API couldn't be easier. Create a
 
 ### API Credentials
 
-The `Twilio` needs your Twilio credentials. You can either pass these
+The `Twilio` client needs your Twilio credentials. You can either pass these
 directly to the constructor (see the code below) or via environment variables.
 
+Authenticating with Account SID and Auth Token:
 ```python
 from twilio.rest import Client
 
-account = "ACXXXXXXXXXXXXXXXXX"
-token = "YYYYYYYYYYYYYYYYYY"
-client = Client(account, token)
+account_sid = "ACXXXXXXXXXXXXXXXXX"
+auth_token = "YYYYYYYYYYYYYYYYYY"
+client = Client(account_sid, auth_token)
+```
+
+Authenticating with API Key and API Secret:
+```python
+from twilio.rest import Client
+
+api_key = "XXXXXXXXXXXXXXXXX"
+api_secret = "YYYYYYYYYYYYYYYYYY"
+account_sid = "ACXXXXXXXXXXXXXXXXX"
+client = Client(api_key, api_secret, account_sid)
 ```
 
 Alternatively, a `Client` constructor without these parameters will
@@ -112,9 +122,9 @@ This will result in the `hostname` transforming from `api.twilio.com` to `api.sy
 ```python
 from twilio.rest import Client
 
-account = "ACXXXXXXXXXXXXXXXXX"
-token = "YYYYYYYYYYYYYYYYYY"
-client = Client(account, token)
+username = "ACXXXXXXXXXXXXXXXXX"
+password = "YYYYYYYYYYYYYYYYYY"
+client = Client(username, password)
 
 call = client.calls.create(to="9991231234",
                            from_="9991231234",
@@ -127,12 +137,32 @@ print(call.sid)
 ```python
 from twilio.rest import Client
 
-account = "ACXXXXXXXXXXXXXXXXX"
-token = "YYYYYYYYYYYYYYYYYY"
-client = Client(account, token)
+username = "ACXXXXXXXXXXXXXXXXX"
+password = "YYYYYYYYYYYYYYYYYY"
+client = Client(username, password)
 
 message = client.messages.create(to="+12316851234", from_="+15555555555",
                                  body="Hello there!")
+```
+
+### Asynchronous API Requests
+
+By default, the Twilio Client will make synchronous requests to the Twilio API. To allow for asynchronous, non-blocking requests, we've included an optional asynchronous HTTP client. When used with the Client and the accompanying `*_async` methods, requests made to the Twilio API will be performed asynchronously.
+
+```python
+from twilio.http.async_http_client import AsyncTwilioHttpClient
+from twilio.rest import Client
+
+async def main():
+    username = "ACXXXXXXXXXXXXXXXXX"
+    password = "YYYYYYYYYYYYYYYYYY"
+    http_client = AsyncTwilioHttpClient()
+    client = Client(username, password, http_client=http_client)
+
+    message = await client.messages.create_async(to="+12316851234", from_="+15555555555",
+                                                 body="Hello there!")
+
+asyncio.run(main())
 ```
 
 ### Enable Debug Logging
@@ -142,7 +172,7 @@ Log the API request and response data to the console:
 ```python
 import logging
 
-client = Client(account, token)
+client = Client(username, password)
 logging.basicConfig()
 client.http_client.logger.setLevel(logging.INFO)
 ```
@@ -152,7 +182,7 @@ Log the API request and response data to a file:
 ```python
 import logging
 
-client = Client(account, token)
+client = Client(username, password)
 logging.basicConfig(filename='./log.txt')
 client.http_client.logger.setLevel(logging.INFO)
 ```
@@ -163,9 +193,9 @@ client.http_client.logger.setLevel(logging.INFO)
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 
-account = "ACXXXXXXXXXXXXXXXXX"
-token = "YYYYYYYYYYYYYYYYYY"
-client = Client(account, token)
+username = "ACXXXXXXXXXXXXXXXXX"
+password = "YYYYYYYYYYYYYYYYYY"
+client = Client(username, password)
 
 try:
   message = client.messages.create(to="+12316851234", from_="+15555555555",

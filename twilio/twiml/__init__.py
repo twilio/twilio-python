@@ -4,10 +4,10 @@ import xml.etree.ElementTree as ET
 
 
 def lower_camel(string):
-    if not string or '_' not in string:
+    if not string or "_" not in string:
         return string
 
-    result = "".join([x.title() for x in string.split('_')])
+    result = "".join([x.title() for x in string.split("_")])
     return result[0].lower() + result[1:]
 
 
@@ -20,10 +20,10 @@ def format_language(language):
     if not language:
         return language
 
-    if not re.match('^[a-zA-Z]{2}[_-][a-zA-Z]{2}$', language):
-        raise TwiMLException('Invalid value for language parameter.')
+    if not re.match("^[a-zA-Z]{2}[_-][a-zA-Z]{2}$", language):
+        raise TwiMLException("Invalid value for language parameter.")
 
-    return language[0:2].lower() + '-' + language[3:5].upper()
+    return language[0:2].lower() + "-" + language[3:5].upper()
 
 
 class TwiMLException(Exception):
@@ -32,11 +32,11 @@ class TwiMLException(Exception):
 
 class TwiML(object):
     MAP = {
-        'from_': 'from',
-        'xml_lang': 'xml:lang',
-        'interpret_as': 'interpret-as',
-        'for_': 'for',
-        'break_': 'break'
+        "from_": "from",
+        "xml_lang": "xml:lang",
+        "interpret_as": "interpret-as",
+        "for_": "for",
+        "break_": "break",
     }
 
     def __init__(self, **kwargs):
@@ -64,8 +64,12 @@ class TwiML(object):
 
         :param bool xml_declaration: Include the XML declaration. Defaults to True
         """
-        xml = ET.tostring(self.xml()).decode('utf-8')
-        return '<?xml version="1.0" encoding="UTF-8"?>{}'.format(xml) if xml_declaration else xml
+        xml = ET.tostring(self.xml(), encoding="utf-8").decode("utf-8")
+        return (
+            '<?xml version="1.0" encoding="UTF-8"?>{}'.format(xml)
+            if xml_declaration
+            else xml
+        )
 
     def append(self, verb):
         """
@@ -87,7 +91,7 @@ class TwiML(object):
         :returns: the TwiML verb
         """
         if not isinstance(verb, TwiML) and not isinstance(verb, str):
-            raise TwiMLException('Only nesting of TwiML and strings are allowed')
+            raise TwiMLException("Only nesting of TwiML and strings are allowed")
 
         self.verbs.append(verb)
         return verb
