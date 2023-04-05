@@ -44,7 +44,6 @@ class PhoneNumberInstance(InstanceResource):
     :ivar line_type_intelligence: An object that contains line type information including the carrier name, mobile country code, and mobile network code.
     :ivar identity_match: An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
     :ivar sms_pumping_risk: An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
-    :ivar disposable_phone_number_risk: An object that contains information on if a mobile phone number could be a disposable or burner number.
     :ivar url: The absolute URL of the resource.
     """
 
@@ -76,9 +75,6 @@ class PhoneNumberInstance(InstanceResource):
         self.identity_match: Optional[Dict[str, object]] = payload.get("identity_match")
         self.sms_pumping_risk: Optional[Dict[str, object]] = payload.get(
             "sms_pumping_risk"
-        )
-        self.disposable_phone_number_risk: Optional[Dict[str, object]] = payload.get(
-            "disposable_phone_number_risk"
         )
         self.url: Optional[str] = payload.get("url")
 

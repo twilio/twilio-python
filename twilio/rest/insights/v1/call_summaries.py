@@ -192,6 +192,7 @@ class CallSummariesList(ListResource):
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CallSummariesInstance]:
@@ -219,6 +220,7 @@ class CallSummariesList(ListResource):
         :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -248,6 +250,7 @@ class CallSummariesList(ListResource):
             sort_by=sort_by,
             subaccount=subaccount,
             abnormal_session=abnormal_session,
+            answered_by=answered_by,
             page_size=limits["page_size"],
         )
 
@@ -275,6 +278,7 @@ class CallSummariesList(ListResource):
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CallSummariesInstance]:
@@ -302,6 +306,7 @@ class CallSummariesList(ListResource):
         :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -331,6 +336,7 @@ class CallSummariesList(ListResource):
             sort_by=sort_by,
             subaccount=subaccount,
             abnormal_session=abnormal_session,
+            answered_by=answered_by,
             page_size=limits["page_size"],
         )
 
@@ -358,6 +364,7 @@ class CallSummariesList(ListResource):
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -384,6 +391,7 @@ class CallSummariesList(ListResource):
         :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -413,6 +421,7 @@ class CallSummariesList(ListResource):
                 sort_by=sort_by,
                 subaccount=subaccount,
                 abnormal_session=abnormal_session,
+                answered_by=answered_by,
                 limit=limit,
                 page_size=page_size,
             )
@@ -440,6 +449,7 @@ class CallSummariesList(ListResource):
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -466,6 +476,7 @@ class CallSummariesList(ListResource):
         :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
         :param str subaccount:
         :param bool abnormal_session:
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -496,6 +507,7 @@ class CallSummariesList(ListResource):
                 sort_by=sort_by,
                 subaccount=subaccount,
                 abnormal_session=abnormal_session,
+                answered_by=answered_by,
                 limit=limit,
                 page_size=page_size,
             )
@@ -523,6 +535,7 @@ class CallSummariesList(ListResource):
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -549,6 +562,7 @@ class CallSummariesList(ListResource):
         :param sort_by:
         :param subaccount:
         :param abnormal_session:
+        :param answered_by:
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -575,6 +589,7 @@ class CallSummariesList(ListResource):
                 "SortBy": sort_by,
                 "Subaccount": subaccount,
                 "AbnormalSession": abnormal_session,
+                "AnsweredBy": answered_by,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -606,6 +621,7 @@ class CallSummariesList(ListResource):
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -632,6 +648,7 @@ class CallSummariesList(ListResource):
         :param sort_by:
         :param subaccount:
         :param abnormal_session:
+        :param answered_by:
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -658,6 +675,7 @@ class CallSummariesList(ListResource):
                 "SortBy": sort_by,
                 "Subaccount": subaccount,
                 "AbnormalSession": abnormal_session,
+                "AnsweredBy": answered_by,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

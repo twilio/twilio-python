@@ -3,6 +3,29 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-04-05] Version 8.0.0
+--------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2023-04-05-7xx-to-8xx) for detailed migration notes.
+
+**Library - Feature**
+- [PR #702](https://github.com/twilio/twilio-python/pull/702): Merge branch '8.0.0-rc' to main. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+
+**Conversations**
+- Expose query parameters `start_date`, `end_date` and `state` in list operation on Conversations resource for sorting and filtering
+
+**Insights**
+- Added answered by filter in Call Summaries
+
+**Lookups**
+- Remove `disposable_phone_number_risk` package **(breaking change)**
+
+**Messaging**
+- Add support for `SOLE_PROPRIETOR` brand type and `SOLE_PROPRIETOR` campaign use case.
+- New Sole Proprietor Brands should be created with `SOLE_PROPRIETOR` brand type. Brand registration requests with `STARTER` brand type will be rejected.
+- New Sole Proprietor Campaigns should be created with `SOLE_PROPRIETOR` campaign use case. Campaign registration requests with `STARTER` campaign use case will be rejected.
+- Add Brand Registrations OTP API
+
+
 [2023-03-22] Version 7.17.0
 ---------------------------
 **Api**
