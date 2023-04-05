@@ -1,6 +1,6 @@
 # Custom HTTP Clients for the Twilio Python Helper Library
 
-If you are working with the [Twilio Python Helper Library](/docs/libraries/python), and you need to be able to modify the HTTP requests that the library makes to the Twilio servers, you’re in the right place. The most common reason for altering the HTTP request is to connect and authenticate with an enterprise’s proxy server. We’ll provide sample code that you can use in your app to handle this and other use cases.
+If you are working with the Twilio Python Helper Library, and you need to be able to modify the HTTP requests that the library makes to the Twilio servers, you’re in the right place. The most common reason for altering the HTTP request is to connect and authenticate with an enterprise’s proxy server. We’ll provide sample code that you can use in your app to handle this and other use cases.
 
 ## Connect and authenticate with a proxy server
 
