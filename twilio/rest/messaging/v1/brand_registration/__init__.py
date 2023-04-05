@@ -21,6 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+from twilio.rest.messaging.v1.brand_registration.brand_registration_otp import (
+    BrandRegistrationOtpList,
+)
 from twilio.rest.messaging.v1.brand_registration.brand_vetting import BrandVettingList
 
 
@@ -52,7 +55,7 @@ class BrandRegistrationInstance(InstanceResource):
     :ivar a2p_profile_bundle_sid: A2P Messaging Profile Bundle BundleSid.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-    :ivar brand_type: Type of brand. One of: \"STANDARD\", \"STARTER\". STARTER is for the low volume, STARTER campaign use case. There can only be one STARTER campaign created per STARTER brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand.
+    :ivar brand_type: Type of brand. One of: \"STANDARD\", \"SOLE_PROPRIETOR\". SOLE_PROPRIETOR is for the low volume, SOLE_PROPRIETOR campaign use case. There can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand.
     :ivar status: 
     :ivar tcr_id: Campaign Registry (TCR) Brand ID. Assigned only after successful brand registration.
     :ivar failure_reason: A reason why brand registration has failed. Only applicable when status is FAILED.
@@ -169,6 +172,13 @@ class BrandRegistrationInstance(InstanceResource):
         return await self._proxy.update_async()
 
     @property
+    def brand_registration_otps(self) -> BrandRegistrationOtpList:
+        """
+        Access the brand_registration_otps
+        """
+        return self._proxy.brand_registration_otps
+
+    @property
     def brand_vettings(self) -> BrandVettingList:
         """
         Access the brand_vettings
@@ -201,6 +211,7 @@ class BrandRegistrationContext(InstanceContext):
         }
         self._uri = "/a2p/BrandRegistrations/{sid}".format(**self._solution)
 
+        self._brand_registration_otps: Optional[BrandRegistrationOtpList] = None
         self._brand_vettings: Optional[BrandVettingList] = None
 
     def fetch(self) -> BrandRegistrationInstance:
@@ -280,6 +291,18 @@ class BrandRegistrationContext(InstanceContext):
         )
 
     @property
+    def brand_registration_otps(self) -> BrandRegistrationOtpList:
+        """
+        Access the brand_registration_otps
+        """
+        if self._brand_registration_otps is None:
+            self._brand_registration_otps = BrandRegistrationOtpList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._brand_registration_otps
+
+    @property
     def brand_vettings(self) -> BrandVettingList:
         """
         Access the brand_vettings
@@ -344,7 +367,7 @@ class BrandRegistrationList(ListResource):
 
         :param customer_profile_bundle_sid: Customer Profile Bundle Sid.
         :param a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
-        :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
+        :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases.
         :param mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
         :param skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
 
@@ -381,7 +404,7 @@ class BrandRegistrationList(ListResource):
 
         :param customer_profile_bundle_sid: Customer Profile Bundle Sid.
         :param a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
-        :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
+        :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases.
         :param mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
         :param skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
 
