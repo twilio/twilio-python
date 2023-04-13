@@ -15,68 +15,101 @@ The Python library documentation can be found [here][libdocs].
 
 `twilio-python` uses a modified version of [Semantic Versioning](https://semver.org) for all changes. [See this document](VERSIONS.md) for details.
 
-### Migrating from 5.x
-
-Please consult the [official migration guide](https://www.twilio.com/docs/libraries/python/migration-guide) for information on upgrading your application using twilio-python 5.x to 6.x
-
 ### Supported Python Versions
 
 This library supports the following Python implementations:
 
-* Python 3.7
-* Python 3.8
-* Python 3.9
-* Python 3.10
-* Python 3.11
+- Python 3.7
+- Python 3.8
+- Python 3.9
+- Python 3.10
+- Python 3.11
 
 ## Installation
 
 Install from PyPi using [pip](https://pip.pypa.io/en/latest/), a
 package manager for Python.
 
-    pip install twilio
+```shell
+pip3 install twilio
+```
 
 If pip install fails on Windows, check the path length of the directory. If it is greater 260 characters then enable [Long Paths](https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation) or choose other shorter location.
 
 Don't have pip installed? Try installing it, by running this from the command
 line:
 
-    $ curl https://bootstrap.pypa.io/get-pip.py | python
+```shell
+curl https://bootstrap.pypa.io/get-pip.py | python
+```
 
 Or, you can [download the source code
-(ZIP)](https://github.com/twilio/twilio-python/zipball/main "twilio-python
-source code") for `twilio-python`, and then run:
+(ZIP)](https://github.com/twilio/twilio-python/zipball/main 'twilio-python
+source code') for `twilio-python`, and then run:
 
-    python setup.py install
+```shell
+python3 setup.py install
+```
 
-You may need to run the above commands with `sudo`.
+> **Info**
+> If the command line gives you an error message that says Permission Denied, try running the above commands with `sudo` (e.g., `sudo pip3 install twilio`).
 
-## Getting Started
+### Test your installation
 
-Getting started with the Twilio API couldn't be easier. Create a
-`Client` and you're ready to go.
+Try sending yourself an SMS message. Save the following code sample to your computer with a text editor. Be sure to update the `account_sid`, `auth_token`, and `from_` phone number with values from your [Twilio account](https://console.twilio.com). The `to` phone number will be your own mobile phone.
 
-### API Credentials
-
-The `Twilio` client needs your Twilio credentials. You can either pass these
-directly to the constructor (see the code below) or via environment variables.
-
-Authenticating with Account SID and Auth Token:
 ```python
 from twilio.rest import Client
 
-account_sid = "ACXXXXXXXXXXXXXXXXX"
-auth_token = "YYYYYYYYYYYYYYYYYY"
+# Your Account SID and Auth Token from console.twilio.com
+account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+auth_token  = "your_auth_token"
+
+client = Client(account_sid, auth_token)
+
+message = client.messages.create(
+    to="+15558675309",
+    from_="+15017250604",
+    body="Hello from Python!")
+
+print(message.sid)
+```
+
+Save the file as `send_sms.py`. In the terminal, `cd` to the directory containing the file you just saved then run:
+
+```shell
+python3 send_sms.py
+```
+
+After a brief delay, you will receive the text message on your phone.
+
+> **Warning**
+> It's okay to hardcode your credentials when testing locally, but you should use environment variables to keep them secret before committing any code or deploying to production. Check out [How to Set Environment Variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) for more information.
+
+## Use the helper library
+
+### API Credentials
+
+The `Twilio` client needs your Twilio credentials. You can either pass these directly to the constructor (see the code below) or via environment variables.
+
+Authenticating with Account SID and Auth Token:
+
+```python
+from twilio.rest import Client
+
+account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+auth_token  = "your_auth_token"
 client = Client(account_sid, auth_token)
 ```
 
 Authenticating with API Key and API Secret:
+
 ```python
 from twilio.rest import Client
 
 api_key = "XXXXXXXXXXXXXXXXX"
 api_secret = "YYYYYYYYYYYYYYYYYY"
-account_sid = "ACXXXXXXXXXXXXXXXXX"
+account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 client = Client(api_key, api_secret, account_sid)
 ```
 
@@ -87,7 +120,6 @@ current environment.
 We suggest storing your credentials as environment variables. Why? You'll never
 have to worry about committing your credentials and accidentally posting them
 somewhere public.
-
 
 ```python
 from twilio.rest import Client
@@ -103,7 +135,8 @@ from twilio.rest import Client
 
 client = Client(region='au1', edge='sydney')
 ```
-A `Client` constructor  without these parameters will also look for `TWILIO_REGION` and `TWILIO_EDGE` variables inside the current environment.
+
+A `Client` constructor without these parameters will also look for `TWILIO_REGION` and `TWILIO_EDGE` variables inside the current environment.
 
 Alternatively, you may specify the edge and/or region after constructing the Twilio client:
 
@@ -122,9 +155,9 @@ This will result in the `hostname` transforming from `api.twilio.com` to `api.sy
 ```python
 from twilio.rest import Client
 
-username = "ACXXXXXXXXXXXXXXXXX"
-password = "YYYYYYYYYYYYYYYYYY"
-client = Client(username, password)
+account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+auth_token  = "your_auth_token"
+client = Client(account_sid, auth_token)
 
 call = client.calls.create(to="9991231234",
                            from_="9991231234",
@@ -132,17 +165,36 @@ call = client.calls.create(to="9991231234",
 print(call.sid)
 ```
 
-### Send an SMS
+### Get data about an existing call
 
 ```python
 from twilio.rest import Client
 
-username = "ACXXXXXXXXXXXXXXXXX"
-password = "YYYYYYYYYYYYYYYYYY"
-client = Client(username, password)
+account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+auth_token  = "your_auth_token"
+client = Client(account_sid, auth_token)
 
-message = client.messages.create(to="+12316851234", from_="+15555555555",
-                                 body="Hello there!")
+call = client.calls.get("CA42ed11f93dc08b952027ffbc406d0868")
+print(call.to)
+```
+
+### Iterate through records
+
+The library automatically handles paging for you. Collections, such as `calls` and `messages`, have `list` and `stream` methods that page under the hood. With both `list` and `stream`, you can specify the number of records you want to receive (`limit`) and the maximum size you want each page fetch to be (`page_size`). The library will then handle the task for you.
+
+`list` eagerly fetches all records and returns them as a list, whereas `stream` returns an iterator and lazily retrieves pages of records as you iterate over the collection. You can also page manually using the `page` method.
+
+#### Use the `list` method
+
+```python
+from twilio.rest import Client
+
+account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+auth_token = "your_auth_token"
+client = Client(account_sid, auth_token)
+
+for sms in client.messages.list():
+  print(sms.to)
 ```
 
 ### Asynchronous API Requests
@@ -154,10 +206,10 @@ from twilio.http.async_http_client import AsyncTwilioHttpClient
 from twilio.rest import Client
 
 async def main():
-    username = "ACXXXXXXXXXXXXXXXXX"
-    password = "YYYYYYYYYYYYYYYYYY"
+    account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    auth_token  = "your_auth_token"
     http_client = AsyncTwilioHttpClient()
-    client = Client(username, password, http_client=http_client)
+    client = Client(account_sid, auth_token, http_client=http_client)
 
     message = await client.messages.create_async(to="+12316851234", from_="+15555555555",
                                                  body="Hello there!")
@@ -172,7 +224,7 @@ Log the API request and response data to the console:
 ```python
 import logging
 
-client = Client(username, password)
+client = Client(account_sid, auth_token)
 logging.basicConfig()
 client.http_client.logger.setLevel(logging.INFO)
 ```
@@ -182,20 +234,22 @@ Log the API request and response data to a file:
 ```python
 import logging
 
-client = Client(username, password)
+client = Client(account_sid, auth_token)
 logging.basicConfig(filename='./log.txt')
 client.http_client.logger.setLevel(logging.INFO)
 ```
 
 ### Handling Exceptions
 
+Version 8.x of `twilio-python` exports an exception class to help you handle exceptions that are specific to Twilio methods. To use it, import `TwilioRestException` and catch exceptions as follows:
+
 ```python
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 
-username = "ACXXXXXXXXXXXXXXXXX"
-password = "YYYYYYYYYYYYYYYYYY"
-client = Client(username, password)
+account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+auth_token  = "your_auth_token"
+client = Client(account_sid, auth_token)
 
 try:
   message = client.messages.create(to="+12316851234", from_="+15555555555",
@@ -203,8 +257,6 @@ try:
 except TwilioRestException as e:
   print(e)
 ```
-
-For more descriptive exception types, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/python/usage-guide#exceptions).
 
 ### Generating TwiML
 
@@ -225,9 +277,9 @@ print(str(r))
 <Response><Say>Welcome to twilio!</Say></Response>
 ```
 
-### Using a Custom HTTP Client
+### Other advanced examples
 
-To use a custom HTTP client with this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/python/custom-http-clients-python).
+- [Learn how to create your own custom HTTP client](./advanced-examples/custom-http-client.md)
 
 ### Docker Image
 

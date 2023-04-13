@@ -22,7 +22,7 @@ it can be.
 ## <a name="question"></a> Got an API/Product Question or Problem?
 
 If you have questions about how to use `twilio-python`, please see our
-[docs][docs-link], and if you don't find the answer there, please contact
+[docs](./README.md), and if you don't find the answer there, please contact
 [help@twilio.com](mailto:help@twilio.com) with any issues you have.
 
 ## <a name="issue"></a> Found an Issue?
@@ -68,10 +68,6 @@ you're working on.
 
 For large fixes, please build and test the documentation before submitting the
 PR to be sure you haven't accidentally introduced layout or formatting issues.
-
-If you want to help improve the docs at
-[https://www.twilio.com/docs/libraries/python][docs-link], please contact
-[help@twilio.com](mailto:help@twilio.com).
 
 ## <a name="submit"></a> Submission Guidelines
 
@@ -162,6 +158,5 @@ There exists a separate `requirements.txt` document under `tests` that contains 
 make test-install test
 ```
 
-[docs-link]: https://www.twilio.com/docs/libraries/python
 [issue-link]: https://github.com/twilio/twilio-python/issues/new
 [github]: https://github.com/twilio/twilio-python
