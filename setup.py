@@ -24,7 +24,6 @@ setup(
         "pytz",
         "requests >= 2.0.0",
         "PyJWT >= 2.0.0, < 3.0.0",
-        "asyncio>=3.4.3",
         "aiohttp>=3.8.4",
         "aiohttp-retry>=2.8.3",
     ],
