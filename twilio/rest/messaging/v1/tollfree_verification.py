@@ -68,6 +68,8 @@ class TollfreeVerificationInstance(InstanceResource):
     :ivar tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
     :ivar status: 
     :ivar url: The absolute URL of the Tollfree Verification resource.
+    :ivar rejection_reason: The rejection reason given when a Tollfree Verification has been rejected.
+    :ivar error_code: The error code given when a Tollfree Verification has been rejected.
     :ivar resource_links: The URLs of the documents associated with the Tollfree Verification resource.
     :ivar external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
     """
@@ -137,6 +139,8 @@ class TollfreeVerificationInstance(InstanceResource):
             "status"
         )
         self.url: Optional[str] = payload.get("url")
+        self.rejection_reason: Optional[str] = payload.get("rejection_reason")
+        self.error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
         self.resource_links: Optional[Dict[str, object]] = payload.get("resource_links")
         self.external_reference_id: Optional[str] = payload.get("external_reference_id")
 

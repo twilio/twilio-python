@@ -27,8 +27,8 @@ class TemplateInstance(InstanceResource):
     """
     :ivar sid: A 34 character string that uniquely identifies a Verification Template.
     :ivar account_sid: The unique SID identifier of the Account.
-    :ivar friendly_name: A descriptive string that you create to describe a Template.
-    :ivar channels: A list of channels that support the Template. Can include: sms, voice
+    :ivar friendly_name: A descriptive string that you create to describe a Template. It can be up to 32 characters long.
+    :ivar channels: A list of channels that support the Template. Can include: sms, voice.
     :ivar translations: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
     """
 
@@ -93,7 +93,7 @@ class TemplateList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str friendly_name: String filter used to query templates with a given friendly name
+        :param str friendly_name: String filter used to query templates with a given friendly name.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -120,7 +120,7 @@ class TemplateList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str friendly_name: String filter used to query templates with a given friendly name
+        :param str friendly_name: String filter used to query templates with a given friendly name.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -148,7 +148,7 @@ class TemplateList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str friendly_name: String filter used to query templates with a given friendly name
+        :param str friendly_name: String filter used to query templates with a given friendly name.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -177,7 +177,7 @@ class TemplateList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str friendly_name: String filter used to query templates with a given friendly name
+        :param str friendly_name: String filter used to query templates with a given friendly name.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -207,7 +207,7 @@ class TemplateList(ListResource):
         Retrieve a single page of TemplateInstance records from the API.
         Request is executed immediately
 
-        :param friendly_name: String filter used to query templates with a given friendly name
+        :param friendly_name: String filter used to query templates with a given friendly name.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -237,7 +237,7 @@ class TemplateList(ListResource):
         Asynchronously retrieve a single page of TemplateInstance records from the API.
         Request is executed immediately
 
-        :param friendly_name: String filter used to query templates with a given friendly name
+        :param friendly_name: String filter used to query templates with a given friendly name.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50

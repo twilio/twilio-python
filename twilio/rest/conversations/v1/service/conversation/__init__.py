@@ -722,8 +722,8 @@ class ConversationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str start_date: Start date in ISO8601 format for sorting and filtering list of Conversations.
-        :param str end_date: End date in ISO8601 format for sorting and filtering list of Conversations.
+        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
+        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -758,8 +758,8 @@ class ConversationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str start_date: Start date in ISO8601 format for sorting and filtering list of Conversations.
-        :param str end_date: End date in ISO8601 format for sorting and filtering list of Conversations.
+        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
+        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -793,8 +793,8 @@ class ConversationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str start_date: Start date in ISO8601 format for sorting and filtering list of Conversations.
-        :param str end_date: End date in ISO8601 format for sorting and filtering list of Conversations.
+        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
+        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -828,8 +828,8 @@ class ConversationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str start_date: Start date in ISO8601 format for sorting and filtering list of Conversations.
-        :param str end_date: End date in ISO8601 format for sorting and filtering list of Conversations.
+        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
+        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -864,8 +864,8 @@ class ConversationList(ListResource):
         Retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param start_date: Start date in ISO8601 format for sorting and filtering list of Conversations.
-        :param end_date: End date in ISO8601 format for sorting and filtering list of Conversations.
+        :param start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
+        :param end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
         :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -900,8 +900,8 @@ class ConversationList(ListResource):
         Asynchronously retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param start_date: Start date in ISO8601 format for sorting and filtering list of Conversations.
-        :param end_date: End date in ISO8601 format for sorting and filtering list of Conversations.
+        :param start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
+        :param end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
         :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state

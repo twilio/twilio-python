@@ -37,7 +37,7 @@ class ServiceInstance(InstanceResource):
     """
     :ivar sid: The unique string that we created to identify the Service resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-    :ivar friendly_name: The string that you assigned to describe the verification service. **This value should not contain PII.**
+    :ivar friendly_name: The string that you assigned to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
     :ivar code_length: The length of the verification code to generate.
     :ivar lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
     :ivar psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
@@ -168,7 +168,7 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
         :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
         :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
         :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
@@ -231,7 +231,7 @@ class ServiceInstance(InstanceResource):
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
         :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
         :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
         :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
@@ -439,7 +439,7 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
         :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
         :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
         :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
@@ -512,7 +512,7 @@ class ServiceContext(InstanceContext):
         """
         Asynchronous coroutine to update the ServiceInstance
 
-        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
         :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
         :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
         :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
@@ -709,7 +709,7 @@ class ServiceList(ListResource):
         """
         Create the ServiceInstance
 
-        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
         :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
         :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
         :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
@@ -782,7 +782,7 @@ class ServiceList(ListResource):
         """
         Asynchronously create the ServiceInstance
 
-        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
         :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
         :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
         :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.

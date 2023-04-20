@@ -3,6 +3,22 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-04-19] Version 8.1.0
+--------------------------
+**Library - Chore**
+- [PR #709](https://github.com/twilio/twilio-python/pull/709): Drop `asyncio` from requirements. Thanks to [@setu4993](https://github.com/setu4993)!
+
+**Library - Docs**
+- [PR #705](https://github.com/twilio/twilio-python/pull/705): consolidate. Thanks to [@stern-shawn](https://github.com/stern-shawn)!
+
+**Messaging**
+- Remove `messaging_service_sids` and `messaging_service_sid_action` from domain config endpoint **(breaking change)**
+- Add error_code and rejection_reason properties to tollfree verification API response
+
+**Numbers**
+- Added the new Eligibility API under version `/v1`.
+
+
 [2023-04-05] Version 8.0.0
 --------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2023-04-05-7xx-to-8xx) for detailed migration notes.

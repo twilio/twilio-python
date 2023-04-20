@@ -14,8 +14,8 @@ r"""
 
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional, Union
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -27,7 +27,6 @@ class DomainConfigInstance(InstanceResource):
     """
     :ivar domain_sid: The unique string that we created to identify the Domain resource.
     :ivar config_sid: The unique string that we created to identify the Domain config (prefix ZK).
-    :ivar messaging_service_sids: A list of messagingServiceSids (with prefix MG).
     :ivar fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
     :ivar callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links.
     :ivar date_created: Date this Domain Config was created.
@@ -45,9 +44,6 @@ class DomainConfigInstance(InstanceResource):
 
         self.domain_sid: Optional[str] = payload.get("domain_sid")
         self.config_sid: Optional[str] = payload.get("config_sid")
-        self.messaging_service_sids: Optional[List[str]] = payload.get(
-            "messaging_service_sids"
-        )
         self.fallback_url: Optional[str] = payload.get("fallback_url")
         self.callback_url: Optional[str] = payload.get("callback_url")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -98,50 +94,38 @@ class DomainConfigInstance(InstanceResource):
 
     def update(
         self,
-        messaging_service_sids: List[str],
         fallback_url: Union[str, object] = values.unset,
         callback_url: Union[str, object] = values.unset,
-        messaging_service_sids_action: Union[str, object] = values.unset,
     ) -> "DomainConfigInstance":
         """
         Update the DomainConfigInstance
 
-        :param messaging_service_sids: A list of messagingServiceSids (with prefix MG)
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
-        :param messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
 
         :returns: The updated DomainConfigInstance
         """
         return self._proxy.update(
-            messaging_service_sids=messaging_service_sids,
             fallback_url=fallback_url,
             callback_url=callback_url,
-            messaging_service_sids_action=messaging_service_sids_action,
         )
 
     async def update_async(
         self,
-        messaging_service_sids: List[str],
         fallback_url: Union[str, object] = values.unset,
         callback_url: Union[str, object] = values.unset,
-        messaging_service_sids_action: Union[str, object] = values.unset,
     ) -> "DomainConfigInstance":
         """
         Asynchronous coroutine to update the DomainConfigInstance
 
-        :param messaging_service_sids: A list of messagingServiceSids (with prefix MG)
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
-        :param messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
 
         :returns: The updated DomainConfigInstance
         """
         return await self._proxy.update_async(
-            messaging_service_sids=messaging_service_sids,
             fallback_url=fallback_url,
             callback_url=callback_url,
-            messaging_service_sids_action=messaging_service_sids_action,
         )
 
     def __repr__(self) -> str:
@@ -212,29 +196,21 @@ class DomainConfigContext(InstanceContext):
 
     def update(
         self,
-        messaging_service_sids: List[str],
         fallback_url: Union[str, object] = values.unset,
         callback_url: Union[str, object] = values.unset,
-        messaging_service_sids_action: Union[str, object] = values.unset,
     ) -> DomainConfigInstance:
         """
         Update the DomainConfigInstance
 
-        :param messaging_service_sids: A list of messagingServiceSids (with prefix MG)
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
-        :param messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
 
         :returns: The updated DomainConfigInstance
         """
         data = values.of(
             {
-                "MessagingServiceSids": serialize.map(
-                    messaging_service_sids, lambda e: e
-                ),
                 "FallbackUrl": fallback_url,
                 "CallbackUrl": callback_url,
-                "MessagingServiceSidsAction": messaging_service_sids_action,
             }
         )
 
@@ -250,29 +226,21 @@ class DomainConfigContext(InstanceContext):
 
     async def update_async(
         self,
-        messaging_service_sids: List[str],
         fallback_url: Union[str, object] = values.unset,
         callback_url: Union[str, object] = values.unset,
-        messaging_service_sids_action: Union[str, object] = values.unset,
     ) -> DomainConfigInstance:
         """
         Asynchronous coroutine to update the DomainConfigInstance
 
-        :param messaging_service_sids: A list of messagingServiceSids (with prefix MG)
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
-        :param messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
 
         :returns: The updated DomainConfigInstance
         """
         data = values.of(
             {
-                "MessagingServiceSids": serialize.map(
-                    messaging_service_sids, lambda e: e
-                ),
                 "FallbackUrl": fallback_url,
                 "CallbackUrl": callback_url,
-                "MessagingServiceSidsAction": messaging_service_sids_action,
             }
         )
 
