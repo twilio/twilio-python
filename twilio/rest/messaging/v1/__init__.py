@@ -27,7 +27,6 @@ from twilio.rest.messaging.v1.linkshortening_messaging_service import (
     LinkshorteningMessagingServiceList,
 )
 from twilio.rest.messaging.v1.service import ServiceList
-from twilio.rest.messaging.v1.tollfree_verification import TollfreeVerificationList
 from twilio.rest.messaging.v1.usecase import UsecaseList
 
 
@@ -51,7 +50,6 @@ class V1(Version):
             LinkshorteningMessagingServiceList
         ] = None
         self._services: Optional[ServiceList] = None
-        self._tollfree_verifications: Optional[TollfreeVerificationList] = None
         self._usecases: Optional[UsecaseList] = None
 
     @property
@@ -105,12 +103,6 @@ class V1(Version):
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
-
-    @property
-    def tollfree_verifications(self) -> TollfreeVerificationList:
-        if self._tollfree_verifications is None:
-            self._tollfree_verifications = TollfreeVerificationList(self)
-        return self._tollfree_verifications
 
     @property
     def usecases(self) -> UsecaseList:

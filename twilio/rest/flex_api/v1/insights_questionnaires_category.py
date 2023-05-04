@@ -26,7 +26,7 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-    :ivar category_id: The unique ID for the category
+    :ivar category_sid: The SID of the category
     :ivar name: The name of this category.
     :ivar url:
     """
@@ -35,17 +35,17 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         self,
         version: Version,
         payload: Dict[str, Any],
-        category_id: Optional[str] = None,
+        category_sid: Optional[str] = None,
     ):
         super().__init__(version)
 
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.category_id: Optional[str] = payload.get("category_id")
+        self.category_sid: Optional[str] = payload.get("category_sid")
         self.name: Optional[str] = payload.get("name")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "category_id": category_id or self.category_id,
+            "category_sid": category_sid or self.category_sid,
         }
         self._context: Optional[InsightsQuestionnairesCategoryContext] = None
 
@@ -60,7 +60,7 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         if self._context is None:
             self._context = InsightsQuestionnairesCategoryContext(
                 self._version,
-                category_id=self._solution["category_id"],
+                category_sid=self._solution["category_sid"],
             )
         return self._context
 
@@ -133,20 +133,22 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
 
 
 class InsightsQuestionnairesCategoryContext(InstanceContext):
-    def __init__(self, version: Version, category_id: str):
+    def __init__(self, version: Version, category_sid: str):
         """
         Initialize the InsightsQuestionnairesCategoryContext
 
         :param version: Version that contains the resource
-        :param category_id: The ID of the category to be update
+        :param category_sid: The SID of the category to be updated
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "category_id": category_id,
+            "category_sid": category_sid,
         }
-        self._uri = "/Insights/QM/Categories/{category_id}".format(**self._solution)
+        self._uri = "/Insights/QualityManagement/Categories/{category_sid}".format(
+            **self._solution
+        )
 
     def delete(self, token: Union[str, object] = values.unset) -> bool:
         """
@@ -209,7 +211,7 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         )
 
         return InsightsQuestionnairesCategoryInstance(
-            self._version, payload, category_id=self._solution["category_id"]
+            self._version, payload, category_sid=self._solution["category_sid"]
         )
 
     async def update_async(
@@ -239,7 +241,7 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         )
 
         return InsightsQuestionnairesCategoryInstance(
-            self._version, payload, category_id=self._solution["category_id"]
+            self._version, payload, category_sid=self._solution["category_sid"]
         )
 
     def __repr__(self) -> str:
@@ -284,7 +286,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         """
         super().__init__(version)
 
-        self._uri = "/Insights/QM/Categories"
+        self._uri = "/Insights/QualityManagement/Categories"
 
     def create(
         self, name: str, token: Union[str, object] = values.unset
@@ -541,24 +543,24 @@ class InsightsQuestionnairesCategoryList(ListResource):
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
-    def get(self, category_id: str) -> InsightsQuestionnairesCategoryContext:
+    def get(self, category_sid: str) -> InsightsQuestionnairesCategoryContext:
         """
         Constructs a InsightsQuestionnairesCategoryContext
 
-        :param category_id: The ID of the category to be update
+        :param category_sid: The SID of the category to be updated
         """
         return InsightsQuestionnairesCategoryContext(
-            self._version, category_id=category_id
+            self._version, category_sid=category_sid
         )
 
-    def __call__(self, category_id: str) -> InsightsQuestionnairesCategoryContext:
+    def __call__(self, category_sid: str) -> InsightsQuestionnairesCategoryContext:
         """
         Constructs a InsightsQuestionnairesCategoryContext
 
-        :param category_id: The ID of the category to be update
+        :param category_sid: The SID of the category to be updated
         """
         return InsightsQuestionnairesCategoryContext(
-            self._version, category_id=category_id
+            self._version, category_sid=category_sid
         )
 
     def __repr__(self) -> str:

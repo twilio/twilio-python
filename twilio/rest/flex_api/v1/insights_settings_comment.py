@@ -55,7 +55,7 @@ class InsightsSettingsCommentList(ListResource):
         """
         super().__init__(version)
 
-        self._uri = "/Insights/QM/Settings/CommentTags"
+        self._uri = "/Insights/QualityManagement/Settings/CommentTags"
 
     def fetch(self) -> InsightsSettingsCommentInstance:
         """

@@ -670,9 +670,6 @@ class ConversationList(ListResource):
 
     def stream(
         self,
-        start_date: Union[str, object] = values.unset,
-        end_date: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ConversationInstance]:
@@ -682,9 +679,6 @@ class ConversationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
-        :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -695,20 +689,12 @@ class ConversationList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            start_date=start_date,
-            end_date=end_date,
-            state=state,
-            page_size=limits["page_size"],
-        )
+        page = self.page(page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
-        start_date: Union[str, object] = values.unset,
-        end_date: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ConversationInstance]:
@@ -718,9 +704,6 @@ class ConversationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
-        :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -731,20 +714,12 @@ class ConversationList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            start_date=start_date,
-            end_date=end_date,
-            state=state,
-            page_size=limits["page_size"],
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
 
     def list(
         self,
-        start_date: Union[str, object] = values.unset,
-        end_date: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConversationInstance]:
@@ -753,9 +728,6 @@ class ConversationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
-        :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -767,9 +739,6 @@ class ConversationList(ListResource):
         """
         return list(
             self.stream(
-                start_date=start_date,
-                end_date=end_date,
-                state=state,
                 limit=limit,
                 page_size=page_size,
             )
@@ -777,9 +746,6 @@ class ConversationList(ListResource):
 
     async def list_async(
         self,
-        start_date: Union[str, object] = values.unset,
-        end_date: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConversationInstance]:
@@ -788,9 +754,6 @@ class ConversationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
-        :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -803,9 +766,6 @@ class ConversationList(ListResource):
         return [
             record
             async for record in await self.stream_async(
-                start_date=start_date,
-                end_date=end_date,
-                state=state,
                 limit=limit,
                 page_size=page_size,
             )
@@ -813,9 +773,6 @@ class ConversationList(ListResource):
 
     def page(
         self,
-        start_date: Union[str, object] = values.unset,
-        end_date: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -824,9 +781,6 @@ class ConversationList(ListResource):
         Retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
-        :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -835,9 +789,6 @@ class ConversationList(ListResource):
         """
         data = values.of(
             {
-                "StartDate": start_date,
-                "EndDate": end_date,
-                "State": state,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -849,9 +800,6 @@ class ConversationList(ListResource):
 
     async def page_async(
         self,
-        start_date: Union[str, object] = values.unset,
-        end_date: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -860,9 +808,6 @@ class ConversationList(ListResource):
         Asynchronously retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
-        :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -871,9 +816,6 @@ class ConversationList(ListResource):
         """
         data = values.of(
             {
-                "StartDate": start_date,
-                "EndDate": end_date,
-                "State": state,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

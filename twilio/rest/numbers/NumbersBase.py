@@ -13,7 +13,6 @@ from typing import Optional
 
 from twilio.base.domain import Domain
 from twilio.rest import Client
-from twilio.rest.numbers.v1 import V1
 from twilio.rest.numbers.v2 import V2
 
 
@@ -25,17 +24,7 @@ class NumbersBase(Domain):
         :returns: Domain for Numbers
         """
         super().__init__(twilio, "https://numbers.twilio.com")
-        self._v1: Optional[V1] = None
         self._v2: Optional[V2] = None
-
-    @property
-    def v1(self) -> V1:
-        """
-        :returns: Versions v1 of Numbers
-        """
-        if self._v1 is None:
-            self._v1 = V1(self)
-        return self._v1
 
     @property
     def v2(self) -> V2:

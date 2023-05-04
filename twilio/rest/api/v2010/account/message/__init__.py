@@ -63,7 +63,7 @@ class MessageInstance(InstanceResource):
     :ivar body: The message text. Can be up to 1,600 characters long.
     :ivar num_segments: The number of segments that make up the complete message. A message body that is too large to be sent in a single SMS message is segmented and charged as multiple messages. Inbound messages over 160 characters are reassembled when the message is received. Note: When using a Messaging Service to send messages, `num_segments` will always be 0 in Twilio's response to your API request.
     :ivar direction: 
-    :ivar _from: The phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or [Wireless SIM](https://www.twilio.com/docs/wireless/tutorials/communications-guides/how-to-send-and-receive-text-messages) that initiated the message. For incoming messages, this will be the number of the sending phone. For outgoing messages, this value will be one of your Twilio phone numbers or the alphanumeric sender ID used.
+    :ivar from_: The phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or [Wireless SIM](https://www.twilio.com/docs/wireless/tutorials/communications-guides/how-to-send-and-receive-text-messages) that initiated the message. For incoming messages, this will be the number of the sending phone. For outgoing messages, this value will be one of your Twilio phone numbers or the alphanumeric sender ID used.
     :ivar to: The phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format that received the message. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the sending phone.
     :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar price: The amount billed for the message, in the currency specified by `price_unit`.  Note that your account is charged for each segment we send to the handset. Populated after the message has been sent. May not be immediately available.
@@ -94,7 +94,7 @@ class MessageInstance(InstanceResource):
         self.body: Optional[str] = payload.get("body")
         self.num_segments: Optional[str] = payload.get("num_segments")
         self.direction: Optional["MessageInstance.Direction"] = payload.get("direction")
-        self._from: Optional[str] = payload.get("from")
+        self.from_: Optional[str] = payload.get("from")
         self.to: Optional[str] = payload.get("to")
         self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")

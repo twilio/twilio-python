@@ -26,7 +26,7 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-    :ivar assessment_id: The unique ID of the assessment.
+    :ivar assessment_sid: The SID of the assessment.
     :ivar comment: The comment added for assessment.
     :ivar offset: The offset
     :ivar report: The flag indicating if this assessment is part of report
@@ -43,7 +43,7 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
         super().__init__(version)
 
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.assessment_id: Optional[str] = payload.get("assessment_id")
+        self.assessment_sid: Optional[str] = payload.get("assessment_sid")
         self.comment: Optional[Dict[str, object]] = payload.get("comment")
         self.offset: Optional[float] = deserialize.decimal(payload.get("offset"))
         self.report: Optional[bool] = payload.get("report")
@@ -95,7 +95,7 @@ class InsightsAssessmentsCommentList(ListResource):
         """
         super().__init__(version)
 
-        self._uri = "/Insights/QM/Assessments/Comments"
+        self._uri = "/Insights/QualityManagement/Assessments/Comments"
 
     def create(
         self,

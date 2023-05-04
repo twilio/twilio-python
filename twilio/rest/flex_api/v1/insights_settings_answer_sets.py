@@ -61,7 +61,7 @@ class InsightsSettingsAnswerSetsList(ListResource):
         """
         super().__init__(version)
 
-        self._uri = "/Insights/QM/Settings/AnswerSets"
+        self._uri = "/Insights/QualityManagement/Settings/AnswerSets"
 
     def fetch(self) -> InsightsSettingsAnswerSetsInstance:
         """

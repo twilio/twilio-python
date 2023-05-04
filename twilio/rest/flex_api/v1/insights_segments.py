@@ -15,7 +15,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -49,12 +49,7 @@ class InsightsSegmentsInstance(InstanceResource):
     :ivar url:
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        segment_id: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
         self.segment_id: Optional[str] = payload.get("segment_id")
@@ -90,140 +85,14 @@ class InsightsSegmentsInstance(InstanceResource):
         )
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
-            "segment_id": segment_id or self.segment_id,
-        }
-        self._context: Optional[InsightsSegmentsContext] = None
-
-    @property
-    def _proxy(self) -> "InsightsSegmentsContext":
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: InsightsSegmentsContext for this InsightsSegmentsInstance
-        """
-        if self._context is None:
-            self._context = InsightsSegmentsContext(
-                self._version,
-                segment_id=self._solution["segment_id"],
-            )
-        return self._context
-
-    def fetch(
-        self, token: Union[str, object] = values.unset
-    ) -> "InsightsSegmentsInstance":
-        """
-        Fetch the InsightsSegmentsInstance
-
-        :param token: The Token HTTP request header
-
-        :returns: The fetched InsightsSegmentsInstance
-        """
-        return self._proxy.fetch(
-            token=token,
-        )
-
-    async def fetch_async(
-        self, token: Union[str, object] = values.unset
-    ) -> "InsightsSegmentsInstance":
-        """
-        Asynchronous coroutine to fetch the InsightsSegmentsInstance
-
-        :param token: The Token HTTP request header
-
-        :returns: The fetched InsightsSegmentsInstance
-        """
-        return await self._proxy.fetch_async(
-            token=token,
-        )
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsSegmentsInstance {}>".format(context)
 
-
-class InsightsSegmentsContext(InstanceContext):
-    def __init__(self, version: Version, segment_id: str):
-        """
-        Initialize the InsightsSegmentsContext
-
-        :param version: Version that contains the resource
-        :param segment_id: To unique id of the segment
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "segment_id": segment_id,
-        }
-        self._uri = "/Insights/Segments/{segment_id}".format(**self._solution)
-
-    def fetch(
-        self, token: Union[str, object] = values.unset
-    ) -> InsightsSegmentsInstance:
-        """
-        Fetch the InsightsSegmentsInstance
-
-        :param token: The Token HTTP request header
-
-        :returns: The fetched InsightsSegmentsInstance
-        """
-
-        data = values.of(
-            {
-                "Token": token,
-            }
-        )
-
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
-
-        return InsightsSegmentsInstance(
-            self._version,
-            payload,
-            segment_id=self._solution["segment_id"],
-        )
-
-    async def fetch_async(
-        self, token: Union[str, object] = values.unset
-    ) -> InsightsSegmentsInstance:
-        """
-        Asynchronous coroutine to fetch the InsightsSegmentsInstance
-
-        :param token: The Token HTTP request header
-
-        :returns: The fetched InsightsSegmentsInstance
-        """
-
-        data = values.of(
-            {
-                "Token": token,
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
-        )
-
-        return InsightsSegmentsInstance(
-            self._version,
-            payload,
-            segment_id=self._solution["segment_id"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsSegmentsContext {}>".format(context)
+        return "<Twilio.FlexApi.V1.InsightsSegmentsInstance>"
 
 
 class InsightsSegmentsPage(Page):
@@ -259,6 +128,7 @@ class InsightsSegmentsList(ListResource):
     def stream(
         self,
         token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -270,6 +140,7 @@ class InsightsSegmentsList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str token: The Token HTTP request header
+        :param str segment_id: To unique id of the segment
         :param List[str] reservation_id: The list of reservation Ids
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -282,7 +153,10 @@ class InsightsSegmentsList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            token=token, reservation_id=reservation_id, page_size=limits["page_size"]
+            token=token,
+            segment_id=segment_id,
+            reservation_id=reservation_id,
+            page_size=limits["page_size"],
         )
 
         return self._version.stream(page, limits["limit"])
@@ -290,6 +164,7 @@ class InsightsSegmentsList(ListResource):
     async def stream_async(
         self,
         token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -301,6 +176,7 @@ class InsightsSegmentsList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str token: The Token HTTP request header
+        :param str segment_id: To unique id of the segment
         :param List[str] reservation_id: The list of reservation Ids
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -313,7 +189,10 @@ class InsightsSegmentsList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            token=token, reservation_id=reservation_id, page_size=limits["page_size"]
+            token=token,
+            segment_id=segment_id,
+            reservation_id=reservation_id,
+            page_size=limits["page_size"],
         )
 
         return self._version.stream_async(page, limits["limit"])
@@ -321,6 +200,7 @@ class InsightsSegmentsList(ListResource):
     def list(
         self,
         token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -331,6 +211,7 @@ class InsightsSegmentsList(ListResource):
         memory before returning.
 
         :param str token: The Token HTTP request header
+        :param str segment_id: To unique id of the segment
         :param List[str] reservation_id: The list of reservation Ids
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -344,6 +225,7 @@ class InsightsSegmentsList(ListResource):
         return list(
             self.stream(
                 token=token,
+                segment_id=segment_id,
                 reservation_id=reservation_id,
                 limit=limit,
                 page_size=page_size,
@@ -353,6 +235,7 @@ class InsightsSegmentsList(ListResource):
     async def list_async(
         self,
         token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -363,6 +246,7 @@ class InsightsSegmentsList(ListResource):
         memory before returning.
 
         :param str token: The Token HTTP request header
+        :param str segment_id: To unique id of the segment
         :param List[str] reservation_id: The list of reservation Ids
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -377,6 +261,7 @@ class InsightsSegmentsList(ListResource):
             record
             async for record in await self.stream_async(
                 token=token,
+                segment_id=segment_id,
                 reservation_id=reservation_id,
                 limit=limit,
                 page_size=page_size,
@@ -386,6 +271,7 @@ class InsightsSegmentsList(ListResource):
     def page(
         self,
         token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -396,6 +282,7 @@ class InsightsSegmentsList(ListResource):
         Request is executed immediately
 
         :param token: The Token HTTP request header
+        :param segment_id: To unique id of the segment
         :param reservation_id: The list of reservation Ids
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -406,6 +293,7 @@ class InsightsSegmentsList(ListResource):
         data = values.of(
             {
                 "Token": token,
+                "SegmentId": segment_id,
                 "ReservationId": serialize.map(reservation_id, lambda e: e),
                 "PageToken": page_token,
                 "Page": page_number,
@@ -419,6 +307,7 @@ class InsightsSegmentsList(ListResource):
     async def page_async(
         self,
         token: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -429,6 +318,7 @@ class InsightsSegmentsList(ListResource):
         Request is executed immediately
 
         :param token: The Token HTTP request header
+        :param segment_id: To unique id of the segment
         :param reservation_id: The list of reservation Ids
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -439,6 +329,7 @@ class InsightsSegmentsList(ListResource):
         data = values.of(
             {
                 "Token": token,
+                "SegmentId": segment_id,
                 "ReservationId": serialize.map(reservation_id, lambda e: e),
                 "PageToken": page_token,
                 "Page": page_number,
@@ -474,22 +365,6 @@ class InsightsSegmentsList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsSegmentsPage(self._version, response)
-
-    def get(self, segment_id: str) -> InsightsSegmentsContext:
-        """
-        Constructs a InsightsSegmentsContext
-
-        :param segment_id: To unique id of the segment
-        """
-        return InsightsSegmentsContext(self._version, segment_id=segment_id)
-
-    def __call__(self, segment_id: str) -> InsightsSegmentsContext:
-        """
-        Constructs a InsightsSegmentsContext
-
-        :param segment_id: To unique id of the segment
-        """
-        return InsightsSegmentsContext(self._version, segment_id=segment_id)
 
     def __repr__(self) -> str:
         """

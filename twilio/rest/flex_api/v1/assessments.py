@@ -26,7 +26,7 @@ class AssessmentsInstance(InstanceResource):
 
     """
     :ivar account_sid: The unique SID identifier of the Account.
-    :ivar assessment_id: The unique id of the assessment
+    :ivar assessment_sid: The SID of the assessment
     :ivar offset: Offset of the conversation
     :ivar report: The flag indicating if this assessment is part of report
     :ivar weight: The weightage given to this comment
@@ -45,12 +45,12 @@ class AssessmentsInstance(InstanceResource):
         self,
         version: Version,
         payload: Dict[str, Any],
-        assessment_id: Optional[str] = None,
+        assessment_sid: Optional[str] = None,
     ):
         super().__init__(version)
 
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.assessment_id: Optional[str] = payload.get("assessment_id")
+        self.assessment_sid: Optional[str] = payload.get("assessment_sid")
         self.offset: Optional[float] = deserialize.decimal(payload.get("offset"))
         self.report: Optional[bool] = payload.get("report")
         self.weight: Optional[float] = deserialize.decimal(payload.get("weight"))
@@ -65,7 +65,7 @@ class AssessmentsInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "assessment_id": assessment_id or self.assessment_id,
+            "assessment_sid": assessment_sid or self.assessment_sid,
         }
         self._context: Optional[AssessmentsContext] = None
 
@@ -80,7 +80,7 @@ class AssessmentsInstance(InstanceResource):
         if self._context is None:
             self._context = AssessmentsContext(
                 self._version,
-                assessment_id=self._solution["assessment_id"],
+                assessment_sid=self._solution["assessment_sid"],
             )
         return self._context
 
@@ -143,20 +143,22 @@ class AssessmentsInstance(InstanceResource):
 
 
 class AssessmentsContext(InstanceContext):
-    def __init__(self, version: Version, assessment_id: str):
+    def __init__(self, version: Version, assessment_sid: str):
         """
         Initialize the AssessmentsContext
 
         :param version: Version that contains the resource
-        :param assessment_id: The id of the assessment to be modified
+        :param assessment_sid: The SID of the assessment to be modified
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "assessment_id": assessment_id,
+            "assessment_sid": assessment_sid,
         }
-        self._uri = "/Insights/QM/Assessments/{assessment_id}".format(**self._solution)
+        self._uri = "/Insights/QualityManagement/Assessments/{assessment_sid}".format(
+            **self._solution
+        )
 
     def update(
         self,
@@ -193,7 +195,7 @@ class AssessmentsContext(InstanceContext):
         )
 
         return AssessmentsInstance(
-            self._version, payload, assessment_id=self._solution["assessment_id"]
+            self._version, payload, assessment_sid=self._solution["assessment_sid"]
         )
 
     async def update_async(
@@ -231,7 +233,7 @@ class AssessmentsContext(InstanceContext):
         )
 
         return AssessmentsInstance(
-            self._version, payload, assessment_id=self._solution["assessment_id"]
+            self._version, payload, assessment_sid=self._solution["assessment_sid"]
         )
 
     def __repr__(self) -> str:
@@ -272,11 +274,11 @@ class AssessmentsList(ListResource):
         """
         super().__init__(version)
 
-        self._uri = "/Insights/QM/Assessments"
+        self._uri = "/Insights/QualityManagement/Assessments"
 
     def create(
         self,
-        category_id: str,
+        category_sid: str,
         category_name: str,
         segment_id: str,
         user_name: str,
@@ -287,31 +289,31 @@ class AssessmentsList(ListResource):
         metric_name: str,
         answer_text: str,
         answer_id: str,
-        questionnaire_id: str,
+        questionnaire_sid: str,
         token: Union[str, object] = values.unset,
     ) -> AssessmentsInstance:
         """
         Create the AssessmentsInstance
 
-        :param category_id: The id of the category
+        :param category_sid: The SID of the category
         :param category_name: The name of the category
         :param segment_id: Segment Id of the conversation
         :param user_name: Name of the user assessing conversation
         :param user_email: Email of the user assessing conversation
         :param agent_id: The id of the Agent
         :param offset: The offset of the conversation.
-        :param metric_id: The question Id selected for assessment
+        :param metric_id: The question SID selected for assessment
         :param metric_name: The question name of the assessment
         :param answer_text: The answer text selected by user
         :param answer_id: The id of the answer selected by user
-        :param questionnaire_id: Questionnaire Id of the associated question
+        :param questionnaire_sid: Questionnaire SID of the associated question
         :param token: The Token HTTP request header
 
         :returns: The created AssessmentsInstance
         """
         data = values.of(
             {
-                "CategoryId": category_id,
+                "CategorySid": category_sid,
                 "CategoryName": category_name,
                 "SegmentId": segment_id,
                 "UserName": user_name,
@@ -322,7 +324,7 @@ class AssessmentsList(ListResource):
                 "MetricName": metric_name,
                 "AnswerText": answer_text,
                 "AnswerId": answer_id,
-                "QuestionnaireId": questionnaire_id,
+                "QuestionnaireSid": questionnaire_sid,
             }
         )
         headers = values.of(
@@ -338,7 +340,7 @@ class AssessmentsList(ListResource):
 
     async def create_async(
         self,
-        category_id: str,
+        category_sid: str,
         category_name: str,
         segment_id: str,
         user_name: str,
@@ -349,31 +351,31 @@ class AssessmentsList(ListResource):
         metric_name: str,
         answer_text: str,
         answer_id: str,
-        questionnaire_id: str,
+        questionnaire_sid: str,
         token: Union[str, object] = values.unset,
     ) -> AssessmentsInstance:
         """
         Asynchronously create the AssessmentsInstance
 
-        :param category_id: The id of the category
+        :param category_sid: The SID of the category
         :param category_name: The name of the category
         :param segment_id: Segment Id of the conversation
         :param user_name: Name of the user assessing conversation
         :param user_email: Email of the user assessing conversation
         :param agent_id: The id of the Agent
         :param offset: The offset of the conversation.
-        :param metric_id: The question Id selected for assessment
+        :param metric_id: The question SID selected for assessment
         :param metric_name: The question name of the assessment
         :param answer_text: The answer text selected by user
         :param answer_id: The id of the answer selected by user
-        :param questionnaire_id: Questionnaire Id of the associated question
+        :param questionnaire_sid: Questionnaire SID of the associated question
         :param token: The Token HTTP request header
 
         :returns: The created AssessmentsInstance
         """
         data = values.of(
             {
-                "CategoryId": category_id,
+                "CategorySid": category_sid,
                 "CategoryName": category_name,
                 "SegmentId": segment_id,
                 "UserName": user_name,
@@ -384,7 +386,7 @@ class AssessmentsList(ListResource):
                 "MetricName": metric_name,
                 "AnswerText": answer_text,
                 "AnswerId": answer_id,
-                "QuestionnaireId": questionnaire_id,
+                "QuestionnaireSid": questionnaire_sid,
             }
         )
         headers = values.of(
@@ -617,21 +619,21 @@ class AssessmentsList(ListResource):
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssessmentsPage(self._version, response)
 
-    def get(self, assessment_id: str) -> AssessmentsContext:
+    def get(self, assessment_sid: str) -> AssessmentsContext:
         """
         Constructs a AssessmentsContext
 
-        :param assessment_id: The id of the assessment to be modified
+        :param assessment_sid: The SID of the assessment to be modified
         """
-        return AssessmentsContext(self._version, assessment_id=assessment_id)
+        return AssessmentsContext(self._version, assessment_sid=assessment_sid)
 
-    def __call__(self, assessment_id: str) -> AssessmentsContext:
+    def __call__(self, assessment_sid: str) -> AssessmentsContext:
         """
         Constructs a AssessmentsContext
 
-        :param assessment_id: The id of the assessment to be modified
+        :param assessment_sid: The SID of the assessment to be modified
         """
-        return AssessmentsContext(self._version, assessment_id=assessment_id)
+        return AssessmentsContext(self._version, assessment_sid=assessment_sid)
 
     def __repr__(self) -> str:
         """

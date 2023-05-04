@@ -26,7 +26,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-    :ivar id: The unique id of this questionnaire
+    :ivar questionnaire_sid: The sid of this questionnaire
     :ivar name: The name of this category.
     :ivar description: The description of this questionnaire
     :ivar active: The flag to enable or disable questionnaire
@@ -35,12 +35,15 @@ class InsightsQuestionnairesInstance(InstanceResource):
     """
 
     def __init__(
-        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        questionnaire_sid: Optional[str] = None,
     ):
         super().__init__(version)
 
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.id: Optional[str] = payload.get("id")
+        self.questionnaire_sid: Optional[str] = payload.get("questionnaire_sid")
         self.name: Optional[str] = payload.get("name")
         self.description: Optional[str] = payload.get("description")
         self.active: Optional[bool] = payload.get("active")
@@ -48,7 +51,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "id": id or self.id,
+            "questionnaire_sid": questionnaire_sid or self.questionnaire_sid,
         }
         self._context: Optional[InsightsQuestionnairesContext] = None
 
@@ -63,7 +66,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         if self._context is None:
             self._context = InsightsQuestionnairesContext(
                 self._version,
-                id=self._solution["id"],
+                questionnaire_sid=self._solution["questionnaire_sid"],
             )
         return self._context
 
@@ -125,7 +128,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         token: Union[str, object] = values.unset,
         name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
-        question_ids: Union[List[str], object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
     ) -> "InsightsQuestionnairesInstance":
         """
         Update the InsightsQuestionnairesInstance
@@ -134,7 +137,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         :param token: The Token HTTP request header
         :param name: The name of this questionnaire
         :param description: The description of this questionnaire
-        :param question_ids: The list of questions ids under a questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         """
@@ -143,7 +146,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
             token=token,
             name=name,
             description=description,
-            question_ids=question_ids,
+            question_sids=question_sids,
         )
 
     async def update_async(
@@ -152,7 +155,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         token: Union[str, object] = values.unset,
         name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
-        question_ids: Union[List[str], object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
     ) -> "InsightsQuestionnairesInstance":
         """
         Asynchronous coroutine to update the InsightsQuestionnairesInstance
@@ -161,7 +164,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         :param token: The Token HTTP request header
         :param name: The name of this questionnaire
         :param description: The description of this questionnaire
-        :param question_ids: The list of questions ids under a questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         """
@@ -170,7 +173,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
             token=token,
             name=name,
             description=description,
-            question_ids=question_ids,
+            question_sids=question_sids,
         )
 
     def __repr__(self) -> str:
@@ -184,20 +187,24 @@ class InsightsQuestionnairesInstance(InstanceResource):
 
 
 class InsightsQuestionnairesContext(InstanceContext):
-    def __init__(self, version: Version, id: str):
+    def __init__(self, version: Version, questionnaire_sid: str):
         """
         Initialize the InsightsQuestionnairesContext
 
         :param version: Version that contains the resource
-        :param id: The unique ID of the questionnaire
+        :param questionnaire_sid: The SID of the questionnaire
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "id": id,
+            "questionnaire_sid": questionnaire_sid,
         }
-        self._uri = "/Insights/QM/Questionnaires/{id}".format(**self._solution)
+        self._uri = (
+            "/Insights/QualityManagement/Questionnaires/{questionnaire_sid}".format(
+                **self._solution
+            )
+        )
 
     def delete(self, token: Union[str, object] = values.unset) -> bool:
         """
@@ -255,7 +262,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         return InsightsQuestionnairesInstance(
             self._version,
             payload,
-            id=self._solution["id"],
+            questionnaire_sid=self._solution["questionnaire_sid"],
         )
 
     async def fetch_async(
@@ -282,7 +289,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         return InsightsQuestionnairesInstance(
             self._version,
             payload,
-            id=self._solution["id"],
+            questionnaire_sid=self._solution["questionnaire_sid"],
         )
 
     def update(
@@ -291,7 +298,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         token: Union[str, object] = values.unset,
         name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
-        question_ids: Union[List[str], object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
     ) -> InsightsQuestionnairesInstance:
         """
         Update the InsightsQuestionnairesInstance
@@ -300,7 +307,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         :param token: The Token HTTP request header
         :param name: The name of this questionnaire
         :param description: The description of this questionnaire
-        :param question_ids: The list of questions ids under a questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         """
@@ -309,7 +316,7 @@ class InsightsQuestionnairesContext(InstanceContext):
                 "Active": active,
                 "Name": name,
                 "Description": description,
-                "QuestionIds": serialize.map(question_ids, lambda e: e),
+                "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
         headers = values.of(
@@ -323,7 +330,9 @@ class InsightsQuestionnairesContext(InstanceContext):
         )
 
         return InsightsQuestionnairesInstance(
-            self._version, payload, id=self._solution["id"]
+            self._version,
+            payload,
+            questionnaire_sid=self._solution["questionnaire_sid"],
         )
 
     async def update_async(
@@ -332,7 +341,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         token: Union[str, object] = values.unset,
         name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
-        question_ids: Union[List[str], object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
     ) -> InsightsQuestionnairesInstance:
         """
         Asynchronous coroutine to update the InsightsQuestionnairesInstance
@@ -341,7 +350,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         :param token: The Token HTTP request header
         :param name: The name of this questionnaire
         :param description: The description of this questionnaire
-        :param question_ids: The list of questions ids under a questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         """
@@ -350,7 +359,7 @@ class InsightsQuestionnairesContext(InstanceContext):
                 "Active": active,
                 "Name": name,
                 "Description": description,
-                "QuestionIds": serialize.map(question_ids, lambda e: e),
+                "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
         headers = values.of(
@@ -364,7 +373,9 @@ class InsightsQuestionnairesContext(InstanceContext):
         )
 
         return InsightsQuestionnairesInstance(
-            self._version, payload, id=self._solution["id"]
+            self._version,
+            payload,
+            questionnaire_sid=self._solution["questionnaire_sid"],
         )
 
     def __repr__(self) -> str:
@@ -405,7 +416,7 @@ class InsightsQuestionnairesList(ListResource):
         """
         super().__init__(version)
 
-        self._uri = "/Insights/QM/Questionnaires"
+        self._uri = "/Insights/QualityManagement/Questionnaires"
 
     def create(
         self,
@@ -413,7 +424,7 @@ class InsightsQuestionnairesList(ListResource):
         token: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
         active: Union[bool, object] = values.unset,
-        question_ids: Union[List[str], object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
     ) -> InsightsQuestionnairesInstance:
         """
         Create the InsightsQuestionnairesInstance
@@ -422,7 +433,7 @@ class InsightsQuestionnairesList(ListResource):
         :param token: The Token HTTP request header
         :param description: The description of this questionnaire
         :param active: The flag to enable or disable questionnaire
-        :param question_ids: The list of questions ids under a questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
 
         :returns: The created InsightsQuestionnairesInstance
         """
@@ -431,7 +442,7 @@ class InsightsQuestionnairesList(ListResource):
                 "Name": name,
                 "Description": description,
                 "Active": active,
-                "QuestionIds": serialize.map(question_ids, lambda e: e),
+                "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
         headers = values.of(
@@ -451,7 +462,7 @@ class InsightsQuestionnairesList(ListResource):
         token: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
         active: Union[bool, object] = values.unset,
-        question_ids: Union[List[str], object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
     ) -> InsightsQuestionnairesInstance:
         """
         Asynchronously create the InsightsQuestionnairesInstance
@@ -460,7 +471,7 @@ class InsightsQuestionnairesList(ListResource):
         :param token: The Token HTTP request header
         :param description: The description of this questionnaire
         :param active: The flag to enable or disable questionnaire
-        :param question_ids: The list of questions ids under a questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
 
         :returns: The created InsightsQuestionnairesInstance
         """
@@ -469,7 +480,7 @@ class InsightsQuestionnairesList(ListResource):
                 "Name": name,
                 "Description": description,
                 "Active": active,
-                "QuestionIds": serialize.map(question_ids, lambda e: e),
+                "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
         headers = values.of(
@@ -706,21 +717,25 @@ class InsightsQuestionnairesList(ListResource):
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsQuestionnairesPage(self._version, response)
 
-    def get(self, id: str) -> InsightsQuestionnairesContext:
+    def get(self, questionnaire_sid: str) -> InsightsQuestionnairesContext:
         """
         Constructs a InsightsQuestionnairesContext
 
-        :param id: The unique ID of the questionnaire
+        :param questionnaire_sid: The SID of the questionnaire
         """
-        return InsightsQuestionnairesContext(self._version, id=id)
+        return InsightsQuestionnairesContext(
+            self._version, questionnaire_sid=questionnaire_sid
+        )
 
-    def __call__(self, id: str) -> InsightsQuestionnairesContext:
+    def __call__(self, questionnaire_sid: str) -> InsightsQuestionnairesContext:
         """
         Constructs a InsightsQuestionnairesContext
 
-        :param id: The unique ID of the questionnaire
+        :param questionnaire_sid: The SID of the questionnaire
         """
-        return InsightsQuestionnairesContext(self._version, id=id)
+        return InsightsQuestionnairesContext(
+            self._version, questionnaire_sid=questionnaire_sid
+        )
 
     def __repr__(self) -> str:
         """
