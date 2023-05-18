@@ -13,26 +13,18 @@ r"""
 """
 
 
-from datetime import datetime
 from typing import Any, Dict, Optional
-from twilio.base import deserialize
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class DomainConfigMessagingServiceInstance(InstanceResource):
+class LinkshorteningMessagingServiceDomainAssociationInstance(InstanceResource):
 
     """
     :ivar domain_sid: The unique string that we created to identify the Domain resource.
-    :ivar config_sid: The unique string that we created to identify the Domain config (prefix ZK).
     :ivar messaging_service_sid: The unique string that identifies the messaging service
-    :ivar fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
-    :ivar callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links.
-    :ivar continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
-    :ivar date_created: Date this Domain Config was created.
-    :ivar date_updated: Date that this Domain Config was last updated.
     :ivar url:
     """
 
@@ -45,55 +37,49 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
         super().__init__(version)
 
         self.domain_sid: Optional[str] = payload.get("domain_sid")
-        self.config_sid: Optional[str] = payload.get("config_sid")
         self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
-        self.fallback_url: Optional[str] = payload.get("fallback_url")
-        self.callback_url: Optional[str] = payload.get("callback_url")
-        self.continue_on_failure: Optional[bool] = payload.get("continue_on_failure")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
             "messaging_service_sid": messaging_service_sid
             or self.messaging_service_sid,
         }
-        self._context: Optional[DomainConfigMessagingServiceContext] = None
+        self._context: Optional[
+            LinkshorteningMessagingServiceDomainAssociationContext
+        ] = None
 
     @property
-    def _proxy(self) -> "DomainConfigMessagingServiceContext":
+    def _proxy(self) -> "LinkshorteningMessagingServiceDomainAssociationContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
-        :returns: DomainConfigMessagingServiceContext for this DomainConfigMessagingServiceInstance
+        :returns: LinkshorteningMessagingServiceDomainAssociationContext for this LinkshorteningMessagingServiceDomainAssociationInstance
         """
         if self._context is None:
-            self._context = DomainConfigMessagingServiceContext(
+            self._context = LinkshorteningMessagingServiceDomainAssociationContext(
                 self._version,
                 messaging_service_sid=self._solution["messaging_service_sid"],
             )
         return self._context
 
-    def fetch(self) -> "DomainConfigMessagingServiceInstance":
+    def fetch(self) -> "LinkshorteningMessagingServiceDomainAssociationInstance":
         """
-        Fetch the DomainConfigMessagingServiceInstance
+        Fetch the LinkshorteningMessagingServiceDomainAssociationInstance
 
 
-        :returns: The fetched DomainConfigMessagingServiceInstance
+        :returns: The fetched LinkshorteningMessagingServiceDomainAssociationInstance
         """
         return self._proxy.fetch()
 
-    async def fetch_async(self) -> "DomainConfigMessagingServiceInstance":
+    async def fetch_async(
+        self,
+    ) -> "LinkshorteningMessagingServiceDomainAssociationInstance":
         """
-        Asynchronous coroutine to fetch the DomainConfigMessagingServiceInstance
+        Asynchronous coroutine to fetch the LinkshorteningMessagingServiceDomainAssociationInstance
 
 
-        :returns: The fetched DomainConfigMessagingServiceInstance
+        :returns: The fetched LinkshorteningMessagingServiceDomainAssociationInstance
         """
         return await self._proxy.fetch_async()
 
@@ -104,15 +90,15 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
         :returns: Machine friendly representation
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.DomainConfigMessagingServiceInstance {}>".format(
+        return "<Twilio.Messaging.V1.LinkshorteningMessagingServiceDomainAssociationInstance {}>".format(
             context
         )
 
 
-class DomainConfigMessagingServiceContext(InstanceContext):
+class LinkshorteningMessagingServiceDomainAssociationContext(InstanceContext):
     def __init__(self, version: Version, messaging_service_sid: str):
         """
-        Initialize the DomainConfigMessagingServiceContext
+        Initialize the LinkshorteningMessagingServiceDomainAssociationContext
 
         :param version: Version that contains the resource
         :param messaging_service_sid: Unique string used to identify the Messaging service that this domain should be associated with.
@@ -123,16 +109,18 @@ class DomainConfigMessagingServiceContext(InstanceContext):
         self._solution = {
             "messaging_service_sid": messaging_service_sid,
         }
-        self._uri = "/LinkShortening/MessagingService/{messaging_service_sid}/DomainConfig".format(
-            **self._solution
+        self._uri = (
+            "/LinkShortening/MessagingServices/{messaging_service_sid}/Domain".format(
+                **self._solution
+            )
         )
 
-    def fetch(self) -> DomainConfigMessagingServiceInstance:
+    def fetch(self) -> LinkshorteningMessagingServiceDomainAssociationInstance:
         """
-        Fetch the DomainConfigMessagingServiceInstance
+        Fetch the LinkshorteningMessagingServiceDomainAssociationInstance
 
 
-        :returns: The fetched DomainConfigMessagingServiceInstance
+        :returns: The fetched LinkshorteningMessagingServiceDomainAssociationInstance
         """
 
         payload = self._version.fetch(
@@ -140,18 +128,20 @@ class DomainConfigMessagingServiceContext(InstanceContext):
             uri=self._uri,
         )
 
-        return DomainConfigMessagingServiceInstance(
+        return LinkshorteningMessagingServiceDomainAssociationInstance(
             self._version,
             payload,
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    async def fetch_async(self) -> DomainConfigMessagingServiceInstance:
+    async def fetch_async(
+        self,
+    ) -> LinkshorteningMessagingServiceDomainAssociationInstance:
         """
-        Asynchronous coroutine to fetch the DomainConfigMessagingServiceInstance
+        Asynchronous coroutine to fetch the LinkshorteningMessagingServiceDomainAssociationInstance
 
 
-        :returns: The fetched DomainConfigMessagingServiceInstance
+        :returns: The fetched LinkshorteningMessagingServiceDomainAssociationInstance
         """
 
         payload = await self._version.fetch_async(
@@ -159,7 +149,7 @@ class DomainConfigMessagingServiceContext(InstanceContext):
             uri=self._uri,
         )
 
-        return DomainConfigMessagingServiceInstance(
+        return LinkshorteningMessagingServiceDomainAssociationInstance(
             self._version,
             payload,
             messaging_service_sid=self._solution["messaging_service_sid"],
@@ -172,40 +162,42 @@ class DomainConfigMessagingServiceContext(InstanceContext):
         :returns: Machine friendly representation
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.DomainConfigMessagingServiceContext {}>".format(
+        return "<Twilio.Messaging.V1.LinkshorteningMessagingServiceDomainAssociationContext {}>".format(
             context
         )
 
 
-class DomainConfigMessagingServiceList(ListResource):
+class LinkshorteningMessagingServiceDomainAssociationList(ListResource):
     def __init__(self, version: Version):
         """
-        Initialize the DomainConfigMessagingServiceList
+        Initialize the LinkshorteningMessagingServiceDomainAssociationList
 
         :param version: Version that contains the resource
 
         """
         super().__init__(version)
 
-    def get(self, messaging_service_sid: str) -> DomainConfigMessagingServiceContext:
+    def get(
+        self, messaging_service_sid: str
+    ) -> LinkshorteningMessagingServiceDomainAssociationContext:
         """
-        Constructs a DomainConfigMessagingServiceContext
+        Constructs a LinkshorteningMessagingServiceDomainAssociationContext
 
         :param messaging_service_sid: Unique string used to identify the Messaging service that this domain should be associated with.
         """
-        return DomainConfigMessagingServiceContext(
+        return LinkshorteningMessagingServiceDomainAssociationContext(
             self._version, messaging_service_sid=messaging_service_sid
         )
 
     def __call__(
         self, messaging_service_sid: str
-    ) -> DomainConfigMessagingServiceContext:
+    ) -> LinkshorteningMessagingServiceDomainAssociationContext:
         """
-        Constructs a DomainConfigMessagingServiceContext
+        Constructs a LinkshorteningMessagingServiceDomainAssociationContext
 
         :param messaging_service_sid: Unique string used to identify the Messaging service that this domain should be associated with.
         """
-        return DomainConfigMessagingServiceContext(
+        return LinkshorteningMessagingServiceDomainAssociationContext(
             self._version, messaging_service_sid=messaging_service_sid
         )
 
@@ -215,4 +207,6 @@ class DomainConfigMessagingServiceList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Messaging.V1.DomainConfigMessagingServiceList>"
+        return (
+            "<Twilio.Messaging.V1.LinkshorteningMessagingServiceDomainAssociationList>"
+        )

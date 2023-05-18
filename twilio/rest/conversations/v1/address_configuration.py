@@ -49,6 +49,7 @@ class AddressConfigurationInstance(InstanceResource):
     :ivar date_created: The date that this resource was created.
     :ivar date_updated: The date that this resource was last updated.
     :ivar url: An absolute API resource URL for this address configuration.
+    :ivar address_country: An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses.
     """
 
     def __init__(
@@ -69,6 +70,7 @@ class AddressConfigurationInstance(InstanceResource):
             payload.get("date_updated")
         )
         self.url: Optional[str] = payload.get("url")
+        self.address_country: Optional[str] = payload.get("address_country")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -475,6 +477,7 @@ class AddressConfigurationList(ListResource):
         auto_creation_webhook_filters: Union[List[str], object] = values.unset,
         auto_creation_studio_flow_sid: Union[str, object] = values.unset,
         auto_creation_studio_retry_count: Union[int, object] = values.unset,
+        address_country: Union[str, object] = values.unset,
     ) -> AddressConfigurationInstance:
         """
         Create the AddressConfigurationInstance
@@ -490,6 +493,7 @@ class AddressConfigurationList(ListResource):
         :param auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+        :param address_country: An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses.
 
         :returns: The created AddressConfigurationInstance
         """
@@ -508,6 +512,7 @@ class AddressConfigurationList(ListResource):
                 ),
                 "AutoCreation.StudioFlowSid": auto_creation_studio_flow_sid,
                 "AutoCreation.StudioRetryCount": auto_creation_studio_retry_count,
+                "AddressCountry": address_country,
             }
         )
 
@@ -536,6 +541,7 @@ class AddressConfigurationList(ListResource):
         auto_creation_webhook_filters: Union[List[str], object] = values.unset,
         auto_creation_studio_flow_sid: Union[str, object] = values.unset,
         auto_creation_studio_retry_count: Union[int, object] = values.unset,
+        address_country: Union[str, object] = values.unset,
     ) -> AddressConfigurationInstance:
         """
         Asynchronously create the AddressConfigurationInstance
@@ -551,6 +557,7 @@ class AddressConfigurationList(ListResource):
         :param auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+        :param address_country: An ISO 3166-1 alpha-2n country code which the address belongs to. This is currently only applicable to short code addresses.
 
         :returns: The created AddressConfigurationInstance
         """
@@ -569,6 +576,7 @@ class AddressConfigurationList(ListResource):
                 ),
                 "AutoCreation.StudioFlowSid": auto_creation_studio_flow_sid,
                 "AutoCreation.StudioRetryCount": auto_creation_studio_retry_count,
+                "AddressCountry": address_country,
             }
         )
 

@@ -83,7 +83,7 @@ class InsightsConversationsList(ListResource):
 
     def stream(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -94,7 +94,7 @@ class InsightsConversationsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param str segment_id: Unique Id of the segment for which conversation details needs to be fetched
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -107,14 +107,16 @@ class InsightsConversationsList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            token=token, segment_id=segment_id, page_size=limits["page_size"]
+            authorization=authorization,
+            segment_id=segment_id,
+            page_size=limits["page_size"],
         )
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -125,7 +127,7 @@ class InsightsConversationsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param str segment_id: Unique Id of the segment for which conversation details needs to be fetched
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -138,14 +140,16 @@ class InsightsConversationsList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            token=token, segment_id=segment_id, page_size=limits["page_size"]
+            authorization=authorization,
+            segment_id=segment_id,
+            page_size=limits["page_size"],
         )
 
         return self._version.stream_async(page, limits["limit"])
 
     def list(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -155,7 +159,7 @@ class InsightsConversationsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param str segment_id: Unique Id of the segment for which conversation details needs to be fetched
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -168,7 +172,7 @@ class InsightsConversationsList(ListResource):
         """
         return list(
             self.stream(
-                token=token,
+                authorization=authorization,
                 segment_id=segment_id,
                 limit=limit,
                 page_size=page_size,
@@ -177,7 +181,7 @@ class InsightsConversationsList(ListResource):
 
     async def list_async(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -187,7 +191,7 @@ class InsightsConversationsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param str segment_id: Unique Id of the segment for which conversation details needs to be fetched
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -201,7 +205,7 @@ class InsightsConversationsList(ListResource):
         return [
             record
             async for record in await self.stream_async(
-                token=token,
+                authorization=authorization,
                 segment_id=segment_id,
                 limit=limit,
                 page_size=page_size,
@@ -210,7 +214,7 @@ class InsightsConversationsList(ListResource):
 
     def page(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -220,7 +224,7 @@ class InsightsConversationsList(ListResource):
         Retrieve a single page of InsightsConversationsInstance records from the API.
         Request is executed immediately
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param segment_id: Unique Id of the segment for which conversation details needs to be fetched
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -230,7 +234,7 @@ class InsightsConversationsList(ListResource):
         """
         data = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
                 "SegmentId": segment_id,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -243,7 +247,7 @@ class InsightsConversationsList(ListResource):
 
     async def page_async(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -253,7 +257,7 @@ class InsightsConversationsList(ListResource):
         Asynchronously retrieve a single page of InsightsConversationsInstance records from the API.
         Request is executed immediately
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param segment_id: Unique Id of the segment for which conversation details needs to be fetched
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -263,7 +267,7 @@ class InsightsConversationsList(ListResource):
         """
         data = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
                 "SegmentId": segment_id,
                 "PageToken": page_token,
                 "Page": page_number,

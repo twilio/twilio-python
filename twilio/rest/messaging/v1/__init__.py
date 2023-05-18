@@ -26,6 +26,9 @@ from twilio.rest.messaging.v1.external_campaign import ExternalCampaignList
 from twilio.rest.messaging.v1.linkshortening_messaging_service import (
     LinkshorteningMessagingServiceList,
 )
+from twilio.rest.messaging.v1.linkshortening_messaging_service_domain_association import (
+    LinkshorteningMessagingServiceDomainAssociationList,
+)
 from twilio.rest.messaging.v1.service import ServiceList
 from twilio.rest.messaging.v1.usecase import UsecaseList
 
@@ -48,6 +51,9 @@ class V1(Version):
         self._external_campaign: Optional[ExternalCampaignList] = None
         self._linkshortening_messaging_service: Optional[
             LinkshorteningMessagingServiceList
+        ] = None
+        self._linkshortening_messaging_service_domain_association: Optional[
+            LinkshorteningMessagingServiceDomainAssociationList
         ] = None
         self._services: Optional[ServiceList] = None
         self._usecases: Optional[UsecaseList] = None
@@ -97,6 +103,16 @@ class V1(Version):
                 self
             )
         return self._linkshortening_messaging_service
+
+    @property
+    def linkshortening_messaging_service_domain_association(
+        self,
+    ) -> LinkshorteningMessagingServiceDomainAssociationList:
+        if self._linkshortening_messaging_service_domain_association is None:
+            self._linkshortening_messaging_service_domain_association = (
+                LinkshorteningMessagingServiceDomainAssociationList(self)
+            )
+        return self._linkshortening_messaging_service_domain_association
 
     @property
     def services(self) -> ServiceList:

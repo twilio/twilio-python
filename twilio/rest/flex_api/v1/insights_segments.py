@@ -127,7 +127,7 @@ class InsightsSegmentsList(ListResource):
 
     def stream(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
@@ -139,7 +139,7 @@ class InsightsSegmentsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param str segment_id: To unique id of the segment
         :param List[str] reservation_id: The list of reservation Ids
         :param limit: Upper limit for the number of records to return. stream()
@@ -153,7 +153,7 @@ class InsightsSegmentsList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            token=token,
+            authorization=authorization,
             segment_id=segment_id,
             reservation_id=reservation_id,
             page_size=limits["page_size"],
@@ -163,7 +163,7 @@ class InsightsSegmentsList(ListResource):
 
     async def stream_async(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
@@ -175,7 +175,7 @@ class InsightsSegmentsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param str segment_id: To unique id of the segment
         :param List[str] reservation_id: The list of reservation Ids
         :param limit: Upper limit for the number of records to return. stream()
@@ -189,7 +189,7 @@ class InsightsSegmentsList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            token=token,
+            authorization=authorization,
             segment_id=segment_id,
             reservation_id=reservation_id,
             page_size=limits["page_size"],
@@ -199,7 +199,7 @@ class InsightsSegmentsList(ListResource):
 
     def list(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
@@ -210,7 +210,7 @@ class InsightsSegmentsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param str segment_id: To unique id of the segment
         :param List[str] reservation_id: The list of reservation Ids
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -224,7 +224,7 @@ class InsightsSegmentsList(ListResource):
         """
         return list(
             self.stream(
-                token=token,
+                authorization=authorization,
                 segment_id=segment_id,
                 reservation_id=reservation_id,
                 limit=limit,
@@ -234,7 +234,7 @@ class InsightsSegmentsList(ListResource):
 
     async def list_async(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
@@ -245,7 +245,7 @@ class InsightsSegmentsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param str segment_id: To unique id of the segment
         :param List[str] reservation_id: The list of reservation Ids
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -260,7 +260,7 @@ class InsightsSegmentsList(ListResource):
         return [
             record
             async for record in await self.stream_async(
-                token=token,
+                authorization=authorization,
                 segment_id=segment_id,
                 reservation_id=reservation_id,
                 limit=limit,
@@ -270,7 +270,7 @@ class InsightsSegmentsList(ListResource):
 
     def page(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -281,7 +281,7 @@ class InsightsSegmentsList(ListResource):
         Retrieve a single page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param segment_id: To unique id of the segment
         :param reservation_id: The list of reservation Ids
         :param page_token: PageToken provided by the API
@@ -292,7 +292,7 @@ class InsightsSegmentsList(ListResource):
         """
         data = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
                 "SegmentId": segment_id,
                 "ReservationId": serialize.map(reservation_id, lambda e: e),
                 "PageToken": page_token,
@@ -306,7 +306,7 @@ class InsightsSegmentsList(ListResource):
 
     async def page_async(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         reservation_id: Union[List[str], object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -317,7 +317,7 @@ class InsightsSegmentsList(ListResource):
         Asynchronously retrieve a single page of InsightsSegmentsInstance records from the API.
         Request is executed immediately
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param segment_id: To unique id of the segment
         :param reservation_id: The list of reservation Ids
         :param page_token: PageToken provided by the API
@@ -328,7 +328,7 @@ class InsightsSegmentsList(ListResource):
         """
         data = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
                 "SegmentId": segment_id,
                 "ReservationId": serialize.map(reservation_id, lambda e: e),
                 "PageToken": page_token,

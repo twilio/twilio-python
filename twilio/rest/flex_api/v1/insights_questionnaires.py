@@ -70,62 +70,64 @@ class InsightsQuestionnairesInstance(InstanceResource):
             )
         return self._context
 
-    def delete(self, token: Union[str, object] = values.unset) -> bool:
+    def delete(self, authorization: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesInstance
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete(
-            token=token,
+            authorization=authorization,
         )
 
-    async def delete_async(self, token: Union[str, object] = values.unset) -> bool:
+    async def delete_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesInstance
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async(
-            token=token,
+            authorization=authorization,
         )
 
     def fetch(
-        self, token: Union[str, object] = values.unset
+        self, authorization: Union[str, object] = values.unset
     ) -> "InsightsQuestionnairesInstance":
         """
         Fetch the InsightsQuestionnairesInstance
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
         return self._proxy.fetch(
-            token=token,
+            authorization=authorization,
         )
 
     async def fetch_async(
-        self, token: Union[str, object] = values.unset
+        self, authorization: Union[str, object] = values.unset
     ) -> "InsightsQuestionnairesInstance":
         """
         Asynchronous coroutine to fetch the InsightsQuestionnairesInstance
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
         return await self._proxy.fetch_async(
-            token=token,
+            authorization=authorization,
         )
 
     def update(
         self,
         active: bool,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
         question_sids: Union[List[str], object] = values.unset,
@@ -134,7 +136,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         Update the InsightsQuestionnairesInstance
 
         :param active: The flag to enable or disable questionnaire
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param name: The name of this questionnaire
         :param description: The description of this questionnaire
         :param question_sids: The list of questions sids under a questionnaire
@@ -143,7 +145,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         """
         return self._proxy.update(
             active=active,
-            token=token,
+            authorization=authorization,
             name=name,
             description=description,
             question_sids=question_sids,
@@ -152,7 +154,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
     async def update_async(
         self,
         active: bool,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
         question_sids: Union[List[str], object] = values.unset,
@@ -161,7 +163,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         Asynchronous coroutine to update the InsightsQuestionnairesInstance
 
         :param active: The flag to enable or disable questionnaire
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param name: The name of this questionnaire
         :param description: The description of this questionnaire
         :param question_sids: The list of questions sids under a questionnaire
@@ -170,7 +172,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         """
         return await self._proxy.update_async(
             active=active,
-            token=token,
+            authorization=authorization,
             name=name,
             description=description,
             question_sids=question_sids,
@@ -206,33 +208,35 @@ class InsightsQuestionnairesContext(InstanceContext):
             )
         )
 
-    def delete(self, token: Union[str, object] = values.unset) -> bool:
+    def delete(self, authorization: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesInstance
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
         headers = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
             }
         )
 
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
-    async def delete_async(self, token: Union[str, object] = values.unset) -> bool:
+    async def delete_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesInstance
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
         headers = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
             }
         )
 
@@ -241,19 +245,19 @@ class InsightsQuestionnairesContext(InstanceContext):
         )
 
     def fetch(
-        self, token: Union[str, object] = values.unset
+        self, authorization: Union[str, object] = values.unset
     ) -> InsightsQuestionnairesInstance:
         """
         Fetch the InsightsQuestionnairesInstance
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
 
         data = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
             }
         )
 
@@ -266,19 +270,19 @@ class InsightsQuestionnairesContext(InstanceContext):
         )
 
     async def fetch_async(
-        self, token: Union[str, object] = values.unset
+        self, authorization: Union[str, object] = values.unset
     ) -> InsightsQuestionnairesInstance:
         """
         Asynchronous coroutine to fetch the InsightsQuestionnairesInstance
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
 
         data = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
             }
         )
 
@@ -295,7 +299,7 @@ class InsightsQuestionnairesContext(InstanceContext):
     def update(
         self,
         active: bool,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
         question_sids: Union[List[str], object] = values.unset,
@@ -304,7 +308,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         Update the InsightsQuestionnairesInstance
 
         :param active: The flag to enable or disable questionnaire
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param name: The name of this questionnaire
         :param description: The description of this questionnaire
         :param question_sids: The list of questions sids under a questionnaire
@@ -321,7 +325,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         )
         headers = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
             }
         )
 
@@ -338,7 +342,7 @@ class InsightsQuestionnairesContext(InstanceContext):
     async def update_async(
         self,
         active: bool,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
         question_sids: Union[List[str], object] = values.unset,
@@ -347,7 +351,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         Asynchronous coroutine to update the InsightsQuestionnairesInstance
 
         :param active: The flag to enable or disable questionnaire
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param name: The name of this questionnaire
         :param description: The description of this questionnaire
         :param question_sids: The list of questions sids under a questionnaire
@@ -364,7 +368,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         )
         headers = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
             }
         )
 
@@ -421,7 +425,7 @@ class InsightsQuestionnairesList(ListResource):
     def create(
         self,
         name: str,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
         active: Union[bool, object] = values.unset,
         question_sids: Union[List[str], object] = values.unset,
@@ -430,7 +434,7 @@ class InsightsQuestionnairesList(ListResource):
         Create the InsightsQuestionnairesInstance
 
         :param name: The name of this questionnaire
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param description: The description of this questionnaire
         :param active: The flag to enable or disable questionnaire
         :param question_sids: The list of questions sids under a questionnaire
@@ -447,7 +451,7 @@ class InsightsQuestionnairesList(ListResource):
         )
         headers = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
             }
         )
         payload = self._version.create(
@@ -459,7 +463,7 @@ class InsightsQuestionnairesList(ListResource):
     async def create_async(
         self,
         name: str,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
         active: Union[bool, object] = values.unset,
         question_sids: Union[List[str], object] = values.unset,
@@ -468,7 +472,7 @@ class InsightsQuestionnairesList(ListResource):
         Asynchronously create the InsightsQuestionnairesInstance
 
         :param name: The name of this questionnaire
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param description: The description of this questionnaire
         :param active: The flag to enable or disable questionnaire
         :param question_sids: The list of questions sids under a questionnaire
@@ -485,7 +489,7 @@ class InsightsQuestionnairesList(ListResource):
         )
         headers = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
             }
         )
         payload = await self._version.create_async(
@@ -496,7 +500,7 @@ class InsightsQuestionnairesList(ListResource):
 
     def stream(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         include_inactive: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -507,7 +511,7 @@ class InsightsQuestionnairesList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -520,7 +524,7 @@ class InsightsQuestionnairesList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            token=token,
+            authorization=authorization,
             include_inactive=include_inactive,
             page_size=limits["page_size"],
         )
@@ -529,7 +533,7 @@ class InsightsQuestionnairesList(ListResource):
 
     async def stream_async(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         include_inactive: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -540,7 +544,7 @@ class InsightsQuestionnairesList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -553,7 +557,7 @@ class InsightsQuestionnairesList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            token=token,
+            authorization=authorization,
             include_inactive=include_inactive,
             page_size=limits["page_size"],
         )
@@ -562,7 +566,7 @@ class InsightsQuestionnairesList(ListResource):
 
     def list(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         include_inactive: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -572,7 +576,7 @@ class InsightsQuestionnairesList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -585,7 +589,7 @@ class InsightsQuestionnairesList(ListResource):
         """
         return list(
             self.stream(
-                token=token,
+                authorization=authorization,
                 include_inactive=include_inactive,
                 limit=limit,
                 page_size=page_size,
@@ -594,7 +598,7 @@ class InsightsQuestionnairesList(ListResource):
 
     async def list_async(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         include_inactive: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -604,7 +608,7 @@ class InsightsQuestionnairesList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str token: The Token HTTP request header
+        :param str authorization: The Authorization HTTP request header
         :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -618,7 +622,7 @@ class InsightsQuestionnairesList(ListResource):
         return [
             record
             async for record in await self.stream_async(
-                token=token,
+                authorization=authorization,
                 include_inactive=include_inactive,
                 limit=limit,
                 page_size=page_size,
@@ -627,7 +631,7 @@ class InsightsQuestionnairesList(ListResource):
 
     def page(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         include_inactive: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -637,7 +641,7 @@ class InsightsQuestionnairesList(ListResource):
         Retrieve a single page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param include_inactive: Flag indicating whether to include inactive questionnaires or not
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -647,7 +651,7 @@ class InsightsQuestionnairesList(ListResource):
         """
         data = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
                 "IncludeInactive": include_inactive,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -660,7 +664,7 @@ class InsightsQuestionnairesList(ListResource):
 
     async def page_async(
         self,
-        token: Union[str, object] = values.unset,
+        authorization: Union[str, object] = values.unset,
         include_inactive: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -670,7 +674,7 @@ class InsightsQuestionnairesList(ListResource):
         Asynchronously retrieve a single page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
 
-        :param token: The Token HTTP request header
+        :param authorization: The Authorization HTTP request header
         :param include_inactive: Flag indicating whether to include inactive questionnaires or not
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -680,7 +684,7 @@ class InsightsQuestionnairesList(ListResource):
         """
         data = values.of(
             {
-                "Token": token,
+                "Authorization": authorization,
                 "IncludeInactive": include_inactive,
                 "PageToken": page_token,
                 "Page": page_number,

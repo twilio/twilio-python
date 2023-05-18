@@ -29,9 +29,11 @@ class DomainConfigInstance(InstanceResource):
     :ivar config_sid: The unique string that we created to identify the Domain config (prefix ZK).
     :ivar fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
     :ivar callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links.
+    :ivar continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
     :ivar date_created: Date this Domain Config was created.
     :ivar date_updated: Date that this Domain Config was last updated.
     :ivar url:
+    :ivar disable_https: Customer's choice to send links with/without \"https://\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
     """
 
     def __init__(
@@ -46,6 +48,7 @@ class DomainConfigInstance(InstanceResource):
         self.config_sid: Optional[str] = payload.get("config_sid")
         self.fallback_url: Optional[str] = payload.get("fallback_url")
         self.callback_url: Optional[str] = payload.get("callback_url")
+        self.continue_on_failure: Optional[bool] = payload.get("continue_on_failure")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -53,6 +56,7 @@ class DomainConfigInstance(InstanceResource):
             payload.get("date_updated")
         )
         self.url: Optional[str] = payload.get("url")
+        self.disable_https: Optional[bool] = payload.get("disable_https")
 
         self._solution = {
             "domain_sid": domain_sid or self.domain_sid,
@@ -96,36 +100,48 @@ class DomainConfigInstance(InstanceResource):
         self,
         fallback_url: Union[str, object] = values.unset,
         callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
     ) -> "DomainConfigInstance":
         """
         Update the DomainConfigInstance
 
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
+        :param disable_https: Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
 
         :returns: The updated DomainConfigInstance
         """
         return self._proxy.update(
             fallback_url=fallback_url,
             callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
         )
 
     async def update_async(
         self,
         fallback_url: Union[str, object] = values.unset,
         callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
     ) -> "DomainConfigInstance":
         """
         Asynchronous coroutine to update the DomainConfigInstance
 
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
+        :param disable_https: Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
 
         :returns: The updated DomainConfigInstance
         """
         return await self._proxy.update_async(
             fallback_url=fallback_url,
             callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
         )
 
     def __repr__(self) -> str:
@@ -198,12 +214,16 @@ class DomainConfigContext(InstanceContext):
         self,
         fallback_url: Union[str, object] = values.unset,
         callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
     ) -> DomainConfigInstance:
         """
         Update the DomainConfigInstance
 
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
+        :param disable_https: Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
 
         :returns: The updated DomainConfigInstance
         """
@@ -211,6 +231,8 @@ class DomainConfigContext(InstanceContext):
             {
                 "FallbackUrl": fallback_url,
                 "CallbackUrl": callback_url,
+                "ContinueOnFailure": continue_on_failure,
+                "DisableHttps": disable_https,
             }
         )
 
@@ -228,12 +250,16 @@ class DomainConfigContext(InstanceContext):
         self,
         fallback_url: Union[str, object] = values.unset,
         callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
     ) -> DomainConfigInstance:
         """
         Asynchronous coroutine to update the DomainConfigInstance
 
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
+        :param disable_https: Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
 
         :returns: The updated DomainConfigInstance
         """
@@ -241,6 +267,8 @@ class DomainConfigContext(InstanceContext):
             {
                 "FallbackUrl": fallback_url,
                 "CallbackUrl": callback_url,
+                "ContinueOnFailure": continue_on_failure,
+                "DisableHttps": disable_https,
             }
         )
 
