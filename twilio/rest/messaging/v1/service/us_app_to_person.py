@@ -50,6 +50,7 @@ class UsAppToPersonInstance(InstanceResource):
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar url: The absolute URL of the US App to Person resource.
     :ivar mock: A boolean that specifies whether campaign is a mock or not. Mock campaigns will be automatically created if using a mock brand. Mock campaigns should only be used for testing purposes.
+    :ivar errors: Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
     """
 
     def __init__(
@@ -95,6 +96,7 @@ class UsAppToPersonInstance(InstanceResource):
         )
         self.url: Optional[str] = payload.get("url")
         self.mock: Optional[bool] = payload.get("mock")
+        self.errors: Optional[List[object]] = payload.get("errors")
 
         self._solution = {
             "messaging_service_sid": messaging_service_sid,

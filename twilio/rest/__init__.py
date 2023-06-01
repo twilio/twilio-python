@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from twilio.rest.flex_api import FlexApi
     from twilio.rest.frontline_api import FrontlineApi
     from twilio.rest.insights import Insights
+    from twilio.rest.intelligence import Intelligence
     from twilio.rest.ip_messaging import IpMessaging
     from twilio.rest.lookups import Lookups
     from twilio.rest.media import Media
@@ -132,6 +133,7 @@ class Client(ClientBase):
         self._flex_api: Optional["FlexApi"] = None
         self._frontline_api: Optional["FrontlineApi"] = None
         self._insights: Optional["Insights"] = None
+        self._intelligence: Optional["Intelligence"] = None
         self._ip_messaging: Optional["IpMessaging"] = None
         self._lookups: Optional["Lookups"] = None
         self._media: Optional["Media"] = None
@@ -299,6 +301,19 @@ class Client(ClientBase):
 
             self._insights = Insights(self)
         return self._insights
+
+    @property
+    def intelligence(self) -> "Intelligence":
+        """
+        Access the Intelligence Twilio Domain
+
+        :returns: Intelligence Twilio Domain
+        """
+        if self._intelligence is None:
+            from twilio.rest.intelligence import Intelligence
+
+            self._intelligence = Intelligence(self)
+        return self._intelligence
 
     @property
     def ip_messaging(self) -> "IpMessaging":
