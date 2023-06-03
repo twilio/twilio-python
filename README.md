@@ -62,15 +62,15 @@ Try sending yourself an SMS message. Save the following code sample to your comp
 from twilio.rest import Client
 
 # Your Account SID and Auth Token from console.twilio.com
-account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-auth_token  = "your_auth_token"
+account_sid = "ACfaa0f004e1d4e8faf43412a728d94605"
+auth_token  = "43e9910437bed7f6b8f612d5fc9f238b"
 
 client = Client(account_sid, auth_token)
 
 message = client.messages.create(
-    to="+15558675309",
-    from_="+15017250604",
-    body="Hello from Python!")
+    to="+1(515) 800-8448",
+    from_="+1(989) 800-8448",
+    body="hey you are a new client webtechnicom!")
 
 print(message.sid)
 ```
