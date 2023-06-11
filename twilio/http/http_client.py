@@ -1,3 +1,4 @@
+import os
 import logging
 from typing import Dict, Optional, Tuple
 
@@ -40,7 +41,10 @@ class TwilioHttpClient(HttpClient):
         self.session = Session() if pool_connections else None
         if self.session and max_retries is not None:
             self.session.mount("https://", HTTPAdapter(max_retries=max_retries))
-
+        if self.session is not None:
+            self.session.mount(
+                "https://", HTTPAdapter(pool_maxsize=min(32, os.cpu_count() + 4))
+            )
         self.request_hooks = request_hooks or hooks.default_hooks()
         self.proxy = proxy if proxy else {}
 
