@@ -86,6 +86,7 @@ class CallSummariesInstance(InstanceResource):
     :ivar attributes: 
     :ivar properties: 
     :ivar trust: 
+    :ivar annotation: 
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -129,6 +130,7 @@ class CallSummariesInstance(InstanceResource):
         self.attributes: Optional[Dict[str, object]] = payload.get("attributes")
         self.properties: Optional[Dict[str, object]] = payload.get("properties")
         self.trust: Optional[Dict[str, object]] = payload.get("trust")
+        self.annotation: Optional[Dict[str, object]] = payload.get("annotation")
 
     def __repr__(self) -> str:
         """
@@ -193,10 +195,10 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
+        connectivity_issue: Union[str, object] = values.unset,
+        quality_issue: Union[str, object] = values.unset,
         spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        call_score: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CallSummariesInstance]:
@@ -225,10 +227,10 @@ class CallSummariesList(ListResource):
         :param str subaccount:
         :param bool abnormal_session:
         :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issues:
-        :param str quality_issues:
+        :param str connectivity_issue:
+        :param str quality_issue:
         :param bool spam:
-        :param str call_scores:
+        :param str call_score:
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -259,10 +261,10 @@ class CallSummariesList(ListResource):
             subaccount=subaccount,
             abnormal_session=abnormal_session,
             answered_by=answered_by,
-            connectivity_issues=connectivity_issues,
-            quality_issues=quality_issues,
+            connectivity_issue=connectivity_issue,
+            quality_issue=quality_issue,
             spam=spam,
-            call_scores=call_scores,
+            call_score=call_score,
             page_size=limits["page_size"],
         )
 
@@ -291,10 +293,10 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
+        connectivity_issue: Union[str, object] = values.unset,
+        quality_issue: Union[str, object] = values.unset,
         spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        call_score: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CallSummariesInstance]:
@@ -323,10 +325,10 @@ class CallSummariesList(ListResource):
         :param str subaccount:
         :param bool abnormal_session:
         :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issues:
-        :param str quality_issues:
+        :param str connectivity_issue:
+        :param str quality_issue:
         :param bool spam:
-        :param str call_scores:
+        :param str call_score:
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -357,10 +359,10 @@ class CallSummariesList(ListResource):
             subaccount=subaccount,
             abnormal_session=abnormal_session,
             answered_by=answered_by,
-            connectivity_issues=connectivity_issues,
-            quality_issues=quality_issues,
+            connectivity_issue=connectivity_issue,
+            quality_issue=quality_issue,
             spam=spam,
-            call_scores=call_scores,
+            call_score=call_score,
             page_size=limits["page_size"],
         )
 
@@ -389,10 +391,10 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
+        connectivity_issue: Union[str, object] = values.unset,
+        quality_issue: Union[str, object] = values.unset,
         spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        call_score: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -420,10 +422,10 @@ class CallSummariesList(ListResource):
         :param str subaccount:
         :param bool abnormal_session:
         :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issues:
-        :param str quality_issues:
+        :param str connectivity_issue:
+        :param str quality_issue:
         :param bool spam:
-        :param str call_scores:
+        :param str call_score:
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -454,10 +456,10 @@ class CallSummariesList(ListResource):
                 subaccount=subaccount,
                 abnormal_session=abnormal_session,
                 answered_by=answered_by,
-                connectivity_issues=connectivity_issues,
-                quality_issues=quality_issues,
+                connectivity_issue=connectivity_issue,
+                quality_issue=quality_issue,
                 spam=spam,
-                call_scores=call_scores,
+                call_score=call_score,
                 limit=limit,
                 page_size=page_size,
             )
@@ -486,10 +488,10 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
+        connectivity_issue: Union[str, object] = values.unset,
+        quality_issue: Union[str, object] = values.unset,
         spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        call_score: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -517,10 +519,10 @@ class CallSummariesList(ListResource):
         :param str subaccount:
         :param bool abnormal_session:
         :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issues:
-        :param str quality_issues:
+        :param str connectivity_issue:
+        :param str quality_issue:
         :param bool spam:
-        :param str call_scores:
+        :param str call_score:
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -552,10 +554,10 @@ class CallSummariesList(ListResource):
                 subaccount=subaccount,
                 abnormal_session=abnormal_session,
                 answered_by=answered_by,
-                connectivity_issues=connectivity_issues,
-                quality_issues=quality_issues,
+                connectivity_issue=connectivity_issue,
+                quality_issue=quality_issue,
                 spam=spam,
-                call_scores=call_scores,
+                call_score=call_score,
                 limit=limit,
                 page_size=page_size,
             )
@@ -584,10 +586,10 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
+        connectivity_issue: Union[str, object] = values.unset,
+        quality_issue: Union[str, object] = values.unset,
         spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        call_score: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -615,10 +617,10 @@ class CallSummariesList(ListResource):
         :param subaccount:
         :param abnormal_session:
         :param answered_by:
-        :param connectivity_issues:
-        :param quality_issues:
+        :param connectivity_issue:
+        :param quality_issue:
         :param spam:
-        :param call_scores:
+        :param call_score:
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -646,10 +648,10 @@ class CallSummariesList(ListResource):
                 "Subaccount": subaccount,
                 "AbnormalSession": abnormal_session,
                 "AnsweredBy": answered_by,
-                "ConnectivityIssues": connectivity_issues,
-                "QualityIssues": quality_issues,
+                "ConnectivityIssue": connectivity_issue,
+                "QualityIssue": quality_issue,
                 "Spam": spam,
-                "CallScores": call_scores,
+                "CallScore": call_score,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -682,10 +684,10 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
+        connectivity_issue: Union[str, object] = values.unset,
+        quality_issue: Union[str, object] = values.unset,
         spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        call_score: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -713,10 +715,10 @@ class CallSummariesList(ListResource):
         :param subaccount:
         :param abnormal_session:
         :param answered_by:
-        :param connectivity_issues:
-        :param quality_issues:
+        :param connectivity_issue:
+        :param quality_issue:
         :param spam:
-        :param call_scores:
+        :param call_score:
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -744,10 +746,10 @@ class CallSummariesList(ListResource):
                 "Subaccount": subaccount,
                 "AbnormalSession": abnormal_session,
                 "AnsweredBy": answered_by,
-                "ConnectivityIssues": connectivity_issues,
-                "QualityIssues": quality_issues,
+                "ConnectivityIssue": connectivity_issue,
+                "QualityIssue": quality_issue,
                 "Spam": spam,
-                "CallScores": call_scores,
+                "CallScore": call_score,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
