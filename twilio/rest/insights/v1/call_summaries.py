@@ -64,28 +64,28 @@ class CallSummariesInstance(InstanceResource):
         END_TIME = "end_time"
 
     """
-    :ivar account_sid: 
-    :ivar call_sid: 
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar call_sid: The unique SID identifier of the Call.
     :ivar answered_by: 
     :ivar call_type: 
     :ivar call_state: 
     :ivar processing_state: 
-    :ivar created_time: 
-    :ivar start_time: 
-    :ivar end_time: 
-    :ivar duration: 
-    :ivar connect_duration: 
-    :ivar _from: 
-    :ivar to: 
-    :ivar carrier_edge: 
-    :ivar client_edge: 
-    :ivar sdk_edge: 
-    :ivar sip_edge: 
-    :ivar tags: 
-    :ivar url: 
-    :ivar attributes: 
-    :ivar properties: 
-    :ivar trust: 
+    :ivar created_time: The time at which the Call was created, given in ISO 8601 format. Can be different from `start_time` in the event of queueing due to CPS
+    :ivar start_time: The time at which the Call was started, given in ISO 8601 format.
+    :ivar end_time: The time at which the Call was ended, given in ISO 8601 format.
+    :ivar duration: Duration between when the call was initiated and the call was ended
+    :ivar connect_duration: Duration between when the call was answered and when it ended
+    :ivar _from: The calling party.
+    :ivar to: The called party.
+    :ivar carrier_edge: Contains metrics and properties for the Twilio media gateway of a PSTN call.
+    :ivar client_edge: Contains metrics and properties for the Twilio media gateway of a Client call.
+    :ivar sdk_edge: Contains metrics and properties for the SDK sensor library for Client calls.
+    :ivar sip_edge: Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
+    :ivar tags: Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
+    :ivar url: The URL of this resource.
+    :ivar attributes: Attributes capturing call-flow-specific details.
+    :ivar properties: Contains edge-agnostic call-level details.
+    :ivar trust: Contains trusted communications details including Branded Call and verified caller ID.
     :ivar annotation: 
     """
 
@@ -208,29 +208,29 @@ class CallSummariesList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issue:
-        :param str quality_issue:
-        :param bool spam:
-        :param str call_score:
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam: A boolean flag indicating spam calls.
+        :param str call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -306,29 +306,29 @@ class CallSummariesList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issue:
-        :param str quality_issue:
-        :param bool spam:
-        :param str call_score:
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam: A boolean flag indicating spam calls.
+        :param str call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -403,29 +403,29 @@ class CallSummariesList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issue:
-        :param str quality_issue:
-        :param bool spam:
-        :param str call_score:
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam: A boolean flag indicating spam calls.
+        :param str call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -500,29 +500,29 @@ class CallSummariesList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issue:
-        :param str quality_issue:
-        :param bool spam:
-        :param str call_score:
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam: A boolean flag indicating spam calls.
+        :param str call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -598,29 +598,29 @@ class CallSummariesList(ListResource):
         Retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
 
-        :param from_:
-        :param to:
-        :param from_carrier:
-        :param to_carrier:
-        :param from_country_code:
-        :param to_country_code:
-        :param branded:
-        :param verified_caller:
-        :param has_tag:
-        :param start_time:
-        :param end_time:
-        :param call_type:
-        :param call_state:
-        :param direction:
-        :param processing_state:
-        :param sort_by:
-        :param subaccount:
-        :param abnormal_session:
-        :param answered_by:
-        :param connectivity_issue:
-        :param quality_issue:
-        :param spam:
-        :param call_score:
+        :param from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param from_carrier: An origination carrier.
+        :param to_carrier: A destination carrier.
+        :param from_country_code: A source country code based on phone number in From.
+        :param to_country_code: A destination country code. Based on phone number in To.
+        :param branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param subaccount: A unique SID identifier of a Subaccount.
+        :param abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param spam: A boolean flag indicating spam calls.
+        :param call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -696,29 +696,29 @@ class CallSummariesList(ListResource):
         Asynchronously retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
 
-        :param from_:
-        :param to:
-        :param from_carrier:
-        :param to_carrier:
-        :param from_country_code:
-        :param to_country_code:
-        :param branded:
-        :param verified_caller:
-        :param has_tag:
-        :param start_time:
-        :param end_time:
-        :param call_type:
-        :param call_state:
-        :param direction:
-        :param processing_state:
-        :param sort_by:
-        :param subaccount:
-        :param abnormal_session:
-        :param answered_by:
-        :param connectivity_issue:
-        :param quality_issue:
-        :param spam:
-        :param call_score:
+        :param from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param from_carrier: An origination carrier.
+        :param to_carrier: A destination carrier.
+        :param from_country_code: A source country code based on phone number in From.
+        :param to_country_code: A destination country code. Based on phone number in To.
+        :param branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param subaccount: A unique SID identifier of a Subaccount.
+        :param abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param spam: A boolean flag indicating spam calls.
+        :param call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50

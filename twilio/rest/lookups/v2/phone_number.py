@@ -43,6 +43,7 @@ class PhoneNumberInstance(InstanceResource):
     :ivar live_activity: An object that contains live activity information for a mobile phone number.
     :ivar line_type_intelligence: An object that contains line type information including the carrier name, mobile country code, and mobile network code.
     :ivar identity_match: An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
+    :ivar reassigned_number: An object that contains reassigned number information. Reassigned Numbers will return a phone number's reassignment status given a phone number and date
     :ivar sms_pumping_risk: An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
     :ivar url: The absolute URL of the resource.
     """
@@ -73,6 +74,9 @@ class PhoneNumberInstance(InstanceResource):
             "line_type_intelligence"
         )
         self.identity_match: Optional[Dict[str, object]] = payload.get("identity_match")
+        self.reassigned_number: Optional[Dict[str, object]] = payload.get(
+            "reassigned_number"
+        )
         self.sms_pumping_risk: Optional[Dict[str, object]] = payload.get(
             "sms_pumping_risk"
         )
@@ -112,11 +116,12 @@ class PhoneNumberInstance(InstanceResource):
         address_country_code: Union[str, object] = values.unset,
         national_id: Union[str, object] = values.unset,
         date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
     ) -> "PhoneNumberInstance":
         """
         Fetch the PhoneNumberInstance
 
-        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
+        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
         :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
@@ -128,6 +133,7 @@ class PhoneNumberInstance(InstanceResource):
         :param address_country_code: User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
         :param national_id: User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
         :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
 
         :returns: The fetched PhoneNumberInstance
         """
@@ -144,6 +150,7 @@ class PhoneNumberInstance(InstanceResource):
             address_country_code=address_country_code,
             national_id=national_id,
             date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
         )
 
     async def fetch_async(
@@ -160,11 +167,12 @@ class PhoneNumberInstance(InstanceResource):
         address_country_code: Union[str, object] = values.unset,
         national_id: Union[str, object] = values.unset,
         date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
     ) -> "PhoneNumberInstance":
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
 
-        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
+        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
         :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
@@ -176,6 +184,7 @@ class PhoneNumberInstance(InstanceResource):
         :param address_country_code: User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
         :param national_id: User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
         :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
 
         :returns: The fetched PhoneNumberInstance
         """
@@ -192,6 +201,7 @@ class PhoneNumberInstance(InstanceResource):
             address_country_code=address_country_code,
             national_id=national_id,
             date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
         )
 
     def __repr__(self) -> str:
@@ -234,11 +244,12 @@ class PhoneNumberContext(InstanceContext):
         address_country_code: Union[str, object] = values.unset,
         national_id: Union[str, object] = values.unset,
         date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
     ) -> PhoneNumberInstance:
         """
         Fetch the PhoneNumberInstance
 
-        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
+        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
         :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
@@ -250,6 +261,7 @@ class PhoneNumberContext(InstanceContext):
         :param address_country_code: User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
         :param national_id: User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
         :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
 
         :returns: The fetched PhoneNumberInstance
         """
@@ -268,6 +280,7 @@ class PhoneNumberContext(InstanceContext):
                 "AddressCountryCode": address_country_code,
                 "NationalId": national_id,
                 "DateOfBirth": date_of_birth,
+                "LastVerifiedDate": last_verified_date,
             }
         )
 
@@ -293,11 +306,12 @@ class PhoneNumberContext(InstanceContext):
         address_country_code: Union[str, object] = values.unset,
         national_id: Union[str, object] = values.unset,
         date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
     ) -> PhoneNumberInstance:
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
 
-        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
+        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
         :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
@@ -309,6 +323,7 @@ class PhoneNumberContext(InstanceContext):
         :param address_country_code: User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
         :param national_id: User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
         :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
 
         :returns: The fetched PhoneNumberInstance
         """
@@ -327,6 +342,7 @@ class PhoneNumberContext(InstanceContext):
                 "AddressCountryCode": address_country_code,
                 "NationalId": national_id,
                 "DateOfBirth": date_of_birth,
+                "LastVerifiedDate": last_verified_date,
             }
         )
 

@@ -16,6 +16,8 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.numbers.v1.bulk_eligibility import BulkEligibilityList
+from twilio.rest.numbers.v1.porting_bulk_portability import PortingBulkPortabilityList
+from twilio.rest.numbers.v1.porting_portability import PortingPortabilityList
 
 
 class V1(Version):
@@ -27,12 +29,26 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._bulk_eligibilities: Optional[BulkEligibilityList] = None
+        self._porting_bulk_portabilities: Optional[PortingBulkPortabilityList] = None
+        self._porting_portabilities: Optional[PortingPortabilityList] = None
 
     @property
     def bulk_eligibilities(self) -> BulkEligibilityList:
         if self._bulk_eligibilities is None:
             self._bulk_eligibilities = BulkEligibilityList(self)
         return self._bulk_eligibilities
+
+    @property
+    def porting_bulk_portabilities(self) -> PortingBulkPortabilityList:
+        if self._porting_bulk_portabilities is None:
+            self._porting_bulk_portabilities = PortingBulkPortabilityList(self)
+        return self._porting_bulk_portabilities
+
+    @property
+    def porting_portabilities(self) -> PortingPortabilityList:
+        if self._porting_portabilities is None:
+            self._porting_portabilities = PortingPortabilityList(self)
+        return self._porting_portabilities
 
     def __repr__(self) -> str:
         """

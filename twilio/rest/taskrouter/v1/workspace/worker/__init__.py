@@ -596,7 +596,7 @@ class WorkerList(ListResource):
         :param str activity_sid: The `activity_sid` of the Worker resources to read.
         :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
         :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
@@ -647,7 +647,7 @@ class WorkerList(ListResource):
         :param str activity_sid: The `activity_sid` of the Worker resources to read.
         :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
         :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
@@ -697,7 +697,7 @@ class WorkerList(ListResource):
         :param str activity_sid: The `activity_sid` of the Worker resources to read.
         :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
         :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
@@ -747,7 +747,7 @@ class WorkerList(ListResource):
         :param str activity_sid: The `activity_sid` of the Worker resources to read.
         :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
         :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
         :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param str ordering: Sorting parameter for Workers
@@ -798,7 +798,7 @@ class WorkerList(ListResource):
         :param activity_sid: The `activity_sid` of the Worker resources to read.
         :param available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
         :param friendly_name: The `friendly_name` of the Worker resources to read.
-        :param target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
         :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param ordering: Sorting parameter for Workers
@@ -849,7 +849,7 @@ class WorkerList(ListResource):
         :param activity_sid: The `activity_sid` of the Worker resources to read.
         :param available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
         :param friendly_name: The `friendly_name` of the Worker resources to read.
-        :param target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
         :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
         :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
         :param ordering: Sorting parameter for Workers
