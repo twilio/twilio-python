@@ -11,4 +11,3 @@ class Intelligence(IntelligenceBase):
     @property
     def services(self) -> ServiceList:
         return self.v2.services
-
