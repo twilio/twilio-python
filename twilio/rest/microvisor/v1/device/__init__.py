@@ -101,6 +101,7 @@ class DeviceInstance(InstanceResource):
         unique_name: Union[str, object] = values.unset,
         target_app: Union[str, object] = values.unset,
         logging_enabled: Union[bool, object] = values.unset,
+        restart_app: Union[bool, object] = values.unset,
     ) -> "DeviceInstance":
         """
         Update the DeviceInstance
@@ -108,6 +109,7 @@ class DeviceInstance(InstanceResource):
         :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
         :param target_app: The SID or unique name of the App to be targeted to the Device.
         :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param restart_app: Set to true to restart the App running on the Device.
 
         :returns: The updated DeviceInstance
         """
@@ -115,6 +117,7 @@ class DeviceInstance(InstanceResource):
             unique_name=unique_name,
             target_app=target_app,
             logging_enabled=logging_enabled,
+            restart_app=restart_app,
         )
 
     async def update_async(
@@ -122,6 +125,7 @@ class DeviceInstance(InstanceResource):
         unique_name: Union[str, object] = values.unset,
         target_app: Union[str, object] = values.unset,
         logging_enabled: Union[bool, object] = values.unset,
+        restart_app: Union[bool, object] = values.unset,
     ) -> "DeviceInstance":
         """
         Asynchronous coroutine to update the DeviceInstance
@@ -129,6 +133,7 @@ class DeviceInstance(InstanceResource):
         :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
         :param target_app: The SID or unique name of the App to be targeted to the Device.
         :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param restart_app: Set to true to restart the App running on the Device.
 
         :returns: The updated DeviceInstance
         """
@@ -136,6 +141,7 @@ class DeviceInstance(InstanceResource):
             unique_name=unique_name,
             target_app=target_app,
             logging_enabled=logging_enabled,
+            restart_app=restart_app,
         )
 
     @property
@@ -224,6 +230,7 @@ class DeviceContext(InstanceContext):
         unique_name: Union[str, object] = values.unset,
         target_app: Union[str, object] = values.unset,
         logging_enabled: Union[bool, object] = values.unset,
+        restart_app: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Update the DeviceInstance
@@ -231,6 +238,7 @@ class DeviceContext(InstanceContext):
         :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
         :param target_app: The SID or unique name of the App to be targeted to the Device.
         :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param restart_app: Set to true to restart the App running on the Device.
 
         :returns: The updated DeviceInstance
         """
@@ -239,6 +247,7 @@ class DeviceContext(InstanceContext):
                 "UniqueName": unique_name,
                 "TargetApp": target_app,
                 "LoggingEnabled": logging_enabled,
+                "RestartApp": restart_app,
             }
         )
 
@@ -255,6 +264,7 @@ class DeviceContext(InstanceContext):
         unique_name: Union[str, object] = values.unset,
         target_app: Union[str, object] = values.unset,
         logging_enabled: Union[bool, object] = values.unset,
+        restart_app: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Asynchronous coroutine to update the DeviceInstance
@@ -262,6 +272,7 @@ class DeviceContext(InstanceContext):
         :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
         :param target_app: The SID or unique name of the App to be targeted to the Device.
         :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param restart_app: Set to true to restart the App running on the Device.
 
         :returns: The updated DeviceInstance
         """
@@ -270,6 +281,7 @@ class DeviceContext(InstanceContext):
                 "UniqueName": unique_name,
                 "TargetApp": target_app,
                 "LoggingEnabled": logging_enabled,
+                "RestartApp": restart_app,
             }
         )
 

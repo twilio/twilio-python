@@ -281,6 +281,7 @@ class AuthorizationDocumentList(ListResource):
         address_sid: str,
         email: str,
         contact_phone_number: str,
+        hosted_number_order_sids: List[str],
         contact_title: Union[str, object] = values.unset,
         cc_emails: Union[List[str], object] = values.unset,
     ) -> AuthorizationDocumentInstance:
@@ -290,6 +291,7 @@ class AuthorizationDocumentList(ListResource):
         :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :param email: Email that this AuthorizationDocument will be sent to for signing.
         :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
 
@@ -300,6 +302,9 @@ class AuthorizationDocumentList(ListResource):
                 "AddressSid": address_sid,
                 "Email": email,
                 "ContactPhoneNumber": contact_phone_number,
+                "HostedNumberOrderSids": serialize.map(
+                    hosted_number_order_sids, lambda e: e
+                ),
                 "ContactTitle": contact_title,
                 "CcEmails": serialize.map(cc_emails, lambda e: e),
             }
@@ -318,6 +323,7 @@ class AuthorizationDocumentList(ListResource):
         address_sid: str,
         email: str,
         contact_phone_number: str,
+        hosted_number_order_sids: List[str],
         contact_title: Union[str, object] = values.unset,
         cc_emails: Union[List[str], object] = values.unset,
     ) -> AuthorizationDocumentInstance:
@@ -327,6 +333,7 @@ class AuthorizationDocumentList(ListResource):
         :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :param email: Email that this AuthorizationDocument will be sent to for signing.
         :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
 
@@ -337,6 +344,9 @@ class AuthorizationDocumentList(ListResource):
                 "AddressSid": address_sid,
                 "Email": email,
                 "ContactPhoneNumber": contact_phone_number,
+                "HostedNumberOrderSids": serialize.map(
+                    hosted_number_order_sids, lambda e: e
+                ),
                 "ContactTitle": contact_title,
                 "CcEmails": serialize.map(cc_emails, lambda e: e),
             }

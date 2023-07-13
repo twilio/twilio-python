@@ -30,6 +30,10 @@ class VerificationInstance(InstanceResource):
         WHATSAPP = "whatsapp"
         SNA = "sna"
 
+    class RiskCheck(object):
+        ENABLE = "enable"
+        DISABLE = "disable"
+
     class Status(object):
         CANCELED = "canceled"
         APPROVED = "approved"
@@ -319,6 +323,7 @@ class VerificationList(ListResource):
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
     ) -> VerificationInstance:
         """
         Create the VerificationInstance
@@ -338,6 +343,7 @@ class VerificationList(ListResource):
         :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+        :param risk_check:
 
         :returns: The created VerificationInstance
         """
@@ -358,6 +364,7 @@ class VerificationList(ListResource):
                 "TemplateSid": template_sid,
                 "TemplateCustomSubstitutions": template_custom_substitutions,
                 "DeviceIp": device_ip,
+                "RiskCheck": risk_check,
             }
         )
 
@@ -388,6 +395,7 @@ class VerificationList(ListResource):
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
     ) -> VerificationInstance:
         """
         Asynchronously create the VerificationInstance
@@ -407,6 +415,7 @@ class VerificationList(ListResource):
         :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+        :param risk_check:
 
         :returns: The created VerificationInstance
         """
@@ -427,6 +436,7 @@ class VerificationList(ListResource):
                 "TemplateSid": template_sid,
                 "TemplateCustomSubstitutions": template_custom_substitutions,
                 "DeviceIp": device_ip,
+                "RiskCheck": risk_check,
             }
         )
 

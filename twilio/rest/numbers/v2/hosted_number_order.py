@@ -45,7 +45,6 @@ class HostedNumberOrderInstance(InstanceResource):
     :ivar status: 
     :ivar failure_reason: A message that explains why a hosted_number_order went to status \"action-required\"
     :ivar date_created: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-    :ivar sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
     :ivar date_updated: The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar email: Email of the owner of this phone number that is being hosted.
     :ivar cc_emails: A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
@@ -78,7 +77,6 @@ class HostedNumberOrderInstance(InstanceResource):
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
-        self.sms_capability: Optional[bool] = payload.get("sms_capability")
         self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )

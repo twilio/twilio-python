@@ -3,6 +3,31 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-07-13] Version 8.5.0
+--------------------------
+**Library - Fix**
+- [PR #718](https://github.com/twilio/twilio-python/pull/718): Create __init__.py for intelligence domain. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Flex**
+- Adding `interaction_context_sid` as optional parameter in Interactions API
+
+**Messaging**
+- Making visiblity public for tollfree_verification API
+
+**Numbers**
+- Remove Sms capability property from HNO creation under version `/v2` of HNO API. **(breaking change)**
+- Update required properties in LOA creation under version `/v2` of Authorization document API. **(breaking change)**
+
+**Taskrouter**
+- Add api to fetch task queue statistics for multiple TaskQueues
+
+**Verify**
+- Add `RiskCheck` optional parameter on Verification creation.
+
+**Twiml**
+- Add Google Voices and languages
+
+
 [2023-06-28] Version 8.4.0
 --------------------------
 **Lookups**
