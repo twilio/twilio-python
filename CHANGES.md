@@ -3,6 +3,26 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-07-27] Version 8.5.1
+--------------------------
+**Api**
+- Added `voice-intelligence`, `voice-intelligence-transcription` and `voice-intelligence-operators` to `usage_record` API.
+- Added `tts-google` to `usage_record` API.
+
+**Lookups**
+- Add new `disposable_phone_number_risk` package to the lookup response
+
+**Verify**
+- Documentation of list attempts API was improved by correcting `date_created_after` and `date_created_before` expected date format.
+- Documentation was improved by correcting `date_created_after` and `date_created_before` expected date format parameter on attempts summary API.
+- Documentation was improved by adding `WHATSAPP` as optional valid parameter on attempts summary API.
+
+**Twiml**
+- Added support for he-il inside of ssm_lang.json that was missing
+- Added support for he-il language in say.json that was missing
+- Add `statusCallback` and `statusCallbackMethod` attributes to `<Siprec>`.
+
+
 [2023-07-13] Version 8.5.0
 --------------------------
 **Library - Fix**

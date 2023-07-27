@@ -262,6 +262,7 @@ class RecordInstance(InstanceResource):
         TRUNKING_RECORDINGS = "trunking-recordings"
         TRUNKING_SECURE = "trunking-secure"
         TRUNKING_TERMINATION = "trunking-termination"
+        TTS_GOOGLE = "tts-google"
         TURNMEGABYTES = "turnmegabytes"
         TURNMEGABYTES_AUSTRALIA = "turnmegabytes-australia"
         TURNMEGABYTES_BRASIL = "turnmegabytes-brasil"
@@ -293,6 +294,9 @@ class RecordInstance(InstanceResource):
         VOICE_INSIGHTS_SIP_TRUNKING_INSIGHTS_ON_DEMAND_MINUTE = (
             "voice-insights-sip-trunking-insights-on-demand-minute"
         )
+        VOICE_INTELLIGENCE = "voice-intelligence"
+        VOICE_INTELLIGENCE_TRANSCRIPTION = "voice-intelligence-transcription"
+        VOICE_INTELLIGENCE_OPERATORS = "voice-intelligence-operators"
         WIRELESS = "wireless"
         WIRELESS_ORDERS = "wireless-orders"
         WIRELESS_ORDERS_ARTWORK = "wireless-orders-artwork"

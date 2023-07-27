@@ -41,7 +41,7 @@ class HostedNumberOrderInstance(InstanceResource):
     :ivar signing_document_sid: A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents) the user needs to sign.
     :ivar phone_number: Phone number to be hosted. This must be in [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g., +16175551212
     :ivar capabilities: 
-    :ivar friendly_name: A 64 character string that is a human-readable text that describes this resource.
+    :ivar friendly_name: A 128 character string that is a human-readable text that describes this resource.
     :ivar status: 
     :ivar failure_reason: A message that explains why a hosted_number_order went to status \"action-required\"
     :ivar date_created: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
@@ -301,7 +301,7 @@ class HostedNumberOrderList(ListResource):
         :param address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
         :param email: Optional. Email of the owner of this phone number that is being hosted.
         :param account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
-        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param friendly_name: A 128 character string that is a human readable text that describes this resource.
         :param cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
         :param sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
         :param sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
@@ -371,7 +371,7 @@ class HostedNumberOrderList(ListResource):
         :param address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
         :param email: Optional. Email of the owner of this phone number that is being hosted.
         :param account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
-        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param friendly_name: A 128 character string that is a human readable text that describes this resource.
         :param cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
         :param sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
         :param sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
@@ -434,7 +434,7 @@ class HostedNumberOrderList(ListResource):
         :param bool sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str friendly_name: A human readable description of this resource, up to 128 characters.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -476,7 +476,7 @@ class HostedNumberOrderList(ListResource):
         :param bool sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str friendly_name: A human readable description of this resource, up to 128 characters.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -517,7 +517,7 @@ class HostedNumberOrderList(ListResource):
         :param bool sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str friendly_name: A human readable description of this resource, up to 128 characters.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -558,7 +558,7 @@ class HostedNumberOrderList(ListResource):
         :param bool sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str friendly_name: A human readable description of this resource, up to 128 characters.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -600,7 +600,7 @@ class HostedNumberOrderList(ListResource):
         :param sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param friendly_name: A human readable description of this resource, up to 128 characters.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -642,7 +642,7 @@ class HostedNumberOrderList(ListResource):
         :param sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param friendly_name: A human readable description of this resource, up to 128 characters.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50

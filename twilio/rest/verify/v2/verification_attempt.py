@@ -236,8 +236,8 @@ class VerificationAttemptList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
         :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
@@ -289,8 +289,8 @@ class VerificationAttemptList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
         :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
@@ -341,8 +341,8 @@ class VerificationAttemptList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
         :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
@@ -393,8 +393,8 @@ class VerificationAttemptList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
-        :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
         :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
@@ -446,8 +446,8 @@ class VerificationAttemptList(ListResource):
         Retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
 
-        :param date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
-        :param date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param country: Filter used to query Verification Attempts sent to the specified destination country.
         :param channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
@@ -499,8 +499,8 @@ class VerificationAttemptList(ListResource):
         Asynchronously retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
 
-        :param date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
-        :param date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param country: Filter used to query Verification Attempts sent to the specified destination country.
         :param channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`

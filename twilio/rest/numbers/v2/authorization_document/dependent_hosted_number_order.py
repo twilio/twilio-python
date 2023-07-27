@@ -43,7 +43,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
     :ivar signing_document_sid: A 34 character string that uniquely identifies the LOA document associated with this HostedNumberOrder.
     :ivar phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
     :ivar capabilities: 
-    :ivar friendly_name: A human readable description of this resource, up to 64 characters.
+    :ivar friendly_name: A human readable description of this resource, up to 128 characters.
     :ivar status: 
     :ivar failure_reason: A message that explains why a hosted_number_order went to status \"action-required\"
     :ivar date_created: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
@@ -167,7 +167,7 @@ class DependentHostedNumberOrderList(ListResource):
         :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str friendly_name: A human readable description of this resource, up to 128 characters.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -208,7 +208,7 @@ class DependentHostedNumberOrderList(ListResource):
         :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str friendly_name: A human readable description of this resource, up to 128 characters.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -248,7 +248,7 @@ class DependentHostedNumberOrderList(ListResource):
         :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str friendly_name: A human readable description of this resource, up to 128 characters.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -288,7 +288,7 @@ class DependentHostedNumberOrderList(ListResource):
         :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str friendly_name: A human readable description of this resource, up to 128 characters.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -329,7 +329,7 @@ class DependentHostedNumberOrderList(ListResource):
         :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param friendly_name: A human readable description of this resource, up to 128 characters.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -370,7 +370,7 @@ class DependentHostedNumberOrderList(ListResource):
         :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param friendly_name: A human readable description of this resource, up to 128 characters.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50

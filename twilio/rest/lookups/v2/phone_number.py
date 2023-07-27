@@ -45,6 +45,7 @@ class PhoneNumberInstance(InstanceResource):
     :ivar identity_match: An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
     :ivar reassigned_number: An object that contains reassigned number information. Reassigned Numbers will return a phone number's reassignment status given a phone number and date
     :ivar sms_pumping_risk: An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
+    :ivar disposable_phone_number_risk: An object that contains information on if a mobile phone number could be a disposable or burner number.
     :ivar url: The absolute URL of the resource.
     """
 
@@ -79,6 +80,9 @@ class PhoneNumberInstance(InstanceResource):
         )
         self.sms_pumping_risk: Optional[Dict[str, object]] = payload.get(
             "sms_pumping_risk"
+        )
+        self.disposable_phone_number_risk: Optional[Dict[str, object]] = payload.get(
+            "disposable_phone_number_risk"
         )
         self.url: Optional[str] = payload.get("url")
 

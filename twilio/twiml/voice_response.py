@@ -631,19 +631,36 @@ class Stop(TwiML):
             )
         )
 
-    def siprec(self, name=None, connector_name=None, track=None, **kwargs):
+    def siprec(
+        self,
+        name=None,
+        connector_name=None,
+        track=None,
+        status_callback=None,
+        status_callback_method=None,
+        **kwargs
+    ):
         """
         Create a <Siprec> element
 
         :param name: Friendly name given to SIPREC
         :param connector_name: Unique name for Connector
         :param track: Track to be streamed to remote service
+        :param status_callback: Status Callback URL
+        :param status_callback_method: Status Callback URL method
         :param kwargs: additional attributes
 
         :returns: <Siprec> element
         """
         return self.nest(
-            Siprec(name=name, connector_name=connector_name, track=track, **kwargs)
+            Siprec(
+                name=name,
+                connector_name=connector_name,
+                track=track,
+                status_callback=status_callback,
+                status_callback_method=status_callback_method,
+                **kwargs
+            )
         )
 
 
@@ -737,19 +754,36 @@ class Start(TwiML):
             )
         )
 
-    def siprec(self, name=None, connector_name=None, track=None, **kwargs):
+    def siprec(
+        self,
+        name=None,
+        connector_name=None,
+        track=None,
+        status_callback=None,
+        status_callback_method=None,
+        **kwargs
+    ):
         """
         Create a <Siprec> element
 
         :param name: Friendly name given to SIPREC
         :param connector_name: Unique name for Connector
         :param track: Track to be streamed to remote service
+        :param status_callback: Status Callback URL
+        :param status_callback_method: Status Callback URL method
         :param kwargs: additional attributes
 
         :returns: <Siprec> element
         """
         return self.nest(
-            Siprec(name=name, connector_name=connector_name, track=track, **kwargs)
+            Siprec(
+                name=name,
+                connector_name=connector_name,
+                track=track,
+                status_callback=status_callback,
+                status_callback_method=status_callback_method,
+                **kwargs
+            )
         )
 
 
