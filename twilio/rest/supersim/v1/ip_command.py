@@ -322,7 +322,7 @@ class IpCommandList(ListResource):
 
         :param str sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each.
         :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -361,7 +361,7 @@ class IpCommandList(ListResource):
 
         :param str sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each.
         :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -399,7 +399,7 @@ class IpCommandList(ListResource):
 
         :param str sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each.
         :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -437,7 +437,7 @@ class IpCommandList(ListResource):
 
         :param str sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param &quot;IpCommandInstance.Status&quot; status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each.
         :param &quot;IpCommandInstance.Direction&quot; direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -476,7 +476,7 @@ class IpCommandList(ListResource):
 
         :param sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
         :param sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each.
         :param direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -515,7 +515,7 @@ class IpCommandList(ListResource):
 
         :param sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
         :param sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/iot/supersim/api/ipcommand-resource#status-values) for a description of each.
         :param direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state

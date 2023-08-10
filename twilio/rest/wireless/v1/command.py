@@ -46,7 +46,7 @@ class CommandInstance(InstanceResource):
     """
     :ivar sid: The unique string that we created to identify the Command resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Command resource.
-    :ivar sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Command was sent to or from.
+    :ivar sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource) that the Command was sent to or from.
     :ivar command: The message being sent to or from the SIM. For text mode messages, this can be up to 160 characters. For binary mode messages, this is a series of up to 140 bytes of data encoded using base64.
     :ivar command_mode: 
     :ivar transport: 
@@ -282,7 +282,7 @@ class CommandList(ListResource):
         Create the CommandInstance
 
         :param command: The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
-        :param sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+        :param sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to send the Command to.
         :param callback_method: The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
         :param callback_url: The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
         :param command_mode:
@@ -325,7 +325,7 @@ class CommandList(ListResource):
         Asynchronously create the CommandInstance
 
         :param command: The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
-        :param sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+        :param sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to send the Command to.
         :param callback_method: The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
         :param callback_url: The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
         :param command_mode:
@@ -369,7 +369,7 @@ class CommandList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read.
         :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
         :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
@@ -408,7 +408,7 @@ class CommandList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read.
         :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
         :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
@@ -446,7 +446,7 @@ class CommandList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read.
         :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
         :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
@@ -484,7 +484,7 @@ class CommandList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+        :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read.
         :param &quot;CommandInstance.Status&quot; status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param &quot;CommandInstance.Direction&quot; direction: Only return Commands with this direction value.
         :param &quot;CommandInstance.Transport&quot; transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
@@ -523,7 +523,7 @@ class CommandList(ListResource):
         Retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+        :param sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read.
         :param status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param direction: Only return Commands with this direction value.
         :param transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
@@ -562,7 +562,7 @@ class CommandList(ListResource):
         Asynchronously retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+        :param sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/iot/wireless/api/sim-resource) to read.
         :param status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
         :param direction: Only return Commands with this direction value.
         :param transport: Only return Commands with this transport value. Can be: `sms` or `ip`.

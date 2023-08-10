@@ -3,6 +3,20 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-08-10] Version 8.6.0
+--------------------------
+**Insights**
+- Normalize annotations parameters in list summary api to be prefixed
+
+**Numbers**
+- Change Bulk_hosted_sid from BHR to BH prefix in HNO and dependent under version `/v2` API's. **(breaking change)**
+- Added parameter target_account_sid to portability and account_sid to response body
+
+**Verify**
+- Remove beta feature flag to list attempts API.
+- Remove beta feature flag to verifications summary attempts API.
+
+
 [2023-07-27] Version 8.5.1
 --------------------------
 **Api**

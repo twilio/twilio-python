@@ -195,10 +195,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issue: Union[str, object] = values.unset,
-        quality_issue: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_score: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CallSummariesInstance]:
@@ -227,10 +228,11 @@ class CallSummariesList(ListResource):
         :param str subaccount: A unique SID identifier of a Subaccount.
         :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
         :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
-        :param str connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
-        :param str quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
-        :param bool spam: A boolean flag indicating spam calls.
-        :param str call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -261,10 +263,11 @@ class CallSummariesList(ListResource):
             subaccount=subaccount,
             abnormal_session=abnormal_session,
             answered_by=answered_by,
-            connectivity_issue=connectivity_issue,
-            quality_issue=quality_issue,
-            spam=spam,
-            call_score=call_score,
+            answered_by_annotation=answered_by_annotation,
+            connectivity_issue_annotation=connectivity_issue_annotation,
+            quality_issue_annotation=quality_issue_annotation,
+            spam_annotation=spam_annotation,
+            call_score_annotation=call_score_annotation,
             page_size=limits["page_size"],
         )
 
@@ -293,10 +296,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issue: Union[str, object] = values.unset,
-        quality_issue: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_score: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CallSummariesInstance]:
@@ -325,10 +329,11 @@ class CallSummariesList(ListResource):
         :param str subaccount: A unique SID identifier of a Subaccount.
         :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
         :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
-        :param str connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
-        :param str quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
-        :param bool spam: A boolean flag indicating spam calls.
-        :param str call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -359,10 +364,11 @@ class CallSummariesList(ListResource):
             subaccount=subaccount,
             abnormal_session=abnormal_session,
             answered_by=answered_by,
-            connectivity_issue=connectivity_issue,
-            quality_issue=quality_issue,
-            spam=spam,
-            call_score=call_score,
+            answered_by_annotation=answered_by_annotation,
+            connectivity_issue_annotation=connectivity_issue_annotation,
+            quality_issue_annotation=quality_issue_annotation,
+            spam_annotation=spam_annotation,
+            call_score_annotation=call_score_annotation,
             page_size=limits["page_size"],
         )
 
@@ -391,10 +397,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issue: Union[str, object] = values.unset,
-        quality_issue: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_score: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -422,10 +429,11 @@ class CallSummariesList(ListResource):
         :param str subaccount: A unique SID identifier of a Subaccount.
         :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
         :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
-        :param str connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
-        :param str quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
-        :param bool spam: A boolean flag indicating spam calls.
-        :param str call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -456,10 +464,11 @@ class CallSummariesList(ListResource):
                 subaccount=subaccount,
                 abnormal_session=abnormal_session,
                 answered_by=answered_by,
-                connectivity_issue=connectivity_issue,
-                quality_issue=quality_issue,
-                spam=spam,
-                call_score=call_score,
+                answered_by_annotation=answered_by_annotation,
+                connectivity_issue_annotation=connectivity_issue_annotation,
+                quality_issue_annotation=quality_issue_annotation,
+                spam_annotation=spam_annotation,
+                call_score_annotation=call_score_annotation,
                 limit=limit,
                 page_size=page_size,
             )
@@ -488,10 +497,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issue: Union[str, object] = values.unset,
-        quality_issue: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_score: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -519,10 +529,11 @@ class CallSummariesList(ListResource):
         :param str subaccount: A unique SID identifier of a Subaccount.
         :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
         :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
-        :param str connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
-        :param str quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
-        :param bool spam: A boolean flag indicating spam calls.
-        :param str call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -554,10 +565,11 @@ class CallSummariesList(ListResource):
                 subaccount=subaccount,
                 abnormal_session=abnormal_session,
                 answered_by=answered_by,
-                connectivity_issue=connectivity_issue,
-                quality_issue=quality_issue,
-                spam=spam,
-                call_score=call_score,
+                answered_by_annotation=answered_by_annotation,
+                connectivity_issue_annotation=connectivity_issue_annotation,
+                quality_issue_annotation=quality_issue_annotation,
+                spam_annotation=spam_annotation,
+                call_score_annotation=call_score_annotation,
                 limit=limit,
                 page_size=page_size,
             )
@@ -586,10 +598,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issue: Union[str, object] = values.unset,
-        quality_issue: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_score: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -617,10 +630,11 @@ class CallSummariesList(ListResource):
         :param subaccount: A unique SID identifier of a Subaccount.
         :param abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
         :param answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
-        :param connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
-        :param quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
-        :param spam: A boolean flag indicating spam calls.
-        :param call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param answered_by_annotation: Either machine or human.
+        :param connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param spam_annotation: A boolean flag indicating spam calls.
+        :param call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -648,10 +662,11 @@ class CallSummariesList(ListResource):
                 "Subaccount": subaccount,
                 "AbnormalSession": abnormal_session,
                 "AnsweredBy": answered_by,
-                "ConnectivityIssue": connectivity_issue,
-                "QualityIssue": quality_issue,
-                "Spam": spam,
-                "CallScore": call_score,
+                "AnsweredByAnnotation": answered_by_annotation,
+                "ConnectivityIssueAnnotation": connectivity_issue_annotation,
+                "QualityIssueAnnotation": quality_issue_annotation,
+                "SpamAnnotation": spam_annotation,
+                "CallScoreAnnotation": call_score_annotation,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -684,10 +699,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issue: Union[str, object] = values.unset,
-        quality_issue: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_score: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -715,10 +731,11 @@ class CallSummariesList(ListResource):
         :param subaccount: A unique SID identifier of a Subaccount.
         :param abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
         :param answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
-        :param connectivity_issue: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
-        :param quality_issue: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
-        :param spam: A boolean flag indicating spam calls.
-        :param call_score: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param answered_by_annotation: Either machine or human.
+        :param connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param spam_annotation: A boolean flag indicating spam calls.
+        :param call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -746,10 +763,11 @@ class CallSummariesList(ListResource):
                 "Subaccount": subaccount,
                 "AbnormalSession": abnormal_session,
                 "AnsweredBy": answered_by,
-                "ConnectivityIssue": connectivity_issue,
-                "QualityIssue": quality_issue,
-                "Spam": spam,
-                "CallScore": call_score,
+                "AnsweredByAnnotation": answered_by_annotation,
+                "ConnectivityIssueAnnotation": connectivity_issue_annotation,
+                "QualityIssueAnnotation": quality_issue_annotation,
+                "SpamAnnotation": spam_annotation,
+                "CallScoreAnnotation": call_score_annotation,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

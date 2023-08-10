@@ -39,7 +39,7 @@ class ConversationInstance(InstanceResource):
     """
     :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
     :ivar chat_service_sid: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
-    :ivar messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+    :ivar messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
     :ivar sid: A 34 character string that uniquely identifies this resource.
     :ivar friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
@@ -172,7 +172,7 @@ class ConversationInstance(InstanceResource):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
@@ -216,7 +216,7 @@ class ConversationInstance(InstanceResource):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
@@ -393,7 +393,7 @@ class ConversationContext(InstanceContext):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
@@ -449,7 +449,7 @@ class ConversationContext(InstanceContext):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
@@ -581,7 +581,7 @@ class ConversationList(ListResource):
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
@@ -636,7 +636,7 @@ class ConversationList(ListResource):
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) this conversation belongs to.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.

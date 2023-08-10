@@ -13,8 +13,8 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional
-from twilio.base import deserialize
+from typing import Any, Dict, Optional, Union
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -30,6 +30,7 @@ class PortingPortabilityInstance(InstanceResource):
 
     """
     :ivar phone_number: The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
+    :ivar account_sid: The target account sid to which the number will be ported
     :ivar portable: Boolean flag specifying if phone number is portable or not.
     :ivar pin_and_account_number_required: Boolean flag specifying if PIN and account number is required for the phone number.
     :ivar not_portable_reason: Reason why the phone number cannot be ported into Twilio, `null` otherwise.
@@ -50,6 +51,7 @@ class PortingPortabilityInstance(InstanceResource):
         super().__init__(version)
 
         self.phone_number: Optional[str] = payload.get("phone_number")
+        self.account_sid: Optional[str] = payload.get("account_sid")
         self.portable: Optional[bool] = payload.get("portable")
         self.pin_and_account_number_required: Optional[bool] = payload.get(
             "pin_and_account_number_required"
@@ -86,23 +88,33 @@ class PortingPortabilityInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self) -> "PortingPortabilityInstance":
+    def fetch(
+        self, target_account_sid: Union[str, object] = values.unset
+    ) -> "PortingPortabilityInstance":
         """
         Fetch the PortingPortabilityInstance
 
+        :param target_account_sid: The SID of the account where the phone number(s) will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(
+            target_account_sid=target_account_sid,
+        )
 
-    async def fetch_async(self) -> "PortingPortabilityInstance":
+    async def fetch_async(
+        self, target_account_sid: Union[str, object] = values.unset
+    ) -> "PortingPortabilityInstance":
         """
         Asynchronous coroutine to fetch the PortingPortabilityInstance
 
+        :param target_account_sid: The SID of the account where the phone number(s) will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
-        return await self._proxy.fetch_async()
+        return await self._proxy.fetch_async(
+            target_account_sid=target_account_sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -132,18 +144,24 @@ class PortingPortabilityContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(self) -> PortingPortabilityInstance:
+    def fetch(
+        self, target_account_sid: Union[str, object] = values.unset
+    ) -> PortingPortabilityInstance:
         """
         Fetch the PortingPortabilityInstance
 
+        :param target_account_sid: The SID of the account where the phone number(s) will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
+        data = values.of(
+            {
+                "TargetAccountSid": target_account_sid,
+            }
         )
+
+        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
 
         return PortingPortabilityInstance(
             self._version,
@@ -151,17 +169,25 @@ class PortingPortabilityContext(InstanceContext):
             phone_number=self._solution["phone_number"],
         )
 
-    async def fetch_async(self) -> PortingPortabilityInstance:
+    async def fetch_async(
+        self, target_account_sid: Union[str, object] = values.unset
+    ) -> PortingPortabilityInstance:
         """
         Asynchronous coroutine to fetch the PortingPortabilityInstance
 
+        :param target_account_sid: The SID of the account where the phone number(s) will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
 
+        data = values.of(
+            {
+                "TargetAccountSid": target_account_sid,
+            }
+        )
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, params=data
         )
 
         return PortingPortabilityInstance(
