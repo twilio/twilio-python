@@ -3,6 +3,26 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-08-24] Version 8.7.0
+--------------------------
+**Library - Test**
+- [PR #719](https://github.com/twilio/twilio-python/pull/719): Update test_webhook.py. Thanks to [@kridai](https://github.com/kridai)!
+
+**Api**
+- Add new property `RiskCheck` for SMS pumping protection feature only (public beta to be available soon): Include this parameter with a value of `disable` to skip any kind of risk check on the respective message request
+
+**Flex**
+- Changing `sid<UO>` path param to `sid<UT>` in interaction channel participant update endpoint **(breaking change)**
+
+**Messaging**
+- Add Channel Sender api
+- Fixing country code docs and removing Zipwhip references
+
+**Numbers**
+- Request status changed in numbers/v2/BulkHostedNumberOrders **(breaking change)**
+- Add bulk hosting orders API under version `/v2
+
+
 [2023-08-10] Version 8.6.0
 --------------------------
 **Insights**

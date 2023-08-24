@@ -33,12 +33,12 @@ class ParticipantInstance(InstanceResource):
     :ivar chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
     :ivar conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
     :ivar sid: A 34 character string that uniquely identifies this resource.
-    :ivar identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-    :ivar attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+    :ivar identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
+    :ivar attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned.
     :ivar messaging_binding: Information about how this participant exchanges messages with the conversation. A JSON parameter consisting of type and address fields of the participant.
     :ivar role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
-    :ivar date_created: The date that this resource was created.
-    :ivar date_updated: The date that this resource was last updated.
+    :ivar date_created: The date on which this resource was created.
+    :ivar date_updated: The date on which this resource was last updated.
     :ivar url: An absolute API resource URL for this participant.
     :ivar last_read_message_index: Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
     :ivar last_read_timestamp: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
@@ -171,10 +171,10 @@ class ParticipantInstance(InstanceResource):
         Update the ParticipantInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated.
-        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param date_created: The date on which this resource was created.
+        :param date_updated: The date on which this resource was last updated.
+        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned.
         :param role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
         :param messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
         :param messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
@@ -215,10 +215,10 @@ class ParticipantInstance(InstanceResource):
         Asynchronous coroutine to update the ParticipantInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated.
-        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param date_created: The date on which this resource was created.
+        :param date_updated: The date on which this resource was last updated.
+        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned.
         :param role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
         :param messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
         :param messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
@@ -379,10 +379,10 @@ class ParticipantContext(InstanceContext):
         Update the ParticipantInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated.
-        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param date_created: The date on which this resource was created.
+        :param date_updated: The date on which this resource was last updated.
+        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned.
         :param role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
         :param messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
         :param messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
@@ -441,10 +441,10 @@ class ParticipantContext(InstanceContext):
         Asynchronous coroutine to update the ParticipantInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated.
-        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param date_created: The date on which this resource was created.
+        :param date_updated: The date on which this resource was last updated.
+        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned.
         :param role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
         :param messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
         :param messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
@@ -556,13 +556,13 @@ class ParticipantList(ListResource):
         Create the ParticipantInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-        :param messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-        :param messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated.
-        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
+        :param messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with `proxy_address`) is only null when the participant is interacting from an SDK endpoint (see the `identity` field).
+        :param messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the `identity` field).
+        :param date_created: The date on which this resource was created.
+        :param date_updated: The date on which this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned.
+        :param messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
         :param role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 
         :returns: The created ParticipantInstance
@@ -613,13 +613,13 @@ class ParticipantList(ListResource):
         Asynchronously create the ParticipantInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-        :param messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-        :param messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-        :param date_created: The date that this resource was created.
-        :param date_updated: The date that this resource was last updated.
-        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+        :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
+        :param messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with `proxy_address`) is only null when the participant is interacting from an SDK endpoint (see the `identity` field).
+        :param messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the `identity` field).
+        :param date_created: The date on which this resource was created.
+        :param date_updated: The date on which this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set `{}` will be returned.
+        :param messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
         :param role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
 
         :returns: The created ParticipantInstance

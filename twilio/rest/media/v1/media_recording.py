@@ -51,7 +51,7 @@ class MediaRecordingInstance(InstanceResource):
     :ivar sid: The unique string generated to identify the MediaRecording resource.
     :ivar media_size: The size of the recording media in bytes.
     :ivar status: 
-    :ivar status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+    :ivar status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/api/status-callbacks) for more details.
     :ivar status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
     :ivar url: The absolute URL of the resource.
     """

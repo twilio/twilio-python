@@ -22,6 +22,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.messaging.v1.service.alpha_sender import AlphaSenderList
+from twilio.rest.messaging.v1.service.channel_sender import ChannelSenderList
 from twilio.rest.messaging.v1.service.phone_number import PhoneNumberList
 from twilio.rest.messaging.v1.service.short_code import ShortCodeList
 from twilio.rest.messaging.v1.service.us_app_to_person import UsAppToPersonList
@@ -295,6 +296,13 @@ class ServiceInstance(InstanceResource):
         return self._proxy.alpha_senders
 
     @property
+    def channel_senders(self) -> ChannelSenderList:
+        """
+        Access the channel_senders
+        """
+        return self._proxy.channel_senders
+
+    @property
     def phone_numbers(self) -> PhoneNumberList:
         """
         Access the phone_numbers
@@ -349,6 +357,7 @@ class ServiceContext(InstanceContext):
         self._uri = "/Services/{sid}".format(**self._solution)
 
         self._alpha_senders: Optional[AlphaSenderList] = None
+        self._channel_senders: Optional[ChannelSenderList] = None
         self._phone_numbers: Optional[PhoneNumberList] = None
         self._short_codes: Optional[ShortCodeList] = None
         self._us_app_to_person: Optional[UsAppToPersonList] = None
@@ -571,6 +580,18 @@ class ServiceContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._alpha_senders
+
+    @property
+    def channel_senders(self) -> ChannelSenderList:
+        """
+        Access the channel_senders
+        """
+        if self._channel_senders is None:
+            self._channel_senders = ChannelSenderList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._channel_senders
 
     @property
     def phone_numbers(self) -> PhoneNumberList:
