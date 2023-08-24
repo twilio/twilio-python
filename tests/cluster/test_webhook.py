@@ -96,6 +96,7 @@ class WebhookTest(unittest.TestCase):
     def validate(self, method):
         flow = self.create_studio_flow(url=self.tunnel.public_url, method=method)
         self.flow_sid = flow.sid
+        time.sleep(5)
         self.client.studio.v2.flows(self.flow_sid).executions.create(
             to="to", from_="from"
         )
