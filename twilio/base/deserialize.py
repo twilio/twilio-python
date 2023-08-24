@@ -3,8 +3,6 @@ from decimal import BasicContext, Decimal
 from email.utils import parsedate
 from typing import Optional, Union
 
-import pytz
-
 ISO8601_DATE_FORMAT = "%Y-%m-%d"
 ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
@@ -19,7 +17,7 @@ def iso8601_date(s: str) -> Union[datetime.date, str]:
     try:
         return (
             datetime.datetime.strptime(s, ISO8601_DATE_FORMAT)
-            .replace(tzinfo=pytz.utc)
+            .replace(tzinfo=datetime.timezone.utc)
             .date()
         )
     except (TypeError, ValueError):
@@ -36,7 +34,7 @@ def iso8601_datetime(
     """
     try:
         return datetime.datetime.strptime(s, ISO8601_DATETIME_FORMAT).replace(
-            tzinfo=pytz.utc
+            tzinfo=datetime.timezone.utc
         )
     except (TypeError, ValueError):
         return s
@@ -52,7 +50,7 @@ def rfc2822_datetime(s: str) -> Optional[datetime.datetime]:
     date_tuple = parsedate(s)
     if date_tuple is None:
         return None
-    return datetime.datetime(*date_tuple[:6]).replace(tzinfo=pytz.utc)
+    return datetime.datetime(*date_tuple[:6]).replace(tzinfo=datetime.timezone.utc)
 
 
 def decimal(d: Optional[str]) -> Union[Decimal, str]:

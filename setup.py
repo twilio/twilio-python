@@ -21,7 +21,6 @@ setup(
     keywords=["twilio", "twiml"],
     python_requires=">=3.7.0",
     install_requires=[
-        "pytz",
         "requests >= 2.0.0",
         "PyJWT >= 2.0.0, < 3.0.0",
         "aiohttp>=3.8.4",
