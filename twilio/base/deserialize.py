@@ -9,7 +9,7 @@ ISO8601_DATE_FORMAT = "%Y-%m-%d"
 ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 
-def iso8601_date(s: str) -> Optional[Union[datetime.date, str]]:
+def iso8601_date(s: str) -> Union[datetime.date, str]:
     """
     Parses an ISO 8601 date string and returns a UTC date object or the string
     if the parsing failed.
@@ -28,7 +28,7 @@ def iso8601_date(s: str) -> Optional[Union[datetime.date, str]]:
 
 def iso8601_datetime(
     s: str,
-) -> Optional[Union[datetime.datetime, str]]:
+) -> Union[datetime.datetime, str]:
     """
     Parses an ISO 8601 datetime string and returns a UTC datetime object,
     or the string if parsing failed.
@@ -55,7 +55,7 @@ def rfc2822_datetime(s: str) -> Optional[datetime.datetime]:
     return datetime.datetime(*date_tuple[:6]).replace(tzinfo=pytz.utc)
 
 
-def decimal(d: Optional[str]) -> Optional[Union[Decimal, str]]:
+def decimal(d: Optional[str]) -> Union[Decimal, str]:
     """
     Parses a decimal string into a Decimal
     :param d: decimal string
@@ -65,7 +65,7 @@ def decimal(d: Optional[str]) -> Optional[Union[Decimal, str]]:
     return Decimal(d, BasicContext)
 
 
-def integer(i: str) -> Optional[Union[int, str]]:
+def integer(i: str) -> Union[int, str]:
     """
     Parses an integer string into an int
     :param i: integer string
