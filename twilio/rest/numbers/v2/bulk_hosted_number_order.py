@@ -29,8 +29,7 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         PROCESSED = "PROCESSED"
 
     """
-    :ivar sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
-    :ivar account_sid: A 34 character string that uniquely identifies the account.
+    :ivar bulk_hosting_sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
     :ivar request_status: 
     :ivar friendly_name: A 128 character string that is a human-readable text that describes this resource.
     :ivar notification_email: Email address used for send notifications about this Bulk hosted number request.
@@ -42,12 +41,14 @@ class BulkHostedNumberOrderInstance(InstanceResource):
     """
 
     def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        bulk_hosting_sid: Optional[str] = None,
     ):
         super().__init__(version)
 
-        self.sid: Optional[str] = payload.get("sid")
-        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.bulk_hosting_sid: Optional[str] = payload.get("bulk_hosting_sid")
         self.request_status: Optional[
             "BulkHostedNumberOrderInstance.RequestStatus"
         ] = payload.get("request_status")
@@ -66,7 +67,7 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         self.results: Optional[List[object]] = payload.get("results")
 
         self._solution = {
-            "sid": sid or self.sid,
+            "bulk_hosting_sid": bulk_hosting_sid or self.bulk_hosting_sid,
         }
         self._context: Optional[BulkHostedNumberOrderContext] = None
 
@@ -81,7 +82,7 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         if self._context is None:
             self._context = BulkHostedNumberOrderContext(
                 self._version,
-                sid=self._solution["sid"],
+                bulk_hosting_sid=self._solution["bulk_hosting_sid"],
             )
         return self._context
 
@@ -124,20 +125,22 @@ class BulkHostedNumberOrderInstance(InstanceResource):
 
 
 class BulkHostedNumberOrderContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
+    def __init__(self, version: Version, bulk_hosting_sid: str):
         """
         Initialize the BulkHostedNumberOrderContext
 
         :param version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
+        :param bulk_hosting_sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "sid": sid,
+            "bulk_hosting_sid": bulk_hosting_sid,
         }
-        self._uri = "/HostedNumber/Orders/Bulk/{sid}".format(**self._solution)
+        self._uri = "/HostedNumber/Orders/Bulk/{bulk_hosting_sid}".format(
+            **self._solution
+        )
 
     def fetch(
         self, order_status: Union[str, object] = values.unset
@@ -161,7 +164,7 @@ class BulkHostedNumberOrderContext(InstanceContext):
         return BulkHostedNumberOrderInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            bulk_hosting_sid=self._solution["bulk_hosting_sid"],
         )
 
     async def fetch_async(
@@ -188,7 +191,7 @@ class BulkHostedNumberOrderContext(InstanceContext):
         return BulkHostedNumberOrderInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            bulk_hosting_sid=self._solution["bulk_hosting_sid"],
         )
 
     def __repr__(self) -> str:
@@ -211,21 +214,25 @@ class BulkHostedNumberOrderList(ListResource):
         """
         super().__init__(version)
 
-    def get(self, sid: str) -> BulkHostedNumberOrderContext:
+    def get(self, bulk_hosting_sid: str) -> BulkHostedNumberOrderContext:
         """
         Constructs a BulkHostedNumberOrderContext
 
-        :param sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
+        :param bulk_hosting_sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
         """
-        return BulkHostedNumberOrderContext(self._version, sid=sid)
+        return BulkHostedNumberOrderContext(
+            self._version, bulk_hosting_sid=bulk_hosting_sid
+        )
 
-    def __call__(self, sid: str) -> BulkHostedNumberOrderContext:
+    def __call__(self, bulk_hosting_sid: str) -> BulkHostedNumberOrderContext:
         """
         Constructs a BulkHostedNumberOrderContext
 
-        :param sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
+        :param bulk_hosting_sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
         """
-        return BulkHostedNumberOrderContext(self._version, sid=sid)
+        return BulkHostedNumberOrderContext(
+            self._version, bulk_hosting_sid=bulk_hosting_sid
+        )
 
     def __repr__(self) -> str:
         """

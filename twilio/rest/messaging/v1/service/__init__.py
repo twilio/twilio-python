@@ -52,7 +52,7 @@ class ServiceInstance(InstanceResource):
     :ivar mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
     :ivar smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
     :ivar scan_message_content: 
-    :ivar fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+    :ivar fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
     :ivar area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
     :ivar synchronous_validation: Reserved.
     :ivar validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -198,7 +198,7 @@ class ServiceInstance(InstanceResource):
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
         :param scan_message_content:
-        :param fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+        :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
         :param synchronous_validation: Reserved.
@@ -260,7 +260,7 @@ class ServiceInstance(InstanceResource):
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
         :param scan_message_content:
-        :param fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+        :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
         :param synchronous_validation: Reserved.
@@ -459,7 +459,7 @@ class ServiceContext(InstanceContext):
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
         :param scan_message_content:
-        :param fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+        :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
         :param synchronous_validation: Reserved.
@@ -531,7 +531,7 @@ class ServiceContext(InstanceContext):
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
         :param scan_message_content:
-        :param fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+        :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
         :param synchronous_validation: Reserved.
@@ -715,7 +715,7 @@ class ServiceList(ListResource):
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
         :param scan_message_content:
-        :param fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+        :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
         :param synchronous_validation: Reserved.
@@ -787,7 +787,7 @@ class ServiceList(ListResource):
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
         :param scan_message_content:
-        :param fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/messaging/services#fallback-to-long-code) for messages sent through the Service instance.
+        :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
         :param synchronous_validation: Reserved.

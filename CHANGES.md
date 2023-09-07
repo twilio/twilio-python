@@ -3,6 +3,25 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-09-07] Version 8.8.0
+--------------------------
+**Api**
+- Make message tagging parameters public **(breaking change)**
+
+**Flex**
+- Adding `agent_conv_end_methods` to Flex Configuration
+
+**Messaging**
+- Mark Mesasging Services fallback_to_long_code feature obsolete
+
+**Numbers**
+- Add Create Port In request api
+- Renaming sid for bulk_hosting_sid and remove account_sid response field in numbers/v2/BulkHostedNumberOrders **(breaking change)**
+
+**Pricing**
+- gate resources behind a beta_feature
+
+
 [2023-08-24] Version 8.7.0
 --------------------------
 **Library - Test**
