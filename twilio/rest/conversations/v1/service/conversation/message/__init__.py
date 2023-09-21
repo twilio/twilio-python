@@ -171,6 +171,7 @@ class MessageInstance(InstanceResource):
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> "MessageInstance":
         """
         Update the MessageInstance
@@ -181,6 +182,7 @@ class MessageInstance(InstanceResource):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The updated MessageInstance
         """
@@ -191,6 +193,7 @@ class MessageInstance(InstanceResource):
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
+            subject=subject,
         )
 
     async def update_async(
@@ -203,6 +206,7 @@ class MessageInstance(InstanceResource):
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> "MessageInstance":
         """
         Asynchronous coroutine to update the MessageInstance
@@ -213,6 +217,7 @@ class MessageInstance(InstanceResource):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The updated MessageInstance
         """
@@ -223,6 +228,7 @@ class MessageInstance(InstanceResource):
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
+            subject=subject,
         )
 
     @property
@@ -364,6 +370,7 @@ class MessageContext(InstanceContext):
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Update the MessageInstance
@@ -374,6 +381,7 @@ class MessageContext(InstanceContext):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The updated MessageInstance
         """
@@ -384,6 +392,7 @@ class MessageContext(InstanceContext):
                 "DateCreated": serialize.iso8601_datetime(date_created),
                 "DateUpdated": serialize.iso8601_datetime(date_updated),
                 "Attributes": attributes,
+                "Subject": subject,
             }
         )
         headers = values.of(
@@ -414,6 +423,7 @@ class MessageContext(InstanceContext):
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Asynchronous coroutine to update the MessageInstance
@@ -424,6 +434,7 @@ class MessageContext(InstanceContext):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The updated MessageInstance
         """
@@ -434,6 +445,7 @@ class MessageContext(InstanceContext):
                 "DateCreated": serialize.iso8601_datetime(date_created),
                 "DateUpdated": serialize.iso8601_datetime(date_updated),
                 "Attributes": attributes,
+                "Subject": subject,
             }
         )
         headers = values.of(
@@ -535,6 +547,7 @@ class MessageList(ListResource):
         media_sid: Union[str, object] = values.unset,
         content_sid: Union[str, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Create the MessageInstance
@@ -548,6 +561,7 @@ class MessageList(ListResource):
         :param media_sid: The Media SID to be attached to the new Message.
         :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The created MessageInstance
         """
@@ -561,6 +575,7 @@ class MessageList(ListResource):
                 "MediaSid": media_sid,
                 "ContentSid": content_sid,
                 "ContentVariables": content_variables,
+                "Subject": subject,
             }
         )
         headers = values.of(
@@ -592,6 +607,7 @@ class MessageList(ListResource):
         media_sid: Union[str, object] = values.unset,
         content_sid: Union[str, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Asynchronously create the MessageInstance
@@ -605,6 +621,7 @@ class MessageList(ListResource):
         :param media_sid: The Media SID to be attached to the new Message.
         :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The created MessageInstance
         """
@@ -618,6 +635,7 @@ class MessageList(ListResource):
                 "MediaSid": media_sid,
                 "ContentSid": content_sid,
                 "ContentVariables": content_variables,
+                "Subject": subject,
             }
         )
         headers = values.of(

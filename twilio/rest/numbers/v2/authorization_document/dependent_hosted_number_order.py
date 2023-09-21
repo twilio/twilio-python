@@ -164,7 +164,7 @@ class DependentHostedNumberOrderList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 128 characters.
@@ -205,7 +205,7 @@ class DependentHostedNumberOrderList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 128 characters.
@@ -245,7 +245,7 @@ class DependentHostedNumberOrderList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 128 characters.
@@ -285,7 +285,7 @@ class DependentHostedNumberOrderList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 128 characters.
@@ -326,7 +326,7 @@ class DependentHostedNumberOrderList(ListResource):
         Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param friendly_name: A human readable description of this resource, up to 128 characters.
@@ -367,7 +367,7 @@ class DependentHostedNumberOrderList(ListResource):
         Asynchronously retrieve a single page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
 
-        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param friendly_name: A human readable description of this resource, up to 128 characters.

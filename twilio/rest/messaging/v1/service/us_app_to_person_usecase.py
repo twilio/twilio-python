@@ -55,7 +55,7 @@ class UsAppToPersonUsecaseList(ListResource):
         Initialize the UsAppToPersonUsecaseList
 
         :param version: Version that contains the resource
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to fetch the resource from.
 
         """
         super().__init__(version)

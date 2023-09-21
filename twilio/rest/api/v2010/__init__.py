@@ -16,6 +16,7 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.api.v2010.account import AccountList
+from twilio.rest.api.v2010.safelist import SafelistList
 from twilio.rest.api.v2010.account import AccountContext
 
 
@@ -28,6 +29,7 @@ class V2010(Version):
         """
         super().__init__(domain, "2010-04-01")
         self._accounts: Optional[AccountList] = None
+        self._safelist: Optional[SafelistList] = None
         self._account: Optional[AccountContext] = None
 
     @property
@@ -35,6 +37,12 @@ class V2010(Version):
         if self._accounts is None:
             self._accounts = AccountList(self)
         return self._accounts
+
+    @property
+    def safelist(self) -> SafelistList:
+        if self._safelist is None:
+            self._safelist = SafelistList(self)
+        return self._safelist
 
     @property
     def account(self) -> AccountContext:
