@@ -128,11 +128,11 @@ class ValidationClient(HttpClient):
         Validate that a request to the new SSL certificate is successful
         :return: null on success, raise TwilioRestException if the request fails
         """
-        response = client.request("GET", "https://api.twilio.com:8443")
+        response = client.request("GET", "https://tls-test.twilio.com:443")
 
         if response.status_code < 200 or response.status_code >= 300:
             raise TwilioRestException(
                 response.status_code,
-                "https://api.twilio.com:8443",
+                "https://tls-test.twilio.com:443",
                 "Failed to validate SSL certificate",
             )
