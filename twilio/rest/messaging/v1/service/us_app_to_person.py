@@ -29,7 +29,7 @@ class UsAppToPersonInstance(InstanceResource):
     :ivar sid: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
     :ivar brand_registration_sid: The unique string to identify the A2P brand.
-    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
     :ivar description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
     :ivar message_samples: Message samples, at least 1 and up to 5 sample messages (at least 2 for starter/sole proprietor), >=20 chars, <=1024 chars each.
     :ivar us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, SOLE_PROPRIETOR...]. SOLE_PROPRIETOR campaign use cases can only be created by SOLE_PROPRIETOR Brands, and there can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR Brand.
@@ -172,7 +172,7 @@ class UsAppToPersonContext(InstanceContext):
         Initialize the UsAppToPersonContext
 
         :param version: Version that contains the resource
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to fetch the resource from.
         :param sid: The SID of the US A2P Compliance resource to fetch `QE2c6890da8086d771620e9b13fadeba0b`.
         """
         super().__init__(version)
@@ -288,7 +288,7 @@ class UsAppToPersonList(ListResource):
         Initialize the UsAppToPersonList
 
         :param version: Version that contains the resource
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to fetch the resource from.
 
         """
         super().__init__(version)

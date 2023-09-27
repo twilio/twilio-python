@@ -34,10 +34,7 @@ class InteractionChannelInstance(InstanceResource):
         ACTIVE = "active"
         FAILED = "failed"
         CLOSED = "closed"
-
-    class Status(object):
-        CLOSED = "closed"
-        WRAPUP = "wrapup"
+        INACTIVE = "inactive"
 
     class Type(object):
         VOICE = "voice"
@@ -48,6 +45,10 @@ class InteractionChannelInstance(InstanceResource):
         CHAT = "chat"
         MESSENGER = "messenger"
         GBM = "gbm"
+
+    class UpdateChannelStatus(object):
+        CLOSED = "closed"
+        INACTIVE = "inactive"
 
     """
     :ivar sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
@@ -122,14 +123,14 @@ class InteractionChannelInstance(InstanceResource):
 
     def update(
         self,
-        status: "InteractionChannelInstance.Status",
+        status: "InteractionChannelInstance.UpdateChannelStatus",
         routing: Union[object, object] = values.unset,
     ) -> "InteractionChannelInstance":
         """
         Update the InteractionChannelInstance
 
         :param status:
-        :param routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
+        :param routing: It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`.
 
         :returns: The updated InteractionChannelInstance
         """
@@ -140,14 +141,14 @@ class InteractionChannelInstance(InstanceResource):
 
     async def update_async(
         self,
-        status: "InteractionChannelInstance.Status",
+        status: "InteractionChannelInstance.UpdateChannelStatus",
         routing: Union[object, object] = values.unset,
     ) -> "InteractionChannelInstance":
         """
         Asynchronous coroutine to update the InteractionChannelInstance
 
         :param status:
-        :param routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
+        :param routing: It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`.
 
         :returns: The updated InteractionChannelInstance
         """
@@ -245,14 +246,14 @@ class InteractionChannelContext(InstanceContext):
 
     def update(
         self,
-        status: "InteractionChannelInstance.Status",
+        status: "InteractionChannelInstance.UpdateChannelStatus",
         routing: Union[object, object] = values.unset,
     ) -> InteractionChannelInstance:
         """
         Update the InteractionChannelInstance
 
         :param status:
-        :param routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
+        :param routing: It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`.
 
         :returns: The updated InteractionChannelInstance
         """
@@ -278,14 +279,14 @@ class InteractionChannelContext(InstanceContext):
 
     async def update_async(
         self,
-        status: "InteractionChannelInstance.Status",
+        status: "InteractionChannelInstance.UpdateChannelStatus",
         routing: Union[object, object] = values.unset,
     ) -> InteractionChannelInstance:
         """
         Asynchronous coroutine to update the InteractionChannelInstance
 
         :param status:
-        :param routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
+        :param routing: It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`.
 
         :returns: The updated InteractionChannelInstance
         """
