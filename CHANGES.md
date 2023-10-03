@@ -3,6 +3,40 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-09-21] Version 8.9.0
+--------------------------
+**Conversations**
+- Enable conversation email bindings, email address configurations and email message subjects
+
+**Flex**
+- Adding `console_errors_included` to Flex Configuration field `debugger_integrations`
+- Introducing new channel status as `inactive` in modify channel endpoint for leave functionality **(breaking change)**
+- Adding `citrix_voice_vdi` to Flex Configuration
+
+**Taskrouter**
+- Add Update Queues, Workers, Workflow Real Time Statistics API to flex-rt-data-api-v2 endpoint
+- Add Update Workspace Real Time Statistics API to flex-rt-data-api-v2 endpoint
+
+
+[2023-09-07] Version 8.8.0
+--------------------------
+**Api**
+- Make message tagging parameters public **(breaking change)**
+
+**Flex**
+- Adding `agent_conv_end_methods` to Flex Configuration
+
+**Messaging**
+- Mark Mesasging Services fallback_to_long_code feature obsolete
+
+**Numbers**
+- Add Create Port In request api
+- Renaming sid for bulk_hosting_sid and remove account_sid response field in numbers/v2/BulkHostedNumberOrders **(breaking change)**
+
+**Pricing**
+- gate resources behind a beta_feature
+
+
 [2023-08-24] Version 8.7.0
 --------------------------
 **Library - Test**

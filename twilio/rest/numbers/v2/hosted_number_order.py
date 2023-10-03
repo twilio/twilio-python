@@ -36,9 +36,9 @@ class HostedNumberOrderInstance(InstanceResource):
     """
     :ivar sid: A 34 character string that uniquely identifies this HostedNumberOrder.
     :ivar account_sid: A 34 character string that uniquely identifies the account.
-    :ivar incoming_phone_number_sid: A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/api/rest/incoming-phone-numbers) resource that represents the phone number being hosted.
+    :ivar incoming_phone_number_sid: A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the phone number being hosted.
     :ivar address_sid: A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
-    :ivar signing_document_sid: A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents) the user needs to sign.
+    :ivar signing_document_sid: A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource) the user needs to sign.
     :ivar phone_number: Phone number to be hosted. This must be in [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g., +16175551212
     :ivar capabilities: 
     :ivar friendly_name: A 128 character string that is a human-readable text that describes this resource.

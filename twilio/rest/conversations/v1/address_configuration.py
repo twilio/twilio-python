@@ -38,6 +38,7 @@ class AddressConfigurationInstance(InstanceResource):
         WHATSAPP = "whatsapp"
         MESSENGER = "messenger"
         GBM = "gbm"
+        EMAIL = "email"
 
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.

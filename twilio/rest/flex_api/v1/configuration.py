@@ -74,6 +74,8 @@ class ConfigurationInstance(InstanceResource):
     :ivar channel_configs: Settings for different limits for Flex Conversations channels attachments.
     :ivar debugger_integration: Configurable parameters for Debugger Integration.
     :ivar flex_ui_status_report: Configurable parameters for Flex UI Status report.
+    :ivar agent_conv_end_methods: Agent conversation end methods.
+    :ivar citrix_voice_vdi: Citrix voice vdi configuration and settings.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -175,6 +177,12 @@ class ConfigurationInstance(InstanceResource):
         )
         self.flex_ui_status_report: Optional[Dict[str, object]] = payload.get(
             "flex_ui_status_report"
+        )
+        self.agent_conv_end_methods: Optional[Dict[str, object]] = payload.get(
+            "agent_conv_end_methods"
+        )
+        self.citrix_voice_vdi: Optional[Dict[str, object]] = payload.get(
+            "citrix_voice_vdi"
         )
 
         self._context: Optional[ConfigurationContext] = None
