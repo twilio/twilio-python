@@ -3,6 +3,19 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-10-05] Version 8.9.1
+--------------------------
+**Library - Chore**
+- [PR #721](https://github.com/twilio/twilio-python/pull/721): Drop dependency on `pytz` by using stdlib `datetime.timezone.utc`. Thanks to [@Zac-HD](https://github.com/Zac-HD)!
+- [PR #723](https://github.com/twilio/twilio-python/pull/723): twilio help changes. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Fix**
+- [PR #724](https://github.com/twilio/twilio-python/pull/724): Update ValidateSslCertificate method. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Lookups**
+- Add test api support for Lookup v2
+
+
 [2023-09-21] Version 8.9.0
 --------------------------
 **Conversations**
