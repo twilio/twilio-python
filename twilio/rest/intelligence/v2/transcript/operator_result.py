@@ -111,7 +111,7 @@ class OperatorResultInstance(InstanceResource):
         """
         Fetch the OperatorResultInstance
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 
         :returns: The fetched OperatorResultInstance
         """
@@ -125,7 +125,7 @@ class OperatorResultInstance(InstanceResource):
         """
         Asynchronous coroutine to fetch the OperatorResultInstance
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 
         :returns: The fetched OperatorResultInstance
         """
@@ -171,7 +171,7 @@ class OperatorResultContext(InstanceContext):
         """
         Fetch the OperatorResultInstance
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 
         :returns: The fetched OperatorResultInstance
         """
@@ -197,7 +197,7 @@ class OperatorResultContext(InstanceContext):
         """
         Asynchronous coroutine to fetch the OperatorResultInstance
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 
         :returns: The fetched OperatorResultInstance
         """
@@ -280,7 +280,7 @@ class OperatorResultList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -307,7 +307,7 @@ class OperatorResultList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -333,7 +333,7 @@ class OperatorResultList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -362,7 +362,7 @@ class OperatorResultList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -392,7 +392,7 @@ class OperatorResultList(ListResource):
         Retrieve a single page of OperatorResultInstance records from the API.
         Request is executed immediately
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -422,7 +422,7 @@ class OperatorResultList(ListResource):
         Asynchronously retrieve a single page of OperatorResultInstance records from the API.
         Request is executed immediately
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50

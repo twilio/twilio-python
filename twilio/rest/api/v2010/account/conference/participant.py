@@ -571,6 +571,7 @@ class ParticipantList(ListResource):
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Create the ParticipantInstance
@@ -622,6 +623,7 @@ class ParticipantList(ListResource):
         :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+        :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
 
         :returns: The created ParticipantInstance
         """
@@ -682,6 +684,7 @@ class ParticipantList(ListResource):
                 "AmdStatusCallback": amd_status_callback,
                 "AmdStatusCallbackMethod": amd_status_callback_method,
                 "Trim": trim,
+                "CallToken": call_token,
             }
         )
 
@@ -749,6 +752,7 @@ class ParticipantList(ListResource):
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Asynchronously create the ParticipantInstance
@@ -800,6 +804,7 @@ class ParticipantList(ListResource):
         :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+        :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
 
         :returns: The created ParticipantInstance
         """
@@ -860,6 +865,7 @@ class ParticipantList(ListResource):
                 "AmdStatusCallback": amd_status_callback,
                 "AmdStatusCallbackMethod": amd_status_callback_method,
                 "Trim": trim,
+                "CallToken": call_token,
             }
         )
 

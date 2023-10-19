@@ -17,6 +17,7 @@ from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.accounts.v1.auth_token_promotion import AuthTokenPromotionList
 from twilio.rest.accounts.v1.credential import CredentialList
+from twilio.rest.accounts.v1.safelist import SafelistList
 from twilio.rest.accounts.v1.secondary_auth_token import SecondaryAuthTokenList
 
 
@@ -30,6 +31,7 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._auth_token_promotion: Optional[AuthTokenPromotionList] = None
         self._credentials: Optional[CredentialList] = None
+        self._safelist: Optional[SafelistList] = None
         self._secondary_auth_token: Optional[SecondaryAuthTokenList] = None
 
     @property
@@ -43,6 +45,12 @@ class V1(Version):
         if self._credentials is None:
             self._credentials = CredentialList(self)
         return self._credentials
+
+    @property
+    def safelist(self) -> SafelistList:
+        if self._safelist is None:
+            self._safelist = SafelistList(self)
+        return self._safelist
 
     @property
     def secondary_auth_token(self) -> SecondaryAuthTokenList:

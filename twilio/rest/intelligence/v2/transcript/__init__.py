@@ -117,33 +117,23 @@ class TranscriptInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
-    def fetch(
-        self, redacted: Union[bool, object] = values.unset
-    ) -> "TranscriptInstance":
+    def fetch(self) -> "TranscriptInstance":
         """
         Fetch the TranscriptInstance
 
-        :param redacted: Grant access to PII Redacted/Unredacted Transcript. The default is `true` to access redacted Transcript.
 
         :returns: The fetched TranscriptInstance
         """
-        return self._proxy.fetch(
-            redacted=redacted,
-        )
+        return self._proxy.fetch()
 
-    async def fetch_async(
-        self, redacted: Union[bool, object] = values.unset
-    ) -> "TranscriptInstance":
+    async def fetch_async(self) -> "TranscriptInstance":
         """
         Asynchronous coroutine to fetch the TranscriptInstance
 
-        :param redacted: Grant access to PII Redacted/Unredacted Transcript. The default is `true` to access redacted Transcript.
 
         :returns: The fetched TranscriptInstance
         """
-        return await self._proxy.fetch_async(
-            redacted=redacted,
-        )
+        return await self._proxy.fetch_async()
 
     @property
     def media(self) -> MediaList:
@@ -220,22 +210,18 @@ class TranscriptContext(InstanceContext):
             uri=self._uri,
         )
 
-    def fetch(self, redacted: Union[bool, object] = values.unset) -> TranscriptInstance:
+    def fetch(self) -> TranscriptInstance:
         """
         Fetch the TranscriptInstance
 
-        :param redacted: Grant access to PII Redacted/Unredacted Transcript. The default is `true` to access redacted Transcript.
 
         :returns: The fetched TranscriptInstance
         """
 
-        data = values.of(
-            {
-                "Redacted": redacted,
-            }
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
         )
-
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
 
         return TranscriptInstance(
             self._version,
@@ -243,25 +229,17 @@ class TranscriptContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(
-        self, redacted: Union[bool, object] = values.unset
-    ) -> TranscriptInstance:
+    async def fetch_async(self) -> TranscriptInstance:
         """
         Asynchronous coroutine to fetch the TranscriptInstance
 
-        :param redacted: Grant access to PII Redacted/Unredacted Transcript. The default is `true` to access redacted Transcript.
 
         :returns: The fetched TranscriptInstance
         """
 
-        data = values.of(
-            {
-                "Redacted": redacted,
-            }
-        )
-
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
+            method="GET",
+            uri=self._uri,
         )
 
         return TranscriptInstance(

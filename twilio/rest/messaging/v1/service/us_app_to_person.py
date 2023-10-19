@@ -31,7 +31,7 @@ class UsAppToPersonInstance(InstanceResource):
     :ivar brand_registration_sid: The unique string to identify the A2P brand.
     :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
     :ivar description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
-    :ivar message_samples: Message samples, at least 1 and up to 5 sample messages (at least 2 for starter/sole proprietor), >=20 chars, <=1024 chars each.
+    :ivar message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
     :ivar us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING, SOLE_PROPRIETOR...]. SOLE_PROPRIETOR campaign use cases can only be created by SOLE_PROPRIETOR Brands, and there can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR Brand.
     :ivar has_embedded_links: Indicate that this SMS campaign will send messages that contain links.
     :ivar has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
@@ -323,7 +323,7 @@ class UsAppToPersonList(ListResource):
         :param brand_registration_sid: A2P Brand Registration SID
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
-        :param message_samples: Message samples, at least 1 and up to 5 sample messages (at least 2 for sole proprietor), >=20 chars, <=1024 chars each.
+        :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
         :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
@@ -388,7 +388,7 @@ class UsAppToPersonList(ListResource):
         :param brand_registration_sid: A2P Brand Registration SID
         :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
-        :param message_samples: Message samples, at least 1 and up to 5 sample messages (at least 2 for sole proprietor), >=20 chars, <=1024 chars each.
+        :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
         :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.

@@ -116,7 +116,7 @@ class SentenceList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -143,7 +143,7 @@ class SentenceList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -169,7 +169,7 @@ class SentenceList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -198,7 +198,7 @@ class SentenceList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -228,7 +228,7 @@ class SentenceList(ListResource):
         Retrieve a single page of SentenceInstance records from the API.
         Request is executed immediately
 
-        :param redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -258,7 +258,7 @@ class SentenceList(ListResource):
         Asynchronously retrieve a single page of SentenceInstance records from the API.
         Request is executed immediately
 
-        :param redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50

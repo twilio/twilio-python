@@ -55,6 +55,7 @@ class TaskInstance(InstanceResource):
     :ivar workspace_sid: The SID of the Workspace that contains the Task.
     :ivar url: The absolute URL of the Task resource.
     :ivar links: The URLs of related resources.
+    :ivar virtual_start_time: The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     """
 
     def __init__(
@@ -101,6 +102,9 @@ class TaskInstance(InstanceResource):
         self.workspace_sid: Optional[str] = payload.get("workspace_sid")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.virtual_start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("virtual_start_time")
+        )
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -174,6 +178,7 @@ class TaskInstance(InstanceResource):
         reason: Union[str, object] = values.unset,
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
     ) -> "TaskInstance":
         """
         Update the TaskInstance
@@ -184,6 +189,7 @@ class TaskInstance(InstanceResource):
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future.
 
         :returns: The updated TaskInstance
         """
@@ -194,6 +200,7 @@ class TaskInstance(InstanceResource):
             reason=reason,
             priority=priority,
             task_channel=task_channel,
+            virtual_start_time=virtual_start_time,
         )
 
     async def update_async(
@@ -204,6 +211,7 @@ class TaskInstance(InstanceResource):
         reason: Union[str, object] = values.unset,
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
     ) -> "TaskInstance":
         """
         Asynchronous coroutine to update the TaskInstance
@@ -214,6 +222,7 @@ class TaskInstance(InstanceResource):
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future.
 
         :returns: The updated TaskInstance
         """
@@ -224,6 +233,7 @@ class TaskInstance(InstanceResource):
             reason=reason,
             priority=priority,
             task_channel=task_channel,
+            virtual_start_time=virtual_start_time,
         )
 
     @property
@@ -345,6 +355,7 @@ class TaskContext(InstanceContext):
         reason: Union[str, object] = values.unset,
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
     ) -> TaskInstance:
         """
         Update the TaskInstance
@@ -355,6 +366,7 @@ class TaskContext(InstanceContext):
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future.
 
         :returns: The updated TaskInstance
         """
@@ -365,6 +377,7 @@ class TaskContext(InstanceContext):
                 "Reason": reason,
                 "Priority": priority,
                 "TaskChannel": task_channel,
+                "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
             }
         )
         headers = values.of(
@@ -392,6 +405,7 @@ class TaskContext(InstanceContext):
         reason: Union[str, object] = values.unset,
         priority: Union[int, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
     ) -> TaskInstance:
         """
         Asynchronous coroutine to update the TaskInstance
@@ -402,6 +416,7 @@ class TaskContext(InstanceContext):
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future.
 
         :returns: The updated TaskInstance
         """
@@ -412,6 +427,7 @@ class TaskContext(InstanceContext):
                 "Reason": reason,
                 "Priority": priority,
                 "TaskChannel": task_channel,
+                "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
             }
         )
         headers = values.of(
@@ -498,6 +514,7 @@ class TaskList(ListResource):
         task_channel: Union[str, object] = values.unset,
         workflow_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
     ) -> TaskInstance:
         """
         Create the TaskInstance
@@ -507,6 +524,7 @@ class TaskList(ListResource):
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
         :param workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
         :param attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
+        :param virtual_start_time: The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future.
 
         :returns: The created TaskInstance
         """
@@ -517,6 +535,7 @@ class TaskList(ListResource):
                 "TaskChannel": task_channel,
                 "WorkflowSid": workflow_sid,
                 "Attributes": attributes,
+                "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
             }
         )
 
@@ -537,6 +556,7 @@ class TaskList(ListResource):
         task_channel: Union[str, object] = values.unset,
         workflow_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
     ) -> TaskInstance:
         """
         Asynchronously create the TaskInstance
@@ -546,6 +566,7 @@ class TaskList(ListResource):
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
         :param workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
         :param attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
+        :param virtual_start_time: The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future.
 
         :returns: The created TaskInstance
         """
@@ -556,6 +577,7 @@ class TaskList(ListResource):
                 "TaskChannel": task_channel,
                 "WorkflowSid": workflow_sid,
                 "Attributes": attributes,
+                "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
             }
         )
 
@@ -596,7 +618,7 @@ class TaskList(ListResource):
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
-        :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+        :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -650,7 +672,7 @@ class TaskList(ListResource):
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
-        :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+        :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -703,7 +725,7 @@ class TaskList(ListResource):
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
-        :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+        :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -756,7 +778,7 @@ class TaskList(ListResource):
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
-        :param str ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+        :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -810,7 +832,7 @@ class TaskList(ListResource):
         :param task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
-        :param ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+        :param ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -864,7 +886,7 @@ class TaskList(ListResource):
         :param task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
-        :param ordering: How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+        :param ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state

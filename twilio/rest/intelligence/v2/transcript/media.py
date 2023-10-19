@@ -64,7 +64,7 @@ class MediaInstance(InstanceResource):
         """
         Fetch the MediaInstance
 
-        :param redacted: Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media.
+        :param redacted: Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 
         :returns: The fetched MediaInstance
         """
@@ -78,7 +78,7 @@ class MediaInstance(InstanceResource):
         """
         Asynchronous coroutine to fetch the MediaInstance
 
-        :param redacted: Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media.
+        :param redacted: Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 
         :returns: The fetched MediaInstance
         """
@@ -116,7 +116,7 @@ class MediaContext(InstanceContext):
         """
         Fetch the MediaInstance
 
-        :param redacted: Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media.
+        :param redacted: Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 
         :returns: The fetched MediaInstance
         """
@@ -141,7 +141,7 @@ class MediaContext(InstanceContext):
         """
         Asynchronous coroutine to fetch the MediaInstance
 
-        :param redacted: Grant access to PII Redacted/Unredacted Media. The default is `true` to access redacted media.
+        :param redacted: Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 
         :returns: The fetched MediaInstance
         """
