@@ -168,6 +168,24 @@ class TollfreeVerificationInstance(InstanceResource):
             )
         return self._context
 
+    def delete(self) -> bool:
+        """
+        Deletes the TollfreeVerificationInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self) -> bool:
+        """
+        Asynchronous coroutine that deletes the TollfreeVerificationInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return await self._proxy.delete_async()
+
     def fetch(self) -> "TollfreeVerificationInstance":
         """
         Fetch the TollfreeVerificationInstance
@@ -359,6 +377,30 @@ class TollfreeVerificationContext(InstanceContext):
             "sid": sid,
         }
         self._uri = "/Tollfree/Verifications/{sid}".format(**self._solution)
+
+    def delete(self) -> bool:
+        """
+        Deletes the TollfreeVerificationInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self) -> bool:
+        """
+        Asynchronous coroutine that deletes the TollfreeVerificationInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     def fetch(self) -> TollfreeVerificationInstance:
         """

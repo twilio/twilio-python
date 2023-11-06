@@ -40,6 +40,7 @@ from twilio.rest.flex_api.v1.insights_settings_comment import (
 )
 from twilio.rest.flex_api.v1.insights_user_roles import InsightsUserRolesList
 from twilio.rest.flex_api.v1.interaction import InteractionList
+from twilio.rest.flex_api.v1.provisioning_status import ProvisioningStatusList
 from twilio.rest.flex_api.v1.web_channel import WebChannelList
 
 
@@ -74,6 +75,7 @@ class V1(Version):
         self._insights_settings_comment: Optional[InsightsSettingsCommentList] = None
         self._insights_user_roles: Optional[InsightsUserRolesList] = None
         self._interaction: Optional[InteractionList] = None
+        self._provisioning_status: Optional[ProvisioningStatusList] = None
         self._web_channel: Optional[WebChannelList] = None
 
     @property
@@ -169,6 +171,12 @@ class V1(Version):
         if self._interaction is None:
             self._interaction = InteractionList(self)
         return self._interaction
+
+    @property
+    def provisioning_status(self) -> ProvisioningStatusList:
+        if self._provisioning_status is None:
+            self._provisioning_status = ProvisioningStatusList(self)
+        return self._provisioning_status
 
     @property
     def web_channel(self) -> WebChannelList:
