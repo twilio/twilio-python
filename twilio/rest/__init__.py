@@ -33,7 +33,6 @@ if TYPE_CHECKING:
     from twilio.rest.monitor import Monitor
     from twilio.rest.notify import Notify
     from twilio.rest.numbers import Numbers
-    from twilio.rest.oauth import Oauth
     from twilio.rest.preview import Preview
     from twilio.rest.pricing import Pricing
     from twilio.rest.proxy import Proxy
@@ -142,7 +141,6 @@ class Client(ClientBase):
         self._monitor: Optional["Monitor"] = None
         self._notify: Optional["Notify"] = None
         self._numbers: Optional["Numbers"] = None
-        self._oauth: Optional["Oauth"] = None
         self._preview: Optional["Preview"] = None
         self._pricing: Optional["Pricing"] = None
         self._proxy: Optional["Proxy"] = None
@@ -418,19 +416,6 @@ class Client(ClientBase):
 
             self._numbers = Numbers(self)
         return self._numbers
-
-    @property
-    def oauth(self) -> "Oauth":
-        """
-        Access the Oauth Twilio Domain
-
-        :returns: Oauth Twilio Domain
-        """
-        if self._oauth is None:
-            from twilio.rest.oauth import Oauth
-
-            self._oauth = Oauth(self)
-        return self._oauth
 
     @property
     def preview(self) -> "Preview":

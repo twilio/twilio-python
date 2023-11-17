@@ -71,6 +71,7 @@ class TollfreeVerificationInstance(InstanceResource):
     :ivar rejection_reason: The rejection reason given when a Tollfree Verification has been rejected.
     :ivar error_code: The error code given when a Tollfree Verification has been rejected.
     :ivar edit_expiration: The date and time when the ability to edit a rejected verification expires.
+    :ivar edit_allowed: If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
     :ivar resource_links: The URLs of the documents associated with the Tollfree Verification resource.
     :ivar external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
     """
@@ -145,6 +146,7 @@ class TollfreeVerificationInstance(InstanceResource):
         self.edit_expiration: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("edit_expiration")
         )
+        self.edit_allowed: Optional[bool] = payload.get("edit_allowed")
         self.resource_links: Optional[Dict[str, object]] = payload.get("resource_links")
         self.external_reference_id: Optional[str] = payload.get("external_reference_id")
 
@@ -228,6 +230,7 @@ class TollfreeVerificationInstance(InstanceResource):
         business_contact_last_name: Union[str, object] = values.unset,
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
     ) -> "TollfreeVerificationInstance":
         """
         Update the TollfreeVerificationInstance
@@ -252,6 +255,7 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -276,6 +280,7 @@ class TollfreeVerificationInstance(InstanceResource):
             business_contact_last_name=business_contact_last_name,
             business_contact_email=business_contact_email,
             business_contact_phone=business_contact_phone,
+            edit_reason=edit_reason,
         )
 
     async def update_async(
@@ -302,6 +307,7 @@ class TollfreeVerificationInstance(InstanceResource):
         business_contact_last_name: Union[str, object] = values.unset,
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
     ) -> "TollfreeVerificationInstance":
         """
         Asynchronous coroutine to update the TollfreeVerificationInstance
@@ -326,6 +332,7 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -350,6 +357,7 @@ class TollfreeVerificationInstance(InstanceResource):
             business_contact_last_name=business_contact_last_name,
             business_contact_email=business_contact_email,
             business_contact_phone=business_contact_phone,
+            edit_reason=edit_reason,
         )
 
     def __repr__(self) -> str:
@@ -464,6 +472,7 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_last_name: Union[str, object] = values.unset,
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Update the TollfreeVerificationInstance
@@ -488,6 +497,7 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -513,6 +523,7 @@ class TollfreeVerificationContext(InstanceContext):
                 "BusinessContactLastName": business_contact_last_name,
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
+                "EditReason": edit_reason,
             }
         )
 
@@ -550,6 +561,7 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_last_name: Union[str, object] = values.unset,
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Asynchronous coroutine to update the TollfreeVerificationInstance
@@ -574,6 +586,7 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -599,6 +612,7 @@ class TollfreeVerificationContext(InstanceContext):
                 "BusinessContactLastName": business_contact_last_name,
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
+                "EditReason": edit_reason,
             }
         )
 

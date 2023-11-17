@@ -15,7 +15,7 @@ r"""
 
 from typing import Any, Dict, Optional
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -26,155 +26,26 @@ class ComplianceTollfreeInquiriesInstance(InstanceResource):
     """
     :ivar inquiry_id: The unique ID used to start an embedded compliance registration session.
     :ivar inquiry_session_token: The session token used to start an embedded compliance registration session.
-    :ivar tollfree_id: The TolfreeId matching the Tollfree Profile that should be resumed or resubmitted for editing.
+    :ivar registration_id: The TolfreeId matching the Tollfree Profile that should be resumed or resubmitted for editing.
     :ivar url: The URL of this resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        tollfree_id: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
         self.inquiry_id: Optional[str] = payload.get("inquiry_id")
         self.inquiry_session_token: Optional[str] = payload.get("inquiry_session_token")
-        self.tollfree_id: Optional[str] = payload.get("tollfree_id")
+        self.registration_id: Optional[str] = payload.get("registration_id")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
-            "tollfree_id": tollfree_id or self.tollfree_id,
-        }
-        self._context: Optional[ComplianceTollfreeInquiriesContext] = None
-
-    @property
-    def _proxy(self) -> "ComplianceTollfreeInquiriesContext":
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: ComplianceTollfreeInquiriesContext for this ComplianceTollfreeInquiriesInstance
-        """
-        if self._context is None:
-            self._context = ComplianceTollfreeInquiriesContext(
-                self._version,
-                tollfree_id=self._solution["tollfree_id"],
-            )
-        return self._context
-
-    def update(self, did: str) -> "ComplianceTollfreeInquiriesInstance":
-        """
-        Update the ComplianceTollfreeInquiriesInstance
-
-        :param did: The Tollfree phone number to be verified
-
-        :returns: The updated ComplianceTollfreeInquiriesInstance
-        """
-        return self._proxy.update(
-            did=did,
-        )
-
-    async def update_async(self, did: str) -> "ComplianceTollfreeInquiriesInstance":
-        """
-        Asynchronous coroutine to update the ComplianceTollfreeInquiriesInstance
-
-        :param did: The Tollfree phone number to be verified
-
-        :returns: The updated ComplianceTollfreeInquiriesInstance
-        """
-        return await self._proxy.update_async(
-            did=did,
-        )
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.ComplianceTollfreeInquiriesInstance {}>".format(
-            context
-        )
 
-
-class ComplianceTollfreeInquiriesContext(InstanceContext):
-    def __init__(self, version: Version, tollfree_id: str):
-        """
-        Initialize the ComplianceTollfreeInquiriesContext
-
-        :param version: Version that contains the resource
-        :param tollfree_id: The unique TolfreeId matching the Compliance Tollfree Verification Inquiry that should be resumed or resubmitted. This value will have been returned by the initial Compliance Tollfree Verification Inquiry creation call.
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "tollfree_id": tollfree_id,
-        }
-        self._uri = "/ComplianceInquiries/Tollfree/{tollfree_id}/Initialize".format(
-            **self._solution
-        )
-
-    def update(self, did: str) -> ComplianceTollfreeInquiriesInstance:
-        """
-        Update the ComplianceTollfreeInquiriesInstance
-
-        :param did: The Tollfree phone number to be verified
-
-        :returns: The updated ComplianceTollfreeInquiriesInstance
-        """
-        data = values.of(
-            {
-                "Did": did,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ComplianceTollfreeInquiriesInstance(
-            self._version, payload, tollfree_id=self._solution["tollfree_id"]
-        )
-
-    async def update_async(self, did: str) -> ComplianceTollfreeInquiriesInstance:
-        """
-        Asynchronous coroutine to update the ComplianceTollfreeInquiriesInstance
-
-        :param did: The Tollfree phone number to be verified
-
-        :returns: The updated ComplianceTollfreeInquiriesInstance
-        """
-        data = values.of(
-            {
-                "Did": did,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ComplianceTollfreeInquiriesInstance(
-            self._version, payload, tollfree_id=self._solution["tollfree_id"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.ComplianceTollfreeInquiriesContext {}>".format(
-            context
-        )
+        return "<Twilio.Trusthub.V1.ComplianceTollfreeInquiriesInstance>"
 
 
 class ComplianceTollfreeInquiriesList(ListResource):
@@ -189,17 +60,21 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         self._uri = "/ComplianceInquiries/Tollfree/Initialize"
 
-    def create(self, did: str) -> ComplianceTollfreeInquiriesInstance:
+    def create(
+        self, tollfree_phone_number: str, notification_email: str
+    ) -> ComplianceTollfreeInquiriesInstance:
         """
         Create the ComplianceTollfreeInquiriesInstance
 
-        :param did: The Tollfree phone number to be verified
+        :param tollfree_phone_number: The Tollfree phone number to be verified
+        :param notification_email: The notification email to be triggered when verification status is changed
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
         data = values.of(
             {
-                "Did": did,
+                "TollfreePhoneNumber": tollfree_phone_number,
+                "NotificationEmail": notification_email,
             }
         )
 
@@ -211,17 +86,21 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         return ComplianceTollfreeInquiriesInstance(self._version, payload)
 
-    async def create_async(self, did: str) -> ComplianceTollfreeInquiriesInstance:
+    async def create_async(
+        self, tollfree_phone_number: str, notification_email: str
+    ) -> ComplianceTollfreeInquiriesInstance:
         """
         Asynchronously create the ComplianceTollfreeInquiriesInstance
 
-        :param did: The Tollfree phone number to be verified
+        :param tollfree_phone_number: The Tollfree phone number to be verified
+        :param notification_email: The notification email to be triggered when verification status is changed
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
         data = values.of(
             {
-                "Did": did,
+                "TollfreePhoneNumber": tollfree_phone_number,
+                "NotificationEmail": notification_email,
             }
         )
 
@@ -232,26 +111,6 @@ class ComplianceTollfreeInquiriesList(ListResource):
         )
 
         return ComplianceTollfreeInquiriesInstance(self._version, payload)
-
-    def get(self, tollfree_id: str) -> ComplianceTollfreeInquiriesContext:
-        """
-        Constructs a ComplianceTollfreeInquiriesContext
-
-        :param tollfree_id: The unique TolfreeId matching the Compliance Tollfree Verification Inquiry that should be resumed or resubmitted. This value will have been returned by the initial Compliance Tollfree Verification Inquiry creation call.
-        """
-        return ComplianceTollfreeInquiriesContext(
-            self._version, tollfree_id=tollfree_id
-        )
-
-    def __call__(self, tollfree_id: str) -> ComplianceTollfreeInquiriesContext:
-        """
-        Constructs a ComplianceTollfreeInquiriesContext
-
-        :param tollfree_id: The unique TolfreeId matching the Compliance Tollfree Verification Inquiry that should be resumed or resubmitted. This value will have been returned by the initial Compliance Tollfree Verification Inquiry creation call.
-        """
-        return ComplianceTollfreeInquiriesContext(
-            self._version, tollfree_id=tollfree_id
-        )
 
     def __repr__(self) -> str:
         """

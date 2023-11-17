@@ -324,6 +324,7 @@ class VerificationList(ListResource):
         template_custom_substitutions: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
         risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
     ) -> VerificationInstance:
         """
         Create the VerificationInstance
@@ -344,6 +345,7 @@ class VerificationList(ListResource):
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
         :param risk_check:
+        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
 
         :returns: The created VerificationInstance
         """
@@ -365,6 +367,7 @@ class VerificationList(ListResource):
                 "TemplateCustomSubstitutions": template_custom_substitutions,
                 "DeviceIp": device_ip,
                 "RiskCheck": risk_check,
+                "Tags": tags,
             }
         )
 
@@ -396,6 +399,7 @@ class VerificationList(ListResource):
         template_custom_substitutions: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
         risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
     ) -> VerificationInstance:
         """
         Asynchronously create the VerificationInstance
@@ -416,6 +420,7 @@ class VerificationList(ListResource):
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
         :param risk_check:
+        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
 
         :returns: The created VerificationInstance
         """
@@ -437,6 +442,7 @@ class VerificationList(ListResource):
                 "TemplateCustomSubstitutions": template_custom_substitutions,
                 "DeviceIp": device_ip,
                 "RiskCheck": risk_check,
+                "Tags": tags,
             }
         )
 

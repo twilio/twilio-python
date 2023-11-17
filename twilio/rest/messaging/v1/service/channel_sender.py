@@ -34,7 +34,7 @@ class ChannelSenderInstance(InstanceResource):
     :ivar country_code: The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-    :ivar url:
+    :ivar url: The absolute URL of the ChannelSender resource.
     """
 
     def __init__(

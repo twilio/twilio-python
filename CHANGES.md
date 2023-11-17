@@ -3,6 +3,29 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-11-17] Version 8.10.2
+---------------------------
+**Library - Chore**
+- [PR #733](https://github.com/twilio/twilio-python/pull/733): bumping aiohttp from 3.8.5 to 3.8.6. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Update documentation to reflect RiskCheck GA
+
+**Messaging**
+- Add tollfree edit_allowed and edit_reason fields
+- Update Phone Number, Short Code, Alpha Sender, US A2P and Channel Sender documentation
+
+**Taskrouter**
+- Add container attribute to task_queue_bulk_real_time_statistics endpoint
+
+**Trusthub**
+- Rename did to tollfree_phone_number in compliance_tollfree_inquiry.json
+- Add new optional field notification_email to compliance_tollfree_inquiry.json
+
+**Verify**
+- Add `Tags` optional parameter on Verification creation.
+
+
 [2023-11-06] Version 8.10.1
 ---------------------------
 **Flex**
