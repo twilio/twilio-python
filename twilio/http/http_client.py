@@ -82,12 +82,10 @@ class TwilioHttpClient(HttpClient):
             "auth": auth,
             "hooks": self.request_hooks,
         }
-
         if headers and headers.get('Content-Type') == 'application/json':
             kwargs['json'] = data
         else:
             kwargs['data'] = data
-
         self.log_request(kwargs)
 
         self._test_only_last_response = None
