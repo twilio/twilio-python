@@ -27,11 +27,10 @@ class TwilioHttpClient(HttpClient):
     ):
         """
         Constructor for the TwilioHttpClient
-
         :param pool_connections
         :param request_hooks
         :param timeout: Timeout for the requests.
-                        Timeout should never be zero (0) or less.
+                    Timeout should never be zero (0) or less
         :param logger
         :param proxy: Http proxy for the requests session
         :param max_retries: Maximum number of retries each request should attempt
@@ -65,10 +64,10 @@ class TwilioHttpClient(HttpClient):
         :param headers: HTTP Headers to send with the request
         :param auth: Basic Auth arguments
         :param timeout: Socket/Read timeout for the request
-        :param allow_redirects: Whether or not to allow redirects
+        :param allow_redirects: Whether to allow redirects
         See the requests documentation for explanation of all these parameters
 
-        :return: An http response
+        :return: An HTTP response
         """
         if timeout is None:
             timeout = self.timeout
@@ -79,12 +78,14 @@ class TwilioHttpClient(HttpClient):
             "method": method.upper(),
             "url": url,
             "params": params,
-            "data": data,
             "headers": headers,
             "auth": auth,
             "hooks": self.request_hooks,
         }
-
+        if headers and headers.get("Content-Type") == "application/json":
+            kwargs["json"] = data
+        else:
+            kwargs["data"] = data
         self.log_request(kwargs)
 
         self._test_only_last_response = None
