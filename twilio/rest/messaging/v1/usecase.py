@@ -57,8 +57,10 @@ class UsecaseList(ListResource):
         """
         Asynchronously fetch the UsecaseInstance
 
+
         :returns: The fetched UsecaseInstance
         """
+
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return UsecaseInstance(self._version, payload)
@@ -67,8 +69,10 @@ class UsecaseList(ListResource):
         """
         Asynchronously fetch the UsecaseInstance
 
+
         :returns: The fetched UsecaseInstance
         """
+
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return UsecaseInstance(self._version, payload)
