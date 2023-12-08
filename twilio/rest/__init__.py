@@ -143,7 +143,7 @@ class Client(ClientBase):
         self._notify: Optional["Notify"] = None
         self._numbers: Optional["Numbers"] = None
         self._preview: Optional["Preview"] = None
-        self._preview_messaging : Optional["PreviewMessaging"] = None
+        self._preview_messaging: Optional["PreviewMessaging"] = None
         self._pricing: Optional["Pricing"] = None
         self._proxy: Optional["Proxy"] = None
         self._routes: Optional["Routes"] = None
