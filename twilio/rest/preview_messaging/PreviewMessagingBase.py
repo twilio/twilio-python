@@ -21,7 +21,7 @@ class PreviewMessagingBase(Domain):
         """
         Initialize the Preview Messaging Domain
 
-        :returns: Domain for Accounts
+        :returns: Domain for Preview Messaging
         """
         super().__init__(twilio, "https://preview.messaging.twilio.com")
         self._v1: Optional[V1] = None

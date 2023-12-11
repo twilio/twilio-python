@@ -435,9 +435,9 @@ class Client(ClientBase):
     @property
     def preview_messaging(self) -> "PreviewMessaging":
         """
-        Access the Preview Twilio Domain
+        Access the Preview Messaging Twilio Domain
 
-        :returns: Preview Twilio Domain
+        :returns: Preview Messaging Twilio Domain
         """
         if self._preview_messaging is None:
             from twilio.rest.preview_messaging import PreviewMessaging
