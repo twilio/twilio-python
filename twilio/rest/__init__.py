@@ -34,6 +34,7 @@ if TYPE_CHECKING:
     from twilio.rest.notify import Notify
     from twilio.rest.numbers import Numbers
     from twilio.rest.preview import Preview
+    from twilio.rest.preview_messaging import PreviewMessaging
     from twilio.rest.pricing import Pricing
     from twilio.rest.proxy import Proxy
     from twilio.rest.routes import Routes
@@ -142,6 +143,7 @@ class Client(ClientBase):
         self._notify: Optional["Notify"] = None
         self._numbers: Optional["Numbers"] = None
         self._preview: Optional["Preview"] = None
+        self._preview_messaging: Optional["PreviewMessaging"] = None
         self._pricing: Optional["Pricing"] = None
         self._proxy: Optional["Proxy"] = None
         self._routes: Optional["Routes"] = None
@@ -429,6 +431,19 @@ class Client(ClientBase):
 
             self._preview = Preview(self)
         return self._preview
+
+    @property
+    def preview_messaging(self) -> "PreviewMessaging":
+        """
+        Access the Preview Messaging Twilio Domain
+
+        :returns: Preview Messaging Twilio Domain
+        """
+        if self._preview_messaging is None:
+            from twilio.rest.preview_messaging import PreviewMessaging
+
+            self._preview_messaging = PreviewMessaging(self)
+        return self._preview_messaging
 
     @property
     def pricing(self) -> "Pricing":
