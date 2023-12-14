@@ -34,7 +34,7 @@ class ContentInstance(InstanceResource):
     :ivar friendly_name: A string name used to describe the Content resource. Not visible to the end recipient.
     :ivar language: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
     :ivar variables: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
-    :ivar types: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
+    :ivar types: The [Content types](https://www.twilio.com/docs/content/content-types-overview) (e.g. twilio/text) for this Content resource.
     :ivar url: The URL of the resource, relative to `https://content.twilio.com`.
     :ivar links: A list of links related to the Content resource, such as approval_fetch and approval_create
     """

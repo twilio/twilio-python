@@ -7,6 +7,12 @@ Here you can see the full list of changes between each twilio-python release.
 ---------------------------
 - Release Candidate preparation
 
+[2023-12-01] Version 8.10.3
+---------------------------
+**Verify**
+- Add `VerifyEventSubscriptionEnabled` parameter to service create and update endpoints.
+
+
 [2023-11-17] Version 8.10.2
 ---------------------------
 **Library - Chore**

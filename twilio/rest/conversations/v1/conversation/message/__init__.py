@@ -50,7 +50,7 @@ class MessageInstance(InstanceResource):
     :ivar url: An absolute API resource API URL for this message.
     :ivar delivery: An object that contains the summary of delivery statuses for the message to non-chat participants.
     :ivar links: Contains an absolute API resource URL to access the delivery & read receipts of this message.
-    :ivar content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template.
+    :ivar content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template.
     """
 
     def __init__(
@@ -540,7 +540,7 @@ class MessageList(ListResource):
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
-        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -564,6 +564,7 @@ class MessageList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -597,7 +598,7 @@ class MessageList(ListResource):
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
-        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -621,6 +622,7 @@ class MessageList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
