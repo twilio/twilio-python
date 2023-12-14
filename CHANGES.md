@@ -7,6 +7,34 @@ Here you can see the full list of changes between each twilio-python release.
 ---------------------------
 - Release Candidate preparation
 
+[2023-12-14] Version 8.11.0
+---------------------------
+**Library - Chore**
+- [PR #741](https://github.com/twilio/twilio-python/pull/741): upgrade to python 3.12. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #740](https://github.com/twilio/twilio-python/pull/740): bump aiohttp. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Updated service base url for connect apps and authorized connect apps APIs **(breaking change)**
+
+**Events**
+- Marked as GA
+
+**Insights**
+- decommission voice-qualitystats-endpoint role
+
+**Numbers**
+- Add Get Port In request api
+
+**Taskrouter**
+- Add `jitter_buffer_size` param in update reservation
+
+**Trusthub**
+- Add additional optional fields in compliance_tollfree_inquiry.json
+
+**Verify**
+- Remove `Tags` from Public Docs **(breaking change)**
+
+
 [2023-12-01] Version 8.10.3
 ---------------------------
 **Verify**
