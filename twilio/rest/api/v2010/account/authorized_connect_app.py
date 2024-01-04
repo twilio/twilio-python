@@ -13,8 +13,9 @@ r"""
 """
 
 
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -34,6 +35,8 @@ class AuthorizedConnectAppInstance(InstanceResource):
     :ivar connect_app_friendly_name: The name of the Connect App.
     :ivar connect_app_homepage_url: The public URL for the Connect App.
     :ivar connect_app_sid: The SID that we assigned to the Connect App.
+    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar permissions: The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
     :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
     """
@@ -61,6 +64,12 @@ class AuthorizedConnectAppInstance(InstanceResource):
             "connect_app_homepage_url"
         )
         self.connect_app_sid: Optional[str] = payload.get("connect_app_sid")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.permissions: Optional[
             List["AuthorizedConnectAppInstance.Permission"]
         ] = payload.get("permissions")

@@ -94,6 +94,7 @@ class ValidationRequestList(ListResource):
 
         :returns: The created ValidationRequestInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -136,6 +137,7 @@ class ValidationRequestList(ListResource):
 
         :returns: The created ValidationRequestInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,

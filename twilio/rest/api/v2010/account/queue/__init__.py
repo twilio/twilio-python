@@ -397,6 +397,7 @@ class QueueList(ListResource):
 
         :returns: The created QueueInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -425,6 +426,7 @@ class QueueList(ListResource):
 
         :returns: The created QueueInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

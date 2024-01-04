@@ -602,6 +602,7 @@ class ApplicationList(ListResource):
 
         :returns: The created ApplicationInstance
         """
+
         data = values.of(
             {
                 "ApiVersion": api_version,
@@ -674,6 +675,7 @@ class ApplicationList(ListResource):
 
         :returns: The created ApplicationInstance
         """
+
         data = values.of(
             {
                 "ApiVersion": api_version,

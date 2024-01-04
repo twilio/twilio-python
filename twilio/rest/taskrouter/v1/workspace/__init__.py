@@ -657,6 +657,7 @@ class WorkspaceList(ListResource):
 
         :returns: The created WorkspaceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -699,6 +700,7 @@ class WorkspaceList(ListResource):
 
         :returns: The created WorkspaceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

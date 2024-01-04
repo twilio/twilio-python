@@ -246,6 +246,7 @@ class IpCommandList(ListResource):
 
         :returns: The created IpCommandInstance
         """
+
         data = values.of(
             {
                 "Sim": sim,
@@ -286,6 +287,7 @@ class IpCommandList(ListResource):
 
         :returns: The created IpCommandInstance
         """
+
         data = values.of(
             {
                 "Sim": sim,

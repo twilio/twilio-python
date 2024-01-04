@@ -303,6 +303,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
+
         data = values.of(
             {
                 "Name": name,
@@ -331,6 +332,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
+
         data = values.of(
             {
                 "Name": name,

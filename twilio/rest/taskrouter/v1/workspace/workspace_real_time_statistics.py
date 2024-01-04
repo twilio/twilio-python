@@ -40,7 +40,7 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
         super().__init__(version)
 
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.activity_statistics: Optional[List[object]] = payload.get(
+        self.activity_statistics: Optional[List[Dict[str, object]]] = payload.get(
             "activity_statistics"
         )
         self.longest_task_waiting_age: Optional[int] = deserialize.integer(

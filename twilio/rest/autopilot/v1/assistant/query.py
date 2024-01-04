@@ -386,6 +386,7 @@ class QueryList(ListResource):
 
         :returns: The created QueryInstance
         """
+
         data = values.of(
             {
                 "Language": language,
@@ -422,6 +423,7 @@ class QueryList(ListResource):
 
         :returns: The created QueryInstance
         """
+
         data = values.of(
             {
                 "Language": language,

@@ -604,6 +604,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -656,6 +657,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

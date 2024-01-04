@@ -86,6 +86,7 @@ class NewSigningKeyList(ListResource):
 
         :returns: The created NewSigningKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -112,6 +113,7 @@ class NewSigningKeyList(ListResource):
 
         :returns: The created NewSigningKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

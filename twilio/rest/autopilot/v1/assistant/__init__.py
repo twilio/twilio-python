@@ -608,6 +608,7 @@ class AssistantList(ListResource):
 
         :returns: The created AssistantInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -651,6 +652,7 @@ class AssistantList(ListResource):
 
         :returns: The created AssistantInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

@@ -410,6 +410,7 @@ class DeviceList(ListResource):
 
         :returns: The created DeviceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -449,6 +450,7 @@ class DeviceList(ListResource):
 
         :returns: The created DeviceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

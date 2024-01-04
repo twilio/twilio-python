@@ -348,6 +348,7 @@ class EndUserList(ListResource):
 
         :returns: The created EndUserInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -379,6 +380,7 @@ class EndUserList(ListResource):
 
         :returns: The created EndUserInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

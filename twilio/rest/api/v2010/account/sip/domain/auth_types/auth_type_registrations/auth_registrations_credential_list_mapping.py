@@ -281,6 +281,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
 
         :returns: The created AuthRegistrationsCredentialListMappingInstance
         """
+
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,
@@ -310,6 +311,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
 
         :returns: The created AuthRegistrationsCredentialListMappingInstance
         """
+
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,

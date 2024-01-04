@@ -81,7 +81,7 @@ class MessageList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
-            self.messages: Optional[MessageList.MessagingV1Message] = payload.get(
+            self.messages: Optional[List[MessageList.MessagingV1Message]] = payload.get(
                 "messages"
             )
             self.from_: Optional[str] = payload.get("from_")
@@ -90,7 +90,7 @@ class MessageList(ListResource):
             )
             self.body: Optional[str] = payload.get("body")
             self.content_sid: Optional[str] = payload.get("content_sid")
-            self.media_url: Optional[str] = payload.get("media_url")
+            self.media_url: Optional[List[str]] = payload.get("media_url")
             self.status_callback: Optional[str] = payload.get("status_callback")
             self.validity_period: Optional[int] = payload.get("validity_period")
             self.send_at: Optional[str] = payload.get("send_at")
@@ -124,25 +124,6 @@ class MessageList(ListResource):
                 "application_sid": self.application_sid,
             }
 
-    class MessagingV1FailedMessageReceipt(object):
-        """
-        :ivar to: The recipient phone number
-        :ivar error_message: The description of the error_code
-        :ivar error_code: The error code associated with the message creation attempt
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-            self.to: Optional[str] = payload.get("to")
-            self.error_message: Optional[str] = payload.get("error_message")
-            self.error_code: Optional[int] = payload.get("error_code")
-
-        def to_dict(self):
-            return {
-                "to": self.to,
-                "error_message": self.error_message,
-                "error_code": self.error_code,
-            }
-
     class MessagingV1Message(object):
         """
         :ivar to: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels.
@@ -162,22 +143,6 @@ class MessageList(ListResource):
                 "to": self.to,
                 "body": self.body,
                 "content_variables": self.content_variables,
-            }
-
-    class MessagingV1MessageReceipt(object):
-        """
-        :ivar to: The recipient phone number
-        :ivar sid: The unique string that identifies the resource
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-            self.to: Optional[str] = payload.get("to")
-            self.sid: Optional[str] = payload.get("sid")
-
-        def to_dict(self):
-            return {
-                "to": self.to,
-                "sid": self.sid,
             }
 
     def __init__(self, version: Version):

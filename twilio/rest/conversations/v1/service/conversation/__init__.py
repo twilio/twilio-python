@@ -653,6 +653,7 @@ class ConversationList(ListResource):
 
         :returns: The created ConversationInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -717,6 +718,7 @@ class ConversationList(ListResource):
 
         :returns: The created ConversationInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

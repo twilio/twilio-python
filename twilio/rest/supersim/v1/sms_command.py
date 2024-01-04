@@ -227,6 +227,7 @@ class SmsCommandList(ListResource):
 
         :returns: The created SmsCommandInstance
         """
+
         data = values.of(
             {
                 "Sim": sim,
@@ -261,6 +262,7 @@ class SmsCommandList(ListResource):
 
         :returns: The created SmsCommandInstance
         """
+
         data = values.of(
             {
                 "Sim": sim,

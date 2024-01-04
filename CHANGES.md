@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-01-04] Version 9.0.0-rc.1
+-------------------------------
+**Library - Chore**
+- [PR #743](https://github.com/twilio/twilio-python/pull/743): sync with main. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+
 [2023-12-06] Version 9.0.0-rc.0
 ---------------------------
 - Release Candidate preparation

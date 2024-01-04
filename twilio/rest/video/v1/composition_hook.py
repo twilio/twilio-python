@@ -484,6 +484,7 @@ class CompositionHookList(ListResource):
 
         :returns: The created CompositionHookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -538,6 +539,7 @@ class CompositionHookList(ListResource):
 
         :returns: The created CompositionHookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

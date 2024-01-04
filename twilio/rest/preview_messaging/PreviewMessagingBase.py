@@ -19,9 +19,9 @@ from twilio.rest.preview_messaging.v1 import V1
 class PreviewMessagingBase(Domain):
     def __init__(self, twilio: Client):
         """
-        Initialize the Preview Messaging Domain
+        Initialize the PreviewMessaging Domain
 
-        :returns: Domain for Preview Messaging
+        :returns: Domain for PreviewMessaging
         """
         super().__init__(twilio, "https://preview.messaging.twilio.com")
         self._v1: Optional[V1] = None
@@ -29,7 +29,7 @@ class PreviewMessagingBase(Domain):
     @property
     def v1(self) -> V1:
         """
-        :returns: Versions v1 of Preview Messaging
+        :returns: Versions v1 of PreviewMessaging
         """
         if self._v1 is None:
             self._v1 = V1(self)

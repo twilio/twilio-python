@@ -721,6 +721,7 @@ class TollfreeVerificationList(ListResource):
 
         :returns: The created TollfreeVerificationInstance
         """
+
         data = values.of(
             {
                 "BusinessName": business_name,
@@ -812,6 +813,7 @@ class TollfreeVerificationList(ListResource):
 
         :returns: The created TollfreeVerificationInstance
         """
+
         data = values.of(
             {
                 "BusinessName": business_name,

@@ -493,6 +493,7 @@ class TaskList(ListResource):
 
         :returns: The created TaskInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -529,6 +530,7 @@ class TaskList(ListResource):
 
         :returns: The created TaskInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

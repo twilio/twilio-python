@@ -48,7 +48,9 @@ class PortingBulkPortabilityInstance(InstanceResource):
         self.datetime_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("datetime_created")
         )
-        self.phone_numbers: Optional[List[object]] = payload.get("phone_numbers")
+        self.phone_numbers: Optional[List[Dict[str, object]]] = payload.get(
+            "phone_numbers"
+        )
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -183,6 +185,7 @@ class PortingBulkPortabilityList(ListResource):
 
         :returns: The created PortingBulkPortabilityInstance
         """
+
         data = values.of(
             {
                 "PhoneNumbers": serialize.map(phone_numbers, lambda e: e),
@@ -207,6 +210,7 @@ class PortingBulkPortabilityList(ListResource):
 
         :returns: The created PortingBulkPortabilityInstance
         """
+
         data = values.of(
             {
                 "PhoneNumbers": serialize.map(phone_numbers, lambda e: e),

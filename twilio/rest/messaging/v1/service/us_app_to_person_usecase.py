@@ -32,7 +32,7 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.us_app_to_person_usecases: Optional[List[object]] = payload.get(
+        self.us_app_to_person_usecases: Optional[List[Dict[str, object]]] = payload.get(
             "us_app_to_person_usecases"
         )
 
