@@ -13,7 +13,7 @@ with open("README.md") as f:
 
 setup(
     name="twilio",
-    version="9.0.0-rc",
+    version="9.0.0-rc.0",
     description="Twilio API client and TwiML generator",
     author="Twilio",
     help_center="https://www.twilio.com/help/contact",
@@ -23,7 +23,7 @@ setup(
     install_requires=[
         "requests >= 2.0.0",
         "PyJWT >= 2.0.0, < 3.0.0",
-        "aiohttp>=3.8.4",
+        "aiohttp>=3.9.0",
         "aiohttp-retry>=2.8.3",
     ],
     packages=find_packages(exclude=["tests", "tests.*"]),
@@ -39,6 +39,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Communications :: Telephony",
