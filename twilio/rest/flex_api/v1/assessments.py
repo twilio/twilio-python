@@ -307,6 +307,7 @@ class AssessmentsList(ListResource):
 
         :returns: The created AssessmentsInstance
         """
+
         data = values.of(
             {
                 "CategorySid": category_sid,
@@ -364,6 +365,7 @@ class AssessmentsList(ListResource):
 
         :returns: The created AssessmentsInstance
         """
+
         data = values.of(
             {
                 "CategorySid": category_sid,

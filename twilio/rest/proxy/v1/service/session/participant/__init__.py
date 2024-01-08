@@ -330,6 +330,7 @@ class ParticipantList(ListResource):
 
         :returns: The created ParticipantInstance
         """
+
         data = values.of(
             {
                 "Identifier": identifier,
@@ -369,6 +370,7 @@ class ParticipantList(ListResource):
 
         :returns: The created ParticipantInstance
         """
+
         data = values.of(
             {
                 "Identifier": identifier,

@@ -380,6 +380,7 @@ class TaskChannelList(ListResource):
 
         :returns: The created TaskChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -413,6 +414,7 @@ class TaskChannelList(ListResource):
 
         :returns: The created TaskChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

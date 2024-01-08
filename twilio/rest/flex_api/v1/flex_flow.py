@@ -591,6 +591,7 @@ class FlexFlowList(ListResource):
 
         :returns: The created FlexFlowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -666,6 +667,7 @@ class FlexFlowList(ListResource):
 
         :returns: The created FlexFlowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

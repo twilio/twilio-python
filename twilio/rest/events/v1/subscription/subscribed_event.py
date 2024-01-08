@@ -27,7 +27,7 @@ class SubscribedEventInstance(InstanceResource):
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar type: Type of event being subscribed to.
-    :ivar schema_version: The schema version that the Subscription should use.
+    :ivar schema_version: The schema version that the subscription should use.
     :ivar subscription_sid: The unique SID identifier of the Subscription.
     :ivar url: The URL of this resource.
     """
@@ -113,7 +113,7 @@ class SubscribedEventInstance(InstanceResource):
         """
         Update the SubscribedEventInstance
 
-        :param schema_version: The schema version that the Subscription should use.
+        :param schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
@@ -127,7 +127,7 @@ class SubscribedEventInstance(InstanceResource):
         """
         Asynchronous coroutine to update the SubscribedEventInstance
 
-        :param schema_version: The schema version that the Subscription should use.
+        :param schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
@@ -235,7 +235,7 @@ class SubscribedEventContext(InstanceContext):
         """
         Update the SubscribedEventInstance
 
-        :param schema_version: The schema version that the Subscription should use.
+        :param schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
@@ -264,7 +264,7 @@ class SubscribedEventContext(InstanceContext):
         """
         Asynchronous coroutine to update the SubscribedEventInstance
 
-        :param schema_version: The schema version that the Subscription should use.
+        :param schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
@@ -343,10 +343,11 @@ class SubscribedEventList(ListResource):
         Create the SubscribedEventInstance
 
         :param type: Type of event being subscribed to.
-        :param schema_version: The schema version that the Subscription should use.
+        :param schema_version: The schema version that the subscription should use.
 
         :returns: The created SubscribedEventInstance
         """
+
         data = values.of(
             {
                 "Type": type,
@@ -371,10 +372,11 @@ class SubscribedEventList(ListResource):
         Asynchronously create the SubscribedEventInstance
 
         :param type: Type of event being subscribed to.
-        :param schema_version: The schema version that the Subscription should use.
+        :param schema_version: The schema version that the subscription should use.
 
         :returns: The created SubscribedEventInstance
         """
+
         data = values.of(
             {
                 "Type": type,

@@ -282,6 +282,7 @@ class FieldList(ListResource):
 
         :returns: The created FieldInstance
         """
+
         data = values.of(
             {
                 "FieldType": field_type,
@@ -311,6 +312,7 @@ class FieldList(ListResource):
 
         :returns: The created FieldInstance
         """
+
         data = values.of(
             {
                 "FieldType": field_type,

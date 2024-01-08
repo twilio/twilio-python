@@ -316,6 +316,7 @@ class SyncListList(ListResource):
 
         :returns: The created SyncListInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -342,6 +343,7 @@ class SyncListList(ListResource):
 
         :returns: The created SyncListInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

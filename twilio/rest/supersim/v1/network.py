@@ -41,7 +41,7 @@ class NetworkInstance(InstanceResource):
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.url: Optional[str] = payload.get("url")
         self.iso_country: Optional[str] = payload.get("iso_country")
-        self.identifiers: Optional[List[object]] = payload.get("identifiers")
+        self.identifiers: Optional[List[Dict[str, object]]] = payload.get("identifiers")
 
         self._solution = {
             "sid": sid or self.sid,

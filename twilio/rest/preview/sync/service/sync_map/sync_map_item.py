@@ -407,6 +407,7 @@ class SyncMapItemList(ListResource):
 
         :returns: The created SyncMapItemInstance
         """
+
         data = values.of(
             {
                 "Key": key,
@@ -436,6 +437,7 @@ class SyncMapItemList(ListResource):
 
         :returns: The created SyncMapItemInstance
         """
+
         data = values.of(
             {
                 "Key": key,

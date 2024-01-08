@@ -470,6 +470,7 @@ class SessionList(ListResource):
 
         :returns: The created SessionInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -514,6 +515,7 @@ class SessionList(ListResource):
 
         :returns: The created SessionInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

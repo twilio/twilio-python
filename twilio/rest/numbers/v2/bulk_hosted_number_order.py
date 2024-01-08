@@ -64,7 +64,7 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         self.total_count: Optional[int] = deserialize.integer(
             payload.get("total_count")
         )
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
 
         self._solution = {
             "bulk_hosting_sid": bulk_hosting_sid or self.bulk_hosting_sid,
@@ -213,6 +213,38 @@ class BulkHostedNumberOrderList(ListResource):
 
         """
         super().__init__(version)
+
+        self._uri = "/HostedNumber/Orders/Bulk"
+
+    def create(self) -> BulkHostedNumberOrderInstance:
+        """
+        Create the BulkHostedNumberOrderInstance
+
+
+        :returns: The created BulkHostedNumberOrderInstance
+        """
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+        )
+
+        return BulkHostedNumberOrderInstance(self._version, payload)
+
+    async def create_async(self) -> BulkHostedNumberOrderInstance:
+        """
+        Asynchronously create the BulkHostedNumberOrderInstance
+
+
+        :returns: The created BulkHostedNumberOrderInstance
+        """
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+        )
+
+        return BulkHostedNumberOrderInstance(self._version, payload)
 
     def get(self, bulk_hosting_sid: str) -> BulkHostedNumberOrderContext:
         """

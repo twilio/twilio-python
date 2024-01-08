@@ -321,6 +321,7 @@ class AwsList(ListResource):
 
         :returns: The created AwsInstance
         """
+
         data = values.of(
             {
                 "Credentials": credentials,
@@ -352,6 +353,7 @@ class AwsList(ListResource):
 
         :returns: The created AwsInstance
         """
+
         data = values.of(
             {
                 "Credentials": credentials,

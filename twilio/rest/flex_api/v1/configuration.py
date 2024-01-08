@@ -100,10 +100,10 @@ class ConfigurationInstance(InstanceResource):
         self.taskrouter_target_taskqueue_sid: Optional[str] = payload.get(
             "taskrouter_target_taskqueue_sid"
         )
-        self.taskrouter_taskqueues: Optional[List[object]] = payload.get(
+        self.taskrouter_taskqueues: Optional[List[Dict[str, object]]] = payload.get(
             "taskrouter_taskqueues"
         )
-        self.taskrouter_skills: Optional[List[object]] = payload.get(
+        self.taskrouter_skills: Optional[List[Dict[str, object]]] = payload.get(
             "taskrouter_skills"
         )
         self.taskrouter_worker_channels: Optional[Dict[str, object]] = payload.get(
@@ -152,7 +152,9 @@ class ConfigurationInstance(InstanceResource):
         self.plugin_service_attributes: Optional[Dict[str, object]] = payload.get(
             "plugin_service_attributes"
         )
-        self.integrations: Optional[List[object]] = payload.get("integrations")
+        self.integrations: Optional[List[Dict[str, object]]] = payload.get(
+            "integrations"
+        )
         self.outbound_call_flows: Optional[Dict[str, object]] = payload.get(
             "outbound_call_flows"
         )
@@ -172,7 +174,9 @@ class ConfigurationInstance(InstanceResource):
             "flex_insights_drilldown"
         )
         self.flex_url: Optional[str] = payload.get("flex_url")
-        self.channel_configs: Optional[List[object]] = payload.get("channel_configs")
+        self.channel_configs: Optional[List[Dict[str, object]]] = payload.get(
+            "channel_configs"
+        )
         self.debugger_integration: Optional[Dict[str, object]] = payload.get(
             "debugger_integration"
         )
@@ -230,6 +234,24 @@ class ConfigurationInstance(InstanceResource):
         return await self._proxy.fetch_async(
             ui_version=ui_version,
         )
+
+    def update(self) -> "ConfigurationInstance":
+        """
+        Update the ConfigurationInstance
+
+
+        :returns: The updated ConfigurationInstance
+        """
+        return self._proxy.update()
+
+    async def update_async(self) -> "ConfigurationInstance":
+        """
+        Asynchronous coroutine to update the ConfigurationInstance
+
+
+        :returns: The updated ConfigurationInstance
+        """
+        return await self._proxy.update_async()
 
     def __repr__(self) -> str:
         """
@@ -301,6 +323,40 @@ class ConfigurationContext(InstanceContext):
             self._version,
             payload,
         )
+
+    def update(self) -> ConfigurationInstance:
+        """
+        Update the ConfigurationInstance
+
+
+        :returns: The updated ConfigurationInstance
+        """
+        data = values.of({})
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ConfigurationInstance(self._version, payload)
+
+    async def update_async(self) -> ConfigurationInstance:
+        """
+        Asynchronous coroutine to update the ConfigurationInstance
+
+
+        :returns: The updated ConfigurationInstance
+        """
+        data = values.of({})
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ConfigurationInstance(self._version, payload)
 
     def __repr__(self) -> str:
         """

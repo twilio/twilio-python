@@ -197,6 +197,7 @@ class ComplianceInquiriesList(ListResource):
 
         :returns: The created ComplianceInquiriesInstance
         """
+
         data = values.of(
             {
                 "PrimaryProfileSid": primary_profile_sid,
@@ -221,6 +222,7 @@ class ComplianceInquiriesList(ListResource):
 
         :returns: The created ComplianceInquiriesInstance
         """
+
         data = values.of(
             {
                 "PrimaryProfileSid": primary_profile_sid,

@@ -120,6 +120,7 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: The created InsightsAssessmentsCommentInstance
         """
+
         data = values.of(
             {
                 "CategoryId": category_id,
@@ -165,6 +166,7 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: The created InsightsAssessmentsCommentInstance
         """
+
         data = values.of(
             {
                 "CategoryId": category_id,

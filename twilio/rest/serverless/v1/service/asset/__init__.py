@@ -364,6 +364,7 @@ class AssetList(ListResource):
 
         :returns: The created AssetInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -388,6 +389,7 @@ class AssetList(ListResource):
 
         :returns: The created AssetInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

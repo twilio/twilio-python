@@ -406,6 +406,7 @@ class SampleList(ListResource):
 
         :returns: The created SampleInstance
         """
+
         data = values.of(
             {
                 "Language": language,
@@ -442,6 +443,7 @@ class SampleList(ListResource):
 
         :returns: The created SampleInstance
         """
+
         data = values.of(
             {
                 "Language": language,

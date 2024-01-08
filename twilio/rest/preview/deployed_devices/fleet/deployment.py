@@ -370,6 +370,7 @@ class DeploymentList(ListResource):
 
         :returns: The created DeploymentInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -400,6 +401,7 @@ class DeploymentList(ListResource):
 
         :returns: The created DeploymentInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

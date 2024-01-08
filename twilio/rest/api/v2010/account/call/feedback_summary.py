@@ -70,7 +70,7 @@ class FeedbackSummaryInstance(InstanceResource):
             payload.get("end_date")
         )
         self.include_subaccounts: Optional[bool] = payload.get("include_subaccounts")
-        self.issues: Optional[List[object]] = payload.get("issues")
+        self.issues: Optional[List[Dict[str, object]]] = payload.get("issues")
         self.quality_score_average: Optional[float] = deserialize.decimal(
             payload.get("quality_score_average")
         )
@@ -286,6 +286,7 @@ class FeedbackSummaryList(ListResource):
 
         :returns: The created FeedbackSummaryInstance
         """
+
         data = values.of(
             {
                 "StartDate": serialize.iso8601_date(start_date),
@@ -325,6 +326,7 @@ class FeedbackSummaryList(ListResource):
 
         :returns: The created FeedbackSummaryInstance
         """
+
         data = values.of(
             {
                 "StartDate": serialize.iso8601_date(start_date),

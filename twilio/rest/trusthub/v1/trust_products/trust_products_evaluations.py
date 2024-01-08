@@ -55,7 +55,7 @@ class TrustProductsEvaluationsInstance(InstanceResource):
         self.status: Optional["TrustProductsEvaluationsInstance.Status"] = payload.get(
             "status"
         )
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -232,6 +232,7 @@ class TrustProductsEvaluationsList(ListResource):
 
         :returns: The created TrustProductsEvaluationsInstance
         """
+
         data = values.of(
             {
                 "PolicySid": policy_sid,
@@ -258,6 +259,7 @@ class TrustProductsEvaluationsList(ListResource):
 
         :returns: The created TrustProductsEvaluationsInstance
         """
+
         data = values.of(
             {
                 "PolicySid": policy_sid,

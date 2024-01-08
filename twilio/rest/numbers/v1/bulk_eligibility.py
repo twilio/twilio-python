@@ -44,7 +44,7 @@ class BulkEligibilityInstance(InstanceResource):
 
         self.request_id: Optional[str] = payload.get("request_id")
         self.url: Optional[str] = payload.get("url")
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.status: Optional[str] = payload.get("status")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -177,6 +177,38 @@ class BulkEligibilityList(ListResource):
 
         """
         super().__init__(version)
+
+        self._uri = "/HostedNumber/Eligibility/Bulk"
+
+    def create(self) -> BulkEligibilityInstance:
+        """
+        Create the BulkEligibilityInstance
+
+
+        :returns: The created BulkEligibilityInstance
+        """
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+        )
+
+        return BulkEligibilityInstance(self._version, payload)
+
+    async def create_async(self) -> BulkEligibilityInstance:
+        """
+        Asynchronously create the BulkEligibilityInstance
+
+
+        :returns: The created BulkEligibilityInstance
+        """
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+        )
+
+        return BulkEligibilityInstance(self._version, payload)
 
     def get(self, request_id: str) -> BulkEligibilityContext:
         """

@@ -275,6 +275,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: The created CustomerProfilesEntityAssignmentsInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,
@@ -303,6 +304,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: The created CustomerProfilesEntityAssignmentsInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,

@@ -279,6 +279,7 @@ class InteractionChannelParticipantList(ListResource):
 
         :returns: The created InteractionChannelParticipantInstance
         """
+
         data = values.of(
             {
                 "Type": type,
@@ -312,6 +313,7 @@ class InteractionChannelParticipantList(ListResource):
 
         :returns: The created InteractionChannelParticipantInstance
         """
+
         data = values.of(
             {
                 "Type": type,

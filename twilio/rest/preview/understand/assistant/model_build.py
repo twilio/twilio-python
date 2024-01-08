@@ -368,6 +368,7 @@ class ModelBuildList(ListResource):
 
         :returns: The created ModelBuildInstance
         """
+
         data = values.of(
             {
                 "StatusCallback": status_callback,
@@ -398,6 +399,7 @@ class ModelBuildList(ListResource):
 
         :returns: The created ModelBuildInstance
         """
+
         data = values.of(
             {
                 "StatusCallback": status_callback,

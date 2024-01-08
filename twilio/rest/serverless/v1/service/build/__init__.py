@@ -62,9 +62,9 @@ class BuildInstance(InstanceResource):
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.status: Optional["BuildInstance.Status"] = payload.get("status")
-        self.asset_versions: Optional[List[object]] = payload.get("asset_versions")
-        self.function_versions: Optional[List[object]] = payload.get("function_versions")
-        self.dependencies: Optional[List[object]] = payload.get("dependencies")
+        self.asset_versions: Optional[List[Dict[str, object]]] = payload.get("asset_versions")
+        self.function_versions: Optional[List[Dict[str, object]]] = payload.get("function_versions")
+        self.dependencies: Optional[List[Dict[str, object]]] = payload.get("dependencies")
         self.runtime: Optional["BuildInstance.Runtime"] = payload.get("runtime")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
@@ -275,7 +275,7 @@ class BuildPage(Page):
 
 
 class BuildList(ListResource):
-
+    
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the BuildList
@@ -306,6 +306,7 @@ class BuildList(ListResource):
         
         :returns: The created BuildInstance
         """
+        
         data = values.of({ 
             'AssetVersions': serialize.map(asset_versions, lambda e: e),
             'FunctionVersions': serialize.map(function_versions, lambda e: e),
@@ -329,6 +330,7 @@ class BuildList(ListResource):
         
         :returns: The created BuildInstance
         """
+        
         data = values.of({ 
             'AssetVersions': serialize.map(asset_versions, lambda e: e),
             'FunctionVersions': serialize.map(function_versions, lambda e: e),

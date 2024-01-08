@@ -431,6 +431,7 @@ class RoomList(ListResource):
 
         :returns: The created RoomInstance
         """
+
         data = values.of(
             {
                 "EnableTurn": enable_turn,
@@ -498,6 +499,7 @@ class RoomList(ListResource):
 
         :returns: The created RoomInstance
         """
+
         data = values.of(
             {
                 "EnableTurn": enable_turn,

@@ -55,7 +55,7 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
         self.status: Optional[
             "CustomerProfilesEvaluationsInstance.Status"
         ] = payload.get("status")
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -236,6 +236,7 @@ class CustomerProfilesEvaluationsList(ListResource):
 
         :returns: The created CustomerProfilesEvaluationsInstance
         """
+
         data = values.of(
             {
                 "PolicySid": policy_sid,
@@ -264,6 +265,7 @@ class CustomerProfilesEvaluationsList(ListResource):
 
         :returns: The created CustomerProfilesEvaluationsInstance
         """
+
         data = values.of(
             {
                 "PolicySid": policy_sid,

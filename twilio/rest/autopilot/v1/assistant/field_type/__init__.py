@@ -395,6 +395,7 @@ class FieldTypeList(ListResource):
 
         :returns: The created FieldTypeInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -423,6 +424,7 @@ class FieldTypeList(ListResource):
 
         :returns: The created FieldTypeInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

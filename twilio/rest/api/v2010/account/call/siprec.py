@@ -651,6 +651,7 @@ class SiprecList(ListResource):
 
         :returns: The created SiprecInstance
         """
+
         data = values.of(
             {
                 "Name": name,
@@ -1287,6 +1288,7 @@ class SiprecList(ListResource):
 
         :returns: The created SiprecInstance
         """
+
         data = values.of(
             {
                 "Name": name,

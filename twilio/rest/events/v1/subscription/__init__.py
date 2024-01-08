@@ -364,6 +364,7 @@ class SubscriptionList(ListResource):
 
         :returns: The created SubscriptionInstance
         """
+
         data = values.of(
             {
                 "Description": description,
@@ -392,6 +393,7 @@ class SubscriptionList(ListResource):
 
         :returns: The created SubscriptionInstance
         """
+
         data = values.of(
             {
                 "Description": description,

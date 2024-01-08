@@ -331,6 +331,7 @@ class IpRecordList(ListResource):
 
         :returns: The created IpRecordInstance
         """
+
         data = values.of(
             {
                 "IpAddress": ip_address,
@@ -362,6 +363,7 @@ class IpRecordList(ListResource):
 
         :returns: The created IpRecordInstance
         """
+
         data = values.of(
             {
                 "IpAddress": ip_address,

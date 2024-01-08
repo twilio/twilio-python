@@ -471,6 +471,7 @@ class ByocTrunkList(ListResource):
 
         :returns: The created ByocTrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -523,6 +524,7 @@ class ByocTrunkList(ListResource):
 
         :returns: The created ByocTrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

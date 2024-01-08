@@ -575,6 +575,7 @@ class TrunkList(ListResource):
 
         :returns: The created TrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -623,6 +624,7 @@ class TrunkList(ListResource):
 
         :returns: The created TrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

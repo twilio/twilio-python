@@ -341,6 +341,7 @@ class EnvironmentList(ListResource):
 
         :returns: The created EnvironmentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -369,6 +370,7 @@ class EnvironmentList(ListResource):
 
         :returns: The created EnvironmentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
