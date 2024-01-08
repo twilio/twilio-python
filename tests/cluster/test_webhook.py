@@ -1,12 +1,7 @@
 import os
-import unittest
-import time
-import _thread
 
-from http.server import BaseHTTPRequestHandler, HTTPServer
-from pyngrok import ngrok
+from http.server import BaseHTTPRequestHandler
 from twilio.request_validator import RequestValidator
-from twilio.rest import Client
 
 
 class RequestHandler(BaseHTTPRequestHandler):
