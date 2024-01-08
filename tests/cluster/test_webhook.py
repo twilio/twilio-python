@@ -44,6 +44,9 @@ class WebhookTest(unittest.TestCase):
         port_number = 7777
         self.validation_server = HTTPServer(("", port_number), RequestHandler)
         self.tunnel = subprocess.Popen(["jprq", "http", str(port_number)])
+        print(self.tunnel.stderr.read())
+        if self.tunnel.returncode:
+            raise Exception("JPRQ failed to start")
         self.tunnel_url = (
             self.tunnel.stdout.readline().decode().strip()
         )  # Capture the URL
