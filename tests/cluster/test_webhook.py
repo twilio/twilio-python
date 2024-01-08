@@ -4,7 +4,7 @@ import time
 import _thread
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from py_localtunnel import LocalTunnel
+from py_localtunnel.tunnel import Tunnel
 from twilio.request_validator import RequestValidator
 from twilio.rest import Client
 
@@ -43,8 +43,9 @@ class WebhookTest(unittest.TestCase):
 
         port_number = 7777
         self.validation_server = HTTPServer(("", port_number), RequestHandler)
-        self.tunnel = LocalTunnel(port=port_number)
-        self.tunnel.start()
+        self.tunnel = Tunnel()
+        self.public_url = self.tunnel.get_url()
+        self.tunnel.create_tunnel(port=port_number)
         self.flow_sid = ""
         _thread.start_new_thread(self.start_http_server, ())
 
@@ -53,7 +54,7 @@ class WebhookTest(unittest.TestCase):
 
     def tearDown(self):
         self.client.studio.v2.flows(self.flow_sid).delete()
-        self.tunnel.stop()
+        self.tunnel.stop_tunnel()
         self.validation_server.shutdown()
         self.validation_server.server_close()
 
@@ -95,7 +96,7 @@ class WebhookTest(unittest.TestCase):
         return flow
 
     def validate(self, method):
-        flow = self.create_studio_flow(url=self.tunnel.public_url, method=method)
+        flow = self.create_studio_flow(url=self.public_url, method=method)
         self.flow_sid = flow.sid
         time.sleep(5)
         self.client.studio.v2.flows(self.flow_sid).executions.create(
