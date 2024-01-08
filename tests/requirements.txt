@@ -9,6 +9,6 @@ cryptography
 recommonmark
 django
 multidict
-pyngrok
 black
 autoflake
+jprq

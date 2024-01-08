@@ -43,7 +43,7 @@ class WebhookTest(unittest.TestCase):
 
         port_number = 7777
         self.validation_server = HTTPServer(("", port_number), RequestHandler)
-        self.tunnel = subprocess.Popen(["jprq", "http", port_number])
+        self.tunnel = subprocess.Popen(["jprq", "http", str(port_number)])
         self.tunnel_url = (
             self.tunnel.stdout.readline().decode().strip()
         )  # Capture the URL
