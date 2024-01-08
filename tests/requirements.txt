@@ -11,4 +11,4 @@ django
 multidict
 black
 autoflake
-jprq
+py-localtunnel

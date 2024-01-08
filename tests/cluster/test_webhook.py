@@ -2,9 +2,9 @@ import os
 import unittest
 import time
 import _thread
-import subprocess
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from py_localtunnel import LocalTunnel
 from twilio.request_validator import RequestValidator
 from twilio.rest import Client
 
@@ -43,13 +43,8 @@ class WebhookTest(unittest.TestCase):
 
         port_number = 7777
         self.validation_server = HTTPServer(("", port_number), RequestHandler)
-        self.tunnel = subprocess.Popen(["jprq", "http", str(port_number)])
-        print(self.tunnel.stderr.read())
-        if self.tunnel.returncode:
-            raise Exception("JPRQ failed to start")
-        self.tunnel_url = (
-            self.tunnel.stdout.readline().decode().strip()
-        )  # Capture the URL
+        self.tunnel = LocalTunnel(port=port_number)
+        self.tunnel.start()
         self.flow_sid = ""
         _thread.start_new_thread(self.start_http_server, ())
 
@@ -58,7 +53,7 @@ class WebhookTest(unittest.TestCase):
 
     def tearDown(self):
         self.client.studio.v2.flows(self.flow_sid).delete()
-        self.tunnel.kill()
+        self.tunnel.stop()
         self.validation_server.shutdown()
         self.validation_server.server_close()
 
