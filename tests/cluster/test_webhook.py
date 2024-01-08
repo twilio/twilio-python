@@ -44,8 +44,9 @@ class WebhookTest(unittest.TestCase):
         port_number = 7777
         self.validation_server = HTTPServer(("", port_number), RequestHandler)
         self.tunnel = Tunnel()
-        self.public_url = self.tunnel.get_url()
-        self.tunnel.create_tunnel(port=port_number)
+        self.public_url = self.tunnel.get_url(None)
+        print('public url ------ ' + self.public_url)
+        self.tunnel.create_tunnel(port_number)
         self.flow_sid = ""
         _thread.start_new_thread(self.start_http_server, ())
 
