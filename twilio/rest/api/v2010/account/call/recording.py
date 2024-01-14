@@ -438,6 +438,7 @@ class RecordingList(ListResource):
 
         :returns: The created RecordingInstance
         """
+
         data = values.of(
             {
                 "RecordingStatusCallbackEvent": serialize.map(
@@ -485,6 +486,7 @@ class RecordingList(ListResource):
 
         :returns: The created RecordingInstance
         """
+
         data = values.of(
             {
                 "RecordingStatusCallbackEvent": serialize.map(

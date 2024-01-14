@@ -75,7 +75,7 @@ class VerificationInstance(InstanceResource):
         self.lookup: Optional[Dict[str, object]] = payload.get("lookup")
         self.amount: Optional[str] = payload.get("amount")
         self.payee: Optional[str] = payload.get("payee")
-        self.send_code_attempts: Optional[List[object]] = payload.get(
+        self.send_code_attempts: Optional[List[Dict[str, object]]] = payload.get(
             "send_code_attempts"
         )
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -349,6 +349,7 @@ class VerificationList(ListResource):
 
         :returns: The created VerificationInstance
         """
+
         data = values.of(
             {
                 "To": to,
@@ -424,6 +425,7 @@ class VerificationList(ListResource):
 
         :returns: The created VerificationInstance
         """
+
         data = values.of(
             {
                 "To": to,

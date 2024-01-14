@@ -332,6 +332,7 @@ class EntityList(ListResource):
 
         :returns: The created EntityInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -356,6 +357,7 @@ class EntityList(ListResource):
 
         :returns: The created EntityInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,

@@ -325,6 +325,7 @@ class PublicKeyList(ListResource):
 
         :returns: The created PublicKeyInstance
         """
+
         data = values.of(
             {
                 "PublicKey": public_key,
@@ -356,6 +357,7 @@ class PublicKeyList(ListResource):
 
         :returns: The created PublicKeyInstance
         """
+
         data = values.of(
             {
                 "PublicKey": public_key,

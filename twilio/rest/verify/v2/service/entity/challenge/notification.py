@@ -107,6 +107,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,
@@ -137,6 +138,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,

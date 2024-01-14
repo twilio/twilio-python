@@ -299,6 +299,7 @@ class BindingList(ListResource):
 
         :returns: The created BindingInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -344,6 +345,7 @@ class BindingList(ListResource):
 
         :returns: The created BindingInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,

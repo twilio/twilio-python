@@ -377,6 +377,7 @@ class RateLimitList(ListResource):
 
         :returns: The created RateLimitInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -405,6 +406,7 @@ class RateLimitList(ListResource):
 
         :returns: The created RateLimitInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

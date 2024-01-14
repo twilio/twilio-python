@@ -86,6 +86,7 @@ class NewKeyList(ListResource):
 
         :returns: The created NewKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -112,6 +113,7 @@ class NewKeyList(ListResource):
 
         :returns: The created NewKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

@@ -381,6 +381,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         :returns: The created InsightsQuestionnairesQuestionInstance
         """
+
         data = values.of(
             {
                 "CategorySid": category_sid,
@@ -423,6 +424,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         :returns: The created InsightsQuestionnairesQuestionInstance
         """
+
         data = values.of(
             {
                 "CategorySid": category_sid,

@@ -499,6 +499,7 @@ class BundleList(ListResource):
 
         :returns: The created BundleInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -542,6 +543,7 @@ class BundleList(ListResource):
 
         :returns: The created BundleInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

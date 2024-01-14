@@ -450,6 +450,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -484,6 +485,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

@@ -232,6 +232,7 @@ class EsimProfileList(ListResource):
 
         :returns: The created EsimProfileInstance
         """
+
         data = values.of(
             {
                 "CallbackUrl": callback_url,
@@ -266,6 +267,7 @@ class EsimProfileList(ListResource):
 
         :returns: The created EsimProfileInstance
         """
+
         data = values.of(
             {
                 "CallbackUrl": callback_url,

@@ -210,6 +210,7 @@ class InteractionList(ListResource):
 
         :returns: The created InteractionInstance
         """
+
         data = values.of(
             {
                 "Channel": serialize.object(channel),
@@ -241,6 +242,7 @@ class InteractionList(ListResource):
 
         :returns: The created InteractionInstance
         """
+
         data = values.of(
             {
                 "Channel": serialize.object(channel),

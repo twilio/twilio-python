@@ -63,7 +63,9 @@ class PortingPortInFetchInstance(InstanceResource):
         self.losing_carrier_information: Optional[Dict[str, object]] = payload.get(
             "losing_carrier_information"
         )
-        self.phone_numbers: Optional[List[object]] = payload.get("phone_numbers")
+        self.phone_numbers: Optional[List[Dict[str, object]]] = payload.get(
+            "phone_numbers"
+        )
         self.documents: Optional[List[str]] = payload.get("documents")
 
         self._solution = {

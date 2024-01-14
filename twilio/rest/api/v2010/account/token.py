@@ -88,6 +88,7 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,
@@ -114,6 +115,7 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,

@@ -341,6 +341,7 @@ class TranscriptList(ListResource):
 
         :returns: The created TranscriptInstance
         """
+
         data = values.of(
             {
                 "ServiceSid": service_sid,
@@ -375,6 +376,7 @@ class TranscriptList(ListResource):
 
         :returns: The created TranscriptInstance
         """
+
         data = values.of(
             {
                 "ServiceSid": service_sid,

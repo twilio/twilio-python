@@ -49,7 +49,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
         self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("end_time")
         )
-        self.activity_durations: Optional[List[object]] = payload.get(
+        self.activity_durations: Optional[List[Dict[str, object]]] = payload.get(
             "activity_durations"
         )
         self.reservations_created: Optional[int] = deserialize.integer(

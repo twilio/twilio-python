@@ -498,6 +498,7 @@ class AddressConfigurationList(ListResource):
 
         :returns: The created AddressConfigurationInstance
         """
+
         data = values.of(
             {
                 "Type": type,
@@ -562,6 +563,7 @@ class AddressConfigurationList(ListResource):
 
         :returns: The created AddressConfigurationInstance
         """
+
         data = values.of(
             {
                 "Type": type,

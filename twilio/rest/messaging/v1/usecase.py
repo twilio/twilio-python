@@ -29,7 +29,7 @@ class UsecaseInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self.usecases: Optional[List[object]] = payload.get("usecases")
+        self.usecases: Optional[List[Dict[str, object]]] = payload.get("usecases")
 
     def __repr__(self) -> str:
         """

@@ -535,6 +535,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "From": from_,
@@ -590,6 +591,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "From": from_,

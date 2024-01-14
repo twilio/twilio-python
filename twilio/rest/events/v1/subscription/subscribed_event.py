@@ -347,6 +347,7 @@ class SubscribedEventList(ListResource):
 
         :returns: The created SubscribedEventInstance
         """
+
         data = values.of(
             {
                 "Type": type,
@@ -375,6 +376,7 @@ class SubscribedEventList(ListResource):
 
         :returns: The created SubscribedEventInstance
         """
+
         data = values.of(
             {
                 "Type": type,

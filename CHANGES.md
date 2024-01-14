@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-01-14] Version 8.11.1
+---------------------------
+**Library - Chore**
+- [PR #749](https://github.com/twilio/twilio-python/pull/749): removing webhook test. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Push**
+- Migrated to new Push API V4 with Resilient Notification Delivery.
+
+
 [2023-12-14] Version 8.11.0
 ---------------------------
 **Library - Chore**

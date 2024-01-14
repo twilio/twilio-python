@@ -406,6 +406,7 @@ class SyncListItemList(ListResource):
 
         :returns: The created SyncListItemInstance
         """
+
         data = values.of(
             {
                 "Data": serialize.object(data),
@@ -433,6 +434,7 @@ class SyncListItemList(ListResource):
 
         :returns: The created SyncListItemInstance
         """
+
         data = values.of(
             {
                 "Data": serialize.object(data),

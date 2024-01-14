@@ -315,6 +315,7 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -385,6 +386,7 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,

@@ -156,6 +156,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Body": body,
@@ -234,6 +235,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Body": body,

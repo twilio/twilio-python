@@ -366,6 +366,7 @@ class CredentialList(ListResource):
 
         :returns: The created CredentialInstance
         """
+
         data = values.of(
             {
                 "Username": username,
@@ -395,6 +396,7 @@ class CredentialList(ListResource):
 
         :returns: The created CredentialInstance
         """
+
         data = values.of(
             {
                 "Username": username,

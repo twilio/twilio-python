@@ -119,6 +119,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
+
         data = values.of(
             {
                 "TollfreePhoneNumber": tollfree_phone_number,
@@ -206,6 +207,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
+
         data = values.of(
             {
                 "TollfreePhoneNumber": tollfree_phone_number,

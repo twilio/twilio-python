@@ -433,6 +433,7 @@ class WebhookList(ListResource):
 
         :returns: The created WebhookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -472,6 +473,7 @@ class WebhookList(ListResource):
 
         :returns: The created WebhookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

@@ -373,6 +373,7 @@ class BrandRegistrationList(ListResource):
 
         :returns: The created BrandRegistrationInstance
         """
+
         data = values.of(
             {
                 "CustomerProfileBundleSid": customer_profile_bundle_sid,
@@ -410,6 +411,7 @@ class BrandRegistrationList(ListResource):
 
         :returns: The created BrandRegistrationInstance
         """
+
         data = values.of(
             {
                 "CustomerProfileBundleSid": customer_profile_bundle_sid,

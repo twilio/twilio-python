@@ -68,7 +68,7 @@ class MessageInstance(InstanceResource):
         self.index: Optional[int] = deserialize.integer(payload.get("index"))
         self.author: Optional[str] = payload.get("author")
         self.body: Optional[str] = payload.get("body")
-        self.media: Optional[List[object]] = payload.get("media")
+        self.media: Optional[List[Dict[str, object]]] = payload.get("media")
         self.attributes: Optional[str] = payload.get("attributes")
         self.participant_sid: Optional[str] = payload.get("participant_sid")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -546,6 +546,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "Author": author,
@@ -604,6 +605,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "Author": author,

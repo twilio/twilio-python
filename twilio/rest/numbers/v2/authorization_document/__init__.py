@@ -297,6 +297,7 @@ class AuthorizationDocumentList(ListResource):
 
         :returns: The created AuthorizationDocumentInstance
         """
+
         data = values.of(
             {
                 "AddressSid": address_sid,
@@ -339,6 +340,7 @@ class AuthorizationDocumentList(ListResource):
 
         :returns: The created AuthorizationDocumentInstance
         """
+
         data = values.of(
             {
                 "AddressSid": address_sid,

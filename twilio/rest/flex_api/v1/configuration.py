@@ -100,10 +100,10 @@ class ConfigurationInstance(InstanceResource):
         self.taskrouter_target_taskqueue_sid: Optional[str] = payload.get(
             "taskrouter_target_taskqueue_sid"
         )
-        self.taskrouter_taskqueues: Optional[List[object]] = payload.get(
+        self.taskrouter_taskqueues: Optional[List[Dict[str, object]]] = payload.get(
             "taskrouter_taskqueues"
         )
-        self.taskrouter_skills: Optional[List[object]] = payload.get(
+        self.taskrouter_skills: Optional[List[Dict[str, object]]] = payload.get(
             "taskrouter_skills"
         )
         self.taskrouter_worker_channels: Optional[Dict[str, object]] = payload.get(
@@ -152,7 +152,9 @@ class ConfigurationInstance(InstanceResource):
         self.plugin_service_attributes: Optional[Dict[str, object]] = payload.get(
             "plugin_service_attributes"
         )
-        self.integrations: Optional[List[object]] = payload.get("integrations")
+        self.integrations: Optional[List[Dict[str, object]]] = payload.get(
+            "integrations"
+        )
         self.outbound_call_flows: Optional[Dict[str, object]] = payload.get(
             "outbound_call_flows"
         )
@@ -172,7 +174,9 @@ class ConfigurationInstance(InstanceResource):
             "flex_insights_drilldown"
         )
         self.flex_url: Optional[str] = payload.get("flex_url")
-        self.channel_configs: Optional[List[object]] = payload.get("channel_configs")
+        self.channel_configs: Optional[List[Dict[str, object]]] = payload.get(
+            "channel_configs"
+        )
         self.debugger_integration: Optional[Dict[str, object]] = payload.get(
             "debugger_integration"
         )

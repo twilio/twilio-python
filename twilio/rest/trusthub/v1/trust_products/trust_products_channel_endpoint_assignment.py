@@ -276,6 +276,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
         :returns: The created TrustProductsChannelEndpointAssignmentInstance
         """
+
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,
@@ -306,6 +307,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
         :returns: The created TrustProductsChannelEndpointAssignmentInstance
         """
+
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,

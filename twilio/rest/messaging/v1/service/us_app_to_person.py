@@ -96,7 +96,7 @@ class UsAppToPersonInstance(InstanceResource):
         )
         self.url: Optional[str] = payload.get("url")
         self.mock: Optional[bool] = payload.get("mock")
-        self.errors: Optional[List[object]] = payload.get("errors")
+        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
 
         self._solution = {
             "messaging_service_sid": messaging_service_sid,
@@ -336,6 +336,7 @@ class UsAppToPersonList(ListResource):
 
         :returns: The created UsAppToPersonInstance
         """
+
         data = values.of(
             {
                 "BrandRegistrationSid": brand_registration_sid,
@@ -401,6 +402,7 @@ class UsAppToPersonList(ListResource):
 
         :returns: The created UsAppToPersonInstance
         """
+
         data = values.of(
             {
                 "BrandRegistrationSid": brand_registration_sid,

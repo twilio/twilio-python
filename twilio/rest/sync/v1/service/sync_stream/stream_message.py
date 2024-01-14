@@ -84,6 +84,7 @@ class StreamMessageList(ListResource):
 
         :returns: The created StreamMessageInstance
         """
+
         data = values.of(
             {
                 "Data": serialize.object(data),
@@ -111,6 +112,7 @@ class StreamMessageList(ListResource):
 
         :returns: The created StreamMessageInstance
         """
+
         data = values.of(
             {
                 "Data": serialize.object(data),
