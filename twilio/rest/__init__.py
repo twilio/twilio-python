@@ -15,6 +15,7 @@ from twilio.base.client_base import ClientBase
 if TYPE_CHECKING:
     from twilio.rest.accounts import Accounts
     from twilio.rest.api import Api
+    from twilio.rest.autopilot import Autopilot
     from twilio.rest.bulkexports import Bulkexports
     from twilio.rest.chat import Chat
     from twilio.rest.content import Content
@@ -32,6 +33,7 @@ if TYPE_CHECKING:
     from twilio.rest.monitor import Monitor
     from twilio.rest.notify import Notify
     from twilio.rest.numbers import Numbers
+    from twilio.rest.oauth import Oauth
     from twilio.rest.preview import Preview
     from twilio.rest.pricing import Pricing
     from twilio.rest.proxy import Proxy
@@ -122,6 +124,7 @@ class Client(ClientBase):
         # Domains
         self._accounts: Optional["Accounts"] = None
         self._api: Optional["Api"] = None
+        self._autopilot: Optional["Autopilot"] = None
         self._bulkexports: Optional["Bulkexports"] = None
         self._chat: Optional["Chat"] = None
         self._content: Optional["Content"] = None
@@ -139,6 +142,7 @@ class Client(ClientBase):
         self._monitor: Optional["Monitor"] = None
         self._notify: Optional["Notify"] = None
         self._numbers: Optional["Numbers"] = None
+        self._oauth: Optional["Oauth"] = None
         self._preview: Optional["Preview"] = None
         self._pricing: Optional["Pricing"] = None
         self._proxy: Optional["Proxy"] = None
@@ -180,6 +184,19 @@ class Client(ClientBase):
 
             self._api = Api(self)
         return self._api
+
+    @property
+    def autopilot(self) -> "Autopilot":
+        """
+        Access the Autopilot Twilio Domain
+
+        :returns: Autopilot Twilio Domain
+        """
+        if self._autopilot is None:
+            from twilio.rest.autopilot import Autopilot
+
+            self._autopilot = Autopilot(self)
+        return self._autopilot
 
     @property
     def bulkexports(self) -> "Bulkexports":
@@ -401,6 +418,19 @@ class Client(ClientBase):
 
             self._numbers = Numbers(self)
         return self._numbers
+
+    @property
+    def oauth(self) -> "Oauth":
+        """
+        Access the Oauth Twilio Domain
+
+        :returns: Oauth Twilio Domain
+        """
+        if self._oauth is None:
+            from twilio.rest.oauth import Oauth
+
+            self._oauth = Oauth(self)
+        return self._oauth
 
     @property
     def preview(self) -> "Preview":

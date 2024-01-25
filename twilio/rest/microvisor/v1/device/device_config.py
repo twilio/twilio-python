@@ -334,7 +334,6 @@ class DeviceConfigList(ListResource):
 
         :returns: The created DeviceConfigInstance
         """
-
         data = values.of(
             {
                 "Key": key,
@@ -361,7 +360,6 @@ class DeviceConfigList(ListResource):
 
         :returns: The created DeviceConfigInstance
         """
-
         data = values.of(
             {
                 "Key": key,

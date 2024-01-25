@@ -392,7 +392,6 @@ class BucketList(ListResource):
 
         :returns: The created BucketInstance
         """
-
         data = values.of(
             {
                 "Max": max,
@@ -422,7 +421,6 @@ class BucketList(ListResource):
 
         :returns: The created BucketInstance
         """
-
         data = values.of(
             {
                 "Max": max,

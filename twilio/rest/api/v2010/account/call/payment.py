@@ -338,7 +338,6 @@ class PaymentList(ListResource):
 
         :returns: The created PaymentInstance
         """
-
         data = values.of(
             {
                 "IdempotencyKey": idempotency_key,
@@ -416,7 +415,6 @@ class PaymentList(ListResource):
 
         :returns: The created PaymentInstance
         """
-
         data = values.of(
             {
                 "IdempotencyKey": idempotency_key,

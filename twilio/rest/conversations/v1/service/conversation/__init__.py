@@ -653,7 +653,6 @@ class ConversationList(ListResource):
 
         :returns: The created ConversationInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -674,7 +673,6 @@ class ConversationList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
-
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -718,7 +716,6 @@ class ConversationList(ListResource):
 
         :returns: The created ConversationInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -739,7 +736,6 @@ class ConversationList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
-
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

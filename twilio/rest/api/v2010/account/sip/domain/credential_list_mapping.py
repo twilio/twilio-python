@@ -277,7 +277,6 @@ class CredentialListMappingList(ListResource):
 
         :returns: The created CredentialListMappingInstance
         """
-
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,
@@ -307,7 +306,6 @@ class CredentialListMappingList(ListResource):
 
         :returns: The created CredentialListMappingInstance
         """
-
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,

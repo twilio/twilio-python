@@ -128,7 +128,6 @@ class BundleCopyList(ListResource):
 
         :returns: The created BundleCopyInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -155,7 +154,6 @@ class BundleCopyList(ListResource):
 
         :returns: The created BundleCopyInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

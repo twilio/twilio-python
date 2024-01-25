@@ -78,10 +78,8 @@ class RecordingRulesList(ListResource):
         """
         Asynchronously fetch the RecordingRulesInstance
 
-
         :returns: The fetched RecordingRulesInstance
         """
-
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return RecordingRulesInstance(
@@ -92,10 +90,8 @@ class RecordingRulesList(ListResource):
         """
         Asynchronously fetch the RecordingRulesInstance
 
-
         :returns: The fetched RecordingRulesInstance
         """
-
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return RecordingRulesInstance(

@@ -269,7 +269,6 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
-
         data = values.of(
             {
                 "ObjectSid": object_sid,
@@ -298,7 +297,6 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
-
         data = values.of(
             {
                 "ObjectSid": object_sid,

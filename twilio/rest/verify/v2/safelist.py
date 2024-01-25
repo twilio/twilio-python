@@ -215,7 +215,6 @@ class SafelistList(ListResource):
 
         :returns: The created SafelistInstance
         """
-
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -238,7 +237,6 @@ class SafelistList(ListResource):
 
         :returns: The created SafelistInstance
         """
-
         data = values.of(
             {
                 "PhoneNumber": phone_number,

@@ -303,7 +303,6 @@ class AccountSecretList(ListResource):
 
         :returns: The created AccountSecretInstance
         """
-
         data = values.of(
             {
                 "Key": key,
@@ -328,7 +327,6 @@ class AccountSecretList(ListResource):
 
         :returns: The created AccountSecretInstance
         """
-
         data = values.of(
             {
                 "Key": key,

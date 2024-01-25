@@ -807,7 +807,6 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: The created IncomingPhoneNumberInstance
         """
-
         data = values.of(
             {
                 "ApiVersion": api_version,
@@ -908,7 +907,6 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: The created IncomingPhoneNumberInstance
         """
-
         data = values.of(
             {
                 "ApiVersion": api_version,

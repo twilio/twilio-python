@@ -417,7 +417,6 @@ class AuthorizationDocumentList(ListResource):
 
         :returns: The created AuthorizationDocumentInstance
         """
-
         data = values.of(
             {
                 "HostedNumberOrderSids": serialize.map(
@@ -460,7 +459,6 @@ class AuthorizationDocumentList(ListResource):
 
         :returns: The created AuthorizationDocumentInstance
         """
-
         data = values.of(
             {
                 "HostedNumberOrderSids": serialize.map(

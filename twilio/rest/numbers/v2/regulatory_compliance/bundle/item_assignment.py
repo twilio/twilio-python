@@ -263,7 +263,6 @@ class ItemAssignmentList(ListResource):
 
         :returns: The created ItemAssignmentInstance
         """
-
         data = values.of(
             {
                 "ObjectSid": object_sid,
@@ -288,7 +287,6 @@ class ItemAssignmentList(ListResource):
 
         :returns: The created ItemAssignmentInstance
         """
-
         data = values.of(
             {
                 "ObjectSid": object_sid,

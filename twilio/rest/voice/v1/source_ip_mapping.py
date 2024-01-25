@@ -317,7 +317,6 @@ class SourceIpMappingList(ListResource):
 
         :returns: The created SourceIpMappingInstance
         """
-
         data = values.of(
             {
                 "IpRecordSid": ip_record_sid,
@@ -344,7 +343,6 @@ class SourceIpMappingList(ListResource):
 
         :returns: The created SourceIpMappingInstance
         """
-
         data = values.of(
             {
                 "IpRecordSid": ip_record_sid,

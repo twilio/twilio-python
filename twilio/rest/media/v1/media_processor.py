@@ -316,7 +316,6 @@ class MediaProcessorList(ListResource):
 
         :returns: The created MediaProcessorInstance
         """
-
         data = values.of(
             {
                 "Extension": extension,
@@ -357,7 +356,6 @@ class MediaProcessorList(ListResource):
 
         :returns: The created MediaProcessorInstance
         """
-
         data = values.of(
             {
                 "Extension": extension,

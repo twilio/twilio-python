@@ -395,7 +395,6 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
-
         data = values.of(
             {
                 "NetworkAccessProfile": network_access_profile,
@@ -445,7 +444,6 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
-
         data = values.of(
             {
                 "NetworkAccessProfile": network_access_profile,

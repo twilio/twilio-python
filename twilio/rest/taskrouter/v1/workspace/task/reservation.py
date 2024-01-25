@@ -200,7 +200,6 @@ class ReservationInstance(InstanceResource):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        jitter_buffer_size: Union[str, object] = values.unset,
     ) -> "ReservationInstance":
         """
         Update the ReservationInstance
@@ -259,7 +258,6 @@ class ReservationInstance(InstanceResource):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
         """
@@ -318,7 +316,6 @@ class ReservationInstance(InstanceResource):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            jitter_buffer_size=jitter_buffer_size,
         )
 
     async def update_async(
@@ -383,7 +380,6 @@ class ReservationInstance(InstanceResource):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        jitter_buffer_size: Union[str, object] = values.unset,
     ) -> "ReservationInstance":
         """
         Asynchronous coroutine to update the ReservationInstance
@@ -442,7 +438,6 @@ class ReservationInstance(InstanceResource):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
         """
@@ -501,7 +496,6 @@ class ReservationInstance(InstanceResource):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
-            jitter_buffer_size=jitter_buffer_size,
         )
 
     def __repr__(self) -> str:
@@ -642,7 +636,6 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ReservationInstance:
         """
         Update the ReservationInstance
@@ -701,7 +694,6 @@ class ReservationContext(InstanceContext):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
         """
@@ -766,7 +758,6 @@ class ReservationContext(InstanceContext):
                 "Supervisor": supervisor,
                 "EndConferenceOnCustomerExit": end_conference_on_customer_exit,
                 "BeepOnCustomerEntrance": beep_on_customer_entrance,
-                "JitterBufferSize": jitter_buffer_size,
             }
         )
         headers = values.of(
@@ -849,7 +840,6 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
-        jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ReservationInstance:
         """
         Asynchronous coroutine to update the ReservationInstance
@@ -908,7 +898,6 @@ class ReservationContext(InstanceContext):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
-        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
         """
@@ -973,7 +962,6 @@ class ReservationContext(InstanceContext):
                 "Supervisor": supervisor,
                 "EndConferenceOnCustomerExit": end_conference_on_customer_exit,
                 "BeepOnCustomerEntrance": beep_on_customer_entrance,
-                "JitterBufferSize": jitter_buffer_size,
             }
         )
         headers = values.of(

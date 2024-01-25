@@ -427,7 +427,6 @@ class SyncMapList(ListResource):
 
         :returns: The created SyncMapInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -461,7 +460,6 @@ class SyncMapList(ListResource):
 
         :returns: The created SyncMapInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,

@@ -309,7 +309,6 @@ class CompositionList(ListResource):
 
         :returns: The created CompositionInstance
         """
-
         data = values.of(
             {
                 "RoomSid": room_sid,
@@ -361,7 +360,6 @@ class CompositionList(ListResource):
 
         :returns: The created CompositionInstance
         """
-
         data = values.of(
             {
                 "RoomSid": room_sid,

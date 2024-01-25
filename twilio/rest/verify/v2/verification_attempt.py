@@ -43,7 +43,7 @@ class VerificationAttemptInstance(InstanceResource):
     :ivar date_updated: The date that this Attempt was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar conversion_status: 
     :ivar channel: 
-    :ivar price: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/en-us/verify/pricing).
+    :ivar price: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
     :ivar channel_data: An object containing the channel specific information for an attempt.
     :ivar url: 
     """

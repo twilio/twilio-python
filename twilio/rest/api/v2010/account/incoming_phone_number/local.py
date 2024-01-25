@@ -247,7 +247,6 @@ class LocalList(ListResource):
 
         :returns: The created LocalInstance
         """
-
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -343,7 +342,6 @@ class LocalList(ListResource):
 
         :returns: The created LocalInstance
         """
-
         data = values.of(
             {
                 "PhoneNumber": phone_number,

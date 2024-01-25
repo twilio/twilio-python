@@ -535,7 +535,6 @@ class TaskQueueList(ListResource):
 
         :returns: The created TaskQueueInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -578,7 +577,6 @@ class TaskQueueList(ListResource):
 
         :returns: The created TaskQueueInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

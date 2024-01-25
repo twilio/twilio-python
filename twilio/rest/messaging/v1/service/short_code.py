@@ -265,7 +265,6 @@ class ShortCodeList(ListResource):
 
         :returns: The created ShortCodeInstance
         """
-
         data = values.of(
             {
                 "ShortCodeSid": short_code_sid,
@@ -290,7 +289,6 @@ class ShortCodeList(ListResource):
 
         :returns: The created ShortCodeInstance
         """
-
         data = values.of(
             {
                 "ShortCodeSid": short_code_sid,

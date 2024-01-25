@@ -249,7 +249,6 @@ class TollFreeList(ListResource):
 
         :returns: The created TollFreeInstance
         """
-
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -347,7 +346,6 @@ class TollFreeList(ListResource):
 
         :returns: The created TollFreeInstance
         """
-
         data = values.of(
             {
                 "PhoneNumber": phone_number,

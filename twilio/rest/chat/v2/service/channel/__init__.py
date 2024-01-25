@@ -604,7 +604,6 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -621,7 +620,6 @@ class ChannelList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
-
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -657,7 +655,6 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -674,7 +671,6 @@ class ChannelList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
-
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

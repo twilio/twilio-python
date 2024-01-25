@@ -105,7 +105,6 @@ class ReplaceItemsList(ListResource):
 
         :returns: The created ReplaceItemsInstance
         """
-
         data = values.of(
             {
                 "FromBundleSid": from_bundle_sid,
@@ -130,7 +129,6 @@ class ReplaceItemsList(ListResource):
 
         :returns: The created ReplaceItemsInstance
         """
-
         data = values.of(
             {
                 "FromBundleSid": from_bundle_sid,

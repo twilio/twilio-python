@@ -375,7 +375,6 @@ class InstalledAddOnList(ListResource):
 
         :returns: The created InstalledAddOnInstance
         """
-
         data = values.of(
             {
                 "AvailableAddOnSid": available_add_on_sid,
@@ -410,7 +409,6 @@ class InstalledAddOnList(ListResource):
 
         :returns: The created InstalledAddOnInstance
         """
-
         data = values.of(
             {
                 "AvailableAddOnSid": available_add_on_sid,

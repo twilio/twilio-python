@@ -362,7 +362,6 @@ class SupportingDocumentList(ListResource):
 
         :returns: The created SupportingDocumentInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -394,7 +393,6 @@ class SupportingDocumentList(ListResource):
 
         :returns: The created SupportingDocumentInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

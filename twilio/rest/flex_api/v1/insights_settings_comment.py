@@ -13,8 +13,7 @@ r"""
 """
 
 
-from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from typing import Any, Dict, Optional
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -58,43 +57,23 @@ class InsightsSettingsCommentList(ListResource):
 
         self._uri = "/Insights/QualityManagement/Settings/CommentTags"
 
-    def fetch(
-        self, authorization: Union[str, object] = values.unset
-    ) -> InsightsSettingsCommentInstance:
+    def fetch(self) -> InsightsSettingsCommentInstance:
         """
         Asynchronously fetch the InsightsSettingsCommentInstance
 
-        :param authorization: The Authorization HTTP request header
         :returns: The fetched InsightsSettingsCommentInstance
         """
-        headers = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        payload = self._version.fetch(method="GET", uri=self._uri)
 
         return InsightsSettingsCommentInstance(self._version, payload)
 
-    async def fetch_async(
-        self, authorization: Union[str, object] = values.unset
-    ) -> InsightsSettingsCommentInstance:
+    async def fetch_async(self) -> InsightsSettingsCommentInstance:
         """
         Asynchronously fetch the InsightsSettingsCommentInstance
 
-        :param authorization: The Authorization HTTP request header
         :returns: The fetched InsightsSettingsCommentInstance
         """
-        headers = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
+        payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return InsightsSettingsCommentInstance(self._version, payload)
 

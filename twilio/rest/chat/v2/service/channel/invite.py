@@ -288,7 +288,6 @@ class InviteList(ListResource):
 
         :returns: The created InviteInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,
@@ -320,7 +319,6 @@ class InviteList(ListResource):
 
         :returns: The created InviteInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,

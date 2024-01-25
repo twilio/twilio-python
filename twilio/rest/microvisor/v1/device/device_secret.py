@@ -332,7 +332,6 @@ class DeviceSecretList(ListResource):
 
         :returns: The created DeviceSecretInstance
         """
-
         data = values.of(
             {
                 "Key": key,
@@ -359,7 +358,6 @@ class DeviceSecretList(ListResource):
 
         :returns: The created DeviceSecretInstance
         """
-
         data = values.of(
             {
                 "Key": key,

@@ -240,7 +240,6 @@ class BrandVettingList(ListResource):
 
         :returns: The created BrandVettingInstance
         """
-
         data = values.of(
             {
                 "VettingProvider": vetting_provider,
@@ -271,7 +270,6 @@ class BrandVettingList(ListResource):
 
         :returns: The created BrandVettingInstance
         """
-
         data = values.of(
             {
                 "VettingProvider": vetting_provider,

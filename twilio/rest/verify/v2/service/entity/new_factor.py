@@ -161,7 +161,6 @@ class NewFactorList(ListResource):
 
         :returns: The created NewFactorInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -233,7 +232,6 @@ class NewFactorList(ListResource):
 
         :returns: The created NewFactorInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

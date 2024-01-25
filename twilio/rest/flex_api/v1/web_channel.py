@@ -349,7 +349,6 @@ class WebChannelList(ListResource):
 
         :returns: The created WebChannelInstance
         """
-
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,
@@ -390,7 +389,6 @@ class WebChannelList(ListResource):
 
         :returns: The created WebChannelInstance
         """
-
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,

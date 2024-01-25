@@ -323,7 +323,6 @@ class RoleList(ListResource):
 
         :returns: The created RoleInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -352,7 +351,6 @@ class RoleList(ListResource):
 
         :returns: The created RoleInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

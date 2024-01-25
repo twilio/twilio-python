@@ -416,7 +416,6 @@ class IpAddressList(ListResource):
 
         :returns: The created IpAddressInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -453,7 +452,6 @@ class IpAddressList(ListResource):
 
         :returns: The created IpAddressInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

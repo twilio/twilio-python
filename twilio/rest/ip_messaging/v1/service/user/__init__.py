@@ -423,7 +423,6 @@ class UserList(ListResource):
 
         :returns: The created UserInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,
@@ -460,7 +459,6 @@ class UserList(ListResource):
 
         :returns: The created UserInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,

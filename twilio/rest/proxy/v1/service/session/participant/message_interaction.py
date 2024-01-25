@@ -322,7 +322,6 @@ class MessageInteractionList(ListResource):
 
         :returns: The created MessageInteractionInstance
         """
-
         data = values.of(
             {
                 "Body": body,
@@ -357,7 +356,6 @@ class MessageInteractionList(ListResource):
 
         :returns: The created MessageInteractionInstance
         """
-
         data = values.of(
             {
                 "Body": body,

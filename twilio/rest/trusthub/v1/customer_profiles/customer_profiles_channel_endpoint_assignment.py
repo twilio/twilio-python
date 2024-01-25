@@ -274,7 +274,6 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
         :returns: The created CustomerProfilesChannelEndpointAssignmentInstance
         """
-
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,
@@ -305,7 +304,6 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
         :returns: The created CustomerProfilesChannelEndpointAssignmentInstance
         """
-
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,

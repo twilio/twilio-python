@@ -127,7 +127,6 @@ class ExportCustomJobList(ListResource):
 
         :returns: The created ExportCustomJobInstance
         """
-
         data = values.of(
             {
                 "StartDay": start_day,
@@ -170,7 +169,6 @@ class ExportCustomJobList(ListResource):
 
         :returns: The created ExportCustomJobInstance
         """
-
         data = values.of(
             {
                 "StartDay": start_day,

@@ -350,7 +350,6 @@ class MessagingConfigurationList(ListResource):
 
         :returns: The created MessagingConfigurationInstance
         """
-
         data = values.of(
             {
                 "Country": country,
@@ -379,7 +378,6 @@ class MessagingConfigurationList(ListResource):
 
         :returns: The created MessagingConfigurationInstance
         """
-
         data = values.of(
             {
                 "Country": country,

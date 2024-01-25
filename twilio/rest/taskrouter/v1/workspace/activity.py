@@ -356,7 +356,6 @@ class ActivityList(ListResource):
 
         :returns: The created ActivityInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -385,7 +384,6 @@ class ActivityList(ListResource):
 
         :returns: The created ActivityInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

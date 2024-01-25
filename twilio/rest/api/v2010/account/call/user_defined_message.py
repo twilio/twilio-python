@@ -92,7 +92,6 @@ class UserDefinedMessageList(ListResource):
 
         :returns: The created UserDefinedMessageInstance
         """
-
         data = values.of(
             {
                 "Content": content,
@@ -124,7 +123,6 @@ class UserDefinedMessageList(ListResource):
 
         :returns: The created UserDefinedMessageInstance
         """
-
         data = values.of(
             {
                 "Content": content,

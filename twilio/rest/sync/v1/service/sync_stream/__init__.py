@@ -379,7 +379,6 @@ class SyncStreamList(ListResource):
 
         :returns: The created SyncStreamInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -410,7 +409,6 @@ class SyncStreamList(ListResource):
 
         :returns: The created SyncStreamInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,

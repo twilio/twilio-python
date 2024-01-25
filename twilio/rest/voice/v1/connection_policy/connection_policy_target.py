@@ -424,7 +424,6 @@ class ConnectionPolicyTargetList(ListResource):
 
         :returns: The created ConnectionPolicyTargetInstance
         """
-
         data = values.of(
             {
                 "Target": target,
@@ -466,7 +465,6 @@ class ConnectionPolicyTargetList(ListResource):
 
         :returns: The created ConnectionPolicyTargetInstance
         """
-
         data = values.of(
             {
                 "Target": target,

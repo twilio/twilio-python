@@ -104,7 +104,6 @@ class FeedbackList(ListResource):
 
         :returns: The created FeedbackInstance
         """
-
         data = values.of(
             {
                 "Outcome": outcome,
@@ -134,7 +133,6 @@ class FeedbackList(ListResource):
 
         :returns: The created FeedbackInstance
         """
-
         data = values.of(
             {
                 "Outcome": outcome,

@@ -3,6 +3,17 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-01-25] Version 8.12.0
+---------------------------
+**Oauth**
+- updated openid discovery endpoint uri **(breaking change)**
+- Added device code authorization endpoint
+- added oauth JWKS endpoint
+- Get userinfo resource
+- OpenID discovery resource
+- Add new API for token endpoint
+
+
 [2024-01-14] Version 8.11.1
 ---------------------------
 **Library - Chore**

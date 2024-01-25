@@ -307,7 +307,6 @@ class AssessmentsList(ListResource):
 
         :returns: The created AssessmentsInstance
         """
-
         data = values.of(
             {
                 "CategorySid": category_sid,
@@ -327,7 +326,6 @@ class AssessmentsList(ListResource):
                 "Authorization": authorization,
             }
         )
-
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -365,7 +363,6 @@ class AssessmentsList(ListResource):
 
         :returns: The created AssessmentsInstance
         """
-
         data = values.of(
             {
                 "CategorySid": category_sid,
@@ -385,7 +382,6 @@ class AssessmentsList(ListResource):
                 "Authorization": authorization,
             }
         )
-
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

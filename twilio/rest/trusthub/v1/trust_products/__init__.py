@@ -469,7 +469,6 @@ class TrustProductsList(ListResource):
 
         :returns: The created TrustProductsInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -504,7 +503,6 @@ class TrustProductsList(ListResource):
 
         :returns: The created TrustProductsInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

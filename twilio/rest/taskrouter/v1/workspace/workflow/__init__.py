@@ -515,7 +515,6 @@ class WorkflowList(ListResource):
 
         :returns: The created WorkflowInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -555,7 +554,6 @@ class WorkflowList(ListResource):
 
         :returns: The created WorkflowInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

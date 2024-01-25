@@ -120,7 +120,6 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: The created InsightsAssessmentsCommentInstance
         """
-
         data = values.of(
             {
                 "CategoryId": category_id,
@@ -136,7 +135,6 @@ class InsightsAssessmentsCommentList(ListResource):
                 "Authorization": authorization,
             }
         )
-
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -166,7 +164,6 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: The created InsightsAssessmentsCommentInstance
         """
-
         data = values.of(
             {
                 "CategoryId": category_id,
@@ -182,7 +179,6 @@ class InsightsAssessmentsCommentList(ListResource):
                 "Authorization": authorization,
             }
         )
-
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

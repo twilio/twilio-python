@@ -60,7 +60,7 @@ class FlowRevisionInstance(InstanceResource):
         self.revision: Optional[int] = deserialize.integer(payload.get("revision"))
         self.commit_message: Optional[str] = payload.get("commit_message")
         self.valid: Optional[bool] = payload.get("valid")
-        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
+        self.errors: Optional[List[object]] = payload.get("errors")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )

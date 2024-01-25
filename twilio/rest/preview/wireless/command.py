@@ -225,7 +225,6 @@ class CommandList(ListResource):
 
         :returns: The created CommandInstance
         """
-
         data = values.of(
             {
                 "Command": command,
@@ -269,7 +268,6 @@ class CommandList(ListResource):
 
         :returns: The created CommandInstance
         """
-
         data = values.of(
             {
                 "Command": command,

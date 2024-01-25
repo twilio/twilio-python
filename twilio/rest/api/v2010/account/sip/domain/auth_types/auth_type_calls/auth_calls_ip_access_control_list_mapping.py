@@ -285,7 +285,6 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
 
         :returns: The created AuthCallsIpAccessControlListMappingInstance
         """
-
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,
@@ -315,7 +314,6 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
 
         :returns: The created AuthCallsIpAccessControlListMappingInstance
         """
-
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,

@@ -71,7 +71,6 @@ class SinkValidateList(ListResource):
 
         :returns: The created SinkValidateInstance
         """
-
         data = values.of(
             {
                 "TestId": test_id,
@@ -94,7 +93,6 @@ class SinkValidateList(ListResource):
 
         :returns: The created SinkValidateInstance
         """
-
         data = values.of(
             {
                 "TestId": test_id,

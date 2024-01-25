@@ -34,7 +34,7 @@ class ServiceInstance(InstanceResource):
     :ivar auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
     :ivar media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
     :ivar auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
-    :ivar data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
+    :ivar data_logging: Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
     :ivar date_created: The date that this Service was created, given in ISO 8601 format.
     :ivar date_updated: The date that this Service was updated, given in ISO 8601 format.
     :ivar friendly_name: A human readable description of this resource, up to 64 characters.
@@ -148,7 +148,7 @@ class ServiceInstance(InstanceResource):
 
         :param if_match: The If-Match HTTP request header
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
-        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
+        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
         :param language_code: The default language code of the audio.
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
@@ -190,7 +190,7 @@ class ServiceInstance(InstanceResource):
 
         :param if_match: The If-Match HTTP request header
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
-        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
+        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
         :param language_code: The default language code of the audio.
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
@@ -320,7 +320,7 @@ class ServiceContext(InstanceContext):
 
         :param if_match: The If-Match HTTP request header
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
-        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
+        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
         :param language_code: The default language code of the audio.
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
@@ -374,7 +374,7 @@ class ServiceContext(InstanceContext):
 
         :param if_match: The If-Match HTTP request header
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
-        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
+        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
         :param language_code: The default language code of the audio.
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
@@ -467,7 +467,7 @@ class ServiceList(ListResource):
 
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
-        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
+        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
         :param language_code: The default language code of the audio.
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
@@ -477,7 +477,6 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -517,7 +516,7 @@ class ServiceList(ListResource):
 
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
-        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
+        :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
         :param language_code: The default language code of the audio.
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
@@ -527,7 +526,6 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,

@@ -164,7 +164,7 @@ class BuildStatusContext(InstanceContext):
 
 
 class BuildStatusList(ListResource):
-    
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the BuildStatusList

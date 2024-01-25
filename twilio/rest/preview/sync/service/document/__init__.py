@@ -397,7 +397,6 @@ class DocumentList(ListResource):
 
         :returns: The created DocumentInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -428,7 +427,6 @@ class DocumentList(ListResource):
 
         :returns: The created DocumentInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,

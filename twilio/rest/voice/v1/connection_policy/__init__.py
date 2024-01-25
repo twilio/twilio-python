@@ -350,7 +350,6 @@ class ConnectionPolicyList(ListResource):
 
         :returns: The created ConnectionPolicyInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -375,7 +374,6 @@ class ConnectionPolicyList(ListResource):
 
         :returns: The created ConnectionPolicyInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

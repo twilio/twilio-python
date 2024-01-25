@@ -427,7 +427,6 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -452,7 +451,6 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

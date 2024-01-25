@@ -66,7 +66,6 @@ class BulkCountryUpdateList(ListResource):
 
         :returns: The created BulkCountryUpdateInstance
         """
-
         data = values.of(
             {
                 "UpdateRequest": update_request,
@@ -89,7 +88,6 @@ class BulkCountryUpdateList(ListResource):
 
         :returns: The created BulkCountryUpdateInstance
         """
-
         data = values.of(
             {
                 "UpdateRequest": update_request,

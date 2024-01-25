@@ -73,7 +73,6 @@ class WebChannelsList(ListResource):
 
         :returns: The created WebChannelsInstance
         """
-
         data = values.of(
             {
                 "AddressSid": address_sid,
@@ -108,7 +107,6 @@ class WebChannelsList(ListResource):
 
         :returns: The created WebChannelsInstance
         """
-
         data = values.of(
             {
                 "AddressSid": address_sid,

@@ -343,7 +343,6 @@ class PlayerStreamerList(ListResource):
 
         :returns: The created PlayerStreamerInstance
         """
-
         data = values.of(
             {
                 "Video": video,
@@ -378,7 +377,6 @@ class PlayerStreamerList(ListResource):
 
         :returns: The created PlayerStreamerInstance
         """
-
         data = values.of(
             {
                 "Video": video,

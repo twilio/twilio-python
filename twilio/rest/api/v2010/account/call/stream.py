@@ -653,7 +653,6 @@ class StreamList(ListResource):
 
         :returns: The created StreamInstance
         """
-
         data = values.of(
             {
                 "Url": url,
@@ -1290,7 +1289,6 @@ class StreamList(ListResource):
 
         :returns: The created StreamInstance
         """
-
         data = values.of(
             {
                 "Url": url,

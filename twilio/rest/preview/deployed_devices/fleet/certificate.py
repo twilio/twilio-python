@@ -374,7 +374,6 @@ class CertificateList(ListResource):
 
         :returns: The created CertificateInstance
         """
-
         data = values.of(
             {
                 "CertificateData": certificate_data,
@@ -408,7 +407,6 @@ class CertificateList(ListResource):
 
         :returns: The created CertificateInstance
         """
-
         data = values.of(
             {
                 "CertificateData": certificate_data,

@@ -48,7 +48,7 @@ class SettingsUpdateInstance(InstanceResource):
         self.iccid: Optional[str] = payload.get("iccid")
         self.sim_sid: Optional[str] = payload.get("sim_sid")
         self.status: Optional["SettingsUpdateInstance.Status"] = payload.get("status")
-        self.packages: Optional[List[Dict[str, object]]] = payload.get("packages")
+        self.packages: Optional[List[object]] = payload.get("packages")
         self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_completed")
         )

@@ -265,7 +265,6 @@ class AlphaSenderList(ListResource):
 
         :returns: The created AlphaSenderInstance
         """
-
         data = values.of(
             {
                 "AlphaSender": alpha_sender,
@@ -290,7 +289,6 @@ class AlphaSenderList(ListResource):
 
         :returns: The created AlphaSenderInstance
         """
-
         data = values.of(
             {
                 "AlphaSender": alpha_sender,

@@ -261,7 +261,6 @@ class CredentialListList(ListResource):
 
         :returns: The created CredentialListInstance
         """
-
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,
@@ -286,7 +285,6 @@ class CredentialListList(ListResource):
 
         :returns: The created CredentialListInstance
         """
-
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,

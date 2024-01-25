@@ -65,7 +65,7 @@ class VerificationCheckInstance(InstanceResource):
         self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self.sna_attempts_error_codes: Optional[List[Dict[str, object]]] = payload.get(
+        self.sna_attempts_error_codes: Optional[List[object]] = payload.get(
             "sna_attempts_error_codes"
         )
 
@@ -119,7 +119,6 @@ class VerificationCheckList(ListResource):
 
         :returns: The created VerificationCheckInstance
         """
-
         data = values.of(
             {
                 "Code": code,
@@ -159,7 +158,6 @@ class VerificationCheckList(ListResource):
 
         :returns: The created VerificationCheckInstance
         """
-
         data = values.of(
             {
                 "Code": code,

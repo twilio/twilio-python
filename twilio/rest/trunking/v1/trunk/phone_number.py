@@ -310,7 +310,6 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
-
         data = values.of(
             {
                 "PhoneNumberSid": phone_number_sid,
@@ -335,7 +334,6 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
-
         data = values.of(
             {
                 "PhoneNumberSid": phone_number_sid,

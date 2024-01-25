@@ -368,7 +368,6 @@ class CredentialListList(ListResource):
 
         :returns: The created CredentialListInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -393,7 +392,6 @@ class CredentialListList(ListResource):
 
         :returns: The created CredentialListInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

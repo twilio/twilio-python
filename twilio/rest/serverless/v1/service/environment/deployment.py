@@ -243,7 +243,6 @@ class DeploymentList(ListResource):
 
         :returns: The created DeploymentInstance
         """
-
         data = values.of(
             {
                 "BuildSid": build_sid,
@@ -273,7 +272,6 @@ class DeploymentList(ListResource):
 
         :returns: The created DeploymentInstance
         """
-
         data = values.of(
             {
                 "BuildSid": build_sid,

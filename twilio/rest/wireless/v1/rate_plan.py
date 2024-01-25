@@ -385,7 +385,6 @@ class RatePlanList(ListResource):
 
         :returns: The created RatePlanInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -443,7 +442,6 @@ class RatePlanList(ListResource):
 
         :returns: The created RatePlanInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,

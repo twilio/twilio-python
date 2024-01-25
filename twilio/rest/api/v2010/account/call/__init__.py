@@ -785,7 +785,6 @@ class CallList(ListResource):
 
         :returns: The created CallInstance
         """
-
         data = values.of(
             {
                 "To": to,
@@ -919,7 +918,6 @@ class CallList(ListResource):
 
         :returns: The created CallInstance
         """
-
         data = values.of(
             {
                 "To": to,

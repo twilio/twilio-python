@@ -76,7 +76,6 @@ class ExternalCampaignList(ListResource):
 
         :returns: The created ExternalCampaignInstance
         """
-
         data = values.of(
             {
                 "CampaignId": campaign_id,
@@ -103,7 +102,6 @@ class ExternalCampaignList(ListResource):
 
         :returns: The created ExternalCampaignInstance
         """
-
         data = values.of(
             {
                 "CampaignId": campaign_id,

@@ -29,7 +29,7 @@ class UsecaseInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self.usecases: Optional[List[Dict[str, object]]] = payload.get("usecases")
+        self.usecases: Optional[List[object]] = payload.get("usecases")
 
     def __repr__(self) -> str:
         """
@@ -57,10 +57,8 @@ class UsecaseList(ListResource):
         """
         Asynchronously fetch the UsecaseInstance
 
-
         :returns: The fetched UsecaseInstance
         """
-
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return UsecaseInstance(self._version, payload)
@@ -69,10 +67,8 @@ class UsecaseList(ListResource):
         """
         Asynchronously fetch the UsecaseInstance
 
-
         :returns: The fetched UsecaseInstance
         """
-
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return UsecaseInstance(self._version, payload)

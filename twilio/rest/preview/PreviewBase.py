@@ -17,6 +17,7 @@ from twilio.rest.preview.deployed_devices import DeployedDevices
 from twilio.rest.preview.hosted_numbers import HostedNumbers
 from twilio.rest.preview.sync import Sync
 from twilio.rest.preview.marketplace import Marketplace
+from twilio.rest.preview.understand import Understand
 from twilio.rest.preview.wireless import Wireless
 
 
@@ -32,6 +33,7 @@ class PreviewBase(Domain):
         self._hosted_numbers: Optional[HostedNumbers] = None
         self._sync: Optional[Sync] = None
         self._marketplace: Optional[Marketplace] = None
+        self._understand: Optional[Understand] = None
         self._wireless: Optional[Wireless] = None
 
     @property
@@ -69,6 +71,15 @@ class PreviewBase(Domain):
         if self._marketplace is None:
             self._marketplace = Marketplace(self)
         return self._marketplace
+
+    @property
+    def understand(self) -> Understand:
+        """
+        :returns: Versions understand of Preview
+        """
+        if self._understand is None:
+            self._understand = Understand(self)
+        return self._understand
 
     @property
     def wireless(self) -> Wireless:

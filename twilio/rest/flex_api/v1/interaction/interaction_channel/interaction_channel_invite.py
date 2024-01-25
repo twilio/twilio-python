@@ -116,7 +116,6 @@ class InteractionChannelInviteList(ListResource):
 
         :returns: The created InteractionChannelInviteInstance
         """
-
         data = values.of(
             {
                 "Routing": serialize.object(routing),
@@ -144,7 +143,6 @@ class InteractionChannelInviteList(ListResource):
 
         :returns: The created InteractionChannelInviteInstance
         """
-
         data = values.of(
             {
                 "Routing": serialize.object(routing),

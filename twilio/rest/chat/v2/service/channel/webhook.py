@@ -466,7 +466,6 @@ class WebhookList(ListResource):
 
         :returns: The created WebhookInstance
         """
-
         data = values.of(
             {
                 "Type": type,
@@ -519,7 +518,6 @@ class WebhookList(ListResource):
 
         :returns: The created WebhookInstance
         """
-
         data = values.of(
             {
                 "Type": type,

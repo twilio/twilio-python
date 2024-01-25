@@ -198,7 +198,6 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         """
-
         data = values.of(
             {
                 "Callback": callback,
@@ -235,7 +234,6 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         """
-
         data = values.of(
             {
                 "Callback": callback,

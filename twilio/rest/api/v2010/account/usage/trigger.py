@@ -751,7 +751,6 @@ class TriggerList(ListResource):
 
         :returns: The created TriggerInstance
         """
-
         data = values.of(
             {
                 "CallbackUrl": callback_url,
@@ -797,7 +796,6 @@ class TriggerList(ListResource):
 
         :returns: The created TriggerInstance
         """
-
         data = values.of(
             {
                 "CallbackUrl": callback_url,

@@ -366,7 +366,6 @@ class FunctionList(ListResource):
 
         :returns: The created FunctionInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -391,7 +390,6 @@ class FunctionList(ListResource):
 
         :returns: The created FunctionInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

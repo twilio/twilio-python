@@ -403,7 +403,6 @@ class SimList(ListResource):
 
         :returns: The created SimInstance
         """
-
         data = values.of(
             {
                 "Iccid": iccid,
@@ -428,7 +427,6 @@ class SimList(ListResource):
 
         :returns: The created SimInstance
         """
-
         data = values.of(
             {
                 "Iccid": iccid,

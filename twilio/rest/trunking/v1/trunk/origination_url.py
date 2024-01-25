@@ -418,7 +418,6 @@ class OriginationUrlList(ListResource):
 
         :returns: The created OriginationUrlInstance
         """
-
         data = values.of(
             {
                 "Weight": weight,
@@ -458,7 +457,6 @@ class OriginationUrlList(ListResource):
 
         :returns: The created OriginationUrlInstance
         """
-
         data = values.of(
             {
                 "Weight": weight,

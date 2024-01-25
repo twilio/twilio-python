@@ -633,7 +633,6 @@ class DomainList(ListResource):
 
         :returns: The created DomainInstance
         """
-
         data = values.of(
             {
                 "DomainName": domain_name,
@@ -697,7 +696,6 @@ class DomainList(ListResource):
 
         :returns: The created DomainInstance
         """
-
         data = values.of(
             {
                 "DomainName": domain_name,

@@ -476,7 +476,6 @@ class UserList(ListResource):
 
         :returns: The created UserInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,
@@ -490,7 +489,6 @@ class UserList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
-
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -520,7 +518,6 @@ class UserList(ListResource):
 
         :returns: The created UserInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,
@@ -534,7 +531,6 @@ class UserList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
-
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

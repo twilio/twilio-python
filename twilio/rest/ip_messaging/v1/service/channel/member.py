@@ -398,7 +398,6 @@ class MemberList(ListResource):
 
         :returns: The created MemberInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,
@@ -430,7 +429,6 @@ class MemberList(ListResource):
 
         :returns: The created MemberInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,

@@ -378,7 +378,6 @@ class SinkList(ListResource):
 
         :returns: The created SinkInstance
         """
-
         data = values.of(
             {
                 "Description": description,
@@ -410,7 +409,6 @@ class SinkList(ListResource):
 
         :returns: The created SinkInstance
         """
-
         data = values.of(
             {
                 "Description": description,

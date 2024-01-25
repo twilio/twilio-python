@@ -372,7 +372,6 @@ class KeyList(ListResource):
 
         :returns: The created KeyInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -403,7 +402,6 @@ class KeyList(ListResource):
 
         :returns: The created KeyInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

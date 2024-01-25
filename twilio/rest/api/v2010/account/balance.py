@@ -70,10 +70,8 @@ class BalanceList(ListResource):
         """
         Asynchronously fetch the BalanceInstance
 
-
         :returns: The fetched BalanceInstance
         """
-
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return BalanceInstance(
@@ -84,10 +82,8 @@ class BalanceList(ListResource):
         """
         Asynchronously fetch the BalanceInstance
 
-
         :returns: The fetched BalanceInstance
         """
-
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return BalanceInstance(

@@ -217,7 +217,6 @@ class AccessTokenList(ListResource):
 
         :returns: The created AccessTokenInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,
@@ -254,7 +253,6 @@ class AccessTokenList(ListResource):
 
         :returns: The created AccessTokenInstance
         """
-
         data = values.of(
             {
                 "Identity": identity,

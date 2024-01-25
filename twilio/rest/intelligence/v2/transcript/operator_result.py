@@ -43,7 +43,6 @@ class OperatorResultInstance(InstanceResource):
     :ivar predicted_probability: Percentage of 'matching' class needed to consider a sentence matches.
     :ivar label_probabilities: The labels probabilities. This might be available on conversation classify model outputs.
     :ivar extract_results: List of text extraction results. This might be available on classify-extract model outputs.
-    :ivar text_generation_results: Output of a text generation operator for example Conversation Sumamary.
     :ivar transcript_sid: A 34 character string that uniquely identifies this Transcript.
     :ivar url: The URL of this resource.
     """
@@ -67,7 +66,7 @@ class OperatorResultInstance(InstanceResource):
             payload.get("match_probability")
         )
         self.normalized_result: Optional[str] = payload.get("normalized_result")
-        self.utterance_results: Optional[List[Dict[str, object]]] = payload.get(
+        self.utterance_results: Optional[List[object]] = payload.get(
             "utterance_results"
         )
         self.utterance_match: Optional[bool] = payload.get("utterance_match")
@@ -80,9 +79,6 @@ class OperatorResultInstance(InstanceResource):
         )
         self.extract_results: Optional[Dict[str, object]] = payload.get(
             "extract_results"
-        )
-        self.text_generation_results: Optional[Dict[str, object]] = payload.get(
-            "text_generation_results"
         )
         self.transcript_sid: Optional[str] = payload.get("transcript_sid")
         self.url: Optional[str] = payload.get("url")

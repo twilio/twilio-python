@@ -405,7 +405,6 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
-
         data = values.of(
             {
                 "Body": body,
@@ -442,7 +441,6 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
-
         data = values.of(
             {
                 "Body": body,

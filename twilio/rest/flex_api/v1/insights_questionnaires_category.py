@@ -303,7 +303,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
-
         data = values.of(
             {
                 "Name": name,
@@ -314,7 +313,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
                 "Authorization": authorization,
             }
         )
-
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -332,7 +330,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
-
         data = values.of(
             {
                 "Name": name,
@@ -343,7 +340,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
                 "Authorization": authorization,
             }
         )
-
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

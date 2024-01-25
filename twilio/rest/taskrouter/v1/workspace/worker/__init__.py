@@ -522,7 +522,6 @@ class WorkerList(ListResource):
 
         :returns: The created WorkerInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -556,7 +555,6 @@ class WorkerList(ListResource):
 
         :returns: The created WorkerInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,

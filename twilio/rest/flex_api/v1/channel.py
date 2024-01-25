@@ -267,7 +267,6 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
-
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,
@@ -320,7 +319,6 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
-
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,

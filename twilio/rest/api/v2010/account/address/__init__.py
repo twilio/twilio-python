@@ -513,7 +513,6 @@ class AddressList(ListResource):
 
         :returns: The created AddressInstance
         """
-
         data = values.of(
             {
                 "CustomerName": customer_name,
@@ -568,7 +567,6 @@ class AddressList(ListResource):
 
         :returns: The created AddressInstance
         """
-
         data = values.of(
             {
                 "CustomerName": customer_name,

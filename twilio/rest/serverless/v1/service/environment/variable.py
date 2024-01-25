@@ -390,7 +390,6 @@ class VariableList(ListResource):
 
         :returns: The created VariableInstance
         """
-
         data = values.of(
             {
                 "Key": key,
@@ -420,7 +419,6 @@ class VariableList(ListResource):
 
         :returns: The created VariableInstance
         """
-
         data = values.of(
             {
                 "Key": key,

@@ -47,7 +47,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         self.name: Optional[str] = payload.get("name")
         self.description: Optional[str] = payload.get("description")
         self.active: Optional[bool] = payload.get("active")
-        self.questions: Optional[List[Dict[str, object]]] = payload.get("questions")
+        self.questions: Optional[List[object]] = payload.get("questions")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -441,7 +441,6 @@ class InsightsQuestionnairesList(ListResource):
 
         :returns: The created InsightsQuestionnairesInstance
         """
-
         data = values.of(
             {
                 "Name": name,
@@ -455,7 +454,6 @@ class InsightsQuestionnairesList(ListResource):
                 "Authorization": authorization,
             }
         )
-
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -481,7 +479,6 @@ class InsightsQuestionnairesList(ListResource):
 
         :returns: The created InsightsQuestionnairesInstance
         """
-
         data = values.of(
             {
                 "Name": name,
@@ -495,7 +492,6 @@ class InsightsQuestionnairesList(ListResource):
                 "Authorization": authorization,
             }
         )
-
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

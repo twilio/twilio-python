@@ -349,11 +349,10 @@ class ShortCodeList(ListResource):
         """
         Create the ShortCodeInstance
 
-        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/en-us/messaging/channels/sms/short-codes) resource that represents the short code you would like to assign to your Proxy Service.
+        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
 
         :returns: The created ShortCodeInstance
         """
-
         data = values.of(
             {
                 "Sid": sid,
@@ -374,11 +373,10 @@ class ShortCodeList(ListResource):
         """
         Asynchronously create the ShortCodeInstance
 
-        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/en-us/messaging/channels/sms/short-codes) resource that represents the short code you would like to assign to your Proxy Service.
+        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
 
         :returns: The created ShortCodeInstance
         """
-
         data = values.of(
             {
                 "Sid": sid,

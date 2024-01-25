@@ -311,7 +311,6 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: The created NetworkAccessProfileInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -340,7 +339,6 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: The created NetworkAccessProfileInstance
         """
-
         data = values.of(
             {
                 "UniqueName": unique_name,

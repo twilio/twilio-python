@@ -479,7 +479,6 @@ class CustomerProfilesList(ListResource):
 
         :returns: The created CustomerProfilesInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -514,7 +513,6 @@ class CustomerProfilesList(ListResource):
 
         :returns: The created CustomerProfilesInstance
         """
-
         data = values.of(
             {
                 "FriendlyName": friendly_name,
