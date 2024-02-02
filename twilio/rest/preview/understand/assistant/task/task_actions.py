@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class TaskActionsInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique ID of the Account that created this Field.
     :ivar assistant_sid: The unique ID of the parent Assistant.

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class AuthTokenPromotionInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for.
     :ivar auth_token: The promoted Auth Token that must be used to authenticate future API requests.

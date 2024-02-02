@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class ExecutionStepContextInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionStepContext resource.
     :ivar context: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.

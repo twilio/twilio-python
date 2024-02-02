@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.preview.understand.assistant.field_type.field_value import (
 
 
 class FieldTypeInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique ID of the Account that created this Field Type.
     :ivar date_created: The date that this resource was created

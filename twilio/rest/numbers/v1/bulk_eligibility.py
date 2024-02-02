@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class BulkEligibilityInstance(InstanceResource):
-
     """
     :ivar request_id: The SID of the bulk eligibility check that you want to know about.
     :ivar url: This is the url of the request that you're trying to reach out to locate the resource.

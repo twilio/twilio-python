@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class PlaybackGrantInstance(InstanceResource):
-
     """
     :ivar sid: The unique string generated to identify the PlayerStreamer resource that this PlaybackGrant authorizes views for.
     :ivar url: The absolute URL of the resource.

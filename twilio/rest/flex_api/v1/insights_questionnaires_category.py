@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class InsightsQuestionnairesCategoryInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
     :ivar category_sid: The SID of the category

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -85,9 +84,9 @@ class ServiceInstance(InstanceResource):
         self.sticky_sender: Optional[bool] = payload.get("sticky_sender")
         self.mms_converter: Optional[bool] = payload.get("mms_converter")
         self.smart_encoding: Optional[bool] = payload.get("smart_encoding")
-        self.scan_message_content: Optional[
-            "ServiceInstance.ScanMessageContent"
-        ] = payload.get("scan_message_content")
+        self.scan_message_content: Optional["ServiceInstance.ScanMessageContent"] = (
+            payload.get("scan_message_content")
+        )
         self.fallback_to_long_code: Optional[bool] = payload.get(
             "fallback_to_long_code"
         )

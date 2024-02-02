@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -27,7 +26,6 @@ from twilio.rest.conversations.v1.service.configuration.webhook import WebhookLi
 
 
 class ConfigurationInstance(InstanceResource):
-
     """
     :ivar chat_service_sid: The unique string that we created to identify the Service configuration resource.
     :ivar default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.

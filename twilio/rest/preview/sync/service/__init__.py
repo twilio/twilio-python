@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.preview.sync.service.sync_map import SyncMapList
 
 
 class ServiceInstance(InstanceResource):
-
     """
     :ivar sid:
     :ivar account_sid:
